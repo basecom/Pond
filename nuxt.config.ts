@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
     '@formkit/auto-animate/nuxt',
+    '@vueuse/nuxt',
   ],
   experimental: {
     asyncContext: true,
