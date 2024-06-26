@@ -1,6 +1,7 @@
 <template>
   <div>
     <NuxtRouteAnnouncer />
-    <NuxtWelcome />
+    
+    <h1>Pond.</h1>
   </div>
 </template>
