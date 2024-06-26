@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@formkit/auto-animate/nuxt',
     '@vueuse/nuxt',
+    'radix-vue/nuxt',
   ],
   experimental: {
     asyncContext: true,
