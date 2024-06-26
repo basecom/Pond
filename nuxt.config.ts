@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'radix-vue/nuxt',
     '@nuxt/eslint',
+    '@nuxt/fonts',
   ],
   experimental: {
     asyncContext: true,
