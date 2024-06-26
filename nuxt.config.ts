@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     '@formkit/auto-animate/nuxt',
     '@vueuse/nuxt',
     'radix-vue/nuxt',
+    '@nuxt/eslint',
   ],
   experimental: {
     asyncContext: true,
