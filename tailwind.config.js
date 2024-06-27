@@ -1,11 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  theme: {
-    fontFamily: {
-      main: ['"PT Sans"', 'sans-serif'],
+    theme: {
+        fontFamily: {
+            main: ['"PT Sans"', 'sans-serif'],
+        },
+        extend: {},
     },
-    extend: {},
-  },
-  plugins: [],
-}
-
+    plugins: [],
+};

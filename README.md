@@ -32,4 +32,10 @@ Locally preview production build:
 bun run preview
 ```
 
+## Linting
+Run prettier
+```
+bun prettier . --write
+```
+
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
