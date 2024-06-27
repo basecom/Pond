@@ -17,9 +17,14 @@
     "@vueuse/core": "^10.11.0",
     "@vueuse/nuxt": "^10.11.0",
     "eslint": "^9.5.0",
+    "eslint-config-prettier": "^9.1.0",
     "nuxt": "^3.12.2",
     "radix-vue": "^1.8.5",
     "vue": "^3.4.30",
     "vue-router": "^4.4.0"
+  },
+  "devDependencies": {
+    "prettier": "3.3.2",
+    "prettier-plugin-tailwindcss": "^0.6.5"
   }
 }

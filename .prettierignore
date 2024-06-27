@@ -1,0 +1,7 @@
+# ignores all files and file types
+/**/*.*
+
+# allows just vue, js and ts file types to be checked by prettier
+!/**/*.vue
+!/**/*.js
+!/**/*.ts
