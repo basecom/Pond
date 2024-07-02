@@ -1,9 +1,9 @@
 export interface PondHooks {
-    'pond:determine-access-token': (accessKey: AccessToken) => HookResult
+    'pond:determine-access-token': (accessKey: AccessToken) => HookResult;
 }
 
 declare module '#app' {
-    interface RuntimeNuxtHooks extends PondHooks { }
+    interface RuntimeNuxtHooks extends PondHooks {}
 }
 
 declare module '@nuxt/schema' {
@@ -11,6 +11,6 @@ declare module '@nuxt/schema' {
         pond: {
             accessToken: string;
             shopwareEndpoint: string;
-        }
+        };
     }
 }

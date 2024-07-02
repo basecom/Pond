@@ -1,5 +1,5 @@
-import { createShopwareContext } from "#imports";
-import { createAPIClient } from "@shopware/api-client";
+import { createShopwareContext } from '#imports';
+import { createAPIClient } from '@shopware/api-client';
 
 export class AccessToken {
     public token?: string;
@@ -26,7 +26,7 @@ export default defineNuxtPlugin(async nuxtApp => {
         contextToken: contextToken.value ?? undefined,
     });
 
-    apiClient.hook('onContextChanged', (newContextToken) => {
+    apiClient.hook('onContextChanged', newContextToken => {
         contextToken.value = newContextToken;
     });
 
@@ -44,4 +44,3 @@ export default defineNuxtPlugin(async nuxtApp => {
     nuxtApp.vueApp.provide('swSessionContext', sessionContextData);
     useState('swSessionContext', () => sessionContextData);
 });
-

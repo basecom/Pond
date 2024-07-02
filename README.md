@@ -33,9 +33,8 @@ bun run preview
 ```
 
 ## Linting
-Run prettier
 ```
-bun prettier . --write
+bun run lint
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
