@@ -5,9 +5,14 @@ const progressValue = ref(20);
 setTimeout(() => {
     progressValue.value = 100;
 }, 2000);
+
+const { refreshSessionContext, sessionContext } = useSessionContext();
 </script>
 
 <template>
+    <h2>okk</h2>
+    <pre class="bg-gray-200 p-8">{{ sessionContext }}</pre>
+    <button @click="refreshSessionContext">Refresh</button>
     <div>
         <NuxtRouteAnnouncer />
 
