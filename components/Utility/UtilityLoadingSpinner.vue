@@ -2,7 +2,7 @@
     <div role="status" class="fixed grid h-screen w-screen place-content-center">
         <svg
             aria-hidden="true"
-            class="h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
+            class="fill-blue-600 text-gray-200 dark:text-gray-600 h-8 w-8 animate-spin"
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
