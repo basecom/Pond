@@ -22,4 +22,15 @@ export default defineNuxtConfig({
     future: {
         compatibilityVersion: 4,
     },
+    runtimeConfig: {
+        public: {
+            pond: {
+                shopwareEndpoint: '',
+                accessToken: '',
+            },
+        },
+    },
+    imports: {
+        dirs: ['./composables', './utils', './node_modules/@shopware-pwa/composables-next/composables'],
+    },
 });
