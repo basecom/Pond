@@ -18,5 +18,3 @@ export function useModal() {
         close,
     };
 }
-
-export const useSideMenuModal = createSharedComposable(useModal);

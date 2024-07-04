@@ -34,7 +34,7 @@ watch(isOpen, newIsOpen => {
     <Teleport to="body">
         <div
             ref="sidebarContentElement"
-            class="fixed top-0 z-40 h-screen w-10/12 overflow-y-auto bg-white p-4 transition-transform duration-200 sm:w-96"
+            class="fixed top-0 z-40 h-screen w-10/12 overflow-y-auto bg-white p-4 transition-transform duration-500 sm:w-96"
             tabindex="-1"
             aria-labelledby="sidebar"
             :class="{

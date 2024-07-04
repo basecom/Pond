@@ -6,7 +6,7 @@ const props = withDefaults(
         useStrokeColor?: boolean;
     }>(),
     {
-        class: 'w-4',
+        class: 'w-4 h-4',
         useStrokeColor: false,
     },
 );
