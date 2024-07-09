@@ -18,7 +18,14 @@ export default {
             white: '#FFFFFF', // Here for compatibility with shopware cms
             black: '#000000', // Here for compatibility with shopware cms
         },
-        extend: {},
+        extend: {
+            inset: {
+                '1/2-full-width': 'calc(-50dvw + 50%)',
+            },
+            boxShadow: {
+                'header-flyout': '0px 3px 7px -2px rgba(35, 35, 35, 0.10)',
+            },
+        },
         container: {
             center: true,
             padding: {
