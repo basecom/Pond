@@ -12,8 +12,8 @@ export default {
                 secondary: '#FB4566',
                 tertiary: '#465C54',
             },
-            neutral: {
-                ash: '#f5f5f5',
+            gray: {
+                light: '#f7f7f7',
             },
             white: '#FFFFFF', // Here for compatibility with shopware cms
             black: '#000000', // Here for compatibility with shopware cms
