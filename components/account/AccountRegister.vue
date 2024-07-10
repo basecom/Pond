@@ -48,27 +48,39 @@ const handleRegisterSubmit = (fields) => {
       type="text"
       label="first name"
       name="firstName"
+      placeholder="donald"
     />
     <FormKit
       type="text"
       label="last name"
       name="lastName"
+      placeholder="duck"
     />
     <FormKit
       type="text"
       label="steet"
       autocomplete="street-address"
       name="billingAddress[street]"
+      placeholder="13 quack streed"
+    />
+    <FormKit
+      type="number"
+      label="steet"
+      autocomplete="street-address"
+      name="billingAddress[street]"
+      placeholder="13"
     />
     <FormKit
       type="text"
       label="zip"
       name="billingAddress[zipcode]"
+      placeholder="1313"
     />
     <FormKit
       type="text"
       label="city"
       name="billingAddress[city]"
+      placeholder="Quackburg"
     />
     <FormKit
       type="select"
