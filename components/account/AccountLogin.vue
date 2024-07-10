@@ -25,6 +25,7 @@ const formkitlogin = (fields) => {
     />
     <FormKit
       type="password"
+      label="password"
       name="password"
     />
     <NuxtLink :to="{name: 'account-register'}">noch keinen account? hier einen erstellen</NuxtLink>
