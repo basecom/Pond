@@ -22,7 +22,6 @@ onMounted(async () => {
                         <ul class="list-none">
                             <li class="mb-1 max-w-max font-bold hover:text-brand-primary hover:underline">
                                 <NuxtLink
-                                    :rel="navigationElement.externalLink ? 'noopener noreferrer nofollow' : ''"
                                     :target="
                                         navigationElement.externalLink || navigationElement.linkNewTab ? '_blank' : ''
                                     "
@@ -33,7 +32,6 @@ onMounted(async () => {
                             </li>
                             <li v-for="navigationChild in navigationElement.children" :key="navigationChild.id">
                                 <NuxtLink
-                                    :rel="navigationChild.externalLink ? 'noopener noreferrer nofollow' : ''"
                                     :target="navigationChild.externalLink || navigationChild.linkNewTab ? '_blank' : ''"
                                     :to="getCategoryRoute(navigationChild)"
                                     class="text-sm font-normal transition duration-200 hover:text-brand-primary hover:underline"
@@ -49,7 +47,6 @@ onMounted(async () => {
                 <div class="mt-4 grid gap-1 border-t-2 border-white pt-4 md:flex md:gap-6">
                     <template v-for="navigationElement in serviceNavigationElements" :key="navigationElement.id">
                         <NuxtLink
-                            :rel="navigationElement.externalLink ? 'noopener noreferrer nofollow' : ''"
                             :target="navigationElement.externalLink || navigationElement.linkNewTab ? '_blank' : ''"
                             :to="getCategoryRoute(navigationElement)"
                             class="text-sm font-normal transition duration-200 hover:text-brand-primary hover:underline"
