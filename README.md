@@ -33,7 +33,7 @@ bun run preview
 ```
 
 ## Linting
-```
+```bash
 bun run lint
 ```
 
