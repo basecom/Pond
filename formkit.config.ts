@@ -1,5 +1,5 @@
 import { defaultConfig } from '@formkit/vue'
-import { rootClasses } from './formkit_custom.theme'
+import { rootClasses } from './formkit.theme'
 
 export default defaultConfig({
     config: {
