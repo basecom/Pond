@@ -6,20 +6,20 @@ customerStore.refreshContext();
 </script>
 
 <template>
-   <NuxtRouteAnnouncer />
-   <UtilityLoadingSpinner v-if="loading" />
+    <NuxtRouteAnnouncer />
+    <UtilityLoadingSpinner v-if="loading" />
 
-   <!-- layout header -->
+    <!-- layout header -->
 
-   <main v-show="!loading" class="container mt-4">
-      <NuxtPage />
-   </main>
+    <main v-show="!loading" class="container mt-4">
+        <NuxtPage />
+    </main>
 
-   <LayoutFooter />
+    <LayoutFooter />
 </template>
 
 <style>
 #__nuxt {
-   @apply grid min-h-screen;
+    @apply grid min-h-screen;
 }
 </style>
