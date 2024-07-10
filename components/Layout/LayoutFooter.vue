@@ -14,7 +14,7 @@ onMounted(async () => {
 
 <template>
     <div class="mt-auto">
-        <footer class="mt-4 bg-neutral-ash md:mt-10">
+        <footer class="mt-4 bg-gray-light md:mt-10">
             <div class="container py-5 md:pb-5 md:pt-10">
                 <!-- footer navigation -->
                 <div class="grid gap-5 md:flex md:justify-between lg:justify-normal lg:gap-28">

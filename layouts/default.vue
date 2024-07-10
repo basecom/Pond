@@ -15,7 +15,7 @@ customerStore.refreshContext();
         <NuxtPage />
     </main>
 
-    <LayoutFooter />
+    <LayoutFooter v-show="!loading" />
 </template>
 
 <style>
