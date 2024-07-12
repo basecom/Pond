@@ -1,8 +1,46 @@
 import { defaultConfig } from '@formkit/vue'
 import { rootClasses } from './formkit.theme'
 
-export default defaultConfig({
+export default {
+    iconLoader: (iconName: string) => {
+        const getIcon = async (iconkey: string) => {
+            if (!iconkey) {
+                return undefined;
+            }
+            try {
+                const iconsImport = import.meta.glob('assets/icons/**/**.svg', {
+                    as: 'raw',
+                    eager: false,
+                });
+                if (!iconsImport) {
+                    return undefined;
+                }
+                return await iconsImport[`/assets/icons/${iconkey}.svg`]();
+            } catch {
+                return undefined;
+            }
+        }
+
+        return fetch(
+            `https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/svgs/solid/${iconName}.svg`
+        )
+            .then(async (r) => {
+                const icon = await r.text()
+                if (icon.startsWith('<svg')) {
+                    // returns the icon from fontawesome
+                    return icon
+                }
+                else {
+                    // returns the icon from our repository as fallback (or undefined if not found)
+                    return getIcon(iconName);
+                }
+            })
+            .catch((e) => {
+                console.error(e)
+                return undefined
+            })
+    },
     config: {
         rootClasses,
     },
-})
+}

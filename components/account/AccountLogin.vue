@@ -13,7 +13,7 @@ const formkitlogin = (fields) => {
   <FormKit
     v-if="!signedIn"
     type="form"
-    submit-label="login >"
+    submit-label="login"
     @submit="formkitlogin"
   >
     <FormKit
@@ -28,6 +28,12 @@ const formkitlogin = (fields) => {
       label="password"
       name="password"
     />
+    <FormKit
+      type="submit"
+      prefix-icon="right-to-bracket"
+    >
+      login
+    </FormKit>
     <NuxtLink :to="{name: 'account-register'}">noch keinen account? hier einen erstellen</NuxtLink>
   </FormKit>
   <div v-else>

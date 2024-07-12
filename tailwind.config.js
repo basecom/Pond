@@ -14,7 +14,7 @@ export default {
             },
             gray: {
                 light: '#f7f7f7',
-                dark: '#454545',
+                DEFAULT: '#808080',
             },
             white: '#FFFFFF', // Here for compatibility with shopware cms
             black: '#000000', // Here for compatibility with shopware cms
@@ -35,7 +35,7 @@ export default {
         },
     },
     plugins: [],
-    content: [
-        'formkit.theme.ts'
-    ]
+    // content: [
+    //     'formkit.theme.ts'
+    // ]
 };

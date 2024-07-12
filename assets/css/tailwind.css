@@ -5,3 +5,7 @@
 * {
     @apply font-main
 }
+
+svg {
+    fill: currentColor
+}
