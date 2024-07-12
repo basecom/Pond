@@ -7,14 +7,16 @@ export default {
         colors: {
             transparent: 'transparent',
             brand: {
-                primary: '#0099FF',
-                'primary-dark': '#006eff',
+                primary: {
+                    DEFAULT:'#0099FF',
+                    dark: '#006eff',
+                },
                 secondary: '#FB4566',
                 tertiary: '#465C54',
             },
             gray: {
-                light: '#f7f7f7',
-                DEFAULT: '#808080',
+                light: '#F7F7F7',
+                DEFAULT: '#A2A2A2',
             },
             white: '#FFFFFF', // Here for compatibility with shopware cms
             black: '#000000', // Here for compatibility with shopware cms

@@ -1,8 +1,9 @@
 import { defaultConfig } from '@formkit/vue';
 import { rootClasses } from './formkit.theme';
-import { createAutoAnimatePlugin } from '@formkit/addons';
+import { createAutoAnimatePlugin, createFloatingLabelsPlugin } from '@formkit/addons';
+import '@formkit/addons/css/floatingLabels';
 
-export default {
+export default defaultConfig({
     iconLoader: (iconName: string) => {
         const getIcon = async (iconkey: string) => {
             if (!iconkey) {
@@ -55,6 +56,9 @@ export default {
                 form: ['form'],
                 repeater: ['items'],
             }
-        )
+        ),
+        createFloatingLabelsPlugin({
+            useAsDefault: true, // defaults to false
+        }),
     ]
-}
+})
