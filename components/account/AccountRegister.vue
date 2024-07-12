@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import { ApiClientError } from "@shopware/api-client";
+import { useApiErrorsResolver } from '~/composables/useApiErrorsResolver';
+
 const {register} = useUser();
 const sessionContext = useSessionContext();
 
 const { getSalutations } = useSalutations();
 const { getCountries } = useCountries();
+const { resolveApiErrors } = useApiErrorsResolver("account_login");
 
-const handleRegisterSubmit = (fields) => {
+const registerErrors = ref([])
+
+const handleRegisterSubmit = async (fields) => {
   try {
-    register({
+    const res = await register({
       ...fields,
       billingAddress: {
         city: fields['billingAddress[city]'],
@@ -17,9 +23,12 @@ const handleRegisterSubmit = (fields) => {
         zipcode: fields['billingAddress[zipcode]'],
       }
     });
+    const msg = await res.json();
+    console.log(msg);
     navigateTo('/account')
-  } catch (e) {
-    console.error(e)
+  } catch (error) {
+    // more info can be accessed through `error.details.errors`
+    console.error(error)
   }
 }
 
@@ -63,6 +72,7 @@ const handlePasswordTogle = (node, e) => {
       name="firstName"
       placeholder="donald"
       help="your firstname"
+      validation="required"
       :classes="{
         outer: {
           'col-start-1 col-1': true,
@@ -74,6 +84,7 @@ const handlePasswordTogle = (node, e) => {
       label="last name"
       name="lastName"
       placeholder="duck"
+      validation="required"
     />
     <div class="col-span-2">
       <span>your address</span>
@@ -84,6 +95,7 @@ const handlePasswordTogle = (node, e) => {
       autocomplete="street-address"
       name="billingAddress[street]"
       placeholder="13 quack street"
+      validation="required"
       :classes="{
         outer: {
           'col-start-1 col-span-2': true,
@@ -95,18 +107,21 @@ const handlePasswordTogle = (node, e) => {
       label="zip"
       name="billingAddress[zipcode]"
       placeholder="1313"
+      validation="required"
     />
     <FormKit
       type="text"
       label="city"
       name="billingAddress[city]"
       placeholder="Quackburg"
+      validation="required"
     />
     <FormKit
       type="select"
       label="country"
       placeholder="Select a country"
       name="billingAddress[countryId]"
+      validation="required"
     >
       <option
         v-for="country in getCountries.sort((a, b) => getTranslatedProperty(a, 'name') > getTranslatedProperty(b, 'name') ? 1 : -1)"
@@ -125,25 +140,24 @@ const handlePasswordTogle = (node, e) => {
       label="email"
       name="email"
       placeholder="quack@platsch.com"
+      validation="required"
     />
     <FormKit
       type="password"
       label="password"
       name="password"
       placeholder="password"
+      validation="required"
       prefix-icon="lock"
       suffix-icon="lock"
       @suffix-icon-click="handlePasswordTogle"
     />
-<!--      type="checkbox"-->
-<!--      label="acceptedDataProtection"-->
-<!--      name="acceptedDataProtection"-->
     <FormKit
       type="checkbox"
       label="Terms and Conditions"
       help="Do you agree to our terms of service?"
       name="terms"
-      :value="true"
+      :value="false"
       decorator-icon="check"
     />
   </FormKit>
