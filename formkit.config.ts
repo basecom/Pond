@@ -1,5 +1,6 @@
-import { defaultConfig } from '@formkit/vue'
-import { rootClasses } from './formkit.theme'
+import { defaultConfig } from '@formkit/vue';
+import { rootClasses } from './formkit.theme';
+import { createAutoAnimatePlugin } from '@formkit/addons';
 
 export default {
     iconLoader: (iconName: string) => {
@@ -43,4 +44,17 @@ export default {
     config: {
         rootClasses,
     },
+    plugins: [
+        createAutoAnimatePlugin(
+            {
+                duration: 250,
+                easing: 'ease-in-out',
+            },
+            {
+                global: ['outer', 'inner'],
+                form: ['form'],
+                repeater: ['items'],
+            }
+        )
+    ]
 }
