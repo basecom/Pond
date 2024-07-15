@@ -20,26 +20,23 @@ export default {
             } catch {
                 return undefined;
             }
-        }
+        };
 
-        return fetch(
-            `https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/svgs/solid/${iconName}.svg`
-        )
-            .then(async (r) => {
-                const icon = await r.text()
+        return fetch(`https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/svgs/solid/${iconName}.svg`)
+            .then(async r => {
+                const icon = await r.text();
                 if (icon.startsWith('<svg')) {
                     // returns the icon from fontawesome
-                    return icon
-                }
-                else {
+                    return icon;
+                } else {
                     // returns the icon from our repository as fallback (or undefined if not found)
                     return getIcon(iconName);
                 }
             })
-            .catch((e) => {
-                console.error(e)
-                return undefined
-            })
+            .catch(e => {
+                console.error(e);
+                return undefined;
+            });
     },
     config: {
         rootClasses,
@@ -54,10 +51,10 @@ export default {
                 global: ['outer', 'inner'],
                 form: ['form'],
                 repeater: ['items'],
-            }
+            },
         ),
         createFloatingLabelsPlugin({
             useAsDefault: true, // defaults to false
         }),
     ],
-}
+};

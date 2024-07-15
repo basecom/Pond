@@ -10,7 +10,6 @@ function login() {
         password: password.value,
     });
 }
-
 </script>
 
 <template>
@@ -26,5 +25,5 @@ function login() {
     <div v-else>
         <button type="button" class="bg-amber-200" @click="customerStore.logout">Logout</button>
     </div>
-  <AccountLogin/>
+    <AccountLogin />
 </template>

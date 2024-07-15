@@ -3,11 +3,9 @@ import AccountRegister from '~/components/account/AccountRegister.vue';
 </script>
 
 <template>
-  <div class="w-full flex justify-center">
-    <AccountRegister />
-  </div>
+    <div class="flex w-full justify-center">
+        <AccountRegister />
+    </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

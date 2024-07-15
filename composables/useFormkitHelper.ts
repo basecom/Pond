@@ -30,7 +30,7 @@ export function useFormkitHelper() {
         }
 
         return reformatted;
-    }
+    };
 
     /**
      *  This function formats EntityArrays to the structure of Array<{label: '', value: ''}>
@@ -41,25 +41,25 @@ export function useFormkitHelper() {
         const mapped = arr.value.map(element => {
             return {
                 label: getTranslatedProperty(element, displayName),
-                value: element.id ?? element._uniqueIdentifier
-            }
+                value: element.id ?? element._uniqueIdentifier,
+            };
         });
 
         if (!sorted) {
             return mapped;
         }
 
-        return mapped.sort((a, b) => a.label > b.label ? 1 : -1)
-    }
+        return mapped.sort((a, b) => (a.label > b.label ? 1 : -1));
+    };
 
     const errorOfField = (name: string, apiErrors: ResolvedApiError[]) => {
-        return apiErrors?.filter(err => err.key === name).map(err => `${err.key}_${err.code}`) ?? []
-    }
+        return apiErrors?.filter(err => err.key === name).map(err => `${err.key}_${err.code}`) ?? [];
+    };
 
     const togglePasswordVisibility = (node: FormkitNode) => {
-        node.props.suffixIcon = node.props.suffixIcon === 'lock' ? 'lock-open' : 'lock'
-        node.props.type = node.props.type === 'password' ? 'text' : 'password'
-    }
+        node.props.suffixIcon = node.props.suffixIcon === 'lock' ? 'lock-open' : 'lock';
+        node.props.type = node.props.type === 'password' ? 'text' : 'password';
+    };
 
     return {
         formatFormFields,

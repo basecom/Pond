@@ -8,7 +8,7 @@ export default {
             transparent: 'transparent',
             brand: {
                 primary: {
-                    DEFAULT:'#0099FF',
+                    DEFAULT: '#0099FF',
                     dark: '#006eff',
                 },
                 secondary: '#FB4566',

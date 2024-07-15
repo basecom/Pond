@@ -19,6 +19,6 @@ export const useCustomerStore = defineStore('customer', () => {
         login,
         logout,
         loading,
-        register
+        register,
     };
 });

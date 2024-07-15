@@ -3,15 +3,10 @@ const customerStore = useCustomerStore();
 const { signedIn } = storeToRefs(customerStore);
 
 if (!signedIn) {
-  navigateTo('/');
+    navigateTo('/');
 }
-
 </script>
 
-<template>
-Account
-</template>
+<template>Account</template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
