@@ -5,7 +5,6 @@ import type { ComputedRef } from 'vue';
 import type { FormkitFields, FormkitNode } from '~/types/formkit';
 
 export function useFormkitHelper() {
-
     /**
      *  This function formats the object key of the submitted form fields since SW sometimes expects params to be an array
      *  while submitting `billingAddress[street]` is not recognized by the backend as an array  but as one string.
@@ -59,7 +58,7 @@ export function useFormkitHelper() {
 
     const togglePasswordVisibility = (node: FormkitNode) => {
         node.props.suffixIcon = node.props.suffixIcon === 'lock' ? 'lock-open' : 'lock'
-        node.type = node.type === 'password' ? 'text' : 'password'
+        node.props.type = node.props.type === 'password' ? 'text' : 'password'
     }
 
     return {
