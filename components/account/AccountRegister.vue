@@ -1,20 +1,15 @@
 <script setup lang="ts">
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
-import { ApiClientError } from "@shopware/api-client";
-import { useApiErrorsResolver } from '~/composables/useApiErrorsResolver';
 
-const {register} = useUser();
+const customerStore = useCustomerStore();
 const sessionContext = useSessionContext();
 
 const { getSalutations } = useSalutations();
 const { getCountries } = useCountries();
-const { resolveApiErrors } = useApiErrorsResolver("account_login");
-
-const registerErrors = ref([])
 
 const handleRegisterSubmit = async (fields) => {
   try {
-    const res = await register({
+    await customerStore.register({
       ...fields,
       billingAddress: {
         city: fields['billingAddress[city]'],
@@ -23,8 +18,6 @@ const handleRegisterSubmit = async (fields) => {
         zipcode: fields['billingAddress[zipcode]'],
       }
     });
-    const msg = await res.json();
-    console.log(msg);
     navigateTo('/account')
   } catch (error) {
     // more info can be accessed through `error.details.errors`
@@ -58,6 +51,7 @@ const handlePasswordTogle = (node, e) => {
       name="salutationId"
       help="select how you would like to be addressed"
     >
+      <option value="#">select something</option>
       <option
         v-for="salutation in getSalutations"
         :key="`salutation_${salutation.id}`"
@@ -127,7 +121,7 @@ const handlePasswordTogle = (node, e) => {
         v-for="country in getCountries.sort((a, b) => getTranslatedProperty(a, 'name') > getTranslatedProperty(b, 'name') ? 1 : -1)"
         :key="`country_${country.id}`"
         :value="country.id"
-        :selected="country.id === sessionContext.countryId"
+        :selected="country.id === sessionContext.countryId.value"
       >
         {{getTranslatedProperty(country, 'name')}}
       </option>

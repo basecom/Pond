@@ -2,7 +2,7 @@
 const customerStore = useCustomerStore();
 const { signedIn } = storeToRefs(customerStore);
 
-const formkitlogin = (fields) => {
+const handleLogin = (fields) => {
   customerStore.login({
     ...fields
   });
@@ -14,7 +14,7 @@ const formkitlogin = (fields) => {
     v-if="!signedIn"
     type="form"
     submit-label="login"
-    @submit="formkitlogin"
+    @submit="handleLogin"
   >
     <FormKit
       type="email"

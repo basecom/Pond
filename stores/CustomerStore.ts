@@ -1,6 +1,6 @@
 export const useCustomerStore = defineStore('customer', () => {
     const { refreshSessionContext, sessionContext } = useSessionContext();
-    const { login, logout } = useUser();
+    const { login, logout, register } = useUser();
     const loading = ref(true);
 
     async function refreshContext() {
@@ -19,5 +19,6 @@ export const useCustomerStore = defineStore('customer', () => {
         login,
         logout,
         loading,
+        register
     };
 });
