@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { useFormkitHelper } from '~/composables/useFormkitHelper';
+import type { FormkitFields } from '~/types/formkit';
+
 const customerStore = useCustomerStore();
 const { signedIn } = storeToRefs(customerStore);
 
-const handleLogin = (fields) => {
+const { togglePasswordVisibility } = useFormkitHelper();
+
+const handleLogin = (fields: FormkitFields) => {
   customerStore.login({
     ...fields
   });
@@ -27,6 +32,8 @@ const handleLogin = (fields) => {
       type="password"
       label="password"
       name="password"
+      suffix-icon="lock"
+      @suffix-icon-click="togglePasswordVisibility"
     />
     <FormKit
       type="submit"
@@ -34,7 +41,7 @@ const handleLogin = (fields) => {
     >
       login
     </FormKit>
-    <NuxtLink :to="{name: 'account-register'}">noch keinen account? hier einen erstellen</NuxtLink>
+    <NuxtLink :to="{name: 'account-register'}">create account</NuxtLink>
   </FormKit>
   <div v-else>
     <button type="button" class="bg-amber-200" @click="customerStore.logout">Logout</button>

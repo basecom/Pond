@@ -1,34 +1,40 @@
 <script setup lang="ts">
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import { ApiClientError } from '@shopware/api-client';
+import { useApiErrorsResolver } from '~/composables/useApiErrorsResolver';
+import type { ResolvedApiError } from '~/types/errors';
+import { useFormkitHelper } from '~/composables/useFormkitHelper';
+import type { FormkitFields } from '~/types/formkit';
 
 const customerStore = useCustomerStore();
 const sessionContext = useSessionContext();
 
 const { getSalutations } = useSalutations();
 const { getCountries } = useCountries();
+const { resolveApiErrors } = useApiErrorsResolver();
+const apiErrors =  ref<ResolvedApiError[]>([]);
 
-const handleRegisterSubmit = async (fields) => {
+const {formatFormFields, errorOfField, togglePasswordVisibility, entityArrayToOptions} = useFormkitHelper();
+
+const handleRegisterSubmit = async (fields: FormkitFields) => {
+  apiErrors.value = [];
   try {
     await customerStore.register({
-      ...fields,
-      billingAddress: {
-        city: fields['billingAddress[city]'],
-        countryId: fields['billingAddress[countryId]'],
-        street: fields['billingAddress[street]'],
-        zipcode: fields['billingAddress[zipcode]'],
-      }
+      ...formatFormFields(fields),
     });
     navigateTo('/account')
   } catch (error) {
-    // more info can be accessed through `error.details.errors`
     console.error(error)
+
+    if (error instanceof ApiClientError) {
+      apiErrors.value = resolveApiErrors(error.details.errors);
+    }
   }
 }
 
-const handlePasswordTogle = (node, e) => {
-  node.props.suffixIcon = node.props.suffixIcon === 'lock' ? 'lock-open' : 'lock'
-  node.props.type = node.props.type === 'password' ? 'text' : 'password'
-}
+const data = computed(() => entityArrayToOptions(getCountries, 'name', true) ?? []);
+
+const currentCountry = computed(() => sessionContext.countryId.value);
 </script>
 
 <template>
@@ -36,8 +42,11 @@ const handlePasswordTogle = (node, e) => {
     type="form"
     submit-label="register"
     :classes="{
-      form: 'grid grid-cols-2 gap-3',
+      form: 'grid grid-cols-2 gap-3 w-2/3',
       actions: 'col-span-2'
+    }"
+    :config="{
+      validationVisibility: 'dirty',
     }"
     @submit="handleRegisterSubmit"
   >
@@ -47,8 +56,10 @@ const handlePasswordTogle = (node, e) => {
     <FormKit
       type="select"
       label="salutation"
-      placeholder="Select a salutation"
       name="salutationId"
+      placeholder="Select a salutation"
+      :errors="errorOfField('firstName', apiErrors)"
+      validation="required"
       help="select how you would like to be addressed"
     >
       <option value="#">select something</option>
@@ -65,7 +76,7 @@ const handlePasswordTogle = (node, e) => {
       label="first name"
       name="firstName"
       placeholder="donald"
-      help="your firstname"
+      :errors="errorOfField('firstName', apiErrors)"
       validation="required"
       :classes="{
         outer: {
@@ -78,6 +89,7 @@ const handlePasswordTogle = (node, e) => {
       label="last name"
       name="lastName"
       placeholder="duck"
+      :errors="errorOfField('lastName', apiErrors)"
       validation="required"
     />
     <div class="col-span-2">
@@ -89,6 +101,7 @@ const handlePasswordTogle = (node, e) => {
       autocomplete="street-address"
       name="billingAddress[street]"
       placeholder="13 quack street"
+      :errors="errorOfField('billingAddress[street]', apiErrors)"
       validation="required"
       :classes="{
         outer: {
@@ -101,6 +114,7 @@ const handlePasswordTogle = (node, e) => {
       label="zip"
       name="billingAddress[zipcode]"
       placeholder="1313"
+      :errors="errorOfField('billingAddress[zipcode]', apiErrors)"
       validation="required"
     />
     <FormKit
@@ -108,24 +122,18 @@ const handlePasswordTogle = (node, e) => {
       label="city"
       name="billingAddress[city]"
       placeholder="Quackburg"
+      :errors="errorOfField('billingAddress[city]', apiErrors)"
       validation="required"
     />
     <FormKit
+      v-if="currentCountry"
       type="select"
       label="country"
-      placeholder="Select a country"
       name="billingAddress[countryId]"
-      validation="required"
-    >
-      <option
-        v-for="country in getCountries.sort((a, b) => getTranslatedProperty(a, 'name') > getTranslatedProperty(b, 'name') ? 1 : -1)"
-        :key="`country_${country.id}`"
-        :value="country.id"
-        :selected="country.id === sessionContext.countryId.value"
-      >
-        {{getTranslatedProperty(country, 'name')}}
-      </option>
-    </FormKit>
+      placeholder="Select a country"
+      :options="data"
+      :value="currentCountry"
+    />
     <div class="col-span-2">
       <span>your account data</span>
     </div>
@@ -134,6 +142,7 @@ const handlePasswordTogle = (node, e) => {
       label="email"
       name="email"
       placeholder="quack@platsch.com"
+      :errors="errorOfField('email', apiErrors)"
       validation="required"
     />
     <FormKit
@@ -141,10 +150,10 @@ const handlePasswordTogle = (node, e) => {
       label="password"
       name="password"
       placeholder="password"
+      :errors="errorOfField('password', apiErrors)"
       validation="required"
-      prefix-icon="lock"
       suffix-icon="lock"
-      @suffix-icon-click="handlePasswordTogle"
+      @suffix-icon-click="togglePasswordVisibility"
     />
     <FormKit
       type="checkbox"
@@ -153,6 +162,7 @@ const handlePasswordTogle = (node, e) => {
       name="terms"
       :value="false"
       decorator-icon="check"
+      validation="accepted"
     />
   </FormKit>
 </template>

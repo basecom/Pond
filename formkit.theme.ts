@@ -444,7 +444,9 @@ const classes: Record<string, Record<string, boolean>> = {
   "barcode__overlayDecoratorTopRight": {},
   "barcode__overlayDecoratorBottomRight": {},
   "barcode__overlayDecoratorBottomLeft": {},
-  "multi-step__outer": {},
+  "multi-step__outer": {
+
+  },
   "multi-step__wrapper": {},
   "multi-step__tabs": {},
   "multi-step__tab": {},
@@ -472,16 +474,14 @@ const globals: Record<string, Record<string, boolean>> = {
     "w-full": true,
     "outline-none": true,
   },
-  "prefixIcon": {
+  "icon": {
     "block": true,
     "w-5": true,
     "h-auto": true,
+    "m-auto": true,
   },
-  "suffixIcon": {
-    "block": true,
-    "w-5": true,
-    "h-auto": true,
-  },
+  "prefixIcon": {},
+  "suffixIcon": {},
   "loaderIcon": {},
   "loadMoreInner": {},
   "help": {

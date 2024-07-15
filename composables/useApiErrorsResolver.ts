@@ -1,5 +1,5 @@
 import type { ApiError } from "@shopware/api-client";
-import type { ResolvedApiError, UseApiErrorsResolver } from '~/types/framework/errors';
+import type { ResolvedApiError, UseApiErrorsResolver } from '~/types/errors';
 
 export function useApiErrorsResolver(): UseApiErrorsResolver {
   const resolveApiErrors = (errors: ApiError[]): ResolvedApiError[] => {
@@ -25,8 +25,8 @@ export function useApiErrorsResolver(): UseApiErrorsResolver {
       return '';
     }
 
-    const singleSlashPattern = /^\/([^\/]+)$/;
-    const doubleSlashPattern = /^\/([^\/]+)\/([^\/]+)$/;
+    const singleSlashPattern = /^\/([^/]+)$/;
+    const doubleSlashPattern = /^\/([^/]+)\/([^/]+)$/;
 
     if (singleSlashPattern.test(input)) {
       // `/firstName` -> `firstName˙
