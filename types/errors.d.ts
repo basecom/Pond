@@ -1,5 +1,7 @@
+import type { ApiError } from '@shopware/api-client';
+
 export type UseApiErrorsResolver = {
-    resolveApiErrors(errors: ResolvedApiError[]): { key: string; code: string }[];
+    resolveApiErrors(errors: ApiError[], context: string | null = null): ResolvedApiError[];
 };
 
-export type ResolvedApiError = { key: string; code: string };
+export type ResolvedApiError = { key: string | null; code: string };

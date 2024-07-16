@@ -1,3 +1,5 @@
+import type { Schemas } from '@shopware/api-client/api-types';
+
 export const useCustomerStore = defineStore('customer', () => {
     const { refreshSessionContext, sessionContext } = useSessionContext();
     const { login, logout, register } = useUser();
@@ -9,7 +11,7 @@ export const useCustomerStore = defineStore('customer', () => {
         loading.value = false;
     }
 
-    const customer = computed(() => sessionContext.value?.customer);
+    const customer = computed((): Schemas['Customer'] => sessionContext.value?.customer);
     const signedIn = computed(() => !!sessionContext.value?.customer);
 
     return {

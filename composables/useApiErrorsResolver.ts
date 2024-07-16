@@ -4,20 +4,12 @@ import type { ResolvedApiError, UseApiErrorsResolver } from '~/types/errors';
 export function useApiErrorsResolver(): UseApiErrorsResolver {
     /**
      * This function resolves the api errors into a structure where its clearly visible which field is (key) is affected by which error (code)
-     * @param errors
      */
-    const resolveApiErrors = (errors: ApiError[]): ResolvedApiError[] => {
+    const resolveApiErrors = (errors: ApiError[], context: string | null): ResolvedApiError[] => {
         return errors.map(({ detail, code, source }) => {
-            if (code) {
-                return {
-                    key: formatErrorSourcePointer(source?.pointer),
-                    code: code,
-                };
-            }
-
             return {
-                key: formatErrorSourcePointer(source?.pointer),
-                code: detail ?? 'No details provided',
+                key: source?.pointer ? formatErrorSourcePointer(source.pointer) : context,
+                code: code ?? detail ?? 'No details provided',
             };
         });
     };
@@ -25,7 +17,6 @@ export function useApiErrorsResolver(): UseApiErrorsResolver {
     /**
      * The api response might contain the key in form of `/firstName` or `/billingAddress/city`
      * This function transforms this into the key we hat initially had, usually the `name` attribute of the input
-     * @param input
      */
     function formatErrorSourcePointer(input: string | undefined) {
         if (!input) {

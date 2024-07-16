@@ -7,5 +7,5 @@
 }
 
 svg {
-    fill: currentColor
+    @apply fill-current
 }

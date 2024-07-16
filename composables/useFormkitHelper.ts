@@ -1,47 +1,22 @@
 import type { ResolvedApiError } from '~/types/errors';
-import type { Entity } from '@shopware-pwa/types';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
-import type { ComputedRef } from 'vue';
-import type { FormkitFields, FormkitNode } from '~/types/formkit';
+import type { FormKitNode } from '@formkit/core';
 
 export function useFormkitHelper() {
-    /**
-     *  This function formats the object key of the submitted form fields since SW sometimes expects params to be an array
-     *  while submitting `billingAddress[street]` is not recognized by the backend as an array  but as one string.
-     */
-    const formatFormFields = (fields: FormkitFields) => {
-        const reformatted = {};
-
-        for (const key in fields) {
-            if (fields[key]) {
-                const match = key.match(/^([^[]+)\[([^\]]+)]$/);
-                if (match) {
-                    const mainKey = match[1];
-                    const subKey = match[2];
-
-                    if (!reformatted[mainKey]) {
-                        reformatted[mainKey] = {};
-                    }
-                    reformatted[mainKey][subKey] = fields[key];
-                } else {
-                    reformatted[key] = fields[key];
-                }
-            }
-        }
-
-        return reformatted;
-    };
-
     /**
      *  This function formats EntityArrays to the structure of Array<{label: '', value: ''}>
      *  This is necessary/helpfull since thisways we don't have to create select options manually and allows us to use
      *  the placeholder function from formkit
      */
-    const entityArrayToOptions = (arr: ComputedRef<Entity[]>, displayName = 'name', sorted: boolean = false) => {
-        const mapped = arr.value.map(element => {
+    const entityArrayToOptions = <T extends { id: string }>(
+        arr: T[],
+        displayName: keyof T,
+        sorted: boolean = false,
+    ) => {
+        const mapped = arr.map(element => {
             return {
                 label: getTranslatedProperty(element, displayName),
-                value: element.id ?? element._uniqueIdentifier,
+                value: element.id,
             };
         });
 
@@ -56,13 +31,12 @@ export function useFormkitHelper() {
         return apiErrors?.filter(err => err.key === name).map(err => `${err.key}_${err.code}`) ?? [];
     };
 
-    const togglePasswordVisibility = (node: FormkitNode) => {
+    const togglePasswordVisibility = (node: FormKitNode) => {
         node.props.suffixIcon = node.props.suffixIcon === 'lock' ? 'lock-open' : 'lock';
         node.props.type = node.props.type === 'password' ? 'text' : 'password';
     };
 
     return {
-        formatFormFields,
         entityArrayToOptions,
         errorOfField,
         togglePasswordVisibility,
