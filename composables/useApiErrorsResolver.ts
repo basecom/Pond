@@ -3,7 +3,7 @@ import type { ResolvedApiError, UseApiErrorsResolver } from '~/types/errors';
 
 export function useApiErrorsResolver(): UseApiErrorsResolver {
     /**
-     * This function resolves the api errors into a structure where its clearly visible which field is (key) is affected by which error (code)
+     * This function resolves the api errors into a structure where its clearly visible which field (key) is affected by which error (code)
      */
     const resolveApiErrors = (errors: ApiError[], context: string | null): ResolvedApiError[] => {
         return errors.map(({ detail, code, source }) => {
@@ -18,7 +18,7 @@ export function useApiErrorsResolver(): UseApiErrorsResolver {
      * The api response might contain the key in form of `/firstName` or `/billingAddress/city`
      * This function transforms this into the key we hat initially had, usually the `name` attribute of the input
      */
-    function formatErrorSourcePointer(input: string | undefined) {
+    function formatErrorSourcePointer(input: string | undefined): string {
         if (!input) {
             return '';
         }

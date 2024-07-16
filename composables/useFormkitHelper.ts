@@ -5,14 +5,14 @@ import type { FormKitNode } from '@formkit/core';
 export function useFormkitHelper() {
     /**
      *  This function formats EntityArrays to the structure of Array<{label: '', value: ''}>
-     *  This is necessary/helpfull since thisways we don't have to create select options manually and allows us to use
+     *  This is necessary/helpfully since this way we don't have to create select options manually and allows us to use
      *  the placeholder function from formkit
      */
     const entityArrayToOptions = <T extends { id: string }>(
         arr: T[],
         displayName: keyof T,
         sorted: boolean = false,
-    ) => {
+    ): { label: string; value: string }[] => {
         const mapped = arr.map(element => {
             return {
                 label: getTranslatedProperty(element, displayName),
@@ -27,7 +27,10 @@ export function useFormkitHelper() {
         return mapped.sort((a, b) => (a.label > b.label ? 1 : -1));
     };
 
-    const errorOfField = (name: string, apiErrors: ResolvedApiError[]) => {
+    /**
+     * Returns an array with alls error Codes for the given key. Combined with the key it can be used as a snippet key.
+     */
+    const errorOfField = (name: string, apiErrors: ResolvedApiError[]): string[] => {
         return apiErrors?.filter(err => err.key === name).map(err => `${err.key}_${err.code}`) ?? [];
     };
 

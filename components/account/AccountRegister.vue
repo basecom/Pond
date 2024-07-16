@@ -36,7 +36,9 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
 };
 
 const countryOptions = computed(() => entityArrayToOptions<Schemas['Country']>(getCountries.value, 'name', true) ?? []);
-const salutationOptions = computed(() => entityArrayToOptions(getSalutations.value, 'displayName', true) ?? []);
+const salutationOptions = computed(
+    () => entityArrayToOptions<Schemas['Salutation']>(getSalutations.value, 'displayName', true) ?? [],
+);
 
 const currentCountry = computed(() => sessionContext.countryId.value);
 </script>
@@ -47,7 +49,6 @@ const currentCountry = computed(() => sessionContext.countryId.value);
         submit-label="register"
         :classes="{
             form: 'grid grid-cols-2 gap-3 w-2/3',
-            actions: '',
         }"
         :config="{
             validationVisibility: 'dirty',

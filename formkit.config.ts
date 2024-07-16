@@ -13,10 +13,13 @@ export default {
                     as: 'raw',
                     eager: false,
                 });
-                if (!iconsImport) {
+
+                const iconsImportElement = iconsImport[`/assets/icons/${iconkey}.svg`];
+                if (!iconsImportElement) {
                     return undefined;
                 }
-                return await iconsImport[`/assets/icons/${iconkey}.svg`]();
+
+                return (await iconsImportElement()) ?? undefined;
             } catch {
                 return undefined;
             }

@@ -10,7 +10,7 @@ export default {
             brand: {
                 primary: {
                     DEFAULT: '#0099FF',
-                    dark: '#006eff',
+                    dark: '#006EFF',
                 },
                 secondary: '#FB4566',
                 tertiary: '#465C54',
@@ -22,11 +22,11 @@ export default {
             white: '#FFFFFF', // Here for compatibility with shopware cms
             black: '#000000', // Here for compatibility with shopware cms
             status: {
-                info: '#0099cc',
+                info: '#0099CC',
                 success: '#669933',
-                warning: '#ffcc00',
-                important: '#ff9900',
-                danger: '#cc0000',
+                warning: '#FFCC00',
+                important: '#FF9900',
+                danger: '#CC0000',
             },
         },
         extend: {},
@@ -45,7 +45,4 @@ export default {
         },
     },
     plugins: [],
-    // content: [
-    //     'formkit.theme.ts'
-    // ]
 };
