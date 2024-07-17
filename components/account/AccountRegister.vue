@@ -48,7 +48,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
         type="form"
         submit-label="register"
         :classes="{
-            form: 'grid grid-cols-2 gap-3 w-2/3',
+            form: 'grid grid-cols-2 gap-3 w-full max-w-md',
         }"
         :config="{
             validationVisibility: 'dirty',
@@ -66,6 +66,11 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             placeholder="Select a salutation"
             :errors="errorOfField('firstName', apiErrors)"
             validation="required"
+            :classes="{
+                outer: {
+                    'col-span-2 md:col-span-1 col-1': true,
+                },
+            }"
             :options="salutationOptions"
             help="select how you would like to be addressed"
         />
@@ -135,6 +140,11 @@ const currentCountry = computed(() => sessionContext.countryId.value);
                 placeholder="Select a country"
                 :options="countryOptions"
                 :value="currentCountry"
+                :classes="{
+                    outer: {
+                        'col-span-2 md:col-span-1 col-1': true,
+                    },
+                }"
             />
         </FormKit>
         <div class="col-span-2">

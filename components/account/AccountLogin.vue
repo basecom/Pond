@@ -36,6 +36,9 @@ const handleLogin = async (fields: FormkitLoginFields) => {
         v-if="!signedIn"
         type="form"
         submit-label="login"
+        :classes="{
+            form: 'w-full max-w-xs',
+        }"
         @submit="handleLogin"
     >
         <ul
