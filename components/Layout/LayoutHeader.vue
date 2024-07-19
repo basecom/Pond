@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import LayoutSearch from '~/components/Layout/LayoutSearch.vue';
-import UtilityIcon from '~/components/Utility/UtilityIcon.vue';
-import LayoutNavigationItems from '~/components/Layout/Navigation/LayoutNavigationItems.vue';
-import UtilityPill from '~/components/Utility/UtilityPill.vue';
-import { useCartItems } from '~/composables/useCartItems';
 import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { SeoUrl } from '@shopware-pwa/types';
 import type { Ref } from 'vue';
@@ -32,8 +27,8 @@ const isActive = (path: SeoUrl[] | null) => {
 </script>
 
 <template>
-    <header v-show="!loading" class="border-neutral-ash sticky top-0 border-b-2 bg-white">
-        <div class="container py-3 md:pb-0 md:pt-6">
+    <header v-show="!loading" class="sticky top-0 bg-gray-light md:bg-white">
+        <div class="container py-3 md:py-6">
             <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-3">
                     <!-- mobile menu -->
@@ -44,11 +39,8 @@ const isActive = (path: SeoUrl[] | null) => {
                         </div>
                     </LazyLayoutSidebar>
 
-                    <!-- search -->
-                    <LayoutSearch />
+                    <LayoutLogo logo-classes="w-36 md:w-40" />
                 </div>
-
-                <LayoutLogo logo-classes="w-36 md:w-40" />
 
                 <div class="flex items-center gap-3">
                     <!-- wishlist -->
@@ -71,15 +63,11 @@ const isActive = (path: SeoUrl[] | null) => {
                     </LazyLayoutSidebar>
                 </div>
             </div>
+        </div>
 
-            <div class="relative flex gap-2">
-                <div
-                    v-for="navigationElement in navigationElements"
-                    :key="navigationElement.id"
-                    class="shrink-0 snap-center"
-                    @mouseover="currentMouseoverMenu = navigationElement.id"
-                    @mouseleave="currentMouseoverMenu = null"
-                >
+        <div class="relative hidden w-screen md:block md:bg-gray-light">
+            <div class="container flex gap-8 overflow-x-scroll py-4">
+                <div v-for="navigationElement in navigationElements" :key="navigationElement.id" class="min-w-max">
                     <NuxtLink
                         :target="navigationElement.externalLink || navigationElement.linkNewTab ? '_blank' : ''"
                         :rel="
@@ -89,26 +77,16 @@ const isActive = (path: SeoUrl[] | null) => {
                         "
                         :aria-label="getTranslatedProperty(navigationElement, 'name')"
                         :to="getCategoryRoute(navigationElement)"
-                        class="text-neutral-black hover:border-neutral-black mr-5 inline-block border-b border-white pb-3 transition-all lg:mr-8 lg:py-4"
+                        class="text-neutral-black py-4 transition-all hover:text-brand-primary"
                         :class="{
-                            '!border-neutral-black font-medium': isActive(navigationElement.seoUrls),
+                            'border-b-2 border-brand-primary font-bold':
+                                isActive(navigationElement.seoUrls) ||
+                                getTranslatedProperty(navigationElement, 'name') == 'Make-up',
                         }"
                         @click="currentMouseoverMenu = null"
                     >
                         {{ getTranslatedProperty(navigationElement, 'name') }}
                     </NuxtLink>
-
-                    <client-only>
-                        <LayoutNavigationFlyout
-                            v-if="
-                                navigationElement.children &&
-                                navigationElement.children?.length > 0 &&
-                                navigationElement.id === currentMouseoverMenu
-                            "
-                            :navigation-element="navigationElement"
-                            @close-flyout="() => (currentMouseoverMenu = null)"
-                        />
-                    </client-only>
                 </div>
             </div>
         </div>
