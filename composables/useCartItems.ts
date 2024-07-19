@@ -1,4 +1,4 @@
-import type {LineItem} from '@shopware-pwa/types';
+import type { LineItem } from '@shopware-pwa/types';
 
 export function useCartItems() {
     const getCartItemsCount = (cartItems: LineItem[]): number => {
@@ -7,5 +7,5 @@ export function useCartItems() {
         }, 0);
     };
 
-    return {getCartItemsCount};
+    return { getCartItemsCount };
 }

@@ -22,7 +22,7 @@ const isActive = (path: SeoUrl[] | null) => {
             :rel="navigationElement.externalLink || navigationElement.linkNewTab ? 'noopener noreferrer nofollow' : ''"
             :aria-label="getTranslatedProperty(navigationElement, 'name')"
             :to="getCategoryRoute(navigationElement)"
-            class="border-b-2 border-neutral-ash py-3 md:min-w-max md:border-0 md:pb-2"
+            class="border-neutral-ash border-b-2 py-3 md:min-w-max md:border-0 md:pb-2"
             :class="{
                 'font-bold md:border-b-2 md:border-brand-primary':
                     getTranslatedProperty(navigationElement, 'name') == 'Gift cards' ||
