@@ -35,7 +35,28 @@ const isActive = (path: SeoUrl[] | null) => {
                     <UtilityIcon class="w-4 cursor-pointer md:hidden" icon="bars" @click="sideMenuController.open()" />
                     <LazyLayoutSidebar v-if="sideMenuController.isOpen" :controller="sideMenuController">
                         <div class="grid gap-2 md:hidden">
-                            <LayoutNavigationItems :navigation-elements="navigationElements" />
+                            <template v-for="navigationElement in navigationElements" :key="navigationElement.id">
+                                <NuxtLink
+                                    :target="
+                                        navigationElement.externalLink || navigationElement.linkNewTab ? '_blank' : ''
+                                    "
+                                    :rel="
+                                        navigationElement.externalLink || navigationElement.linkNewTab
+                                            ? 'noopener noreferrer nofollow'
+                                            : ''
+                                    "
+                                    :aria-label="getTranslatedProperty(navigationElement, 'name')"
+                                    :to="getCategoryRoute(navigationElement)"
+                                    class="border-b-2 border-gray-light py-3 md:min-w-max md:border-0 md:pb-2"
+                                    :class="{
+                                        'font-bold md:border-b-2 md:border-brand-primary':
+                                            getTranslatedProperty(navigationElement, 'name') == 'Gift cards' ||
+                                            isActive(navigationElement.seoUrls),
+                                    }"
+                                >
+                                    {{ getTranslatedProperty(navigationElement, 'name') }}
+                                </NuxtLink>
+                            </template>
                         </div>
                     </LazyLayoutSidebar>
 
