@@ -18,7 +18,7 @@ export function useApiErrorsResolver(): UseApiErrorsResolver {
      * The api response might contain the key in form of `/firstName` or `/billingAddress/city`
      * This function transforms this into the key we hat initially had, usually the `name` attribute of the input
      */
-    function formatErrorSourcePointer(input: string | undefined): string {
+    const formatErrorSourcePointer = (input: string | undefined): string => {
         if (!input) {
             return '';
         }
@@ -36,7 +36,7 @@ export function useApiErrorsResolver(): UseApiErrorsResolver {
             // unchanged
             return input;
         }
-    }
+    };
 
     return {
         resolveApiErrors,

@@ -10,10 +10,8 @@ type FormkitLoginFields = {
 };
 
 const customerStore = useCustomerStore();
-
 const { togglePasswordVisibility } = useFormkitHelper();
 const { resolveApiErrors } = useApiErrorsResolver();
-
 const { signedIn } = storeToRefs(customerStore);
 const apiErrors = ref<ResolvedApiError[]>([]);
 
@@ -26,7 +24,10 @@ const handleLogin = async (fields: FormkitLoginFields) => {
     } catch (error) {
         if (error instanceof ApiClientError) {
             apiErrors.value = resolveApiErrors(error.details.errors, 'login');
+            return;
         }
+
+        apiErrors.value.push({ key: 'login', code: 'LOGIN_GENERAL_ERROR' });
     }
 };
 </script>
@@ -52,6 +53,7 @@ const handleLogin = async (fields: FormkitLoginFields) => {
                 {{ error.code }}
             </li>
         </ul>
+
         <FormKit
             type="email"
             label="email"
@@ -59,6 +61,7 @@ const handleLogin = async (fields: FormkitLoginFields) => {
             placeholder="quack@platsch.com"
             help="your email address"
         />
+
         <FormKit
             type="password"
             label="password"
@@ -66,6 +69,7 @@ const handleLogin = async (fields: FormkitLoginFields) => {
             suffix-icon="lock"
             @suffix-icon-click="togglePasswordVisibility"
         />
+
         <NuxtLink :to="{ name: 'account-register' }">create account here</NuxtLink>
     </FormKit>
 </template>

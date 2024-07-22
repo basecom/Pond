@@ -239,6 +239,7 @@ const classes: Record<string, Record<string, boolean>> = {
         'outline-none': true,
         'group-data-[disabled]:bg-gray-light': true,
         'group-data-[empty]:opacity-45': true,
+        'bg-white': true,
     },
     select__selectIcon: {},
     select__optGroup: {},

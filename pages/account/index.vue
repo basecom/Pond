@@ -20,5 +20,3 @@ const handleLogout = async () => {
         logout
     </FormKit>
 </template>
-
-<style scoped></style>

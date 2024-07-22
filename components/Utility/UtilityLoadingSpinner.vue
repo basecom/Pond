@@ -1,8 +1,8 @@
 <script setup lang="ts">
 withDefaults(
     defineProps<{
-        global: boolean;
-        size: 'normal' | 'small';
+        global?: boolean;
+        size?: 'normal' | 'small';
     }>(),
     {
         global: false,

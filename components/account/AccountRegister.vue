@@ -8,14 +8,12 @@ import type { Schemas } from '@shopware/api-client/api-types';
 
 const customerStore = useCustomerStore();
 const sessionContext = useSessionContext();
-
 const { getSalutations } = useSalutations();
 const { getCountries } = useCountries();
 const { resolveApiErrors } = useApiErrorsResolver();
+const { errorOfField, togglePasswordVisibility, entityArrayToOptions } = useFormkitHelper();
 const apiErrors = ref<ResolvedApiError[]>([]);
 const isLoading = ref(false);
-
-const { errorOfField, togglePasswordVisibility, entityArrayToOptions } = useFormkitHelper();
 
 const handleRegisterSubmit = async (fields: FormkitFields) => {
     isLoading.value = true;
@@ -31,7 +29,10 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
 
         if (error instanceof ApiClientError) {
             apiErrors.value = resolveApiErrors(error.details.errors);
+            return;
         }
+
+        apiErrors.value.push({ key: 'register', code: 'REGISTER_GENERAL_ERROR' });
     }
 };
 
@@ -56,9 +57,21 @@ const currentCountry = computed(() => sessionContext.countryId.value);
         :actions="false"
         @submit="handleRegisterSubmit"
     >
+        <ul
+            v-if="apiErrors.filter(error => error.key === 'register').length"
+            class="validation-errors text-status-danger"
+        >
+            <li
+                v-for="(error, index) in apiErrors.filter(error => error.key === 'register')"
+                :key="`login-error-${index}`"
+            >
+                {{ error.code }}
+            </li>
+        </ul>
         <div class="col-span-2">
             <span>your data</span>
         </div>
+
         <FormKit
             type="select"
             label="salutation"
@@ -74,6 +87,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             :options="salutationOptions"
             help="select how you would like to be addressed"
         />
+
         <FormKit
             type="text"
             label="first name"
@@ -87,6 +101,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
                 },
             }"
         />
+
         <FormKit
             type="text"
             label="last name"
@@ -95,9 +110,11 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             :errors="errorOfField('lastName', apiErrors)"
             validation="required"
         />
+
         <div class="col-span-2">
             <span>your address</span>
         </div>
+
         <FormKit
             type="group"
             name="billingAddress"
@@ -147,9 +164,11 @@ const currentCountry = computed(() => sessionContext.countryId.value);
                 }"
             />
         </FormKit>
+
         <div class="col-span-2">
             <span>your account data</span>
         </div>
+
         <FormKit
             type="email"
             label="email"
@@ -158,6 +177,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             :errors="errorOfField('email', apiErrors)"
             validation="required"
         />
+
         <FormKit
             type="password"
             label="password"
@@ -168,6 +188,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             suffix-icon="lock"
             @suffix-icon-click="togglePasswordVisibility"
         />
+
         <FormKit
             type="checkbox"
             label="Terms and Conditions"
@@ -177,6 +198,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             decorator-icon="check"
             validation="accepted"
         />
+
         <FormKit
             type="submit"
             help="You can use the label prop."
@@ -200,5 +222,3 @@ const currentCountry = computed(() => sessionContext.countryId.value);
         </FormKit>
     </FormKit>
 </template>
-
-<style scoped></style>
