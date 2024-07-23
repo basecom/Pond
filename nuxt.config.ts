@@ -33,4 +33,8 @@ export default defineNuxtConfig({
     imports: {
         dirs: ['./composables', './utils', './node_modules/@shopware-pwa/composables-next/composables'],
     },
+    components: {
+        dirs: ['~/components'],
+        global: true,
+    },
 });
