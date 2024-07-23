@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import ContentNotFound from '~/components/errors/ContentNotFound.vue';
 
 const props = defineProps<{
   navigationId: string;
@@ -28,7 +29,10 @@ const { product } = useProduct(
 </script>
 
 <template>
+  <ContentNotFound v-if="!product?.cmsPage" />
+  <template v-else>
     😱 no details <span v-if="product"> for product <i>{{ getTranslatedProperty(product, 'name') }}</i></span> at the moment
+  </template>
 
 <!-- <CmsPage :content="product.cmsPage" />-->
 </template>

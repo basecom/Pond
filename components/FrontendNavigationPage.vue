@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import ContentNotFound from '~/components/errors/ContentNotFound.vue';
 
 const props = defineProps<{
   navigationId: string;
@@ -23,6 +24,9 @@ const { category } = useCategory(categoryResponse);
 </script>
 
 <template>
-  navigation page incoming <i>{{ getTranslatedProperty(category, 'name') }}</i>
-  <!-- <CmsPage v-if="category?.cmsPage" :content="category.cmsPage" />-->
+  <ContentNotFound v-if="!category?.cmsPage" />
+  <template v-else>
+    navigation page incoming <i>{{ getTranslatedProperty(category, 'name') }}</i>
+    <!-- <CmsPage v-if="category?.cmsPage" :content="category.cmsPage" />-->
+  </template>
 </template>
