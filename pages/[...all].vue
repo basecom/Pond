@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import { pascalCase } from 'scule';
-import { useNavigationContext, useNavigationSearch } from '#imports';
-import type { Schemas } from '@shopware/api-client/api-types';
 
-const { clearBreadcrumbs } = useBreadcrumbs();
-
-const NOT_FOUND_COMPONENT = 'errors/RoutingNotFound';
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
+
 const routePath = route.path.replace('//', '/');
 
 const { data: seoResult } = await useAsyncData('cmsResponse' + routePath, async () => {
@@ -20,21 +16,15 @@ const { data: seoResult } = await useAsyncData('cmsResponse' + routePath, async 
             };
         }
     }
-    const seoUrl = await resolvePath(routePath);
-    return seoUrl;
+    return await resolvePath(routePath);
 });
 
-const { routeName, foreignKey } = useNavigationContext(seoResult as Ref<Schemas['SeoUrl']>);
+const { routeName, foreignKey } = useNavigationContext(seoResult);
 
-// const componentName = routeName.value;
 const componentName = routeName.value;
 
-onBeforeRouteLeave(() => {
-    clearBreadcrumbs();
-});
-
-function render() {
-    if (!componentName) return h('div', h(resolveComponent(pascalCase(NOT_FOUND_COMPONENT))));
+const render = () => {
+    if (!componentName) return h('template', h(resolveComponent('ErrorsRoutingNotFound')));
 
     const componentNameToResolve = pascalCase(componentName as string);
     const cmsPageView = routeName && resolveComponent(componentNameToResolve);
@@ -45,7 +35,7 @@ function render() {
         return h('div', h(cmsPageView, { navigationId: foreignKey.value }));
     }
     return h('div', {}, 'Loading...');
-}
+};
 </script>
 
 <template>

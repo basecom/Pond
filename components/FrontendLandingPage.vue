@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
-import ContentNotFound from '~/components/errors/ContentNotFound.vue';
 
 const props = defineProps<{
     navigationId: string;
@@ -13,10 +12,15 @@ const { data: landingResponse } = await useAsyncData('cmsLanding' + props.naviga
         withCmsAssociations: true,
     });
 });
+
+if (!landingResponse.value) {
+    console.error('No landing page found for navigationId: ' + props.navigationId);
+    throw new Error('No landing page found for navigationId: ' + props.navigationId);
+}
 </script>
 
 <template>
-    <ContentNotFound v-if="!landingResponse?.cmsPage" />
+    <ErrorsContentNotFound v-if="!landingResponse?.cmsPage" />
     <template v-else>
         🏗️ landing page under construction for <i>{{ getTranslatedProperty(landingResponse, 'name') }}</i>
         <!-- <CmsPage v-if="landingResponse?.cmsPage" :content="landingResponse.cmsPage" />-->
