@@ -29,6 +29,6 @@ const { category } = useCategory(categoryResponse);
     <ErrorsContentNotFound v-if="!category?.cmsPage" />
     <template v-else>
         navigation page incoming <i>{{ getTranslatedProperty(category, 'name') }}</i>
-        <!-- <CmsPage v-if="category?.cmsPage" :content="category.cmsPage" />-->
+         <CmsPage v-if="category?.cmsPage" :content="category.cmsPage" />
     </template>
 </template>
