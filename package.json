@@ -9,7 +9,10 @@
     "lint": "eslint . --fix && prettier . --write"
   },
   "dependencies": {
+    "@formkit/addons": "^1.6.5",
     "@formkit/auto-animate": "^0.8.2",
+    "@formkit/icons": "^1.6.5",
+    "@formkit/nuxt": "^1.6.5",
     "@nuxt/eslint": "^0.3.13",
     "@nuxt/fonts": "^0.7.1",
     "@nuxtjs/tailwindcss": "^6.12.0",
