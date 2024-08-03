@@ -14,11 +14,6 @@ const { data: landingResponse } = await useAsyncData('landing' + props.navigatio
 });
 
 if (!landingResponse.value) {
-    console.error('No landing page found for navigationId: ' + props.navigationId);
-    throw new Error('No landing page found for navigationId: ' + props.navigationId);
-}
-
-if (!landingResponse.value) {
   throw createError({statusCode: 404, message: 'page not found'})
 }
 </script>

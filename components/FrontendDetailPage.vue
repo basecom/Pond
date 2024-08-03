@@ -14,11 +14,6 @@ const { data: productResponse } = await useAsyncData('pdp' + props.navigationId,
 });
 
 if (!productResponse.value) {
-    console.error('No product found for navigationId: ' + props.navigationId);
-    throw new Error('No product found for navigationId: ' + props.navigationId);
-}
-
-if (!productResponse.value) {
   throw createError({statusCode: 404, message: 'page not found'})
 }
 
