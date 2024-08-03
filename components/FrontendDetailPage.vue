@@ -7,7 +7,7 @@ const props = defineProps<{
 
 const { search } = useProductSearch();
 
-const { data: productResponse } = await useAsyncData('cmsProduct' + props.navigationId, async () => {
+const { data: productResponse } = await useAsyncData('pdp' + props.navigationId, async () => {
     return await search(props.navigationId, {
         withCmsAssociations: true,
     });
@@ -16,6 +16,10 @@ const { data: productResponse } = await useAsyncData('cmsProduct' + props.naviga
 if (!productResponse.value) {
     console.error('No product found for navigationId: ' + props.navigationId);
     throw new Error('No product found for navigationId: ' + props.navigationId);
+}
+
+if (!productResponse.value) {
+  throw createError({statusCode: 404, message: 'page not found'})
 }
 
 const { product } = useProduct(productResponse.value.product, productResponse.value.configurator);

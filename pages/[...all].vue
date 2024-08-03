@@ -7,7 +7,7 @@ const route = useRoute();
 
 const routePath = route.path.replace('//', '/');
 
-const { data: seoResult } = await useAsyncData('cmsResponse' + routePath, async () => {
+const { data: seoResult } = await useAsyncData('seoPath' + routePath, async () => {
     // For client links if the history state contains seo url information we can omit the api call
     if (import.meta.client) {
         if (history.state?.routeName) {
@@ -24,17 +24,15 @@ const { data: seoResult } = await useAsyncData('cmsResponse' + routePath, async 
 const { routeName, foreignKey } = useNavigationContext(seoResult);
 const { componentExists } = useCmsUtils();
 
-const componentName = routeName.value;
-
-if (!componentName) {
+if (!routeName.value) {
   throw createError({statusCode: 404, message: 'page not found'})
 }
 </script>
 
 <template>
     <component
-      :is="pascalCase(componentName)"
-      v-if="componentExists(pascalCase(componentName))"
+      :is="pascalCase(routeName)"
+      v-if="componentExists(pascalCase(routeName))"
       :navigation-id="foreignKey"
     />
 </template>
