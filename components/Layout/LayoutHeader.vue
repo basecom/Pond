@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
-import type { SeoUrl } from '@shopware-pwa/types';
-import type { Ref } from 'vue';
+import type { Schemas } from '@shopware/api-client/api-types';
 
 const customerStore = useCustomerStore();
 const { loadNavigationElements, navigationElements } = useNavigation();
@@ -13,11 +12,10 @@ const { cartItems } = useCart();
 const { getCartItemsCount } = useCartItems();
 
 const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
-customerStore.refreshContext();
 await loadNavigationElements({ depth: 2 });
 const currentMouseoverMenu: Ref<null | string> = ref(null);
 
-const isActive = (path: SeoUrl[] | null) => {
+const isActive = (path: Schemas['SeoUrl'][] | null) => {
     if (!path) return false;
 
     const formattedPath = '/' + path[0]?.seoPathInfo;

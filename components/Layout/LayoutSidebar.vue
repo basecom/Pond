@@ -3,7 +3,7 @@ const props = withDefaults(
     defineProps<{
         controller: ReturnType<typeof useModal>;
         isClosable?: boolean;
-        side: 'left' | 'right';
+        side?: 'left' | 'right';
         additionalClasses?: string;
     }>(),
     {
@@ -18,16 +18,6 @@ const { isOpen, close } = controller.value;
 
 const sidebarContentElement = ref();
 onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
-
-const toggleOverlay = (newIsOpen: boolean) => {
-    newIsOpen
-        ? document.body?.classList.add('overflow-y-hidden')
-        : document.body?.classList.remove('overflow-y-hidden');
-};
-
-watch(isOpen, newIsOpen => {
-    toggleOverlay(newIsOpen);
-});
 </script>
 
 <template>

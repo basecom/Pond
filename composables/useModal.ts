@@ -3,13 +3,14 @@
  */
 export function useModal() {
     const isOpen = ref(false);
+    const isLocked = useScrollLock(document?.body);
 
     const open = () => {
-        isOpen.value = true;
+        isOpen.value = isLocked.value = true;
     };
 
     const close = () => {
-        isOpen.value = false;
+        isOpen.value = isLocked.value = false;
     };
 
     return {
