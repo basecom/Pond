@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { pascalCase } from 'scule';
+import { useCmsUtils } from '~/composables/cms/useCmsUtils';
 
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
@@ -16,28 +17,24 @@ const { data: seoResult } = await useAsyncData('cmsResponse' + routePath, async 
             };
         }
     }
+
     return await resolvePath(routePath);
 });
 
 const { routeName, foreignKey } = useNavigationContext(seoResult);
+const { componentExists } = useCmsUtils();
 
 const componentName = routeName.value;
 
-const render = () => {
-    if (!componentName) return h('template', h(resolveComponent('ErrorsRoutingNotFound')));
-
-    const componentNameToResolve = pascalCase(componentName as string);
-    const cmsPageView = routeName && resolveComponent(componentNameToResolve);
-
-    if (cmsPageView) {
-        if (cmsPageView === componentNameToResolve)
-            return h('div', {}, 'Problem resolving component: ' + componentName);
-        return h('div', h(cmsPageView, { navigationId: foreignKey.value }));
-    }
-    return h('div', {}, 'Loading...');
-};
+if (!componentName) {
+  throw createError({statusCode: 404, message: 'page not found'})
+}
 </script>
 
 <template>
-    <render />
+    <component
+      :is="pascalCase(componentName)"
+      v-if="componentExists(pascalCase(componentName))"
+      :navigation-id="foreignKey"
+    />
 </template>

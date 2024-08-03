@@ -22,9 +22,8 @@ const { product } = useProduct(productResponse.value.product, productResponse.va
 </script>
 
 <template>
-    <ErrorsContentNotFound v-if="!product?.cmsPage" />
-    <template v-else>
+    <div>
         😱 no details for product <i>{{ getTranslatedProperty(product, 'name') }}</i> at the moment
         <!-- <CmsPage :content="product.cmsPage" />-->
-    </template>
+    </div>
 </template>

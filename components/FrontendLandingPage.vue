@@ -20,9 +20,8 @@ if (!landingResponse.value) {
 </script>
 
 <template>
-    <ErrorsContentNotFound v-if="!landingResponse?.cmsPage" />
-    <template v-else>
+    <div>
         🏗️ landing page under construction for <i>{{ getTranslatedProperty(landingResponse, 'name') }}</i>
         <!-- <CmsPage v-if="landingResponse?.cmsPage" :content="landingResponse.cmsPage" />-->
-    </template>
+    </div>
 </template>
