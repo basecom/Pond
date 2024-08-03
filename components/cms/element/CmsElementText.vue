@@ -11,7 +11,3 @@ const props = defineProps<{
 <template>
   <div v-html="decodeHTML(props.element.data.content)"></div>
 </template>
-
-<style scoped>
-
-</style>

@@ -2,18 +2,11 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import { kebabCase } from 'scule';
 import { getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
-import { useCmsPageUniversal } from '~/composables/cms/useCmsPageUniversal';
 import { useCmsUtils } from '~/composables/cms/useCmsUtils';
 
-const props = defineProps<{
+defineProps<{
   content: Schemas["CmsSection"];
 }>();
-
-// console.log(props.content);
-
-// const { cssClasses, layoutStyles } = getCmsLayoutConfiguration(props.content);
-//
-// const {render} = useCmsPageUniversal(props.content);
 
 const { getCmsBlockComponentName, componentExists, getBlockClasses } = useCmsUtils();
 </script>
@@ -42,9 +35,4 @@ const { getCmsBlockComponentName, componentExists, getBlockClasses } = useCmsUti
       </div>
     </template>
   </div>
-<!--  <render />-->
 </template>
-
-<style scoped>
-
-</style>

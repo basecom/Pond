@@ -2,7 +2,6 @@
 import type {
   CmsElementImage,
 } from "@shopware-pwa/composables-next";
-import { useCmsElementImage, useUrlResolver } from "#imports";
 import { buildUrlPrefix } from "@shopware-pwa/helpers-next";
 import { useElementSize } from "@vueuse/core";
 
@@ -21,21 +20,10 @@ const {
   mimeType,
 } = useCmsElementImage(props.element);
 
-const DEFAULT_THUMBNAIL_SIZE = 10;
 const imageElement = ref(null);
 const { width, height } = useElementSize(imageElement);
 
-function roundUp(num: number) {
-  return num ? Math.ceil(num / 100) * 100 : DEFAULT_THUMBNAIL_SIZE;
-}
-
-const srcPath = computed(() => {
-  const biggestParam =
-    width.value > height.value
-      ? `width=${roundUp(width.value)}`
-      : `height=${roundUp(height.value)}`;
-  return `${imageAttrs.value.src}?${biggestParam}&fit=crop,smart`;
-});
+const { srcPath } = useMedia(width, height, imageAttrs)
 
 const imageComputedContainerAttrs = computed(() => {
   const imageAttrsCopy = Object.assign({}, imageContainerAttrs.value);
@@ -53,7 +41,7 @@ const imageComputedContainerAttrs = computed(() => {
   <component
     :is="imageLink.url ? 'a' : 'div'"
     v-if="imageAttrs.src"
-    class="cms-element-image relative h-full w-full"
+    class="relative h-full w-full"
     :style="containerStyle"
     v-bind="imageComputedContainerAttrs"
   >
