@@ -32,9 +32,13 @@ export default defineNuxtConfig({
         },
     },
     imports: {
-        dirs: ['./composables', './utils', './node_modules/@shopware-pwa/composables-next/composables'],
+        dirs: ['./composables/**', './utils', './node_modules/@shopware-pwa/composables-next/composables'],
     },
     formkit: {
         autoImport: true,
+    },
+    components: {
+        dirs: ['~/components'],
+        global: true,
     },
 });

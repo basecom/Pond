@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ApiClientError } from '@shopware/api-client';
-import { useApiErrorsResolver } from '~/composables/useApiErrorsResolver';
 import type { ResolvedApiError } from '~/types/errors';
 import { useFormkitHelper } from '~/composables/useFormkitHelper';
 import type { FormkitFields } from '~/types/formkit';

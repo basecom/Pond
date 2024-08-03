@@ -2,7 +2,6 @@
 import { useFormkitHelper } from '~/composables/useFormkitHelper';
 import { ApiClientError } from '@shopware/api-client';
 import type { ResolvedApiError } from '~/types/errors';
-import { useApiErrorsResolver } from '~/composables/useApiErrorsResolver';
 
 type FormkitLoginFields = {
     username: string;
