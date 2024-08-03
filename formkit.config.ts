@@ -10,7 +10,8 @@ export default {
             }
             try {
                 const iconsImport = import.meta.glob('assets/icons/**/**.svg', {
-                    as: 'raw',
+                    query: '?raw',
+                    import: 'default',
                     eager: false,
                 });
 

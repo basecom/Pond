@@ -9,7 +9,7 @@ customerStore.refreshContext();
     <NuxtRouteAnnouncer />
     <UtilityLoadingSpinner v-if="loading" />
 
-    <!-- layout header -->
+    <LayoutHeader v-show="!loading" />
 
     <main
         v-show="!loading"
