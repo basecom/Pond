@@ -17,10 +17,24 @@ const shopName = 'pond';
 </script>
 
 <template>
-    <NuxtLink :aria-label="shopName" :title="shopName" :to="withLink ? '/' : ''">
+    <NuxtLink
+        :aria-label="shopName"
+        :title="shopName"
+        :to="withLink ? '/' : ''"
+    >
         <span class="sr-only">{{ shopName }}</span>
-        <img v-if="!smallLogo" src="/logo.svg" :alt="shopName" :class="logoClasses" />
+        <img
+            v-if="!smallLogo"
+            src="/logo.svg"
+            :alt="shopName"
+            :class="logoClasses"
+        />
 
-        <img v-else src="/logo-small.svg" :alt="shopName" :class="logoClasses" />
+        <img
+            v-else
+            src="/logo-small.svg"
+            :alt="shopName"
+            :class="logoClasses"
+        />
     </NuxtLink>
 </template>

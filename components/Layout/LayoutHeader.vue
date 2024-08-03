@@ -25,15 +25,28 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
 </script>
 
 <template>
-    <header v-show="!loading" class="sticky top-0 bg-gray-light md:bg-white">
+    <header
+        v-show="!loading"
+        class="sticky top-0 bg-gray-light md:bg-white"
+    >
         <div class="container py-3 md:py-6">
             <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-3">
                     <!-- mobile menu -->
-                    <FormKitIcon icon="bars" class="w-4 cursor-pointer md:hidden" @click="sideMenuController.open()" />
-                    <LazyLayoutSidebar v-if="sideMenuController.isOpen" :controller="sideMenuController">
+                    <FormKitIcon
+                        icon="bars"
+                        class="w-4 cursor-pointer md:hidden"
+                        @click="sideMenuController.open()"
+                    />
+                    <LazyLayoutSidebar
+                        v-if="sideMenuController.isOpen"
+                        :controller="sideMenuController"
+                    >
                         <div class="grid gap-2 md:hidden">
-                            <template v-for="navigationElement in navigationElements" :key="navigationElement.id">
+                            <template
+                                v-for="navigationElement in navigationElements"
+                                :key="navigationElement.id"
+                            >
                                 <NuxtLink
                                     :target="
                                         navigationElement.externalLink || navigationElement.linkNewTab ? '_blank' : ''
@@ -63,15 +76,33 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
 
                 <div class="flex items-center gap-3">
                     <!-- wishlist -->
-                    <NuxtLink to="/wishlist" class="relative">
-                        <FormKitIcon class="block w-6 h-6" icon="heart" />
-                        <UtilityPill :number="wishlistCount" class="absolute bottom-2.5 left-3" />
+                    <NuxtLink
+                        to="/wishlist"
+                        class="relative"
+                    >
+                        <FormKitIcon
+                            class="block h-6 w-6"
+                            icon="heart"
+                        />
+                        <UtilityPill
+                            :number="wishlistCount"
+                            class="absolute bottom-2.5 left-3"
+                        />
                     </NuxtLink>
 
                     <!-- cart -->
-                    <button class="relative" @click="offcanvasCartController.open()">
-                        <FormKitIcon icon="cart-shopping" class="block w-6 h-6" />
-                        <UtilityPill :number="cartItemCount" class="absolute bottom-2.5 left-3" />
+                    <button
+                        class="relative"
+                        @click="offcanvasCartController.open()"
+                    >
+                        <FormKitIcon
+                            icon="cart-shopping"
+                            class="block h-6 w-6"
+                        />
+                        <UtilityPill
+                            :number="cartItemCount"
+                            class="absolute bottom-2.5 left-3"
+                        />
                     </button>
                     <LazyLayoutSidebar
                         v-if="offcanvasCartController.isOpen"
@@ -86,7 +117,11 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
 
         <div class="relative hidden w-screen md:block md:bg-gray-light">
             <div class="container flex gap-8 overflow-x-scroll py-4">
-                <div v-for="navigationElement in navigationElements" :key="navigationElement.id" class="min-w-max">
+                <div
+                    v-for="navigationElement in navigationElements"
+                    :key="navigationElement.id"
+                    class="min-w-max"
+                >
                     <NuxtLink
                         :target="navigationElement.externalLink || navigationElement.linkNewTab ? '_blank' : ''"
                         :rel="

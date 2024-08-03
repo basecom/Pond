@@ -33,11 +33,18 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
                 'right-0 translate-x-full': side === 'right',
             }"
         >
-            <FormKitIcon icon="xmark" class="mb-4 ml-auto w-4 h-4 block cursor-pointer" @click="controller.close()" />
+            <FormKitIcon
+                icon="xmark"
+                class="mb-4 ml-auto block h-4 w-4 cursor-pointer"
+                @click="controller.close()"
+            />
             <slot></slot>
         </div>
 
         <!-- body overlay -->
-        <div v-if="isOpen" class="fixed inset-0 z-30 h-screen w-screen bg-black/50" />
+        <div
+            v-if="isOpen"
+            class="fixed inset-0 z-30 h-screen w-screen bg-black/50"
+        />
     </Teleport>
 </template>
