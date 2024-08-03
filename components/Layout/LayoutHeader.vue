@@ -32,7 +32,7 @@ const isActive = (path: SeoUrl[] | null) => {
             <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-3">
                     <!-- mobile menu -->
-                    <UtilityIcon class="w-4 cursor-pointer md:hidden" icon="bars" @click="sideMenuController.open()" />
+                    <FormKitIcon icon="bars" class="w-4 cursor-pointer md:hidden" @click="sideMenuController.open()" />
                     <LazyLayoutSidebar v-if="sideMenuController.isOpen" :controller="sideMenuController">
                         <div class="grid gap-2 md:hidden">
                             <template v-for="navigationElement in navigationElements" :key="navigationElement.id">
@@ -66,13 +66,13 @@ const isActive = (path: SeoUrl[] | null) => {
                 <div class="flex items-center gap-3">
                     <!-- wishlist -->
                     <NuxtLink to="/wishlist" class="relative">
-                        <UtilityIcon icon="heart" />
+                        <FormKitIcon class="block w-6 h-6" icon="heart" />
                         <UtilityPill :number="wishlistCount" class="absolute bottom-2.5 left-3" />
                     </NuxtLink>
 
                     <!-- cart -->
                     <button class="relative" @click="offcanvasCartController.open()">
-                        <UtilityIcon icon="cart-shopping" />
+                        <FormKitIcon icon="cart-shopping" class="block w-6 h-6" />
                         <UtilityPill :number="cartItemCount" class="absolute bottom-2.5 left-3" />
                     </button>
                     <LazyLayoutSidebar
