@@ -10,17 +10,16 @@ export const useCmsUtils = () => {
 
     const componentExists = (componentName: string) => resolveComponent(componentName) !== componentName;
 
-
     const getSectionClasses = (section: Schemas['CmsSection']) => {
         let classes = '';
         if (section.cssClass) {
             classes += section.cssClass;
         }
-        if (section.sizingMode === "boxed") {
-            classes += " container mx-auto";
+        if (section.sizingMode === 'boxed') {
+            classes += ' container mx-auto';
         }
         return classes;
-    }
+    };
 
     const getBlockClasses = (block: Schemas['CmsBlock']) => {
         let classes = '';
@@ -28,7 +27,7 @@ export const useCmsUtils = () => {
             classes += block.cssClass;
         }
         return classes;
-    }
+    };
 
     return {
         getCmsSectionComponentName,
@@ -38,4 +37,4 @@ export const useCmsUtils = () => {
         getSectionClasses,
         getBlockClasses,
     };
-}
+};

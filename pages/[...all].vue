@@ -24,14 +24,14 @@ const { routeName, foreignKey } = useNavigationContext(seoResult);
 const { componentExists } = useCmsUtils();
 
 if (!routeName.value) {
-  throw createError({statusCode: 404, message: 'page not found'})
+    throw createError({ statusCode: 404, message: 'page not found' });
 }
 </script>
 
 <template>
     <component
-      :is="pascalCase(routeName)"
-      v-if="componentExists(pascalCase(routeName))"
-      :navigation-id="foreignKey"
+        :is="pascalCase(routeName)"
+        v-if="componentExists(pascalCase(routeName))"
+        :navigation-id="foreignKey"
     />
 </template>

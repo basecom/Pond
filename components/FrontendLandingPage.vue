@@ -14,7 +14,7 @@ const { data: landingResponse } = await useAsyncData('landing' + props.navigatio
 });
 
 if (!landingResponse.value) {
-  throw createError({statusCode: 404, message: 'page not found'})
+    throw createError({ statusCode: 404, message: 'page not found' });
 }
 </script>
 
