@@ -1,7 +1,7 @@
 import { pascalCase } from 'scule';
 import type { Schemas } from '@shopware/api-client/api-types';
 
-export function useCmsUtils() {
+export const useCmsUtils = () => {
     const getCmsSectionComponentName = (title: string) => (title ? 'CmsSection' + pascalCase(title) : '');
 
     const getCmsBlockComponentName = (title: string) => (title ? 'CmsBlock' + pascalCase(title) : '');

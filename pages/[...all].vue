@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { pascalCase } from 'scule';
-import { useCmsUtils } from '~/composables/cms/useCmsUtils';
 
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
