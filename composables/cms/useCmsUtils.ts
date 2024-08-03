@@ -12,7 +12,6 @@ export function useCmsUtils() {
 
 
     const getSectionClasses = (section: Schemas['CmsSection']) => {
-        console.log(section);
         let classes = '';
         if (section.cssClass) {
             classes += section.cssClass;
