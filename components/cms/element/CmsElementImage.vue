@@ -1,0 +1,84 @@
+<script setup lang="ts">
+import type {
+  CmsElementImage,
+} from "@shopware-pwa/composables-next";
+import { useCmsElementImage, useUrlResolver } from "#imports";
+import { buildUrlPrefix } from "@shopware-pwa/helpers-next";
+import { useElementSize } from "@vueuse/core";
+
+const props = defineProps<{
+  element: CmsElementImage;
+}>();
+
+const { getUrlPrefix } = useUrlResolver();
+const {
+  containerStyle,
+  displayMode,
+  imageContainerAttrs,
+  imageAttrs,
+  imageLink,
+  isVideoElement,
+  mimeType,
+} = useCmsElementImage(props.element);
+
+const DEFAULT_THUMBNAIL_SIZE = 10;
+const imageElement = ref(null);
+const { width, height } = useElementSize(imageElement);
+
+function roundUp(num: number) {
+  return num ? Math.ceil(num / 100) * 100 : DEFAULT_THUMBNAIL_SIZE;
+}
+
+const srcPath = computed(() => {
+  const biggestParam =
+    width.value > height.value
+      ? `width=${roundUp(width.value)}`
+      : `height=${roundUp(height.value)}`;
+  return `${imageAttrs.value.src}?${biggestParam}&fit=crop,smart`;
+});
+
+const imageComputedContainerAttrs = computed(() => {
+  const imageAttrsCopy = Object.assign({}, imageContainerAttrs.value);
+  if (imageAttrsCopy?.href) {
+    imageAttrsCopy.href = buildUrlPrefix(
+      imageAttrsCopy.href,
+      getUrlPrefix(),
+    ).path;
+  }
+  return imageAttrsCopy;
+});
+</script>
+
+<template>
+  <component
+    :is="imageLink.url ? 'a' : 'div'"
+    v-if="imageAttrs.src"
+    class="cms-element-image relative h-full w-full"
+    :style="containerStyle"
+    v-bind="imageComputedContainerAttrs"
+  >
+    <video
+      v-if="isVideoElement"
+      controls
+      :class="{
+        'h-full w-full': true,
+        'object-cover': displayMode === 'cover',
+      }"
+    >
+      <source :src="imageAttrs.src" :type="mimeType" />
+      Your browser does not support the video tag.
+    </video>
+    <img
+      v-else
+      ref="imageElement"
+      loading="lazy"
+      :class="{
+        'h-full w-full': true,
+        'object-cover': displayMode === 'cover',
+      }"
+      :alt="imageAttrs.alt"
+      :src="srcPath"
+      :srcset="imageAttrs.srcset"
+    />
+  </component>
+</template>

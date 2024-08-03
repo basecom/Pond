@@ -18,6 +18,7 @@ const { data: seoResult } = await useAsyncData('cmsResponse' + routePath, async 
     }
     return await resolvePath(routePath);
 });
+console.log(seoResult);
 
 const { routeName, foreignKey } = useNavigationContext(seoResult);
 
@@ -32,7 +33,7 @@ const render = () => {
     if (cmsPageView) {
         if (cmsPageView === componentNameToResolve)
             return h('div', {}, 'Problem resolving component: ' + componentName);
-        return h('div', h(cmsPageView, { navigationId: foreignKey.value }));
+        return h(cmsPageView, { navigationId: foreignKey.value });
     }
     return h('div', {}, 'Loading...');
 };
