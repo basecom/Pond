@@ -18,7 +18,10 @@ onMounted(async () => {
             <div class="container py-5 md:pb-5 md:pt-10">
                 <!-- footer navigation -->
                 <div class="grid gap-5 md:flex md:justify-between lg:justify-normal lg:gap-28">
-                    <template v-for="navigationElement in navigationElements" :key="navigationElement.id">
+                    <template
+                        v-for="navigationElement in navigationElements"
+                        :key="navigationElement.id"
+                    >
                         <ul class="list-none">
                             <li class="mb-1 max-w-max font-bold hover:text-brand-primary hover:underline">
                                 <NuxtLink
@@ -30,7 +33,10 @@ onMounted(async () => {
                                     {{ getTranslatedProperty(navigationElement, 'name') }}
                                 </NuxtLink>
                             </li>
-                            <li v-for="navigationChild in navigationElement.children" :key="navigationChild.id">
+                            <li
+                                v-for="navigationChild in navigationElement.children"
+                                :key="navigationChild.id"
+                            >
                                 <NuxtLink
                                     :target="navigationChild.externalLink || navigationChild.linkNewTab ? '_blank' : ''"
                                     :to="getCategoryRoute(navigationChild)"
@@ -45,7 +51,10 @@ onMounted(async () => {
 
                 <!-- footer service navigation -->
                 <div class="mt-4 grid gap-1 border-t-2 border-white pt-4 md:flex md:gap-6">
-                    <template v-for="navigationElement in serviceNavigationElements" :key="navigationElement.id">
+                    <template
+                        v-for="navigationElement in serviceNavigationElements"
+                        :key="navigationElement.id"
+                    >
                         <NuxtLink
                             :target="navigationElement.externalLink || navigationElement.linkNewTab ? '_blank' : ''"
                             :to="getCategoryRoute(navigationElement)"

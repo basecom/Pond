@@ -9,6 +9,7 @@ export default defineNuxtConfig({
         'radix-vue/nuxt',
         '@nuxt/eslint',
         '@nuxt/fonts',
+        '@formkit/nuxt',
     ],
     experimental: {
         asyncContext: true,
@@ -32,6 +33,9 @@ export default defineNuxtConfig({
     },
     imports: {
         dirs: ['./composables', './utils', './node_modules/@shopware-pwa/composables-next/composables'],
+    },
+    formkit: {
+        autoImport: true,
     },
     components: {
         dirs: ['~/components'],
