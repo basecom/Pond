@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
-
 const props = defineProps<{
     navigationId: string;
 }>();
@@ -26,7 +24,9 @@ const { category } = useCategory(categoryResponse);
 
 <template>
     <div>
-        navigation page incoming <i>{{ getTranslatedProperty(category, 'name') }}</i>
-        <!-- <CmsPage v-if="category?.cmsPage" :content="category.cmsPage" />-->
+        <CmsPage
+            v-if="category?.cmsPage"
+            :content="category.cmsPage"
+        />
     </div>
 </template>
