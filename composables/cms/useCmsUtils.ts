@@ -1,7 +1,7 @@
 import { pascalCase } from 'scule';
 import type { Schemas } from '@shopware/api-client/api-types';
 
-export function useCmsUtils() {
+export const useCmsUtils = () => {
     const getCmsSectionComponentName = (title: string) => (title ? 'CmsSection' + pascalCase(title) : '');
 
     const getCmsBlockComponentName = (title: string) => (title ? 'CmsBlock' + pascalCase(title) : '');
@@ -10,18 +10,16 @@ export function useCmsUtils() {
 
     const componentExists = (componentName: string) => resolveComponent(componentName) !== componentName;
 
-
     const getSectionClasses = (section: Schemas['CmsSection']) => {
-        console.log(section);
         let classes = '';
         if (section.cssClass) {
             classes += section.cssClass;
         }
-        if (section.sizingMode === "boxed") {
-            classes += " container mx-auto";
+        if (section.sizingMode === 'boxed') {
+            classes += ' container mx-auto';
         }
         return classes;
-    }
+    };
 
     const getBlockClasses = (block: Schemas['CmsBlock']) => {
         let classes = '';
@@ -29,7 +27,7 @@ export function useCmsUtils() {
             classes += block.cssClass;
         }
         return classes;
-    }
+    };
 
     return {
         getCmsSectionComponentName,
@@ -39,4 +37,4 @@ export function useCmsUtils() {
         getSectionClasses,
         getBlockClasses,
     };
-}
+};

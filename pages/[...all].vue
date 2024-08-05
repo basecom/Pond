@@ -6,7 +6,7 @@ const route = useRoute();
 
 const routePath = route.path.replace('//', '/');
 
-const { data: seoResult } = await useAsyncData('cmsResponse' + routePath, async () => {
+const { data: seoResult } = await useAsyncData('seoPath' + routePath, async () => {
     // For client links if the history state contains seo url information we can omit the api call
     if (import.meta.client) {
         if (history.state?.routeName) {
@@ -16,29 +16,22 @@ const { data: seoResult } = await useAsyncData('cmsResponse' + routePath, async 
             };
         }
     }
+
     return await resolvePath(routePath);
 });
-console.log(seoResult);
 
 const { routeName, foreignKey } = useNavigationContext(seoResult);
+const { componentExists } = useCmsUtils();
 
-const componentName = routeName.value;
-
-const render = () => {
-    if (!componentName) return h('template', h(resolveComponent('ErrorsRoutingNotFound')));
-
-    const componentNameToResolve = pascalCase(componentName as string);
-    const cmsPageView = routeName && resolveComponent(componentNameToResolve);
-
-    if (cmsPageView) {
-        if (cmsPageView === componentNameToResolve)
-            return h('div', {}, 'Problem resolving component: ' + componentName);
-        return h(cmsPageView, { navigationId: foreignKey.value });
-    }
-    return h('div', {}, 'Loading...');
-};
+if (!routeName.value) {
+    throw createError({ statusCode: 404, message: 'page not found' });
+}
 </script>
 
 <template>
-    <render />
+    <component
+        :is="pascalCase(routeName)"
+        v-if="componentExists(pascalCase(routeName))"
+        :navigation-id="foreignKey"
+    />
 </template>

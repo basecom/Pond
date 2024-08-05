@@ -8,7 +8,7 @@ const props = defineProps<{
 const { search } = useCategorySearch();
 const route = useRoute();
 
-const { data: categoryResponse } = await useAsyncData('cmsNavigation' + props.navigationId, async () => {
+const { data: categoryResponse } = await useAsyncData('navigation' + props.navigationId, async () => {
     return await search(props.navigationId, {
         withCmsAssociations: true,
         query: {
@@ -18,17 +18,15 @@ const { data: categoryResponse } = await useAsyncData('cmsNavigation' + props.na
 });
 
 if (!categoryResponse.value) {
-    console.error('No category found for navigationId: ' + props.navigationId);
-    throw new Error('No category found for navigationId: ' + props.navigationId);
+    throw createError({ statusCode: 404, message: 'page not found' });
 }
 
 const { category } = useCategory(categoryResponse);
 </script>
 
 <template>
-    <ErrorsContentNotFound v-if="!category?.cmsPage" />
-    <template v-else>
+    <div>
         navigation page incoming <i>{{ getTranslatedProperty(category, 'name') }}</i>
-         <CmsPage v-if="category?.cmsPage" :content="category.cmsPage" />
-    </template>
+        <!-- <CmsPage v-if="category?.cmsPage" :content="category.cmsPage" />-->
+    </div>
 </template>
