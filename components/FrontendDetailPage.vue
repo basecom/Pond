@@ -19,7 +19,8 @@ const { product } = useProduct(productResponse.value.product, productResponse.va
 </script>
 
 <template>
-    <div>
-        <CmsPage :content="product.cmsPage" />
-    </div>
+    <CmsPage
+      v-if="product?.cmsPage"
+      :content="product.cmsPage"
+    />
 </template>

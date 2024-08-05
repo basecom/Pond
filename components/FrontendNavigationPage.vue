@@ -23,10 +23,8 @@ const { category } = useCategory(categoryResponse);
 </script>
 
 <template>
-    <div>
-        <CmsPage
-            v-if="category?.cmsPage"
-            :content="category.cmsPage"
-        />
-    </div>
+    <CmsPage
+        v-if="category?.cmsPage"
+        :content="category.cmsPage"
+    />
 </template>

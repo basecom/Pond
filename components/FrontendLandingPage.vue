@@ -17,10 +17,8 @@ if (!landingResponse.value) {
 </script>
 
 <template>
-    <div>
-        <CmsPage
-            v-if="landingResponse?.cmsPage"
-            :content="landingResponse.cmsPage"
-        />
-    </div>
+    <CmsPage
+        v-if="landingResponse?.cmsPage"
+        :content="landingResponse.cmsPage"
+    />
 </template>
