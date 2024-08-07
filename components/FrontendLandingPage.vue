@@ -19,6 +19,6 @@ if (!landingResponse.value) {
 <template>
     <CmsPage
         v-if="landingResponse?.cmsPage"
-        :content="landingResponse.cmsPage"
+        :cms-page="landingResponse.cmsPage"
     />
 </template>

@@ -4,10 +4,10 @@ import { kebabCase } from 'scule';
 import { useCmsUtils } from '~/composables/cms/useCmsUtils';
 
 const props = defineProps<{
-    slots: object;
+    block: Schemas['CmsBlock'];
 }>();
 
-const { getSlotContent } = useCmsBlock(props.slots);
+const { getSlotContent } = useCmsBlock(props.block);
 
 const leftContent: Schemas['CmsSlot'] = getSlotContent('left');
 const rightContent: Schemas['CmsSlot'] = getSlotContent('right');
@@ -16,7 +16,7 @@ const { getCmsElementComponentName, componentExists } = useCmsUtils();
 </script>
 
 <template>
-    <div class="grid grid-cols-1 gap-4 py-4 md:grid-cols-2">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <component
             :is="getCmsElementComponentName(leftContent.type)"
             v-if="componentExists(getCmsElementComponentName(leftContent.type))"

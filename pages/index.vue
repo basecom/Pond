@@ -5,7 +5,7 @@ const { resolvePath } = useNavigationSearch();
 const route = useRoute();
 
 const { refreshSessionContext } = useSessionContext();
-await refreshSessionContext()
+await refreshSessionContext();
 const routePath = route.path.replace('//', '/');
 
 const { data: seoResult } = await useAsyncData('seoPath' + routePath, async () => {

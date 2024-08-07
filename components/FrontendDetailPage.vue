@@ -20,7 +20,7 @@ const { product } = useProduct(productResponse.value.product, productResponse.va
 
 <template>
     <CmsPage
-      v-if="product?.cmsPage"
-      :content="product.cmsPage"
+        v-if="product?.cmsPage"
+        :cms-page="product.cmsPage"
     />
 </template>

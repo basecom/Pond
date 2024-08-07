@@ -5,7 +5,7 @@ import { getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
 import { useCmsUtils } from '~/composables/cms/useCmsUtils';
 
 defineProps<{
-    content: Schemas['CmsSection'];
+    section: Schemas['CmsSection'];
 }>();
 
 const { getCmsBlockComponentName, componentExists, getBlockClasses } = useCmsUtils();
@@ -14,14 +14,14 @@ const { getCmsBlockComponentName, componentExists, getBlockClasses } = useCmsUti
 <template>
     <div>
         <template
-            v-for="block in content.blocks"
+            v-for="block in section.blocks"
             :key="block.id"
         >
             <component
                 :is="getCmsBlockComponentName(block.type)"
                 v-if="componentExists(getCmsBlockComponentName(block.type))"
                 :id="block.id"
-                :slots="block"
+                :block="block"
                 :class="[
                     'cms-block',
                     `cms-block-${kebabCase(block.type)}`,

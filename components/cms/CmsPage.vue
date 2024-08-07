@@ -4,7 +4,7 @@ import { useCmsUtils } from '~/composables/cms/useCmsUtils';
 import { getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
 
 defineProps<{
-    content: Schemas['CmsPage'];
+    cmsPage: Schemas['CmsPage'];
 }>();
 
 const { routeName } = useNavigationContext();
@@ -18,21 +18,23 @@ const { getCmsSectionComponentName, componentExists, getSectionClasses } = useCm
 <template>
     <div class="cms-page">
         <template
-            v-for="section in content.sections"
+            v-for="section in cmsPage.sections"
             :key="section.id"
         >
-            <component
-                :is="getCmsSectionComponentName(section.type)"
-                v-if="componentExists(getCmsSectionComponentName(section.type))"
-                :content="section"
-                :class="[
-                    'cms-section',
-                    `cms-section-${section.type}`,
-                    getSectionClasses(section),
-                    getCmsLayoutConfiguration(section).cssClasses,
-                ]"
-                :style="getCmsLayoutConfiguration(section).layoutStyles"
-            />
+            <div :style="getCmsLayoutConfiguration(section).layoutStyles">
+                <component
+                    :is="getCmsSectionComponentName(section.type)"
+                    v-if="componentExists(getCmsSectionComponentName(section.type))"
+                    :section="section"
+                    :class="[
+                        'cms-section',
+                        `cms-section-${section.type}`,
+                        getSectionClasses(section),
+                        getCmsLayoutConfiguration(section).cssClasses,
+                    ]"
+                    :style="section.sizingMode !== 'boxed' ? getCmsLayoutConfiguration(section).layoutStyles : null"
+                />
+            </div>
         </template>
     </div>
 </template>

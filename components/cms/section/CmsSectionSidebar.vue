@@ -5,9 +5,9 @@ import { getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
 import { useCmsUtils } from '~/composables/cms/useCmsUtils';
 
 const props = defineProps<{
-    content: Schemas['CmsSection'];
+    section: Schemas['CmsSection'];
 }>();
-const { getPositionContent } = useCmsSection(props.content);
+const { getPositionContent } = useCmsSection(props.section);
 
 const sidebarBlocks = getPositionContent('sidebar');
 const mainBlocks = getPositionContent('main');

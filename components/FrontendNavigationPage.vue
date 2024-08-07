@@ -25,6 +25,6 @@ const { category } = useCategory(categoryResponse);
 <template>
     <CmsPage
         v-if="category?.cmsPage"
-        :content="category.cmsPage"
+        :cms-page="category.cmsPage"
     />
 </template>
