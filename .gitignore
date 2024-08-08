@@ -17,7 +17,6 @@ logs
 .DS_Store
 .fleet
 .idea
-bun.lockb
 
 # Local env files
 .env
