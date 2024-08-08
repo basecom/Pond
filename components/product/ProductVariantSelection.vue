@@ -6,17 +6,20 @@ const props = defineProps<{
     product: Schemas['Product'];
 }>();
 
+const { handleChange, getOptionGroups, getSelectedOptions, findVariantForSelectedOptions } = useProductConfigurator();
 const isLoading = ref(false);
 
 const isSelectedOption = (optionId: string) => Object.values(getSelectedOptions.value).includes(optionId);
+
+const selectedOption = (group: Schemas['PropertyGroup']) => group?.options?.find(option => isSelectedOption(option.id));
 
 const getSelectedOptionClasses = (id: string) => {
     if (props.product.optionIds?.includes(id)) {
         return 'text-white hover:text-white hover:bg-brand-primary-dark border-brand-primary bg-brand-primary';
     }
+
     return '';
 };
-const { handleChange, getOptionGroups, getSelectedOptions, findVariantForSelectedOptions } = useProductConfigurator();
 
 const handleChangeVariant = async () => {
     isLoading.value = true;
@@ -32,8 +35,6 @@ const handleChangeVariant = async () => {
     }
     isLoading.value = false;
 };
-
-const selectedOption = (group: Schemas['PropertyGroup']) => group?.options?.find(option => isSelectedOption(option.id));
 </script>
 
 <template>
@@ -43,12 +44,12 @@ const selectedOption = (group: Schemas['PropertyGroup']) => group?.options?.find
         class="w-full"
     >
         <div class="mb-2 flex gap-4 bg-gray-light px-4 py-2 text-lg">
-            <div class="font-bold">
+            <span class="font-bold">
                 {{ getTranslatedProperty(group, 'name') }}
-            </div>
-            <div>
+            </span>
+            <span>
                 {{ getTranslatedProperty(selectedOption(group), 'name') }}
-            </div>
+            </span>
         </div>
         <div class="grid grid-cols-8 gap-2">
             <template
@@ -97,7 +98,11 @@ const selectedOption = (group: Schemas['PropertyGroup']) => group?.options?.find
                 >
                     <img
                         :src="option.media.url"
-                        :alt="getTranslatedProperty(option.media, 'alt') ?? getTranslatedProperty(option.media, 'title') ?? option.media.fileName"
+                        :alt="
+                            getTranslatedProperty(option.media, 'alt') ??
+                            getTranslatedProperty(option.media, 'title') ??
+                            option.media.fileName
+                        "
                         class="rounded-full"
                     />
                 </FormKit>

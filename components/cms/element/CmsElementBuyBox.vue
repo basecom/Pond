@@ -10,7 +10,6 @@ const { product } = useProduct(props.element.data.product);
 
 <template>
     <div class="relative flex flex-wrap justify-between gap-6">
-        <!-- Variant Selection here -->
         <ProductVariantSelection :product="product" />
 
         <SharedPrice :product="product" />
