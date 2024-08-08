@@ -8,12 +8,14 @@ const props = defineProps<{
 const { getSlotContent } = useCmsBlock(props.block);
 
 const leftContent: Schemas['CmsSlot'] = getSlotContent('left');
+const centerContent: Schemas['CmsSlot'] = getSlotContent('center');
 const rightContent: Schemas['CmsSlot'] = getSlotContent('right');
 </script>
 
 <template>
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <div class="grid gap-4 md:grid-cols-3">
         <CmsLoader :content="leftContent" />
+        <CmsLoader :content="centerContent" />
         <CmsLoader :content="rightContent" />
     </div>
 </template>
