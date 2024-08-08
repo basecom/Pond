@@ -3,15 +3,10 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import { getProductRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 const props = defineProps<{
-  // propertyGroups: Schemas["PropertyGroup"][];
   product: Schemas["Product"];
 }>();
-// const { configurator: propertyGroups, changeVariant } = useProduct(props.product)
 
-// const isLoading = ref(false);
-// const isSelectedOption = (id: string) => {
-//   return props.product.optionIds?.includes(id);
-// }
+const isLoading = ref(false);
 const isSelectedOption = (optionId: string) => Object.values(getSelectedOptions.value).includes(optionId);
 const getSelectedOptionClasses = (id: string) => {
   if (props.product.optionIds?.includes(id)) {
@@ -19,9 +14,10 @@ const getSelectedOptionClasses = (id: string) => {
   }
   return '';
 }
-const { handleChange, getOptionGroups, getSelectedOptions, findVariantForSelectedOptions, isLoadingOptions } = useProductConfigurator();
+const { handleChange, getOptionGroups, getSelectedOptions, findVariantForSelectedOptions } = useProductConfigurator();
 
 const handleChangeVariant = async () => {
+  isLoading.value = true;
   const variantFound = await findVariantForSelectedOptions(getSelectedOptions.value);
 
   const selectedOptionsVariantPath = getProductRoute(variantFound);
@@ -32,15 +28,21 @@ const handleChangeVariant = async () => {
       console.error('could not redirect');
     }
   }
+  isLoading.value = false;
 }
 
-const selectedOption = (group) => group.options.find(option => isSelectedOption(option.id))
+const selectedOption = (group: Schemas["PropertyGroup"]) => group?.options?.find(option => isSelectedOption(option.id))
 </script>
 
 <template>
   <div
-    class="block w-full"
+    class="block w-full relative"
+    :class="{ 'opacity-75 pointer-events-none !cursor-not-allowed': isLoading }"
   >
+    <UtilityLoadingSpinner
+      v-if="isLoading"
+      size="small"
+    />
     <div
       v-for="group in getOptionGroups"
       :key="`group_${group.id}`"
