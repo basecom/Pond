@@ -55,35 +55,52 @@ const selectedOption = (group: Schemas['PropertyGroup']) => group?.options?.find
                 v-for="option in group.options"
                 :key="`option_${option.id}`"
             >
-                <div
+                <FormKit
                     v-if="option.colorHexCode"
                     type="button"
-                    :aria-label="getTranslatedProperty(option, 'name')"
-                    class="col-span-1 aspect-square h-10 rounded-full border-2"
-                    :class="[isSelectedOption(option.id) ? 'border-brand-primary p-1' : 'border-gray-light']"
+                    :label="getTranslatedProperty(option, 'name')"
+                    :classes="{
+                        input: {
+                            $reset: true,
+                            'w-full h-full rounded-full text-transparent': true,
+                        },
+                        wrapper: {
+                            'border-2 rounded-full h-10 aspect-square': true,
+                            'border-brand-primary p-1': isSelectedOption(option.id),
+                            'border-gray-light': !isSelectedOption(option.id),
+                        },
+                        outer: 'col-span-1',
+                    }"
+                    :style="`background-color: ${option.colorHexCode}`"
+                    :name="`option_${option.id}`"
                     @click="handleChange(group.name, option.id, handleChangeVariant)"
-                >
-                    <button
-                        class="h-full w-full rounded-full"
-                        :style="`background-color: ${option.colorHexCode}`"
-                    ></button>
-                </div>
-                <div
+                ></FormKit>
+                <FormKit
                     v-else-if="option.media"
                     type="button"
-                    :aria-label="getTranslatedProperty(option, 'name')"
-                    class="col-span-1 aspect-square h-10 rounded-full border-2"
-                    :class="[isSelectedOption(option.id) ? 'border-brand-primary p-1' : 'border-gray-light']"
+                    :label="getTranslatedProperty(option, 'name')"
+                    :classes="{
+                        input: {
+                            $reset: true,
+                            'w-full h-full rounded-full': true,
+                        },
+                        wrapper: {
+                            'border-2 rounded-full h-10 aspect-square': true,
+                            'border-brand-primary p-1': isSelectedOption(option.id),
+                            'border-gray-light': !isSelectedOption(option.id),
+                        },
+                        outer: 'col-span-1',
+                    }"
+                    :style="`background-color: ${option.colorHexCode}`"
+                    :name="`option_${option.id}`"
                     @click="handleChange(group.name, option.id, handleChangeVariant)"
                 >
-                    <button class="h-full w-full rounded-full">
-                        <img
-                            :src="option.media.url"
-                            alt=""
-                            class="rounded-full"
-                        />
-                    </button>
-                </div>
+                    <img
+                        :src="option.media.url"
+                        :alt="getTranslatedProperty(option.media, 'alt') ?? getTranslatedProperty(option.media, 'title') ?? option.media.fileName"
+                        class="rounded-full"
+                    />
+                </FormKit>
                 <FormKit
                     v-else
                     type="button"
@@ -92,6 +109,7 @@ const selectedOption = (group: Schemas['PropertyGroup']) => group?.options?.find
                         input: getSelectedOptionClasses(option.id),
                         outer: 'col-span-2',
                     }"
+                    :name="`option_${option.id}`"
                     @click="handleChange(group.name, option.id, handleChangeVariant)"
                 />
             </template>
