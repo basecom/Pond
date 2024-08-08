@@ -6,29 +6,32 @@ const { sessionContext } = useSessionContext();
 const props = defineProps<{
   element: CmsElementBuyBox;
 }>();
-const { product } = useProduct(props.element.data.product)
-
+const { product, configurator } = useProduct(props.element.data.product)
+// console.log(product, configurator);
 </script>
 
 <template>
 <div class="flex  flex-wrap justify-between gap-4">
   <!-- Variant Selection here -->
+  <ProductVariantSelection
+    :product="product"
+  />
 
   <SharedPrice
     :product="product"
   />
 
-  <div
-    class="flex gap-2 text-status-info"
-  >
-    <FormKitIcon icon="truck-fast" class="w-6 h-6 block"/>
-    <span v-if="product.shippingFree">
-      free shipping
-    </span>
-    <span v-else-if="sessionContext.shippingMethod">
-      {{ sessionContext.shippingMethod.deliveryTime.name }}
-    </span>
-  </div>
+<!--  <div-->
+<!--    class="flex gap-2 text-status-info"-->
+<!--  >-->
+<!--    <FormKitIcon icon="truck-fast" class="w-6 h-6 block"/>-->
+<!--    <span v-if="product.shippingFree">-->
+<!--      free shipping-->
+<!--    </span>-->
+<!--    <span v-else-if="sessionContext.shippingMethod">-->
+<!--      {{ sessionContext.shippingMethod.deliveryTime.name }}-->
+<!--    </span>-->
+<!--  </div>-->
 
   <SharedProductAddToCart :product="product" />
 </div>
