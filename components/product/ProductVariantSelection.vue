@@ -42,7 +42,7 @@ const selectedOption = (group: Schemas['PropertyGroup']) => group?.options?.find
         :key="`group_${group.id}`"
         class="w-full"
     >
-        <div class="bg-gray-light text-lg mb-2 px-4 py-2 flex gap-4">
+        <div class="mb-2 flex gap-4 bg-gray-light px-4 py-2 text-lg">
             <div class="font-bold">
                 {{ getTranslatedProperty(group, 'name') }}
             </div>
@@ -59,7 +59,7 @@ const selectedOption = (group: Schemas['PropertyGroup']) => group?.options?.find
                     v-if="option.colorHexCode"
                     type="button"
                     :aria-label="getTranslatedProperty(option, 'name')"
-                    class="aspect-square h-10 rounded-full border-2 col-span-1"
+                    class="col-span-1 aspect-square h-10 rounded-full border-2"
                     :class="[isSelectedOption(option.id) ? 'border-brand-primary p-1' : 'border-gray-light']"
                     @click="handleChange(group.name, option.id, handleChangeVariant)"
                 >
@@ -72,7 +72,7 @@ const selectedOption = (group: Schemas['PropertyGroup']) => group?.options?.find
                     v-else-if="option.media"
                     type="button"
                     :aria-label="getTranslatedProperty(option, 'name')"
-                    class="aspect-square h-10 rounded-full border-2 col-span-1"
+                    class="col-span-1 aspect-square h-10 rounded-full border-2"
                     :class="[isSelectedOption(option.id) ? 'border-brand-primary p-1' : 'border-gray-light']"
                     @click="handleChange(group.name, option.id, handleChangeVariant)"
                 >
@@ -90,7 +90,7 @@ const selectedOption = (group: Schemas['PropertyGroup']) => group?.options?.find
                     :label="getTranslatedProperty(option, 'name')"
                     :classes="{
                         input: getSelectedOptionClasses(option.id),
-                        outer: 'col-span-2'
+                        outer: 'col-span-2',
                     }"
                     @click="handleChange(group.name, option.id, handleChangeVariant)"
                 />

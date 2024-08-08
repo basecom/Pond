@@ -9,7 +9,7 @@ const { product } = useProduct(props.element.data.product);
 </script>
 
 <template>
-    <div class="flex flex-wrap justify-between gap-6 relative">
+    <div class="relative flex flex-wrap justify-between gap-6">
         <!-- Variant Selection here -->
         <ProductVariantSelection :product="product" />
 

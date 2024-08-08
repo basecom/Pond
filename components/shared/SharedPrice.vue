@@ -15,8 +15,7 @@ const props = withDefaults(
 
 const product = ref(props.product);
 
-const { price, unitPrice, isListPrice } = useProductPrice(product);
-const listPriceClasses = computed(() => 'text-xs');
+const { price, unitPrice, isListPrice, referencePrice } = useProductPrice(product);
 </script>
 
 <template>
@@ -33,10 +32,7 @@ const listPriceClasses = computed(() => 'text-xs');
             </span>
 
             <template v-if="isListPrice">
-                <span
-                    :class="listPriceClasses"
-                    class="line-through"
-                >
+                <span class="text-xs line-through">
                     {{ getFormattedPrice(price?.listPrice.price) }}
 
                     <template v-if="listPriceDisplay === 'percentage'">
@@ -49,6 +45,14 @@ const listPriceClasses = computed(() => 'text-xs');
                 </span>
             </template>
         </p>
-        <p class="w-full text-xs">vat info</p>
+        <p
+            v-if="referencePrice"
+            class="w-full text-xs text-gray"
+        >
+            {{ referencePrice.purchaseUnit }} {{ referencePrice.unitName }} ({{
+                getFormattedPrice(referencePrice.price)
+            }}/{{ referencePrice.referenceUnit }} {{ referencePrice.unitName }})
+        </p>
+        <p class="w-full text-xs text-gray">vat info</p>
     </div>
 </template>
