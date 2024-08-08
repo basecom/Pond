@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const { getFormattedPrice } = usePrice();
-
 const props = withDefaults(
     defineProps<{
         product: Schemas['Product'];
@@ -15,6 +13,7 @@ const props = withDefaults(
 
 const product = ref(props.product);
 
+const { getFormattedPrice } = usePrice();
 const { price, unitPrice, isListPrice, referencePrice } = useProductPrice(product);
 </script>
 

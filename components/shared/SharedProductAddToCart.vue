@@ -10,8 +10,8 @@ type FormkitQuantityFields = {
 const props = defineProps<{
     product: Schemas['Product'];
 }>();
-const { product } = useProduct(props.product);
 
+const { product } = useProduct(props.product);
 const { addToCart, quantity } = useAddToCart(product);
 const { resolveApiErrors } = useApiErrorsResolver();
 const apiErrors = ref<ResolvedApiError[]>([]);
