@@ -58,5 +58,3 @@ const { getCmsBlockComponentName, componentExists } = useCmsUtils();
         </div>
     </div>
 </template>
-
-<style scoped></style>
