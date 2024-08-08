@@ -4,7 +4,7 @@ import type { ResolvedApiError } from '~/types/errors';
 import type { Schemas } from '@shopware/api-client/api-types';
 
 type FormkitQuantityFields = {
-  quantity: string;
+    quantity: string;
 };
 
 const props = defineProps<{
@@ -71,6 +71,6 @@ const handleAddToCart = async (fields: FormkitQuantityFields) => {
             icon="info"
             class="block h-5 w-5"
         />
-        <span> product temporarily not available </span>
+        <span> product currently not available </span>
     </div>
 </template>
