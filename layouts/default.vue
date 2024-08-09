@@ -13,7 +13,7 @@ customerStore.refreshContext();
 
     <main
         v-show="!loading"
-        class="container mt-4"
+        class="mt-4"
     >
         <NuxtPage />
     </main>

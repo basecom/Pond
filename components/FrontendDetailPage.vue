@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
-
 const props = defineProps<{
     navigationId: string;
 }>();
@@ -21,8 +19,8 @@ const { product } = useProduct(productResponse.value.product, productResponse.va
 </script>
 
 <template>
-    <div>
-        😱 no details for product <i>{{ getTranslatedProperty(product, 'name') }}</i> at the moment
-        <!-- <CmsPage :content="product.cmsPage" />-->
-    </div>
+    <CmsPage
+        v-if="product?.cmsPage"
+        :cms-page="product.cmsPage"
+    />
 </template>

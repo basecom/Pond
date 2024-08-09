@@ -27,7 +27,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
 <template>
     <header
         v-show="!loading"
-        class="sticky top-0 bg-gray-light md:bg-white"
+        class="sticky top-0 z-10 bg-gray-light md:bg-white"
     >
         <div class="container py-3 md:py-6">
             <div class="flex items-center justify-between gap-2">
