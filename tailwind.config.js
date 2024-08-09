@@ -36,6 +36,9 @@ export default {
             boxShadow: {
                 'header-flyout': '0px 3px 7px -2px rgba(35, 35, 35, 0.10)',
             },
+            gridTemplateColumns: {
+                '2/3': 'minmax(0, 4fr) minmax(0, 8fr)',
+            },
         },
         container: {
             center: true,
