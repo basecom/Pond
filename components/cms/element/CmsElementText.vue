@@ -8,5 +8,5 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div v-html="decodeHTML(props.element.data.content)" />
+    <div v-html="decodeHTML(props.element.data.content)" />
 </template>
