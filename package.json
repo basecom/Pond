@@ -25,7 +25,6 @@
     "eslint-config-prettier": "^9.1.0",
     "nuxt": "^3.12.2",
     "radix-vue": "^1.8.5",
-    "sanitize-html": "^2.13.0",
     "vue": "^3.4.30",
     "vue-router": "^4.4.0"
   },
