@@ -58,6 +58,7 @@ const handleChangeVariant = async () => {
             >
                 <FormKit
                     v-if="option.colorHexCode"
+                    :id="`option_${option.id}`"
                     type="button"
                     :label="getTranslatedProperty(option, 'name')"
                     :classes="{
@@ -78,6 +79,7 @@ const handleChangeVariant = async () => {
                 ></FormKit>
                 <FormKit
                     v-else-if="option.media"
+                    :id="`option_${option.id}`"
                     type="button"
                     :label="getTranslatedProperty(option, 'name')"
                     :classes="{
@@ -108,6 +110,7 @@ const handleChangeVariant = async () => {
                 </FormKit>
                 <FormKit
                     v-else
+                    :id="`option_${option.id}`"
                     type="button"
                     :label="getTranslatedProperty(option, 'name')"
                     :classes="{

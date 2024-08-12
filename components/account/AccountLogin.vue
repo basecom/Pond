@@ -32,7 +32,6 @@ const handleLogin = async (fields: FormkitLoginFields) => {
 </script>
 
 <template>
-    {{ signedIn }}
     <FormKit
         v-if="!signedIn"
         type="form"
