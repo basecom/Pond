@@ -7,7 +7,7 @@
 }
 
 svg {
-    @apply fill-current
+    @apply fill-current w-full h-full
 }
 
 hr {

@@ -4,12 +4,13 @@ import type { Schemas } from '@shopware/api-client/api-types';
 
 const customerStore = useCustomerStore();
 const { loadNavigationElements, navigationElements } = useNavigation();
-const { loading } = storeToRefs(customerStore);
+const { loading, signedIn } = storeToRefs(customerStore);
 const sideMenuController = useModal();
 const offcanvasCartController = useModal();
 const { count: wishlistCount } = useWishlist();
 const { cartItems } = useCart();
 const { getCartItemsCount } = useCartItems();
+const modalController = useModal();
 
 const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
 await loadNavigationElements({ depth: 2 });
@@ -89,6 +90,23 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                             class="absolute bottom-2.5 left-3"
                         />
                     </NuxtLink>
+
+                    <!-- account -->
+                    <FormKitIcon
+                        class="block h-6 w-6"
+                        icon="user"
+                        @click="signedIn ? navigateTo('/account') : modalController.open()"
+                    />
+                    <LazySharedModal
+                      v-if="!signedIn"
+                      :controller="modalController"
+                      :with-close-button="true"
+                    >
+                        <template #title>Login</template>
+                        <template #content>
+                            <AccountLogin />
+                        </template>
+                    </LazySharedModal>
 
                     <!-- cart -->
                     <button
