@@ -5,10 +5,12 @@ const props = withDefaults(
     withCloseButton?: boolean;
     withActions?: boolean;
     submitAction?: () => void;
+    size?: 'sm'|'md'|'lg';
   }>(), {
     withCloseButton: false,
     withActions: false,
-    submitAction: null,
+    submitAction: () => {},
+    size: 'md'
   }
 );
 
@@ -40,7 +42,7 @@ onClickOutside(modalContentElement, () => close());
         class="fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-50"
       >
         <div
-          class="flex items-center justify-center"
+          class="flex items-center justify-center pt-12 px-4"
         >
           <Transition
             enter-active-class="transition ease-out duration-1000 transform "
@@ -55,6 +57,11 @@ onClickOutside(modalContentElement, () => close());
               id="modal-content"
               ref="modalContentElement"
               class="bg-white rounded-lg text-left overflow-hidden shadow-xl min-w-96"
+              :class=" {
+                  'w-80': size === 'sm',
+                  'w-128': size === 'md',
+                  'w-2/3': size === 'lg'
+              }"
               role="dialog"
               aria-modal="true"
               aria-labelledby="modal-headline"

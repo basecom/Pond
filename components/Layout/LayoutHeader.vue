@@ -96,16 +96,17 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                         v-if="!signedIn"
                         :controller="modalController"
                         :with-close-button="true"
+                        class="w-1/3"
                     >
                         <template #title>Login</template>
                         <template #content>
-                            <AccountLogin />
+                            <AccountLoginRegisterTabs />
                         </template>
                     </LazySharedModal>
                     <PopoverRoot>
                         <PopoverTrigger
                             class="w-8 h-8 inline-flex items-center justify-center none"
-                            aria-label="Update dimensions"
+                            aria-label="account dropdown"
                         >
                             <!-- icon in header -->
                             <FormKitIcon
@@ -139,7 +140,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                                 aria-label="Close"
                             >
                                 <FormKitIcon
-                                    class="block h-4 w-4 text-gray"
+                                    class="block h-5 w-5 text-gray"
                                     icon="x"
                                 />
                             </PopoverClose>

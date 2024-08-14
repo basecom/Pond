@@ -39,6 +39,9 @@ export default {
             gridTemplateColumns: {
                 '2/3': 'minmax(0, 4fr) minmax(0, 8fr)',
             },
+            width: {
+                128: '32rem', // 512px
+            }
         },
         container: {
             center: true,

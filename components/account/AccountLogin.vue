@@ -50,7 +50,7 @@ const handleLogin = async (fields: FormkitLoginFields) => {
         type="form"
         submit-label="login"
         :classes="{
-            form: 'w-full max-w-xs',
+            form: 'w-full',
         }"
         @submit="handleLogin"
     >
