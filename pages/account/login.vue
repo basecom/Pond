@@ -1,5 +1,7 @@
 <template>
     <div class="flex w-full justify-center">
-        <AccountLogin />
+        <AccountLogin
+          :redirect-after-success="true"
+        />
     </div>
 </template>

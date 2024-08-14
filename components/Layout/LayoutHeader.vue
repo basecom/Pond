@@ -30,7 +30,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
         v-show="!loading"
         class="sticky top-0 z-10 bg-gray-light md:bg-white"
     >
-        <div class="container py-3 md:py-6">
+        <div class="container py-3 md:py-6 z-10 relative">
             <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-3">
                     <!-- mobile menu -->
@@ -92,21 +92,60 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                     </NuxtLink>
 
                     <!-- account -->
-                    <FormKitIcon
-                        class="block h-6 w-6"
-                        icon="user"
-                        @click="signedIn ? navigateTo('/account') : modalController.open()"
-                    />
                     <LazySharedModal
-                      v-if="!signedIn"
-                      :controller="modalController"
-                      :with-close-button="true"
+                        v-if="!signedIn"
+                        :controller="modalController"
+                        :with-close-button="true"
                     >
                         <template #title>Login</template>
                         <template #content>
                             <AccountLogin />
                         </template>
                     </LazySharedModal>
+                    <PopoverRoot>
+                        <PopoverTrigger
+                            class="w-8 h-8 inline-flex items-center justify-center none"
+                            aria-label="Update dimensions"
+                        >
+                            <!-- icon in header -->
+                            <FormKitIcon
+                                class="block h-6 w-6"
+                                icon="user"
+                                @click="!signedIn ? modalController.open(): null"
+                            />
+                        </PopoverTrigger>
+                        <PopoverContent
+                            v-if="signedIn"
+                            side="bottom"
+                            :side-offset="5"
+                            class="rounded p-4 w-64 bg-white shadow-md border border-gray-light"
+                        >
+                            <div class="py-2 first:pt-0">
+                                <NuxtLink
+                                    to="/account"
+                                >
+                                    account
+                                </NuxtLink>
+                            </div>
+                            <FormKit
+                                type="submit"
+                                prefix-icon="right-from-bracket"
+                                @click.prevent="customerStore.logout()"
+                            >
+                                logout
+                            </FormKit>
+                            <PopoverClose
+                                class="rounded-full h-6 w-6 inline-flex items-center justify-center absolute top-1 right-1"
+                                aria-label="Close"
+                            >
+                                <FormKitIcon
+                                    class="block h-4 w-4 text-gray"
+                                    icon="x"
+                                />
+                            </PopoverClose>
+                            <PopoverArrow class="fill-white" />
+                        </PopoverContent>
+                    </PopoverRoot>
 
                     <!-- cart -->
                     <button
