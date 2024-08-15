@@ -40,7 +40,7 @@ const handleChangeVariant = async () => {
 <template>
     <div
         v-for="group in getOptionGroups"
-        :key="`group_${group.id}`"
+        :key="`group-${group.id}`"
         class="w-full"
     >
         <div class="mb-2 flex gap-4 bg-gray-light px-4 py-2 text-lg">
@@ -54,11 +54,11 @@ const handleChangeVariant = async () => {
         <div class="grid grid-cols-8 gap-2">
             <template
                 v-for="option in group.options"
-                :key="`option_${option.id}`"
+                :key="`option-${option.id}`"
             >
                 <FormKit
                     v-if="option.colorHexCode"
-                    :id="`option_${option.id}`"
+                    :id="`option-${option.id}`"
                     type="button"
                     :label="getTranslatedProperty(option, 'name')"
                     :classes="{
@@ -74,12 +74,12 @@ const handleChangeVariant = async () => {
                         outer: 'col-span-1',
                     }"
                     :style="`background-color: ${option.colorHexCode}`"
-                    :name="`option_${option.id}`"
+                    :name="`option-${option.id}`"
                     @click="handleChange(group.name, option.id, handleChangeVariant)"
                 ></FormKit>
                 <FormKit
                     v-else-if="option.media"
-                    :id="`option_${option.id}`"
+                    :id="`option-${option.id}`"
                     type="button"
                     :label="getTranslatedProperty(option, 'name')"
                     :classes="{
@@ -95,7 +95,7 @@ const handleChangeVariant = async () => {
                         outer: 'col-span-1',
                     }"
                     :style="`background-color: ${option.colorHexCode}`"
-                    :name="`option_${option.id}`"
+                    :name="`option-${option.id}`"
                     @click="handleChange(group.name, option.id, handleChangeVariant)"
                 >
                     <img
@@ -110,14 +110,14 @@ const handleChangeVariant = async () => {
                 </FormKit>
                 <FormKit
                     v-else
-                    :id="`option_${option.id}`"
+                    :id="`option-${option.id}`"
                     type="button"
                     :label="getTranslatedProperty(option, 'name')"
                     :classes="{
                         input: getSelectedOptionClasses(option.id),
                         outer: 'col-span-2',
                     }"
-                    :name="`option_${option.id}`"
+                    :name="`option-${option.id}`"
                     @click="handleChange(group.name, option.id, handleChangeVariant)"
                 />
             </template>
