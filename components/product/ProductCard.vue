@@ -62,7 +62,7 @@ const addProductAndRefresh = async (id: string) => {
                         @click.prevent="addProductAndRefresh(product.id)"
                     >
                         <FormKitIcon
-                            icon="cart"
+                            icon="cart-shopping"
                             class="h-4 w-4"
                         />
                     </FormKit>
