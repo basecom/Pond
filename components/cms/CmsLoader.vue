@@ -17,5 +17,5 @@ const { getCmsElementComponentName, componentExists } = useCmsUtils();
         :element="content"
         :class="['cms-element', `cms-element-${kebabCase(content.type)}`]"
     />
-    <div v-else-if="process.dev">{{ getCmsElementComponentName(content.type) }} not found</div>
+    <div v-else>{{ getCmsElementComponentName(content.type) }} not found</div>
 </template>

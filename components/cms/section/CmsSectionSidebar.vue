@@ -1,17 +1,15 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import { kebabCase } from 'scule';
-import { getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
-import { useCmsUtils } from '~/composables/cms/useCmsUtils';
+import CmsBlockLoader from '~/components/cms/CmsBlockLoader.vue';
 
 const props = defineProps<{
     section: Schemas['CmsSection'];
 }>();
+
 const { getPositionContent } = useCmsSection(props.section);
 
 const sidebarBlocks = getPositionContent('sidebar');
 const mainBlocks = getPositionContent('main');
-const { getCmsBlockComponentName, componentExists } = useCmsUtils();
 </script>
 
 <template>
@@ -21,39 +19,16 @@ const { getCmsBlockComponentName, componentExists } = useCmsUtils();
                 v-for="block in sidebarBlocks"
                 :key="block.id"
             >
-                <component
-                    :is="getCmsBlockComponentName(block.type)"
-                    v-if="componentExists(getCmsBlockComponentName(block.type))"
-                    :id="block.id"
-                    :slots="block"
-                    :class="[
-                        'cms-block',
-                        `cms-block-${kebabCase(block.type)}`,
-                        getCmsLayoutConfiguration(block).cssClasses,
-                    ]"
-                    :style="getCmsLayoutConfiguration(block).layoutStyles"
-                />
-                <div v-else>{{ getCmsBlockComponentName(block.type) }} not found</div>
+                <CmsBlockLoader :block="block" />
             </template>
         </div>
-        <div class="w-full md:w-auto md:flex-grow">
+
+        <div class="md:3/4 w-full md:flex-grow">
             <template
                 v-for="block in mainBlocks"
                 :key="block.id"
             >
-                <component
-                    :is="getCmsBlockComponentName(block.type)"
-                    v-if="componentExists(getCmsBlockComponentName(block.type))"
-                    :id="block.id"
-                    :slots="block"
-                    :class="[
-                        'cms-block',
-                        `cms-block-${kebabCase(block.type)}`,
-                        getCmsLayoutConfiguration(block).cssClasses,
-                    ]"
-                    :style="getCmsLayoutConfiguration(block).layoutStyles"
-                />
-                <div v-else>{{ getCmsBlockComponentName(block.type) }} not found</div>
+                <CmsBlockLoader :block="block" />
             </template>
         </div>
     </div>
