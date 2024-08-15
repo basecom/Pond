@@ -5,26 +5,35 @@ const customerStore = useCustomerStore();
 
 const {
     refreshSessionContext,
+    selectedPaymentMethod: paymentMethod,
     selectedShippingMethod: shippingMethod,
+    setPaymentMethod,
     setShippingMethod,
 } = useSessionContext();
 
 const { refreshCart, isEmpty, cartItems } = useCart();
 const {
+    paymentMethods,
     shippingMethods,
+    getPaymentMethods,
     getShippingMethods,
 } = useCheckout();
 
-const isLoading = reactive<{ [key: string]: boolean }>({});
+const selectedPaymentMethod = computed({
+    get(): string {
+        return paymentMethod.value?.id || "";
+    },
+    async set(paymentMethodId: string) {
+        await setPaymentMethod({ id: paymentMethodId });
+    },
+});
 
 const selectedShippingMethod = computed({
     get(): string {
         return shippingMethod.value?.id || "";
     },
     async set(shippingMethodId: string) {
-        isLoading[shippingMethodId] = true;
         await setShippingMethod({ id: shippingMethodId });
-        isLoading[shippingMethodId] = false;
     },
 });
 
@@ -32,13 +41,8 @@ onMounted(async () =>  {
     await refreshSessionContext();
     await refreshCart();
 
-    isLoading["shippingMethods"] = true;
-
-    Promise.any([
-        getShippingMethods(),
-    ]).finally(() => {
-        isLoading["shippingMethods"] = false;
-    });
+    await getPaymentMethods();
+    await getShippingMethods();
 });
 </script>
 
@@ -49,19 +53,24 @@ onMounted(async () =>  {
         <template v-if="!isEmpty">
             <div class="flex gap-6 my-6">
                 <div class="w-1/2 shadow p-4 rounded-md">
-                    <template v-if="customerStore.customer">
-                        <h3 class="text-lg font-medium">
-                            Personal Information
-                        </h3>
-                        <div class="text-sm">
-                            You are logged in as {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}
-                        </div>
-                    </template>
+                    <fieldset class="grid gap-4 shadow px-4 py-5 bg-white sm:p-6">
+                        <legend class="pt-5">
+                            <h3 class="text-lg font-medium">
+                                Personal Information
+                            </h3>
 
-                    <template v-else>
-                        <!-- TODO: login / register formular anzeigen -->
-                        not logged in
-                    </template>
+                            <template v-if="customerStore.customer">
+                                <span class="text-sm">
+                                    You are logged in as {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}
+                                </span>
+                            </template>
+
+                            <template v-else>
+                                <!-- TODO: login / register formular anzeigen -->
+                                not logged in
+                            </template>
+                        </legend>
+                    </fieldset>
 
                     <!-- Shipping Methods -->
                     <fieldset
@@ -76,22 +85,8 @@ onMounted(async () =>  {
                             </div>
                         </legend>
 
-                        <!-- Loading Animation -->
-                        <div v-if="isLoading['shippingMethods']" class="w-60 h-24">
-                            <div
-                                class="flex animate-pulse flex-row items-top pt-4 h-full space-x-5"
-                            >
-                                <div class="w-4 bg-secondary-300 h-4 mt-1 rounded-full" />
-                                <div class="flex flex-col space-y-3">
-                                    <div class="w-36 bg-secondary-300 h-6 rounded-md" />
-                                    <div class="w-24 bg-secondary-300 h-6 rounded-md" />
-                                </div>
-                            </div>
-                        </div>
-
                         <div
                             v-for="singleShippingMethod in shippingMethods"
-                            v-else
                             :key="singleShippingMethod.id"
                             class="flex items-center w-full"
                         >
@@ -102,12 +97,10 @@ onMounted(async () =>  {
                                 name="shipping-method"
                                 type="radio"
                                 class="h-4 w-4"
-                                :data-testid="`checkout-shipping-method-${singleShippingMethod.id}`"
                             />
 
                             <label
                                 :for="singleShippingMethod.id"
-                                :class="{ 'animate-pulse': isLoading[singleShippingMethod.id] }"
                                 class="ml-2 block text-sm font-medium w-full"
                             >
                                 <div class="flex justify-between">
@@ -140,8 +133,60 @@ onMounted(async () =>  {
                         </div>
                     </fieldset>
 
-                    <!-- TODO -->
-                    - payment
+                    <!-- Payment Methods -->
+                    <fieldset class="grid gap-4 shadow px-4 py-5 bg-white sm:p-6">
+                        <legend class="pt-5">
+                            <h3 class="text-lg font-medium">
+                                Payment Method
+                            </h3>
+                            <div class="text-sm">
+                                Select a payment method
+                            </div>
+                        </legend>
+
+                        <div
+                            v-for="singlePaymentMethod in paymentMethods"
+                            :key="singlePaymentMethod.id"
+                            class="flex items-center"
+                        >
+                            <input
+                                :id="singlePaymentMethod.id"
+                                v-model="selectedPaymentMethod"
+                                :value="singlePaymentMethod.id"
+                                name="payment-method"
+                                type="radio"
+                                class="h-4 w-4"
+                            />
+
+                            <label
+                                :for="singlePaymentMethod.id"
+                                class="ml-2 block text-sm font-medium w-full"
+                            >
+                                <div class="flex justify-between">
+                                    <div>
+                                        <span>
+                                          {{ singlePaymentMethod.translated.name }}
+                                        </span>
+
+                                        <span
+                                            v-if="singlePaymentMethod.translated.description"
+                                            class="italic text-sm text-secondary-500 block"
+                                        >
+                                            {{ singlePaymentMethod.translated.description }}
+                                        </span>
+                                    </div>
+
+                                    <div v-if="singlePaymentMethod.media?.url">
+                                        <img
+                                            loading="lazy"
+                                            :src="singlePaymentMethod.media.url"
+                                            :alt="`Logo of ${singlePaymentMethod.shortName}`"
+                                        />
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </fieldset>
 
                     <!-- TODO -->
                     - billing address
