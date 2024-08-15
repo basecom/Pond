@@ -19,6 +19,12 @@ const {
     getShippingMethods,
 } = useCheckout();
 
+const terms = reactive({
+    tos: false,
+});
+
+const placeOrderTriggered = ref(false);
+
 const selectedPaymentMethod = computed({
     get(): string {
         return paymentMethod.value?.id || "";
@@ -35,6 +41,10 @@ const selectedShippingMethod = computed({
     async set(shippingMethodId: string) {
         await setShippingMethod({ id: shippingMethodId });
     },
+});
+
+const termsSelected = computed(() => {
+    return terms.tos;
 });
 
 onMounted(async () =>  {
@@ -191,8 +201,36 @@ onMounted(async () =>  {
                     <!-- TODO -->
                     - billing address
 
-                    <!-- TODO -->
-                    - terms & conditions
+                    <!-- Terms & Conditions -->
+                    <fieldset
+                        ref="termsBox"
+                        class="grid gap-4 shadow px-4 py-5 bg-white sm:p-6"
+                    >
+                        <legend class="pt-5">
+                            <h3 class="text-lg font-medium">
+                                Terms and conditions
+                            </h3>
+                        </legend>
+
+                        <div class="flex items-center">
+                            <input
+                                id="tos"
+                                v-model="terms.tos"
+                                :value="terms.tos"
+                                name="tos"
+                                type="checkbox"
+                                class="h-4 w-4 shrink-0"
+                            />
+
+                            <label
+                                for="tos"
+                                class="ml-2 block text-sm font-medium"
+                                :class="{ 'text-red': !termsSelected && placeOrderTriggered }"
+                            >
+                                I have read and accepted the general terms and conditions.
+                            </label>
+                        </div>
+                    </fieldset>
                 </div>
 
                 <div class="w-1/2 shadow p-4 rounded-md">
