@@ -9,6 +9,8 @@ defineProps<{
 }>();
 
 const { getCmsBlockComponentName, componentExists, getBlockClasses } = useCmsUtils();
+
+const isDevelopment = computed(() => import.meta.dev);
 </script>
 
 <template>
@@ -25,5 +27,5 @@ const { getCmsBlockComponentName, componentExists, getBlockClasses } = useCmsUti
         ]"
         :style="getCmsLayoutConfiguration(block).layoutStyles"
     />
-    <div v-else>{{ getCmsBlockComponentName(block.type) }} not found</div>
+    <div v-else-if="isDevelopment">{{ getCmsBlockComponentName(block.type) }} not found</div>
 </template>
