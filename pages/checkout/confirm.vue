@@ -198,8 +198,7 @@ onMounted(async () =>  {
                         </div>
                     </fieldset>
 
-                    <!-- TODO -->
-                    - billing address
+                    <!-- TODO: Addresses (after account area is done) -->
 
                     <!-- Terms & Conditions -->
                     <fieldset
