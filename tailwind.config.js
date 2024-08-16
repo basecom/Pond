@@ -41,7 +41,7 @@ export default {
             },
             width: {
                 128: '32rem', // 512px
-            }
+            },
         },
         container: {
             center: true,

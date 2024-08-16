@@ -30,7 +30,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
         v-show="!loading"
         class="sticky top-0 z-10 bg-gray-light md:bg-white"
     >
-        <div class="container py-3 md:py-6 z-10 relative">
+        <div class="container relative z-10 py-3 md:py-6">
             <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-3">
                     <!-- mobile menu -->
@@ -105,28 +105,24 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                     </LazySharedModal>
                     <PopoverRoot>
                         <PopoverTrigger
-                            class="w-8 h-8 inline-flex items-center justify-center none"
+                            class="none inline-flex h-8 w-8 items-center justify-center"
                             aria-label="account dropdown"
                         >
                             <!-- icon in header -->
                             <FormKitIcon
                                 class="block h-6 w-6"
                                 icon="user"
-                                @click="!signedIn ? modalController.open(): null"
+                                @click="!signedIn ? modalController.open() : null"
                             />
                         </PopoverTrigger>
                         <PopoverContent
                             v-if="signedIn"
                             side="bottom"
                             :side-offset="5"
-                            class="rounded p-4 w-64 bg-white shadow-md border border-gray-light"
+                            class="w-64 rounded border border-gray-light bg-white p-4 shadow-md"
                         >
                             <div class="py-2 first:pt-0">
-                                <NuxtLink
-                                    to="/account"
-                                >
-                                    account
-                                </NuxtLink>
+                                <NuxtLink to="/account"> account </NuxtLink>
                             </div>
                             <FormKit
                                 type="submit"
@@ -136,7 +132,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                                 logout
                             </FormKit>
                             <PopoverClose
-                                class="rounded-full h-6 w-6 inline-flex items-center justify-center absolute top-1 right-1"
+                                class="absolute right-1 top-1 inline-flex h-6 w-6 items-center justify-center rounded-full"
                                 aria-label="Close"
                             >
                                 <FormKitIcon

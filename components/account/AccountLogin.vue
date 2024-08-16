@@ -9,14 +9,14 @@ type FormkitLoginFields = {
 };
 
 const props = withDefaults(
-  defineProps<{
-    redirectAfterSuccess?: boolean;
-    redirectTarget?: string;
-  }>(),
-  {
-    redirectAfterSuccess: false,
-    redirectTarget: '/account',
-  },
+    defineProps<{
+        redirectAfterSuccess?: boolean;
+        redirectTarget?: string;
+    }>(),
+    {
+        redirectAfterSuccess: false,
+        redirectTarget: '/account',
+    },
 );
 
 const customerStore = useCustomerStore();
@@ -30,8 +30,8 @@ const handleLogin = async (fields: FormkitLoginFields) => {
         await customerStore.login({
             ...fields,
         });
-        if  (props.redirectAfterSuccess) {
-          navigateTo(props.redirectTarget);
+        if (props.redirectAfterSuccess) {
+            navigateTo(props.redirectTarget);
         }
     } catch (error) {
         if (error instanceof ApiClientError) {
