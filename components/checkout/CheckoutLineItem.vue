@@ -7,11 +7,11 @@ const props = defineProps<{
     lineItem: Schemas["LineItem"];
 }>();
 
-const { getFormattedPrice } = usePrice();
 const { lineItem } = toRefs(props);
 const isLoading = ref(false);
-const { refreshCart } = useCart();
 
+const { getFormattedPrice } = usePrice();
+const { refreshCart } = useCart();
 const {
     itemOptions,
     removeItem,
@@ -38,7 +38,7 @@ const updateQuantity = async (quantityInput: number | undefined) => {
         await refreshCart(response);
     } catch (error) {
         if (error instanceof ApiClientError) {
-            // TODO: User Feedback
+            // TODO: User Feedback (BUS-843)
             console.log(error.details);
         }
     }
@@ -60,7 +60,7 @@ const removeCartItem = async () => {
         await removeItem();
     } catch (error) {
         if (error instanceof ApiClientError) {
-            // TODO: User Feedback
+            // TODO: User Feedback (BUS-843)
             console.log(error.details);
         }
     }
@@ -84,7 +84,7 @@ const removeCartItem = async () => {
     <div class="flex flex-1 flex-col">
         <div>
             <div
-                class="flex flex-col lg:flex-row justify-between font-medium"
+                class="flex flex-col lg:flex-row justify-between"
             >
                 <NuxtLink :to="getProductRoute(lineItem)">
                     <h3 class="text-base">
@@ -129,7 +129,7 @@ const removeCartItem = async () => {
                 <button
                     v-if="isRemovable"
                     type="button"
-                    class="font-medium text-brand-primary-dark bg-transparent"
+                    class="text-brand-primary-dark bg-transparent"
                     :class="{ 'text-gray-medium': isLoading }"
                     @click="removeCartItem"
                 >
