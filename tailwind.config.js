@@ -2,7 +2,7 @@
 export default {
     theme: {
         fontFamily: {
-            main: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+            main: ['"PT Sans"', 'sans-serif'],
         },
         colors: {
             transparent: 'transparent',

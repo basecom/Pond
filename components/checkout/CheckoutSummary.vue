@@ -19,7 +19,7 @@ const calculatedTaxes = computed(() => {
     <div
         class="p-4 bg-gray-light rounded-md"
     >
-        <h2 class="font-medium pb-4">
+        <h2 class="pb-4">
             Order summary
         </h2>
 
