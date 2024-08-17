@@ -16,9 +16,9 @@ bun install
 ```
 
 ## Local Development
-
+- Start a local shopware instance by running `docker run --rm -p 80:80 dockware/play:latest`
 - Run `cp .env.example .env` to duplicate the .env
-    - `NUXT_PUBLIC_POND_SHOPWARE_ENDPOINT` can be any running shopware 6.6 backend
+    - `NUXT_PUBLIC_POND_SHOPWARE_ENDPOINT` can remain on `http://localhost`
     - `NUXT_PUBLIC_POND_ACCESS_TOKEN` references the sales channel access token (Admin -> select sales channel -> "API-Zugang")
 
 ## Development Server
