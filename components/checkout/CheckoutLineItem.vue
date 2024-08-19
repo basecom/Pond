@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import { getSmallestThumbnailUrl, getProductRoute } from "@shopware-pwa/helpers-next";
 import { ApiClientError } from "@shopware/api-client";
+import { getSmallestThumbnailUrl, getProductRoute } from "@shopware-pwa/helpers-next";
+import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot } from 'radix-vue'
 
 const props = defineProps<{
     lineItem: Schemas["LineItem"];
@@ -49,13 +50,9 @@ const updateQuantity = async (quantityInput: number | undefined) => {
     isLoading.value = false;
 }
 
-// wait to allow the user to increment or decrement the quantity multiple times in a single request
-const debounceUpdate = useDebounceFn(updateQuantity, 400);
-
-watch(quantity, () => debounceUpdate(quantity.value));
-
 const removeCartItem = async () => {
     isLoading.value = true;
+
     try {
         await removeItem();
     } catch (error) {
@@ -64,8 +61,19 @@ const removeCartItem = async () => {
             console.log(error.details);
         }
     }
+
     isLoading.value = false;
 };
+
+const updateQuantityOnEnter = ($event) => {
+    if ($event.target !== null) {
+        // remove focus from input to trigger update
+        $event.target.blur();
+    }
+}
+
+// allows the user to change the quantity multiple times before firing a single request
+const debounceUpdate = useDebounceFn(updateQuantity, 400);
 </script>
 
 <template>
@@ -113,17 +121,34 @@ const removeCartItem = async () => {
             v-if="isStackable"
             class="flex flex-1 items-end justify-between text-sm"
         >
-            <input
+            <!-- Fallback for the maxPurchase value defaults to the configured maximum quantity in the admin cart settings if unset at the lineItem -->
+            <NumberFieldRoot
                 v-model="quantity"
-                type="number"
                 :disabled="isLoading"
-                :min="(lineItem as any).quantityInformation?.minPurchase || 1"
-                :max="(lineItem as any).quantityInformation?.maxPurchase"
-                :step="(lineItem as any).quantityInformation?.purchaseSteps || 1"
+                @update:modelValue="debounceUpdate"
+                :locale="'de-DE'"
+                :min="lineItem.quantityInformation?.minPurchase || 1"
+                :max="lineItem.quantityInformation?.maxPurchase"
+                :step="lineItem.quantityInformation?.purchaseSteps || 1"
                 name="quantity"
-                aria-label="Cart item quantity"
-                class="w-18 mt-1 inline-block py-2 px-3 border border-gray-medium bg-white rounded-md shadow-sm focus:outline-none sm:text-sm"
-            />
+                class="mt-1 py-2 px-3 border border-gray-medium bg-white rounded-md shadow-sm sm:text-sm flex"
+            >
+                <NumberFieldDecrement class="data-[disabled]:opacity-20">
+                    <FormKitIcon
+                        icon="minus"
+                        class="w-3 block"
+                    />
+                </NumberFieldDecrement>
+
+                <NumberFieldInput class="w-14 focus:outline-none text-center" @keyup.enter="updateQuantityOnEnter($event)" />
+
+                <NumberFieldIncrement class="data-[disabled]:opacity-20">
+                    <FormKitIcon
+                        icon="plus"
+                        class="w-3 block"
+                    />
+                </NumberFieldIncrement>
+            </NumberFieldRoot>
 
             <div class="flex">
                 <button
