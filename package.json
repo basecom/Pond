@@ -1,5 +1,5 @@
 {
-  "name": "pond",
+  "name": "@basecom-gmbh/pond",
   "type": "module",
   "scripts": {
     "build": "nuxt build",
