@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from "vue";
 
 const { totalPrice, shippingTotal, cart } = useCart();
 const { getFormattedPrice } = usePrice();
