@@ -1,6 +1,10 @@
 <script setup lang="ts">
 const customerStore = useCustomerStore();
 
+definePageMeta({
+    middleware: ['auth'],
+});
+
 const handleLogout = async () => {
     await customerStore.logout();
     navigateTo('/');
