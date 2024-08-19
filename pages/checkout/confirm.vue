@@ -198,7 +198,7 @@ onMounted(async () =>  {
                         </div>
                     </fieldset>
 
-                    <!-- TODO: Addresses (after account area is done) -->
+                    <!-- TODO: Addresses (BUS-841) -->
 
                     <!-- Terms & Conditions -->
                     <fieldset
@@ -250,7 +250,7 @@ onMounted(async () =>  {
                         Order
                     </NuxtLink>
 
-                    <div v-else class="flex items-center justify-center bg-brand-primary text-white rounded-md px-6 py-3 mt-4">
+                    <div v-else class="flex items-center justify-center bg-gray-dark text-white rounded-md px-6 py-3 mt-4 cursor-not-allowed" disabled="disabled">
                         Log in to place order
                     </div>
                 </div>
