@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const { totalPrice, shippingTotal, cart } = useCart();
 const { getFormattedPrice } = usePrice();
 
@@ -15,37 +14,29 @@ const calculatedTaxes = computed(() => {
 </script>
 
 <template>
-    <div
-        class="p-4 bg-gray-light rounded-md"
-    >
-        <h2 class="pb-4">
-            Order summary
-        </h2>
+    <div class="rounded-md bg-gray-light p-4">
+        <h2 class="pb-4">Order summary</h2>
 
-        <div
-            class="flex py-4 border-b border-gray justify-between text-sm"
-        >
+        <div class="flex justify-between border-b border-gray py-4 text-sm">
             <p class="text-gray-dark">Net Total</p>
             <span>{{ getFormattedPrice(netPrice) }}</span>
         </div>
 
         <div
-            class="flex py-4 border-b border-gray justify-between text-sm" v-for="calculatedTax in calculatedTaxes"
+            v-for="calculatedTax in calculatedTaxes"
+            :key="calculatedTax"
+            class="flex justify-between border-b border-gray py-4 text-sm"
         >
             <p class="text-gray-dark">plus Tax</p>
             <span>{{ getFormattedPrice(calculatedTax.tax) }}</span>
         </div>
 
-        <div
-            class="flex py-4 border-b border-gray justify-between text-sm"
-        >
+        <div class="flex justify-between border-b border-gray py-4 text-sm">
             <p class="text-gray-dark">Shipping</p>
             <span>{{ getFormattedPrice(shippingTotal) }}</span>
         </div>
 
-        <div
-            class="flex py-4 justify-between font-bold"
-        >
+        <div class="flex justify-between py-4 font-bold">
             <p>Total</p>
             <span>{{ getFormattedPrice(totalPrice) }}</span>
         </div>
