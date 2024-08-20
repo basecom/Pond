@@ -16,28 +16,21 @@ const rightContent: Schemas['CmsSlot'] = getSlotContent('right');
     <div class="grid gap-4 md:grid-cols-2">
         <CmsLoader
             :content="leftTopContent"
-            style="grid-area: left-top"
-        />
-        <CmsLoader
-            :content="leftBottomContent"
-            style="grid-area: left-bottom"
+            class="order-1"
         />
         <CmsLoader
             :content="rightContent"
-            class="right-image col-span-2"
-            style="grid-area: right"
+            class="right-image order-3 row-span-2 md:order-2"
+        />
+        <CmsLoader
+            :content="leftBottomContent"
+            class="order-2 md:order-3"
         />
     </div>
 </template>
 
 <style>
-.cms-block-image-simple-grid {
-    grid-template-areas:
-        'left-top    right'
-        'left-bottom right';
-}
-
 .cms-block-image-simple-grid .right-image img {
-    @apply absolute inset-0 !h-full;
+    @apply inset-0 md:absolute md:!h-full;
 }
 </style>
