@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
     <TabsRoot
         class="flex w-full flex-col"
@@ -36,5 +34,3 @@
         </TabsContent>
     </TabsRoot>
 </template>
-
-<style scoped></style>
