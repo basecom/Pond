@@ -110,6 +110,13 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                         side="right"
                     >
                         offcanvas cart
+
+                        <NuxtLink
+                            to="/checkout/cart"
+                            class="mt-4 flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
+                        >
+                            to the cart
+                        </NuxtLink>
                     </LazyLayoutSidebar>
                 </div>
             </div>

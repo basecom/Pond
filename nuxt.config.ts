@@ -46,6 +46,12 @@ export default defineNuxtConfig({
     formkit: {
         autoImport: true,
     },
+    fonts: {
+        defaults: {
+            weights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
+            styles: ['normal', 'italic'],
+        },
+    },
     components: {
         dirs: [join(currentDir, 'components')],
         global: true,

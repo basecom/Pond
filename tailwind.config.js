@@ -17,6 +17,8 @@ export default {
             },
             gray: {
                 light: '#F7F7F7',
+                medium: '#E5E7EB',
+                dark: '#6B7280',
                 DEFAULT: '#A2A2A2',
             },
             white: '#FFFFFF', // Here for compatibility with shopware cms
