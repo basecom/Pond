@@ -1,3 +1,8 @@
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const currentDir = dirname(fileURLToPath(import.meta.url));
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     devtools: { enabled: true },
@@ -32,17 +37,22 @@ export default defineNuxtConfig({
         },
     },
     imports: {
-        dirs: ['./composables/**', './utils', './node_modules/@shopware-pwa/composables-next/composables'],
+        dirs: [
+            join(currentDir, 'composables/**'),
+            join(currentDir, 'utils'),
+            './node_modules/@shopware-pwa/composables-next/composables',
+        ],
     },
     formkit: {
         autoImport: true,
     },
     components: {
-        dirs: ['~/components'],
+        dirs: [join(currentDir, 'components')],
         global: true,
     },
-    components: {
-        dirs: ['~/components'],
-        global: true,
+    tailwindcss: {
+        config: {
+            content: [join(currentDir, 'formkit.theme.ts')],
+        },
     },
 });
