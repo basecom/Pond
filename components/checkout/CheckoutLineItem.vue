@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import { ApiClientError } from "@shopware/api-client";
-import { getSmallestThumbnailUrl, getProductRoute } from "@shopware-pwa/helpers-next";
-import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot } from 'radix-vue'
+import { ApiClientError } from '@shopware/api-client';
+import { getSmallestThumbnailUrl, getProductRoute } from '@shopware-pwa/helpers-next';
+import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot } from 'radix-vue';
 
 const props = defineProps<{
-    lineItem: Schemas["LineItem"];
+    lineItem: Schemas['LineItem'];
 }>();
 
 const { lineItem } = toRefs(props);
@@ -48,7 +48,7 @@ const updateQuantity = async (quantityInput: number | undefined) => {
     quantity.value = itemQuantity.value;
 
     isLoading.value = false;
-}
+};
 
 const removeCartItem = async () => {
     isLoading.value = true;
@@ -65,12 +65,12 @@ const removeCartItem = async () => {
     isLoading.value = false;
 };
 
-const updateQuantityOnEnter = ($event) => {
+const updateQuantityOnEnter = $event => {
     if ($event.target !== null) {
         // remove focus from input to trigger update
         $event.target.blur();
     }
-}
+};
 
 // allows the user to change the quantity multiple times before firing a single request
 const debounceUpdate = useDebounceFn(updateQuantity, 400);
@@ -91,9 +91,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 400);
 
     <div class="flex flex-1 flex-col">
         <div>
-            <div
-                class="flex flex-col lg:flex-row justify-between"
-            >
+            <div class="flex flex-col justify-between lg:flex-row">
                 <NuxtLink :to="getProductRoute(lineItem)">
                     <h3 class="text-base">
                         {{ lineItem.label }}
@@ -111,8 +109,12 @@ const debounceUpdate = useDebounceFn(updateQuantity, 400);
                 v-if="itemOptions"
                 class="mt-1 text-sm"
             >
-                <span v-for="option in itemOptions" :key="option.group" class="mr-2">
-                  {{ option.group }}: {{ option.option }}
+                <span
+                    v-for="option in itemOptions"
+                    :key="option.group"
+                    class="mr-2"
+                >
+                    {{ option.group }}: {{ option.option }}
                 </span>
             </p>
         </div>
@@ -125,27 +127,30 @@ const debounceUpdate = useDebounceFn(updateQuantity, 400);
             <NumberFieldRoot
                 v-model="quantity"
                 :disabled="isLoading"
-                @update:modelValue="debounceUpdate"
                 :locale="'de-DE'"
                 :min="lineItem.quantityInformation?.minPurchase || 1"
                 :max="lineItem.quantityInformation?.maxPurchase"
                 :step="lineItem.quantityInformation?.purchaseSteps || 1"
                 name="quantity"
-                class="mt-1 py-2 px-3 border border-gray-medium bg-white rounded-md shadow-sm sm:text-sm flex"
+                class="mt-1 flex rounded-md border border-gray-medium bg-white px-3 py-2 shadow-sm sm:text-sm"
+                @update:model-value="debounceUpdate"
             >
                 <NumberFieldDecrement class="data-[disabled]:opacity-20">
                     <FormKitIcon
                         icon="minus"
-                        class="w-3 block"
+                        class="block w-3"
                     />
                 </NumberFieldDecrement>
 
-                <NumberFieldInput class="w-14 focus:outline-none text-center" @keyup.enter="updateQuantityOnEnter($event)" />
+                <NumberFieldInput
+                    class="w-14 text-center focus:outline-none"
+                    @keyup.enter="updateQuantityOnEnter($event)"
+                />
 
                 <NumberFieldIncrement class="data-[disabled]:opacity-20">
                     <FormKitIcon
                         icon="plus"
-                        class="w-3 block"
+                        class="block w-3"
                     />
                 </NumberFieldIncrement>
             </NumberFieldRoot>
@@ -154,7 +159,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 400);
                 <button
                     v-if="isRemovable"
                     type="button"
-                    class="text-brand-primary-dark bg-transparent"
+                    class="bg-transparent text-brand-primary-dark"
                     :class="{ 'text-gray-medium': isLoading }"
                     @click="removeCartItem"
                 >

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { refreshCart, isEmpty, cartItems } = useCart();
 
-onMounted(async () =>  {
+onMounted(async () => {
     await refreshCart();
 });
 </script>
@@ -10,11 +10,18 @@ onMounted(async () =>  {
     <div class="container">
         <h1>Shopping Cart</h1>
 
-        <div v-if="!isEmpty" class="flex flex-wrap lg:flex-nowrap w-full mt-4 mb-4 gap-8">
+        <div
+            v-if="!isEmpty"
+            class="mb-4 mt-4 flex w-full flex-wrap gap-8 lg:flex-nowrap"
+        >
             <div class="w-full lg:w-2/3">
-                <ul class="border-t border-gray-medium divide-y divide-gray-medium">
-                    <li v-for="cartItem in cartItems" :key="cartItem.id" class="flex py-6">
-                        <CheckoutLineItem :lineItem="cartItem"/>
+                <ul class="divide-y divide-gray-medium border-t border-gray-medium">
+                    <li
+                        v-for="cartItem in cartItems"
+                        :key="cartItem.id"
+                        class="flex py-6"
+                    >
+                        <CheckoutLineItem :line-item="cartItem" />
                     </li>
                 </ul>
             </div>
@@ -22,7 +29,7 @@ onMounted(async () =>  {
                 <CheckoutSummary />
 
                 <NuxtLink
-                    class="flex items-center justify-center bg-brand-primary text-white rounded-md px-6 py-3 mt-4"
+                    class="mt-4 flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
                     data-testid="cart-checkout-link"
                     :to="'/checkout/confirm'"
                 >
