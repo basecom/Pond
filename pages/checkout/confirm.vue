@@ -6,19 +6,15 @@ import CheckoutPayment from "~/components/checkout/confirm/CheckoutPayment.vue";
 import { ApiClientError } from "@shopware/api-client";
 
 const customerStore = useCustomerStore();
-
 const {
     refreshSessionContext
 } = useSessionContext();
-
 const { push } = useRouter();
-
 const { refreshCart, isEmpty, cartItems } = useCart();
-
 const { createOrder } = useCheckout();
 
 const placeOrderTriggered = ref(false);
-
+const termsBox = ref();
 const terms = reactive({
     tos: false,
 });
@@ -26,8 +22,6 @@ const terms = reactive({
 const termsSelected = computed(() => {
     return terms.tos;
 });
-
-const termsBox = ref();
 
 const placeOrder = async () => {
     placeOrderTriggered.value = true;
