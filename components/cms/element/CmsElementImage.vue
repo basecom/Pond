@@ -13,8 +13,9 @@ const { containerStyle, displayMode, imageContainerAttrs, imageAttrs, imageLink,
 
 const imageElement = ref(null);
 const { width, height } = useElementSize(imageElement);
+const { getCmsMedia } = useMedia();
 
-const { srcPath } = useMedia(width, height, imageAttrs);
+const { srcPath } = getCmsMedia(width, height, imageAttrs);
 
 const imageComputedContainerAttrs = computed(() => {
     const imageAttrsCopy = Object.assign({}, imageContainerAttrs.value);

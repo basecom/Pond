@@ -25,28 +25,33 @@ import type { FormKitNode } from '@formkit/core';
  * })
  * ```
  **/
-export function rootClasses(sectionName: string, node: FormKitNode): Record<string, boolean> {
-    const key = `${node.props.type}__${sectionName}`;
-    const semanticKey = `formkit-${sectionName}`;
-    const familyKey = node.props.family ? `family:${node.props.family}__${sectionName}` : '';
-    const memoKey = `${key}__${familyKey}`;
-    if (!(memoKey in classes)) {
-        const sectionClasses = classes[key] ?? globals[sectionName] ?? {};
-        sectionClasses[semanticKey] = true;
-        if (familyKey in classes) {
-            classes[memoKey] = { ...classes[familyKey], ...sectionClasses };
-        } else {
-            classes[memoKey] = sectionClasses;
+export function makeRootClasses(
+    classes: Record<string, Record<string, boolean>>,
+    globals: Record<string, Record<string, boolean>>,
+) {
+    return function (sectionName: string, node: FormKitNode): Record<string, boolean> {
+        const key = `${node.props.type}__${sectionName}`;
+        const semanticKey = `formkit-${sectionName}`;
+        const familyKey = node.props.family ? `family:${node.props.family}__${sectionName}` : '';
+        const memoKey = `${key}__${familyKey}`;
+        if (!(memoKey in classes)) {
+            const sectionClasses = classes[key] ?? globals[sectionName] ?? {};
+            sectionClasses[semanticKey] = true;
+            if (familyKey in classes) {
+                classes[memoKey] = { ...classes[familyKey], ...sectionClasses };
+            } else {
+                classes[memoKey] = sectionClasses;
+            }
         }
-    }
-    return classes[memoKey] ?? { [semanticKey]: true };
+        return classes[memoKey] ?? { [semanticKey]: true };
+    };
 }
 
 /**
  * These classes have already been merged with globals using tailwind-merge
  * and are ready to be used directly in the theme.
  **/
-const classes: Record<string, Record<string, boolean>> = {
+export const defaultClasses: Record<string, Record<string, boolean>> = {
     'family:button__wrapper': {},
     'family:button__input': {
         'w-full': true,
@@ -471,7 +476,7 @@ const classes: Record<string, Record<string, boolean>> = {
  * Globals are merged prior to generating this file — these are included for
  * any other non-matching inputs.
  **/
-const globals: Record<string, Record<string, boolean>> = {
+export const defaultGlobals: Record<string, Record<string, boolean>> = {
     outer: {
         // group is needed to access styling attributes like group-data-[invalid] or group-data-[disabled]
         group: true,
@@ -506,3 +511,7 @@ const globals: Record<string, Record<string, boolean>> = {
     overlayChar: {},
     overlayEnum: {},
 };
+
+const rootClasses = makeRootClasses(defaultClasses, defaultGlobals);
+
+export { rootClasses };

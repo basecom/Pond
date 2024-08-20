@@ -139,9 +139,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                         :to="getCategoryRoute(navigationElement)"
                         class="text-neutral-black py-4 transition-all hover:text-brand-primary"
                         :class="{
-                            'border-b-2 border-brand-primary font-bold':
-                                isActive(navigationElement.seoUrls) ||
-                                getTranslatedProperty(navigationElement, 'name') == 'Make-up',
+                            'border-b-2 border-brand-primary font-bold': isActive(navigationElement.seoUrls),
                         }"
                         @click="currentMouseoverMenu = null"
                     >
