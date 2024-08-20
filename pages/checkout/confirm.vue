@@ -3,7 +3,6 @@ import CheckoutLoginInformation from "~/components/checkout/confirm/CheckoutLogi
 import CheckoutShipping from "~/components/checkout/confirm/CheckoutShipping.vue";
 import CheckoutPayment from "~/components/checkout/confirm/CheckoutPayment.vue";
 
-import { CheckboxIndicator, CheckboxRoot } from 'radix-vue'
 import { ApiClientError } from "@shopware/api-client";
 
 const customerStore = useCustomerStore();
@@ -80,25 +79,13 @@ onMounted(async () =>  {
                             </h3>
                         </legend>
 
-                        <CheckboxRoot id="tos" v-model:checked="terms.tos" :value="terms.tos" name="tos" class="flex items-center cursor-pointer group">
-                            <div class="flex rounded outline outline-1 outline-gray-dark group-data-[state=checked]:outline-0 group-data-[state=checked]:bg-brand-primary-dark h-4 w-4">
-                                <CheckboxIndicator class="m-auto">
-                                    <FormKitIcon
-                                        icon="check"
-                                        class="w-3 h-3 block text-white"
-                                    />
-                                </CheckboxIndicator>
-                            </div>
-
-
-                            <label
-                                for="tos"
-                                class="ml-2 block text-sm font-medium cursor-pointer"
-                                :class="{ 'text-status-danger': !termsSelected && placeOrderTriggered }"
-                            >
-                                I have read and accepted the general terms and conditions.
-                            </label>
-                        </CheckboxRoot>
+                        <UtilityCheckbox
+                            v-model:checked="terms.tos"
+                            :checkboxId="'tos'"
+                            :required="true"
+                            :condition="!termsSelected && placeOrderTriggered"
+                            :checkboxLabel="'I have read and accepted the general terms and conditions.'"
+                        />
                     </fieldset>
                 </div>
 

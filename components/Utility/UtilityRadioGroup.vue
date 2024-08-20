@@ -44,8 +44,8 @@ const handleUpdate = (value: any) => {
                             <span
                                 v-if="getShippingMethodDeliveryTime(item)"
                             >
-                                    ({{ getShippingMethodDeliveryTime(item) }})
-                                </span>
+                                ({{ getShippingMethodDeliveryTime(item) }})
+                            </span>
 
                             <span
                                 v-if="item.translated.description"
