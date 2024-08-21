@@ -26,9 +26,9 @@ onMounted(async () =>  {
 <template>
     <fieldset class="grid gap-4 shadow px-4 py-5 bg-white sm:p-6">
         <legend class="pt-5">
-            <h3 class="text-lg font-medium">
+            <div class="font-bold">
                 Payment Method
-            </h3>
+            </div>
             <div class="text-sm">
                 Select a payment method
             </div>

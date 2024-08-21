@@ -5,9 +5,9 @@ const customerStore = useCustomerStore();
 <template>
     <fieldset class="grid gap-4 shadow px-4 py-5 bg-white sm:p-6">
         <legend class="pt-5">
-            <h3 class="text-lg font-medium">
+            <div class="font-bold">
                 Personal Information
-            </h3>
+            </div>
 
             <template v-if="customerStore.customer">
                 <span class="text-sm">

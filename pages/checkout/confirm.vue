@@ -54,8 +54,8 @@ onMounted(async () =>  {
         <h1>Checkout</h1>
 
         <template v-if="!isEmpty">
-            <div class="flex gap-6 my-6">
-                <div class="w-1/2 shadow p-4 rounded-md">
+            <div class="grid lg:grid-cols-2 gap-6 my-6">
+                <div class="shadow p-4 rounded-md">
                     <CheckoutLoginInformation />
                     <CheckoutShipping />
                     <CheckoutPayment />
@@ -68,9 +68,9 @@ onMounted(async () =>  {
                         class="grid gap-4 shadow px-4 py-5 bg-white sm:p-6"
                     >
                         <legend class="pt-5">
-                            <h3 class="text-lg font-medium">
+                            <div class="font-bold">
                                 Terms and conditions
-                            </h3>
+                            </div>
                         </legend>
 
                         <UtilityCheckbox
@@ -83,8 +83,8 @@ onMounted(async () =>  {
                     </fieldset>
                 </div>
 
-                <div class="w-1/2 shadow p-4 rounded-md">
-                    <p class="font-medium">Products</p>
+                <div class="shadow p-4 rounded-md">
+                    <p class="font-bold">Products</p>
 
                     <ul class="divide-y divide-gray-medium">
                         <li v-for="cartItem in cartItems" :key="cartItem.id" class="flex py-6">
