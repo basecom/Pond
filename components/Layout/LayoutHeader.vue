@@ -149,6 +149,13 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                         side="right"
                     >
                         offcanvas cart
+
+                        <NuxtLink
+                            to="/checkout/cart"
+                            class="mt-4 flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
+                        >
+                            to the cart
+                        </NuxtLink>
                     </LazyLayoutSidebar>
                 </div>
             </div>
@@ -172,9 +179,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                         :to="getCategoryRoute(navigationElement)"
                         class="text-neutral-black py-4 transition-all hover:text-brand-primary"
                         :class="{
-                            'border-b-2 border-brand-primary font-bold':
-                                isActive(navigationElement.seoUrls) ||
-                                getTranslatedProperty(navigationElement, 'name') == 'Make-up',
+                            'border-b-2 border-brand-primary font-bold': isActive(navigationElement.seoUrls),
                         }"
                         @click="currentMouseoverMenu = null"
                     >

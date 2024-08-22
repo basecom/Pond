@@ -1,0 +1,66 @@
+<script setup lang="ts">
+import type { CmsElementText } from '@shopware-pwa/composables-next';
+import ProductCard from '~/components/product/ProductCard.vue';
+
+const props = defineProps<{
+    element: CmsElementText;
+}>();
+
+const { getElements, changeCurrentPage, getCurrentPage, search, getTotal, getLimit } = useListing({
+    listingType: 'categoryListing',
+    defaultSearchCriteria: {
+        limit: props.element.data.listing.limit,
+        p: props.element.data.listing.page,
+    },
+});
+
+search({
+    limit: props.element.data.listing.limit,
+    p: props.element.data.listing.page,
+    includes: {
+        product: ['id', 'name', 'cover', 'calculatedPrice', 'description', 'translated'],
+        product_media: ['media'],
+        media: ['url'],
+    },
+});
+
+const router = useRouter();
+const route = useRoute();
+
+const changePage = async (page: number) => {
+    await router.push({
+        query: {
+            ...route.query,
+            p: page,
+        },
+    });
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+    });
+
+    await changeCurrentPage(page, route.query);
+};
+</script>
+
+<template>
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <template
+            v-for="product in getElements"
+            :key="product.id"
+        >
+            <ProductCard
+                :product="product"
+                :layout="element.translated.config.boxLayout.value"
+            />
+        </template>
+    </div>
+
+    <LayoutPagination
+        :total="getTotal"
+        :items-per-page="getLimit"
+        :default-page="getCurrentPage"
+        @update-page="page => changePage(page)"
+    />
+</template>
