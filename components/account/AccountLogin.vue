@@ -8,6 +8,17 @@ type FormkitLoginFields = {
     password: string;
 };
 
+const props = withDefaults(
+    defineProps<{
+        redirectAfterSuccess?: boolean;
+        redirectTarget?: string;
+    }>(),
+    {
+        redirectAfterSuccess: false,
+        redirectTarget: '/account',
+    },
+);
+
 const customerStore = useCustomerStore();
 const { togglePasswordVisibility } = useFormkitHelper();
 const { resolveApiErrors } = useApiErrorsResolver();
@@ -19,7 +30,9 @@ const handleLogin = async (fields: FormkitLoginFields) => {
         await customerStore.login({
             ...fields,
         });
-        navigateTo('/account');
+        if (props.redirectAfterSuccess) {
+            navigateTo(props.redirectTarget);
+        }
     } catch (error) {
         if (error instanceof ApiClientError) {
             apiErrors.value = resolveApiErrors(error.details.errors, 'login');
@@ -37,7 +50,7 @@ const handleLogin = async (fields: FormkitLoginFields) => {
         type="form"
         submit-label="login"
         :classes="{
-            form: 'w-full max-w-xs',
+            form: 'w-full',
         }"
         @submit="handleLogin"
     >
