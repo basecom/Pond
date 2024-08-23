@@ -44,7 +44,6 @@ onMounted(async () => {
         touchRatio: 1,
     });
     await glide.value.mount();
-    console.log(glide.value);
 
     glide.value.on('run.after', () => {
         activeIndex.value = glide.value.index;
