@@ -8,5 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
+    <!-- v-html is necessary because the text contains inline stylings -->
+    <!-- eslint-disable vue/no-v-html -->
     <div v-html="decodeHTML(props.element.data.content)" />
 </template>
