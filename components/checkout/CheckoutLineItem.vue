@@ -2,7 +2,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import { ApiClientError } from '@shopware/api-client';
 import { getSmallestThumbnailUrl, getProductRoute } from '@shopware-pwa/helpers-next';
-import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot } from 'radix-vue';
+const { pushError, pushSuccess } = useNotifications();
 
 const props = defineProps<{
     lineItem: Schemas['LineItem'];
@@ -39,10 +39,13 @@ const updateQuantity = async (quantityInput: number | undefined) => {
         await refreshCart(response);
     } catch (error) {
         if (error instanceof ApiClientError) {
-            // TODO: User Feedback (BUS-843)
+            pushError('An error occured trying to change the quantity of ' + lineItem.value.label + '.');
+
             console.log(error.details);
         }
     }
+
+    pushSuccess('The quantity of ' + lineItem.value.label + ' has been updated');
 
     // Make sure that quantity is the same as it is in the response
     quantity.value = itemQuantity.value;
@@ -57,10 +60,13 @@ const removeCartItem = async () => {
         await removeItem();
     } catch (error) {
         if (error instanceof ApiClientError) {
-            // TODO: User Feedback (BUS-843)
+            pushError('An error occured trying to remove ' + lineItem.value.label + ' from the cart.');
+
             console.log(error.details);
         }
     }
+
+    pushSuccess(lineItem.value.label + ' has been removed from your cart');
 
     isLoading.value = false;
 };

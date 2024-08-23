@@ -10,14 +10,14 @@ const props = defineProps<{
 const backgroundMap = {
     info: "bg-status-info",
     success: "bg-status-success",
-    warning: "bg-status-warning",
+    warning: "bg-status-important",
     danger: "bg-status-danger",
 };
 
 const borderMap = {
     info: "border-status-info",
     success: "border-status-success",
-    warning: "border-status-warning",
+    warning: "border-status-important",
     danger: "border-status-danger",
 };
 
@@ -34,26 +34,31 @@ const icon = computed(() => iconMap[props.notification.type] || "information");
 </script>
 
 <template>
-    <ToastRoot
-        :key="notification.id"
-        :duration="notification.persistent ? Infinity : notification.timeout"
+    <div
+        v-if="notification.message.length > 0"
+        :id="`toast-${notification.id}`"
         :class="border"
-        class="flex border bg-white rounded-md shadow-lg p-3 gap-x-4 items-center data-[state=open]:animate-slideIn data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:transition-[transform_200ms_ease-out]"
+        class="flex border bg-white rounded-md shadow-lg p-3 gap-x-4 items-center"
+        role="alert"
     >
-        <div>
-            <FormKitIcon :icon="icon" class="block h-7 w-7 rounded-md text-white p-1.5" :class="background" />
+        <FormKitIcon :icon="icon" class="block h-7 w-7 shrink-0 rounded-md text-white p-1.5" :class="background" />
+
+        <div
+            class="leading-4"
+        >
+            {{ notification.message }}
         </div>
 
-        <ToastTitle v-if="notification.title">
-            {{ notification.title }}
-        </ToastTitle>
-
-        <ToastDescription class="text-sm leading-4">
-            {{ notification.message }}
-        </ToastDescription>
-
-        <ToastClose class="ml-auto hover:bg-gray-medium hover:ring-gray-medium hover:ring-4 hover:rounded-md" @click="removeOne(notification.id)">
-            <FormKitIcon icon="xmark" class="block h-4 w-4 text-gray-dark" />
-        </ToastClose>
-    </ToastRoot>
+        <template v-if="!notification.static">
+            <button
+                type="button"
+                class="ml-auto hover:bg-gray-medium hover:ring-gray-medium hover:ring-4 hover:rounded-md"
+                :data-dismiss-target="`toast-${notification.id}`"
+                aria-label="Close notification"
+                @click="removeOne(notification.id)"
+            >
+                <FormKitIcon icon="xmark" class="block h-4 w-4 text-gray-dark" />
+            </button>
+        </template>
+    </div>
 </template>

@@ -12,9 +12,7 @@ customerStore.refreshContext();
 
     <LayoutHeader v-show="!loading" />
 
-    <ToastProvider>
-        <UtilityToastNotifications :key="notifications.length" />
-    </ToastProvider>
+    <UtilityToastNotifications />
 
     <main
         v-show="!loading"
