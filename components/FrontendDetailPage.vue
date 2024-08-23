@@ -8,6 +8,16 @@ const { search } = useProductSearch();
 const { data: productResponse } = await useAsyncData('pdp' + props.navigationId, async () => {
     return await search(props.navigationId, {
         withCmsAssociations: true,
+        criteria: {
+            associations: {
+                properties: {
+                    associations: {
+                        group: {},
+                    },
+                },
+                manufacturer: {},
+            },
+        },
     });
 });
 
@@ -16,6 +26,7 @@ if (!productResponse.value) {
 }
 
 const { product } = useProduct(productResponse.value.product, productResponse.value.configurator);
+console.log('1', product);
 </script>
 
 <template>
