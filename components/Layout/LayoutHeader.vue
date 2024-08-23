@@ -4,12 +4,13 @@ import type { Schemas } from '@shopware/api-client/api-types';
 
 const customerStore = useCustomerStore();
 const { loadNavigationElements, navigationElements } = useNavigation();
-const { loading } = storeToRefs(customerStore);
+const { loading, signedIn } = storeToRefs(customerStore);
 const sideMenuController = useModal();
 const offcanvasCartController = useModal();
 const { count: wishlistCount } = useWishlist();
 const { cartItems } = useCart();
 const { getCartItemsCount } = useCartItems();
+const modalController = useModal();
 
 const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
 await loadNavigationElements({ depth: 2 });
@@ -29,7 +30,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
         v-show="!loading"
         class="sticky top-0 z-10 bg-gray-light md:bg-white"
     >
-        <div class="container py-3 md:py-6">
+        <div class="container relative z-10 py-3 md:py-6">
             <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-3">
                     <!-- mobile menu -->
@@ -90,6 +91,44 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                         />
                     </NuxtLink>
 
+                    <!-- account -->
+                    <LazySharedModal
+                        v-if="!signedIn"
+                        :with-close-button="true"
+                    >
+                        <template #trigger>
+                            <FormKitIcon
+                                class="block h-6 w-6"
+                                icon="user"
+                            />
+                        </template>
+                        <template #title>Login</template>
+                        <template #content>
+                            <AccountLoginRegisterTabs />
+                        </template>
+                    </LazySharedModal>
+                    <LazySharedPopover v-else>
+                        <template #trigger>
+                            <FormKitIcon
+                                class="block h-6 w-6"
+                                icon="user"
+                                @click="!signedIn ? modalController.open() : null"
+                            />
+                        </template>
+                        <template #content>
+                            <div class="py-2 first:pt-0">
+                                <NuxtLink to="/account">account</NuxtLink>
+                            </div>
+                            <FormKit
+                                type="submit"
+                                prefix-icon="right-from-bracket"
+                                @click.prevent="customerStore.logout()"
+                            >
+                                logout
+                            </FormKit>
+                        </template>
+                    </LazySharedPopover>
+
                     <!-- cart -->
                     <button
                         class="relative"
@@ -110,6 +149,13 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                         side="right"
                     >
                         offcanvas cart
+
+                        <NuxtLink
+                            to="/checkout/cart"
+                            class="mt-4 flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
+                        >
+                            to the cart
+                        </NuxtLink>
                     </LazyLayoutSidebar>
                 </div>
             </div>
