@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getProductRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
+const { pushError, pushSuccess } = useNotifications();
 
 const props = withDefaults(
     defineProps<{
@@ -17,8 +18,15 @@ const { addProduct, refreshCart } = useCart();
 
 const cover = getProductCover(props.product.cover);
 const addProductAndRefresh = async (id: string) => {
-    await addProduct({ id });
-    refreshCart();
+    try {
+        await addProduct({ id });
+    } catch (error) {
+        pushError('An error occured trying to add ' + props.product.translated.name + ' to your cart.');
+    }
+
+    pushSuccess(props.product.translated.name + ' was added to your cart.');
+
+    await refreshCart();
 };
 </script>
 
