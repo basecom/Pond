@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import CheckoutLoginInformation from "~/components/checkout/confirm/CheckoutLoginInformation.vue";
-import CheckoutShipping from "~/components/checkout/confirm/CheckoutShipping.vue";
-import CheckoutPayment from "~/components/checkout/confirm/CheckoutPayment.vue";
-
 import { ApiClientError } from "@shopware/api-client";
 
 const customerStore = useCustomerStore();
@@ -56,9 +52,9 @@ onMounted(async () =>  {
         <template v-if="!isEmpty">
             <div class="flex gap-6 my-6">
                 <div class="w-1/2 shadow p-4 rounded-md">
-                    <CheckoutLoginInformation />
-                    <CheckoutShipping />
-                    <CheckoutPayment />
+                    <CheckoutConfirmLoginInformation />
+                    <CheckoutConfirmShipping />
+                    <CheckoutConfirmPayment />
 
                     <!-- TODO: Address Management (BUS-841) -->
 
