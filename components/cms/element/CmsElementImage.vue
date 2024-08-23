@@ -2,18 +2,18 @@
 import type { CmsElementImage } from '@shopware-pwa/composables-next';
 import { buildUrlPrefix } from '@shopware-pwa/helpers-next';
 import { useElementSize } from '@vueuse/core';
+import type { CSSProperties } from 'vue';
 
 const props = defineProps<{
     element: CmsElementImage;
 }>();
 
 const { getUrlPrefix } = useUrlResolver();
-const { containerStyle, displayMode, imageContainerAttrs, imageAttrs, imageLink, isVideoElement, mimeType } =
-    useCmsElementImage(props.element);
-
 const imageElement = ref(null);
 const { width, height } = useElementSize(imageElement);
 const { getCmsMedia } = useMedia();
+const { containerStyle, displayMode, imageContainerAttrs, imageAttrs, imageLink, isVideoElement, mimeType } =
+    useCmsElementImage(props.element);
 
 const { srcPath } = getCmsMedia(width, height, imageAttrs);
 
@@ -24,6 +24,11 @@ const imageComputedContainerAttrs = computed(() => {
     }
     return imageAttrsCopy;
 });
+
+const getMinHeightAsHeight = (properties: CSSProperties) => {
+    const height = properties.minHeight ?? '100%';
+    return `height: ${height}`;
+};
 </script>
 
 <template>
@@ -56,6 +61,7 @@ const imageComputedContainerAttrs = computed(() => {
                 'h-full w-full': true,
                 'object-cover': displayMode === 'cover',
             }"
+            :style="displayMode === 'cover' ? getMinHeightAsHeight(containerStyle) : ''"
             :alt="imageAttrs.alt"
             :src="srcPath"
             :srcset="imageAttrs.srcset"
