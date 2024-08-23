@@ -26,7 +26,6 @@ if (!productResponse.value) {
 }
 
 const { product } = useProduct(productResponse.value.product, productResponse.value.configurator);
-console.log('1', product);
 </script>
 
 <template>

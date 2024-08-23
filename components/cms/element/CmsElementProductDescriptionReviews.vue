@@ -15,7 +15,7 @@ propertyGroups.value = product.value.properties
     .filter((obj: Schemas['PropertyGroup'], index: number, arr: Schemas['PropertyGroup'][]) => {
         return arr.findIndex((item: Schemas['PropertyGroup']) => item.id === obj.id) === index;
     });
-console.log(propertyGroups);
+
 const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][] => {
     return product.value.properties.filter((propertiy: Schemas['PropertyGroupOption']) => propertiy.group.id === groupId);
 };
@@ -23,25 +23,13 @@ const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][]
 
 <template>
     <div class="flex flex-col gap-4">
-<!--        <div class="flex flex-col gap-4">-->
-<!--            <div class="text-xl font-bold">description</div>-->
-<!--            <div>-->
-<!--                {{element.data.product.translated.description}}-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="flex flex-col gap-4">-->
-<!--            <div class="text-xl font-bold">eigenschaften</div>-->
-<!--        </div>-->
-<!--        <div class="flex flex-col gap-4">-->
-<!--            <div class="text-xl font-bold">bewertungen</div>-->
-<!--        </div>-->
         <div class="text-xl font-bold">description</div>
         <div class="flex flex-col gap-4 md:flex-row">
             <div
                 class="flex-grow"
-            >
-                {{ getTranslatedProperty(product, 'description') }}
-            </div>
+                v-html="getTranslatedProperty(product, 'description')"
+            />
+
             <div
                 class="w-full md:w-96 shrink-0"
             >
@@ -65,21 +53,6 @@ const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][]
                 </table>
             </div>
         </div>
-
-        <SharedAccordion :default-value="'desc'">
-            <SharedAccordionItem value="desc">
-                <template #title>description</template>
-                <template #contet>{{element.data.product.translated.description}}</template>
-            </SharedAccordionItem>
-            <SharedAccordionItem value="properties">
-                <template #title>properties</template>
-                <template #contet>here will be properties</template>
-            </SharedAccordionItem>
-            <SharedAccordionItem value="rating">
-                <template #title>rating</template>
-                <template #contet>here will be ratings</template>
-            </SharedAccordionItem>
-        </SharedAccordion>
     </div>
 </template>
 
