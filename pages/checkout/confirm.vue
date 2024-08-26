@@ -39,7 +39,7 @@ onMounted(async () => {
             >
                 <div class="my-6 flex gap-6">
                     <div class="w-1/2 divide-y divide-gray-medium rounded-md p-4 shadow">
-                        <CheckoutConfirmLoginInformation />
+                        <CheckoutConfirmPersonal />
                         <CheckoutConfirmShipping />
                         <CheckoutConfirmPayment />
 
