@@ -40,7 +40,7 @@ onMounted(async () =>  {
                 @submit="placeOrder"
             >
                 <div class="flex gap-6 my-6">
-                    <div class="w-1/2 shadow p-4 rounded-md">
+                    <div class="w-1/2 shadow p-4 rounded-md divide-y divide-gray-medium">
                         <CheckoutConfirmLoginInformation />
                         <CheckoutConfirmShipping />
                         <CheckoutConfirmPayment />

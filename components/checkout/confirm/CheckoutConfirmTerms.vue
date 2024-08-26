@@ -3,7 +3,7 @@ const tos = ref(false);
 </script>
 
 <template>
-    <UtilityFieldset title="Terms and Conditions">
+    <CheckoutConfirmCard title="Terms and Conditions">
         <FormKit
             type="checkbox"
             label="Terms and Conditions"
@@ -14,5 +14,5 @@ const tos = ref(false);
             validation="accepted"
             validation-visibility="submit"
         />
-    </UtilityFieldset>
+    </CheckoutConfirmCard>
 </template>
