@@ -16,13 +16,13 @@ withDefaults(
     defineProps<{
         defaultValue: string;
         collapsible?: boolean;
-        type?: 'single'|'multiple';
+        type?: 'single' | 'multiple';
     }>(),
     {
         collapsible: true,
         type: 'single',
-    }
-)
+    },
+);
 </script>
 
 <template>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import type { CmsElementManufacturerLogo } from '@shopware-pwa/composables-next';
 
 defineProps<{
@@ -7,6 +6,4 @@ defineProps<{
 }>();
 </script>
 
-<template>
-    manufacturer (currently data not provided properly)
-</template>
+<template>manufacturer (currently data not provided properly)</template>

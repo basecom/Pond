@@ -22,7 +22,7 @@ withDefaults(
         >
             <FormKitIcon
                 icon="spinner"
-                class="h-8 w-8 animate-spin fill-status-important text-brand-primary"
+                class="animate-spin h-8 w-8 fill-status-important text-brand-primary"
             />
             <span class="sr-only">Loading...</span>
         </div>

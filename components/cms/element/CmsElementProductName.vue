@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import type { CmsElementProductName } from '@shopware-pwa/composables-next';
 
 defineProps<{
