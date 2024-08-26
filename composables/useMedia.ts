@@ -35,10 +35,19 @@ export function useMedia() {
             };
         }
 
-        return {
-            url: cover.media.thumbnails?.length ? cover.media.thumbnails[thumbnailSizes[size]]?.url : cover.media.url,
-            alt: cover.media.alt,
-        };
+        if (cover.media) {
+            return {
+                url: cover.media.thumbnails?.length
+                    ? cover.media.thumbnails[thumbnailSizes[size]]?.url
+                    : cover.media.url,
+                alt: cover.media.alt,
+            };
+        } else {
+            return {
+                url: cover.thumbnails?.length ? cover.thumbnails[thumbnailSizes[size]]?.url : cover.url,
+                alt: cover.alt,
+            };
+        }
     };
 
     return { getCmsMedia, getProductCover };
