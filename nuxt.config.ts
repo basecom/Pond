@@ -61,4 +61,5 @@ export default defineNuxtConfig({
             content: [join(currentDir, 'formkit.theme.ts')],
         },
     },
+    css: ['~/node_modules/@glidejs/glide/dist/css/glide.core.min.css'],
 });
