@@ -37,8 +37,8 @@ onMounted(async () => {
                 :incomplete-message="false"
                 @submit="placeOrder"
             >
-                <div class="my-6 flex gap-6">
-                    <div class="w-1/2 divide-y divide-gray-medium rounded-md p-4 shadow">
+                <div class="my-6 grid gap-6 lg:grid-cols-2">
+                    <div class="divide-y divide-gray-medium rounded-md p-4 shadow">
                         <CheckoutConfirmPersonal />
                         <CheckoutConfirmShipping />
                         <CheckoutConfirmPayment />
@@ -48,8 +48,8 @@ onMounted(async () => {
                         <CheckoutConfirmTerms />
                     </div>
 
-                    <div class="w-1/2 rounded-md p-4 shadow">
-                        <h3>Products</h3>
+                    <div class="rounded-md p-4 shadow">
+                        <div class="font-bold">Products</div>
 
                         <ul class="divide-y divide-gray-medium">
                             <li
