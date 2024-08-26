@@ -23,7 +23,7 @@ h2 {
 }
 
 h3 {
-    @apply text-2xl;
+    @apply text-xl;
 }
 
 h4, h5 {
