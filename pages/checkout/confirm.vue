@@ -49,7 +49,7 @@ onMounted(async () => {
                     </div>
 
                     <div class="rounded-md p-4 shadow">
-                        <h3>Products</h3>
+                        <div class="font-bold">Products</div>
 
                         <ul class="divide-y divide-gray-medium">
                             <li

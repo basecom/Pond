@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import SummaryValues from "~/components/checkout/SummaryValues.vue";
-
 const { totalPrice, shippingTotal, cart } = useCart();
 
 const netPrice = computed(() => {
@@ -18,6 +16,6 @@ const calculatedTaxes = computed(() => {
     <div class="rounded-md bg-gray-light p-4">
         <h2 class="pb-4">Cart summary</h2>
 
-        <SummaryValues :shipping-total="shippingTotal" :total-price="totalPrice" :calculated-taxes="calculatedTaxes" :net-price="netPrice" />
+        <CheckoutSummaryValues :shipping-total="shippingTotal" :total-price="totalPrice" :calculated-taxes="calculatedTaxes" :net-price="netPrice" />
     </div>
 </template>
