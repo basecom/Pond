@@ -20,11 +20,11 @@ const cover = getProductCover(props.product.cover);
 const addProductAndRefresh = async (id: string) => {
     try {
         await addProduct({ id });
+
+        pushSuccess(props.product.translated.name + ' was added to your cart.');
     } catch (error) {
         pushError('An error occured trying to add ' + props.product.translated.name + ' to your cart.');
     }
-
-    pushSuccess(props.product.translated.name + ' was added to your cart.');
 
     await refreshCart();
 };

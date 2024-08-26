@@ -21,6 +21,8 @@ const handleAddToCart = async (fields: FormkitQuantityFields) => {
     quantity.value = parseInt(fields['quantity']) ?? 1;
     try {
         await addToCart();
+
+        pushSuccess(product.value.translated.name + ' was added to your cart.');
     } catch (error) {
         pushError('An error occured trying to add ' + product.value.translated.name + ' to your cart.');
 
@@ -31,8 +33,6 @@ const handleAddToCart = async (fields: FormkitQuantityFields) => {
 
         apiErrors.value.push({ key: 'product', code: 'PRODUCT_ADD_TO_CART_GENERAL_ERROR' });
     }
-
-    pushSuccess(product.value.translated.name + ' was added to your cart.');
 };
 </script>
 

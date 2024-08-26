@@ -6,15 +6,19 @@ const { refreshSessionContext } = useSessionContext();
 const { push } = useRouter();
 const { refreshCart, isEmpty, cartItems } = useCart();
 const { createOrder } = useCheckout();
+const { pushError, pushSuccess } = useNotifications();
 
 const placeOrder = async () => {
     try {
         const order = await createOrder();
         await push('/checkout/finish/' + order.id);
         await refreshCart();
+
+        pushSuccess('Your order has been placed.');
     } catch (error) {
+        pushError('An error occured trying finish the order. Please try again.');
+
         if (error instanceof ApiClientError) {
-            // TODO: User Feedback (BUS-843)
             console.log(error.details);
         }
     }

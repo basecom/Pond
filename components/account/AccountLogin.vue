@@ -26,16 +26,22 @@ const { togglePasswordVisibility } = useFormkitHelper();
 const { resolveApiErrors } = useApiErrorsResolver();
 const { signedIn } = storeToRefs(customerStore);
 const apiErrors = ref<ResolvedApiError[]>([]);
+const { pushError, pushSuccess } = useNotifications();
 
 const handleLogin = async (fields: FormkitLoginFields) => {
     try {
         await customerStore.login({
             ...fields,
         });
+
         if (props.redirectAfterSuccess) {
             navigateTo(props.redirectTarget);
         }
+
+        pushSuccess('You successfully logged in.');
     } catch (error) {
+        pushError('An error occured trying to login. Please try again.');
+
         if (error instanceof ApiClientError) {
             apiErrors.value = resolveApiErrors(error.details.errors, 'login');
             return;

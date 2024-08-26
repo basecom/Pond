@@ -37,15 +37,15 @@ const updateQuantity = async (quantityInput: number | undefined) => {
         const response = await changeItemQuantity(Number(quantityInput));
         // Refresh cart after quantity update
         await refreshCart(response);
-    } catch (error) {
-        if (error instanceof ApiClientError) {
-            pushError('An error occured trying to change the quantity of ' + lineItem.value.label + '.');
 
+        pushSuccess('The quantity of ' + lineItem.value.label + ' has been updated');
+    } catch (error) {
+        pushError('An error occured trying to change the quantity of ' + lineItem.value.label + '.');
+
+        if (error instanceof ApiClientError) {
             console.log(error.details);
         }
     }
-
-    pushSuccess('The quantity of ' + lineItem.value.label + ' has been updated');
 
     // Make sure that quantity is the same as it is in the response
     quantity.value = itemQuantity.value;
@@ -58,15 +58,15 @@ const removeCartItem = async () => {
 
     try {
         await removeItem();
-    } catch (error) {
-        if (error instanceof ApiClientError) {
-            pushError('An error occured trying to remove ' + lineItem.value.label + ' from the cart.');
 
+        pushSuccess(lineItem.value.label + ' has been removed from your cart');
+    } catch (error) {
+        pushError('An error occured trying to remove ' + lineItem.value.label + ' from the cart.');
+
+        if (error instanceof ApiClientError) {
             console.log(error.details);
         }
     }
-
-    pushSuccess(lineItem.value.label + ' has been removed from your cart');
 
     isLoading.value = false;
 };
