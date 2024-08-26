@@ -10,13 +10,11 @@ const props = defineProps<{
 
 const { lineItem } = toRefs(props);
 
-const lineItemCover = getProductCover(lineItem.value.cover, 'xs')
+const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 </script>
 
 <template>
-    <div
-        class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium"
-    >
+    <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium">
         <NuxtLink :to="getProductRoute(lineItem)">
             <img
                 :src="lineItemCover.url"
@@ -65,9 +63,7 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs')
                 name="quantity"
                 class="mt-1 flex rounded-md border border-gray-medium bg-white px-3 py-2 shadow-sm sm:text-sm"
             >
-                <NumberFieldInput
-                    class="w-14 text-center focus:outline-none bg-transparent"
-                />
+                <NumberFieldInput class="w-14 bg-transparent text-center focus:outline-none" />
             </NumberFieldRoot>
             x {{ getFormattedPrice(lineItem?.unitPrice) }}
         </div>

@@ -8,7 +8,10 @@ defineProps<{
 <template>
     <div class="grid gap-4 bg-white px-4 py-5 shadow sm:p-6">
         <div>
-            <p class="font-bold" v-if="title">
+            <p
+                v-if="title"
+                class="font-bold"
+            >
                 {{ title }}
             </p>
 

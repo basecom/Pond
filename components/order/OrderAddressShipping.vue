@@ -18,9 +18,7 @@ defineProps<{
             {{ shippingAddress?.street }}
         </div>
 
-        <div>
-            {{ shippingAddress?.zipcode }} {{ shippingAddress?.city }}
-        </div>
+        <div>{{ shippingAddress?.zipcode }} {{ shippingAddress?.city }}</div>
     </template>
 
     <template v-else>

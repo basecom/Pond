@@ -7,15 +7,11 @@ defineProps<{
 </script>
 
 <template>
-    <div>
-        {{ billingAddress?.firstName }} {{ billingAddress?.lastName }}
-    </div>
+    <div>{{ billingAddress?.firstName }} {{ billingAddress?.lastName }}</div>
 
     <div>
         {{ billingAddress?.street }}
     </div>
 
-    <div>
-        {{ billingAddress?.zipcode }} {{ billingAddress?.city }}
-    </div>
+    <div>{{ billingAddress?.zipcode }} {{ billingAddress?.city }}</div>
 </template>

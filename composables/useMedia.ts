@@ -37,7 +37,9 @@ export function useMedia() {
 
         if (cover.media) {
             return {
-                url: cover.media.thumbnails?.length ? cover.media.thumbnails[thumbnailSizes[size]]?.url : cover.media.url,
+                url: cover.media.thumbnails?.length
+                    ? cover.media.thumbnails[thumbnailSizes[size]]?.url
+                    : cover.media.url,
                 alt: cover.media.alt,
             };
         } else {
