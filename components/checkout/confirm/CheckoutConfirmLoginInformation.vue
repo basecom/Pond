@@ -4,7 +4,10 @@ const customerStore = useCustomerStore();
 
 <template>
     <CheckoutConfirmCard title="Personal Information">
-        <span v-if="customerStore.customer" class="text-sm">
+        <span
+            v-if="customerStore.customer"
+            class="text-sm"
+        >
             You are logged in as {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}
         </span>
 

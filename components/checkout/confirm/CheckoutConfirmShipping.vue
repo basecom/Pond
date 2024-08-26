@@ -1,19 +1,13 @@
 <script setup lang="ts">
-import { getShippingMethodDeliveryTime } from "@shopware-pwa/helpers-next";
+import { getShippingMethodDeliveryTime } from '@shopware-pwa/helpers-next';
 
-const {
-    shippingMethods,
-    getShippingMethods,
-} = useCheckout();
+const { shippingMethods, getShippingMethods } = useCheckout();
 
-const {
-    selectedShippingMethod: shippingMethod,
-    setShippingMethod,
-} = useSessionContext();
+const { selectedShippingMethod: shippingMethod, setShippingMethod } = useSessionContext();
 
 const selectedShippingMethod = computed({
     get(): string {
-        return shippingMethod.value?.id || "";
+        return shippingMethod.value?.id || '';
     },
     async set(shippingMethodId: string) {
         await setShippingMethod({ id: shippingMethodId });
@@ -22,7 +16,7 @@ const selectedShippingMethod = computed({
 
 const shippingOptions = ref([]);
 
-onMounted(async () =>  {
+onMounted(async () => {
     await getShippingMethods();
 
     shippingOptions.value = shippingMethods.value.map(method => ({
@@ -36,7 +30,10 @@ onMounted(async () =>  {
 </script>
 
 <template>
-    <CheckoutConfirmCard title="Shipping Method" subtitle="Select a shipping method">
+    <CheckoutConfirmCard
+        title="Shipping Method"
+        subtitle="Select a shipping method"
+    >
         <FormKit
             v-if="shippingOptions.length > 0"
             v-model="selectedShippingMethod"
@@ -49,13 +46,11 @@ onMounted(async () =>  {
                         {{ option.label }}
                     </span>
 
-                    <span v-if="option.deliveryTime">
-                        ({{ option.deliveryTime }})
-                    </span>
+                    <span v-if="option.deliveryTime"> ({{ option.deliveryTime }}) </span>
 
                     <span
                         v-if="option.description"
-                        class="italic text-sm text-secondary-500 block"
+                        class="text-secondary-500 block text-sm italic"
                     >
                         {{ option.description }}
                     </span>

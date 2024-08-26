@@ -6,13 +6,16 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div class="grid gap-4 shadow px-4 py-5 bg-white sm:p-6">
+    <div class="grid gap-4 bg-white px-4 py-5 shadow sm:p-6">
         <h3 v-if="title">
-            {{ title }}
+            {{ props.title }}
         </h3>
 
-        <span class="text-sm" v-if="subtitle">
-            {{ subtitle }}
+        <span
+            v-if="subtitle"
+            class="text-sm"
+        >
+            {{ props.subtitle }}
         </span>
 
         <slot />

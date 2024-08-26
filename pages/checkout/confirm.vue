@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { ApiClientError } from "@shopware/api-client";
+import { ApiClientError } from '@shopware/api-client';
 
 const customerStore = useCustomerStore();
-const {
-    refreshSessionContext
-} = useSessionContext();
+const { refreshSessionContext } = useSessionContext();
 const { push } = useRouter();
 const { refreshCart, isEmpty, cartItems } = useCart();
 const { createOrder } = useCheckout();
@@ -12,9 +10,9 @@ const { createOrder } = useCheckout();
 const placeOrder = async () => {
     try {
         const order = await createOrder();
-        await push("/checkout/finish/" + order.id);
+        await push('/checkout/finish/' + order.id);
         await refreshCart();
-    } catch(error) {
+    } catch (error) {
         if (error instanceof ApiClientError) {
             // TODO: User Feedback (BUS-843)
             console.log(error.details);
@@ -22,7 +20,7 @@ const placeOrder = async () => {
     }
 };
 
-onMounted(async () =>  {
+onMounted(async () => {
     await refreshSessionContext();
     await refreshCart();
 });
@@ -39,8 +37,8 @@ onMounted(async () =>  {
                 :incomplete-message="false"
                 @submit="placeOrder"
             >
-                <div class="flex gap-6 my-6">
-                    <div class="w-1/2 shadow p-4 rounded-md divide-y divide-gray-medium">
+                <div class="my-6 flex gap-6">
+                    <div class="w-1/2 divide-y divide-gray-medium rounded-md p-4 shadow">
                         <CheckoutConfirmLoginInformation />
                         <CheckoutConfirmShipping />
                         <CheckoutConfirmPayment />
@@ -50,24 +48,33 @@ onMounted(async () =>  {
                         <CheckoutConfirmTerms />
                     </div>
 
-                    <div class="w-1/2 shadow p-4 rounded-md">
+                    <div class="w-1/2 rounded-md p-4 shadow">
                         <h3>Products</h3>
 
                         <ul class="divide-y divide-gray-medium">
-                            <li v-for="cartItem in cartItems" :key="cartItem.id" class="flex py-6">
-                                <CheckoutLineItem :lineItem="cartItem"/>
+                            <li
+                                v-for="cartItem in cartItems"
+                                :key="cartItem.id"
+                                class="flex py-6"
+                            >
+                                <CheckoutLineItem :line-item="cartItem" />
                             </li>
                         </ul>
 
                         <CheckoutSummary />
 
-                        <button v-if="customerStore.customer"
-                                class="flex items-center justify-center bg-brand-primary w-full text-white rounded-md px-6 py-3 mt-4 cursor-pointer"
+                        <button
+                            v-if="customerStore.customer"
+                            class="mt-4 flex w-full cursor-pointer items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
                         >
                             Order
                         </button>
 
-                        <div v-else class="flex items-center justify-center bg-gray-dark text-white rounded-md px-6 py-3 mt-4 cursor-not-allowed" disabled="disabled">
+                        <div
+                            v-else
+                            class="mt-4 flex cursor-not-allowed items-center justify-center rounded-md bg-gray-dark px-6 py-3 text-white"
+                            disabled="disabled"
+                        >
                             Log in to place order
                         </div>
                     </div>
@@ -75,8 +82,6 @@ onMounted(async () =>  {
             </FormKit>
         </template>
 
-        <template v-else>
-            Your cart is empty
-        </template>
+        <template v-else> Your cart is empty </template>
     </div>
 </template>

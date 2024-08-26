@@ -1,17 +1,11 @@
 <script setup lang="ts">
-const {
-    paymentMethods,
-    getPaymentMethods,
-} = useCheckout();
+const { paymentMethods, getPaymentMethods } = useCheckout();
 
-const {
-    selectedPaymentMethod: paymentMethod,
-    setPaymentMethod,
-} = useSessionContext();
+const { selectedPaymentMethod: paymentMethod, setPaymentMethod } = useSessionContext();
 
 const selectedPaymentMethod = computed({
     get(): string {
-        return paymentMethod.value?.id || "";
+        return paymentMethod.value?.id || '';
     },
     async set(paymentMethodId: string) {
         await setPaymentMethod({ id: paymentMethodId });
@@ -20,7 +14,7 @@ const selectedPaymentMethod = computed({
 
 const paymentOptions = ref([]);
 
-onMounted(async () =>  {
+onMounted(async () => {
     await getPaymentMethods();
 
     paymentOptions.value = paymentMethods.value.map(method => ({
@@ -33,7 +27,10 @@ onMounted(async () =>  {
 </script>
 
 <template>
-    <CheckoutConfirmCard title="Payment Method" subtitle="Select a payment method">
+    <CheckoutConfirmCard
+        title="Payment Method"
+        subtitle="Select a payment method"
+    >
         <FormKit
             v-if="paymentOptions.length > 0"
             v-model="selectedPaymentMethod"
@@ -48,7 +45,7 @@ onMounted(async () =>  {
 
                     <span
                         v-if="option.description"
-                        class="italic text-sm text-secondary-500 block"
+                        class="text-secondary-500 block text-sm italic"
                     >
                         {{ option.description }}
                     </span>

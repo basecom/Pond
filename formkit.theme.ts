@@ -78,7 +78,7 @@ export const defaultClasses: Record<string, Record<string, boolean>> = {
         'items-center': true,
         'mb-1': true,
         'group-data-[multiple]:mb-0': true,
-        'hover:cursor-pointer': true
+        'hover:cursor-pointer': true,
     },
     'family:box__legend': {},
     'family:box__input': {
@@ -228,7 +228,7 @@ export const defaultClasses: Record<string, Record<string, boolean>> = {
         'peer-checked:after:w-[10px]': true,
         'peer-checked:after:h-[10px]': true,
         'peer-checked:after:rounded-[50%]': true,
-        'peer-checked:after:bg-brand-primary-dark': true
+        'peer-checked:after:bg-brand-primary-dark': true,
     },
     radio__decoratorIcon: {},
     range__inner: {},
