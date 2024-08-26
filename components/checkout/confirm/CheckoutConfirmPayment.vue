@@ -24,16 +24,7 @@ onMounted(async () =>  {
 </script>
 
 <template>
-    <fieldset class="grid gap-4 shadow px-4 py-5 bg-white sm:p-6">
-        <legend class="pt-5">
-            <h3>
-                Payment Method
-            </h3>
-            <div class="text-sm">
-                Select a payment method
-            </div>
-        </legend>
-
+    <UtilityFieldset title="Payment Method" subtitle="Select a payment method">
         <UtilityRadioGroup v-model="selectedPaymentMethod" :model="selectedPaymentMethod" :group="paymentMethods" :itemKey="'id'" />
-    </fieldset>
+    </UtilityFieldset>
 </template>

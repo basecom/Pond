@@ -24,18 +24,7 @@ onMounted(async () =>  {
 </script>
 
 <template>
-    <fieldset
-        class="grid gap-4 shadow px-4 py-5 bg-white sm:p-6"
-    >
-        <legend class="pt-5">
-            <h3>
-                Shipping Method
-            </h3>
-            <div class="text-sm">
-                Select a shipping method
-            </div>
-        </legend>
-
+    <UtilityFieldset title="Shipping Method" subtitle="Select a shipping method">
         <UtilityRadioGroup v-model="selectedShippingMethod" :model="selectedShippingMethod" :group="shippingMethods" :itemKey="'id'" />
-    </fieldset>
+    </UtilityFieldset>
 </template>

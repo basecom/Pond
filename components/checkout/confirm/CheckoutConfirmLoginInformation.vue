@@ -3,13 +3,7 @@ const customerStore = useCustomerStore();
 </script>
 
 <template>
-    <fieldset class="grid gap-4 shadow px-4 py-5 bg-white sm:p-6">
-        <legend class="pt-5">
-            <h3>
-                Personal Information
-            </h3>
-        </legend>
-
+    <UtilityFieldset title="Personal Information">
         <span v-if="customerStore.customer" class="text-sm">
             You are logged in as {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}
         </span>
@@ -17,5 +11,5 @@ const customerStore = useCustomerStore();
         <template v-else>
             <AccountLoginRegisterTabs />
         </template>
-    </fieldset>
+    </UtilityFieldset>
 </template>
