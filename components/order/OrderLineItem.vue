@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import { getSmallestThumbnailUrl, getProductRoute } from '@shopware-pwa/helpers-next';
+import { getProductRoute } from '@shopware-pwa/helpers-next';
 const { getFormattedPrice } = usePrice();
+const { getProductCover } = useMedia();
 
 const props = defineProps<{
     lineItem: Schemas['LineItem'];
 }>();
 
 const { lineItem } = toRefs(props);
+
+const lineItemCover = getProductCover(lineItem.value.cover, 'xs')
 </script>
 
 <template>
@@ -16,7 +19,8 @@ const { lineItem } = toRefs(props);
     >
         <NuxtLink :to="getProductRoute(lineItem)">
             <img
-                :src="getSmallestThumbnailUrl(lineItem?.cover)"
+                :src="lineItemCover.url"
+                :alt="lineItemCover.alt"
                 class="h-full w-full object-cover object-center"
             />
         </NuxtLink>

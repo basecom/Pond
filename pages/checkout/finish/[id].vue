@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import OrderSummary from "~/components/order/OrderSummary.vue";
-import OrderLineItem from "~/components/order/OrderLineItem.vue";
-import OrderAddressBilling from "~/components/order/OrderAddressBilling.vue";
-import OrderAddressShipping from "~/components/order/OrderAddressShipping.vue";
-
 const { params } = useRoute();
 const orderId = params.id as string;
 const {

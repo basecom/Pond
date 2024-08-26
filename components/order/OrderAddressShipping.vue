@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import OrderAddressBilling from "~/components/order/OrderAddressBilling.vue";
 
-const props = defineProps<{
+defineProps<{
     billingAddress: Schemas['OrderAddress'];
     shippingAddress: Schemas['OrderAddress'] | undefined;
 }>();
@@ -25,6 +24,6 @@ const props = defineProps<{
     </template>
 
     <template v-else>
-        <OrderAddressBilling :billing-address="props.billingAddress" />
+        <OrderAddressBilling :billing-address="billingAddress" />
     </template>
 </template>
