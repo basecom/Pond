@@ -12,10 +12,12 @@ const props = withDefaults(
     defineProps<{
         redirectAfterSuccess?: boolean;
         redirectTarget?: string;
+        showCreateLink?: boolean;
     }>(),
     {
         redirectAfterSuccess: false,
         redirectTarget: '/account',
+        showCreateLink: true,
     },
 );
 
@@ -50,7 +52,8 @@ const handleLogin = async (fields: FormkitLoginFields) => {
         type="form"
         submit-label="login"
         :classes="{
-            form: 'w-full',
+            form: 'w-full flex flex-wrap flex-col gap-4',
+            actions: 'w-full',
         }"
         @submit="handleLogin"
     >
@@ -82,6 +85,10 @@ const handleLogin = async (fields: FormkitLoginFields) => {
             @suffix-icon-click="togglePasswordVisibility"
         />
 
-        <NuxtLink :to="{ name: 'account-register' }">create account here</NuxtLink>
+        <NuxtLink
+            v-if="showCreateLink"
+            :to="{ name: 'account-register' }"
+            >create account here</NuxtLink
+        >
     </FormKit>
 </template>

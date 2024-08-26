@@ -12,7 +12,7 @@ onMounted(async () => {
 
         <div
             v-if="!isEmpty"
-            class="mb-4 mt-4 flex w-full flex-wrap gap-8 lg:flex-nowrap"
+            class="my-4 flex w-full flex-wrap gap-8 lg:flex-nowrap"
         >
             <div class="w-full lg:w-2/3">
                 <ul class="divide-y divide-gray-medium border-t border-gray-medium">
@@ -30,7 +30,6 @@ onMounted(async () => {
 
                 <NuxtLink
                     class="mt-4 flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
-                    data-testid="cart-checkout-link"
                     :to="'/checkout/confirm'"
                 >
                     Checkout

@@ -200,7 +200,6 @@ const currentCountry = computed(() => sessionContext.countryId.value);
 
         <FormKit
             type="submit"
-            help="You can use the label prop."
             :classes="{
                 outer: 'col-span-2 relative',
             }"
