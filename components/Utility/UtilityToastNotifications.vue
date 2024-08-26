@@ -3,7 +3,9 @@ const { notifications } = useNotifications();
 </script>
 
 <template>
-    <div class="fixed bottom-10 right-5 flex flex-col gap-[10px] w-[390px] max-h-fit max-w-[calc(100vw-2.5rem)] z-[2147483647]">
+    <div
+        class="fixed bottom-10 right-5 z-[2147483647] flex max-h-fit w-[390px] max-w-[calc(100vw-2.5rem)] flex-col gap-[10px]"
+    >
         <UtilityToastNotification
             v-for="notification in notifications"
             :key="notification.id"

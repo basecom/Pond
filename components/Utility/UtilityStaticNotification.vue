@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Notification } from "@shopware-pwa/composables-next";
+import type { Notification } from '@shopware-pwa/composables-next';
 
 const props = defineProps<{
     type: string;
@@ -11,8 +11,8 @@ const staticNotification: Notification = {
     type: props.type,
     message: props.message,
     id: props.id,
-    static: true
-}
+    static: true,
+};
 </script>
 
 <template>
