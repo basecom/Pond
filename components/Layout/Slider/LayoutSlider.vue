@@ -87,11 +87,11 @@ const goToSlide = (index: number) => {
 
             <div
                 v-if="navigationArrows"
-                class="glide__arrows absolute inset-0 flex items-center"
+                class="glide__arrows flex items-center"
                 data-glide-el="controls"
             >
                 <button
-                    class="glide__arrow glide__arrow--left absolute"
+                    class="glide__arrow glide__arrow--left absolute top-1/2 -translate-y-1/2"
                     :class="{
                         '-left-6': navigationArrows === 'outside',
                         'left-2 flex h-6 w-6 items-center justify-center rounded-full bg-gray-light/50':
@@ -106,7 +106,7 @@ const goToSlide = (index: number) => {
                     />
                 </button>
                 <button
-                    class="glide__arrow glide__arrow--right absolute"
+                    class="glide__arrow glide__arrow--right absolute top-1/2 -translate-y-1/2"
                     :class="{
                         '-right-6': navigationArrows === 'outside',
                         'right-2 flex h-6 w-6 items-center justify-center rounded-full bg-gray-light/50':
