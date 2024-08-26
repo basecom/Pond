@@ -13,11 +13,14 @@ const isDevelopment = computed(() => import.meta.dev);
 </script>
 
 <template>
-    <component
-        :is="getCmsElementComponentName(content.type)"
+    <div
         v-if="componentExists(getCmsElementComponentName(content.type))"
-        :element="content"
         :class="['cms-element', `cms-element-${kebabCase(content.type)}`]"
-    />
+    >
+        <component
+            :is="getCmsElementComponentName(content.type)"
+            :element="content"
+        />
+    </div>
     <div v-else-if="isDevelopment">{{ getCmsElementComponentName(content.type) }} not found</div>
 </template>

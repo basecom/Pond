@@ -50,8 +50,8 @@ onMounted(async () => {
     });
 });
 
-onUnmounted(() => {
-    glide?.value?.destroy();
+onUnmounted(async () => {
+    await glide?.value?.destroy();
 });
 
 const goToSlide = (index: number) => {
