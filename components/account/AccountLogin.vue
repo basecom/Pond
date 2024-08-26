@@ -8,6 +8,19 @@ type FormkitLoginFields = {
     password: string;
 };
 
+const props = withDefaults(
+    defineProps<{
+        redirectAfterSuccess?: boolean;
+        redirectTarget?: string;
+        showCreateLink?: boolean;
+    }>(),
+    {
+        redirectAfterSuccess: false,
+        redirectTarget: '/account',
+        showCreateLink: true,
+    },
+);
+
 const customerStore = useCustomerStore();
 const { togglePasswordVisibility } = useFormkitHelper();
 const { resolveApiErrors } = useApiErrorsResolver();
@@ -19,7 +32,9 @@ const handleLogin = async (fields: FormkitLoginFields) => {
         await customerStore.login({
             ...fields,
         });
-        navigateTo('/account');
+        if (props.redirectAfterSuccess) {
+            navigateTo(props.redirectTarget);
+        }
     } catch (error) {
         if (error instanceof ApiClientError) {
             apiErrors.value = resolveApiErrors(error.details.errors, 'login');
@@ -37,7 +52,8 @@ const handleLogin = async (fields: FormkitLoginFields) => {
         type="form"
         submit-label="login"
         :classes="{
-            form: 'w-full max-w-xs',
+            form: 'w-full flex flex-wrap flex-col gap-4',
+            actions: 'w-full',
         }"
         @submit="handleLogin"
     >
@@ -69,6 +85,10 @@ const handleLogin = async (fields: FormkitLoginFields) => {
             @suffix-icon-click="togglePasswordVisibility"
         />
 
-        <NuxtLink :to="{ name: 'account-register' }">create account here</NuxtLink>
+        <NuxtLink
+            v-if="showCreateLink"
+            :to="{ name: 'account-register' }"
+            >create account here</NuxtLink
+        >
     </FormKit>
 </template>
