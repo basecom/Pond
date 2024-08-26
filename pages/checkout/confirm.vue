@@ -11,18 +11,12 @@ const { createOrder } = useCheckout();
 
 const placeOrderTriggered = ref(false);
 const termsBox = ref();
-const terms = reactive({
-    tos: false,
-});
-
-const termsSelected = computed(() => {
-    return terms.tos;
-});
+const tos = ref(false);
 
 const placeOrder = async () => {
     placeOrderTriggered.value = true;
 
-    if (!termsSelected.value) {
+    if (!tos.value) {
         termsBox.value.scrollIntoView({ behavior: "smooth" });
         return;
     }
@@ -64,23 +58,23 @@ onMounted(async () =>  {
                         class="grid gap-4 shadow px-4 py-5 bg-white sm:p-6"
                     >
                         <legend class="pt-5">
-                            <h3 class="text-lg font-medium">
+                            <h3>
                                 Terms and conditions
                             </h3>
                         </legend>
 
                         <UtilityCheckbox
-                            v-model:checked="terms.tos"
+                            v-model:checked="tos"
                             :checkboxId="'tos'"
                             :required="true"
-                            :condition="!termsSelected && placeOrderTriggered"
+                            :condition="!tos && placeOrderTriggered"
                             :checkboxLabel="'I have read and accepted the general terms and conditions.'"
                         />
                     </fieldset>
                 </div>
 
                 <div class="w-1/2 shadow p-4 rounded-md">
-                    <p class="font-medium">Products</p>
+                    <h3>Products</h3>
 
                     <ul class="divide-y divide-gray-medium">
                         <li v-for="cartItem in cartItems" :key="cartItem.id" class="flex py-6">

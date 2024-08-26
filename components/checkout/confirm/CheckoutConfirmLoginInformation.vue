@@ -5,7 +5,7 @@ const customerStore = useCustomerStore();
 <template>
     <fieldset class="grid gap-4 shadow px-4 py-5 bg-white sm:p-6">
         <legend class="pt-5">
-            <h3 class="text-lg font-medium">
+            <h3>
                 Personal Information
             </h3>
         </legend>

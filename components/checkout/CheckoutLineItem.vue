@@ -93,9 +93,9 @@ const debounceUpdate = useDebounceFn(updateQuantity, 400);
         <div>
             <div class="flex flex-col justify-between lg:flex-row">
                 <NuxtLink :to="getProductRoute(lineItem)">
-                    <h3 class="text-base">
+                    <p>
                         {{ lineItem.label }}
-                    </h3>
+                    </p>
                 </NuxtLink>
 
                 <span v-if="itemTotalPrice">
