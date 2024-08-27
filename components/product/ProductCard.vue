@@ -69,7 +69,7 @@ const addProductAndRefresh = async (id: string) => {
         </NuxtLink>
 
         <div>
-            <ProductAddToCart :product="product" />
+            <ProductAddToCart :product="product" :label="false" :icon="true" />
         </div>
     </div>
 </template>

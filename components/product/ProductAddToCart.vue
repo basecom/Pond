@@ -5,6 +5,8 @@ import type { Schemas } from '@shopware/api-client/api-types';
 
 const props = defineProps<{
     product: Schemas['Product'];
+    icon?: boolean;
+    label?: boolean;
 }>();
 
 const { product } = useProduct(props.product);
@@ -46,11 +48,10 @@ const handleAddToCart = async () => {
     <FormKit
         v-if="product.availableStock > 0"
         type="form"
-        submit-label="add to cart"
+        :actions="false"
         @keydown.enter.prevent
         :classes="{
             form: 'w-full flex gap-4',
-            actions: 'flex-grow',
             outer: 'w-20',
         }"
         @submit="handleAddToCart"
@@ -71,6 +72,15 @@ const handleAddToCart = async () => {
             v-model="quantity"
             :product="product"
             @on-enter="handleEnter($event)"
+        />
+
+        <FormKit
+            type="submit"
+            :classes="{
+                outer: 'w-full',
+            }"
+            :label="props.label ? 'add to cart' : ' '"
+            :prefix-icon="props.icon ? 'cart-shopping' : ''"
         />
     </FormKit>
 
