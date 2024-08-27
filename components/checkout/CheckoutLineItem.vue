@@ -73,7 +73,7 @@ const updateQuantityOnEnter = $event => {
 };
 
 // allows the user to change the quantity multiple times before firing a single request
-const debounceUpdate = useDebounceFn(updateQuantity, 400);
+const debounceUpdate = useDebounceFn(updateQuantity, 600);
 </script>
 
 <template>
