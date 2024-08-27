@@ -14,13 +14,18 @@ const props = defineProps<{
 const { product } = useProduct(props.product);
 const { addToCart, quantity } = useAddToCart(product);
 const { resolveApiErrors } = useApiErrorsResolver();
+const { pushError, pushSuccess } = useNotifications();
 const apiErrors = ref<ResolvedApiError[]>([]);
 
 const handleAddToCart = async (fields: FormkitQuantityFields) => {
     quantity.value = parseInt(fields['quantity']) ?? 1;
     try {
         await addToCart();
+
+        pushSuccess(product.value.translated.name + ' was added to your cart.');
     } catch (error) {
+        pushError('An error occured trying to add ' + product.value.translated.name + ' to your cart.');
+
         if (error instanceof ApiClientError) {
             apiErrors.value = resolveApiErrors(error.details.errors, 'product');
             return;
