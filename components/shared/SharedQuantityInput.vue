@@ -6,7 +6,7 @@ defineEmits(['onUpdate', 'onEnter']);
 const props = defineProps<{
     lineItem?: Schemas['LineItem'];
     product?: Schemas['Product'];
-    isLoading: boolean;
+    isLoading?: boolean;
 }>();
 
 let quantityInformation = props.product;
@@ -20,11 +20,12 @@ if (props.lineItem) {
     <NumberFieldRoot
         :disabled="props.isLoading"
         :locale="'de-DE'"
-        :min="quantityInformation?.minPurchase || 1"
-        :max="quantityInformation?.maxPurchase"
-        :step="quantityInformation?.purchaseSteps || 1"
+        :min="quantityInformation?.minPurchase ?? 1"
+        :max="quantityInformation?.maxPurchase ?? quantityInformation?.availableStock ?? 100"
+        :step="quantityInformation?.purchaseSteps ?? 1"
+        :default-value="quantityInformation?.minPurchase ?? 1"
         name="quantity"
-        class="mt-1 flex rounded-md border border-gray-medium bg-white px-3 py-2 shadow-sm sm:text-sm"
+        class="flex rounded-md border border-gray-medium bg-white px-3 py-2 shadow-sm sm:text-sm"
         @update:model-value="$emit('onUpdate', $event)"
     >
         <NumberFieldDecrement class="data-[disabled]:opacity-20">

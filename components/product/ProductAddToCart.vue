@@ -3,10 +3,6 @@ import { ApiClientError } from '@shopware/api-client';
 import type { ResolvedApiError } from '~/types/errors';
 import type { Schemas } from '@shopware/api-client/api-types';
 
-type FormkitQuantityFields = {
-    quantity: string;
-};
-
 const props = defineProps<{
     product: Schemas['Product'];
 }>();
@@ -17,8 +13,7 @@ const { resolveApiErrors } = useApiErrorsResolver();
 const { pushError, pushSuccess } = useNotifications();
 const apiErrors = ref<ResolvedApiError[]>([]);
 
-const handleAddToCart = async (fields: FormkitQuantityFields) => {
-    quantity.value = parseInt(fields['quantity']) ?? 1;
+const handleAddToCart = async () => {
     try {
         await addToCart();
 
@@ -59,14 +54,8 @@ const handleAddToCart = async (fields: FormkitQuantityFields) => {
                 {{ error.code }}
             </li>
         </ul>
-        <FormKit
-            type="number"
-            name="quantity"
-            :step="product.purchaseSteps"
-            :min="product.purchaseUnit"
-            :max="product.availableStock"
-            :value="product.purchaseUnit"
-        />
+
+        <SharedQuantityInput :product="product" v-model="quantity" />
     </FormKit>
     <div
         v-else

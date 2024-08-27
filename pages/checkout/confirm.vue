@@ -23,11 +23,6 @@ const placeOrder = async () => {
         }
     }
 };
-
-onMounted(async () => {
-    await refreshSessionContext();
-    await refreshCart();
-});
 </script>
 
 <template>
