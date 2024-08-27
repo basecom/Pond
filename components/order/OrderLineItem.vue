@@ -55,15 +55,8 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
             v-if="lineItem?.stackable"
             class="flex flex-1 items-end justify-between text-sm"
         >
-            <NumberFieldRoot
-                :disabled="true"
-                :locale="'de-DE'"
-                :default-value="lineItem.quantity"
-                name="quantity"
-                class="mt-1 flex rounded-md border border-gray-medium bg-white px-3 py-2 shadow-sm sm:text-sm"
-            >
-                <NumberFieldInput class="w-14 bg-transparent text-center focus:outline-none" />
-            </NumberFieldRoot>
+            <SharedQuantityInput :line-item="lineItem" :static="true" />
+
             x {{ getFormattedPrice(lineItem?.unitPrice) }}
         </div>
     </div>

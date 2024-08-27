@@ -9,6 +9,7 @@ const props = defineProps<{
 
 const { product } = useProduct(props.product);
 const { addToCart, quantity } = useAddToCart(product);
+quantity.value = product.value.minPurchase;
 const { resolveApiErrors } = useApiErrorsResolver();
 const { pushError, pushSuccess } = useNotifications();
 const apiErrors = ref<ResolvedApiError[]>([]);
@@ -25,6 +26,7 @@ const handleEnter = async ($event) => {
 const handleAddToCart = async () => {
     try {
         await addToCart();
+        quantity.value = product.value.minPurchase;
 
         pushSuccess(product.value.translated.name + ' was added to your cart.');
     } catch (error) {
