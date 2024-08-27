@@ -8,6 +8,16 @@ const { search } = useProductSearch();
 const { data: productResponse } = await useAsyncData('pdp' + props.navigationId, async () => {
     return await search(props.navigationId, {
         withCmsAssociations: true,
+        criteria: {
+            associations: {
+                properties: {
+                    associations: {
+                        group: {},
+                    },
+                },
+                manufacturer: {},
+            },
+        },
     });
 });
 
