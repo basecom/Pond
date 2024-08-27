@@ -24,7 +24,7 @@ defineProps<{
             class="overflow-hidden transition-transform duration-300 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown"
         >
             <div class="px-4 pt-2">
-                <slot name="contet" />
+                <slot name="content" />
             </div>
         </AccordionContent>
     </AccordionItem>

@@ -4,11 +4,11 @@
  * <SharedAccordionRoot default-value="item-1">
  *     <SharedAccordionItem value="item-1">
  *         <template #title>description</template>
- *         <template #contet>display content for item 1</template>
+ *         <template #content>display content for item 1</template>
  *     </SharedAccordionItem>
  *     <SharedAccordionItem value="item-2">
  *         <template #title>Item 2</template>
- *         <template #contet>display content for item 2</template>
+ *         <template #content>display content for item 2</template>
  *     </SharedAccordionItem>
  * </SharedAccordionRoot>
  */
