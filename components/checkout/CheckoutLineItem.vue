@@ -129,7 +129,13 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
             v-if="isStackable"
             class="flex flex-1 items-end justify-between text-sm"
         >
-            <SharedQuantityInput :line-item="lineItem" :is-loading="isLoading" v-model="quantity" @onUpdate="debounceUpdate" @onEnter="updateQuantityOnEnter($event)" />
+            <SharedQuantityInput
+                v-model="quantity"
+                :line-item="lineItem"
+                :is-loading="isLoading"
+                @on-update="debounceUpdate"
+                @on-enter="updateQuantityOnEnter($event)"
+            />
 
             <div class="flex">
                 <button

@@ -2,7 +2,6 @@
 import { ApiClientError } from '@shopware/api-client';
 
 const customerStore = useCustomerStore();
-const { refreshSessionContext } = useSessionContext();
 const { push } = useRouter();
 const { refreshCart, isEmpty, cartItems } = useCart();
 const { createOrder } = useCheckout();

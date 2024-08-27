@@ -55,7 +55,10 @@ const handleAddToCart = async () => {
             </li>
         </ul>
 
-        <SharedQuantityInput :product="product" v-model="quantity" />
+        <SharedQuantityInput
+            v-model="quantity"
+            :product="product"
+        />
     </FormKit>
     <div
         v-else
