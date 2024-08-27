@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getProductRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
-const { pushError, pushSuccess } = useNotifications();
 
 const props = withDefaults(
     defineProps<{
@@ -14,24 +13,12 @@ const props = withDefaults(
 );
 
 const { getProductCover } = useMedia();
-const { addProduct, refreshCart } = useCart();
 
 const cover = getProductCover(props.product.cover);
-const addProductAndRefresh = async (id: string) => {
-    try {
-        await addProduct({ id });
-
-        pushSuccess(props.product.translated.name + ' was added to your cart.');
-    } catch (error) {
-        pushError('An error occured trying to add ' + props.product.translated.name + ' to your cart.');
-    }
-
-    await refreshCart();
-};
 </script>
 
 <template>
-    <div class="shadow-md p-4 rounded-md">
+    <div class="rounded-md p-4 shadow-md">
         <NuxtLink
             :to="getProductRoute(product)"
             class="group"
@@ -55,7 +42,7 @@ const addProductAndRefresh = async (id: string) => {
 
                         <p
                             v-if="layout === 'standard'"
-                            class="line-clamp-2 text-sm h-2lh"
+                            class="line-clamp-2 h-2lh text-sm"
                         >
                             {{ getTranslatedProperty(product, 'description') }}
                         </p>
@@ -69,7 +56,11 @@ const addProductAndRefresh = async (id: string) => {
         </NuxtLink>
 
         <div>
-            <ProductAddToCart :product="product" :label="false" :icon="true" />
+            <ProductAddToCart
+                :product="product"
+                :label="false"
+                :icon="true"
+            />
         </div>
     </div>
 </template>

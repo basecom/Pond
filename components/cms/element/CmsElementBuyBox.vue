@@ -18,6 +18,9 @@ const { product } = useProduct(props.element.data.product);
             {{ product.productNumber }}
         </span>
 
-        <ProductAddToCart :product="product" :label="true"/>
+        <ProductAddToCart
+            :product="product"
+            :label="true"
+        />
     </div>
 </template>

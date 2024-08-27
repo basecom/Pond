@@ -16,7 +16,7 @@ const { resolveApiErrors } = useApiErrorsResolver();
 const { pushError, pushSuccess } = useNotifications();
 const apiErrors = ref<ResolvedApiError[]>([]);
 
-const handleEnter = async ($event) => {
+const handleEnter = async $event => {
     if ($event.target !== null) {
         // remove focus from input to trigger quantity update
         $event.target.blur();
@@ -49,11 +49,11 @@ const handleAddToCart = async () => {
         v-if="product.availableStock > 0"
         type="form"
         :actions="false"
-        @keydown.enter.prevent
         :classes="{
             form: 'w-full flex gap-4',
             outer: 'w-20',
         }"
+        @keydown.enter.prevent
         @submit="handleAddToCart"
     >
         <ul

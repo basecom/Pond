@@ -55,7 +55,10 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
             v-if="lineItem?.stackable"
             class="flex flex-1 items-end justify-between text-sm"
         >
-            <SharedQuantityInput :line-item="lineItem" :static="true" />
+            <SharedQuantityInput
+                :line-item="lineItem"
+                :static="true"
+            />
 
             x {{ getFormattedPrice(lineItem?.unitPrice) }}
         </div>

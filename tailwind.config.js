@@ -49,7 +49,7 @@ export default {
                 '2lh': '2lh',
                 '3lh': '3lh',
                 '4lh': '4lh',
-            }
+            },
         },
         container: {
             center: true,

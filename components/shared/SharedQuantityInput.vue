@@ -30,7 +30,10 @@ if (props.lineItem) {
         :class="props.static ? 'cursor-not-allowed' : ''"
         @update:model-value="$emit('onUpdate', $event)"
     >
-        <NumberFieldDecrement class="data-[disabled]:opacity-20" v-if="!props.static">
+        <NumberFieldDecrement
+            v-if="!props.static"
+            class="data-[disabled]:opacity-20"
+        >
             <FormKitIcon
                 icon="minus"
                 class="block w-3"
@@ -39,11 +42,14 @@ if (props.lineItem) {
 
         <NumberFieldInput
             class="w-14 text-center focus:outline-none"
-            :class="props.static ? 'bg-transparent cursor-not-allowed' : ''"
+            :class="props.static ? 'cursor-not-allowed bg-transparent' : ''"
             @keyup.enter="$emit('onEnter', $event)"
         />
 
-        <NumberFieldIncrement class="data-[disabled]:opacity-20" v-if="!props.static">
+        <NumberFieldIncrement
+            v-if="!props.static"
+            class="data-[disabled]:opacity-20"
+        >
             <FormKitIcon
                 icon="plus"
                 class="block w-3"
