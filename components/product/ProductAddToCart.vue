@@ -13,6 +13,15 @@ const { resolveApiErrors } = useApiErrorsResolver();
 const { pushError, pushSuccess } = useNotifications();
 const apiErrors = ref<ResolvedApiError[]>([]);
 
+const handleEnter = async ($event) => {
+    if ($event.target !== null) {
+        // remove focus from input to trigger quantity update
+        $event.target.blur();
+    }
+
+    await handleAddToCart();
+};
+
 const handleAddToCart = async () => {
     try {
         await addToCart();
@@ -36,6 +45,7 @@ const handleAddToCart = async () => {
         v-if="product.availableStock > 0"
         type="form"
         submit-label="add to cart"
+        @keydown.enter.prevent
         :classes="{
             form: 'w-full flex gap-4',
             actions: 'flex-grow',
@@ -58,8 +68,10 @@ const handleAddToCart = async () => {
         <SharedQuantityInput
             v-model="quantity"
             :product="product"
+            @on-enter="handleEnter($event)"
         />
     </FormKit>
+
     <div
         v-else
         class="flex w-full gap-1 rounded bg-gray-light px-4 py-2 text-gray"
