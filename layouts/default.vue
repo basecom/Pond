@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const customerStore = useCustomerStore();
 const { loading } = storeToRefs(customerStore);
+useNotifications();
 
 customerStore.refreshContext();
 </script>
@@ -11,6 +12,8 @@ customerStore.refreshContext();
     <UtilityLoadingSpinner v-if="loading" />
 
     <LayoutHeader v-show="!loading" />
+
+    <UtilityToastNotifications />
 
     <main
         v-show="!loading"

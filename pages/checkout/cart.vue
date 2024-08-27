@@ -38,7 +38,12 @@ onMounted(async () => {
         </div>
 
         <template v-else>
-            <p>Your shopping cart is empty.</p>
+            <UtilityStaticNotification
+                id="empty-cart"
+                type="info"
+                message="Your cart is empty."
+                class="mt-4"
+            />
         </template>
     </div>
 </template>
