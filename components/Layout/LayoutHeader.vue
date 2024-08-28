@@ -7,10 +7,12 @@ const { loadNavigationElements, navigationElements } = useNavigation();
 const { loading, signedIn } = storeToRefs(customerStore);
 const sideMenuController = useModal();
 const offcanvasCartController = useModal();
+const modalController = useModal();
 const { count: wishlistCount } = useWishlist();
 const { cartItems } = useCart();
 const { getCartItemsCount } = useCartItems();
-const modalController = useModal();
+
+const searchVisible = ref(false);
 
 const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
 await loadNavigationElements({ depth: 2 });
@@ -77,10 +79,12 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
 
                 <div class="flex items-center gap-3.5">
                     <!-- search -->
-                    <FormKitIcon
-                        class="block h-6 w-6"
-                        icon="search"
-                    />
+                    <button @click="searchVisible = !searchVisible">
+                        <FormKitIcon
+                            class="block h-6 w-6"
+                            icon="search"
+                        />
+                    </button>
 
                     <!-- wishlist -->
                     <NuxtLink
@@ -196,6 +200,6 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
             </div>
         </div>
 
-        <LayoutSearch />
+        <LayoutSearch v-if="searchVisible" />
     </header>
 </template>
