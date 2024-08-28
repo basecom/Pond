@@ -44,6 +44,12 @@ export default {
             width: {
                 128: '32rem', // 512px
             },
+            height: {
+                '1lh': '1lh',
+                '2lh': '2lh',
+                '3lh': '3lh',
+                '4lh': '4lh',
+            },
         },
         container: {
             center: true,

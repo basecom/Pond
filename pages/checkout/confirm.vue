@@ -2,7 +2,6 @@
 import { ApiClientError } from '@shopware/api-client';
 
 const customerStore = useCustomerStore();
-const { refreshSessionContext } = useSessionContext();
 const { push } = useRouter();
 const { refreshCart, isEmpty, cartItems } = useCart();
 const { createOrder } = useCheckout();
@@ -23,11 +22,6 @@ const placeOrder = async () => {
         }
     }
 };
-
-onMounted(async () => {
-    await refreshSessionContext();
-    await refreshCart();
-});
 </script>
 
 <template>
@@ -40,6 +34,7 @@ onMounted(async () => {
                 :actions="false"
                 :incomplete-message="false"
                 @submit="placeOrder"
+                @keydown.enter.prevent
             >
                 <div class="my-6 grid gap-6 lg:grid-cols-2">
                     <div class="divide-y divide-gray-medium rounded-md p-4 shadow">

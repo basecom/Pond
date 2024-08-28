@@ -1,9 +1,11 @@
 <script setup lang="ts">
 const customerStore = useCustomerStore();
+const { refreshCart } = useCart();
 const { loading } = storeToRefs(customerStore);
 useNotifications();
 
 customerStore.refreshContext();
+refreshCart();
 </script>
 
 <template>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import { getProductRoute } from '@shopware-pwa/helpers-next';
 const { getFormattedPrice } = usePrice();
 const { getProductCover } = useMedia();
 
@@ -15,7 +14,7 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 
 <template>
     <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium">
-        <NuxtLink :to="getProductRoute(lineItem)">
+        <NuxtLink :to="'/detail/' + lineItem.productId">
             <img
                 :src="lineItemCover.url"
                 :alt="lineItemCover.alt"
@@ -27,7 +26,7 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
     <div class="flex flex-1 flex-col">
         <div>
             <div class="flex flex-col justify-between lg:flex-row">
-                <NuxtLink :to="getProductRoute(lineItem)">
+                <NuxtLink :to="'/detail/' + lineItem.productId">
                     <h3 class="text-base">
                         {{ lineItem?.label }}
                     </h3>
@@ -56,15 +55,11 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
             v-if="lineItem?.stackable"
             class="flex flex-1 items-end justify-between text-sm"
         >
-            <NumberFieldRoot
-                :disabled="true"
-                :locale="'de-DE'"
-                :default-value="lineItem.quantity"
-                name="quantity"
-                class="mt-1 flex rounded-md border border-gray-medium bg-white px-3 py-2 shadow-sm sm:text-sm"
-            >
-                <NumberFieldInput class="w-14 bg-transparent text-center focus:outline-none" />
-            </NumberFieldRoot>
+            <SharedQuantityInput
+                :line-item="lineItem"
+                :static="true"
+            />
+
             x {{ getFormattedPrice(lineItem?.unitPrice) }}
         </div>
     </div>

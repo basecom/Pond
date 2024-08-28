@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { CmsElementText } from '@shopware-pwa/composables-next';
-import ProductCard from '~/components/product/ProductCard.vue';
 
 const props = defineProps<{
     element: CmsElementText;
@@ -18,7 +17,18 @@ search({
     limit: props.element.data.listing.limit,
     p: props.element.data.listing.page,
     includes: {
-        product: ['id', 'name', 'cover', 'calculatedPrice', 'description', 'translated'],
+        product: [
+            'id',
+            'name',
+            'cover',
+            'calculatedPrice',
+            'description',
+            'translated',
+            'availableStock',
+            'minPurchase',
+            'maxPurchase',
+            'purchaseSteps',
+        ],
         product_media: ['media'],
         media: ['url'],
     },
@@ -45,7 +55,7 @@ const changePage = async (page: number) => {
 </script>
 
 <template>
-    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+    <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
         <template
             v-for="product in getElements"
             :key="product.id"
