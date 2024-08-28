@@ -75,7 +75,13 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                     <LayoutLogo logo-classes="w-36 md:w-40" />
                 </div>
 
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3.5">
+                    <!-- search -->
+                    <FormKitIcon
+                        class="block h-6 w-6"
+                        icon="search"
+                    />
+
                     <!-- wishlist -->
                     <NuxtLink
                         to="/wishlist"
@@ -188,5 +194,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                 </div>
             </div>
         </div>
+
+        <LayoutSearch />
     </header>
 </template>
