@@ -27,7 +27,9 @@ if (props.lineItem) {
         :default-value="props.static ? props.lineItem.quantity : quantityInformation?.purchaseSteps ?? 1"
         name="quantity"
         class="flex rounded-md border border-gray-medium bg-white px-3 py-2 shadow-sm sm:text-sm"
-        :class="props.static ? 'cursor-not-allowed' : ''"
+        :class="{
+            'cursor-not-allowed': props.isLoading || props.static,
+        }"
         @update:model-value="$emit('onUpdate', $event)"
     >
         <NumberFieldDecrement
@@ -42,7 +44,9 @@ if (props.lineItem) {
 
         <NumberFieldInput
             class="w-14 text-center focus:outline-none"
-            :class="props.static ? 'cursor-not-allowed bg-transparent' : ''"
+            :class="{
+                'cursor-not-allowed bg-transparent': props.isLoading || props.static,
+            }"
             @keyup.enter="$emit('onEnter', $event)"
         />
 
