@@ -37,5 +37,3 @@ withDefaults(
         </PopoverContent>
     </PopoverRoot>
 </template>
-
-<style scoped></style>
