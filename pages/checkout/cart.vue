@@ -1,9 +1,5 @@
 <script setup lang="ts">
-const { refreshCart, isEmpty, cartItems } = useCart();
-
-onMounted(async () => {
-    await refreshCart();
-});
+const { isEmpty, cartItems } = useCart();
 </script>
 
 <template>

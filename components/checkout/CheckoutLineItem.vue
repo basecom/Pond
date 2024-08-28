@@ -79,7 +79,7 @@ const updateQuantityOnEnter = $event => {
 };
 
 // allows the user to change the quantity multiple times before firing a single request
-const debounceUpdate = useDebounceFn(updateQuantity, 400);
+const debounceUpdate = useDebounceFn(updateQuantity, 600);
 </script>
 
 <template>
@@ -129,37 +129,13 @@ const debounceUpdate = useDebounceFn(updateQuantity, 400);
             v-if="isStackable"
             class="flex flex-1 items-end justify-between text-sm"
         >
-            <!-- Fallback for the maxPurchase value defaults to the configured maximum quantity in the admin cart settings if unset at the lineItem -->
-            <NumberFieldRoot
+            <SharedQuantityInput
                 v-model="quantity"
-                :disabled="isLoading"
-                :locale="'de-DE'"
-                :min="lineItem.quantityInformation?.minPurchase || 1"
-                :max="lineItem.quantityInformation?.maxPurchase"
-                :step="lineItem.quantityInformation?.purchaseSteps || 1"
-                name="quantity"
-                class="mt-1 flex rounded-md border border-gray-medium bg-white px-3 py-2 shadow-sm sm:text-sm"
-                @update:model-value="debounceUpdate"
-            >
-                <NumberFieldDecrement class="data-[disabled]:opacity-20">
-                    <FormKitIcon
-                        icon="minus"
-                        class="block w-3"
-                    />
-                </NumberFieldDecrement>
-
-                <NumberFieldInput
-                    class="w-14 text-center focus:outline-none"
-                    @keyup.enter="updateQuantityOnEnter($event)"
-                />
-
-                <NumberFieldIncrement class="data-[disabled]:opacity-20">
-                    <FormKitIcon
-                        icon="plus"
-                        class="block w-3"
-                    />
-                </NumberFieldIncrement>
-            </NumberFieldRoot>
+                :line-item="lineItem"
+                :is-loading="isLoading"
+                @on-update="debounceUpdate"
+                @on-enter="updateQuantityOnEnter($event)"
+            />
 
             <div class="flex">
                 <button

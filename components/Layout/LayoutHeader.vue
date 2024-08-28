@@ -159,6 +159,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                         <NuxtLink
                             to="/checkout/cart"
                             class="mt-4 flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
+                            @click="offcanvasCartController.close()"
                         >
                             to the cart
                         </NuxtLink>

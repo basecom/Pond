@@ -3,24 +3,32 @@ import { ApiClientError } from '@shopware/api-client';
 import type { ResolvedApiError } from '~/types/errors';
 import type { Schemas } from '@shopware/api-client/api-types';
 
-type FormkitQuantityFields = {
-    quantity: string;
-};
-
 const props = defineProps<{
     product: Schemas['Product'];
+    icon?: boolean;
+    label?: boolean;
 }>();
 
 const { product } = useProduct(props.product);
 const { addToCart, quantity } = useAddToCart(product);
+quantity.value = product.value.minPurchase;
 const { resolveApiErrors } = useApiErrorsResolver();
 const { pushError, pushSuccess } = useNotifications();
 const apiErrors = ref<ResolvedApiError[]>([]);
 
-const handleAddToCart = async (fields: FormkitQuantityFields) => {
-    quantity.value = parseInt(fields['quantity']) ?? 1;
+const handleEnter = async $event => {
+    if ($event.target !== null) {
+        // remove focus from input to trigger quantity update
+        $event.target.blur();
+    }
+
+    await handleAddToCart();
+};
+
+const handleAddToCart = async () => {
     try {
         await addToCart();
+        quantity.value = product.value.minPurchase;
 
         pushSuccess(product.value.translated.name + ' was added to your cart.');
     } catch (error) {
@@ -40,12 +48,12 @@ const handleAddToCart = async (fields: FormkitQuantityFields) => {
     <FormKit
         v-if="product.availableStock > 0"
         type="form"
-        submit-label="add to cart"
+        :actions="false"
         :classes="{
             form: 'w-full flex gap-4',
-            actions: 'flex-grow',
             outer: 'w-20',
         }"
+        @keydown.enter.prevent
         @submit="handleAddToCart"
     >
         <ul
@@ -59,15 +67,23 @@ const handleAddToCart = async (fields: FormkitQuantityFields) => {
                 {{ error.code }}
             </li>
         </ul>
+
+        <SharedQuantityInput
+            v-model="quantity"
+            :product="product"
+            @on-enter="handleEnter($event)"
+        />
+
         <FormKit
-            type="number"
-            name="quantity"
-            :step="product.purchaseSteps"
-            :min="product.purchaseUnit"
-            :max="product.availableStock"
-            :value="product.purchaseUnit"
+            type="submit"
+            :classes="{
+                outer: 'w-full',
+            }"
+            :label="props.label ? 'add to cart' : ' '"
+            :prefix-icon="props.icon ? 'cart-shopping' : ''"
         />
     </FormKit>
+
     <div
         v-else
         class="flex w-full gap-1 rounded bg-gray-light px-4 py-2 text-gray"
