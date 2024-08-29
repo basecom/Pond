@@ -3,13 +3,7 @@ import type { Schemas } from '@shopware/api-client/api-types';
 
 const route = useRoute();
 
-const {
-    getCurrentListing,
-    getElements: products,
-    loading,
-    search,
-    setInitialListing,
-} = useProductSearchListing();
+const { getCurrentListing, getElements: products, loading, search, setInitialListing } = useProductSearchListing();
 
 const limit = ref(route.query.limit ? Number(route.query.limit) : 12);
 const cacheKey = computed(() => `productSearch-${JSON.stringify(route.query)}`);
@@ -20,7 +14,7 @@ const loadProducts = async (cacheKey: string) => {
         await search({
             search: route.query.search as string,
             limit: limit.value,
-            order: route.query.order ? (route.query.order as string) : "name-asc",
+            order: route.query.order ? (route.query.order as string) : 'name-asc',
         });
 
         return getCurrentListing.value;
@@ -29,28 +23,30 @@ const loadProducts = async (cacheKey: string) => {
     return productSearch;
 };
 
-let productSearch = await loadProducts(cacheKey.value);
+const productSearch = await loadProducts(cacheKey.value);
 
-setInitialListing(productSearch.value as Schemas["ProductListingResult"]);
+setInitialListing(productSearch.value as Schemas['ProductListingResult']);
 </script>
 
 <template>
     <div class="container">
         <h1 class="mb-6 text-center">
             <span v-if="products?.length">
-                results for "<strong>{{ searchTerm }}</strong>"
+                results for "<strong>{{ searchTerm }}</strong
+                >"
             </span>
             <span v-else>no results</span>
         </h1>
 
-        <div v-if="!loading" class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+        <div
+            v-if="!loading"
+            class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4"
+        >
             <template
                 v-for="product in products"
                 :key="product.id"
             >
-                <ProductCard
-                    :product="product"
-                />
+                <ProductCard :product="product" />
             </template>
         </div>
     </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getProductRoute } from "@shopware-pwa/helpers-next";
+import { getProductRoute } from '@shopware-pwa/helpers-next';
 
 const props = withDefaults(
     defineProps<{
@@ -8,15 +8,17 @@ const props = withDefaults(
     }>(),
     {
         displayTotal: 10,
-        minCharacters: 3
+        minCharacters: 3,
     },
 );
+
+defineEmits(['closeSearch']);
 
 const { searchTerm, search, getProducts, getTotal, loading } = useProductSearchSuggest();
 const { push } = useRouter();
 
 // String the user has typed in the search field
-const typingQuery = ref("");
+const typingQuery = ref('');
 
 // Reference to the searchInput to focus it onMount
 const searchInput = ref(null);
@@ -42,7 +44,7 @@ const showSuggest = computed(() => {
 // Redirect to search page when pressing enter
 const handleEnter = () => {
     if (typingQuery.value.length >= 1) {
-        push("/search?search=" + typingQuery.value);
+        push('/search?search=' + typingQuery.value);
     }
 };
 
@@ -53,27 +55,32 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="border-b border-gray-medium fixed w-full bg-white">
-        <div class="py-4 container flex gap-4">
+    <div class="fixed w-full border-b border-gray-medium bg-white">
+        <div class="container flex gap-4 py-4">
             <FormKit
-                type="text"
                 ref="searchInput"
                 v-model="typingQuery"
-                @keyup.enter="() => { handleEnter(); $emit('closeSearch') }"
+                type="text"
                 prefix-icon="search"
                 :floating-label="false"
                 :classes="{
                     inner: 'focus-within:ring-[0] focus-within:border-0 shadow-none border-0 gap-4 p-[0]',
                     outer: 'w-full',
-                    input: 'border-b border-gray-medium py-1'
+                    input: 'border-b border-gray-medium py-1',
                 }"
                 placeholder="Search for products"
+                @keyup.enter="
+                    () => {
+                        handleEnter();
+                        $emit('closeSearch');
+                    }
+                "
             />
         </div>
 
         <div
             v-if="showSuggest"
-            class="container p-0 fixed border-t border-gray-medium bg-white left-0 right-0 rounded-b-md shadow-md z-1"
+            class="z-1 container fixed left-0 right-0 rounded-b-md border-t border-gray-medium bg-white p-0 shadow-md"
         >
             <NuxtLink
                 v-for="product in getProducts?.slice(0, displayTotal)"
@@ -84,15 +91,13 @@ onMounted(() => {
                 <LayoutSearchSuggest :product="product" />
             </NuxtLink>
 
-            <div
-                class="text-center text-sm bg-gray-light hover:bg-gray-medium"
-            >
+            <div class="bg-gray-light text-center text-sm hover:bg-gray-medium">
                 <div
                     v-if="loading"
                     class="py-3"
                 >
-                    <div class="h-1lh relative">
-                        <UtilityLoadingSpinner size="small"/>
+                    <div class="relative h-1lh">
+                        <UtilityLoadingSpinner size="small" />
                     </div>
                 </div>
 
@@ -100,7 +105,7 @@ onMounted(() => {
                     <NuxtLink
                         v-if="getTotal > 0"
                         :to="'/search?search=' + typingQuery"
-                        class="py-3 w-full block"
+                        class="block w-full py-3"
                     >
                         <template v-if="getTotal > 1">
                             <span>View all {{ getTotal }} results</span>
@@ -110,7 +115,10 @@ onMounted(() => {
                         </template>
                     </NuxtLink>
 
-                    <div v-else class="py-3">
+                    <div
+                        v-else
+                        class="py-3"
+                    >
                         No results
                     </div>
                 </template>

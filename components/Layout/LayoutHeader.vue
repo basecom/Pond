@@ -20,9 +20,9 @@ const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
 await loadNavigationElements({ depth: 2 });
 const currentMouseoverMenu: Ref<null | string> = ref(null);
 
-onClickOutside(searchComponent, (event) => {
+onClickOutside(searchComponent, event => {
     if (event.target !== toggleSearch.value) {
-        searchVisible.value = false
+        searchVisible.value = false;
     }
 });
 
@@ -87,9 +87,12 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
 
                 <div class="flex items-center gap-3.5">
                     <!-- search -->
-                    <button @click="searchVisible = !searchVisible" ref="toggleSearch">
+                    <button
+                        ref="toggleSearch"
+                        @click="searchVisible = !searchVisible"
+                    >
                         <FormKitIcon
-                            class="block h-6 w-6 pointer-events-none"
+                            class="pointer-events-none block h-6 w-6"
                             icon="search"
                         />
                     </button>
@@ -208,6 +211,10 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
             </div>
         </div>
 
-        <LayoutSearch v-if="searchVisible" ref="searchComponent" @close-search="searchVisible = false" />
+        <LayoutSearch
+            v-if="searchVisible"
+            ref="searchComponent"
+            @close-search="searchVisible = false"
+        />
     </header>
 </template>

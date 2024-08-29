@@ -9,7 +9,7 @@ const props = withDefaults(
     }>(),
     {
         listPriceDisplay: 'percentage',
-        fontSize: 'text-3xl'
+        fontSize: 'text-3xl',
     },
 );
 
