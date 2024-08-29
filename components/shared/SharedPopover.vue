@@ -30,7 +30,7 @@ withDefaults(
             >
                 <FormKitIcon
                     class="block h-5 w-5 text-gray"
-                    icon="x"
+                    icon="xmark"
                 />
             </PopoverClose>
             <PopoverArrow class="fill-white" />
