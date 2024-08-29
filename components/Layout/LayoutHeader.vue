@@ -208,6 +208,6 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
             </div>
         </div>
 
-        <LayoutSearch v-if="searchVisible" ref="searchComponent" />
+        <LayoutSearch v-if="searchVisible" ref="searchComponent" @close-search="searchVisible = false" />
     </header>
 </template>

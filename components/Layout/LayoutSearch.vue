@@ -59,7 +59,7 @@ onMounted(() => {
                 type="text"
                 ref="searchInput"
                 v-model="typingQuery"
-                @keyup.enter="handleEnter"
+                @keyup.enter="() => { handleEnter(); $emit('closeSearch') }"
                 prefix-icon="search"
                 :floating-label="false"
                 :classes="{
@@ -79,6 +79,7 @@ onMounted(() => {
                 v-for="product in getProducts?.slice(0, displayTotal)"
                 :key="product.id"
                 :to="getProductRoute(product)"
+                @click="$emit('closeSearch')"
             >
                 <LayoutSearchSuggest :product="product" />
             </NuxtLink>
