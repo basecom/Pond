@@ -50,6 +50,20 @@ export default {
                 '3lh': '3lh',
                 '4lh': '4lh',
             },
+            keyframes: {
+                slideDown: {
+                    from: { height: 0 },
+                    to: { height: 'var(--radix-accordion-content-height)' },
+                },
+                slideUp: {
+                    from: { height: 'var(--radix-accordion-content-height)' },
+                    to: { height: 0 },
+                },
+            },
+            animation: {
+                slideDown: 'slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+                slideUp: 'slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+            },
         },
         container: {
             center: true,
@@ -63,20 +77,6 @@ export default {
             screens: {
                 DEFAULT: '1400px',
             },
-        },
-        keyframes: {
-            slideDown: {
-                from: { height: 0 },
-                to: { height: 'var(--radix-accordion-content-height)' },
-            },
-            slideUp: {
-                from: { height: 'var(--radix-accordion-content-height)' },
-                to: { height: 0 },
-            },
-        },
-        animation: {
-            slideDown: 'slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)',
-            slideUp: 'slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)',
         },
     },
     plugins: [],

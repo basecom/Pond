@@ -7,14 +7,24 @@ const { loadNavigationElements, navigationElements } = useNavigation();
 const { loading, signedIn } = storeToRefs(customerStore);
 const sideMenuController = useModal();
 const offcanvasCartController = useModal();
+const modalController = useModal();
 const { count: wishlistCount } = useWishlist();
 const { cartItems } = useCart();
 const { getCartItemsCount } = useCartItems();
-const modalController = useModal();
+
+const searchComponent = ref(null);
+const toggleSearch = ref(null);
+const searchVisible = ref(false);
 
 const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
 await loadNavigationElements({ depth: 2 });
 const currentMouseoverMenu: Ref<null | string> = ref(null);
+
+onClickOutside(searchComponent, event => {
+    if (event.target !== toggleSearch.value) {
+        searchVisible.value = false;
+    }
+});
 
 const isActive = (path: Schemas['SeoUrl'][] | null) => {
     if (!path) return false;
@@ -75,7 +85,18 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                     <LayoutLogo logo-classes="w-36 md:w-40" />
                 </div>
 
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3.5">
+                    <!-- search -->
+                    <button
+                        ref="toggleSearch"
+                        @click="searchVisible = !searchVisible"
+                    >
+                        <FormKitIcon
+                            class="pointer-events-none block h-6 w-6"
+                            icon="search"
+                        />
+                    </button>
+
                     <!-- wishlist -->
                     <NuxtLink
                         to="/wishlist"
@@ -189,5 +210,11 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                 </div>
             </div>
         </div>
+
+        <LayoutSearch
+            v-if="searchVisible"
+            ref="searchComponent"
+            @close-search="searchVisible = false"
+        />
     </header>
 </template>

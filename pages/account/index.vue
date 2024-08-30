@@ -8,15 +8,17 @@ const handleLogout = async () => {
 </script>
 
 <template>
-    <h1>Account</h1>
-    <template v-if="customerStore.customer">
-        hi {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}
-    </template>
-    <FormKit
-        type="submit"
-        prefix-icon="right-from-bracket"
-        @click.prevent="handleLogout"
-    >
-        logout
-    </FormKit>
+    <div class="container">
+        <h1>Account</h1>
+        <template v-if="customerStore.customer">
+            hi {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}
+        </template>
+        <FormKit
+            type="submit"
+            prefix-icon="right-from-bracket"
+            @click.prevent="handleLogout"
+        >
+            logout
+        </FormKit>
+    </div>
 </template>

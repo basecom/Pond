@@ -5,9 +5,11 @@ const props = withDefaults(
     defineProps<{
         product: Schemas['Product'];
         listPriceDisplay?: 'none' | 'percentage' | 'value';
+        fontSize?: 'text-xs' | 'text-sm' | 'text-base' | 'text-lg' | 'text-xl' | 'text-2xl' | 'text-3xl';
     }>(),
     {
         listPriceDisplay: 'percentage',
+        fontSize: 'text-3xl',
     },
 );
 
@@ -22,16 +24,14 @@ const { price, unitPrice, isListPrice, referencePrice } = useProductPrice(produc
         <p>
             <span
                 v-if="unitPrice"
-                class="pr-2 text-3xl font-bold"
-                :class="{
-                    'text-status-danger': isListPrice,
-                }"
+                class="font-bold"
+                :class="[fontSize, { 'text-status-danger': isListPrice }]"
             >
                 {{ getFormattedPrice(unitPrice) }}
             </span>
 
             <template v-if="isListPrice">
-                <span class="text-xs line-through">
+                <span class="pl-2 text-xs line-through">
                     {{ getFormattedPrice(price?.listPrice.price) }}
 
                     <template v-if="listPriceDisplay === 'percentage'">
