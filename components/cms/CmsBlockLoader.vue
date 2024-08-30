@@ -14,11 +14,8 @@ const isDevelopment = computed(() => import.meta.dev);
 </script>
 
 <template>
-    <component
-        :is="getCmsBlockComponentName(block.type)"
+    <div
         v-if="componentExists(getCmsBlockComponentName(block.type))"
-        :id="block.id"
-        :block="block"
         :class="[
             'cms-block',
             `cms-block-${kebabCase(block.type)}`,
@@ -26,6 +23,13 @@ const isDevelopment = computed(() => import.meta.dev);
             getCmsLayoutConfiguration(block).cssClasses,
         ]"
         :style="getCmsLayoutConfiguration(block).layoutStyles"
-    />
+    >
+
+        <component
+            :is="getCmsBlockComponentName(block.type)"
+            :id="block.id"
+            :block="block"
+        />
+    </div>
     <div v-else-if="isDevelopment">{{ getCmsBlockComponentName(block.type) }} not found</div>
 </template>
