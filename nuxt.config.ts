@@ -15,6 +15,7 @@ export default defineNuxtConfig({
         '@nuxt/eslint',
         '@nuxt/fonts',
         '@formkit/nuxt',
+        'nuxt-swiper',
     ],
     experimental: {
         asyncContext: true,

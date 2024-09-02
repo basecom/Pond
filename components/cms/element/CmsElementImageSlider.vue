@@ -13,6 +13,7 @@ const sliderItems = config.getConfigValue('sliderItems');
         :navigation-dots="config.getConfigValue('navigationDots')"
         :autoplay="config.getConfigValue('autoSlide') ? config.getConfigValue('autoplayTimeout') : false"
         :number-of-slides="sliderItems.length"
+        :items-to-show="2"
     >
         <template
             v-for="(sliderItem, index) in sliderItems"
