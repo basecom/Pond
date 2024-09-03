@@ -84,15 +84,26 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
 
 <template>
     <div
-        v-if="!isPromotion"
         class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium"
     >
-        <NuxtLink :to="getProductRoute(lineItem)">
+        <NuxtLink
+            v-if="!isPromotion"
+            :to="getProductRoute(lineItem)"
+        >
             <img
                 :src="getSmallestThumbnailUrl(lineItem.cover)"
                 class="h-full w-full object-cover object-center"
             />
         </NuxtLink>
+        <div
+            v-else-if="isPromotion"
+            class="flex items-center justify-center w-full h-full"
+        >
+            <FormKitIcon
+                icon="percent"
+                class="w-16 h-16 block text-gray"
+            />
+        </div>
     </div>
 
     <div class="flex flex-1 flex-col">
@@ -126,10 +137,10 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
         </div>
 
         <div
-            v-if="isStackable"
             class="flex flex-1 items-end justify-between text-sm"
         >
             <SharedQuantityInput
+                v-if="isStackable"
                 v-model="quantity"
                 :line-item="lineItem"
                 :is-loading="isLoading"
@@ -137,17 +148,15 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                 @on-enter="updateQuantityOnEnter($event)"
             />
 
-            <div class="flex">
-                <button
-                    v-if="isRemovable"
-                    type="button"
-                    class="bg-transparent text-brand-primary-dark"
-                    :class="{ 'text-gray-medium': isLoading }"
-                    @click="removeCartItem"
-                >
-                    Remove
-                </button>
-            </div>
+            <button
+                v-if="isRemovable"
+                type="button"
+                class="bg-transparent text-brand-primary-dark ml-auto"
+                :class="{ 'text-gray-medium': isLoading }"
+                @click="removeCartItem"
+            >
+                Remove
+            </button>
         </div>
     </div>
 </template>
