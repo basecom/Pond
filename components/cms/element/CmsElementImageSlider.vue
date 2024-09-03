@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Swiper } from 'swiper/vue';
+
 const props = defineProps<{
     element: CmsElementImageSlider;
 }>();
@@ -8,6 +10,22 @@ const sliderItems = config.getConfigValue('sliderItems');
 </script>
 
 <template>
+    <SharedSlider>
+<!--        <div>-->
+
+        <SwiperSlide
+            v-for="i in 15"
+            :key="i"
+        >
+            <div
+            class="h-24 bg-gray-light flex items-center justify-center"
+            >
+            {{i}}
+
+            </div>
+        </SwiperSlide>
+<!--        </div>-->
+    </SharedSlider>
     <LayoutSlider
         :navigation-arrows="config.getConfigValue('navigationArrows')"
         :navigation-dots="config.getConfigValue('navigationDots')"

@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { Swiper } from 'swiper/vue';
-// import function to register Swiper custom elements
-import { register } from 'swiper/element/bundle';
-// register Swiper custom elements
-register();
+import { SwiperNavigation } from '#imports';
+const swiper = ref();
+console.log(swiper);
 </script>
 
 <template>
-    <swiper
+    <Swiper
+        ref="swiper"
         :slides-per-view="3"
         :slides-per-group="3"
+        :modules="[SwiperNavigation]"
+        :navigation="true"
     >
         <slot></slot>
 <!--        <swiper-slide>Slide 1</swiper-slide>-->
@@ -22,7 +24,7 @@ register();
 <!--        <swiper-slide>Slide 8</swiper-slide>-->
 <!--        <swiper-slide>Slide 9</swiper-slide>-->
 <!--        <swiper-slide>Slide 10</swiper-slide>-->
-    </swiper>
+    </Swiper>
 </template>
 
 <style scoped>

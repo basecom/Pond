@@ -4,7 +4,9 @@
 
 <template>
 
-
+    <swiper-slide>
+        <slot></slot>
+    </swiper-slide>
 </template>
 
 <style scoped>
