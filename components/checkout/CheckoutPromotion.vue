@@ -41,12 +41,19 @@ const handleSubmit = async (fields: FormkitPromotionFields) => {
     <FormKit
         type="form"
         @submit="handleSubmit"
+        submit-label="redeem"
+        :classes="{
+            form: 'w-full flex flex-row gap-4'
+        }"
     >
         <FormKit
             type="text"
             label="promotion code"
             name="promotionCode"
             required="true"
+            :classes="{
+                outer: 'flex-grow'
+            }"
         />
     </FormKit>
 </template>
