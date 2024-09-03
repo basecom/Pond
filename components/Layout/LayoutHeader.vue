@@ -169,9 +169,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                         :controller="offcanvasCartController"
                         side="right"
                     >
-                        <div
-                            v-if="!isEmpty"
-                        >
+                        <div v-if="!isEmpty">
                             <ul class="divide-y divide-gray-medium border-t border-gray-medium pb-4">
                                 <li
                                     v-for="cartItem in cartItems"

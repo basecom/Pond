@@ -5,27 +5,26 @@ type FormkitPromotionFields = {
     promotionCode: string;
 };
 
-const {addPromotionCode, consumeCartErrors} = useCart()
+const { addPromotionCode, consumeCartErrors } = useCart();
 const { pushError, pushSuccess } = useNotifications();
 
-const cartErrors = ref<Schemas["Cart"]["errors"]>([]);
+const cartErrors = ref<Schemas['Cart']['errors']>([]);
 
 const handleSubmit = async (fields: FormkitPromotionFields) => {
     try {
-        const response = await addPromotionCode(fields['promotionCode'])
+        const response = await addPromotionCode(fields['promotionCode']);
         if (response.errors) {
-            cartErrors.value = consumeCartErrors()
+            cartErrors.value = consumeCartErrors();
             return;
         }
 
         pushSuccess(`Promotion code ${fields['promotionCode']} was added`);
-
     } catch (e) {
         console.error(e);
 
-        pushError('Something went wrong!')
+        pushError('Something went wrong!');
     }
-}
+};
 </script>
 
 <template>
@@ -33,18 +32,17 @@ const handleSubmit = async (fields: FormkitPromotionFields) => {
         v-if="cartErrors && cartErrors['promotion-not-found']"
         class="validation-errors text-status-danger"
     >
-        <li
-        >
+        <li>
             {{ cartErrors['promotion-not-found'].message }}
         </li>
     </ul>
     <FormKit
         type="form"
-        @submit="handleSubmit"
         submit-label="redeem"
         :classes="{
-            form: 'w-full flex flex-row gap-4'
+            form: 'w-full flex flex-row gap-4',
         }"
+        @submit="handleSubmit"
     >
         <FormKit
             type="text"
@@ -52,12 +50,8 @@ const handleSubmit = async (fields: FormkitPromotionFields) => {
             name="promotionCode"
             required="true"
             :classes="{
-                outer: 'flex-grow'
+                outer: 'flex-grow',
             }"
         />
     </FormKit>
 </template>
-
-<style scoped>
-
-</style>

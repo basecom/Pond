@@ -21,7 +21,7 @@ const { isEmpty, cartItems } = useCart();
                     </li>
                 </ul>
             </div>
-            <div class="w-full lg:w-1/3 flex flex-col gap-4">
+            <div class="flex w-full flex-col gap-4 lg:w-1/3">
                 <CheckoutSummary />
 
                 <CheckoutPromotion />

@@ -83,9 +83,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
 </script>
 
 <template>
-    <div
-        class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium"
-    >
+    <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium">
         <NuxtLink
             v-if="!isPromotion"
             :to="getProductRoute(lineItem)"
@@ -97,11 +95,11 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
         </NuxtLink>
         <div
             v-else-if="isPromotion"
-            class="flex items-center justify-center w-full h-full"
+            class="flex h-full w-full items-center justify-center"
         >
             <FormKitIcon
                 icon="percent"
-                class="w-16 h-16 block text-gray"
+                class="block h-16 w-16 text-gray"
             />
         </div>
     </div>
@@ -136,9 +134,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
             </p>
         </div>
 
-        <div
-            class="flex flex-1 items-end justify-between text-sm"
-        >
+        <div class="flex flex-1 items-end justify-between text-sm">
             <SharedQuantityInput
                 v-if="isStackable"
                 v-model="quantity"
@@ -151,7 +147,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
             <button
                 v-if="isRemovable"
                 type="button"
-                class="bg-transparent text-brand-primary-dark ml-auto"
+                class="ml-auto bg-transparent text-brand-primary-dark"
                 :class="{ 'text-gray-medium': isLoading }"
                 @click="removeCartItem"
             >
