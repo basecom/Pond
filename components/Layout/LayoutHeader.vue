@@ -9,7 +9,7 @@ const sideMenuController = useModal();
 const offcanvasCartController = useModal();
 const modalController = useModal();
 const { count: wishlistCount } = useWishlist();
-const { cartItems } = useCart();
+const { cartItems, isEmpty } = useCart();
 const { getCartItemsCount } = useCartItems();
 
 const searchComponent = ref(null);
@@ -169,7 +169,20 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                         :controller="offcanvasCartController"
                         side="right"
                     >
-                        offcanvas cart
+                        <div
+                            v-if="!isEmpty"
+                        >
+                            <ul class="divide-y divide-gray-medium border-t border-gray-medium pb-4">
+                                <li
+                                    v-for="cartItem in cartItems"
+                                    :key="cartItem.id"
+                                    class="flex py-6"
+                                >
+                                    <CheckoutLineItem :line-item="cartItem" />
+                                </li>
+                            </ul>
+                            <CheckoutSummary :reduced-display="true" />
+                        </div>
 
                         <NuxtLink
                             to="/checkout/cart"
