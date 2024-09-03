@@ -21,11 +21,13 @@ const { isEmpty, cartItems } = useCart();
                     </li>
                 </ul>
             </div>
-            <div class="w-full lg:w-1/3">
+            <div class="w-full lg:w-1/3 flex flex-col gap-4">
                 <CheckoutSummary />
 
+                <CheckoutPromotion />
+
                 <NuxtLink
-                    class="mt-4 flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
+                    class="flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
                     :to="'/checkout/confirm'"
                 >
                     Checkout
