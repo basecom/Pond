@@ -41,6 +41,11 @@ const salutationOptions = computed(
 );
 
 const currentCountry = computed(() => sessionContext.countryId.value);
+const passwordRequired  = ref(true);
+const handleGuestChange = (fields) => {
+    console.log(fields.target.checked);
+    passwordRequired.value = !fields.target.checked
+}
 </script>
 
 <template>
@@ -169,6 +174,20 @@ const currentCountry = computed(() => sessionContext.countryId.value);
         </div>
 
         <FormKit
+            type="checkbox"
+            label="dont create a customer account"
+            name="guest"
+            :value="false"
+            decorator-icon="check"
+            @click="handleGuestChange"
+            :classes="{
+                outer: {
+                    'col-span-2': true,
+                },
+            }"
+        />
+
+        <FormKit
             type="email"
             label="email"
             name="email"
@@ -178,6 +197,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
         />
 
         <FormKit
+            v-if="passwordRequired"
             type="password"
             label="password"
             name="password"
@@ -196,6 +216,11 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             :value="false"
             decorator-icon="check"
             validation="accepted"
+            :classes="{
+                outer: {
+                    'col-span-2': true,
+                },
+            }"
         />
 
         <FormKit
