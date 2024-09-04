@@ -1,3 +1,14 @@
+<script setup lang="ts">
+const props = withDefaults(
+    defineProps<{
+        allowGuest?: boolean;
+    }>(),
+    {
+        allowGuest: false,
+    },
+);
+</script>
+
 <template>
     <TabsRoot
         class="flex w-full flex-col"
@@ -30,7 +41,7 @@
             class="grow rounded-b-md bg-white py-5 outline-none"
             value="tab-register"
         >
-            <AccountRegister />
+            <AccountRegister :allow-guest="allowGuest" />
         </TabsContent>
     </TabsRoot>
 </template>

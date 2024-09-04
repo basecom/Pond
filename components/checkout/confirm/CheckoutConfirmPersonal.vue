@@ -12,7 +12,7 @@ const customerStore = useCustomerStore();
         </span>
 
         <template v-else>
-            <AccountLoginRegisterTabs />
+            <AccountLoginRegisterTabs :allow-guest="true"/>
         </template>
     </CheckoutConfirmCard>
 </template>

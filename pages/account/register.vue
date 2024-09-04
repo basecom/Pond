@@ -1,5 +1,5 @@
 <template>
     <div class="flex w-full justify-center">
-        <AccountRegister />
+        <AccountRegister :redirect-after-success="true" />
     </div>
 </template>

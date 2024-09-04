@@ -5,12 +5,28 @@ import { useFormkitHelper } from '~/composables/useFormkitHelper';
 import type { FormkitFields } from '~/types/formkit';
 import type { Schemas } from '@shopware/api-client/api-types';
 
+const props = withDefaults(
+    defineProps<{
+        redirectAfterSuccess?: boolean;
+        redirectTarget?: string;
+        showCreateLink?: boolean;
+        allowGuest?: boolean;
+    }>(),
+    {
+        redirectAfterSuccess: false,
+        redirectTarget: '/account',
+        showCreateLink: true,
+        allowGuest: false,
+    },
+);
+
 const customerStore = useCustomerStore();
 const sessionContext = useSessionContext();
 const { getSalutations } = useSalutations();
 const { getCountries } = useCountries();
 const { resolveApiErrors } = useApiErrorsResolver();
 const { errorOfField, togglePasswordVisibility, entityArrayToOptions } = useFormkitHelper();
+const { pushError, pushSuccess } = useNotifications();
 const apiErrors = ref<ResolvedApiError[]>([]);
 const isLoading = ref(false);
 
@@ -22,8 +38,14 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
             ...fields,
         });
         isLoading.value = false;
-        navigateTo('/account');
+
+        if (props.redirectAfterSuccess) {
+            navigateTo(props.redirectTarget);
+        }
+
+        pushSuccess('You successfully logged in as a guest.');
     } catch (error) {
+        pushError('An error occured. Please try again.');
         isLoading.value = false;
 
         if (error instanceof ApiClientError) {
@@ -174,6 +196,7 @@ const handleGuestChange = (fields) => {
         </div>
 
         <FormKit
+            v-if="allowGuest"
             type="checkbox"
             label="dont create a customer account"
             name="guest"
