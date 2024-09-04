@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
+import LayoutNavigation from '~/components/Layout/LayoutNavigation.vue';
 
 const customerStore = useCustomerStore();
 const { loadNavigationElements, navigationElements } = useNavigation();
@@ -208,6 +209,9 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                         {{ getTranslatedProperty(navigationElement, 'name') }}
                     </NuxtLink>
                 </div>
+            </div>
+            <div class="container">
+                <LayoutNavigation />
             </div>
         </div>
 
