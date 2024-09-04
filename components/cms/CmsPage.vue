@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import { useCmsUtils } from '~/composables/cms/useCmsUtils';
 import { getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
 
 defineProps<{

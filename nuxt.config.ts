@@ -53,7 +53,7 @@ export default defineNuxtConfig({
         },
     },
     components: {
-        dirs: [join(currentDir, 'components')],
+        dirs: [join(currentDir, 'components'), join(currentDir, 'components/*')],
         global: true,
     },
     tailwindcss: {

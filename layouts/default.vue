@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import LayoutHeader from '~/components/Layout/header/LayoutHeader.vue'
 const customerStore = useCustomerStore();
 const { refreshCart } = useCart();
 const { loading } = storeToRefs(customerStore);

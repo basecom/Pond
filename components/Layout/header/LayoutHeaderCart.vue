@@ -4,7 +4,6 @@ const { cartItems, isEmpty } = useCart();
 const { getCartItemsCount } = useCartItems();
 
 const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
-
 </script>
 
 <template>

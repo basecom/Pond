@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
-import LayoutHeaderActions from '~/components/Layout/header/LayoutHeaderActions.vue';
 
 const customerStore = useCustomerStore();
 const { loadNavigationElements, navigationElements } = useNavigation();
 const { loading } = storeToRefs(customerStore);
 const sideMenuController = useModal();
 
-// const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
 await loadNavigationElements({ depth: 2 });
 const currentMouseoverMenu: Ref<null | string> = ref(null);
 

@@ -22,7 +22,7 @@ onClickOutside(searchComponent, event => {
     </button>
 
     <teleport to="header">
-        <LayoutSearch
+        <LayoutHeaderSearchBar
             v-if="searchVisible"
             ref="searchComponent"
             @close-search="searchVisible = false"
