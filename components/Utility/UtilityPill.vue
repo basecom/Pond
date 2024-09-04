@@ -1,7 +1,7 @@
 <script setup lang="ts">
 withDefaults(
     defineProps<{
-        content?: number|string|null;
+        content?: number | string | null;
     }>(),
     {
         content: null,

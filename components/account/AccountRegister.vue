@@ -63,11 +63,11 @@ const salutationOptions = computed(
 );
 
 const currentCountry = computed(() => sessionContext.countryId.value);
-const passwordRequired  = ref(true);
-const handleGuestChange = (fields) => {
+const passwordRequired = ref(true);
+const handleGuestChange = fields => {
     console.log(fields.target.checked);
-    passwordRequired.value = !fields.target.checked
-}
+    passwordRequired.value = !fields.target.checked;
+};
 </script>
 
 <template>
@@ -202,12 +202,12 @@ const handleGuestChange = (fields) => {
             name="guest"
             :value="false"
             decorator-icon="check"
-            @click="handleGuestChange"
             :classes="{
                 outer: {
                     'col-span-2': true,
                 },
             }"
+            @click="handleGuestChange"
         />
 
         <FormKit
