@@ -8,7 +8,12 @@ const customerStore = useCustomerStore();
             v-if="customerStore.customer"
             class="text-sm"
         >
-            You are logged in as {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }} (is guest: {{ customerStore.customer.guest}})
+            You are logged in as {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}
+            <UtilityPill
+                v-if="customerStore.customer.guest"
+                content="guest"
+                class="px-1.5"
+            />
         </span>
 
         <template v-else>

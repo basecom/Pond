@@ -107,7 +107,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                             icon="heart"
                         />
                         <UtilityPill
-                            :number="wishlistCount"
+                            :content="wishlistCount"
                             class="absolute bottom-2.5 left-3"
                         />
                     </NuxtLink>
@@ -160,7 +160,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                             class="block h-6 w-6"
                         />
                         <UtilityPill
-                            :number="cartItemCount"
+                            :content="cartItemCount"
                             class="absolute bottom-2.5 left-3"
                         />
                     </button>
