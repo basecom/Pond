@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import LayoutNavigationSidebar from '~/components/Layout/LayoutNavigationSidebar.vue';
 
 const customerStore = useCustomerStore();
 const { loading, signedIn } = storeToRefs(customerStore);
-const sideMenuController = useModal();
 const offcanvasCartController = useModal();
 const modalController = useModal();
 const { count: wishlistCount } = useWishlist();
@@ -27,7 +25,7 @@ onClickOutside(searchComponent, event => {
 <template>
     <header
         v-show="!loading"
-        class="sticky top-0 z-10 bg-gray-light md:bg-white h-fit"
+        class="sticky top-0 z-10 h-fit bg-gray-light md:bg-white"
     >
         <div class="container relative z-10 py-3 md:py-6">
             <div class="flex items-center justify-between gap-2">
@@ -136,16 +134,7 @@ onClickOutside(searchComponent, event => {
             </div>
         </div>
 
-        <LayoutNavigation/>
-<!--        <div class="relative hidden w-screen md:block md:bg-gray-light">-->
-<!--            <div class="container flex gap-8 overflow-x-scroll py-4">-->
-<!--                <LayoutNavigationItem-->
-<!--                    v-for="navigationElement in navigationElements"-->
-<!--                    :key="navigationElement.id"-->
-<!--                    :navigation-element="navigationElement"-->
-<!--                />-->
-<!--            </div>-->
-<!--        </div>-->
+        <LayoutNavigation />
 
         <LayoutSearch
             v-if="searchVisible"

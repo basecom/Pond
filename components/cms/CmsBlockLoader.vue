@@ -24,7 +24,6 @@ const isDevelopment = computed(() => import.meta.dev);
         ]"
         :style="getCmsLayoutConfiguration(block).layoutStyles"
     >
-
         <component
             :is="getCmsBlockComponentName(block.type)"
             :id="block.id"

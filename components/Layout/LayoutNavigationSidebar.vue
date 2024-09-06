@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
 
 const { loadNavigationElements, navigationElements } = useNavigation();
@@ -12,30 +11,34 @@ const shownNavigationItems = ref(navigationElements.value);
 
 // previousNavigationItems stores the nav items that got selected and whoes children get displayed
 // used to navigate back and display the link above the children
-const previousNavigationItems = ref<Schemas["Category"][]>([])
+const previousNavigationItems = ref<Schemas['Category'][]>([]);
 
-const handleClick = (navigationElement) => {
+const handleClick = navigationElement => {
     if (navigationElement.childCount > 0) {
         previousNavigationItems.value.push(navigationElement);
         shownNavigationItems.value = navigationElement.children;
         return;
     }
-    
+
     sideMenuController.close();
-}
+};
 
 const handleBack = () => {
     previousNavigationItems.value.pop();
 
     if (previousNavigationItems.value.length <= 1) {
-        shownNavigationItems.value = navigationElements.value
+        shownNavigationItems.value = navigationElements.value;
         return;
     }
 
-    shownNavigationItems.value = previousNavigationItems.value.at(-1)?.children
-}
+    shownNavigationItems.value = previousNavigationItems.value.at(-1)?.children;
+};
 
-const lastPreviousItem = computed(() => previousNavigationItems.value.length > 0 && previousNavigationItems.value.at(-1) ? previousNavigationItems.value.at(-1) : null)
+const lastPreviousItem = computed(() =>
+    previousNavigationItems.value.length > 0 && previousNavigationItems.value.at(-1)
+        ? previousNavigationItems.value.at(-1)
+        : null,
+);
 </script>
 
 <template>
@@ -51,19 +54,19 @@ const lastPreviousItem = computed(() => previousNavigationItems.value.length > 0
         <template #header>
             <div
                 v-if="previousNavigationItems.length > 0"
-                class="flex gap-2 items-center hover:text-brand-primary hover:cursor-pointer"
+                class="flex items-center gap-2 hover:cursor-pointer hover:text-brand-primary"
                 @click="handleBack()"
             >
-                <FormKitIcon icon="chevron-left" class="block h-3 w-3" />
-                <span>
-                    back
-                </span>
+                <FormKitIcon
+                    icon="chevron-left"
+                    class="block h-3 w-3"
+                />
+                <span> back </span>
             </div>
         </template>
 
         <template #content>
             <div class="grid gap-2 md:hidden">
-
                 <!-- display the category, whoose children are currently displayed -->
                 <LayoutNavigationLink
                     v-if="lastPreviousItem"

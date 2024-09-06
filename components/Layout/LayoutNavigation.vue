@@ -8,7 +8,7 @@ await loadNavigationElements({ depth: 2 });
         <div class="container flex gap-8 overflow-x-scroll py-4">
             <LayoutNavigationMainItem
                 v-for="navigationElement in navigationElements"
-                :key="navigationElement.id"
+                :key="`nav-item-${navigationElement.id}`"
                 :navigation-element="navigationElement"
             />
         </div>
