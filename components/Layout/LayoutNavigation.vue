@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import LayoutNavigationMainItem from '~/components/Layout/LayoutNavigationMainItem.vue';
 const { loadNavigationElements, navigationElements } = useNavigation();
 await loadNavigationElements({ depth: 2 });
 </script>

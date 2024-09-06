@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import LayoutNavigationLink from '~/components/Layout/LayoutNavigationLink.vue';
 
-const props = defineProps<{
+defineProps<{
     navigationElement: Schemas["Category"];
     parentHovered: boolean;
 }>()
+
 const flyout = ref(null);
 const { isOutside: isOutsideFlyout } = useMouseInElement(flyout)
 const selfNotHovered = refDebounced(isOutsideFlyout, 300)
@@ -24,13 +25,13 @@ const selfNotHovered = refDebounced(isOutsideFlyout, 300)
                     v-for="child in navigationElement.children"
                     class="flex flex-col gap-2 w-1/4"
                 >
-                    <LayoutNavigationFlyoutItem
+                    <LayoutNavigationLink
                         :navigation-element="child"
                         class="text-lg font-bold"
                         active-classes="text-brand-primary-dark"
                     />
                     <div class="flex flex-col gap-2">
-                        <LayoutNavigationFlyoutItem
+                        <LayoutNavigationLink
                             v-if="child.childCount > 0"
                             v-for="subChild in child.children"
                             :navigation-element="subChild"
