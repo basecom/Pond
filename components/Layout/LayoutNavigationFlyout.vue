@@ -9,7 +9,7 @@ defineProps<{
 
 const flyout = ref(null);
 const { isOutside: isOutsideFlyout } = useMouseInElement(flyout)
-const selfNotHovered = refDebounced(isOutsideFlyout, 300)
+const selfNotHovered = refDebounced(isOutsideFlyout, 200)
 </script>
 
 <template>
@@ -27,15 +27,15 @@ const selfNotHovered = refDebounced(isOutsideFlyout, 300)
                 >
                     <LayoutNavigationLink
                         :navigation-element="child"
-                        class="text-lg font-bold"
-                        active-classes="text-brand-primary-dark"
+                        classes="text-lg font-bold"
+                        active-classes="text-brand-primary"
                     />
                     <div class="flex flex-col gap-2">
                         <LayoutNavigationLink
                             v-if="child.childCount > 0"
                             v-for="subChild in child.children"
                             :navigation-element="subChild"
-                            active-classes="text-brand-primary-dark"
+                            active-classes="text-brand-primary"
                         />
                     </div>
                 </div>

@@ -69,6 +69,8 @@ const lastPreviousItem = computed(() => previousNavigationItems.value.length > 0
                     v-if="lastPreviousItem"
                     :navigation-element="lastPreviousItem"
                     class="border-b-2 border-gray-light"
+                    active-classes="font-bold md:border-b-2 md:border-brand-primary"
+                    :active-with-exact-match="true"
                 />
 
                 <!-- displays the categories -->

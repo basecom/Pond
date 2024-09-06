@@ -5,17 +5,21 @@ import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-n
 const props = withDefaults(defineProps<{
     navigationElement: Schemas["Category"];
     activeClasses?: string|null;
+    activeWithExactMatch?: boolean;
+    classes?: string|null;
     asLink?: boolean;
 }>(), {
-    asLink: true
+    activeWithExactMatch: true,
+    asLink: true,
 })
 
-const isActive = (path: Schemas['SeoUrl'][] | undefined) => {
+const isActive = (path: Schemas['SeoUrl'][] | undefined, onlyExactMatch: boolean = false) => {
     if (!path) return false;
 
     const formattedPath = '/' + path[0]?.seoPathInfo;
     const { path: currentPath } = useRoute();
-    return currentPath.includes(formattedPath);
+    
+    return onlyExactMatch ? formattedPath === currentPath : currentPath.includes(formattedPath);
 };
 </script>
 
@@ -30,15 +34,15 @@ const isActive = (path: Schemas['SeoUrl'][] | undefined) => {
         "
         :aria-label="getTranslatedProperty(navigationElement, 'name')"
         :to="getCategoryRoute(navigationElement)"
-        class="text-black transition-all hover:text-brand-primary py-2"
-        :class="isActive(navigationElement.seoUrls) ? activeClasses : ''"
+        class="transition-all hover:text-brand-primary py-4"
+        :class="[classes, isActive(navigationElement.seoUrls, activeWithExactMatch) ? activeClasses : '']"
     >
         {{ getTranslatedProperty(navigationElement, 'name') }}
     </NuxtLink>
    <div
        v-else
-       class="text-black transition-all hover:text-brand-primary hover:cursor-pointer py-2 flex justify-between items-center"
-       :class="isActive(navigationElement.seoUrls) ? activeClasses : ''"
+       class="text-black transition-all hover:text-brand-primary hover:cursor-pointer py-4 flex justify-between items-center"
+       :class="[classes, isActive(navigationElement.seoUrls) ? activeClasses : '']"
    >
        <span>
            {{ getTranslatedProperty(navigationElement, 'name') }}

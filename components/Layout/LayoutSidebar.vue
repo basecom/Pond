@@ -31,7 +31,7 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
                 'right-0 translate-x-full': side === 'right',
             }"
         >
-            <div class="bg-gray-light p-4 flex justify-between">
+            <div class="bg-gray-light p-3.5 flex justify-between">
                 <slot name="header"></slot>
                 <FormKitIcon
                     icon="xmark"
