@@ -65,7 +65,6 @@ const salutationOptions = computed(
 const currentCountry = computed(() => sessionContext.countryId.value);
 const passwordRequired = ref(true);
 const handleGuestChange = fields => {
-    console.log(fields.target.checked);
     passwordRequired.value = !fields.target.checked;
 };
 </script>
