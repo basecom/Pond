@@ -33,7 +33,3 @@ const debounced = refDebounced(isOutsideNavItem, 300)
         :parent-hovered="!debounced"
     />
 </template>
-
-<style scoped>
-
-</style>
