@@ -4,12 +4,10 @@ const props = withDefaults(
         controller: ReturnType<typeof useModal>;
         isClosable?: boolean;
         side?: 'left' | 'right';
-        additionalClasses?: string;
     }>(),
     {
         side: 'left',
         isClosable: true,
-        additionalClasses: '',
     },
 );
 
@@ -24,7 +22,7 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
     <Teleport to="body">
         <div
             ref="sidebarContentElement"
-            class="fixed top-0 z-40 h-screen w-10/12 overflow-y-auto bg-white p-4 transition-transform duration-500 sm:w-96"
+            class="fixed top-0 z-40 h-screen w-10/12 overflow-y-auto bg-white transition-transform duration-500 sm:w-96"
             tabindex="-1"
             aria-labelledby="sidebar"
             :class="{
@@ -33,12 +31,17 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
                 'right-0 translate-x-full': side === 'right',
             }"
         >
-            <FormKitIcon
-                icon="xmark"
-                class="mb-4 ml-auto block h-4 w-4 cursor-pointer"
-                @click="controller.close()"
-            />
-            <slot></slot>
+            <div class="bg-gray-light p-4 flex justify-between">
+                <slot name="header"></slot>
+                <FormKitIcon
+                    icon="xmark"
+                    class="mb-4 ml-auto block h-4 w-4 cursor-pointer"
+                    @click="controller.close()"
+                />
+            </div>
+            <div class="p-4">
+                <slot name="content"></slot>
+            </div>
         </div>
 
         <!-- body overlay -->

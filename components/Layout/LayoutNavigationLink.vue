@@ -2,10 +2,13 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
     navigationElement: Schemas["Category"];
-    activeClasses?: string|null
-}>()
+    activeClasses?: string|null;
+    asLink?: boolean;
+}>(), {
+    asLink: true
+})
 
 const isActive = (path: Schemas['SeoUrl'][] | undefined) => {
     if (!path) return false;
@@ -18,6 +21,7 @@ const isActive = (path: Schemas['SeoUrl'][] | undefined) => {
 
 <template>
     <NuxtLink
+        v-if="asLink"
         :target="navigationElement.externalLink || navigationElement.linkNewTab ? '_blank' : ''"
         :rel="
             navigationElement.externalLink || navigationElement.linkNewTab
@@ -26,9 +30,20 @@ const isActive = (path: Schemas['SeoUrl'][] | undefined) => {
         "
         :aria-label="getTranslatedProperty(navigationElement, 'name')"
         :to="getCategoryRoute(navigationElement)"
-        class="text-neutral-black transition-all hover:text-brand-primary py-2"
+        class="text-black transition-all hover:text-brand-primary py-2"
         :class="isActive(navigationElement.seoUrls) ? activeClasses : ''"
     >
         {{ getTranslatedProperty(navigationElement, 'name') }}
     </NuxtLink>
+   <div
+       v-else
+       class="text-black transition-all hover:text-brand-primary hover:cursor-pointer py-2 flex justify-between items-center"
+       :class="isActive(navigationElement.seoUrls) ? activeClasses : ''"
+   >
+       <span>
+           {{ getTranslatedProperty(navigationElement, 'name') }}
+       </span>
+
+       <FormKitIcon icon="chevron-right" class="block h-3 w-3" />
+    </div>
 </template>
