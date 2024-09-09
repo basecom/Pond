@@ -12,7 +12,7 @@ const customerStore = useCustomerStore();
             <UtilityPill
                 v-if="customerStore.customer.guest"
                 content="guest"
-                class="px-1.5"
+                class="max-w-fit px-1.5"
             />
         </span>
 
