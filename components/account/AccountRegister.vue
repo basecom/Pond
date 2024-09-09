@@ -43,7 +43,7 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
             navigateTo(props.redirectTarget);
         }
 
-        pushSuccess('You successfully logged in as a guest.');
+        pushSuccess('You successfully logged in');
     } catch (error) {
         pushError('An error occured. Please try again.');
         isLoading.value = false;
