@@ -1,0 +1,14 @@
+<script setup lang="ts">
+import type { CmsElementProductBox } from '@shopware-pwa/composables-next';
+import ProductCard from '~/components/product/ProductCard.vue';
+
+const props = defineProps<{
+    element: CmsElementProductBox;
+}>();
+
+const { product } = useProduct(props.element.data.product);
+</script>
+
+<template>
+        <ProductCard :product="product"></ProductCard>
+</template>
