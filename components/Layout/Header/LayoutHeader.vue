@@ -101,5 +101,6 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                 </div>
             </div>
         </div>
+        <div id="searchContainer"></div>
     </header>
 </template>
