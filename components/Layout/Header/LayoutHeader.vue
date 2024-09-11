@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
-import LayoutHeaderActions from '~/components/Layout/header/LayoutHeaderActions.vue';
 
 const customerStore = useCustomerStore();
 const { loadNavigationElements, navigationElements } = useNavigation();
@@ -101,6 +100,6 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                 </div>
             </div>
         </div>
-        <div id="searchContainer"></div>
+        <div id="searchContainer" />
     </header>
 </template>
