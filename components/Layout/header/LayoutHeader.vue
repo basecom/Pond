@@ -1,30 +1,15 @@
 <script setup lang="ts">
 import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
+import LayoutHeaderActions from '~/components/Layout/header/LayoutHeaderActions.vue';
 
 const customerStore = useCustomerStore();
 const { loadNavigationElements, navigationElements } = useNavigation();
-const { loading, signedIn } = storeToRefs(customerStore);
+const { loading } = storeToRefs(customerStore);
 const sideMenuController = useModal();
-const offcanvasCartController = useModal();
-const modalController = useModal();
-const { count: wishlistCount } = useWishlist();
-const { cartItems } = useCart();
-const { getCartItemsCount } = useCartItems();
 
-const searchComponent = ref(null);
-const toggleSearch = ref(null);
-const searchVisible = ref(false);
-
-const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
 await loadNavigationElements({ depth: 2 });
 const currentMouseoverMenu: Ref<null | string> = ref(null);
-
-onClickOutside(searchComponent, event => {
-    if (event.target !== toggleSearch.value) {
-        searchVisible.value = false;
-    }
-});
 
 const isActive = (path: Schemas['SeoUrl'][] | null) => {
     if (!path) return false;
@@ -85,101 +70,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                     <LayoutLogo logo-classes="w-36 md:w-40" />
                 </div>
 
-                <div class="flex items-center gap-3.5">
-                    <!-- search -->
-                    <button
-                        ref="toggleSearch"
-                        @click="searchVisible = !searchVisible"
-                    >
-                        <FormKitIcon
-                            class="pointer-events-none block h-6 w-6"
-                            icon="search"
-                        />
-                    </button>
-
-                    <!-- wishlist -->
-                    <NuxtLink
-                        to="/wishlist"
-                        class="relative"
-                    >
-                        <FormKitIcon
-                            class="block h-6 w-6"
-                            icon="heart"
-                        />
-                        <UtilityPill
-                            :number="wishlistCount"
-                            class="absolute bottom-2.5 left-3"
-                        />
-                    </NuxtLink>
-
-                    <!-- account -->
-                    <LazySharedModal
-                        v-if="!signedIn"
-                        :with-close-button="true"
-                    >
-                        <template #trigger>
-                            <FormKitIcon
-                                class="block h-6 w-6"
-                                icon="user"
-                            />
-                        </template>
-                        <template #title>Login</template>
-                        <template #content>
-                            <AccountLoginRegisterTabs />
-                        </template>
-                    </LazySharedModal>
-                    <LazySharedPopover v-else>
-                        <template #trigger>
-                            <FormKitIcon
-                                class="block h-6 w-6"
-                                icon="user"
-                                @click="!signedIn ? modalController.open() : null"
-                            />
-                        </template>
-                        <template #content>
-                            <div class="py-2 first:pt-0">
-                                <NuxtLink to="/account">account</NuxtLink>
-                            </div>
-                            <FormKit
-                                type="submit"
-                                prefix-icon="right-from-bracket"
-                                @click.prevent="customerStore.logout()"
-                            >
-                                logout
-                            </FormKit>
-                        </template>
-                    </LazySharedPopover>
-
-                    <!-- cart -->
-                    <button
-                        class="relative"
-                        @click="offcanvasCartController.open()"
-                    >
-                        <FormKitIcon
-                            icon="cart-shopping"
-                            class="block h-6 w-6"
-                        />
-                        <UtilityPill
-                            :number="cartItemCount"
-                            class="absolute bottom-2.5 left-3"
-                        />
-                    </button>
-                    <LazyLayoutSidebar
-                        v-if="offcanvasCartController.isOpen"
-                        :controller="offcanvasCartController"
-                        side="right"
-                    >
-                        offcanvas cart
-
-                        <NuxtLink
-                            to="/checkout/cart"
-                            class="mt-4 flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
-                            @click="offcanvasCartController.close()"
-                        >
-                            to the cart
-                        </NuxtLink>
-                    </LazyLayoutSidebar>
-                </div>
+                <LayoutHeaderActions />
             </div>
         </div>
 
@@ -210,11 +101,5 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                 </div>
             </div>
         </div>
-
-        <LayoutSearch
-            v-if="searchVisible"
-            ref="searchComponent"
-            @close-search="searchVisible = false"
-        />
     </header>
 </template>

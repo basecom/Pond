@@ -1,4 +1,12 @@
 <script setup lang="ts">
+withDefaults(
+    defineProps<{
+        reducedDisplay?: boolean;
+    }>(),
+    {
+        reducedDisplay: false,
+    },
+);
 const { totalPrice, shippingTotal, cart } = useCart();
 
 const netPrice = computed(() => {
@@ -15,12 +23,32 @@ const calculatedTaxes = computed(() => {
 <template>
     <div class="rounded-md bg-gray-light p-4">
         <h2 class="pb-4">Cart summary</h2>
+        <template v-if="!reducedDisplay">
+            <template
+                v-for="(calculatedTax, index) in calculatedTaxes"
+                :key="`calculated-tax-${index}`"
+            >
+                <CheckoutSummaryValues
+                    label="tax"
+                    :value="calculatedTax.tax"
+                />
+            </template>
+
+            <CheckoutSummaryValues
+                label="net"
+                :value="netPrice"
+            />
+
+            <CheckoutSummaryValues
+                label="shipping"
+                :value="shippingTotal"
+            />
+        </template>
 
         <CheckoutSummaryValues
-            :shipping-total="shippingTotal"
-            :total-price="totalPrice"
-            :calculated-taxes="calculatedTaxes"
-            :net-price="netPrice"
+            label="total"
+            :value="totalPrice"
+            :highlight="true"
         />
     </div>
 </template>
