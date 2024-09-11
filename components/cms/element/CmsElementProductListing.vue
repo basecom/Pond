@@ -37,6 +37,8 @@ search({
 const router = useRouter();
 const route = useRoute();
 
+const { y: windowYPosition } = useScroll(window, { behavior: 'smooth' });
+
 const changePage = async (page: number) => {
     await router.push({
         query: {
@@ -45,10 +47,7 @@ const changePage = async (page: number) => {
         },
     });
 
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-    });
+    windowYPosition.value = 0;
 
     await changeCurrentPage(page, route.query);
 };
