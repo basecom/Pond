@@ -8,7 +8,6 @@ const { loadNavigationElements, navigationElements } = useNavigation();
 const { loading } = storeToRefs(customerStore);
 const sideMenuController = useModal();
 
-// const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
 await loadNavigationElements({ depth: 2 });
 const currentMouseoverMenu: Ref<null | string> = ref(null);
 
