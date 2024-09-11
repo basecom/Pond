@@ -10,7 +10,7 @@ const { pushError, pushSuccess } = useNotifications();
 
 const cartErrors = ref<Schemas['Cart']['errors']>([]);
 
-const handleSubmit = async (fields: FormkitPromotionFields) => {
+const addPromotion = async (fields: FormkitPromotionFields) => {
     try {
         const response = await addPromotionCode(fields['promotionCode']);
         if (response.errors) {
@@ -42,7 +42,7 @@ const handleSubmit = async (fields: FormkitPromotionFields) => {
         :classes="{
             form: 'w-full flex flex-row gap-4',
         }"
-        @submit="handleSubmit"
+        @submit="addPromotion"
     >
         <FormKit
             type="text"
