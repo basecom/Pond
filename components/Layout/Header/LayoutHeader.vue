@@ -34,7 +34,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                         class="w-4 cursor-pointer md:hidden"
                         @click="sideMenuController.open()"
                     />
-                    <LazyLayoutSidebar
+                    <LayoutSidebar
                         v-if="sideMenuController.isOpen"
                         :controller="sideMenuController"
                     >
@@ -65,7 +65,7 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                                 </NuxtLink>
                             </template>
                         </div>
-                    </LazyLayoutSidebar>
+                    </LayoutSidebar>
 
                     <LayoutLogo logo-classes="w-36 md:w-40" />
                 </div>
@@ -101,5 +101,6 @@ const isActive = (path: Schemas['SeoUrl'][] | null) => {
                 </div>
             </div>
         </div>
+        <div id="searchContainer"></div>
     </header>
 </template>

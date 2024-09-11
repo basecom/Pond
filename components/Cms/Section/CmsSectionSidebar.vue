@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import CmsBlockLoader from '~/components/cms/CmsBlockLoader.vue';
 
 const props = defineProps<{
     section: Schemas['CmsSection'];
