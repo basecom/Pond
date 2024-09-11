@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { pascalCase } from 'scule';
-import CmsBlockProductThreeColumn from '~/components/cms/block/CmsBlockProductThreeColumn.vue';
 
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
