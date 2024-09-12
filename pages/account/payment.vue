@@ -3,7 +3,7 @@
 </script>
 
 <template>
-<div>payment</div>
+<div>Hello payment</div>
 </template>
 
 <style scoped>

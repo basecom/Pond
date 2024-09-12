@@ -3,7 +3,7 @@
 </script>
 
 <template>
-<div>Hello Orders</div>
+<div>Hello Adress</div>
 </template>
 
 <style scoped>
