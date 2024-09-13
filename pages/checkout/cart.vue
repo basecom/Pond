@@ -1,5 +1,17 @@
 <script setup lang="ts">
 const { isEmpty, cartItems } = useCart();
+
+useBreadcrumbs([
+    // TODO: Replace with dynamic home page name
+    {
+        name: 'Startseite',
+        path: '/'
+    },
+    {
+        name: "Warenkorb",
+        path: "/checkout/cart",
+    },
+]);
 </script>
 
 <template>

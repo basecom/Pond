@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { pascalCase } from 'scule';
 
+const { clearBreadcrumbs } = useBreadcrumbs();
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
 
@@ -26,6 +27,10 @@ const { componentExists } = useCmsUtils();
 if (!routeName.value) {
     throw createError({ statusCode: 404, message: 'page not found' });
 }
+
+onBeforeRouteLeave(() => {
+    clearBreadcrumbs();
+});
 </script>
 
 <template>

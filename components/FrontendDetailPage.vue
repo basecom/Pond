@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { getCategoryBreadcrumbs } from "@shopware-pwa/helpers-next";
+const { getProductRoute } = useProductRoute();
+
 const props = defineProps<{
     navigationId: string;
 }>();
@@ -26,6 +29,18 @@ if (!productResponse.value) {
 }
 
 const { product } = useProduct(productResponse.value.product, productResponse.value.configurator);
+
+const breadcrumbs = getCategoryBreadcrumbs(
+    productResponse.value.product.seoCategory,
+);
+
+// add product as last breadcrumb entry on pdp
+breadcrumbs.push({
+    name: product.value.translated.name,
+    path: getProductRoute(product.value)
+});
+
+useBreadcrumbs(breadcrumbs);
 </script>
 
 <template>

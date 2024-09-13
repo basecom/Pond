@@ -5,6 +5,18 @@ const handleLogout = async () => {
     await customerStore.logout();
     navigateTo('/');
 };
+
+useBreadcrumbs([
+    // TODO: Replace with dynamic home page name
+    {
+        name: 'Startseite',
+        path: '/'
+    },
+    {
+        name: "Account",
+        path: "/account",
+    },
+]);
 </script>
 
 <template>

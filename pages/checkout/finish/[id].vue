@@ -10,6 +10,26 @@ const formattedOrderDate = useDateFormat(order.orderDate, dateFormat, {
     locales: (typeof navigator !== 'undefined' && navigator.language) || 'en-US',
 });
 
+useBreadcrumbs([
+    // TODO: Replace with dynamic home page name
+    {
+        name: 'Startseite',
+        path: '/'
+    },
+    {
+        name: "Warenkorb",
+        path: "/checkout/cart",
+    },
+    {
+        name: "Kasse",
+        path: "/checkout/confirm",
+    },
+    {
+        name: "Bestellung",
+        path: "/checkout/finish/" + orderId,
+    },
+]);
+
 onMounted(async () => {
     await loadOrderDetails();
 });
