@@ -3,6 +3,8 @@ const customerStore = useCustomerStore();
 </script>
 
 <template>
+    <h1 class="font-bold mb-2">Overview</h1>
+    <div class="mb-4 text-base">Directly access your profile information, the default payment method and given addresses.</div>
     <div v-if="customerStore.customer"
         class="grid grid-cols-1 gap-6 lg:grid-cols-2 col-span-2">
         <div class="bg-white p-4 rounded-lg shadow-md">
