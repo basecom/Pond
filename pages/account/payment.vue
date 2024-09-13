@@ -1,9 +1,13 @@
 <script setup lang="ts">
 
+import PaymentContent from '~/components/Layout/Account/PaymentContent.vue';
+import Layout from '~/components/Layout/Account/BaseLayout.vue';
 </script>
 
 <template>
-<div>Hello payment</div>
+    <layout>
+        <payment-content />
+    </layout>
 </template>
 
 <style scoped>

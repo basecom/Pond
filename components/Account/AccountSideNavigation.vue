@@ -47,7 +47,7 @@ const navItems = ref([
             <NuxtLink
                 :to="item.path"
                 class="text-lg"
-                :class="{ 'font-bold': isActive(item.path) }"
+                :class="{ 'font-bold': isActive(item.path,true) }"
             >
                 {{ item.label }}
             </NuxtLink>

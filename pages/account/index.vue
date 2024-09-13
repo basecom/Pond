@@ -1,31 +1,13 @@
 <script setup lang="ts">
 
-const customerStore = useCustomerStore();
+import Layout from '~/components/Layout/Account/BaseLayout.vue';
+import OverviewContent from '~/components/Layout/Account/OverviewContent.vue';
 
-const handleLogout = async () => {
-    await customerStore.logout();
-    navigateTo('/');
-};
+const layout = 'account-layout';
 </script>
 
 <template>
-    <div class="container flex w-full">
-        <AccountSideNavigation
-        class="mr-32 hidden lg:block"
-        :is-in-header="false"
-        />
-        <div class="flex-grow">
-            <h1>Account</h1>
-            <template v-if="customerStore.customer">
-                hi {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}
-            </template>
-            <FormKit
-                type="submit"
-                prefix-icon="right-from-bracket"
-                @click.prevent="handleLogout"
-            >
-                logout
-            </FormKit>
-        </div>
-    </div>
+    <layout>
+        <overview-content/>
+    </layout>
 </template>

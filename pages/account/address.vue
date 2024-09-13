@@ -1,9 +1,11 @@
 <script setup lang="ts">
-
+import Layout from '~/components/Layout/Account/BaseLayout.vue';
+import AddressContent from '~/components/Layout/Account/AdressContent.vue';
 </script>
-
 <template>
-<div>Hello Adress</div>
+    <layout>
+        <address-content/>
+    </layout>
 </template>
 
 <style scoped>
