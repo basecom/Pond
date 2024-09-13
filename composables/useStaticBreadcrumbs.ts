@@ -1,3 +1,7 @@
+/**
+ * This function returns the breadcrumb hierarchy for static pages, such as account and checkout.
+ * Options can be defined to e.g. display only parts of the hierarchy or to alter its structure.
+ */
 export function useStaticBreadcrumbs() {
     const checkoutBreadcrumbs = (index: number, orderId?: string) => {
         const breadcrumbs = [
