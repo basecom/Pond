@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Layout from '~/components/Layout/Account/BaseLayout.vue';
-import OrdersContent from '~/components/Layout/Account/OrdersContent.vue';
+import LayoutAccount from '~/components/Layout/Account/LayoutAccount.vue';
+import OrdersContent from '~/components/Layout/Account/LayoutAccountOrdersContent.vue';
 </script>
 
 <template>
-    <layout>
+    <layout-account>
         <orders-content/>
-    </layout>
+    </layout-account>
 </template>
 
 <style scoped>

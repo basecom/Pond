@@ -1,13 +1,13 @@
 <script setup lang="ts">
 
-import ProfilContent from '~/components/Layout/Account/ProfilContent.vue';
-import Layout from '~/components/Layout/Account/BaseLayout.vue';
+import LayoutAccount from '~/components/Layout/Account/LayoutAccount.vue';
+import ProfilContent from '~/components/Layout/Account/LayoutAccountProfilContent.vue';
 </script>
 
 <template>
-    <layout>
+    <layout-account>
         <profil-content/>
-    </layout>
+    </layout-account>
 </template>
 
 <style scoped>

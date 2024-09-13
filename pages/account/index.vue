@@ -1,13 +1,13 @@
 <script setup lang="ts">
 
-import Layout from '~/components/Layout/Account/BaseLayout.vue';
-import OverviewContent from '~/components/Layout/Account/OverviewContent.vue';
+import LayoutAccount from '~/components/Layout/Account/LayoutAccount.vue';
+import OverviewContent from '~/components/Layout/Account/LayoutAccountOverviewContent.vue';
 
 const layout = 'account-layout';
 </script>
 
 <template>
-    <layout>
+    <layout-account>
         <overview-content/>
-    </layout>
+    </layout-account>
 </template>
