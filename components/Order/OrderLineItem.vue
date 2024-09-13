@@ -2,6 +2,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 const { getFormattedPrice } = usePrice();
 const { getProductCover } = useMedia();
+const { getProductRoute } = useProductRoute();
 
 const props = defineProps<{
     lineItem: Schemas['LineItem'];
@@ -14,7 +15,7 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 
 <template>
     <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium">
-        <NuxtLink :to="'/detail/' + lineItem.productId">
+        <NuxtLink :to="getProductRoute(lineItem)">
             <img
                 :src="lineItemCover.url"
                 :alt="lineItemCover.alt"
@@ -26,7 +27,7 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
     <div class="flex flex-1 flex-col">
         <div>
             <div class="flex flex-col justify-between lg:flex-row">
-                <NuxtLink :to="'/detail/' + lineItem.productId">
+                <NuxtLink :to="getProductRoute(lineItem)">
                     <h3 class="text-base">
                         {{ lineItem?.label }}
                     </h3>
