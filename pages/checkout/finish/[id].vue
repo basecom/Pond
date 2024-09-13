@@ -11,7 +11,7 @@ const formattedOrderDate = useDateFormat(order.orderDate, dateFormat, {
     locales: (typeof navigator !== 'undefined' && navigator.language) || 'en-US',
 });
 
-useBreadcrumbs(checkoutBreadcrumbs(2, orderId));
+useBreadcrumbs(checkoutBreadcrumbs({ index: 2, orderId: orderId }));
 
 onMounted(async () => {
     await loadOrderDetails();

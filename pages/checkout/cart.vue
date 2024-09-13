@@ -2,7 +2,7 @@
 const { isEmpty, cartItems } = useCart();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 
-useBreadcrumbs(checkoutBreadcrumbs(0));
+useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
 </script>
 
 <template>

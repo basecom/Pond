@@ -3,7 +3,7 @@
  * Options can be defined to e.g. display only parts of the hierarchy or to alter its structure.
  */
 export function useStaticBreadcrumbs() {
-    const checkoutBreadcrumbs = (index: number, orderId?: string) => {
+    const checkoutBreadcrumbs = ({ index, orderId }: { index: number; orderId?: string }) => {
         const breadcrumbs = [
             {
                 name: 'Cart',
@@ -22,7 +22,7 @@ export function useStaticBreadcrumbs() {
         return breadcrumbs.slice(0, index + 1);
     };
 
-    const accountBreadcrumbs = (type?: string) => {
+    const accountBreadcrumbs = ({ type }: { type?: string }) => {
         const breadcrumbs = [
             {
                 name: 'Account',

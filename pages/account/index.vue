@@ -7,7 +7,7 @@ const handleLogout = async () => {
     navigateTo('/');
 };
 
-useBreadcrumbs(accountBreadcrumbs());
+useBreadcrumbs(accountBreadcrumbs({}));
 </script>
 
 <template>

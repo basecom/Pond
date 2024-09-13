@@ -24,7 +24,7 @@ const placeOrder = async () => {
     }
 };
 
-useBreadcrumbs(checkoutBreadcrumbs(1));
+useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
 </script>
 
 <template>

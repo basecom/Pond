@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { accountBreadcrumbs } = useStaticBreadcrumbs();
 
-useBreadcrumbs(accountBreadcrumbs('login'));
+useBreadcrumbs(accountBreadcrumbs({ type: 'login' }));
 </script>
 
 <template>
