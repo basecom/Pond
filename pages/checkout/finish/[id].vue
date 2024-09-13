@@ -11,21 +11,16 @@ const formattedOrderDate = useDateFormat(order.orderDate, dateFormat, {
 });
 
 useBreadcrumbs([
-    // TODO: Replace with dynamic home page name
     {
-        name: 'Startseite',
-        path: '/'
-    },
-    {
-        name: "Warenkorb",
+        name: "Cart",
         path: "/checkout/cart",
     },
     {
-        name: "Kasse",
+        name: "Checkout",
         path: "/checkout/confirm",
     },
     {
-        name: "Bestellung",
+        name: "Order",
         path: "/checkout/finish/" + orderId,
     },
 ]);

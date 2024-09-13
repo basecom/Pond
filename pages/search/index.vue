@@ -28,13 +28,8 @@ const productSearch = await loadProducts(cacheKey.value);
 setInitialListing(productSearch.value as Schemas['ProductListingResult']);
 
 useBreadcrumbs([
-    // TODO: Replace with dynamic home page name
     {
-        name: 'Startseite',
-        path: '/'
-    },
-    {
-        name: "Suchergebnisse",
+        name: "Search results",
         path: "/search?search=" + route.query.search,
     },
 ]);

@@ -7,11 +7,6 @@ const handleLogout = async () => {
 };
 
 useBreadcrumbs([
-    // TODO: Replace with dynamic home page name
-    {
-        name: 'Startseite',
-        path: '/'
-    },
     {
         name: "Account",
         path: "/account",

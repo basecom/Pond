@@ -2,13 +2,8 @@
 const { isEmpty, cartItems } = useCart();
 
 useBreadcrumbs([
-    // TODO: Replace with dynamic home page name
     {
-        name: 'Startseite',
-        path: '/'
-    },
-    {
-        name: "Warenkorb",
+        name: "Cart",
         path: "/checkout/cart",
     },
 ]);

@@ -16,11 +16,6 @@ if (!landingResponse.value) {
 }
 
 useBreadcrumbs([
-    // TODO: Replace with dynamic home page name
-    {
-        name: 'Startseite',
-        path: '/'
-    },
     {
         name: landingResponse.value.translated.name,
         path: landingResponse.value.url

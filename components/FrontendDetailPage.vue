@@ -32,6 +32,9 @@ const { product } = useProduct(productResponse.value.product, productResponse.va
 
 const breadcrumbs = getCategoryBreadcrumbs(
     productResponse.value.product.seoCategory,
+    {
+        startIndex: 1,
+    }
 );
 
 // add product as last breadcrumb entry on pdp

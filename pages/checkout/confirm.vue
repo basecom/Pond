@@ -24,17 +24,12 @@ const placeOrder = async () => {
 };
 
 useBreadcrumbs([
-    // TODO: Replace with dynamic home page name
     {
-        name: 'Startseite',
-        path: '/'
-    },
-    {
-        name: "Warenkorb",
+        name: "Cart",
         path: "/checkout/cart",
     },
     {
-        name: "Kasse",
+        name: "Checkout",
         path: "/checkout/confirm",
     },
 ]);

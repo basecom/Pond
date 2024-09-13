@@ -8,6 +8,21 @@ const { breadcrumbs } = useBreadcrumbs();
         aria-label="Breadcrumb"
     >
         <ol class="inline-flex items-center gap-2">
+            <li class="inline-flex items-center gap-2">
+                <NuxtLink
+                    :to="'/'"
+                    class="inline-flex items-center text-sm font-medium"
+                >
+                    Home
+                </NuxtLink>
+
+                <FormKitIcon
+                    v-if="breadcrumbs?.length > 0"
+                    class="block h-4 w-4"
+                    icon="chevron-right"
+                />
+            </li>
+
             <li
                 v-for="(breadcrumb, index) in breadcrumbs"
                 :key="breadcrumb.path"

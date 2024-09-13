@@ -25,6 +25,9 @@ const { category } = useCategory(categoryResponse);
 
 const breadcrumbs = getCategoryBreadcrumbs(
     categoryResponse.value,
+    {
+        startIndex: 1,
+    }
 );
 
 useBreadcrumbs(breadcrumbs);
