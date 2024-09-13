@@ -21,7 +21,7 @@ const isActive = (path: string, onlyExactMatch: boolean = false) => {
 const navItems = ref([
     { path: '/account', label: 'Overview' },
     { path: '/account/profile', label: 'Your profile' },
-    { path: '/account/address', label: 'address' },
+    { path: '/account/address', label: 'Address' },
     { path: '/account/payment', label: 'Payment methods' },
     { path: '/account/orders', label: 'Orders' }
 ]);
