@@ -19,11 +19,11 @@ const isActive = (path: string, onlyExactMatch: boolean = false) => {
 };
 
 const navItems = ref([
-    { path: '/account', label: 'Überblick' },
-    { path: '/account/profile', label: 'Dein Profil' },
-    { path: '/account/address', label: 'Adressen' },
-    { path: '/account/payment', label: 'Bezahlmethoden' },
-    { path: '/account/orders', label: 'Bestellungen' }
+    { path: '/account', label: 'Overview' },
+    { path: '/account/profile', label: 'Your profile' },
+    { path: '/account/address', label: 'adress' },
+    { path: '/account/payment', label: 'Payment methods' },
+    { path: '/account/orders', label: 'Orders' }
 ]);
 </script>
 
@@ -36,7 +36,7 @@ const navItems = ref([
 
         <div v-if="props.isInHeader"
              class="font-bold text-2xl mt-4 ml-4 pb-4 pl-2">
-            Dein Account
+            Your account
         </div>
         <li
             v-for="(item, index) in navItems"
