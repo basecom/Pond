@@ -6,16 +6,16 @@ export function useStaticBreadcrumbs() {
     const checkoutBreadcrumbs = (index: number, orderId?: string) => {
         const breadcrumbs = [
             {
-                name: "Cart",
-                path: "/checkout/cart",
+                name: 'Cart',
+                path: '/checkout/cart',
             },
             {
-                name: "Checkout",
-                path: "/checkout/confirm",
+                name: 'Checkout',
+                path: '/checkout/confirm',
             },
             {
-                name: "Order",
-                path: orderId ? "/checkout/finish/" + orderId : "/checkout/finish",
+                name: 'Order',
+                path: orderId ? '/checkout/finish/' + orderId : '/checkout/finish',
             },
         ];
 
@@ -25,25 +25,25 @@ export function useStaticBreadcrumbs() {
     const accountBreadcrumbs = (type?: string) => {
         const breadcrumbs = [
             {
-                name: "Account",
-                path: "/account",
-            }
+                name: 'Account',
+                path: '/account',
+            },
         ];
 
-        if (type ===  "login") {
+        if (type === 'login') {
             breadcrumbs.push({
-                name: "Login",
-                path: "/account/login",
+                name: 'Login',
+                path: '/account/login',
             });
-        } else if (type === "register") {
+        } else if (type === 'register') {
             breadcrumbs.push({
-                name: "Register",
-                path: "/account/register",
+                name: 'Register',
+                path: '/account/register',
             });
         }
 
         return breadcrumbs;
-    }
+    };
 
     return { checkoutBreadcrumbs, accountBreadcrumbs };
 }

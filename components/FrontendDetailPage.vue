@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getCategoryBreadcrumbs } from "@shopware-pwa/helpers-next";
+import { getCategoryBreadcrumbs } from '@shopware-pwa/helpers-next';
 const { getProductRoute } = useProductRoute();
 
 const props = defineProps<{
@@ -30,17 +30,14 @@ if (!productResponse.value) {
 
 const { product } = useProduct(productResponse.value.product, productResponse.value.configurator);
 
-const breadcrumbs = getCategoryBreadcrumbs(
-    productResponse.value.product.seoCategory,
-    {
-        startIndex: 1,
-    }
-);
+const breadcrumbs = getCategoryBreadcrumbs(productResponse.value.product.seoCategory, {
+    startIndex: 1,
+});
 
 // add product as last breadcrumb entry on pdp
 breadcrumbs.push({
     name: product.value.translated.name,
-    path: getProductRoute(product.value)
+    path: getProductRoute(product.value),
 });
 
 useBreadcrumbs(breadcrumbs);

@@ -29,8 +29,8 @@ setInitialListing(productSearch.value as Schemas['ProductListingResult']);
 
 useBreadcrumbs([
     {
-        name: "Search results",
-        path: "/search?search=" + route.query.search,
+        name: 'Search results',
+        path: '/search?search=' + route.query.search,
     },
 ]);
 </script>

@@ -18,8 +18,8 @@ if (!landingResponse.value) {
 useBreadcrumbs([
     {
         name: landingResponse.value.translated.name,
-        path: landingResponse.value.url
-    }
+        path: landingResponse.value.url,
+    },
 ]);
 </script>
 

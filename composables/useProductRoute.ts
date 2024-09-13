@@ -13,9 +13,9 @@ export function useProductRoute() {
         return {
             path: getProductUrl(product),
             state: {
-                routeName: "frontend.detail.page",
-                foreignKey: product?.referencedId ?? product?.id
-            }
+                routeName: 'frontend.detail.page',
+                foreignKey: product?.referencedId ?? product?.id,
+            },
         };
     };
 
@@ -24,8 +24,7 @@ export function useProductRoute() {
 
 function getProductUrl(product: Schemas.Product | Schemas.LineItem | Schemas.OrderLineItem) {
     let _a, _b;
-    if (!product)
-        return "/";
+    if (!product) return '/';
     const seoUrl = (_b = (_a = product.seoUrls) == null ? void 0 : _a[0]) == null ? void 0 : _b.seoPathInfo;
     return seoUrl ? `/${seoUrl}` : `/detail/${product.referencedId ?? product.id}`;
 }

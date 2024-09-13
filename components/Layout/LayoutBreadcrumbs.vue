@@ -4,7 +4,7 @@ const { breadcrumbs } = useBreadcrumbs();
 
 <template>
     <nav
-        class="hidden lg:flex container mx-auto my-8"
+        class="container mx-auto my-8 hidden lg:flex"
         aria-label="Breadcrumb"
     >
         <ol class="inline-flex items-center gap-2">
@@ -40,7 +40,7 @@ const { breadcrumbs } = useBreadcrumbs();
                     v-else
                     class="inline-flex items-center text-sm font-medium last:text-brand-primary"
                 >
-                  {{ breadcrumb.name }}
+                    {{ breadcrumb.name }}
                 </span>
 
                 <FormKitIcon
