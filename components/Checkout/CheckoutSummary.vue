@@ -24,6 +24,11 @@ const calculatedTaxes = computed(() => {
     <div class="rounded-md bg-gray-light p-4">
         <h2 class="pb-4">Cart summary</h2>
         <template v-if="!reducedDisplay">
+            <CheckoutSummaryValues
+                label="net"
+                :value="netPrice"
+            />
+
             <template
                 v-for="(calculatedTax, index) in calculatedTaxes"
                 :key="`calculated-tax-${index}`"
@@ -33,11 +38,6 @@ const calculatedTaxes = computed(() => {
                     :value="calculatedTax.tax"
                 />
             </template>
-
-            <CheckoutSummaryValues
-                label="net"
-                :value="netPrice"
-            />
 
             <CheckoutSummaryValues
                 label="shipping"

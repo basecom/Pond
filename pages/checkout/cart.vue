@@ -1,12 +1,8 @@
 <script setup lang="ts">
 const { isEmpty, cartItems } = useCart();
+const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 
-useBreadcrumbs([
-    {
-        name: "Cart",
-        path: "/checkout/cart",
-    },
-]);
+useBreadcrumbs(checkoutBreadcrumbs(0));
 </script>
 
 <template>
