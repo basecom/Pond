@@ -11,7 +11,7 @@ const { breadcrumbs } = useBreadcrumbs();
             <li class="inline-flex items-center gap-2">
                 <NuxtLink
                     :to="'/'"
-                    class="inline-flex items-center text-sm font-medium hover:text-brand-primary last:text-brand-primary"
+                    class="inline-flex items-center text-sm font-medium last:text-brand-primary hover:text-brand-primary"
                 >
                     Home
                 </NuxtLink>
@@ -31,14 +31,14 @@ const { breadcrumbs } = useBreadcrumbs();
                 <NuxtLink
                     v-if="breadcrumb.path"
                     :to="breadcrumb.path"
-                    class="inline-flex items-center text-sm font-medium hover:text-brand-primary last:text-brand-primary"
+                    class="inline-flex items-center text-sm font-medium last:text-brand-primary hover:text-brand-primary"
                 >
                     {{ breadcrumb.name }}
                 </NuxtLink>
 
                 <span
                     v-else
-                    class="inline-flex items-center text-sm font-medium hover:text-brand-primary last:text-brand-primary"
+                    class="inline-flex items-center text-sm font-medium last:text-brand-primary hover:text-brand-primary"
                 >
                     {{ breadcrumb.name }}
                 </span>
