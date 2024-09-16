@@ -2,6 +2,7 @@
 import { ApiClientError } from '@shopware/api-client';
 
 const customerStore = useCustomerStore();
+const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 const { push } = useRouter();
 const { refreshCart, isEmpty, cartItems } = useCart();
 const { createOrder } = useCheckout();
@@ -22,6 +23,8 @@ const placeOrder = async () => {
         }
     }
 };
+
+useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
 </script>
 
 <template>

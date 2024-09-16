@@ -34,7 +34,9 @@ export default {
                     return icon;
                 } else {
                     // returns the icon from fontawesome as fallback (or undefined if not found)
-                    return fetch(`https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/svgs/solid/${iconName}.svg`)
+                    return fetch(
+                        `https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/svgs/solid/${iconName}.svg`,
+                    )
                         .then(async r => {
                             const icon = await r.text();
                             if (icon.startsWith('<svg')) {
