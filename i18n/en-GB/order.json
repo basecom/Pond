@@ -1,0 +1,26 @@
+{
+  "order": {
+    "confirmationTitle": "Thank you for your order!",
+    "confirmationMessage": "We have sent you an order confirmation to <b class=\" font-medium \">{email}</b>.",
+    "details": {
+      "orderDetailHeadline": "Bestelldaten",
+      "orderNumber": "Bestellnummer:",
+      "paymentMethod": "Zahlungsart:",
+      "total": "Gesamtbetrag:",
+      "shippingAddressLabel": "Lieferadresse",
+      "billingAddressLabel": "Rechnungsadresse",
+      "openAccordion": "Display order overview",
+      "identicalAddresses": "Identisch zur Lieferadresse",
+      "orderLinkLabel": "View order in account",
+      "expectedDeliveryDateLabel": "Expected delivery date:"
+    },
+    "createAccount": {
+      "headline": "Order faster next time",
+      "createAccountButtonAndHeaderLabel": "Create an account now",
+      "modalDescription": "Choose a password to set up your account at asambeauty:",
+      "email": "E-Mail: <b>{email}</b>",
+      "createAccountButtonLabel": "Create account",
+      "accountCreated": "Your account has been successfully created"
+    }
+  }
+}

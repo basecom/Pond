@@ -1,0 +1,48 @@
+{
+  "listing": {
+    "filters": "Filter",
+    "products": "Produkte",
+    "product": "Produkt",
+    "showMoreFilters": "Mehr Filter",
+    "showLessFilters": "Weniger Filter",
+    "resetFilters": "alle Filter zurücksetzen",
+    "resetFiltersSemiShort": "Alle zurücksetzen",
+    "resetFiltersShort": "Zurücksetzen",
+    "sort": "Sortieren",
+    "sortby": "Sortieren nach",
+    "search": "suchen",
+    "min": "Min",
+    "max": "Max",
+    "noFilterFound": "Keine {property} gefunden",
+    "filterLabels": {
+      "manufacturer": "Marke",
+      "product-lines": "Produktlinie",
+      "price": "Preis",
+      "rating": "Bewertung",
+      "ratingOptions": {
+        "1": "1 Stern und mehr",
+        "2": "2 Sterne und mehr",
+        "3": "3 Sterne und mehr",
+        "4": "4 Sterne und mehr"
+      },
+      "shippingFree": "Kostenloser Versand",
+      "sale": "Nur Sale zeigen"
+    },
+    "mobileModal": {
+      "title": "Filter",
+      "submit": "{count} Ergebnisse anzeigen",
+      "submitSingular": "1 Ergebniss anzeigen",
+      "reset": "Zurücksetzen",
+      "save": "Speichern",
+      "sort": "Sortieren nach"
+    },
+    "wishlist": {
+      "add": "Zur Wunschliste hinzufügen"
+    },
+    "productCard": {
+      "sizes": "Größen",
+      "from": "ab"
+    },
+    "noResults": "Keine Ergebnisse gefunden"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "account": {
+    "addresses": "Adressen",
+    "addressesLabel": "Sehen Sie sich Ihre aktuellen Standardadressen an oder fügen Sie neue hinzu.",
+    "addressAddNew": "Neue Adresse hinzufügen",
+    "accountOverviewHeader": "Kontoübersicht",
+    "signUpHeader": "Ich bin neu hier.",
+    "paymentMethodHeader": "Zahlungsmethode",
+    "newsletterSettingHeader": "Newsletter-Einstellung",
+    "defaultBillingAddressHeader": "Standardrechnungsadresse",
+    "defaultShippingAddressHeader": "Standard-Lieferadresse",
+    "yourAddress": "Ihre Adresse",
+    "orderHistoryHeader": "Bestellverlauf",
+    "yourProfile": "Ihr Profil",
+    "documentsLabel": "Dokumente",
+    "changePassword": "Passwort ändern",
+    "selectDefaultPaymentLabel": "Wählen Sie Ihre Standardzahlungsmethode aus",
+    "change": "ändern",
+    "save": "speichern",
+    "setDefaultShippingAddress": "Als Standard-Lieferadresse festlegen",
+    "setDefaultBillingAddress": "Als Standardrechnungsadresse festlegen",
+    "signInLabel": "Mit E-Mail anmelden",
+    "showPassword": "Zeigen",
+    "hidePassword": "Verbergen",
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "loggedInInfo": "Sie sind angemeldet",
+    "view": "Anzeigen",
+    "hide": "Verbergen",
+    "customerService": "Zum Kundenservice",
+    "editLabel": "Bearbeiten",
+    "menu": {
+      "signIn": "Anmelden/Registrieren",
+      "hello": "Hallo",
+      "openMenu": "Benutzermenü öffnen",
+      "myAccount": "Mein Konto",
+      "signOut": "Abmelden"
+    },
+    "order": {
+      "product": "Produkt",
+      "quantity": "Menge",
+      "price": "Preis",
+      "subtotal": "Zwischensumme",
+      "orderNumber": "Bestellnummer",
+      "totalAmount": "Gesamtbetrag",
+      "orderDate": "Bestelldatum",
+      "orderStatus": "Bestellstatus"
+    },
+    "personalData": {
+      "infoBox": "Bearbeiten Sie Ihre Daten unten, damit Ihr Konto immer auf dem neuesten Stand ist.",
+      "label": "Persönliche Daten",
+      "editLabel": "Persönliche Daten bearbeiten",
+      "deliveryAddress": "Lieferadresse",
+      "phoneNumber": "Telefonnnummer",
+      "birthDate": "Geburtstag",
+      "password": "Passwort",
+      "editPasswordLabel": "Passwort bearbeiten",
+      "editEmailLabel": "E-Mail bearbeiten",
+      "saveButtonText": "Änderungen speichern",
+      "changeEmailButtonText": "Neue E-Mail-Adresse speichern"
+    },
+    "email": {
+      "label": "E-mail",
+      "description": "Deine E-Mail"
+    },
+    "messages": {
+      "defaultShippingAddressSuccess": "Standard-Lieferadresse erfolgreich festgelegt",
+      "defaultShippingAddressError": "Fehler beim Festlegen der Standard-Lieferadresse",
+      "defaultBillingAddressSuccess": "Standardrechnungsadresse erfolgreich festgelegt",
+      "defaultBillingAddressError": "Fehler beim Festlegen der Standardrechnungsadresse",
+      "addressDeletedSuccess": "Adresse gelöscht",
+      "addressDeletedError": "Fehler beim Löschen der Adresse",
+      "loggedInSuccess": "Sie sind angemeldet",
+      "loginError": "Deine Email Adresse oder Dein Passwort ist falsch",
+      "personalDataUpdateSuccess": "Ihre Informationen wurden aktualisiert.",
+      "paymentSetSuccessfully": "Standardzahlungsmethode erfolgreich festgelegt",
+      "signUpSuccess": "Vielen Dank für Ihre Registrierung! Sie erhalten in Kürze eine Bestätigungs-E-Mail. Klicken Sie auf den Link darin, um die Registrierung abzuschließen.",
+      "loginAfterReset": "Du bist mit Deinem neuen Passwort angemeldet."
+    },
+    "flyout": {
+      "loginButtonLabel": "Anmelden",
+      "registerButtonLabel": "Neu hier? Jetzt registrieren"
+    },
+    "popup": {
+      "swRegisterTitle": "Registriere dich mit",
+      "withEmail": "E-Mail Adresse",
+      "oder": "oder mit",
+      "registerSecondStepTitle": "Mit E-Mail Adresse registrieren",
+      "resetPasswordTitle": "Passwort vergessen"
+    },
+    "sideNavigation": {
+      "welcomeText": "schön, dass du hier bist",
+      "customerNumber": "Kundennummer: ",
+      "shoppingAndOrders": "Einkaufen & Bestellungen",
+      "ordersAndReturns": "Bestellungen & Retouren",
+      "reviews": "Bewertungen",
+      "account": "Konto",
+      "accountData": "Persönliche Daten",
+      "addresses": "Gespeicherte Adressen",
+      "newsletter": "Newsletter",
+      "support": "Support",
+      "questions": "Häufig gestellte Fragen",
+      "supportAndContact": "Hilfe & Kontakt",
+      "logout": "Abmelden"
+    },
+    "deleteAccount": {
+      "label": "Konto löschen",
+      "description": "Wenn du dein Konto löschen möchtest, wende dich bitte an unseren Kundenservice."
+    }
+  }
+}

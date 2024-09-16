@@ -1,0 +1,43 @@
+{
+  "cms": {
+    "general": {
+      "contentfulNotConfigured": "Keine Contentful ID hinterlegt",
+      "error": "Inhalte konnten leider nicht geladen werden.",
+      "componentNotFound": "Component '{p}' konnte nicht gefunden werden",
+      "loading": "Laden..."
+    },
+    "tipOfTheMonth": {
+      "title": "Tipp des Monats",
+      "onlyFor": "Nur für"
+    },
+    "topOfferSlider": {
+      "discoverNow": "Angebot entdecken",
+      "validUntil": "Gültig bis"
+    },
+    "promotionHeroTeaser": {
+      "buttonText": "Jetzt profitieren"
+    },
+    "deals": {
+      "oneOffer": "Ein Angebot am",
+      "multipleOffers": "Angebote am",
+      "toOffer": "Zum Angebot"
+    },
+    "brandLine": {
+      "usp1": {
+        "title": "Ist perfekt für...",
+        "description": "Alle Hauttypen"
+      },
+      "usp2": {
+        "title": "Unser Versprechen",
+        "description": "Beste Verträglichkeit & erstklassige Qualität"
+      },
+      "usp3": {
+        "title": "Wissenswertes",
+        "description": "Alle Produkte sind tierversuchsfrei"
+      }
+    },
+    "cards": {
+      "profitNow": "Jetzt profitieren"
+    }
+  }
+}

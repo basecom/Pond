@@ -1,0 +1,75 @@
+{
+  "product": {
+    "addToCart": "In den Warenkorb",
+    "addToWishlist": "Zur Wishlist hinzufügen",
+    "removeFromWishlist": "Von Wishlist entfernen",
+    "details": "Details",
+    "amount": "Menge",
+    "description": "Beschreibung",
+    "properties": "Eigenschaften",
+    "reviewsLabel": "Bewertungen",
+    "reviewLabel": "Bewertung",
+    "reviewHeadline": "Was unsere Kunden sagen",
+    "writeReview": "Bewertung schreiben",
+    "verifiedCustomer": "verifizierter Kunde",
+    "content": "Inhalt",
+    "choose": "Wähle eine",
+    "deliveryTime": "Lieferzeit ca. {days}",
+    "variantsFrom": "Varianten ab",
+    "freeShippingThreshold": "Kostenfreier Versand ab 30 €",
+    "srProtuctInformation": "Produktinformationen",
+    "outOfStock": "Ausverkauft",
+    "price": {
+      "label": "Preis",
+      "to": "Bis",
+      "from": "Ab",
+      "srp": "UVP"
+    },
+    "messages": {
+      "addedToWishlist": "{p} wurde zur Wunschliste hinzugefügt.",
+      "removedFromWishlist": "{p} wurde aus der Wunschliste entfernt.",
+      "addedToCart": "{p} wurde dem Warenkorb hinzugefügt.",
+      "reason": "Grund: ",
+      "errorWishlist": "kann nicht zur Wunschliste hinzugefügt werden"
+    },
+    "gallery": {
+      "showAll": "Alle Bilder anzeigen",
+      "ofLabel": "von"
+    },
+    "accordion": {
+      "ingredients": {
+        "headline": "Alle Inhaltsstoffe",
+        "guaranty": "Garantiert",
+        "otherIngredients": "Weitere Inhaltsstoffe"
+      }
+    },
+    "review": {
+      "yourRating": "Deine Bewertung",
+      "badRating": "schlecht",
+      "veryGoodRating": "sehr gut",
+      "nameLabel": "Name",
+      "reviewTitleLabel": "Titel deiner Bewertung",
+      "submitReview": "Bewertung abschicken",
+      "howDoYouRate": "Wie bewertest du das Produkt?",
+      "reviewDisclaimer": "*Bitte beachte, dass wir Kundenmeinungen zulassen, die sowohl von Käufern als auch von Nicht-Käufern abgegeben worden sind. Zudem können auch Kundenmeinungen angezeigt werden, welche sich auf das Vorgängerprodukt beziehen.",
+      "showAllReviews": "Alle Reviews ansehen",
+      "star": "Stern",
+      "stars": "Sterne",
+      "submitReviewSuccess": "Deine Bewertung wurde aufgenommen",
+      "legalText": "Bitte beachte, dass Deine Bewertungen auch in unseren fremdsprachingen Online-Shops sichtbar sein können. Weitere Informationen zum Datenschutz findest du in unseren ",
+      "legalTextPrivacyPolicy": "Datenschutzbedingungen.",
+      "anonymUser": "Anonym"
+    },
+    "crossSelling": {
+      "setUpselling": "Mach ein Set daraus und spare",
+      "biggerSet": "Noch mehr Set – noch mehr sparen",
+      "setContent": "Dieses Set enthält"
+    },
+    "toPdp": "Zum Produkt",
+    "set": {
+      "itemContentCount": "{count}-teilig",
+      "bestDeal": "Bester Deal:"
+    },
+    "copyCode": "Code kopieren und sparen"
+  }
+}

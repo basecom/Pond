@@ -1,0 +1,112 @@
+{
+  "account": {
+    "addresses": "Addresses",
+    "addressesLabel": "View your current default addresses or add new ones.",
+    "addressAddNew": "Add new address",
+    "accountOverviewHeader": "Account Overview",
+    "signUpHeader": "I am new here.",
+    "paymentMethodHeader": "Payment Method",
+    "newsletterSettingHeader": "Newsletter setting",
+    "defaultBillingAddressHeader": "Default billing address",
+    "defaultShippingAddressHeader": "Default shipping address",
+    "editAddress": "Edit address",
+    "yourAddress": "Your address",
+    "orderHistoryHeader": "Order history",
+    "yourProfile": "Your profile",
+    "documentsLabel": "Documents",
+    "changePassword": "Change password",
+    "selectDefaultPaymentLabel": " Select your default payment method",
+    "change": "change",
+    "save": "save",
+    "setDefaultShippingAddress": "Set as default shipping address",
+    "setDefaultBillingAddress": "Set as default billing address",
+    "signInLabel": "Sign in with email",
+    "showPassword": "Show",
+    "hidePassword": "Hide",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "loggedInInfo": "you are logged in",
+    "view": "View",
+    "hide": "Hide",
+    "customerService": "Customer Service",
+    "editLabel": "Edit",
+    "menu": {
+      "signIn": "Sign in/register",
+      "hello": "Hello",
+      "openMenu": "Open user menu",
+      "myAccount": "My account",
+      "signOut": "Sign out"
+    },
+    "order": {
+      "product": "Product",
+      "quantity": "Quantity",
+      "price": "Price",
+      "subtotal": "Subtotal",
+      "orderNumber": "Order number",
+      "totalAmount": "Total amount",
+      "orderDate": "Order date",
+      "orderStatus": "Order status"
+    },
+    "personalData": {
+      "infoBox": "Feel free to edit any of your details below so your account is always up to date",
+      "label": "Personal data",
+      "editLabel": "Edit Personal Data",
+      "deliveryAddress": "Delivery Address",
+      "phoneNumber": "Phone Number",
+      "birthDate": "Date of Birth",
+      "password": "Password",
+      "editPasswordLabel": "Edit Password",
+      "editEmailLabel": "Edit E-mail",
+      "saveButtonText": "Save Changes",
+      "changeEmailButtonText": "Save New E-mail Address"
+    },
+    "email": {
+      "label": "E-mail",
+      "description": "Your E-Mail"
+    },
+    "messages": {
+      "defaultShippingAddressSuccess": "Set default shipping address successfully",
+      "defaultShippingAddressError": "Set default shipping address error",
+      "defaultBillingAddressSuccess": "Set default billing address successfully",
+      "defaultBillingAddressError": "Set default billing address error",
+      "addressDeletedSuccess": "Address deleted",
+      "addressDeletedError": "Address deleted error",
+      "loggedInSuccess": "You are logged in",
+      "loginError": "Your email address or password is incorrect",
+      "personalDataUpdateSuccess": "Your information has been updated.",
+      "paymentSetSuccessfully": "Set default payment method successfully",
+      "signUpSuccess": "Thank you for signing up! You will receive a confirmation email shortly. Click on the link in it to complete the sign-up.",
+      "loginAfterReset": "EN - Du bist mit Deinem neuen Passwort angemeldet."
+    },
+    "flyout": {
+      "loginButtonLabel": "Login",
+      "registerButtonLabel": "New here? Join Now"
+    },
+    "popup": {
+      "swRegisterTitle": "Register with",
+      "withEmail": "E-Mail address",
+      "oder": "or with",
+      "registerSecondStepTitle": "Register with email address",
+      "resetPasswordTitle": "Forgot password"
+    },
+    "sideNavigation": {
+      "welcomeText": "nice that you're here",
+      "customerNumber": "Customer number: ",
+      "shoppingAndOrders": "Shopping & Orders",
+      "ordersAndReturns": "Orders & Returns",
+      "reviews": "Reviews",
+      "account": "Account",
+      "accountData": "Personal Data",
+      "addresses": "Saved addresses",
+      "newsletter": "Newsletter",
+      "support": "Support",
+      "questions": "Frequently asked questions",
+      "supportAndContact": "Help & contact",
+      "logout": "Logout"
+    },
+    "deleteAccount": {
+      "label": "Delete Account",
+      "description": "If you would like to delete your account, please contact our customer service."
+    }
+  }
+}

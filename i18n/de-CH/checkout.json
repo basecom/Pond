@@ -1,0 +1,110 @@
+{
+  "checkout": {
+    "orderSummaryTitle": "Deine Bestellung",
+    "orderSummaryLabel": "Bestelldetails und Gesamtsummen.",
+    "signIn": "Anmelden",
+    "signInToOrder": "Um eine Bestellung aufzugeben.",
+    "register": "Registrieren",
+    "header": "Warenkorb",
+    "empty": "Ihr Warenkorb ist leer",
+    "close": "Panel schließen",
+    "logOut": "Sie können sich abmelden",
+    "orderTotal": "Gesamtbestellwert",
+    "loginRequired": "Sie müssen angemeldet sein, um eine Bestellung aufzugeben.",
+    "goToHomepage": "Zur Startseite gehen",
+    "here": "hier",
+    "shippingEstimate": "Versandkostenabschätzung",
+    "selectPaymentMethod": "Wählen Sie eine Zahlungsmethode aus",
+    "notCreateAccount": "Kein Kundenkonto erstellen.",
+    "takesUpTo": "Dauert bis zu",
+    "subtotal": "Zwischensumme",
+    "taxesLabel": "Versandkosten und Steuern werden beim Checkout berechnet.",
+    "linkCheckout": "Zur Kasse gehen",
+    "guest": "Gast",
+    "checkOrder": "Bestellung überprüfen",
+    "placeOrder": "Bestellung aufgeben",
+    "linkShippingCart": "Zum Warenkorb gehen",
+    "checkStatus": "Sie können nun den Bestellstatus in Ihrem Konto überprüfen. Vielen Dank!",
+    "unpaidStatus": "Leider konnte Ihre Bestellung nicht bezahlt werden. Sie können es erneut versuchen oder uns kontaktieren.",
+    "checkOrderDetails": "Bestelldetails überprüfen",
+    "loggedInAs": "Sie sind angemeldet als",
+    "or": "oder",
+    "yourOrder": "Ihre Bestellung",
+    "backToHomepage": "Zurück zur Startseite",
+    "orderPaid": "wurde bezahlt",
+    "orderUnpaid": "ist nicht bezahlt",
+    "continueShopping": "Mit dem Einkauf fortfahren",
+    "goToPayment": "Zur Zahlung gehen",
+    "shippingAddressLabel": "Lieferadresse",
+    "billingAddressLabel": "Rechnungsadresse",
+    "selectBillingAddress": "Wählen Sie eine Rechnungsadresse aus",
+    "addNewBillingAddress": "Neue Rechnungsadresse hinzufügen",
+    "addNewShippingAddress": "Neue Lieferadresse hinzufügen",
+    "differentBillingAddress": "Unterschiedliche Rechnungsadresse",
+    "sameBillingAddress": "Gleiche Rechnungsadresse",
+    "sameShippingAddress": "Gleiche Lieferadresse",
+    "paymentMethodLabel": "Zahlungsmethode",
+    "shippingMethodLabel": "Versandmethode",
+    "shippingPriceLabel": "Versandkosten",
+    "personalInformationLabel": "Persönliche Informationen",
+    "personalInformationInfo": "Geben Sie eine permanente Adresse an, an der Sie Post erhalten können.",
+    "totalLabel": "Gesamt",
+    "termsAndConditions": "Allgemeine Geschäftsbedingungen",
+    "termsAndConditionsLabel": "Ich habe die allgemeinen Geschäftsbedingungen gelesen und akzeptiert.",
+    "digitalTerms": "Ich möchte sofortigen Zugriff auf den digitalen Inhalt und ich erkenne an, dass ich damit mein Recht auf Widerruf verzichte.",
+    "createAccountAsGuest": "In einem Klick ein Konto erstellen",
+    "promoCode": {
+      "label": "Dein Rabatt",
+      "conditions": "Aktionsbedingungen"
+    },
+    "items": {
+      "removeButton": "Entfernen"
+    },
+    "success": {
+      "header": "Wir haben Ihre Bestellung #{0} erhalten und werden diese schnellstmöglich bearbeiten.",
+      "paymentProcessLabel": "Zahlungsvorgang abschließen.",
+      "paymentProcessInfo": "Sie werden in 5 Sekunden zum Zahlungsgateway weitergeleitet."
+    },
+    "messages": {
+      "checkoutSignInSuccess": "Vielen Dank für Ihre Anmeldung! Sie erhalten in Kürze eine Bestätigungs-E-Mail. Klicken Sie auf den Link darin, um die Anmeldung abzuschließen."
+    },
+    "login": {
+      "headline": "Anmeldung",
+      "customer": {
+        "headline": "Kennen wir uns schon?",
+        "info": "Schneller durch den Checkout mit deinen Details.",
+        "buttonLabel": "Jetzt anmelden",
+        "loggedIn": "Eingeloggt mit E-Mail"
+      },
+      "guestLogin": {
+        "headline": "Du bist neu hier?",
+        "info": "Du kannst dir ein Konto während der Bestellung anlegen.",
+        "buttonLabel": "Weiter als Gast",
+        "continueAsGuest": "Du bestellst als Gast. Leg dir während der Bestellung ganz einfach ein Konto an."
+      }
+    },
+    "delivery": {
+      "headline": "Lieferoptionen",
+      "addressHeadline": "Lieferadresse",
+      "billingAddressHeadline": "Rechnungsadresse",
+      "nextToPayment": "Weiter zur Zahlung",
+      "nextToBilling": "Weiter zur Rechnungsadresse",
+      "sameAddress": "Deine Rechnungsadresse entspricht der Lieferadresse."
+    },
+    "billing" : {
+      "headline": "Rechnungsadresse",
+      "headlineBoth" : "Rechnungs- und Lieferadresse"
+    },
+    "payment": {
+      "headline": "Zahlung",
+      "nextTo": "Weiter zur Bestellübersicht",
+      "otherPayments": "Weitere Möglichkeiten (optional)"
+    },
+    "labels": {
+      "editSection": "Bearbeiten",
+      "closeSection": "Schließen",
+      "saveAndClose": "Speichern und Schließen"
+    },
+    "expressCheckoutLabel": "Express checkout mit"
+  }
+}

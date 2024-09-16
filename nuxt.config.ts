@@ -15,6 +15,7 @@ export default defineNuxtConfig({
         '@nuxt/eslint',
         '@nuxt/fonts',
         '@formkit/nuxt',
+        '@nuxtjs/i18n',
     ],
     experimental: {
         asyncContext: true,
@@ -62,4 +63,39 @@ export default defineNuxtConfig({
         },
     },
     css: ['~/node_modules/@glidejs/glide/dist/css/glide.core.min.css'],
+    i18n: {
+        strategy: 'prefix_except_default',
+        defaultLocale: 'de-DE',
+        detectBrowserLanguage: false,
+        langDir: './i18n/src/langs/',
+        vueI18n: './i18n/config',
+        compilation: {
+            jit: false,
+        },
+        locales: [
+            // {
+            //     code: 'en-GB',
+            //     iso: 'en-GB',
+            //     file: 'en-GB.ts',
+            // },
+            {
+                code: 'de-DE',
+                iso: 'de-DE',
+                file: 'de-DE.ts',
+            },
+            // {
+            //     code: 'de-CH',
+            //     iso: 'de-CH',
+            //     file: 'de-CH.ts',
+            // },
+            {
+                code: 'de-AT',
+                iso: 'de-AT',
+                file: 'de-AT.ts',
+            }
+        ],
+        experimental: {
+            jsTsFormatResource: true,
+        },
+    },
 });

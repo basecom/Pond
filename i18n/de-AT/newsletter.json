@@ -1,0 +1,49 @@
+{
+  "newsletter": {
+    "subscriptionHeader": "Newsletter-Anmeldung",
+    "subscriptionCheckbox": "Ich möchte über aktuelle Trends, Angebote und Gutscheine per E-Mail informiert werden. Jederzeit kostenlos abbestellbar.",
+    "subscriptionInformation": "Du erhältst Informationen über Angebote der Asambeauty GmbH per E-Mail. Der Zusendung kannst Du jederzeit widersprechen. Alle Informationen zum Datenschutz findest Du in unseren <u> <a href=\"/\"> Datenschutzbestimmungen </a> </u>.",
+    "subscriptionInfoHeadline": "Nur noch einen Schritt!",
+    "subscriptionInfo": "Wir haben dir eben eine E-Mail geschickt.  Klicke auf den Link darin, um deine Anmeldung zu bestätigen.",
+    "messages": {
+      "newsletterSubscribed": "Vielen Dank! Wir haben Ihre E-Mail-Adresse angemeldet.",
+      "newsletterUnsubscribed": "Newsletter abbestellt"
+    },
+    "inputPlaceholder": "E-Mail-Adresse",
+    "buttonLabel": "Anmelden",
+    "legalInformation": "Mit dem Anklicken des Buttons „Anmelden“ möchte ich regelmäßig über ausgewählte Angebote und Produkte von ASAMBEAUTY per Email informiert werden. Eine Abmeldung ist jederzeit über das Kundenkonto und den Newsletter möglich (sowohl zwecks Widerrufs dieser Werbeeinwilligung, als auch zwecks Erklärung eines Werbewiderspruchs). Hierfür fallen ausschließlich Übermittlungskosten nach den Basistarifen an. Bitte beachte unsere <a href=\"{ tosLink }\">Allgemeinen Geschäftsbedingungen</a> und <a href=\"{ privacyLink }\">Datenschutzbestimmungen</a>.",
+    "errorMessages": {
+      "general": "An unerwarteter Fehler ist aufgetreten, versuchen Sie es später noch einmal.",
+      "empty": "Dieses Feld darf nicht leer sein.",
+      "duplicate": "Diese E-Mail-Adresse ist bereits registriert.",
+      "USER_ALREADY_SUBSCRIBED": "Diese E-Mail-Adresse ist bereits registriert.",
+      "VIOLATION::STRICT_CHECK_FAILED_ERROR": "Ihre Eingabe hat kein korrektes E-Mail-Format."
+    },
+    "birthdaySurprise": "Pssst... Erhalte eine jährliche Überraschung zu deinem Geburtstag!",
+    "unsubscribe": {
+      "customReason": "Anderer Grund",
+      "feedbackThanks": "Vielen Dank für dein Feedback.",
+      "buttonLabel": "Abschicken"
+    },
+    "code": {
+      "label": "Code",
+      "shortHeadline": "5€-Willkommensrabatt",
+      "longHeadline": "Dein persönlicher 5€-Willkommensgutschein:",
+      "shortDescription": "Gültig auf einen Warenkorb ab von 35 €.",
+      "longDescription": "Gutscheincode nur bis 4 Wochen nach Erhalt der E-Mail ab einem Einkaufswert von 35 € einmal pro Kunde einlösbar.</br></br>Nicht mit anderen Aktionen oder Gutscheinen kombinierbar. Nicht auf die SALE Kategorie gültig. Eine Barauszahlung oder nachträgliche Anrechnung ist nicht möglich. Die kommerzielle Veröffentlichung des Gutscheincodes (z.B. auf Gutschein-Websites oder -Blogs) ist nicht gestattet.",
+      "infoText": "Dein persönlicher 5€-Willkommensgutschein"
+    },
+    "profile": {
+      "headline": "Vervollständige dein Profil",
+      "getBenefits": "Sicher dir weitere Vorteile",
+      "callYou": "Wie dürfen wir dich ansprechen?",
+      "birthday": "Pssst... Erhalte eine Überraschung zu deinem Geburtstag!",
+      "productCategories": "Welche Produktkategorien interessieren dich?",
+      "skinType": "Welchen Hauttyp hast du?",
+      "wantForSkin": "Was möchtest du für deine Haut tun?",
+      "successfullySaved": "Deine Information wurden erfolgreich gespeichert",
+      "unsuccessfullySaved": "Leider ist etwas schief gegangen. Versuche es bitte erneut",
+      "successfullyCopied": "Dein Code wurde kopiert"
+    }
+  }
+}
