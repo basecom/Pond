@@ -8,6 +8,7 @@ export default {
             if (!iconkey) {
                 return undefined;
             }
+
             try {
                 const iconsImport = import.meta.glob('assets/icons/**/**.svg', {
                     query: '?raw',
@@ -26,15 +27,28 @@ export default {
             }
         };
 
-        return fetch(`https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/svgs/solid/${iconName}.svg`)
-            .then(async r => {
-                const icon = await r.text();
-                if (icon.startsWith('<svg')) {
-                    // returns the icon from fontawesome
+        return getIcon(iconName)
+            .then(async icon => {
+                if (icon) {
+                    // returns the icon from our repository
                     return icon;
                 } else {
-                    // returns the icon from our repository as fallback (or undefined if not found)
-                    return getIcon(iconName);
+                    // returns the icon from fontawesome as fallback (or undefined if not found)
+                    return fetch(`https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/svgs/solid/${iconName}.svg`)
+                        .then(async r => {
+                            const icon = await r.text();
+                            if (icon.startsWith('<svg')) {
+                                // returns the icon from fontawesome
+                                return icon;
+                            } else {
+                                // returns undefined if the icon is not found in either the local repository or the CDN
+                                return undefined;
+                            }
+                        })
+                        .catch(e => {
+                            console.error(e);
+                            return undefined;
+                        });
                 }
             })
             .catch(e => {

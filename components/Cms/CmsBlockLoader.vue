@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { kebabCase } from 'scule';
-import { useCmsUtils } from '~/composables/cms/useCmsUtils';
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
 

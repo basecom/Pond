@@ -77,7 +77,7 @@ withDefaults(
                     >
                         <FormKitIcon
                             class="block"
-                            icon="x"
+                            icon="xmark"
                         />
                     </DialogClose>
                 </DialogContent>
