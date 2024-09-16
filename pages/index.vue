@@ -3,7 +3,6 @@ import { pascalCase } from 'scule';
 
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
-console.log(route);
 
 const { refreshSessionContext } = useSessionContext();
 await refreshSessionContext();
