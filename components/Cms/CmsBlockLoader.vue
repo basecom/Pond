@@ -29,5 +29,7 @@ const isDevelopment = computed(() => import.meta.dev);
             :block="block"
         />
     </div>
-    <div v-else-if="isDevelopment">{{ $t('cms.componentNotFound', {componentName: getCmsBlockComponentName(block.type)}) }}</div>
+    <div v-else-if="isDevelopment">
+        {{ $t('cms.componentNotFound', { componentName: getCmsBlockComponentName(block.type) }) }}
+    </div>
 </template>

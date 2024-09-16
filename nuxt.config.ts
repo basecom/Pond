@@ -72,12 +72,12 @@ export default defineNuxtConfig({
         locales: [
             {
                 code: 'de-DE',
-                file: 'i18n/de-DE/de-DE.ts'
+                file: 'i18n/de-DE/de-DE.ts',
             },
             {
                 code: 'en-GB',
-                file: 'i18n/en-GB/en-GB.ts'
+                file: 'i18n/en-GB/en-GB.ts',
             },
-        ]
-    }
+        ],
+    },
 });

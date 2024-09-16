@@ -13,9 +13,7 @@ export default defineNuxtPlugin(async nuxtApp => {
     const runtimeConfig = useRuntimeConfig();
     const contextToken = useCookie('contextToken');
 
-    // const accessToken = new AccessToken(runtimeConfig.public.pond.accessToken);
-    const {path} = useRoute();
-    const accessToken = new AccessToken(path.startsWith('/de-AT') ? runtimeConfig.public.pond.accessTokenAT : runtimeConfig.public.pond.accessToken);
+    const accessToken = new AccessToken(runtimeConfig.public.pond.accessToken);
     await nuxtApp.callHook('pond:determine-access-token', accessToken);
 
     if (!accessToken.token) {
