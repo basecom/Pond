@@ -1,15 +1,18 @@
 <script setup lang="ts">
+import { awaitExpression } from '@babel/types';
+
 const customerStore = useCustomerStore();
 const { refreshCart } = useCart();
 const { loading } = storeToRefs(customerStore);
 useNotifications();
-const { locale, locales } = useI18n();
+const { locale, locales, setLocale } = useI18n();
 const switchLocalePath = useSwitchLocalePath()
-const context = useSessionContext();
+const context = useShopwareContext();
 console.log(context);
 
 customerStore.refreshContext();
 refreshCart();
+const localeRoute = useLocaleRoute()
 </script>
 
 <template>
@@ -27,11 +30,13 @@ refreshCart();
     >
         <div class="flex gap-2">
 
-            <NuxtLink v-for="locale in locales" :key="locale.code" :to="switchLocalePath(locale.code)">{{
-                    locale.code
-                }}</NuxtLink>
+<!--            <NuxtLink v-for="locale in locales" :key="locale.code" :to="switchLocalePath(locale.code)">{{-->
+<!--                    locale.code-->
+<!--                }}</NuxtLink>-->
+            <button @click="setLocale('en-GB')">en</button>
+            <button @click="setLocale('de-DE')">de</button>
+            <p>{{ $t('welcome') }}</p>
         </div>
-        {{locale}} - {{ $t('account.personalData.deliveryAddress') }}
         <NuxtPage />
     </main>
 
