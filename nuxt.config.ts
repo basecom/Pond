@@ -34,6 +34,7 @@ export default defineNuxtConfig({
             pond: {
                 shopwareEndpoint: '',
                 accessToken: '',
+                accessTokenAT: '',
             },
         },
     },
@@ -65,8 +66,18 @@ export default defineNuxtConfig({
     css: ['~/node_modules/@glidejs/glide/dist/css/glide.core.min.css'],
     i18n: {
         vueI18n: './i18n.config.ts',
+        strategy: 'prefix_except_default',
         defaultLocale: 'de-DE',
-        locales: ['de-DE', 'en-GB']
-    },
-    ssr: false
+        detectBrowserLanguage: false,
+        locales: [
+            {
+                code: 'de-DE',
+                file: 'i18n/de-DE/de-DE.ts'
+            },
+            {
+                code: 'en-GB',
+                file: 'i18n/en-GB/en-GB.ts'
+            },
+        ]
+    }
 });
