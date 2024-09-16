@@ -30,8 +30,8 @@ const modalController = useModal();
         </template>
         <template #content>
             <AccountSideNavigation
-            class="mt-4"
-            :is-in-header="true"
+                class="mt-4"
+                :is-in-header="true"
             />
         </template>
     </LazySharedPopover>

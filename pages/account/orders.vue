@@ -5,10 +5,8 @@ import OrdersContent from '~/components/Layout/Account/LayoutAccountOrdersConten
 
 <template>
     <layout-account>
-        <orders-content/>
+        <orders-content />
     </layout-account>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

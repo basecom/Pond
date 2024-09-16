@@ -4,10 +4,8 @@ import AddressContent from '~/components/Layout/Account/LayoutAccountAdressConte
 </script>
 <template>
     <layout-account>
-        <address-content/>
+        <address-content />
     </layout-account>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

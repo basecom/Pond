@@ -1,11 +1,7 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
-    <div>Adress Content</div>
+    <div>Address Content</div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

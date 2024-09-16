@@ -23,31 +23,35 @@ const navItems = ref([
     { path: '/account/profile', label: 'Your profile' },
     { path: '/account/address', label: 'Address' },
     { path: '/account/payment', label: 'Payment methods' },
-    { path: '/account/orders', label: 'Orders' }
+    { path: '/account/orders', label: 'Orders' },
 ]);
 </script>
 
 <template>
     <ul>
-        <div v-if="customerStore.customer &&  !props.isInHeader"
-             class="font-bold text-2xl">
+        <div
+            v-if="customerStore.customer && !props.isInHeader"
+            class="text-2xl font-bold"
+        >
             Hallo {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}
         </div>
 
-        <div v-if="props.isInHeader"
-             class="font-bold text-2xl mt-4 ml-4 pb-4 pl-2">
+        <div
+            v-if="props.isInHeader"
+            class="ml-4 mt-4 pb-4 pl-2 text-2xl font-bold"
+        >
             Your account
         </div>
         <li
             v-for="(item, index) in navItems"
             :key="item.path"
-            class="mt-4 ml-4 pb-4 pl-2"
-            :class="{'border-b border-gray-300' : index !== navItems.length-1}"
+            class="ml-4 mt-4 pb-4 pl-2"
+            :class="{ 'border-gray-300 border-b': index !== navItems.length - 1 }"
         >
             <NuxtLink
                 :to="item.path"
                 class="text-lg"
-                :class="{ 'font-bold': isActive(item.path,true) }"
+                :class="{ 'font-bold': isActive(item.path, true) }"
             >
                 {{ item.label }}
             </NuxtLink>
@@ -64,6 +68,4 @@ const navItems = ref([
     </ul>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

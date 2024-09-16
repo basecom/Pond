@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import LayoutAccount from '~/components/Layout/Account/LayoutAccount.vue';
 import PaymentContent from '~/components/Layout/Account/LayoutAccountPaymentContent.vue';
 </script>
@@ -10,6 +9,4 @@ import PaymentContent from '~/components/Layout/Account/LayoutAccountPaymentCont
     </layout-account>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
