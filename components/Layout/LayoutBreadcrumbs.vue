@@ -1,5 +1,16 @@
 <script setup lang="ts">
 const { breadcrumbs } = useBreadcrumbs();
+
+withDefaults(
+    defineProps<{
+        displayRoot?: boolean;
+        rootIcon?: string;
+    }>(),
+    {
+        displayRoot: true,
+        rootIcon: '',
+    },
+);
 </script>
 
 <template>
@@ -8,11 +19,19 @@ const { breadcrumbs } = useBreadcrumbs();
         aria-label="Breadcrumb"
     >
         <ol class="inline-flex items-center gap-2">
-            <li class="inline-flex items-center gap-2">
+            <li
+                v-if="displayRoot"
+                class="inline-flex items-center gap-2"
+            >
                 <NuxtLink
                     :to="'/'"
-                    class="inline-flex items-center text-sm font-medium last:text-brand-primary hover:text-brand-primary"
+                    class="inline-flex items-center gap-2 text-sm font-medium last:text-brand-primary hover:text-brand-primary"
                 >
+                    <FormKitIcon
+                        v-if="rootIcon"
+                        :icon="rootIcon"
+                        class="h-4 w-4"
+                    />
                     Home
                 </NuxtLink>
 
