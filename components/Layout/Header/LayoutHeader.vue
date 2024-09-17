@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
-import LayoutHeaderActions from '~/components/Layout/header/LayoutHeaderActions.vue';
+import LayoutHeaderActions from './LayoutHeaderActions.vue';
 
 const customerStore = useCustomerStore();
 const { loadNavigationElements, navigationElements } = useNavigation();

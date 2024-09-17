@@ -3,9 +3,10 @@ import { pascalCase } from 'scule';
 
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
-
 const { refreshSessionContext } = useSessionContext();
+const { getWishlistProducts } = useWishlist();
 await refreshSessionContext();
+await getWishlistProducts();
 const routePath = route.path.replace('//', '/');
 
 const { data: seoResult } = await useAsyncData('seoPath' + routePath, async () => {

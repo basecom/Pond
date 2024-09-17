@@ -18,7 +18,10 @@ const cover = getProductCover(props.product.cover);
 </script>
 
 <template>
-    <div class="rounded-md p-4 shadow-md">
+    <div class="relative rounded-md p-4 shadow-md">
+        <div class="absolute right-0 top-0 z-[2] p-4">
+            <SharedAddToWishlist :productId="props.product.id"></SharedAddToWishlist>
+        </div>
         <NuxtLink
             :to="getProductRoute(product)"
             class="group"

@@ -18,9 +18,14 @@ const { product } = useProduct(props.element.data.product);
             {{ product.productNumber }}
         </span>
 
+       <div class="flex flex-row w-full gap-4">
         <ProductAddToCart
             :product="product"
             :label="true"
         />
+        <div class="rounded-md border border-gray-medium bg-white">
+            <SharedAddToWishlist :productId="product.id"></SharedAddToWishlist>
+        </div>
+       </div>
     </div>
 </template>

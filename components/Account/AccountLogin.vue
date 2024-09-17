@@ -26,6 +26,7 @@ const { resolveApiErrors } = useApiErrorsResolver();
 const { signedIn } = storeToRefs(customerStore);
 const apiErrors = ref<ResolvedApiError[]>([]);
 const { pushError, pushSuccess } = useNotifications();
+const { mergeWishlistProducts } = useWishlist();
 
 const handleLogin = async (fields: FormkitLoginFields) => {
     try {
@@ -36,7 +37,7 @@ const handleLogin = async (fields: FormkitLoginFields) => {
         if (props.redirectAfterSuccess) {
             navigateTo(props.redirectTarget);
         }
-
+        mergeWishlistProducts();
         pushSuccess('You successfully logged in.');
     } catch (error) {
         pushError('An error occured trying to login. Please try again.');
