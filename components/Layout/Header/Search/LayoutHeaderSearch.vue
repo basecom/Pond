@@ -21,11 +21,13 @@ onClickOutside(searchComponent, event => {
         />
     </button>
 
-    <teleport to="header">
-        <LayoutHeaderSearchBar
-            v-if="searchVisible"
-            ref="searchComponent"
-            @close-search="searchVisible = false"
-        />
-    </teleport>
+    <ClientOnly>
+        <teleport to="#searchContainer">
+            <LayoutHeaderSearchBar
+                v-if="searchVisible"
+                ref="searchComponent"
+                @close-search="searchVisible = false"
+            />
+        </teleport>
+    </ClientOnly>
 </template>

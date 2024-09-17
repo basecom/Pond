@@ -3,6 +3,7 @@ const customerStore = useCustomerStore();
 const { refreshCart } = useCart();
 const { loading } = storeToRefs(customerStore);
 useNotifications();
+useBreadcrumbs();
 
 customerStore.refreshContext();
 refreshCart();
@@ -21,6 +22,8 @@ refreshCart();
         v-show="!loading"
         class="mt-4 w-screen"
     >
+        <LayoutBreadcrumbs />
+
         <NuxtPage />
     </main>
 

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { ApiClientError } from '@shopware/api-client';
-import { getSmallestThumbnailUrl, getProductRoute } from '@shopware-pwa/helpers-next';
+const { getProductRoute } = useProductRoute();
+const { getProductCover } = useMedia();
 const { pushError, pushSuccess } = useNotifications();
 
 const props = defineProps<{
@@ -10,6 +11,8 @@ const props = defineProps<{
 
 const { lineItem } = toRefs(props);
 const isLoading = ref(false);
+
+const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 
 const { getFormattedPrice } = usePrice();
 const { refreshCart } = useCart();
@@ -89,7 +92,8 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
             :to="getProductRoute(lineItem)"
         >
             <img
-                :src="getSmallestThumbnailUrl(lineItem.cover)"
+                :src="lineItemCover.url"
+                :alt="lineItemCover.alt"
                 class="h-full w-full object-cover object-center"
             />
         </NuxtLink>
