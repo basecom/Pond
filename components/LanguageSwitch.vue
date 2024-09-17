@@ -6,7 +6,7 @@ const { languages, getAvailableLanguages, changeLanguage } = useInternationaliza
 const { languageIdChain } = useSessionContext();
 await getAvailableLanguages();
 
-const onChangeHandler = async (option: Event) => {
+const onLanguageChange = async (option: Event) => {
     const data = await changeLanguage((option.target as HTMLSelectElement).value);
     if (data.redirectUrl) {
         window.location.replace(data.redirectUrl);
@@ -15,7 +15,7 @@ const onChangeHandler = async (option: Event) => {
     }
 };
 
-const countryOptions = computed(() => entityArrayToOptions<Schemas['language']>(languages.value, 'name', true) ?? []);
+const languageOptions = computed(() => entityArrayToOptions<Schemas['language']>(languages.value, 'name', true) ?? []);
 </script>
 
 <template>
@@ -28,8 +28,8 @@ const countryOptions = computed(() => entityArrayToOptions<Schemas['language']>(
             type="select"
             name="language"
             prefix-icon="globe"
-            :options="countryOptions"
-            @change="onChangeHandler"
+            :options="languageOptions"
+            @change="onLanguageChange"
         />
     </div>
 </template>
