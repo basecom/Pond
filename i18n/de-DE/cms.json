@@ -1,0 +1,5 @@
+{
+  "cms": {
+    "componentNotFound": "{componentName} konnte nicht gefunden werden"
+  }
+}
