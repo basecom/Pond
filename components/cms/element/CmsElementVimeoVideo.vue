@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { CmsElementVimeoVideo } from '@shopware-pwa/composables-next';
 import Player from '@vimeo/player';
+
 const props = defineProps<{
     element: CmsElementVimeoVideo;
 }>();
+
 const vimeoVideo = ref(null);
 
 onMounted(() => {
