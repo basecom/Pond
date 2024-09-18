@@ -5,7 +5,7 @@ await loadNavigationElements({ depth: 2 });
 
 <template>
     <div class="relative hidden w-screen md:block md:bg-gray-light">
-        <div class="container flex gap-8 overflow-x-scroll py-4">
+        <div class="container flex gap-4 overflow-x-scroll">
             <LayoutNavigationMainItem
                 v-for="navigationElement in navigationElements"
                 :key="`nav-item-${navigationElement.id}`"

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import { useNavigationElement } from '~/composables/useNavigationElement';
 
-withDefaults(
+const props = withDefaults(
     defineProps<{
         navigationElement: Schemas['Category'];
         activeClasses?: string | null;
@@ -18,6 +19,13 @@ withDefaults(
     },
 );
 
+const { isExternalLink, isInternalLink, linkNewTab, externalLink, getInternalRoute, path } = useNavigationElement(
+    props.navigationElement,
+);
+if (isInternalLink) {
+    await getInternalRoute();
+}
+
 const isActive = (path: Schemas['SeoUrl'][] | undefined, onlyExactMatch: boolean = false) => {
     if (!path) return false;
 
@@ -31,27 +39,21 @@ const isActive = (path: Schemas['SeoUrl'][] | undefined, onlyExactMatch: boolean
 <template>
     <NuxtLink
         v-if="asLink"
-        :target="navigationElement.externalLink || navigationElement.linkNewTab ? '_blank' : ''"
-        :rel="navigationElement.externalLink || navigationElement.linkNewTab ? 'noopener noreferrer nofollow' : ''"
+        :target="isExternalLink || linkNewTab ? '_blank' : ''"
+        :rel="isExternalLink || linkNewTab ? 'noopener noreferrer nofollow' : ''"
         :aria-label="getTranslatedProperty(navigationElement, 'name')"
-        :to="getCategoryRoute(navigationElement)"
-        class="py-4 transition-all hover:text-brand-primary"
+        :to="isExternalLink ? externalLink : isInternalLink ? path : getCategoryRoute(navigationElement)"
+        class="transition-all hover:text-brand-primary"
         :class="[classes, isActive(navigationElement.seoUrls, activeWithExactMatch) ? activeClasses : '']"
     >
-        {{ getTranslatedProperty(navigationElement, 'name') }}
+        {{ getTranslatedProperty(navigationElement, 'name') }} {{ path }}
     </NuxtLink>
     <div
         v-else
-        class="flex items-center justify-between py-4 text-black transition-all hover:cursor-pointer hover:text-brand-primary"
         :class="[classes, isActive(navigationElement.seoUrls) ? activeClasses : '']"
     >
         <span>
             {{ getTranslatedProperty(navigationElement, 'name') }}
         </span>
-
-        <FormKitIcon
-            icon="chevron-right"
-            class="block h-3 w-3"
-        />
     </div>
 </template>

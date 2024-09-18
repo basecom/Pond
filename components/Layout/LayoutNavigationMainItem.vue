@@ -15,15 +15,16 @@ const debounced = refDebounced(isOutsideNavItem, 300);
 <template>
     <div
         ref="navigationItem"
-        class="min-w-max"
+        class="min-w-max px-2 py-4"
     >
         <LayoutNavigationLink
             :navigation-element="navigationElement"
-            class="text-md py-4 font-bold"
+            class="text-md font-bold"
             active-classes="border-b-2 border-brand-primary font-bold"
             :class="{
                 'text-brand-primary': !debounced,
             }"
+            :as-link="navigationElement.type !== 'folder'"
         />
     </div>
 

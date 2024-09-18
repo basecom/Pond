@@ -71,7 +71,7 @@ const lastPreviousItem = computed(() =>
                 <LayoutNavigationLink
                     v-if="lastPreviousItem"
                     :navigation-element="lastPreviousItem"
-                    class="border-b-2 border-gray-light"
+                    classes="border-b-2 border-gray-light py-2"
                     active-classes="font-bold md:border-b-2 md:border-brand-primary"
                     :active-with-exact-match="true"
                 />
@@ -81,7 +81,7 @@ const lastPreviousItem = computed(() =>
                     v-for="navigationElement in shownNavigationItems"
                     :key="navigationElement.id"
                     :navigation-element="navigationElement"
-                    class="border-b-2 border-gray-light"
+                    classes="border-b-2 border-gray-light py-2"
                     active-classes="font-bold md:border-b-2 md:border-brand-primary"
                     :as-link="navigationElement.childCount === 0"
                     @click="handleClick(navigationElement)"
