@@ -19,12 +19,10 @@ const restockTime = props.product.restockTime ?? props.product.deliveryInformati
 
         <span v-else-if="availableStock < minPurchase && deliveryTime && restockTime">
             Available, restock time of {{ restockTime }} days
-            <br>
+            <br />
             delivery time {{ deliveryTime?.name }}
         </span>
 
-        <span v-else-if="availableStock < minPurchase">
-            Currently not available
-        </span>
+        <span v-else-if="availableStock < minPurchase"> Currently not available </span>
     </div>
 </template>

@@ -26,7 +26,7 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 
     <div class="flex flex-1 flex-col">
         <div>
-            <div class="flex flex-col gap-4 justify-between lg:flex-row">
+            <div class="flex flex-col justify-between gap-4 lg:flex-row">
                 <NuxtLink :to="getProductRoute(lineItem)">
                     <h3 class="text-base">
                         {{ lineItem?.label }}
