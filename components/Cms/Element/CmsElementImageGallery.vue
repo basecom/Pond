@@ -13,25 +13,26 @@ const galleryRef = ref(null);
 // Thumbnails slider html object
 const thumbnailRef = ref(null);
 
+const thumbnailSlidesPerView = 3;
 const slides = ref(Array.from({ length: mediaGallery.value.length }));
 
-// Main slider swiper instance
-useSwiper(galleryRef, {
-    navigation: elementConfig.value?.navigationArrows.value !== 'None',
-    pagination: elementConfig.value?.navigationDots.value !== 'None',
-    loop: true,
-    spaceBetween: 16,
-});
+// Only initialize sliders if there is at least one image
+if (mediaGallery.value.length > 0) {
+    // Main slider swiper instance
+    useSwiper(galleryRef, {
+        navigation: elementConfig.value?.navigationArrows.value !== 'None',
+        pagination: elementConfig.value?.navigationDots.value !== 'None',
+        loop: true,
+    });
 
-const thumbnailSlidesPerView = 3;
-
-// Thumbnail slider swiper instance
-useSwiper(thumbnailRef, {
-    direction: elementConfig.value?.galleryPosition.value === 'left' ? 'vertical' : 'horizontal',
-    spaceBetween: 16,
-    loop: true,
-    slidesPerView: thumbnailSlidesPerView,
-});
+    // Thumbnail slider swiper instance
+    useSwiper(thumbnailRef, {
+        direction: elementConfig.value?.galleryPosition.value === 'left' ? 'vertical' : 'horizontal',
+        spaceBetween: 16,
+        loop: true,
+        slidesPerView: thumbnailSlidesPerView,
+    });
+}
 </script>
 
 <template>
@@ -44,30 +45,31 @@ useSwiper(thumbnailRef, {
                     : 'flex-row-reverse'
             "
         >
-            <swiper-container
-                ref="galleryRef"
-                :class="{
+            <template v-if="mediaGallery.length > 0">
+                <swiper-container
+                    ref="galleryRef"
+                    :class="{
                     'cursor-grab': mediaGallery.length > 1,
                     'w-full': elementConfig.galleryPosition.value === 'underneath',
                     'w-4/5': elementConfig.galleryPosition.value !== 'underneath',
                 }"
-                :thumbs-swiper="`.thumbnailRef-${element.id}`"
-            >
-                <swiper-slide
-                    v-for="(slide, idx) in slides"
-                    :key="element.id + '-' + idx"
+                    :thumbs-swiper="`.thumbnailRef-${element.id}`"
                 >
-                    <img
-                        :src="mediaGallery[idx].media.url"
-                        :alt="mediaGallery[idx].media.translated.alt"
-                        class="h-full w-full object-cover object-center"
-                    />
-                </swiper-slide>
-            </swiper-container>
+                    <swiper-slide
+                        v-for="(slide, idx) in slides"
+                        :key="element.id + '-' + idx"
+                    >
+                        <img
+                            :src="mediaGallery[idx].media.url"
+                            :alt="mediaGallery[idx].media.translated.alt"
+                            class="h-full w-full object-cover object-center"
+                        />
+                    </swiper-slide>
+                </swiper-container>
 
-            <swiper-container
-                ref="thumbnailRef"
-                :class="[
+                <swiper-container
+                    ref="thumbnailRef"
+                    :class="[
                     'thumbnailRef-' + element.id,
                     {
                         'cursor-grab': mediaGallery.length > thumbnailSlidesPerView,
@@ -75,19 +77,26 @@ useSwiper(thumbnailRef, {
                         'w-1/5': elementConfig.galleryPosition.value !== 'underneath',
                     },
                 ]"
-            >
-                <swiper-slide
-                    v-for="(slide, idx) in slides"
-                    :key="element.id + '-' + idx"
-                    class="group"
                 >
-                    <img
-                        :src="mediaGallery[idx].media.url"
-                        :alt="mediaGallery[idx].media.translated.alt"
-                        class="h-full w-full object-cover object-center opacity-40 group-[.swiper-slide-thumb-active]:border-2 group-[.swiper-slide-thumb-active]:border-brand-primary group-[.swiper-slide-thumb-active]:opacity-100"
-                    />
-                </swiper-slide>
-            </swiper-container>
+                    <swiper-slide
+                        v-for="(slide, idx) in slides"
+                        :key="element.id + '-' + idx"
+                        class="group"
+                    >
+                        <img
+                            :src="mediaGallery[idx].media.url"
+                            :alt="mediaGallery[idx].media.translated.alt"
+                            class="h-full w-full object-cover object-center opacity-40 group-[.swiper-slide-thumb-active]:border-2 group-[.swiper-slide-thumb-active]:border-brand-primary group-[.swiper-slide-thumb-active]:opacity-100"
+                        />
+                    </swiper-slide>
+                </swiper-container>
+            </template>
+
+            <template v-else>
+                <div class="w-full bg-gray-light">
+                    <SharedImagePlaceholder :size="'lg'" />
+                </div>
+            </template>
         </div>
     </ClientOnly>
 </template>
