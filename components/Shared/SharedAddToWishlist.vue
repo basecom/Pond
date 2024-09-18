@@ -21,23 +21,24 @@ const props = withDefaults(
 
 const { isInWishlist, addToWishlist, removeFromWishlist } = useProductWishlist(props.productId);
 const { pushSuccess, pushError, pushInfo } = useNotifications();
+const { t } = useI18n();
 
 const handleWishlistButtonClicked = async () =>{
     if(isInWishlist.value){
         try {
             await removeFromWishlist();
-            pushInfo("product removed from whishlist")
+            pushInfo( t('wishlist.removedSuccesfully'))
         } catch (error) {
-            pushError("error while removing product from whishlist")
+            pushError(t('wishlist.errorRemovingProduct'))
         }
         
     }
     else{
         try {
             await addToWishlist();
-            pushSuccess("product added to whislist")
+            pushSuccess( t('wishlist.addedSuccesfully'))
         } catch (error) {
-            pushSuccess("error while adding product to whishlist")
+            pushSuccess(t('wishlist.errorAddingProduct'))
         }
     }
 }

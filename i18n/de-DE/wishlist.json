@@ -1,0 +1,13 @@
+{
+    "wishlist": {
+        "titleHeader": "Ihr Merkzettel",
+        "emptyListTitle": "Ihr Merkzettel ist leer",
+        "emptyListSubtitle": "Behalten Sie interessante Produkte im Auge, indem Sie sie zu Ihrem Merkzettel hinzufügen.",
+        "continueShopping": "Weiter einkaufen",
+        "clearWishlist": "Wunschliste leeren",
+        "addedSuccesfully": "Produkt zur Wunschliste hinzugefügt.",
+        "removedSuccesfully": "Produkt von der Wunschliste entfernt",
+        "errorRemovingProduct": "Fehler beim Entfernen des Produkts von der Wunschliste",
+        "errorAddingProduct": "Fehler beim Hinzufügen des Produkts zur Wunschliste"
+    }
+}

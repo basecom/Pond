@@ -2,6 +2,14 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import { useRoute, useRouter } from "vue-router";
 
+const { t } = useI18n();
+useBreadcrumbs([
+  {
+    name: t("wishlist.titleHeader"),
+    path: "/wishlist",
+  },
+]);
+
 const defaultLimit = 15;
 const defaultPage = 1;
 
@@ -89,13 +97,13 @@ onMounted(async () => {
 
         <div v-else-if="products.length">
             <h1 class="my-3 text-3xl font-extrabold">
-            {{ "Wishlist" }}
+            {{ $t("wishlist.titleHeader") }}
             </h1>
             <button
                 class="mb-4 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-secondary-700"
                 @click="clearWishlistHandler"
             >
-                {{ "Clear wishlist" }}
+            {{ $t("wishlist.clearWishlist") }}
             </button>
             <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             <ProductCard
@@ -125,12 +133,12 @@ onMounted(async () => {
             class="flex flex-col items-center col mx-auto"
         >
             <h1 class="my-3 text-3xl font-extrabold">
-            {{ "Wishlist is empty" }}
+              {{ $t("wishlist.emptyListTitle") }}
             </h1>
-            <p class="my-4">{{ "No products were added to the Wishlist" }}</p>
+            <p class="my-4"> {{ $t("wishlist.emptyListSubtitle") }}</p>
             <NuxtLink to="/">
                 <FormKit type="submit">
-                  {{ "Continue shopping" }}
+                  {{ $t("wishlist.continueShopping") }}
                 </FormKit>
             </NuxtLink>
         </div>
