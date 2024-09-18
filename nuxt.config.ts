@@ -15,6 +15,7 @@ export default defineNuxtConfig({
         '@nuxt/eslint',
         '@nuxt/fonts',
         '@formkit/nuxt',
+        '@nuxtjs/i18n',
     ],
     experimental: {
         asyncContext: true,
@@ -33,6 +34,7 @@ export default defineNuxtConfig({
             pond: {
                 shopwareEndpoint: '',
                 accessToken: '',
+                accessTokenAT: '',
             },
         },
     },
@@ -53,7 +55,7 @@ export default defineNuxtConfig({
         },
     },
     components: {
-        dirs: [join(currentDir, 'components')],
+        dirs: [join(currentDir, 'components'), join(currentDir, 'components/*')],
         global: true,
     },
     tailwindcss: {
@@ -62,4 +64,20 @@ export default defineNuxtConfig({
         },
     },
     css: ['~/node_modules/@glidejs/glide/dist/css/glide.core.min.css'],
+    i18n: {
+        vueI18n: './i18n.config.ts',
+        strategy: 'prefix_except_default',
+        defaultLocale: 'de-DE',
+        detectBrowserLanguage: false,
+        locales: [
+            {
+                code: 'de-DE',
+                file: 'i18n/de-DE/de-DE.ts',
+            },
+            {
+                code: 'en-GB',
+                file: 'i18n/en-GB/en-GB.ts',
+            },
+        ],
+    },
 });

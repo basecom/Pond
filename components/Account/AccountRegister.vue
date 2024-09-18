@@ -1,0 +1,268 @@
+<script setup lang="ts">
+import { ApiClientError } from '@shopware/api-client';
+import type { ResolvedApiError } from '~/types/errors';
+import type { FormkitFields } from '~/types/formkit';
+import type { Schemas } from '@shopware/api-client/api-types';
+
+const props = withDefaults(
+    defineProps<{
+        redirectAfterSuccess?: boolean;
+        redirectTarget?: string;
+        showCreateLink?: boolean;
+        allowGuest?: boolean;
+    }>(),
+    {
+        redirectAfterSuccess: false,
+        redirectTarget: '/account',
+        showCreateLink: true,
+        allowGuest: false,
+    },
+);
+
+const customerStore = useCustomerStore();
+const sessionContext = useSessionContext();
+const { getSalutations } = useSalutations();
+const { getCountries } = useCountries();
+const { resolveApiErrors } = useApiErrorsResolver();
+const { errorOfField, togglePasswordVisibility, entityArrayToOptions } = useFormkitHelper();
+const { pushError, pushSuccess } = useNotifications();
+const apiErrors = ref<ResolvedApiError[]>([]);
+const isLoading = ref(false);
+
+const handleRegisterSubmit = async (fields: FormkitFields) => {
+    isLoading.value = true;
+    apiErrors.value = [];
+    try {
+        await customerStore.register({
+            ...fields,
+        });
+        isLoading.value = false;
+
+        if (props.redirectAfterSuccess) {
+            navigateTo(props.redirectTarget);
+        }
+
+        pushSuccess('You successfully logged in');
+    } catch (error) {
+        pushError('An error occured. Please try again.');
+        isLoading.value = false;
+
+        if (error instanceof ApiClientError) {
+            apiErrors.value = resolveApiErrors(error.details.errors);
+            return;
+        }
+
+        apiErrors.value.push({ key: 'register', code: 'REGISTER_GENERAL_ERROR' });
+    }
+};
+
+const countryOptions = computed(() => entityArrayToOptions<Schemas['Country']>(getCountries.value, 'name', true) ?? []);
+const salutationOptions = computed(
+    () => entityArrayToOptions<Schemas['Salutation']>(getSalutations.value, 'displayName', true) ?? [],
+);
+
+const currentCountry = computed(() => sessionContext.countryId.value);
+const passwordRequired = ref(true);
+const handleGuestChange = fields => {
+    passwordRequired.value = !fields.target.checked;
+};
+</script>
+
+<template>
+    <FormKit
+        type="form"
+        submit-label="register"
+        :classes="{
+            form: 'grid grid-cols-2 gap-3 w-full max-w-md',
+        }"
+        :config="{
+            validationVisibility: 'dirty',
+        }"
+        :actions="false"
+        @submit="handleRegisterSubmit"
+    >
+        <ul
+            v-if="apiErrors.filter(error => error.key === 'register').length"
+            class="validation-errors text-status-danger"
+        >
+            <li
+                v-for="(error, index) in apiErrors.filter(error => error.key === 'register')"
+                :key="`login-error-${index}`"
+            >
+                {{ error.code }}
+            </li>
+        </ul>
+        <div class="col-span-2">
+            <span>your data</span>
+        </div>
+
+        <FormKit
+            type="select"
+            label="salutation"
+            name="salutationId"
+            placeholder="Select a salutation"
+            :errors="errorOfField('firstName', apiErrors)"
+            validation="required"
+            :classes="{
+                outer: {
+                    'col-span-2 md:col-span-1 col-1': true,
+                },
+            }"
+            :options="salutationOptions"
+            help="select how you would like to be addressed"
+        />
+
+        <FormKit
+            type="text"
+            label="first name"
+            name="firstName"
+            placeholder="donald"
+            :errors="errorOfField('firstName', apiErrors)"
+            validation="required"
+            :classes="{
+                outer: {
+                    'col-start-1 col-1': true,
+                },
+            }"
+        />
+
+        <FormKit
+            type="text"
+            label="last name"
+            name="lastName"
+            placeholder="duck"
+            :errors="errorOfField('lastName', apiErrors)"
+            validation="required"
+        />
+
+        <div class="col-span-2">
+            <span>your address</span>
+        </div>
+
+        <FormKit
+            type="group"
+            name="billingAddress"
+        >
+            <FormKit
+                type="text"
+                label="street"
+                autocomplete="street-address"
+                name="street"
+                placeholder="13 quack street"
+                :errors="errorOfField('billingAddress[street]', apiErrors)"
+                validation="required"
+                :classes="{
+                    outer: {
+                        'col-start-1 col-span-2': true,
+                    },
+                }"
+            />
+            <FormKit
+                type="text"
+                label="zip"
+                name="zipcode"
+                placeholder="1313"
+                :errors="errorOfField('billingAddress[zipcode]', apiErrors)"
+                validation="required"
+            />
+            <FormKit
+                type="text"
+                label="city"
+                name="city"
+                placeholder="Quackburg"
+                :errors="errorOfField('billingAddress[city]', apiErrors)"
+                validation="required"
+            />
+            <FormKit
+                v-if="currentCountry"
+                type="select"
+                label="country"
+                name="countryId"
+                placeholder="Select a country"
+                :options="countryOptions"
+                :value="currentCountry"
+                :classes="{
+                    outer: {
+                        'col-span-2 md:col-span-1 col-1': true,
+                    },
+                }"
+            />
+        </FormKit>
+
+        <div class="col-span-2">
+            <span>your account data</span>
+        </div>
+
+        <FormKit
+            v-if="allowGuest"
+            type="checkbox"
+            label="dont create a customer account"
+            name="guest"
+            :value="false"
+            decorator-icon="check"
+            :classes="{
+                outer: {
+                    'col-span-2': true,
+                },
+            }"
+            @click="handleGuestChange"
+        />
+
+        <FormKit
+            type="email"
+            label="email"
+            name="email"
+            placeholder="quack@platsch.com"
+            :errors="errorOfField('email', apiErrors)"
+            validation="required"
+        />
+
+        <FormKit
+            v-if="passwordRequired"
+            type="password"
+            label="password"
+            name="password"
+            placeholder="password"
+            :errors="errorOfField('password', apiErrors)"
+            validation="required"
+            suffix-icon="lock"
+            @suffix-icon-click="togglePasswordVisibility"
+        />
+
+        <FormKit
+            type="checkbox"
+            label="Terms and Conditions"
+            help="Do you agree to our terms of service?"
+            name="terms"
+            :value="false"
+            decorator-icon="check"
+            validation="accepted"
+            :classes="{
+                outer: {
+                    'col-span-2': true,
+                },
+            }"
+        />
+
+        <FormKit
+            type="submit"
+            :classes="{
+                outer: 'col-span-2 relative',
+            }"
+            :disabled="isLoading"
+        >
+            <span
+                class="formkit-label"
+                :class="{
+                    'opacity-0': isLoading,
+                }"
+            >
+                register
+            </span>
+            <UtilityLoadingSpinner
+                v-if="isLoading"
+                size="small"
+            />
+        </FormKit>
+    </FormKit>
+</template>

@@ -1,10 +1,13 @@
 <script setup lang="ts">
 const customerStore = useCustomerStore();
+const { accountBreadcrumbs } = useStaticBreadcrumbs();
 
 const handleLogout = async () => {
     await customerStore.logout();
     navigateTo('/');
 };
+
+useBreadcrumbs(accountBreadcrumbs({}));
 </script>
 
 <template>

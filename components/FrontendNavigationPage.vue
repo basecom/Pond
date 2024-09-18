@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getCategoryBreadcrumbs } from '@shopware-pwa/helpers-next';
+
 const props = defineProps<{
     navigationId: string;
 }>();
@@ -20,6 +22,12 @@ if (!categoryResponse.value) {
 }
 
 const { category } = useCategory(categoryResponse);
+
+const breadcrumbs = getCategoryBreadcrumbs(categoryResponse.value, {
+    startIndex: 1,
+});
+
+useBreadcrumbs(breadcrumbs);
 </script>
 
 <template>
