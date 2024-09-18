@@ -35,11 +35,9 @@ export function useNavigationElement(navigationElement) {
             return;
         }
         if (isCategoryLink) {
-            console.log(navigationElement.translated);
             const { data: categoryResponse } = await useAsyncData(internalLink, async () => {
                 return await searchCategory(internalLink);
             });
-            console.log(categoryResponse);
 
             if (!categoryResponse || !categoryResponse.value) {
                 return;
