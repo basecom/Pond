@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import LayoutNavigationSidebar from '~/components/Layout/LayoutNavigationSidebar.vue';
-
 const customerStore = useCustomerStore();
 const { loading } = storeToRefs(customerStore);
 </script>
@@ -14,7 +12,7 @@ const { loading } = storeToRefs(customerStore);
             <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-3">
                     <!-- mobile menu -->
-                    <LayoutNavigationSidebar />
+                    <NavigationSidebar />
 
                     <LayoutLogo logo-classes="w-36 md:w-40" />
                 </div>
@@ -23,7 +21,7 @@ const { loading } = storeToRefs(customerStore);
             </div>
         </div>
 
-        <LayoutNavigation />
+        <Navigation />
 
         <div id="flyouts" />
     </header>

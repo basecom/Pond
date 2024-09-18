@@ -68,7 +68,7 @@ const lastPreviousItem = computed(() =>
         <template #content>
             <div class="grid gap-2 md:hidden">
                 <!-- display the category, whoose children are currently displayed -->
-                <LayoutNavigationLink
+                <NavigationLink
                     v-if="lastPreviousItem"
                     :navigation-element="lastPreviousItem"
                     classes="border-b-2 border-gray-light py-2"
@@ -77,7 +77,7 @@ const lastPreviousItem = computed(() =>
                 />
 
                 <!-- displays the categories -->
-                <LayoutNavigationLink
+                <NavigationLink
                     v-for="navigationElement in shownNavigationItems"
                     :key="navigationElement.id"
                     :navigation-element="navigationElement"

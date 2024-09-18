@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import LayoutNavigationLink from '~/components/Layout/LayoutNavigationLink.vue';
 
 defineProps<{
     navigationElement: Schemas['Category'];
@@ -26,7 +25,7 @@ const selfNotHovered = refDebounced(isOutsideFlyout, 200);
                     :key="`nav-item-${child.id}`"
                     class="flex w-1/4 flex-col gap-2"
                 >
-                    <LayoutNavigationLink
+                    <NavigationLink
                         :navigation-element="child"
                         classes="text-lg font-bold py-2"
                         active-classes="text-brand-primary"
@@ -34,7 +33,7 @@ const selfNotHovered = refDebounced(isOutsideFlyout, 200);
                     />
                     <div class="flex flex-col gap-2">
                         <template v-if="child.childCount > 0">
-                            <LayoutNavigationLink
+                            <NavigationLink
                                 v-for="subChild in child.children"
                                 :key="`nav-item-${subChild.id}`"
                                 :navigation-element="subChild"

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import LayoutNavigationLink from '~/components/Layout/LayoutNavigationLink.vue';
 
 defineProps<{
     navigationElement: Schemas['Category'];
@@ -17,7 +16,7 @@ const debounced = refDebounced(isOutsideNavItem, 300);
         ref="navigationItem"
         class="min-w-max px-2 py-4"
     >
-        <LayoutNavigationLink
+        <NavigationLink
             :navigation-element="navigationElement"
             class="text-md font-bold"
             active-classes="border-b-2 border-brand-primary font-bold"
@@ -28,7 +27,7 @@ const debounced = refDebounced(isOutsideNavItem, 300);
         />
     </div>
 
-    <LayoutNavigationFlyout
+    <NavigationFlyout
         v-if="navigationElement?.childCount > 0"
         :navigation-element="navigationElement"
         :parent-hovered="!debounced"
