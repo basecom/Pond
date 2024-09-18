@@ -27,6 +27,7 @@
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^9.1.0",
     "nuxt": "^3.13.0",
+    "nuxt-swiper": "^2.0.0-1",
     "radix-vue": "^1.9.5",
     "vue": "^3.4.38",
     "vue-router": "^4.4.3"
