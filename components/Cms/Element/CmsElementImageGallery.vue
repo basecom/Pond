@@ -51,11 +51,11 @@ useSwiper(thumbnailRef, {
                     'w-full': elementConfig.galleryPosition.value === 'underneath',
                     'w-4/5': elementConfig.galleryPosition.value !== 'underneath',
                 }"
-                thumbs-swiper=".thumbnailRef"
+                :thumbs-swiper="`.thumbnailRef-${element.id}`"
             >
                 <swiper-slide
                     v-for="(slide, idx) in slides"
-                    :key="idx"
+                    :key="element.id + '-' + idx"
                 >
                     <img
                         :src="mediaGallery[idx].media.url"
@@ -67,16 +67,18 @@ useSwiper(thumbnailRef, {
 
             <swiper-container
                 ref="thumbnailRef"
-                class="thumbnailRef"
-                :class="{
-                    'cursor-grab': mediaGallery.length > thumbnailSlidesPerView,
-                    'w-full': elementConfig.galleryPosition.value === 'underneath',
-                    'w-1/5': elementConfig.galleryPosition.value !== 'underneath',
-                }"
+                :class="[
+                    'thumbnailRef-' + element.id,
+                    {
+                        'cursor-grab': mediaGallery.length > thumbnailSlidesPerView,
+                        'w-full': elementConfig.galleryPosition.value === 'underneath',
+                        'w-1/5': elementConfig.galleryPosition.value !== 'underneath',
+                    },
+                ]"
             >
                 <swiper-slide
                     v-for="(slide, idx) in slides"
-                    :key="idx"
+                    :key="element.id + '-' + idx"
                     class="group"
                 >
                     <img
