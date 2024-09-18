@@ -86,16 +86,22 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
 </script>
 
 <template>
-    <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium">
+    <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border bg-gray-light border-gray-medium">
         <NuxtLink
             v-if="!isPromotion"
             :to="getProductRoute(lineItem)"
         >
-            <img
-                :src="lineItemCover.url"
-                :alt="lineItemCover.alt"
-                class="h-full w-full object-cover object-center"
-            />
+            <template v-if="lineItemCover.placeholder">
+                <SharedImagePlaceholder :size="'sm'" />
+            </template>
+
+            <template v-else>
+                <img
+                    :src="lineItemCover.url"
+                    :alt="lineItemCover.alt"
+                    class="h-full w-full object-cover object-center"
+                />
+            </template>
         </NuxtLink>
         <div
             v-else-if="isPromotion"

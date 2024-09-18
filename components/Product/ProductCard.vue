@@ -25,13 +25,19 @@ const cover = getProductCover(props.product.cover);
         >
             <div class="flex flex-col">
                 <div
-                    class="aspect-h-1 aspect-w-1 bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 w-full overflow-hidden rounded-lg"
+                    class="aspect-h-1 aspect-w-1 bg-gray-light xl:aspect-h-8 xl:aspect-w-7 w-full overflow-hidden rounded-lg"
                 >
-                    <img
-                        :src="cover.url"
-                        :alt="cover.alt"
-                        class="aspect-square h-full w-full object-cover object-center group-hover:opacity-75"
-                    />
+                    <template v-if="cover.placeholder">
+                        <SharedImagePlaceholder />
+                    </template>
+
+                    <template v-else>
+                        <img
+                            :src="cover.url"
+                            :alt="cover.alt"
+                            class="aspect-square h-full w-full object-cover object-center group-hover:opacity-75"
+                        />
+                    </template>
                 </div>
 
                 <div class="flex justify-between">
