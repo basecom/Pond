@@ -1,15 +1,26 @@
-import { getTranslatedProperty, getCategoryUrl } from '@shopware-pwa/helpers-next';
-import { useCategorySearch } from '#imports';
+import { getTranslatedProperty, getCategoryUrl, getProductUrl } from '@shopware-pwa/helpers-next';
+import { useCategorySearch, useProductSearch, useLandingSearch } from '#imports';
 
 export function useNavigationElement(navigationElement) {
-    const { search } = useCategorySearch();
+    const { search: searchCategory } = useCategorySearch();
+    const { search: searchProduct } = useProductSearch();
+    const { search: searchLanding } = useLandingSearch();
     const isExternalLink =
         getTranslatedProperty(navigationElement, 'linkType') === 'external' ||
         navigationElement.linkType === 'external';
 
-    const isInternalLink =
+    const isCategoryLink =
         getTranslatedProperty(navigationElement, 'linkType') === 'category' ||
         navigationElement.linkType === 'category';
+
+    const isProductLink =
+        getTranslatedProperty(navigationElement, 'linkType') === 'product' || navigationElement.linkType === 'product';
+
+    const isLandingPageLink =
+        getTranslatedProperty(navigationElement, 'linkType') === 'landing_page' ||
+        navigationElement.linkType === 'landing_page';
+
+    const isInternalLink = isProductLink || isCategoryLink || isLandingPageLink;
 
     const linkNewTab = getTranslatedProperty(navigationElement, 'linkNewTab') || navigationElement.linkNewTab;
 
@@ -23,16 +34,39 @@ export function useNavigationElement(navigationElement) {
         if (!internalLink) {
             return;
         }
-        const { data: categoryResponse } = await useAsyncData('navigation' + internalLink, async () => {
-            return await search(internalLink);
-        });
-        if (!categoryResponse && !categoryResponse.value) {
-            return;
+        if (isCategoryLink) {
+            console.log(navigationElement.translated);
+            const { data: categoryResponse } = await useAsyncData(internalLink, async () => {
+                return await searchCategory(internalLink);
+            });
+            console.log(categoryResponse);
+
+            if (!categoryResponse || !categoryResponse.value) {
+                return;
+            }
+
+            path.value = getCategoryUrl(categoryResponse.value);
+        } else if (isProductLink) {
+            const { data: productResponse } = await useAsyncData(internalLink, async () => {
+                return await searchProduct(internalLink);
+            });
+
+            if (!productResponse || !productResponse.value?.product) {
+                return;
+            }
+
+            path.value = getProductUrl(productResponse.value.product);
+        } else if (isLandingPageLink) {
+            const { data: landingPageResponse } = await useAsyncData(internalLink, async () => {
+                return searchLanding(internalLink);
+            });
+
+            if (!landingPageResponse || !landingPageResponse.value) {
+                return;
+            }
+
+            path.value = getTranslatedProperty(landingPageResponse.value, 'url');
         }
-
-        path.value = getCategoryUrl(categoryResponse.value);
-
-        return getCategoryUrl(categoryResponse);
     };
 
     return {

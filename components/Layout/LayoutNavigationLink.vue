@@ -46,7 +46,7 @@ const isActive = (path: Schemas['SeoUrl'][] | undefined, onlyExactMatch: boolean
         class="transition-all hover:text-brand-primary"
         :class="[classes, isActive(navigationElement.seoUrls, activeWithExactMatch) ? activeClasses : '']"
     >
-        {{ getTranslatedProperty(navigationElement, 'name') }} {{ path }}
+        {{ getTranslatedProperty(navigationElement, 'name') }}
     </NuxtLink>
     <div
         v-else
