@@ -11,7 +11,7 @@ const props = withDefaults(
 const sizeMap: Record<string, number> = {
     xs: 8,
     sm: 16,
-    md: 32,
+    md: 36,
     lg: 64,
 };
 
