@@ -49,10 +49,10 @@ if (mediaGallery.value.length > 0) {
                 <swiper-container
                     ref="galleryRef"
                     :class="{
-                    'cursor-grab': mediaGallery.length > 1,
-                    'w-full': elementConfig.galleryPosition.value === 'underneath',
-                    'w-4/5': elementConfig.galleryPosition.value !== 'underneath',
-                }"
+                        'cursor-grab': mediaGallery.length > 1,
+                        'w-full': elementConfig.galleryPosition.value === 'underneath',
+                        'w-4/5': elementConfig.galleryPosition.value !== 'underneath',
+                    }"
                     :thumbs-swiper="`.thumbnailRef-${element.id}`"
                 >
                     <swiper-slide
@@ -70,13 +70,13 @@ if (mediaGallery.value.length > 0) {
                 <swiper-container
                     ref="thumbnailRef"
                     :class="[
-                    'thumbnailRef-' + element.id,
-                    {
-                        'cursor-grab': mediaGallery.length > thumbnailSlidesPerView,
-                        'w-full': elementConfig.galleryPosition.value === 'underneath',
-                        'w-1/5': elementConfig.galleryPosition.value !== 'underneath',
-                    },
-                ]"
+                        'thumbnailRef-' + element.id,
+                        {
+                            'cursor-grab': mediaGallery.length > thumbnailSlidesPerView,
+                            'w-full': elementConfig.galleryPosition.value === 'underneath',
+                            'w-1/5': elementConfig.galleryPosition.value !== 'underneath',
+                        },
+                    ]"
                 >
                     <swiper-slide
                         v-for="(slide, idx) in slides"

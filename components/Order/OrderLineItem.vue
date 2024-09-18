@@ -14,7 +14,7 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 </script>
 
 <template>
-    <div class="mr-4 h-24 w-24 flex-shrink-0 bg-gray-light overflow-hidden rounded-md border border-gray-medium">
+    <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
         <NuxtLink :to="getProductRoute(lineItem)">
             <template v-if="lineItemCover.placeholder">
                 <SharedImagePlaceholder :size="'sm'" />

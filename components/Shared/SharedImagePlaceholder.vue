@@ -19,10 +19,11 @@ const imageSize = computed(() => sizeMap[props.size]);
 </script>
 
 <template>
-    <div class="w-full h-full aspect-square flex items-center">
-        <FormKitIcon icon="image"
-                     class="block mx-auto text-gray-dark"
-                     :class="`h-${imageSize} w-${imageSize}`"
+    <div class="flex aspect-square h-full w-full items-center">
+        <FormKitIcon
+            icon="image"
+            class="mx-auto block text-gray-dark"
+            :class="`h-${imageSize} w-${imageSize}`"
         />
     </div>
 </template>

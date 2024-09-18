@@ -25,7 +25,7 @@ const cover = getProductCover(props.product.cover);
         >
             <div class="flex flex-col">
                 <div
-                    class="aspect-h-1 aspect-w-1 bg-gray-light xl:aspect-h-8 xl:aspect-w-7 w-full overflow-hidden rounded-lg"
+                    class="aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7 w-full overflow-hidden rounded-lg bg-gray-light"
                 >
                     <template v-if="cover.placeholder">
                         <SharedImagePlaceholder />
