@@ -35,7 +35,6 @@ export default defineNuxtConfig({
             pond: {
                 shopwareEndpoint: '',
                 accessToken: '',
-                accessTokenAT: '',
             },
         },
     },
