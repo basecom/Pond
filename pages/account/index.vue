@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import LayoutAccount from '~/components/Layout/Account/LayoutAccount.vue';
-import OverviewContent from '~/components/Layout/Account/LayoutAccountOverviewContent.vue';
+const { accountBreadcrumbs } = useStaticBreadcrumbs();
+
+useBreadcrumbs(accountBreadcrumbs({}));
 </script>
 
 <template>

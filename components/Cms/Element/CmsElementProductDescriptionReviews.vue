@@ -25,7 +25,7 @@ const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][]
 <template>
     <div class="flex flex-col gap-4">
         <div class="text-xl font-bold">description</div>
-        <div class="flex flex-col gap-4 md:flex-row">
+        <div class="flex flex-col gap-8 md:flex-row">
             <div
                 class="flex-grow"
                 v-html="getTranslatedProperty(product, 'description')"
