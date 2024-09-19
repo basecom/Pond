@@ -55,8 +55,9 @@ const changePage = async (page: number) => {
 </script>
 
 <template>
+    <div v-if="getElements[0]">
     <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-<SharedBanner type="info" message="test" />
+
         <template
             v-for="product in getElements"
             :key="product.id"
@@ -74,4 +75,6 @@ const changePage = async (page: number) => {
         :default-page="getCurrentPage"
         @update-page="page => changePage(page)"
     />
+    </div>
+    <SharedBanner v-else type="info" message="No Products found" />
 </template>
