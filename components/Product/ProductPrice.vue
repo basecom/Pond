@@ -6,7 +6,15 @@ const props = withDefaults(
         product: Schemas['Product'];
         listPriceDisplay?: 'none' | 'percentage' | 'value';
         fontSize?: 'text-xs' | 'text-sm' | 'text-base' | 'text-lg' | 'text-xl' | 'text-2xl' | 'text-3xl';
-        fontWeight?: 'font-thin' | 'font-light' | 'font-normal' | 'font-medium' | 'font-semibold' | 'font-bold' | 'font-extrabold' | 'font-black';
+        fontWeight?:
+            | 'font-thin'
+            | 'font-light'
+            | 'font-normal'
+            | 'font-medium'
+            | 'font-semibold'
+            | 'font-bold'
+            | 'font-extrabold'
+            | 'font-black';
         displayVat?: boolean;
     }>(),
     {
@@ -56,7 +64,10 @@ const { price, unitPrice, isListPrice, referencePrice } = useProductPrice(produc
             }}/{{ referencePrice.referenceUnit }} {{ referencePrice.unitName }})
         </p>
 
-        <p class="w-full text-xs text-gray" v-if="displayVat">
+        <p
+            v-if="displayVat"
+            class="w-full text-xs text-gray"
+        >
             vat info
         </p>
     </div>
