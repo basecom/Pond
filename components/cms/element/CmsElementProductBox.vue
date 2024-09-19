@@ -9,5 +9,5 @@ const { product } = useProduct(props.element.data.product);
 </script>
 
 <template>
-    <ProductCard :product="product"></ProductCard>
+    <ProductCard :product="product" />
 </template>
