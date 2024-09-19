@@ -12,13 +12,21 @@ const productCover = getProductCover(props.product.cover, 'xs');
     <div
         class="flex cursor-pointer items-center gap-3 border-b border-gray-medium bg-white p-4 text-sm transition duration-300 hover:bg-gray-light"
     >
-        <div class="rounded-sm border border-gray-medium p-1">
-            <img
-                loading="lazy"
-                :src="productCover.url"
-                class="h-10 min-h-10 w-10 min-w-10 object-cover"
-                :alt="productCover.alt"
-            />
+        <div class="rounded-sm border border-gray-medium bg-gray-light p-1">
+            <template v-if="productCover.placeholder">
+                <div class="h-10 min-h-10 w-10 min-w-10">
+                    <SharedImagePlaceholder :size="'xs'" />
+                </div>
+            </template>
+
+            <template v-else>
+                <img
+                    loading="lazy"
+                    :src="productCover.url"
+                    class="h-10 min-h-10 w-10 min-w-10 object-cover"
+                    :alt="productCover.alt"
+                />
+            </template>
         </div>
 
         <div class="flex grow items-center justify-between gap-5">
