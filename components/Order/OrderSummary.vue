@@ -1,17 +1,22 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const props = withDefaults(defineProps<{
-    order: Schemas['Order'];
-    isAccountOrderItem?: boolean;
-}>(),{
-    isAccountOrderItem: false
-});
+withDefaults(
+    defineProps<{
+        order: Schemas['Order'];
+        isAccountOrderItem?: boolean;
+    }>(),
+    {
+        isAccountOrderItem: false,
+    },
+);
 </script>
 
 <template>
-    <div :class="{ 'rounded-md': !isAccountOrderItem, 'rounded-b-md': isAccountOrderItem}"
-        class="bg-gray-light p-4">
+    <div
+        :class="{ 'rounded-md': !isAccountOrderItem, 'rounded-b-md': isAccountOrderItem }"
+        class="bg-gray-light p-4"
+    >
         <h2 class="pb-4">Order summary</h2>
 
         <CheckoutSummaryValues

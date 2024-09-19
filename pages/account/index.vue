@@ -5,7 +5,7 @@ useBreadcrumbs(accountBreadcrumbs({}));
 </script>
 
 <template>
-    <layout-account>
-        <overview-content />
-    </layout-account>
+    <Account>
+        <AccountOverviewContent />
+    </Account>
 </template>

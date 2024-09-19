@@ -4,12 +4,15 @@ const { getFormattedPrice } = usePrice();
 const { getProductCover } = useMedia();
 const { getProductRoute } = useProductRoute();
 
-const props = withDefaults(defineProps<{
-    lineItem: Schemas['LineItem'];
-    isAccountOrderItem?: boolean;
-}>(), {
-    isAccountOrderItem: false
-});
+const props = withDefaults(
+    defineProps<{
+        lineItem: Schemas['LineItem'];
+        isAccountOrderItem?: boolean;
+    }>(),
+    {
+        isAccountOrderItem: false,
+    },
+);
 
 const { lineItem } = toRefs(props);
 
@@ -17,7 +20,7 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 </script>
 
 <template>
-    <div :class="{'flex mt-4': isAccountOrderItem}">
+    <div :class="{ 'mt-4 flex': isAccountOrderItem }">
         <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
             <NuxtLink :to="getProductRoute(lineItem)">
                 <template v-if="lineItemCover.placeholder">
@@ -34,31 +37,31 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
             </NuxtLink>
         </div>
 
-    <div class="flex flex-1 flex-col">
-        <div>
-            <div class="flex flex-col justify-between gap-4 lg:flex-row">
-                <NuxtLink :to="getProductRoute(lineItem)">
-                    <h3 class="text-base">
-                        {{ lineItem?.label }}
-                    </h3>
-                </NuxtLink>
+        <div class="flex flex-1 flex-col">
+            <div>
+                <div class="flex flex-col justify-between gap-4 lg:flex-row">
+                    <NuxtLink :to="getProductRoute(lineItem)">
+                        <h3 class="text-base">
+                            {{ lineItem?.label }}
+                        </h3>
+                    </NuxtLink>
 
                     <span>
-                    {{ getFormattedPrice(lineItem?.totalPrice) }}
-                </span>
+                        {{ getFormattedPrice(lineItem?.totalPrice) }}
+                    </span>
                 </div>
 
                 <p
                     v-if="lineItem?.payload?.options"
                     class="mt-1 text-sm"
                 >
-                <span
-                    v-for="option in lineItem?.payload?.options"
-                    :key="option.group"
-                    class="mr-2"
-                >
-                    {{ option.group }}: {{ option.option }}
-                </span>
+                    <span
+                        v-for="option in lineItem?.payload?.options"
+                        :key="option.group"
+                        class="mr-2"
+                    >
+                        {{ option.group }}: {{ option.option }}
+                    </span>
                 </p>
             </div>
 
