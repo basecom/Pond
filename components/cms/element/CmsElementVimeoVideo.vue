@@ -15,7 +15,6 @@ onMounted(() => {
             width: vimeoVideo.value?.offsetWidth ?? null,
         });
         player.on('play', function () {
-            console.log('played the video!');
         });
     }
 });
