@@ -3,9 +3,12 @@ import type { Schemas } from '@shopware/api-client/api-types';
 const { getFormattedPrice } = usePrice();
 const { getProductCover } = useMedia();
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
     lineItem: Schemas['LineItem'];
-}>();
+    isAccountOrderItem?: boolean;
+}>(), {
+    isAccountOrderItem: false
+});
 
 const { lineItem } = toRefs(props);
 
@@ -13,34 +16,35 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 </script>
 
 <template>
-    <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium">
-        <NuxtLink :to="'/detail/' + lineItem.productId">
-            <img
-                :src="lineItemCover.url"
-                :alt="lineItemCover.alt"
-                class="h-full w-full object-cover object-center"
-            />
-        </NuxtLink>
-    </div>
+    <div :class="{'flex mt-4': isAccountOrderItem}">
+        <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium">
+            <NuxtLink :to="'/detail/' + lineItem.productId">
+                <img
+                    :src="lineItemCover.url"
+                    :alt="lineItemCover.alt"
+                    class="h-full w-full object-cover object-center"
+                />
+            </NuxtLink>
+        </div>
 
-    <div class="flex flex-1 flex-col">
-        <div>
-            <div class="flex flex-col justify-between lg:flex-row">
-                <NuxtLink :to="'/detail/' + lineItem.productId">
-                    <h3 class="text-base">
-                        {{ lineItem?.label }}
-                    </h3>
-                </NuxtLink>
+        <div class="flex flex-1 flex-col">
+            <div>
+                <div class="flex flex-col justify-between lg:flex-row">
+                    <NuxtLink :to="'/detail/' + lineItem.productId">
+                        <h3 class="text-base">
+                            {{ lineItem?.label }}
+                        </h3>
+                    </NuxtLink>
 
-                <span>
+                    <span>
                     {{ getFormattedPrice(lineItem?.totalPrice) }}
                 </span>
-            </div>
+                </div>
 
-            <p
-                v-if="lineItem?.payload?.options"
-                class="mt-1 text-sm"
-            >
+                <p
+                    v-if="lineItem?.payload?.options"
+                    class="mt-1 text-sm"
+                >
                 <span
                     v-for="option in lineItem?.payload?.options"
                     :key="option.group"
@@ -48,19 +52,20 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
                 >
                     {{ option.group }}: {{ option.option }}
                 </span>
-            </p>
-        </div>
+                </p>
+            </div>
 
-        <div
-            v-if="lineItem?.stackable"
-            class="flex flex-1 items-end justify-between text-sm"
-        >
-            <SharedQuantityInput
-                :line-item="lineItem"
-                :static="true"
-            />
+            <div
+                v-if="lineItem?.stackable"
+                class="flex flex-1 items-end justify-between text-sm"
+            >
+                <SharedQuantityInput
+                    :line-item="lineItem"
+                    :static="true"
+                />
 
-            x {{ getFormattedPrice(lineItem?.unitPrice) }}
+                x {{ getFormattedPrice(lineItem?.unitPrice) }}
+            </div>
         </div>
     </div>
 </template>

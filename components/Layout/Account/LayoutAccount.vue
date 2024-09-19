@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-    <div class="container flex w-full">
+    <div class="container flex w-full min-h-screen mt-4">
         <AccountSideNavigation
             class="mr-32 hidden lg:block"
             :is-in-header="false"
