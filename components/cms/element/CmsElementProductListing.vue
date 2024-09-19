@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { CmsElementText } from '@shopware-pwa/composables-next';
+import SharedBanner from '~/components/shared/SharedBanner.vue';
 
 const props = defineProps<{
     element: CmsElementText;
@@ -55,6 +56,7 @@ const changePage = async (page: number) => {
 
 <template>
     <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+<SharedBanner type="info" message="test" />
         <template
             v-for="product in getElements"
             :key="product.id"
