@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { params } = useRoute();
+const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 const orderId = params.id as string;
 const { order, loadOrderDetails, shippingAddress, billingAddress, shippingMethod, paymentMethod, status, total } =
     useOrderDetails(orderId);
@@ -9,6 +10,8 @@ const dateFormat = 'DD.MM.YYYY';
 const formattedOrderDate = useDateFormat(order.orderDate, dateFormat, {
     locales: (typeof navigator !== 'undefined' && navigator.language) || 'en-US',
 });
+
+useBreadcrumbs(checkoutBreadcrumbs({ index: 2, orderId: orderId }));
 
 onMounted(async () => {
     await loadOrderDetails();

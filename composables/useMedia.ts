@@ -30,8 +30,9 @@ export function useMedia() {
     const getProductCover = (cover: Schemas['ProductMedia'] | null | undefined, size: 'xs' | 's' | 'm' | 'l' = 's') => {
         if (!cover) {
             return {
-                url: '/fallback-product-cover.jpg',
+                url: '/fallback-product-cover.svg',
                 alt: 'No product image available',
+                placeholder: true,
             };
         }
 
@@ -41,11 +42,13 @@ export function useMedia() {
                     ? cover.media.thumbnails[thumbnailSizes[size]]?.url
                     : cover.media.url,
                 alt: cover.media.alt,
+                placeholder: false,
             };
         } else {
             return {
                 url: cover.thumbnails?.length ? cover.thumbnails[thumbnailSizes[size]]?.url : cover.url,
                 alt: cover.alt,
+                placeholder: false,
             };
         }
     };

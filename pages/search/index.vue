@@ -26,14 +26,20 @@ const loadProducts = async (cacheKey: string) => {
 const productSearch = await loadProducts(cacheKey.value);
 
 setInitialListing(productSearch.value as Schemas['ProductListingResult']);
+
+useBreadcrumbs([
+    {
+        name: 'Search results',
+        path: '/search?search=' + route.query.search,
+    },
+]);
 </script>
 
 <template>
     <div class="container">
         <h1 class="mb-6 text-center">
             <span v-if="products?.length">
-                results for "<strong>{{ searchTerm }}</strong
-                >"
+                results for <strong>"{{ searchTerm }}"</strong>"
             </span>
             <span v-else>no results</span>
         </h1>

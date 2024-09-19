@@ -1,5 +1,8 @@
 <script setup lang="ts">
 const { isEmpty, cartItems } = useCart();
+const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
+
+useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
 </script>
 
 <template>
@@ -21,11 +24,13 @@ const { isEmpty, cartItems } = useCart();
                     </li>
                 </ul>
             </div>
-            <div class="w-full lg:w-1/3">
+            <div class="flex w-full flex-col gap-4 lg:w-1/3">
                 <CheckoutSummary />
 
+                <CheckoutPromotion />
+
                 <NuxtLink
-                    class="mt-4 flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
+                    class="flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
                     :to="'/checkout/confirm'"
                 >
                     Checkout

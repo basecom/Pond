@@ -6,7 +6,9 @@ const route = useRoute();
 
 const { refreshSessionContext } = useSessionContext();
 await refreshSessionContext();
-const routePath = route.path.replace('//', '/');
+
+const { locale } = useI18n();
+const routePath = route.path.replace(`${locale.value}`, '').replace('//', '/');
 
 const { data: seoResult } = await useAsyncData('seoPath' + routePath, async () => {
     // For client links if the history state contains seo url information we can omit the api call
