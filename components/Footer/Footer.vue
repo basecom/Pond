@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { getTranslatedProperty, getCategoryRoute } from '@shopware-pwa/helpers-next';
 import FooterNavigation from '~/components/Footer/FooterNavigation.vue';
 import FooterServiceNavigation from '~/components/Footer/FooterServiceNavigation.vue';
 

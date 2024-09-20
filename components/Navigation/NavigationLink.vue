@@ -35,7 +35,7 @@ const isActive = (path: Schemas['SeoUrl'][] | undefined, onlyExactMatch: boolean
     return onlyExactMatch ? formattedPath === currentPath : currentPath.includes(formattedPath);
 };
 
-const isFolder = computed(() => props.navigationElement.type !== 'folder')
+const isFolder = computed(() => props.navigationElement.type !== 'folder');
 </script>
 
 <template>

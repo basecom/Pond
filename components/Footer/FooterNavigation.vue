@@ -23,9 +23,7 @@ defineProps<{
                 v-for="navigationChild in navigationElement.children"
                 :key="navigationChild.id"
             >
-                <NavigationLink
-                    :navigation-element="navigationChild"
-                />
+                <NavigationLink :navigation-element="navigationChild" />
             </li>
         </ul>
     </div>

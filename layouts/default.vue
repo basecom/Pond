@@ -22,7 +22,7 @@ refreshCart();
         v-show="!loading"
         class="mt-4 w-screen"
     >
-        <Breadcrumbs />
+        <UtilityBreadcrumbs />
 
         <NuxtPage />
     </main>
