@@ -17,7 +17,7 @@ const { loading } = storeToRefs(customerStore);
                     <LayoutLogo logo-classes="w-36 md:w-40" />
                 </div>
 
-                <LayoutHeaderActions />
+                <HeaderActions />
             </div>
         </div>
 

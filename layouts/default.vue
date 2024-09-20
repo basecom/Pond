@@ -14,7 +14,7 @@ refreshCart();
     <NuxtRouteAnnouncer />
     <UtilityLoadingSpinner v-if="loading" />
 
-    <LayoutHeader v-show="!loading" />
+    <Header v-show="!loading" />
 
     <NotificationContainer />
 

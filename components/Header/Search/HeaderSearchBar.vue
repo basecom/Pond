@@ -88,7 +88,7 @@ onMounted(() => {
                 :to="getProductRoute(product)"
                 @click="$emit('closeSearch')"
             >
-                <LayoutHeaderSearchSuggestions :product="product" />
+                <HeaderSearchSuggestions :product="product" />
             </NuxtLink>
 
             <div class="bg-gray-light text-center text-sm hover:bg-gray-medium">

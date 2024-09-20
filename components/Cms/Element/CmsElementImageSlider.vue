@@ -8,7 +8,7 @@ const sliderItems = config.getConfigValue('sliderItems');
 </script>
 
 <template>
-    <LayoutSlider
+    <SharedSlider
         :navigation-arrows="config.getConfigValue('navigationArrows')"
         :navigation-dots="config.getConfigValue('navigationDots')"
         :autoplay="config.getConfigValue('autoSlide') ? config.getConfigValue('autoplayTimeout') : false"
@@ -18,7 +18,7 @@ const sliderItems = config.getConfigValue('sliderItems');
             v-for="(sliderItem, index) in sliderItems"
             :key="index"
         >
-            <LayoutSliderSlide>
+            <SharedSliderSlide>
                 <template v-if="sliderItem.url">
                     <NuxtLink
                         :to="sliderItem.url"
@@ -47,7 +47,7 @@ const sliderItems = config.getConfigValue('sliderItems');
                     "
                     loading="lazy"
                 />
-            </LayoutSliderSlide>
+            </SharedSliderSlide>
         </template>
-    </LayoutSlider>
+    </SharedSlider>
 </template>
