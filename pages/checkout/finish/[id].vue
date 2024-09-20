@@ -62,7 +62,6 @@ onMounted(async () => {
                 </div>
             </div>
 
-            <!-- TODO: BUS-803 Adjust route if necessary -->
             <NuxtLink
                 class="mx-auto flex max-w-80 justify-center text-brand-primary"
                 :to="'/account/orders'"
