@@ -29,16 +29,10 @@ const modalController = useModal();
             />
         </template>
         <template #content>
-            <div class="py-2 first:pt-0">
-                <NuxtLink to="/account">{{ $t('account.overview.heading') }}</NuxtLink>
-            </div>
-            <FormKit
-                type="submit"
-                prefix-icon="right-from-bracket"
-                @click.prevent="customerStore.logout()"
-            >
-                {{ $t('account.logout.buttonLabel') }}
-            </FormKit>
+            <AccountSideNavigation
+                class="mt-4"
+                :is-in-header="true"
+            />
         </template>
     </LazySharedPopover>
 </template>

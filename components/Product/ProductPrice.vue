@@ -6,10 +6,22 @@ const props = withDefaults(
         product: Schemas['Product'];
         listPriceDisplay?: 'none' | 'percentage' | 'value';
         fontSize?: 'text-xs' | 'text-sm' | 'text-base' | 'text-lg' | 'text-xl' | 'text-2xl' | 'text-3xl';
+        fontWeight?:
+            | 'font-thin'
+            | 'font-light'
+            | 'font-normal'
+            | 'font-medium'
+            | 'font-semibold'
+            | 'font-bold'
+            | 'font-extrabold'
+            | 'font-black';
+        displayVat?: boolean;
     }>(),
     {
         listPriceDisplay: 'percentage',
         fontSize: 'text-3xl',
+        fontWeight: 'font-bold',
+        displayVat: true,
     },
 );
 
@@ -24,8 +36,7 @@ const { price, unitPrice, isListPrice, referencePrice } = useProductPrice(produc
         <p>
             <span
                 v-if="unitPrice"
-                class="font-bold"
-                :class="[fontSize, { 'text-status-danger': isListPrice }]"
+                :class="[fontSize, fontWeight, { 'text-status-danger': isListPrice }]"
             >
                 {{ getFormattedPrice(unitPrice) }}
             </span>
@@ -52,6 +63,12 @@ const { price, unitPrice, isListPrice, referencePrice } = useProductPrice(produc
                 getFormattedPrice(referencePrice.price)
             }}/{{ referencePrice.referenceUnit }} {{ referencePrice.unitName }})
         </p>
-        <p class="w-full text-xs text-gray">{{ $t('product.price.vatInfo') }}</p>
+
+        <p
+            v-if="displayVat"
+            class="w-full text-xs text-gray"
+        >
+            {{ $t('product.price.vatInfo') }}
+        </p>
     </div>
 </template>

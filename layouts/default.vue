@@ -32,7 +32,7 @@ refreshCart();
 
 <style>
 #__nuxt {
-    @apply grid min-h-screen;
+    @apply grid min-h-screen grid-rows-[auto_1fr_auto];
 }
 
 .nuxt-loading-indicator {

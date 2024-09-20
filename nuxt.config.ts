@@ -11,6 +11,7 @@ export default defineNuxtConfig({
         '@nuxtjs/tailwindcss',
         '@formkit/auto-animate/nuxt',
         '@vueuse/nuxt',
+        'nuxt-swiper',
         'radix-vue/nuxt',
         '@nuxt/eslint',
         '@nuxt/fonts',
@@ -34,7 +35,6 @@ export default defineNuxtConfig({
             pond: {
                 shopwareEndpoint: '',
                 accessToken: '',
-                accessTokenAT: '',
             },
         },
     },

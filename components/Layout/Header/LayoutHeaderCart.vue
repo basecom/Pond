@@ -20,30 +20,33 @@ const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
             class="absolute bottom-2.5 left-3"
         />
     </button>
+
     <LazyLayoutSidebar
         v-if="offcanvasCartController.isOpen"
         :controller="offcanvasCartController"
         side="right"
     >
-        <div v-if="!isEmpty">
-            <ul class="divide-y divide-gray-medium border-t border-gray-medium pb-4">
-                <li
-                    v-for="cartItem in cartItems"
-                    :key="cartItem.id"
-                    class="flex py-6"
-                >
-                    <CheckoutLineItem :line-item="cartItem" />
-                </li>
-            </ul>
-            <CheckoutSummary :reduced-display="true" />
-        </div>
+        <template #content>
+            <div v-if="!isEmpty">
+                <ul class="divide-y divide-gray-medium border-t border-gray-medium pb-4">
+                    <li
+                        v-for="cartItem in cartItems"
+                        :key="cartItem.id"
+                        class="flex py-6"
+                    >
+                        <CheckoutLineItem :line-item="cartItem" />
+                    </li>
+                </ul>
+                <CheckoutSummary :reduced-display="true" />
+            </div>
 
-        <NuxtLink
-            to="/checkout/cart"
-            class="mt-4 flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
-            @click="offcanvasCartController.close()"
-        >
-            {{ $t('checkout.offcanvasCart.toCartButtonLabel') }}
-        </NuxtLink>
+            <NuxtLink
+                to="/checkout/cart"
+                class="mt-4 flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
+                @click="offcanvasCartController.close()"
+            >
+                {{ $t('checkout.offcanvasCart.toCartButtonLabel') }}
+            </NuxtLink>
+        </template>
     </LazyLayoutSidebar>
 </template>

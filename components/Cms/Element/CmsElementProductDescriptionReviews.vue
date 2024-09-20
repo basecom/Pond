@@ -16,14 +16,16 @@ propertyGroups.value = product.value.properties
     });
 
 const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][] => {
-    return product.value.properties.filter((property: Schemas['PropertyGroupOption']) => property.group.id === groupId);
+    return product.value.properties.filter(
+        (propertiy: Schemas['PropertyGroupOption']) => propertiy.group.id === groupId,
+    );
 };
 </script>
 
 <template>
     <div class="flex flex-col gap-4">
         <div class="text-xl font-bold">{{ $t('cms.element.product.descriptionHeading') }}</div>
-        <div class="flex flex-col gap-4 md:flex-row">
+        <div class="flex flex-col gap-8 md:flex-row">
             <div
                 class="flex-grow"
                 v-html="getTranslatedProperty(product, 'description')"

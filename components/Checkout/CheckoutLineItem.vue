@@ -87,16 +87,22 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
 </script>
 
 <template>
-    <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium">
+    <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
         <NuxtLink
             v-if="!isPromotion"
             :to="getProductRoute(lineItem)"
         >
-            <img
-                :src="lineItemCover.url"
-                :alt="lineItemCover.alt"
-                class="h-full w-full object-cover object-center"
-            />
+            <template v-if="lineItemCover.placeholder">
+                <SharedImagePlaceholder :size="'sm'" />
+            </template>
+
+            <template v-else>
+                <img
+                    :src="lineItemCover.url"
+                    :alt="lineItemCover.alt"
+                    class="h-full w-full object-cover object-center"
+                />
+            </template>
         </NuxtLink>
         <div
             v-else-if="isPromotion"
@@ -111,7 +117,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
 
     <div class="flex flex-1 flex-col">
         <div>
-            <div class="flex flex-col justify-between lg:flex-row">
+            <div class="flex flex-col justify-between gap-4 lg:flex-row">
                 <NuxtLink :to="getProductRoute(lineItem)">
                     <p>
                         {{ lineItem.label }}
@@ -137,6 +143,8 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                     {{ option.group }}: {{ option.option }}
                 </span>
             </p>
+
+            <ProductAvailability :product="lineItem" />
         </div>
 
         <div class="flex flex-1 items-end justify-between text-sm">

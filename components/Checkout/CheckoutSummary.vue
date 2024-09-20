@@ -51,4 +51,6 @@ const calculatedTaxes = computed(() => {
             :highlight="true"
         />
     </div>
+
+    <CheckoutTotalDeliveryTime :cart="cart" />
 </template>
