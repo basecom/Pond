@@ -18,6 +18,8 @@ const { product } = useProduct(props.element.data.product);
             {{ product.productNumber }}
         </span>
 
+        <ProductAvailability :product="product" />
+
        <div class="flex flex-row w-full gap-4">
         <ProductAddToCart
             :product="product"

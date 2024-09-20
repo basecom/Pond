@@ -12,14 +12,8 @@ const rightContent: Schemas['CmsSlot'] = getSlotContent('right');
 </script>
 
 <template>
-    <div class="flex flex-col gap-8 md:flex-row">
-        <CmsLoader
-            :content="leftContent"
-            class="w-full md:w-3/5"
-        />
-        <CmsLoader
-            :content="rightContent"
-            class="w-full md:w-2/5"
-        />
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <CmsLoader :content="leftContent" />
+        <CmsLoader :content="rightContent" />
     </div>
 </template>
