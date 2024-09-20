@@ -21,7 +21,7 @@ const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
         />
     </button>
 
-    <LazyLayoutSidebar
+    <LazySharedSidebar
         v-if="offcanvasCartController.isOpen"
         :controller="offcanvasCartController"
         side="right"
@@ -48,5 +48,5 @@ const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
                 to the cart
             </NuxtLink>
         </template>
-    </LazyLayoutSidebar>
+    </LazySharedSidebar>
 </template>

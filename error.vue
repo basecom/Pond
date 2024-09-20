@@ -15,11 +15,11 @@ refreshCart();
 
 <template>
     <NuxtLoadingIndicator />
-    <UtilityLoadingSpinner v-if="loading" />
+    <LoadingSpinner v-if="loading" />
 
-    <LayoutHeader v-show="!loading" />
+    <Header v-show="!loading" />
 
-    <UtilityToastNotifications />
+    <NotificationContainer />
 
     <main
         v-show="!loading"
@@ -37,5 +37,5 @@ refreshCart();
         </div>
     </main>
 
-    <LayoutFooter v-show="!loading" />
+    <Footer v-show="!loading" />
 </template>

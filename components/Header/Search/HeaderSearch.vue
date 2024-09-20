@@ -23,7 +23,7 @@ onClickOutside(searchComponent, event => {
 
     <ClientOnly>
         <teleport to="#flyouts">
-            <LayoutHeaderSearchBar
+            <HeaderSearchBar
                 v-if="searchVisible"
                 ref="searchComponent"
                 @close-search="searchVisible = false"

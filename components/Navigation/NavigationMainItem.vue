@@ -23,11 +23,10 @@ const debounced = refDebounced(isOutsideNavItem, 300);
             :class="{
                 'text-brand-primary': !debounced,
             }"
-            :as-link="navigationElement.type !== 'folder'"
         />
     </div>
 
-    <NavigationFlyout
+    <LazyNavigationFlyout
         v-if="navigationElement?.childCount > 0"
         :navigation-element="navigationElement"
         :parent-hovered="!debounced"

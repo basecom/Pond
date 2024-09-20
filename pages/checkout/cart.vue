@@ -39,7 +39,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
         </div>
 
         <template v-else>
-            <UtilityStaticNotification
+            <NotificationStatic
                 id="empty-cart"
                 type="info"
                 message="Your cart is empty."
