@@ -9,10 +9,15 @@ const customerStore = useCustomerStore();
             class="text-sm"
         >
             You are logged in as {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}
+            <UtilityPill
+                v-if="customerStore.customer.guest"
+                content="guest"
+                class="max-w-fit px-1.5"
+            />
         </span>
 
         <template v-else>
-            <AccountLoginRegisterTabs />
+            <AccountLoginRegisterTabs :allow-guest="true" />
         </template>
     </CheckoutConfirmCard>
 </template>

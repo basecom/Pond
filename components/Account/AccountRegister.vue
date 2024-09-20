@@ -4,12 +4,28 @@ import type { ResolvedApiError } from '~/types/errors';
 import type { FormkitFields } from '~/types/formkit';
 import type { Schemas } from '@shopware/api-client/api-types';
 
+const props = withDefaults(
+    defineProps<{
+        redirectAfterSuccess?: boolean;
+        redirectTarget?: string;
+        showCreateLink?: boolean;
+        allowGuest?: boolean;
+    }>(),
+    {
+        redirectAfterSuccess: false,
+        redirectTarget: '/account',
+        showCreateLink: true,
+        allowGuest: false,
+    },
+);
+
 const customerStore = useCustomerStore();
 const sessionContext = useSessionContext();
 const { getSalutations } = useSalutations();
 const { getCountries } = useCountries();
 const { resolveApiErrors } = useApiErrorsResolver();
 const { errorOfField, togglePasswordVisibility, entityArrayToOptions } = useFormkitHelper();
+const { pushError, pushSuccess } = useNotifications();
 const apiErrors = ref<ResolvedApiError[]>([]);
 const isLoading = ref(false);
 
@@ -21,8 +37,14 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
             ...fields,
         });
         isLoading.value = false;
-        navigateTo('/account');
+
+        if (props.redirectAfterSuccess) {
+            navigateTo(props.redirectTarget);
+        }
+
+        pushSuccess('You successfully logged in');
     } catch (error) {
+        pushError('An error occured. Please try again.');
         isLoading.value = false;
 
         if (error instanceof ApiClientError) {
@@ -40,6 +62,10 @@ const salutationOptions = computed(
 );
 
 const currentCountry = computed(() => sessionContext.countryId.value);
+const passwordRequired = ref(true);
+const handleGuestChange = fields => {
+    passwordRequired.value = !fields.target.checked;
+};
 </script>
 
 <template>
@@ -168,6 +194,21 @@ const currentCountry = computed(() => sessionContext.countryId.value);
         </div>
 
         <FormKit
+            v-if="allowGuest"
+            type="checkbox"
+            label="dont create a customer account"
+            name="guest"
+            :value="false"
+            decorator-icon="check"
+            :classes="{
+                outer: {
+                    'col-span-2': true,
+                },
+            }"
+            @click="handleGuestChange"
+        />
+
+        <FormKit
             type="email"
             label="email"
             name="email"
@@ -177,6 +218,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
         />
 
         <FormKit
+            v-if="passwordRequired"
             type="password"
             label="password"
             name="password"
@@ -195,6 +237,11 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             :value="false"
             decorator-icon="check"
             validation="accepted"
+            :classes="{
+                outer: {
+                    'col-span-2': true,
+                },
+            }"
         />
 
         <FormKit
