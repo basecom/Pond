@@ -1,16 +1,18 @@
 <script setup lang="ts">
 const customerStore = useCustomerStore();
+const { customer } = storeToRefs(customerStore);
 const { isNewsletterSubscriber, newsletterSubscribe, newsletterUnsubscribe, getNewsletterStatus } = useNewsletter();
+const billingAddress = computed(() => customer.value.defaultBillingAddress);
+const shippingAddress = computed(() => customer.value.defaultShippingAddress);
+const paymentMethod = computed(() => customer.value.defaultPaymentMethod);
 
-onMounted(() => {
-    getNewsletterStatus();
-});
+getNewsletterStatus();
 
 const handleNewsletterChange = async (event: Event) => {
     const checked = (event.target as HTMLInputElement).checked;
     if (checked) {
         await newsletterSubscribe({
-            email: customerStore.customer.email,
+            email: customer.value.email,
             option: 'subscribe',
         });
     } else {
@@ -31,44 +33,44 @@ const handleNewsletterChange = async (event: Event) => {
     >
         <div class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">Personal Information</h3>
-            <p><strong>Name:</strong> {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}</p>
-            <p><strong>Email:</strong> {{ customerStore.customer.email }}</p>
+            <p><strong>Name:</strong> {{ customer.firstName }} {{ customer.lastName }}</p>
+            <p><strong>Email:</strong> {{ customer.email }}</p>
         </div>
 
         <div class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">Payment Method</h3>
-            <p><strong>Name:</strong> {{ customerStore.customer.defaultPaymentMethod.name }}</p>
-            <p><strong>Description:</strong> {{ customerStore.customer.defaultPaymentMethod.description }}</p>
+            <p><strong>Name:</strong> {{ paymentMethod.name }}</p>
+            <p><strong>Description:</strong> {{ paymentMethod.description }}</p>
         </div>
     </div>
 
     <div
-        v-if="customerStore.customer"
+        v-if="customer"
         class="col-span-2 mt-4 grid grid-cols-1 gap-6 lg:grid-cols-2"
     >
         <div class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">Billing Address</h3>
-            <p>{{ customerStore.customer.defaultBillingAddress.street }}</p>
+            <p>{{ billingAddress.street }}</p>
             <p>
-                {{ customerStore.customer.defaultBillingAddress.zipcode }}
-                {{ customerStore.customer.defaultBillingAddress.city }}
+                {{ billingAddress.zipcode }}
+                {{ billingAddress.city }}
             </p>
-            <p>{{ customerStore.customer.defaultBillingAddress.country.name }}</p>
+            <p>{{ billingAddress.country.name }}</p>
         </div>
 
         <div class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">Shipping Address</h3>
-            <p>{{ customerStore.customer.defaultShippingAddress.street }}</p>
+            <p>{{ shippingAddress.street }}</p>
             <p>
-                {{ customerStore.customer.defaultShippingAddress.zipcode }}
-                {{ customerStore.customer.defaultShippingAddress.city }}
+                {{ shippingAddress.zipcode }}
+                {{ shippingAddress.city }}
             </p>
-            <p>{{ customerStore.customer.defaultShippingAddress.country.name }}</p>
+            <p>{{ shippingAddress.country.name }}</p>
         </div>
     </div>
 
     <div
-        v-if="customerStore.customer"
+        v-if="customer"
         class="mt-4 rounded-lg bg-white p-4 shadow-md"
     >
         <h3 class="mb-2 text-lg font-semibold">Newsletter Subscription</h3>
