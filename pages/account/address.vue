@@ -1,5 +1,5 @@
 <template>
     <Account>
-        <AccountAdressContent />
+        <AccountAddressContent />
     </Account>
 </template>

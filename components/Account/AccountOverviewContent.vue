@@ -80,7 +80,7 @@ const handleNewsletterChange = async (event: Event) => {
                 :checked="isNewsletterSubscriber"
                 @change="handleNewsletterChange"
             />
-            Yes, I would like to subscribe to the free Demostore newsletter. (I may unsubscribe at any time.)
+            Yes, I would like to subscribe to the free newsletter. (I may unsubscribe at any time.)
         </label>
     </div>
 </template>

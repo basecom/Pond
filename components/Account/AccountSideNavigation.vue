@@ -65,5 +65,3 @@ const navItems = ref([
         </li>
     </ul>
 </template>
-
-<style scoped></style>

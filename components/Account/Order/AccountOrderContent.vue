@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import AccountOrderItem from '~/components/Account/Order/AccountOrderItem.vue';
-
 const customerStore = useCustomerStore();
 const customerId = computed(() => customerStore.customer?.id);
 const { orders, loadOrders } = useCustomerOrders();
@@ -21,7 +19,7 @@ onMounted(async () => {
 <template>
     <div>
         <h1 class="mb-2 font-bold">Orders</h1>
-        <ul>
+        <ul v-if="orders.length > 0">
             <li
                 v-for="order in orders"
                 :key="order.id"
@@ -31,5 +29,8 @@ onMounted(async () => {
                 </SharedAccordionRoot>
             </li>
         </ul>
+        <p v-else>
+            Oops, no orders have been found. Have you placed an order yet?
+        </p>
     </div>
 </template>
