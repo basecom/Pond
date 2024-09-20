@@ -113,7 +113,9 @@ onMounted(async () => {
                         </li>
                     </ul>
 
-                    <OrderSummary :order="order" />
+                    <OrderSummary
+                        class="rounded-md"
+                        :order="order" />
                 </div>
             </div>
         </template>

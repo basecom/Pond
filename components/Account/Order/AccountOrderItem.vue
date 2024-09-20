@@ -29,6 +29,7 @@ onMounted(async () => {
 
 <template>
     <SharedAccordionItem
+        class="overflow-hidden"
         :value="`item-${orderId}`"
         headline-classes="bg-white rounded-lg"
         :headline-default-text-style="false"
@@ -72,10 +73,11 @@ onMounted(async () => {
                     v-for="(product, index) in order.lineItems"
                     :key="product.id"
                 >
-                    <OrderLineItem
-                        :line-item="product"
-                        class="mt-4 flex"
-                    />
+                    <div class="flex mt-4 w-full">
+                        <OrderLineItem
+                            :line-item="product"
+                        />
+                    </div>
                     <hr
                         v-if="index !== order.lineItems.length - 1"
                         class="w-full"
@@ -85,7 +87,7 @@ onMounted(async () => {
             <OrderSummary
                 :is-account-order-item="true"
                 :order="order"
-                class="-mx-4 -mb-2"
+                class="-mx-4 rounded-b-lg"
             />
         </template>
     </SharedAccordionItem>

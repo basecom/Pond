@@ -14,7 +14,6 @@ withDefaults(
 
 <template>
     <div
-        :class="{ 'rounded-md': !isAccountOrderItem, 'rounded-b-md': isAccountOrderItem }"
         class="bg-gray-light p-4"
     >
         <h2 class="pb-4">Order summary</h2>
