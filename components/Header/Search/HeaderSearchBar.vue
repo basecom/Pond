@@ -97,7 +97,7 @@ onMounted(() => {
                     class="py-3"
                 >
                     <div class="relative h-1lh">
-                        <UtilityLoadingSpinner size="small" />
+                        <LoadingSpinner size="small" />
                     </div>
                 </div>
 

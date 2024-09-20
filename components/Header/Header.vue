@@ -14,7 +14,7 @@ const { loading } = storeToRefs(customerStore);
                     <!-- mobile menu -->
                     <NavigationSidebar />
 
-                    <LayoutLogo logo-classes="w-36 md:w-40" />
+                    <Logo logo-classes="w-36 md:w-40" />
                 </div>
 
                 <HeaderActions />

@@ -66,7 +66,7 @@ const changePage = async (page: number) => {
         </template>
     </div>
 
-    <LayoutPagination
+    <Pagination
         :total="getTotal"
         :items-per-page="getLimit"
         :default-page="getCurrentPage"

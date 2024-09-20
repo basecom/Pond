@@ -12,7 +12,7 @@ refreshCart();
 <template>
     <NuxtLoadingIndicator />
     <NuxtRouteAnnouncer />
-    <UtilityLoadingSpinner v-if="loading" />
+    <LoadingSpinner v-if="loading" />
 
     <Header v-show="!loading" />
 
@@ -22,12 +22,12 @@ refreshCart();
         v-show="!loading"
         class="mt-4 w-screen"
     >
-        <LayoutBreadcrumbs />
+        <Breadcrumbs />
 
         <NuxtPage />
     </main>
 
-    <LayoutFooter v-show="!loading" />
+    <Footer v-show="!loading" />
 </template>
 
 <style>

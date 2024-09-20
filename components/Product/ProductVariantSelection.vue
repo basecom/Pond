@@ -123,7 +123,7 @@ const handleChangeVariant = async () => {
             </template>
         </div>
     </div>
-    <UtilityLoadingSpinner
+    <LoadingSpinner
         v-if="isLoading"
         class="bg-white opacity-50"
     />

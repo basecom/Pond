@@ -47,7 +47,7 @@ const lastPreviousItem = computed(() =>
         class="w-4 cursor-pointer md:hidden"
         @click="sideMenuController.open()"
     />
-    <LazyLayoutSidebar
+    <LazySharedSidebar
         v-if="sideMenuController.isOpen"
         :controller="sideMenuController"
     >
@@ -88,5 +88,5 @@ const lastPreviousItem = computed(() =>
                 />
             </div>
         </template>
-    </LazyLayoutSidebar>
+    </LazySharedSidebar>
 </template>
