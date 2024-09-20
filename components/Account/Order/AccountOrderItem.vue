@@ -75,6 +75,7 @@ onMounted(async () => {
                     <OrderLineItem
                         :is-account-order-item="true"
                         :line-item="product"
+                        class="mt-4 flex"
                     />
                     <hr
                         v-if="index !== order.lineItems.length - 1"

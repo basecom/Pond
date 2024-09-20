@@ -4,15 +4,9 @@ const { getFormattedPrice } = usePrice();
 const { getProductCover } = useMedia();
 const { getProductRoute } = useProductRoute();
 
-const props = withDefaults(
-    defineProps<{
-        lineItem: Schemas['LineItem'];
-        isAccountOrderItem?: boolean;
-    }>(),
-    {
-        isAccountOrderItem: false,
-    },
-);
+const props = defineProps<{
+    lineItem: Schemas['LineItem'];
+}>()
 
 const { lineItem } = toRefs(props);
 
@@ -20,7 +14,7 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 </script>
 
 <template>
-    <div :class="{ 'mt-4 flex': isAccountOrderItem }">
+    <div>
         <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
             <NuxtLink :to="getProductRoute(lineItem)">
                 <template v-if="lineItemCover.placeholder">
