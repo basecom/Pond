@@ -13,9 +13,7 @@ withDefaults(
 </script>
 
 <template>
-    <div
-        class="bg-gray-light p-4"
-    >
+    <div class="bg-gray-light p-4">
         <h2 class="pb-4">Order summary</h2>
 
         <CheckoutSummaryValues

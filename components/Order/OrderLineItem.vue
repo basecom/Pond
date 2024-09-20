@@ -6,7 +6,7 @@ const { getProductRoute } = useProductRoute();
 
 const props = defineProps<{
     lineItem: Schemas['LineItem'];
-}>()
+}>();
 
 const { lineItem } = toRefs(props);
 

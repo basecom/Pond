@@ -29,8 +29,6 @@ onMounted(async () => {
                 </SharedAccordionRoot>
             </li>
         </ul>
-        <p v-else>
-            Oops, no orders have been found. Have you placed an order yet?
-        </p>
+        <p v-else>Oops, no orders have been found. Have you placed an order yet?</p>
     </div>
 </template>

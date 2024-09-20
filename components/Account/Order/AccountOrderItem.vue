@@ -73,10 +73,8 @@ onMounted(async () => {
                     v-for="(product, index) in order.lineItems"
                     :key="product.id"
                 >
-                    <div class="flex mt-4 w-full">
-                        <OrderLineItem
-                            :line-item="product"
-                        />
+                    <div class="mt-4 flex w-full">
+                        <OrderLineItem :line-item="product" />
                     </div>
                     <hr
                         v-if="index !== order.lineItems.length - 1"
