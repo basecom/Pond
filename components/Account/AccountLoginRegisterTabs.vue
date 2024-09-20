@@ -11,13 +11,13 @@
                 class="flex-1 bg-white px-5 py-2 hover:text-brand-primary focus-visible:relative data-[state=active]:border-b data-[state=active]:border-brand-primary data-[state=active]:text-brand-primary"
                 value="tab-login"
             >
-                login
+                {{ $t('account.loginModal.tabs.loginTabHeading') }}
             </TabsTrigger>
             <TabsTrigger
                 class="flex-1 bg-white px-5 py-2 hover:text-brand-primary focus-visible:relative data-[state=active]:border-b data-[state=active]:border-brand-primary data-[state=active]:text-brand-primary"
                 value="tab-register"
             >
-                register
+                {{ $t('account.loginModal.tabs.registerTabHeading') }}
             </TabsTrigger>
         </TabsList>
         <TabsContent

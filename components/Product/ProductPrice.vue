@@ -52,6 +52,6 @@ const { price, unitPrice, isListPrice, referencePrice } = useProductPrice(produc
                 getFormattedPrice(referencePrice.price)
             }}/{{ referencePrice.referenceUnit }} {{ referencePrice.unitName }})
         </p>
-        <p class="w-full text-xs text-gray">vat info</p>
+        <p class="w-full text-xs text-gray">{{ $t('product.price.vatInfo') }}</p>
     </div>
 </template>

@@ -26,6 +26,7 @@ const { resolveApiErrors } = useApiErrorsResolver();
 const { signedIn } = storeToRefs(customerStore);
 const apiErrors = ref<ResolvedApiError[]>([]);
 const { pushError, pushSuccess } = useNotifications();
+const { t } = useI18n();
 
 const handleLogin = async (fields: FormkitLoginFields) => {
     try {
@@ -37,9 +38,9 @@ const handleLogin = async (fields: FormkitLoginFields) => {
             navigateTo(props.redirectTarget);
         }
 
-        pushSuccess('You successfully logged in.');
+        pushSuccess(t('account.login.successMessage'));
     } catch (error) {
-        pushError('An error occured trying to login. Please try again.');
+        pushError(t('account.login.errorMessage'));
 
         if (error instanceof ApiClientError) {
             apiErrors.value = resolveApiErrors(error.details.errors, 'login');
@@ -55,7 +56,7 @@ const handleLogin = async (fields: FormkitLoginFields) => {
     <FormKit
         v-if="!signedIn"
         type="form"
-        submit-label="login"
+        :submit-label="$t('account.login.submitLabel')"
         :classes="{
             form: 'w-full flex flex-wrap flex-col gap-4',
             actions: 'w-full',
@@ -76,15 +77,15 @@ const handleLogin = async (fields: FormkitLoginFields) => {
 
         <FormKit
             type="email"
-            label="email"
+            :label="$t('account.login.emailInput.label')"
             name="username"
-            placeholder="quack@platsch.com"
-            help="your email address"
+            :placeholder="$t('account.login.emailInput.placeholder')"
+            :help="$t('account.login.emailInput.help')"
         />
 
         <FormKit
             type="password"
-            label="password"
+            :label="$t('account.login.passwordInput.label')"
             name="password"
             suffix-icon="lock"
             @suffix-icon-click="togglePasswordVisibility"
@@ -93,7 +94,7 @@ const handleLogin = async (fields: FormkitLoginFields) => {
         <NuxtLink
             v-if="showCreateLink"
             :to="{ name: 'account-register' }"
-            >create account here</NuxtLink
+            >{{ $t('account.login.createAccount') }}</NuxtLink
         >
     </FormKit>
 </template>

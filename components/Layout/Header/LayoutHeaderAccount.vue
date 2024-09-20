@@ -15,7 +15,7 @@ const modalController = useModal();
                 icon="user"
             />
         </template>
-        <template #title>Login</template>
+        <template #title>{{ $t('account.loginModal.heading') }}</template>
         <template #content>
             <AccountLoginRegisterTabs />
         </template>
@@ -30,14 +30,14 @@ const modalController = useModal();
         </template>
         <template #content>
             <div class="py-2 first:pt-0">
-                <NuxtLink to="/account">account</NuxtLink>
+                <NuxtLink to="/account">{{ $t('account.overview.heading') }}</NuxtLink>
             </div>
             <FormKit
                 type="submit"
                 prefix-icon="right-from-bracket"
                 @click.prevent="customerStore.logout()"
             >
-                logout
+                {{ $t('account.logout.buttonLabel') }}
             </FormKit>
         </template>
     </LazySharedPopover>

@@ -45,7 +45,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
 <template>
     <FormKit
         type="form"
-        submit-label="register"
+        :submit-label="$t('account.register.submitLabel')"
         :classes="{
             form: 'grid grid-cols-2 gap-3 w-full max-w-md',
         }"
@@ -67,14 +67,14 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             </li>
         </ul>
         <div class="col-span-2">
-            <span>your data</span>
+            <span>{{ $t('account.register.dataHeading') }}</span>
         </div>
 
         <FormKit
             type="select"
-            label="salutation"
+            :label="$t('account.register.salutationInput.label')"
             name="salutationId"
-            placeholder="Select a salutation"
+            :placeholder="$t('account.register.salutationInput.placeholder')"
             :errors="errorOfField('firstName', apiErrors)"
             validation="required"
             :classes="{
@@ -83,14 +83,14 @@ const currentCountry = computed(() => sessionContext.countryId.value);
                 },
             }"
             :options="salutationOptions"
-            help="select how you would like to be addressed"
+            :help="$t('account.register.salutationInput.help')"
         />
 
         <FormKit
             type="text"
-            label="first name"
+            :label="$t('account.register.firstnameInput.label')"
             name="firstName"
-            placeholder="donald"
+            :placeholder="$t('account.register.firstnameInput.placeholder')"
             :errors="errorOfField('firstName', apiErrors)"
             validation="required"
             :classes="{
@@ -102,15 +102,15 @@ const currentCountry = computed(() => sessionContext.countryId.value);
 
         <FormKit
             type="text"
-            label="last name"
+            :label="$t('account.register.lastnameInput.label')"
             name="lastName"
-            placeholder="duck"
+            :placeholder="$t('account.register.lastnameInput.placeholder')"
             :errors="errorOfField('lastName', apiErrors)"
             validation="required"
         />
 
         <div class="col-span-2">
-            <span>your address</span>
+            <span>{{ $t('account.register.addressHeading') }}</span>
         </div>
 
         <FormKit
@@ -119,10 +119,10 @@ const currentCountry = computed(() => sessionContext.countryId.value);
         >
             <FormKit
                 type="text"
-                label="street"
+                :label="$t('account.register.streetInput.label')"
                 autocomplete="street-address"
                 name="street"
-                placeholder="13 quack street"
+                :placeholder="$t('account.register.streetInput.placeholder')"
                 :errors="errorOfField('billingAddress[street]', apiErrors)"
                 validation="required"
                 :classes="{
@@ -133,26 +133,26 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             />
             <FormKit
                 type="text"
-                label="zip"
+                :label="$t('account.register.zipCodeInput.label')"
                 name="zipcode"
-                placeholder="1313"
+                :placeholder="$t('account.register.zipCodeInput.placeholder')"
                 :errors="errorOfField('billingAddress[zipcode]', apiErrors)"
                 validation="required"
             />
             <FormKit
                 type="text"
-                label="city"
+                :label="$t('account.register.cityInput.label')"
                 name="city"
-                placeholder="Quackburg"
+                :placeholder="$t('account.register.cityInput.placeholder')"
                 :errors="errorOfField('billingAddress[city]', apiErrors)"
                 validation="required"
             />
             <FormKit
                 v-if="currentCountry"
                 type="select"
-                label="country"
+                :label="$t('account.register.countryInput.label')"
                 name="countryId"
-                placeholder="Select a country"
+                :placeholder="$t('account.register.countryInput.placeholder')"
                 :options="countryOptions"
                 :value="currentCountry"
                 :classes="{
@@ -164,23 +164,23 @@ const currentCountry = computed(() => sessionContext.countryId.value);
         </FormKit>
 
         <div class="col-span-2">
-            <span>your account data</span>
+            <span>{{ $t('account.register.accountDataHeading') }}</span>
         </div>
 
         <FormKit
             type="email"
-            label="email"
+            :label="$t('account.register.emailInput.label')"
             name="email"
-            placeholder="quack@platsch.com"
+            :placeholder="$t('account.register.emailInput.placeholder')"
             :errors="errorOfField('email', apiErrors)"
             validation="required"
         />
 
         <FormKit
             type="password"
-            label="password"
+            :label="$t('account.register.passwordInput.label')"
             name="password"
-            placeholder="password"
+            :placeholder="$t('account.register.passwordInput.placeholder')"
             :errors="errorOfField('password', apiErrors)"
             validation="required"
             suffix-icon="lock"
@@ -189,8 +189,8 @@ const currentCountry = computed(() => sessionContext.countryId.value);
 
         <FormKit
             type="checkbox"
-            label="Terms and Conditions"
-            help="Do you agree to our terms of service?"
+            :label="$t('account.register.termsInput.label')"
+            :help="$t('account.register.termsInput.help')"
             name="terms"
             :value="false"
             decorator-icon="check"
@@ -210,7 +210,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
                     'opacity-0': isLoading,
                 }"
             >
-                register
+                {{ $t('account.register.submitLabel') }}
             </span>
             <UtilityLoadingSpinner
                 v-if="isLoading"

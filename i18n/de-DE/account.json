@@ -1,0 +1,79 @@
+{
+  "account": {
+    "overview": {
+      "heading": "Account",
+      "greeting": "Hi {firstname} {lastname}"
+    },
+    "login": {
+      "successMessage": "Du wurdest erfolgreich eingeloggt.",
+      "errorMessage": "Es gab einen Fehler beim Login. Bitte versuch es noch einmal.",
+      "submitLabel": "Einloggen",
+      "emailInput": {
+        "label": "Email",
+        "placeholder": "quack{'@'}platsch.com",
+        "help": "Deine Emailadresse"
+      },
+      "passwordInput": {
+        "label": "Passwort"
+      },
+      "createAccountLink": "Erstelle hier deinen Account"
+    },
+    "register": {
+      "submitLabel": "Registrieren",
+      "dataHeading": "Deine Daten:",
+      "salutationInput": {
+        "label": "Anrede",
+        "placeholder": "Wähle deine Anrede",
+        "help": "Wähle aus, wie du angesprochen werden möchtest"
+      },
+      "firstnameInput": {
+        "label": "Vorname",
+        "placeholder": "Donald"
+      },
+      "lastnameInput": {
+        "label": "Nachname",
+        "placeholder": "Duck"
+      },
+      "addressHeading": "Deine Adresse:",
+      "streetInput": {
+        "label": "Straße",
+        "placeholder": "Quackstraße 13"
+      },
+      "zipCodeInput": {
+        "label": "Postleitzahl",
+        "placeholder": "12345"
+      },
+      "cityInput": {
+        "label": "Stadt",
+        "placeholder": "Quackburg"
+      },
+      "countryInput": {
+        "label": "Land:",
+        "placeholder": "Wähle dein Land"
+      },
+      "accountDataHeading": "Deine Accountdaten:",
+      "emailInput": {
+        "label": "Email",
+        "placeholder": "quack{'@'}platsch.com"
+      },
+      "passwordInput": {
+        "label": "Passwort",
+        "placeholder": "*********"
+      },
+      "termsInput": {
+        "label": "AGB",
+        "help": "Akzeptierst du unsere Allgemeinen Geschäftsbedingungen?"
+      }
+    },
+    "logout": {
+      "buttonLabel": "Logout"
+    },
+    "loginModal": {
+      "heading": "Login",
+      "tabs": {
+        "loginTabHeading": "Einloggen",
+        "registerTabHeading": "Registrieren"
+      }
+    }
+  }
+}

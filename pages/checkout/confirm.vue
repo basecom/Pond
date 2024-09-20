@@ -29,7 +29,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
 
 <template>
     <div class="container">
-        <h1>Checkout</h1>
+        <h1>{{ $t('checkout.confirm.heading') }}</h1>
 
         <template v-if="!isEmpty">
             <FormKit
@@ -51,7 +51,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                     </div>
 
                     <div class="rounded-md p-4 shadow">
-                        <div class="font-bold">Products</div>
+                        <div class="font-bold">{{ $t('checkout.confirm.lineItemsHeading') }}</div>
 
                         <ul class="divide-y divide-gray-medium">
                             <li
@@ -69,7 +69,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                             v-if="customerStore.customer"
                             class="mt-4 flex w-full cursor-pointer items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
                         >
-                            Order
+                            {{ $t('checkout.confirm.order.buttonLabel') }}
                         </button>
 
                         <div
@@ -77,13 +77,13 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                             class="mt-4 flex cursor-not-allowed items-center justify-center rounded-md bg-gray-dark px-6 py-3 text-white"
                             disabled="disabled"
                         >
-                            Log in to place order
+                            {{ $t('checkout.confirm.order.buttonLabelNotLoggedIn') }}
                         </div>
                     </div>
                 </div>
             </FormKit>
         </template>
 
-        <template v-else> Your cart is empty </template>
+        <template v-else> {{ $t('checkout.confirm.emptyCartMessage') }} </template>
     </div>
 </template>

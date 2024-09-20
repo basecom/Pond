@@ -15,6 +15,7 @@ quantity.value = product.value.minPurchase;
 const { resolveApiErrors } = useApiErrorsResolver();
 const { pushError, pushSuccess } = useNotifications();
 const apiErrors = ref<ResolvedApiError[]>([]);
+const { t } = useI18n();
 
 const handleEnter = async $event => {
     if ($event.target !== null) {
@@ -30,9 +31,9 @@ const handleAddToCart = async () => {
         await addToCart();
         quantity.value = product.value.minPurchase;
 
-        pushSuccess(product.value.translated.name + ' was added to your cart.');
+        pushSuccess(t('product.addToCart.successMessage', { productName: product.value.translated.name }));
     } catch (error) {
-        pushError('An error occured trying to add ' + product.value.translated.name + ' to your cart.');
+        pushError(t('product.addToCart.errorMessage', { productName: product.value.translated.name }));
 
         if (error instanceof ApiClientError) {
             apiErrors.value = resolveApiErrors(error.details.errors, 'product');
@@ -79,7 +80,7 @@ const handleAddToCart = async () => {
             :classes="{
                 outer: 'w-full',
             }"
-            :label="props.label ? 'add to cart' : ' '"
+            :label="props.label ? $t('product.addToCart.submitLabel') : ' '"
             :prefix-icon="props.icon ? 'cart-shopping' : ''"
         />
     </FormKit>
@@ -92,6 +93,6 @@ const handleAddToCart = async () => {
             icon="info"
             class="block h-5 w-5"
         />
-        <span> product currently not available </span>
+        <span>{{ $t('product.addToCart.notAvailableInfo') }}</span>
     </div>
 </template>

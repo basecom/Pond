@@ -1,0 +1,79 @@
+{
+  "account": {
+    "overview": {
+      "heading": "Account",
+      "greeting": "Hi {firstname} {lastname}"
+    },
+    "login": {
+      "successMessage": "You successfully logged in.",
+      "errorMessage": "An error occurred trying to login. Please try again.",
+      "submitLabel": "Login",
+      "emailInput": {
+        "label": "Email",
+        "placeholder": "quack{'@'}splash.com",
+        "help": "Your email address"
+      },
+      "passwordInput": {
+        "label": "Password"
+      },
+      "createAccountLink": "Create your account here"
+    },
+    "register": {
+      "submitLabel": "Register",
+      "dataHeading": "Your data:",
+      "salutationInput": {
+        "label": "Salutation",
+        "placeholder": "Select a salutation",
+        "help": "Select how you would like to be addressed"
+      },
+      "firstnameInput": {
+        "label": "First name",
+        "placeholder": "Donald"
+      },
+      "lastnameInput": {
+        "label": "Last name",
+        "placeholder": "Duck"
+      },
+      "addressHeading": "Your address:",
+      "streetInput": {
+        "label": "Street",
+        "placeholder": "13 Quack Street"
+      },
+      "zipCodeInput": {
+        "label": "Zip code",
+        "placeholder": "1313"
+      },
+      "cityInput": {
+        "label": "City",
+        "placeholder": "Quackburg"
+      },
+      "countryInput": {
+        "label": "Country",
+        "placeholder": "Select your country"
+      },
+      "accountDataHeading": "Your account data:",
+      "emailInput": {
+        "label": "Email",
+        "placeholder": "quack{'@'}splash.com"
+      },
+      "passwordInput": {
+        "label": "Password",
+        "placeholder": "*********"
+      },
+      "termsInput": {
+        "label": "Terms and Conditions",
+        "help": "Do you agree to our terms of service?"
+      }
+    },
+    "logout": {
+      "buttonLabel": "Logout"
+    },
+    "loginModal": {
+      "heading": "Login",
+      "tabs": {
+        "loginTabHeading": "Login",
+        "registerTabHeading": "Register"
+      }
+    }
+  }
+}

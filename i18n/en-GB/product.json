@@ -1,0 +1,13 @@
+{
+  "product": {
+    "price": {
+      "vatInfo": "vat info"
+    },
+    "addToCart": {
+      "successMessage": "{productName} was added to your cart.",
+      "errorMessage": "An error occurred trying to add {productName} to your cart.",
+      "submitLabel": "Add to cart",
+      "notAvailableInfo": "This product is currently not available."
+    }
+  }
+}

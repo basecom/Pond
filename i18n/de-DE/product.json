@@ -1,0 +1,13 @@
+{
+  "product": {
+    "price": {
+      "vatInfo": "Infos zur MwSt."
+    },
+    "addToCart": {
+      "successMessage": "{productName} wurde dem Warenkorb hinzugefügt.",
+      "errorMessage": "Beim Hinzufügen von {productName} zum Warenkorb ist etwas schiefgegangen.",
+      "submitLabel": "In den Warenkorb",
+      "notAvailableInfo": "Dieses Produkt ist nicht vorrätig."
+    }
+  }
+}

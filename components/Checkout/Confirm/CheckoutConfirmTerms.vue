@@ -3,11 +3,11 @@ const tos = ref(false);
 </script>
 
 <template>
-    <CheckoutConfirmCard title="Terms and Conditions">
+    <CheckoutConfirmCard :title="$t('checkout.confirm.terms.cardTitle')">
         <FormKit
             type="checkbox"
-            label="Terms and Conditions"
-            help="I have read and accepted the general terms and conditions."
+            :label="$t('checkout.confirm.termsInput.label')"
+            :help="$t('checkout.confirm.termsInput.help')"
             name="terms"
             decorator-icon="check"
             :value="tos"
