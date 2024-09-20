@@ -34,11 +34,13 @@ const isActive = (path: Schemas['SeoUrl'][] | undefined, onlyExactMatch: boolean
 
     return onlyExactMatch ? formattedPath === currentPath : currentPath.includes(formattedPath);
 };
+
+const isFolder = computed(() => props.navigationElement.type !== 'folder')
 </script>
 
 <template>
     <NuxtLink
-        v-if="asLink"
+        v-if="isFolder && asLink"
         :target="isExternalLink || linkNewTab ? '_blank' : ''"
         :rel="isExternalLink || linkNewTab ? 'noopener noreferrer nofollow' : ''"
         :aria-label="getTranslatedProperty(navigationElement, 'name')"

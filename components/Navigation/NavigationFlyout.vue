@@ -29,7 +29,6 @@ const selfNotHovered = refDebounced(isOutsideFlyout, 200);
                         :navigation-element="child"
                         classes="text-lg font-bold py-2"
                         active-classes="text-brand-primary"
-                        :as-link="child.type !== 'folder'"
                     />
                     <div class="flex flex-col gap-2">
                         <template v-if="child.childCount > 0">
@@ -39,7 +38,6 @@ const selfNotHovered = refDebounced(isOutsideFlyout, 200);
                                 :navigation-element="subChild"
                                 classes="py-2"
                                 active-classes="text-brand-primary"
-                                :as-link="subChild.type !== 'folder'"
                             />
                         </template>
                     </div>
