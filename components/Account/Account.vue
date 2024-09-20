@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
     <div class="container mt-4 flex w-full">
         <AccountSideNavigation
