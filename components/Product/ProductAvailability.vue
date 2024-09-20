@@ -7,8 +7,8 @@ const props = defineProps<{
 
 const availableStock = props.product.availableStock ?? props.product.deliveryInformation.stock ?? 0;
 const minPurchase = props.product.minPurchase ?? props.product.quantityInformation.minPurchase ?? 0;
-const deliveryTime = props.product.deliveryTime ?? props.product.deliveryInformation.deliveryTime;
-const restockTime = props.product.restockTime ?? props.product.deliveryInformation.restockTime;
+const deliveryTime = props.product?.deliveryTime ?? props.product.deliveryInformation?.deliveryTime;
+const restockTime = props.product?.restockTime ?? props.product.deliveryInformation?.restockTime;
 </script>
 
 <template>

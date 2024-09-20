@@ -16,5 +16,5 @@ const staticNotification: Notification = {
 </script>
 
 <template>
-    <UtilityToastNotification :notification="staticNotification" />
+    <NotificationToast :notification="staticNotification" />
 </template>

@@ -19,7 +19,7 @@ refreshCart();
 
     <LayoutHeader v-show="!loading" />
 
-    <UtilityToastNotifications />
+    <NotificationContainer />
 
     <main
         v-show="!loading"
