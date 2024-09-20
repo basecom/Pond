@@ -11,7 +11,7 @@ const { count: wishlistCount } = useWishlist();
             class="block h-6 w-6"
             icon="heart"
         />
-        <SharedPill
+        <UtilityPill
             :number="wishlistCount"
             class="absolute bottom-2.5 left-3"
         />

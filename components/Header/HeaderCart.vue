@@ -15,7 +15,7 @@ const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
             icon="cart-shopping"
             class="block h-6 w-6"
         />
-        <SharedPill
+        <UtilityPill
             :number="cartItemCount"
             class="absolute bottom-2.5 left-3"
         />
