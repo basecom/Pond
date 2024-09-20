@@ -29,16 +29,10 @@ const modalController = useModal();
             />
         </template>
         <template #content>
-            <div class="py-2 first:pt-0">
-                <NuxtLink to="/account">account</NuxtLink>
-            </div>
-            <FormKit
-                type="submit"
-                prefix-icon="right-from-bracket"
-                @click.prevent="customerStore.logout()"
-            >
-                logout
-            </FormKit>
+            <AccountSideNavigation
+                class="mt-4"
+                :is-in-header="true"
+            />
         </template>
     </LazySharedPopover>
 </template>
