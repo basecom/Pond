@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { params } = useRoute();
+const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 const orderId = params.id as string;
 const { order, loadOrderDetails, shippingAddress, billingAddress, shippingMethod, paymentMethod, status, total } =
     useOrderDetails(orderId);
@@ -9,6 +10,8 @@ const dateFormat = 'DD.MM.YYYY';
 const formattedOrderDate = useDateFormat(order.orderDate, dateFormat, {
     locales: (typeof navigator !== 'undefined' && navigator.language) || 'en-US',
 });
+
+useBreadcrumbs(checkoutBreadcrumbs({ index: 2, orderId: orderId }));
 
 onMounted(async () => {
     await loadOrderDetails();
@@ -59,10 +62,9 @@ onMounted(async () => {
                 </div>
             </div>
 
-            <!-- TODO: BUS-803 Adjust route if necessary -->
             <NuxtLink
                 class="mx-auto flex max-w-80 justify-center text-brand-primary"
-                :to="'/account/order'"
+                :to="'/account/orders'"
             >
                 View all my orders
             </NuxtLink>
@@ -110,7 +112,10 @@ onMounted(async () => {
                         </li>
                     </ul>
 
-                    <OrderSummary :order="order" />
+                    <OrderSummary
+                        class="rounded-md"
+                        :order="order"
+                    />
                 </div>
             </div>
         </template>
