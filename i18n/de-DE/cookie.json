@@ -1,0 +1,18 @@
+{
+  "cookie": {
+    "banner": {
+      "message": "Diese Website verwendet Cookies, um eine bestmögliche Erfahrung bieten zu können.",
+      "additionalInformationTriggerButton": "Mehr Informationen...",
+      "additionalInformationTitle": "Datenschutz",
+      "additionalInformationText": "Diese Website verwendet Cookies, um eine bestmögliche Erfahrung bieten zu können. Durch die Nutzung dieser Website stimmen Sie der Verwendung von Cookies zu. Detaillierte Informationen zur Verwendung von Cookies auf dieser Website finden Sie in der Datenschutzerklärung.",
+      "denyAllButton": "Nur technisch notwendige",
+      "configureButton": "Konfigurieren",
+      "allowAllButton": "Alle Cookies akzeptieren"
+    },
+    "modal": {
+      "title": "Cookie-Voreinstellungen",
+      "settings": "Einstellungen",
+      "submitLabel": "Speichern"
+    }
+  }
+}

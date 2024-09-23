@@ -1,0 +1,18 @@
+{
+  "cookie": {
+    "banner": {
+      "message": "This website uses cookies to provide the best possible experience.",
+      "additionalInformationTriggerButton": "More Information...",
+      "additionalInformationTitle": "Data protection",
+      "additionalInformationText": "This website uses cookies to provide the best possible experience. By using this website, you agree to the use of cookies. Detailed information on the use of cookies on this website can be found in the data protection declaration.",
+      "denyAllButton": "Only technically required",
+      "configureButton": "Configure",
+      "allowAllButton": "Accept all cookies"
+    },
+    "modal": {
+      "title": "Cookie settings",
+      "settings": "Settings",
+      "submitLabel": "Save"
+    }
+  }
+}

@@ -1,20 +1,34 @@
 <script setup lang="ts">
-withDefaults(
+const props = withDefaults(
     defineProps<{
+        controller?: ReturnType<typeof useModal>;
         withCloseButton?: boolean;
         withActionsButton?: boolean;
         size?: 'sm' | 'md' | 'lg';
     }>(),
     {
+        controller: useModal,
         withCloseButton: false,
         withActionsButton: false,
         size: 'md',
     },
 );
+const { controller } = toRefs(props);
+
+const onUpdatedOpen = (value: boolean) => {
+    if (value) {
+        controller.value.open();
+    } else {
+        controller.value.close();
+    }
+};
 </script>
 
 <template>
-    <DialogRoot>
+    <DialogRoot
+        v-model:open="controller.isOpen.value"
+        @update:open="onUpdatedOpen"
+    >
         <DialogTrigger>
             <slot name="trigger"></slot>
         </DialogTrigger>

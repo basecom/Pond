@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { getTranslatedProperty, getCategoryRoute } from '@shopware-pwa/helpers-next';
+import LayoutFooterActions from './LayoutFooterActions.vue';
 
 const { navigationElements, loadNavigationElements } = useNavigation({ type: 'footer-navigation' });
 const { navigationElements: serviceNavigationElements, loadNavigationElements: loadServiceElements } = useNavigation({
@@ -49,7 +50,7 @@ onMounted(async () => {
                     </template>
                 </div>
 
-                <LanguageSwitch />
+                <LayoutFooterActions />
 
                 <!-- footer service navigation -->
                 <div class="mt-4 grid gap-1 border-t-2 border-white pt-4 md:flex md:gap-6">
