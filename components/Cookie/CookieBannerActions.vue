@@ -1,12 +1,13 @@
 <script setup lang="ts">
-const { isAcceptAllEnabled, denyAll, acceptAll } = useCookieBannerStore();
+const cookieBannerStore = useCookieBannerStore();
+const { isAcceptAllEnabled } = storeToRefs(cookieBannerStore);
 </script>
 
 <template>
     <div class="flex gap-2">
         <button
             class="cursor-pointer rounded-md bg-brand-primary px-4 py-2 text-white"
-            @click="denyAll()"
+            @click="cookieBannerStore.denyAll()"
         >
             {{ $t('cookie.banner.denyAllButton') }}
         </button>
@@ -20,11 +21,9 @@ const { isAcceptAllEnabled, denyAll, acceptAll } = useCookieBannerStore();
         <button
             v-if="isAcceptAllEnabled"
             class="cursor-pointer rounded-md bg-brand-primary px-4 py-2 text-white"
-            @click="acceptAll()"
+            @click="cookieBannerStore.acceptAll()"
         >
             {{ $t('cookie.banner.allowAllButton') }}
         </button>
     </div>
 </template>
-
-<style scoped></style>

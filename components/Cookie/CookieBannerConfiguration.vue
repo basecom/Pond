@@ -120,5 +120,3 @@ onMounted(() => {
         </div>
     </FormKit>
 </template>
-
-<style scoped></style>

@@ -5,10 +5,15 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
     const { defaultCookieGroup, filterCookieGroups } = useCookieGroupsHelper();
     const _cookieGroups = ref<CookieGroup[]>(defaultCookieGroup);
     const _activatedCookies = ref<CookieEntry['cookie'][]>([]);
-    const _isGoogleAnalyticsEnabled = ref(true);
-    const _isCaptchaV2Enabled = ref(true);
-    const _isCaptchaV3Enabled = ref(true);
-    const _isWishlistEnabled = ref(true);
+    // TODO: Modify to take the value from configuration
+    const _isGoogleAnalyticsEnabled = ref(false);
+    // TODO: Modify to take the value from configuration
+    const _isCaptchaV2Enabled = ref(false);
+    // TODO: Modify to take the value from configuration
+    const _isCaptchaV3Enabled = ref(false);
+    // TODO: Modify to take the value from configuration
+    const _isWishlistEnabled = ref(false);
+    // TODO: Modify to take the value from configuration
     const _isAcceptAllEnabled = ref(true);
     const _showCookieBanner = ref(false);
 

@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
     <div>
         <span>{{ $t('cookie.banner.message') }}</span>
@@ -14,5 +12,3 @@
         </LazySharedModal>
     </div>
 </template>
-
-<style scoped></style>

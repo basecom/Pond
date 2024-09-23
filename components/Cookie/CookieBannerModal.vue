@@ -27,5 +27,3 @@ const onUpdateCookie = (active: CookieEntry['cookie'][], inactive: CookieEntry['
         </template>
     </LazySharedModal>
 </template>
-
-<style scoped></style>
