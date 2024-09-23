@@ -13,5 +13,3 @@ const content: Schemas['CmsSlot'] = getSlotContent('content');
 <template>
     <CmsLoader :content="content" />
 </template>
-
-<style scoped></style>

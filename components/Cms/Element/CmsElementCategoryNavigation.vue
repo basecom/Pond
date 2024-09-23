@@ -20,7 +20,7 @@ const isActive = (path: Schemas['SeoUrl'][] | undefined, onlyExactMatch: boolean
 </script>
 
 <template>
-    <ul v-if="navigationElements && navigationElements.length">
+    <ul v-if="navigationElements?.length">
         <li
             v-for="item in navigationElements"
             :key="item.id"
@@ -50,5 +50,3 @@ const isActive = (path: Schemas['SeoUrl'][] | undefined, onlyExactMatch: boolean
         </li>
     </ul>
 </template>
-
-<style scoped></style>
