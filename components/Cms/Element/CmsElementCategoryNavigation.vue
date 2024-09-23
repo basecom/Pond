@@ -3,7 +3,7 @@ import type { CmsElementCategoryNavigation } from '@shopware-pwa/composables-nex
 import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const props = defineProps<{
+defineProps<{
     element: CmsElementCategoryNavigation;
 }>();
 
@@ -16,14 +16,16 @@ const isActive = (path: Schemas['SeoUrl'][] | undefined, onlyExactMatch: boolean
     const formattedPath = '/' + path[0]?.seoPathInfo;
     const { path: currentPath } = useRoute();
     return onlyExactMatch ? formattedPath === currentPath : currentPath.includes(formattedPath);
-}
+};
 </script>
-
 
 <template>
     <ul v-if="navigationElements && navigationElements.length">
-        <li class="mt-4 border-b border-gray-300 pb-4 pl-2"
-            v-for="item in navigationElements" :key="item.id">
+        <li
+            v-for="item in navigationElements"
+            :key="item.id"
+            class="border-gray-300 mt-4 border-b pb-4 pl-2"
+        >
             <NuxtLink
                 :to="getCategoryRoute(item)"
                 class="text-lg"
@@ -32,8 +34,11 @@ const isActive = (path: Schemas['SeoUrl'][] | undefined, onlyExactMatch: boolean
                 {{ getTranslatedProperty(item, 'name') }}
             </NuxtLink>
             <ul v-if="item.children && item.children.length">
-                <li class="mt-2 ml-3 text-base"
-                     v-for="child in item.children" :key="child.id">
+                <li
+                    v-for="child in item.children"
+                    :key="child.id"
+                    class="ml-3 mt-2 text-base"
+                >
                     <NuxtLink
                         :to="getCategoryRoute(child)"
                         :class="{ 'font-bold': isActive(child.seoUrls) }"
@@ -46,6 +51,4 @@ const isActive = (path: Schemas['SeoUrl'][] | undefined, onlyExactMatch: boolean
     </ul>
 </template>
 
-
-<style scoped>
-</style>
+<style scoped></style>

@@ -11,11 +11,7 @@ const content: Schemas['CmsSlot'] = getSlotContent('content');
 </script>
 
 <template>
-    <CmsLoader
-        :content="content"
-    />
+    <CmsLoader :content="content" />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
