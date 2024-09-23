@@ -7,6 +7,7 @@ const { push } = useRouter();
 const { refreshCart, isEmpty, cartItems } = useCart();
 const { createOrder } = useCheckout();
 const { pushError, pushSuccess } = useNotifications();
+const { t } = useI18n();
 
 const placeOrder = async () => {
     try {
@@ -14,9 +15,9 @@ const placeOrder = async () => {
         await push('/checkout/finish/' + order.id);
         await refreshCart();
 
-        pushSuccess('Your order has been placed.');
+        pushSuccess(t('checkout.confirm.order.successMessage'));
     } catch (error) {
-        pushError('An error occured trying finish the order. Please try again.');
+        pushError(t('checkout.confirm.order.errorMessage'));
 
         if (error instanceof ApiClientError) {
             console.log(error.details);
@@ -51,7 +52,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                     </div>
 
                     <div class="rounded-md p-4 shadow">
-                        <div class="font-bold">{{ $t('checkout.confirm.lineItemsHeading') }}</div>
+                        <div class="font-bold">{{ $t('checkout.lineItemsHeading') }}</div>
 
                         <ul class="divide-y divide-gray-medium">
                             <li

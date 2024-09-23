@@ -2,6 +2,7 @@ import global from './global.json';
 import account from './account.json';
 import checkout from './checkout.json';
 import cms from './cms.json';
+import composable from './composable.json';
 import layout from './layout.json';
 import navigation from './navigation.json';
 import order from './order.json';
@@ -15,6 +16,7 @@ export default {
     ...account,
     ...checkout,
     ...cms,
+    ...composable,
     ...layout,
     ...navigation,
     ...order,

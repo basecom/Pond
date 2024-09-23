@@ -17,7 +17,7 @@ propertyGroups.value = product.value.properties
 
 const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][] => {
     return product.value.properties.filter(
-        (propertiy: Schemas['PropertyGroupOption']) => propertiy.group.id === groupId,
+        (property: Schemas['PropertyGroupOption']) => property.group.id === groupId,
     );
 };
 </script>

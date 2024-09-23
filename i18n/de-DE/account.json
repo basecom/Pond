@@ -1,8 +1,45 @@
 {
   "account": {
+    "greeting": "Hallo {firstname} {lastname}",
+    "dropdownHeading": "Dein Konto",
     "overview": {
-      "heading": "Account",
-      "greeting": "Hi {firstname} {lastname}"
+      "heading": "Übersicht",
+      "subHeading": "Hier siehst du deine Daten, die gespeicherte Bezahlmethode und Adressen.",
+      "personalInfo": {
+        "heading": "Persönliche Informationen",
+        "nameLabel": "Name:",
+        "emailLabel": "Email:"
+      },
+      "paymentMethod": {
+        "heading": "Bezahlmethode",
+        "nameLabel": "Name:",
+        "descriptionLabel": "Beschreibung:"
+      },
+      "billingAddressHeading": "Rechnungsadresse",
+      "shippingAddressHeading": "Lieferadresse",
+      "newsletter": {
+        "heading": "Newsletter Abonnement",
+        "inputLabel": "Ja, ich möchte den kostenlosen Newsletter erhalten. (Ich kann ihn jederzeit abbestellen)"
+      }
+    },
+    "profile": {
+      "heading": "Dein Profil"
+    },
+    "address": {
+      "heading": "Adressen"
+    },
+    "payment": {
+      "heading": "Bezahlmethoden"
+    },
+    "orders": {
+      "heading": "Bestellungen",
+      "noOrdersFoundInfo": "Whoops, es wurden keine Bestellungen gefunden. Hast du überhaupt schon was bestellt?",
+      "paymentStatusLabel": "Bezahlung",
+      "paymentMethodLabel": "Bezahlmethode",
+      "shippingStatusLabel": "Versand",
+      "shippingMethodLabel": "Versandmethode",
+      "lineItemsHeading": "Produkte",
+      "status": "Status"
     },
     "login": {
       "successMessage": "Du wurdest erfolgreich eingeloggt.",
