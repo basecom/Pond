@@ -33,14 +33,24 @@ const handleNewsletterChange = async (event: Event) => {
     >
         <div class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">{{ $t('account.overview.personalInfo.heading') }}</h3>
-            <p><strong>{{ $t('account.overview.personalInfo.nameLabel') }}</strong> {{ customer.firstName }} {{ customer.lastName }}</p>
-            <p><strong>{{ $t('account.overview.personalInfo.emailLabel') }}</strong> {{ customer.email }}</p>
+            <p>
+                <strong>{{ $t('account.overview.personalInfo.nameLabel') }}</strong> {{ customer.firstName }}
+                {{ customer.lastName }}
+            </p>
+            <p>
+                <strong>{{ $t('account.overview.personalInfo.emailLabel') }}</strong> {{ customer.email }}
+            </p>
         </div>
 
         <div class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">{{ $t('account.overview.paymentMethod.heading') }}</h3>
-            <p><strong>{{ $t('account.overview.paymentMethod.nameLabel') }}</strong> {{ paymentMethod.name }}</p>
-            <p><strong>{{ $t('account.overview.paymentMethod.descriptionLabel') }}</strong> {{ paymentMethod.description }}</p>
+            <p>
+                <strong>{{ $t('account.overview.paymentMethod.nameLabel') }}</strong> {{ paymentMethod.name }}
+            </p>
+            <p>
+                <strong>{{ $t('account.overview.paymentMethod.descriptionLabel') }}</strong>
+                {{ paymentMethod.description }}
+            </p>
         </div>
     </div>
 

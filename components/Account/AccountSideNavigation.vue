@@ -33,7 +33,12 @@ const navItems = ref([
             v-if="customerStore.customer && !props.isInHeader"
             class="text-2xl font-bold"
         >
-            {{ $t('account.greeting', { firstname: customerStore.customer.firstName, lastname: customerStore.customer.lastName }) }}
+            {{
+                $t('account.greeting', {
+                    firstname: customerStore.customer.firstName,
+                    lastname: customerStore.customer.lastName,
+                })
+            }}
         </div>
 
         <div
