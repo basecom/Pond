@@ -26,70 +26,66 @@ const { apiClient } = useShopwareContext();
 const products = ref<Schemas["Product"][]>([]);
 const isLoading = ref(false);
 const router = useRouter();
+const route = useRoute();
+const page = ref(route.query.page ? Number(route.query.page) : defaultPage);
+const cacheKey = computed(() => `wishlist-${JSON.stringify(route.query)}`);
+
+await getWishlistProducts({ page: page.value, limit: defaultLimit});
 
 const clearWishlistHandler = async () => {
-  try {
-    isLoading.value = true;
-    await clearWishlist();
-  } finally {
-    isLoading.value = false;
-  }
+    try {
+        isLoading.value = true;
+        await clearWishlist();
+    } finally {
+        isLoading.value = false;
+    }
 };
 
-const loadProductsByItemIds = async (itemIds: string[]): Promise<void> => {
-  isLoading.value = true;
-  try {
-    const { data } = await apiClient.invoke("readProduct post /product", {
-      body: { ids: itemIds},
-      
+const loadProductsByItemIds = async (itemIds: string[], cacheKey: string) => {
+    isLoading.value = true;
+    const { status } = await useAsyncData(cacheKey, async () => {
+        const { data } = await apiClient.invoke("readProduct post /product", { 
+            body: { ids: itemIds},
+        });
+        if(data?.elements)
+            products.value = data.elements;
+        return data;
     });
-    if (data?.elements) {
-      products.value = data.elements;
-    }
-  } catch (error) {
-    console.error("[wishlist][loadProductsByItemIds]", error);
-  }
-
-  isLoading.value = false;
+    if(status.value !== "pending")
+        isLoading.value = false
 };
 
 const changePage = async (page: number) => {
-  await router.push({
-    query: {
-      page: page,
-    },
-  });
-  await getWishlistProducts({
-      page: page,
-      limit: defaultLimit,
+    await router.push({
+        query: {
+        page: page,
+        },
+    });
+    await getWishlistProducts({
+        page: page,
+        limit: defaultLimit,
     });
 };
 
 watch(
-  items,
-  async (items, oldItems) => {
-    if (items.length !== oldItems?.length) {
-      products.value = products.value.filter(({ id }) => items.includes(id));
-    }
-    if (!items.length) {
-      return;
-    }
-    await loadProductsByItemIds(items);
-  },
-  {
-    immediate: true,
-  },
+    items,
+    async (items, oldItems) => {
+        if (items.length !== oldItems?.length) {
+            products.value = products.value.filter(({ id }) => items.includes(id));
+        }
+        if (!items.length) {
+            return;
+        }
+        await loadProductsByItemIds(items, cacheKey.value);
+    },
+    {
+        immediate: true,
+    },
 );
-
-onMounted(async () => {
-  const route = useRoute();
-  const page = ref(route.query.page ? Number(route.query.page) : defaultPage);
-  await getWishlistProducts({ page: page.value, limit: defaultLimit});
-});
 </script>
 
 <template>
-  <div class="relative container mx-auto" >
+    <div class="relative container mx-auto" >
         <UtilityLoadingSpinner
             v-if="isLoading"
             size="normal"
@@ -142,6 +138,6 @@ onMounted(async () => {
                 </FormKit>
             </NuxtLink>
         </div>
-  </div>  
+    </div>  
 </template>
 

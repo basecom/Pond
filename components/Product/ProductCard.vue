@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getProductRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import ProductAddToWishlist from './ProductAddToWishlist.vue';
 
 const props = withDefaults(
     defineProps<{
@@ -20,7 +21,7 @@ const cover = getProductCover(props.product.cover);
 <template>
     <div class="relative rounded-md p-4 shadow-md">
         <div class="absolute right-0 top-0 z-[2] p-4">
-            <SharedAddToWishlist :productId="props.product.id"></SharedAddToWishlist>
+            <ProductAddToWishlist :productId="props.product.id" />
         </div>
         <NuxtLink
             :to="getProductRoute(product)"

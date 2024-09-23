@@ -1,11 +1,3 @@
-<template>
-    <div class="p-2 cursor-pointer select-none" @click="handleWishlistButtonClicked">
-        <FormKitIcon
-            class="block h-6 w-6 text-red-500"
-            :icon = "isInWishlist ? 'heart' : 'empty-heart'"
-        />
-    </div>
-</template>
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 
@@ -43,3 +35,11 @@ const handleWishlistButtonClicked = async () =>{
     }
 }
 </script>
+<template>
+    <div class="p-2 cursor-pointer select-none" @click="handleWishlistButtonClicked">
+        <FormKitIcon
+            class="block h-6 w-6 text-red-500"
+            :icon = "isInWishlist ? 'heart' : 'empty-heart'"
+        />
+    </div>
+</template>
