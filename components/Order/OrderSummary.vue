@@ -1,15 +1,9 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 
-withDefaults(
-    defineProps<{
-        order: Schemas['Order'];
-        isAccountOrderItem?: boolean;
-    }>(),
-    {
-        isAccountOrderItem: false,
-    },
-);
+defineProps<{
+    order: Schemas['Order'];
+}>();
 </script>
 
 <template>
