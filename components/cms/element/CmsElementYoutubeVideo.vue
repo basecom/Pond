@@ -12,8 +12,7 @@ const videoUrl = computed(() => `https://www.youtube.com/embed/${videoId}`)
 </script>
 
 <template>
-    <div ref="youtubeVideo" class="my-0 mx-auto">
-        <div class="youtube-player h-full w-full relative ">
+    <div ref="youtubeVideo" class="my-0 mx-auto youtube-player h-full w-full relative">
             <iframe
                 :src="videoUrl"
                 frameborder="0"
@@ -22,7 +21,6 @@ const videoUrl = computed(() => `https://www.youtube.com/embed/${videoId}`)
                 allowfullscreen
             ></iframe>
         </div>
-    </div>
 </template>
 
 <style scoped>
