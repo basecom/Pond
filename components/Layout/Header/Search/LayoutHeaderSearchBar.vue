@@ -106,6 +106,7 @@ onMounted(() => {
                         v-if="getTotal > 0"
                         :to="'/search?search=' + typingQuery"
                         class="block w-full py-3"
+                        @click="$emit('closeSearch')"
                     >
                         <template v-if="getTotal > 1">
                             <span>View all {{ getTotal }} results</span>
