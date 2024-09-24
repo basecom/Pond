@@ -28,8 +28,8 @@ onMounted(async () => {
 
 <template>
     <CheckoutConfirmCard
-        title="Payment Method"
-        subtitle="Select a payment method"
+        :title="$t('checkout.confirm.payment.cardTitle')"
+        :subtitle="$t('checkout.confirm.payment.cardSubtitle')"
     >
         <FormKit
             v-if="paymentOptions.length > 0"

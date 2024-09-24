@@ -1,0 +1,116 @@
+{
+  "account": {
+    "greeting": "Hallo {firstname} {lastname}",
+    "dropdownHeading": "Dein Konto",
+    "overview": {
+      "heading": "Übersicht",
+      "subHeading": "Hier siehst du deine Daten, die gespeicherte Bezahlmethode und Adressen.",
+      "personalInformation": {
+        "heading": "Persönliche Informationen",
+        "nameLabel": "Name:",
+        "emailLabel": "Email:"
+      },
+      "paymentMethod": {
+        "heading": "Bezahlmethode",
+        "nameLabel": "Name:",
+        "descriptionLabel": "Beschreibung:"
+      },
+      "billingAddressHeading": "Rechnungsadresse",
+      "shippingAddressHeading": "Lieferadresse",
+      "newsletter": {
+        "heading": "Newsletter Abonnement",
+        "label": "Ja, ich möchte den kostenlosen Newsletter erhalten. (Ich kann ihn jederzeit abbestellen)"
+      }
+    },
+    "profile": {
+      "heading": "Dein Profil"
+    },
+    "address": {
+      "heading": "Adressen"
+    },
+    "payment": {
+      "heading": "Bezahlmethoden"
+    },
+    "orders": {
+      "heading": "Bestellungen",
+      "noOrdersFound": "Whoops, es wurden keine Bestellungen gefunden. Hast du überhaupt schon was bestellt?",
+      "paymentStatusLabel": "Bezahlung",
+      "paymentMethodLabel": "Bezahlmethode",
+      "shippingStatusLabel": "Versand",
+      "shippingMethodLabel": "Versandmethode",
+      "lineItemsHeading": "Produkte",
+      "status": "Status"
+    },
+    "login": {
+      "successMessage": "Du wurdest erfolgreich eingeloggt.",
+      "errorMessage": "Es gab einen Fehler beim Login. Bitte versuch es noch einmal.",
+      "submitLabel": "Einloggen",
+      "email": {
+        "label": "Email",
+        "placeholder": "Gib deine Emailadresse ein",
+        "help": "Deine Emailadresse"
+      },
+      "password": {
+        "label": "Passwort"
+      },
+      "createAccountLink": "Erstelle hier deinen Account"
+    },
+    "register": {
+      "submitLabel": "Registrieren",
+      "dataHeading": "Deine Daten:",
+      "salutation": {
+        "label": "Anrede",
+        "placeholder": "Wähle deine Anrede",
+        "help": "Wähle aus, wie du angesprochen werden möchtest"
+      },
+      "firstname": {
+        "label": "Vorname",
+        "placeholder": "Dein Vorname"
+      },
+      "lastname": {
+        "label": "Nachname",
+        "placeholder": "Dein Nachname"
+      },
+      "addressHeading": "Deine Adresse:",
+      "street": {
+        "label": "Straße",
+        "placeholder": "Deine Straße und Hausnummer"
+      },
+      "zipCode": {
+        "label": "Postleitzahl",
+        "placeholder": "Deine Postleitzahl"
+      },
+      "city": {
+        "label": "Stadt",
+        "placeholder": "Deine Stadt"
+      },
+      "country": {
+        "label": "Land:",
+        "placeholder": "Wähle dein Land"
+      },
+      "accountDataHeading": "Deine Accountdaten:",
+      "email": {
+        "label": "Email",
+        "placeholder": "Deine Emailadresse"
+      },
+      "password": {
+        "label": "Passwort",
+        "placeholder": "Wähle ein Passwort"
+      },
+      "terms": {
+        "label": "AGB",
+        "help": "Akzeptierst du unsere Allgemeinen Geschäftsbedingungen?"
+      }
+    },
+    "logout": {
+      "buttonLabel": "Logout"
+    },
+    "loginModal": {
+      "heading": "Login",
+      "tabs": {
+        "loginTabHeading": "Einloggen",
+        "registerTabHeading": "Registrieren"
+      }
+    }
+  }
+}
