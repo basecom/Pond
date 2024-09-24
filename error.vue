@@ -1,41 +1,34 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app';
 
-defineProps<{
+const props = defineProps<{
     error: NuxtError;
 }>();
 
-const customerStore = useCustomerStore();
-const { refreshCart } = useCart();
-const { loading } = storeToRefs(customerStore);
+const pageNotFound = computed(() => {
+    return props.error.statusCode === 404;
+});
 
-customerStore.refreshContext();
-refreshCart();
+const isMaintenanceMode = computed(() => {
+    // 503 could also be thrown if the server is under heavy load, so we check the message too
+    return props.error.statusCode === 503 && props.error.message.includes('maintenance mode');
+});
 </script>
 
 <template>
     <NuxtLoadingIndicator />
-    <UtilityLoadingSpinner v-if="loading" />
 
-    <LayoutHeader v-show="!loading" />
+    <template v-if="pageNotFound">
+        <!-- TODO: History back wenn man von error page woanders hingeht und dann zurück auf error drauf lädt nicht -->
+        <ErrorNotFound />
+    </template>
 
-    <UtilityToastNotifications />
+    <template v-else-if="isMaintenanceMode">
+        <ErrorMaintenance />
+    </template>
 
-    <main
-        v-show="!loading"
-        class="mt-4 w-screen"
-    >
-        <div class="container flex flex-col items-center justify-center">
-            <h1 class="pb-4">{{ error.statusCode }} - {{ error.message }}</h1>
-
-            <NuxtLink
-                class="inline-flex max-w-56 items-center justify-center bg-brand-primary px-4 py-2 text-center text-white hover:bg-brand-primary-dark"
-                :to="{ name: 'index' }"
-            >
-                Homepage
-            </NuxtLink>
-        </div>
-    </main>
-
-    <LayoutFooter v-show="!loading" />
+    <template v-else>
+        <!-- TODO: History back wenn man von error page woanders hingeht und dann zurück auf error drauf lädt nicht -->
+        <ErrorUnknown :error="props.error" />
+    </template>
 </template>
