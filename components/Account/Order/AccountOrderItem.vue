@@ -12,14 +12,14 @@ const shippingStatus = computed(() => {
     return stateName ? { name: stateName } : null;
 });
 
-const dateFormat = 'MM/DD/YYYY';
 const formattedOrderDate = computed(() => {
     if (order.value?.orderDate) {
-        return useDateFormat(order.value.orderDate, dateFormat, {
+        return useDateFormat(order.value.orderDate, 'DD.MM.YYYY', {
             locales: (typeof navigator !== 'undefined' && navigator.language) || 'en-US',
         });
     }
-    return '';
+
+    return undefined;
 });
 
 onMounted(async () => {
@@ -36,15 +36,19 @@ onMounted(async () => {
     >
         <template #title>
             <div class="mt-4 p-4">
-                <div class="mt-4 flex">
-                    <div class="text-4xl font-bold">{{ formattedOrderDate }}</div>
+                <div class="mt-4 flex gap-4">
+                    <div class="text-4xl font-bold" v-if="formattedOrderDate">
+                        {{ formattedOrderDate }}
+                    </div>
+
                     <div
                         v-if="status"
-                        class="ml-4 rounded-full bg-status-info px-4 py-2 text-white"
+                        class="rounded-full bg-status-info px-4 py-2 text-white"
                     >
                         {{ status }}
                     </div>
                 </div>
+
                 <div class="gap-12 lg:flex">
                     <AccountOrderItemInfo
                         title="Payment"

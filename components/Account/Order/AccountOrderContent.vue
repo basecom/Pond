@@ -3,15 +3,21 @@ const customerStore = useCustomerStore();
 const customerId = computed(() => customerStore.customer?.id);
 const { orders, loadOrders } = useCustomerOrders();
 
+const isLoading = ref(false);
+
 watch(customerId, async newId => {
     if (newId) {
+        isLoading.value = true;
         await loadOrders({ customerId: newId });
+        isLoading.value = false;
     }
 });
 
 onMounted(async () => {
     if (customerId.value) {
+        isLoading.value = true;
         await loadOrders({ customerId: customerId.value });
+        isLoading.value = false;
     }
 });
 </script>
@@ -19,7 +25,14 @@ onMounted(async () => {
 <template>
     <div>
         <h1 class="mb-2 font-bold">Orders</h1>
-        <ul v-if="orders.length > 0">
+
+        <div class="relative h-20" v-if="isLoading">
+            <UtilityLoadingSpinner
+                class="bg-white opacity-50"
+            />
+        </div>
+
+        <ul v-if="orders.length > 0 && !isLoading">
             <li
                 v-for="order in orders"
                 :key="order.id"
@@ -29,6 +42,9 @@ onMounted(async () => {
                 </SharedAccordionRoot>
             </li>
         </ul>
-        <p v-else>Oops, no orders have been found. Have you placed an order yet?</p>
+
+        <p v-else-if="!isLoading">
+            Oops, no orders have been found. Have you placed an order yet?
+        </p>
     </div>
 </template>
