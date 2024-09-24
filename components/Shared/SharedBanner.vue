@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = withDefaults(
+withDefaults(
     defineProps<{
         type?: 'info';
         message: string;
@@ -21,7 +21,7 @@ const props = withDefaults(
             </div>
         </div>
         <div class="message pl-2 text-brand-primary-dark">
-            {{ props.message }}
+            {{ message }}
         </div>
     </div>
 </template>
