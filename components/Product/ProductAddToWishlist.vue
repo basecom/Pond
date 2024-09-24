@@ -15,31 +15,33 @@ const { isInWishlist, addToWishlist, removeFromWishlist } = useProductWishlist(p
 const { pushSuccess, pushError, pushInfo } = useNotifications();
 const { t } = useI18n();
 
-const handleWishlistButtonClicked = async () =>{
-    if(isInWishlist.value){
+const handleWishlistButtonClicked = async () => {
+    if (isInWishlist.value) {
         try {
             await removeFromWishlist();
-            pushInfo( t('wishlist.removedSuccesfully'))
+            pushInfo(t('wishlist.removedSuccesfully'));
         } catch (error) {
-            pushError(t('wishlist.errorRemovingProduct'))
+            pushError(t('wishlist.errorRemovingProduct'));
         }
-        
-    }
-    else{
+    } else {
         try {
             await addToWishlist();
-            pushSuccess( t('wishlist.addedSuccesfully'))
+            pushSuccess(t('wishlist.addedSuccesfully'));
         } catch (error) {
-            pushSuccess(t('wishlist.errorAddingProduct'))
+            pushSuccess(t('wishlist.errorAddingProduct'));
         }
     }
-}
+};
 </script>
+
 <template>
-    <div class="p-2 cursor-pointer select-none" @click="handleWishlistButtonClicked">
+    <div
+        class="cursor-pointer select-none p-2"
+        @click="handleWishlistButtonClicked"
+    >
         <FormKitIcon
-            class="block h-6 w-6 text-red-500"
-            :icon = "isInWishlist ? 'heart' : 'empty-heart'"
+            class="text-red-500 block h-6 w-6"
+            :icon="isInWishlist ? 'heart' : 'empty-heart'"
         />
     </div>
 </template>

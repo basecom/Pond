@@ -3,5 +3,5 @@ import wishlist from './wishlist.json';
 
 export default {
     ...cms,
-    ...wishlist
+    ...wishlist,
 };

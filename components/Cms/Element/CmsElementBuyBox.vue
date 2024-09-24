@@ -20,14 +20,14 @@ const { product } = useProduct(props.element.data.product);
 
         <ProductAvailability :product="product" />
 
-       <div class="flex flex-row w-full gap-4">
-        <ProductAddToCart
-            :product="product"
-            :label="true"
-        />
-        <div class="rounded-md border border-gray-medium bg-white">
-            <ProductAddToWishlist productId="product.id"/>
+        <div class="flex w-full flex-row gap-4">
+            <ProductAddToCart
+                :product="product"
+                :label="true"
+            />
+            <div class="rounded-md border border-gray-medium bg-white">
+                <ProductAddToWishlist product-id="product.id" />
+            </div>
         </div>
-       </div>
     </div>
 </template>
