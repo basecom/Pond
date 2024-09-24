@@ -5,22 +5,22 @@ const props = withDefaults(
         message: string;
     }>(),
     {
-        type: 'info'
+        type: 'info',
     },
 );
 </script>
 
 <template>
-    <div class="no-products text-white h-10 w-full flex bg-brand-primary-light items-center">
-        <div class="flex items-center justify-center bg-brand-primary-dark h-full w-10">
-        <div class="border-full flex items-center justify-center h-6 w-6 rounded-full border-2">
-        <FormKitIcon
-            icon="info"
-            class="h-3 w-3 block rounded-full "
-        />
+    <div class="no-products flex h-10 w-full items-center bg-brand-primary-light text-white">
+        <div class="flex h-full w-10 items-center justify-center bg-brand-primary-dark">
+            <div class="border-full flex h-6 w-6 items-center justify-center rounded-full border-2">
+                <FormKitIcon
+                    icon="info"
+                    class="block h-3 w-3 rounded-full"
+                />
+            </div>
         </div>
-        </div>
-        <div class="pl-2 message text-brand-primary-dark">
+        <div class="message pl-2 text-brand-primary-dark">
             {{ props.message }}
         </div>
     </div>

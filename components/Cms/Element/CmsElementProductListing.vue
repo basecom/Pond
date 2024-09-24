@@ -56,25 +56,28 @@ const changePage = async (page: number) => {
 
 <template>
     <div v-if="getElements[0]">
-    <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+        <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+            <template
+                v-for="product in getElements"
+                :key="product.id"
+            >
+                <ProductCard
+                    :product="product"
+                    :layout="element.translated.config.boxLayout.value"
+                />
+            </template>
+        </div>
 
-        <template
-            v-for="product in getElements"
-            :key="product.id"
-        >
-            <ProductCard
-                :product="product"
-                :layout="element.translated.config.boxLayout.value"
-            />
-        </template>
+        <LayoutPagination
+            :total="getTotal"
+            :items-per-page="getLimit"
+            :default-page="getCurrentPage"
+            @update-page="page => changePage(page)"
+        />
     </div>
-
-    <LayoutPagination
-        :total="getTotal"
-        :items-per-page="getLimit"
-        :default-page="getCurrentPage"
-        @update-page="page => changePage(page)"
+    <SharedBanner
+        v-else
+        type="info"
+        message="No Products found"
     />
-    </div>
-    <SharedBanner v-else type="info" message="No Products found" />
 </template>
