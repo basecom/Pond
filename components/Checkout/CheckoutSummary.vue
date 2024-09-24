@@ -22,10 +22,10 @@ const calculatedTaxes = computed(() => {
 
 <template>
     <div class="rounded-md bg-gray-light p-4">
-        <h2 class="pb-4">Cart summary</h2>
+        <h2 class="pb-4">{{ $t('checkout.summary.heading') }}</h2>
         <template v-if="!reducedDisplay">
             <CheckoutSummaryValues
-                label="net"
+                :label="$t('checkout.summary.netPriceLabel')"
                 :value="netPrice"
             />
 
@@ -34,19 +34,19 @@ const calculatedTaxes = computed(() => {
                 :key="`calculated-tax-${index}`"
             >
                 <CheckoutSummaryValues
-                    label="tax"
+                    :label="$t('checkout.summary.taxLabel')"
                     :value="calculatedTax.tax"
                 />
             </template>
 
             <CheckoutSummaryValues
-                label="shipping"
+                :label="$t('checkout.summary.shippingCostLabel')"
                 :value="shippingTotal"
             />
         </template>
 
         <CheckoutSummaryValues
-            label="total"
+            :label="$t('checkout.summary.totalLabel')"
             :value="totalPrice"
             :highlight="true"
         />

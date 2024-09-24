@@ -1,0 +1,12 @@
+{
+  "shared": {
+    "modal": {
+      "cancelButtonLabel": "Cancel",
+      "closeButtonAriaLabel": "Close"
+    },
+    "popover": {
+      "triggerAriaLabel": "Account dropdown",
+      "closeButtonAriaLabel": "Close"
+    }
+  }
+}

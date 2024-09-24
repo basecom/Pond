@@ -8,7 +8,7 @@ const { getWishlistProducts } = useWishlist();
 await refreshSessionContext();
 await getWishlistProducts();
 
-const { locale } = useI18n();
+const { t, locale } = useI18n();
 const routePath = route.path.replace(`${locale.value}`, '').replace('//', '/');
 
 const { data: seoResult } = await useAsyncData('seoPath' + routePath, async () => {
@@ -29,7 +29,7 @@ const { routeName, foreignKey } = useNavigationContext(seoResult);
 const { componentExists } = useCmsUtils();
 
 if (!routeName.value) {
-    throw createError({ statusCode: 404, message: 'page not found' });
+    throw createError({ statusCode: 404, message: t('global.errorMessage404') });
 }
 </script>
 

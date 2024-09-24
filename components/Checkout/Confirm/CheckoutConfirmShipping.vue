@@ -31,8 +31,8 @@ onMounted(async () => {
 
 <template>
     <CheckoutConfirmCard
-        title="Shipping Method"
-        subtitle="Select a shipping method"
+        :title="$t('checkout.confirm.shipping.cardTitle')"
+        :subtitle="$t('checkout.confirm.shipping.cardSubtitle')"
     >
         <FormKit
             v-if="shippingOptions.length > 0"

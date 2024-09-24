@@ -51,7 +51,7 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
                 :src="imageAttrs.src"
                 :type="mimeType"
             />
-            Your browser does not support the video tag.
+            {{ $t('cms.element.videoTagNotSupported') }}
         </video>
         <img
             v-else

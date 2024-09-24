@@ -1,5 +1,11 @@
 {
   "cms": {
-    "componentNotFound": "{componentName} konnte nicht gefunden werden"
+    "componentNotFound": "{componentName} konnte nicht gefunden werden",
+    "element": {
+      "videoTagNotSupported": "Dein Browser unterstützt video-Tags nicht.",
+      "product": {
+        "descriptionHeading": "Artikelbeschreibung"
+      }
+    }
   }
 }

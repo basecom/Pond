@@ -14,10 +14,10 @@ withDefaults(
 
 <template>
     <div class="bg-gray-light p-4">
-        <h2 class="pb-4">Order summary</h2>
+        <h2 class="pb-4">{{ $t('order.summary.heading') }}</h2>
 
         <CheckoutSummaryValues
-            label="net"
+            :label="$t('order.summary.netPriceLabel')"
             :value="order.price.netPrice"
         />
 
@@ -26,18 +26,18 @@ withDefaults(
             :key="`calculated-tax-${index}`"
         >
             <CheckoutSummaryValues
-                label="tax"
+                :label="$t('order.summary.taxLabel')"
                 :value="calculatedTax.tax"
             />
         </template>
 
         <CheckoutSummaryValues
-            label="shipping"
+            :label="$t('order.summary.shippingCostLabel')"
             :value="order.shippingTotal"
         />
 
         <CheckoutSummaryValues
-            label="total"
+            :label="$t('order.summary.totalLabel')"
             :value="order.price.totalPrice"
             :highlight="true"
         />
