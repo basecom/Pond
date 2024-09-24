@@ -26,7 +26,7 @@ const { product } = useProduct(props.element.data.product);
                 :label="true"
             />
             <div class="rounded-md border border-gray-medium bg-white">
-                <ProductAddToWishlist product-id="product.id" />
+                <ProductAddToWishlist :productId="product.id" />
             </div>
         </div>
     </div>
