@@ -15,7 +15,7 @@ refreshCart();
 
 <template>
     <NuxtLoadingIndicator />
-    <LoadingSpinner v-if="loading" />
+    <UtilityLoadingSpinner v-if="loading" />
 
     <Header v-show="!loading" />
 
