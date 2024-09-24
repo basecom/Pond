@@ -25,9 +25,9 @@ onMounted(async () => {
                 <h1 class="mb-6">{{ $t('checkout.finish.heading') }}</h1>
 
                 <p class="mb-4">
-                    {{ $t('checkout.finish.confirmationInfo') }}
+                    {{ $t('checkout.finish.confirmationMessage') }}
                     <br />
-                    {{ $t('checkout.finish.emailInfo') }}
+                    {{ $t('checkout.finish.emailMessage') }}
                 </p>
             </div>
 

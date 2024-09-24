@@ -6,8 +6,8 @@ const tos = ref(false);
     <CheckoutConfirmCard :title="$t('checkout.confirm.terms.cardTitle')">
         <FormKit
             type="checkbox"
-            :label="$t('checkout.confirm.termsInput.label')"
-            :help="$t('checkout.confirm.termsInput.help')"
+            :label="$t('checkout.confirm.terms.label')"
+            :help="$t('checkout.confirm.terms.help')"
             name="terms"
             decorator-icon="check"
             :value="tos"

@@ -9,7 +9,7 @@ const customerStore = useCustomerStore();
             class="text-sm"
         >
             {{
-                $t('checkout.confirm.personal.loggedInInfo', {
+                $t('checkout.confirm.personal.loggedInMessage', {
                     firstname: customerStore.customer.firstName,
                     lastname: customerStore.customer.lastName,
                 })

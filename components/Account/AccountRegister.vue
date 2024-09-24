@@ -72,9 +72,9 @@ const currentCountry = computed(() => sessionContext.countryId.value);
 
         <FormKit
             type="select"
-            :label="$t('account.register.salutationInput.label')"
+            :label="$t('account.register.salutation.label')"
             name="salutationId"
-            :placeholder="$t('account.register.salutationInput.placeholder')"
+            :placeholder="$t('account.register.salutation.placeholder')"
             :errors="errorOfField('firstName', apiErrors)"
             validation="required"
             :classes="{
@@ -83,14 +83,14 @@ const currentCountry = computed(() => sessionContext.countryId.value);
                 },
             }"
             :options="salutationOptions"
-            :help="$t('account.register.salutationInput.help')"
+            :help="$t('account.register.salutation.help')"
         />
 
         <FormKit
             type="text"
-            :label="$t('account.register.firstnameInput.label')"
+            :label="$t('account.register.firstname.label')"
             name="firstName"
-            :placeholder="$t('account.register.firstnameInput.placeholder')"
+            :placeholder="$t('account.register.firstname.placeholder')"
             :errors="errorOfField('firstName', apiErrors)"
             validation="required"
             :classes="{
@@ -102,9 +102,9 @@ const currentCountry = computed(() => sessionContext.countryId.value);
 
         <FormKit
             type="text"
-            :label="$t('account.register.lastnameInput.label')"
+            :label="$t('account.register.lastname.label')"
             name="lastName"
-            :placeholder="$t('account.register.lastnameInput.placeholder')"
+            :placeholder="$t('account.register.lastname.placeholder')"
             :errors="errorOfField('lastName', apiErrors)"
             validation="required"
         />
@@ -119,10 +119,10 @@ const currentCountry = computed(() => sessionContext.countryId.value);
         >
             <FormKit
                 type="text"
-                :label="$t('account.register.streetInput.label')"
+                :label="$t('account.register.street.label')"
                 autocomplete="street-address"
                 name="street"
-                :placeholder="$t('account.register.streetInput.placeholder')"
+                :placeholder="$t('account.register.street.placeholder')"
                 :errors="errorOfField('billingAddress[street]', apiErrors)"
                 validation="required"
                 :classes="{
@@ -133,26 +133,26 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             />
             <FormKit
                 type="text"
-                :label="$t('account.register.zipCodeInput.label')"
+                :label="$t('account.register.zipCode.label')"
                 name="zipcode"
-                :placeholder="$t('account.register.zipCodeInput.placeholder')"
+                :placeholder="$t('account.register.zipCode.placeholder')"
                 :errors="errorOfField('billingAddress[zipcode]', apiErrors)"
                 validation="required"
             />
             <FormKit
                 type="text"
-                :label="$t('account.register.cityInput.label')"
+                :label="$t('account.register.city.label')"
                 name="city"
-                :placeholder="$t('account.register.cityInput.placeholder')"
+                :placeholder="$t('account.register.city.placeholder')"
                 :errors="errorOfField('billingAddress[city]', apiErrors)"
                 validation="required"
             />
             <FormKit
                 v-if="currentCountry"
                 type="select"
-                :label="$t('account.register.countryInput.label')"
+                :label="$t('account.register.country.label')"
                 name="countryId"
-                :placeholder="$t('account.register.countryInput.placeholder')"
+                :placeholder="$t('account.register.country.placeholder')"
                 :options="countryOptions"
                 :value="currentCountry"
                 :classes="{
@@ -169,18 +169,18 @@ const currentCountry = computed(() => sessionContext.countryId.value);
 
         <FormKit
             type="email"
-            :label="$t('account.register.emailInput.label')"
+            :label="$t('account.register.email.label')"
             name="email"
-            :placeholder="$t('account.register.emailInput.placeholder')"
+            :placeholder="$t('account.register.email.placeholder')"
             :errors="errorOfField('email', apiErrors)"
             validation="required"
         />
 
         <FormKit
             type="password"
-            :label="$t('account.register.passwordInput.label')"
+            :label="$t('account.register.password.label')"
             name="password"
-            :placeholder="$t('account.register.passwordInput.placeholder')"
+            :placeholder="$t('account.register.password.placeholder')"
             :errors="errorOfField('password', apiErrors)"
             validation="required"
             suffix-icon="lock"
@@ -189,8 +189,8 @@ const currentCountry = computed(() => sessionContext.countryId.value);
 
         <FormKit
             type="checkbox"
-            :label="$t('account.register.termsInput.label')"
-            :help="$t('account.register.termsInput.help')"
+            :label="$t('account.register.terms.label')"
+            :help="$t('account.register.terms.help')"
             name="terms"
             :value="false"
             decorator-icon="check"

@@ -93,6 +93,6 @@ const handleAddToCart = async () => {
             icon="info"
             class="block h-5 w-5"
         />
-        <span>{{ $t('product.addToCart.notAvailableInfo') }}</span>
+        <span>{{ $t('product.addToCart.notAvailable') }}</span>
     </div>
 </template>

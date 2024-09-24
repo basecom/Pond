@@ -129,7 +129,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                 </span>
             </div>
 
-            <span v-if="isDigital">{{ $t('checkout.lineItem.digitalProductInfo') }}</span>
+            <span v-if="isDigital">{{ $t('checkout.lineItem.digitalProduct') }}</span>
 
             <p
                 v-if="itemOptions"

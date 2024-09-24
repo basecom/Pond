@@ -17,16 +17,14 @@
       },
       "personal": {
         "cardTitle": "Persönliche Informationen",
-        "loggedInInfo": "Du bist als {firstname} {lastname} eingeloggt"
+        "loggedInMessage": "Du bist als {firstname} {lastname} eingeloggt"
       },
       "shipping": {
         "cardTitle": "Versandmethoden",
         "cardSubtitle": "Wähle eine Versandmethode aus"
       },
       "terms": {
-        "cardTitle": "Allgemeine Geschäftsbedingungen"
-      },
-      "termsInput": {
+        "cardTitle": "Allgemeine Geschäftsbedingungen",
         "label": "AGB",
         "help": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen und akzeptiere sie."
       },
@@ -53,7 +51,7 @@
     "promotion": {
       "successMessage": "Der Rabattcode {promotionCode} wurde hinzugefügt",
       "errorMessage": "Etwas ist schiefgegangen!",
-      "codeInput": {
+      "code": {
         "label": "Rabattcode"
       },
       "submitLabel": "Einlösen"
@@ -67,8 +65,8 @@
     },
     "finish": {
       "heading": "Vielen Dank für deine Bestellung!",
-      "confirmationInfo": "Wir haben deine Bestellung erhalten und werden sie so schnell wie möglich bearbeiten.",
-      "emailInfo": "Eine Bestätigungsmail wurde an deine Emailadresse gesendet.",
+      "confirmationMessage": "Wir haben deine Bestellung erhalten und werden sie so schnell wie möglich bearbeiten.",
+      "emailMessage": "Eine Bestätigungsmail wurde an deine Emailadresse gesendet.",
       "orderNumberLabel": "Bestellnummer:",
       "orderDateLabel": "Datum:",
       "orderStatusLabel": "Status:",

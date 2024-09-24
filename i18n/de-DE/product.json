@@ -7,13 +7,13 @@
       "successMessage": "{productName} wurde dem Warenkorb hinzugefügt.",
       "errorMessage": "Beim Hinzufügen von {productName} zum Warenkorb ist etwas schiefgegangen.",
       "submitLabel": "In den Warenkorb",
-      "notAvailableInfo": "Dieses Produkt ist nicht vorrätig."
+      "notAvailable": "Dieses Produkt ist nicht vorrätig."
     },
     "availability": {
-      "deliveryTimeInfo": "Lieferzeit: {deliveryTime}",
-      "availableInfo": "Lieferbar, Lieferzeit {deliveryTime}",
-      "restockInfo": "Lieferbar, in {restockTime} Tagen",
-      "notAvailableInfo": "Aktuell nicht lieferbar"
+      "deliveryTime": "Lieferzeit: {deliveryTime}",
+      "available": "Lieferbar, Lieferzeit {deliveryTime}",
+      "restock": "Lieferbar, in {restockTime} Tagen",
+      "notAvailable": "Aktuell nicht lieferbar"
     }
   }
 }

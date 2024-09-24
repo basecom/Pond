@@ -47,7 +47,7 @@ const addPromotion = async (fields: FormkitPromotionFields) => {
     >
         <FormKit
             type="text"
-            :label="$t('checkout.promotion.codeInput.label')"
+            :label="$t('checkout.promotion.code.label')"
             name="promotionCode"
             required="true"
             :classes="{

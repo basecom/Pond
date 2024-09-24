@@ -5,7 +5,7 @@
     "overview": {
       "heading": "Übersicht",
       "subHeading": "Hier siehst du deine Daten, die gespeicherte Bezahlmethode und Adressen.",
-      "personalInfo": {
+      "personalInformation": {
         "heading": "Persönliche Informationen",
         "nameLabel": "Name:",
         "emailLabel": "Email:"
@@ -19,7 +19,7 @@
       "shippingAddressHeading": "Lieferadresse",
       "newsletter": {
         "heading": "Newsletter Abonnement",
-        "inputLabel": "Ja, ich möchte den kostenlosen Newsletter erhalten. (Ich kann ihn jederzeit abbestellen)"
+        "label": "Ja, ich möchte den kostenlosen Newsletter erhalten. (Ich kann ihn jederzeit abbestellen)"
       }
     },
     "profile": {
@@ -33,7 +33,7 @@
     },
     "orders": {
       "heading": "Bestellungen",
-      "noOrdersFoundInfo": "Whoops, es wurden keine Bestellungen gefunden. Hast du überhaupt schon was bestellt?",
+      "noOrdersFound": "Whoops, es wurden keine Bestellungen gefunden. Hast du überhaupt schon was bestellt?",
       "paymentStatusLabel": "Bezahlung",
       "paymentMethodLabel": "Bezahlmethode",
       "shippingStatusLabel": "Versand",
@@ -45,12 +45,12 @@
       "successMessage": "Du wurdest erfolgreich eingeloggt.",
       "errorMessage": "Es gab einen Fehler beim Login. Bitte versuch es noch einmal.",
       "submitLabel": "Einloggen",
-      "emailInput": {
+      "email": {
         "label": "Email",
         "placeholder": "quack{'@'}platsch.com",
         "help": "Deine Emailadresse"
       },
-      "passwordInput": {
+      "password": {
         "label": "Passwort"
       },
       "createAccountLink": "Erstelle hier deinen Account"
@@ -58,46 +58,46 @@
     "register": {
       "submitLabel": "Registrieren",
       "dataHeading": "Deine Daten:",
-      "salutationInput": {
+      "salutation": {
         "label": "Anrede",
         "placeholder": "Wähle deine Anrede",
         "help": "Wähle aus, wie du angesprochen werden möchtest"
       },
-      "firstnameInput": {
+      "firstname": {
         "label": "Vorname",
         "placeholder": "Donald"
       },
-      "lastnameInput": {
+      "lastname": {
         "label": "Nachname",
         "placeholder": "Duck"
       },
       "addressHeading": "Deine Adresse:",
-      "streetInput": {
+      "street": {
         "label": "Straße",
         "placeholder": "Quackstraße 13"
       },
-      "zipCodeInput": {
+      "zipCode": {
         "label": "Postleitzahl",
         "placeholder": "12345"
       },
-      "cityInput": {
+      "city": {
         "label": "Stadt",
         "placeholder": "Quackburg"
       },
-      "countryInput": {
+      "country": {
         "label": "Land:",
         "placeholder": "Wähle dein Land"
       },
       "accountDataHeading": "Deine Accountdaten:",
-      "emailInput": {
+      "email": {
         "label": "Email",
         "placeholder": "quack{'@'}platsch.com"
       },
-      "passwordInput": {
+      "password": {
         "label": "Passwort",
         "placeholder": "*********"
       },
-      "termsInput": {
+      "terms": {
         "label": "AGB",
         "help": "Akzeptierst du unsere Allgemeinen Geschäftsbedingungen?"
       }

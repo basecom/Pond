@@ -14,15 +14,15 @@ const restockTime = props.product.restockTime ?? props.product.deliveryInformati
 <template>
     <div class="w-full text-sm">
         <span v-if="availableStock >= minPurchase && deliveryTime">
-            {{ $t('product.availability.availableInfo', { deliveryTime: deliveryTime?.name }) }}
+            {{ $t('product.availability.available', { deliveryTime: deliveryTime?.name }) }}
         </span>
 
         <span v-else-if="availableStock < minPurchase && deliveryTime && restockTime">
-            {{ $t('product.availability.restockInfo', { restockTime: restockTime }) }}
+            {{ $t('product.availability.restock', { restockTime: restockTime }) }}
             <br />
-            {{ $t('product.availability.deliveryTimeInfo', { deliveryTime: deliveryTime?.name }) }}
+            {{ $t('product.availability.deliveryTime', { deliveryTime: deliveryTime?.name }) }}
         </span>
 
-        <span v-else-if="availableStock < minPurchase">{{ $t('product.availability.notAvailableInfo') }}</span>
+        <span v-else-if="availableStock < minPurchase">{{ $t('product.availability.notAvailable') }}</span>
     </div>
 </template>

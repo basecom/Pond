@@ -29,6 +29,6 @@ onMounted(async () => {
                 </SharedAccordionRoot>
             </li>
         </ul>
-        <p v-else>{{ $t('account.orders.noOrdersFoundInfo') }}</p>
+        <p v-else>{{ $t('account.orders.noOrdersFound') }}</p>
     </div>
 </template>

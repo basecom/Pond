@@ -17,16 +17,14 @@
       },
       "personal": {
         "cardTitle": "Personal Information",
-        "loggedInInfo": "You are logged in as {firstname} {lastname} "
+        "loggedInMessage": "You are logged in as {firstname} {lastname} "
       },
       "shipping": {
         "cardTitle": "Shipping Method",
         "cardSubtitle": "Select a shipping method"
       },
       "terms": {
-        "cardTitle": "Terms and Conditions"
-      },
-      "termsInput": {
+        "cardTitle": "Terms and Conditions",
         "label": "Terms and Conditions",
         "help": "I have read and accepted the general terms and conditions."
       },
@@ -48,12 +46,12 @@
         "errorMessage": "An error occurred trying to remove {lineItemName} from the cart.",
         "buttonLabel": "Remove"
       },
-      "digitalProductInfo": "Digital Product"
+      "digitalProduct": "Digital Product"
     },
     "promotion": {
       "successMessage": "Promotion code {promotionCode} was added",
       "errorMessage": "Something went wrong!",
-      "codeInput": {
+      "code": {
         "label": "Promotion code"
       },
       "submitLabel": "Redeem"
@@ -67,8 +65,8 @@
     },
     "finish": {
       "heading": "Thank you for your order!",
-      "confirmationInfo": "We have received your order and will process it as soon as possible.",
-      "emailInfo": "An order confirmation email has been sent to you.",
+      "confirmationMessage": "We have received your order and will process it as soon as possible.",
+      "emailMessage": "An order confirmation email has been sent to you.",
       "orderNumberLabel": "Order Number:",
       "orderDateLabel": "Order Date:",
       "orderStatusLabel": "Order Status:",

@@ -77,15 +77,15 @@ const handleLogin = async (fields: FormkitLoginFields) => {
 
         <FormKit
             type="email"
-            :label="$t('account.login.emailInput.label')"
+            :label="$t('account.login.email.label')"
             name="username"
-            :placeholder="$t('account.login.emailInput.placeholder')"
-            :help="$t('account.login.emailInput.help')"
+            :placeholder="$t('account.login.email.placeholder')"
+            :help="$t('account.login.email.help')"
         />
 
         <FormKit
             type="password"
-            :label="$t('account.login.passwordInput.label')"
+            :label="$t('account.login.password.label')"
             name="password"
             suffix-icon="lock"
             @suffix-icon-click="togglePasswordVisibility"

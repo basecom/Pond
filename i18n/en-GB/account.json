@@ -5,7 +5,7 @@
     "overview": {
       "heading": "Overview",
       "subHeading": "Directly access your profile information, the default payment method and given addresses.",
-      "personalInfo": {
+      "personalInformation": {
         "heading": "Personal Information",
         "nameLabel": "Name:",
         "emailLabel": "Email:"
@@ -19,7 +19,7 @@
       "shippingAddressHeading": "Shipping Address",
       "newsletter": {
         "heading": "Newsletter Subcription",
-        "inputLabel": "Yes, I would like to subscribe to the free newsletter. (I may unsubscribe at any time.)"
+        "label": "Yes, I would like to subscribe to the free newsletter. (I may unsubscribe at any time.)"
       }
     },
     "profile": {
@@ -33,7 +33,7 @@
     },
     "orders": {
       "heading": "Orders",
-      "noOrdersFoundInfo": "Oops, no orders have been found. Have you placed an order yet?",
+      "noOrdersFound": "Oops, no orders have been found. Have you placed an order yet?",
       "paymentStatusLabel": "Payment",
       "paymentMethodLabel": "Payment Method",
       "shippingStatusLabel": "Shipping",
@@ -45,12 +45,12 @@
       "successMessage": "You successfully logged in.",
       "errorMessage": "An error occurred trying to login. Please try again.",
       "submitLabel": "Login",
-      "emailInput": {
+      "email": {
         "label": "Email",
         "placeholder": "quack{'@'}splash.com",
         "help": "Your email address"
       },
-      "passwordInput": {
+      "password": {
         "label": "Password"
       },
       "createAccountLink": "Create your account here"
@@ -58,46 +58,46 @@
     "register": {
       "submitLabel": "Register",
       "dataHeading": "Your data:",
-      "salutationInput": {
+      "salutation": {
         "label": "Salutation",
         "placeholder": "Select a salutation",
         "help": "Select how you would like to be addressed"
       },
-      "firstnameInput": {
+      "firstname": {
         "label": "First name",
         "placeholder": "Donald"
       },
-      "lastnameInput": {
+      "lastname": {
         "label": "Last name",
         "placeholder": "Duck"
       },
       "addressHeading": "Your address:",
-      "streetInput": {
+      "street": {
         "label": "Street",
         "placeholder": "13 Quack Street"
       },
-      "zipCodeInput": {
+      "zipCode": {
         "label": "Zip code",
         "placeholder": "1313"
       },
-      "cityInput": {
+      "city": {
         "label": "City",
         "placeholder": "Quackburg"
       },
-      "countryInput": {
+      "country": {
         "label": "Country",
         "placeholder": "Select your country"
       },
       "accountDataHeading": "Your account data:",
-      "emailInput": {
+      "email": {
         "label": "Email",
         "placeholder": "quack{'@'}splash.com"
       },
-      "passwordInput": {
+      "password": {
         "label": "Password",
         "placeholder": "*********"
       },
-      "termsInput": {
+      "terms": {
         "label": "Terms and Conditions",
         "help": "Do you agree to our terms of service?"
       }
