@@ -21,7 +21,7 @@ withDefaults(
         </div>
         </div>
         <div class="pl-2 message text-brand-primary-dark">
-            {{ props.message }}
+            {{message }}
         </div>
     </div>
 </template>
