@@ -212,7 +212,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             >
                 register
             </span>
-            <LoadingSpinner
+            <UtilityLoadingSpinner
                 v-if="isLoading"
                 size="small"
             />
