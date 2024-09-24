@@ -15,7 +15,7 @@ const modalController = useModal();
                 icon="user"
             />
         </template>
-        <template #title>Login</template>
+        <template #title>{{ $t('account.loginModal.heading') }}</template>
         <template #content>
             <AccountLoginRegisterTabs />
         </template>

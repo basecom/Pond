@@ -13,7 +13,7 @@ withDefaults(
     <PopoverRoot>
         <PopoverTrigger
             class="none inline-flex h-6 w-6 items-center justify-center"
-            aria-label="account dropdown"
+            :aria-label="$t('shared.popover.triggerAriaLabel')"
         >
             <slot name="trigger"></slot>
         </PopoverTrigger>
@@ -26,7 +26,7 @@ withDefaults(
             <PopoverClose
                 v-if="withCloseButton"
                 class="absolute right-1 top-1 inline-flex h-6 w-6 items-center justify-center rounded-full"
-                aria-label="Close"
+                :aria-label="$t('shared.popover.closeButtonAriaLabel')"
             >
                 <FormKitIcon
                     class="block h-5 w-5 text-gray"

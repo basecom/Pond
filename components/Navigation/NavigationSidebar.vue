@@ -61,7 +61,7 @@ const lastPreviousItem = computed(() =>
                     icon="chevron-left"
                     class="block h-3 w-3"
                 />
-                <span> back </span>
+                <span>{{ $t('navigation.sidebar.backLinkLabel') }}</span>
             </div>
         </template>
 
