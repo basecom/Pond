@@ -24,6 +24,7 @@ const videoUrl = computed(() => `https://www.youtube.com/embed/${videoId}`)
         </div>
     </div>
 </template>
+
 <style scoped>
 .youtube-player{
     padding-bottom: 56.25%;
