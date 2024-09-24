@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { CmsElementText } from '@shopware-pwa/composables-next';
-import SharedBanner from '~/components/shared/SharedBanner.vue';
 
 const props = defineProps<{
     element: CmsElementText;
