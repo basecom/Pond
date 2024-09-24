@@ -47,7 +47,7 @@
       "submitLabel": "Login",
       "email": {
         "label": "Email",
-        "placeholder": "quack{'@'}splash.com",
+        "placeholder": "Type your email address...",
         "help": "Your email address"
       },
       "password": {
@@ -65,24 +65,24 @@
       },
       "firstname": {
         "label": "First name",
-        "placeholder": "Donald"
+        "placeholder": "Your firstname"
       },
       "lastname": {
         "label": "Last name",
-        "placeholder": "Duck"
+        "placeholder": "Your lastname"
       },
       "addressHeading": "Your address:",
       "street": {
         "label": "Street",
-        "placeholder": "13 Quack Street"
+        "placeholder": "Your street address "
       },
       "zipCode": {
         "label": "Zip code",
-        "placeholder": "1313"
+        "placeholder": "Your zip code"
       },
       "city": {
         "label": "City",
-        "placeholder": "Quackburg"
+        "placeholder": "Your city"
       },
       "country": {
         "label": "Country",
@@ -91,11 +91,11 @@
       "accountDataHeading": "Your account data:",
       "email": {
         "label": "Email",
-        "placeholder": "quack{'@'}splash.com"
+        "placeholder": "Your email address"
       },
       "password": {
         "label": "Password",
-        "placeholder": "*********"
+        "placeholder": "Choose a password"
       },
       "terms": {
         "label": "Terms and Conditions",

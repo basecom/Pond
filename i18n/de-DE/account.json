@@ -47,7 +47,7 @@
       "submitLabel": "Einloggen",
       "email": {
         "label": "Email",
-        "placeholder": "quack{'@'}platsch.com",
+        "placeholder": "Gib deine Emailadresse ein",
         "help": "Deine Emailadresse"
       },
       "password": {
@@ -65,24 +65,24 @@
       },
       "firstname": {
         "label": "Vorname",
-        "placeholder": "Donald"
+        "placeholder": "Dein Vorname"
       },
       "lastname": {
         "label": "Nachname",
-        "placeholder": "Duck"
+        "placeholder": "Dein Nachname"
       },
       "addressHeading": "Deine Adresse:",
       "street": {
         "label": "Straße",
-        "placeholder": "Quackstraße 13"
+        "placeholder": "Deine Straße und Hausnummer"
       },
       "zipCode": {
         "label": "Postleitzahl",
-        "placeholder": "12345"
+        "placeholder": "Deine Postleitzahl"
       },
       "city": {
         "label": "Stadt",
-        "placeholder": "Quackburg"
+        "placeholder": "Deine Stadt"
       },
       "country": {
         "label": "Land:",
@@ -91,11 +91,11 @@
       "accountDataHeading": "Deine Accountdaten:",
       "email": {
         "label": "Email",
-        "placeholder": "quack{'@'}platsch.com"
+        "placeholder": "Deine Emailadresse"
       },
       "password": {
         "label": "Passwort",
-        "placeholder": "*********"
+        "placeholder": "Wähle ein Passwort"
       },
       "terms": {
         "label": "AGB",
