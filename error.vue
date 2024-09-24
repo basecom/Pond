@@ -32,7 +32,7 @@ refreshCart();
                 class="inline-flex max-w-56 items-center justify-center bg-brand-primary px-4 py-2 text-center text-white hover:bg-brand-primary-dark"
                 :to="{ name: 'index' }"
             >
-                Homepage
+                {{ $t('global.homepageLinkLabel') }}
             </NuxtLink>
         </div>
     </main>

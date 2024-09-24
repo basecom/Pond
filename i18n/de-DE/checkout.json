@@ -1,0 +1,81 @@
+{
+  "checkout": {
+    "cart": {
+      "heading": "Warenkorb",
+      "checkoutButtonLabel": "Kasse",
+      "emptyCartMessage": "Dein Warenkorb ist leer."
+    },
+    "offcanvasCart": {
+      "toCartButtonLabel": "Zum Warenkorb"
+    },
+    "confirm": {
+      "heading": "Kasse",
+      "emptyCartMessage": "Dein Warenkorb ist leer.",
+      "payment": {
+        "cardTitle": "Bezahlmethoden",
+        "cardSubtitle": "Wähle eine Methode zum Bezahlen aus"
+      },
+      "personal": {
+        "cardTitle": "Persönliche Informationen",
+        "loggedInMessage": "Du bist als {firstname} {lastname} eingeloggt"
+      },
+      "shipping": {
+        "cardTitle": "Versandmethoden",
+        "cardSubtitle": "Wähle eine Versandmethode aus"
+      },
+      "terms": {
+        "cardTitle": "Allgemeine Geschäftsbedingungen",
+        "label": "AGB",
+        "help": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen und akzeptiere sie."
+      },
+      "order": {
+        "successMessage": "Deine Bestellung wurde aufgegeben.",
+        "errorMessage": "Ein Fehler ist bei deiner Bestellung aufgetreten. Bitte versuche es noch einmal.",
+        "buttonLabel": "Bestellen",
+        "buttonLabelNotLoggedIn": "Zum Bestellen einloggen"
+      }
+    },
+    "lineItemsHeading": "Produkte",
+    "lineItem": {
+      "updateQuantity": {
+        "successMessage": "Die Menge von {lineItemName} wurde aktualisiert",
+        "errorMessage": "Beim Ändern der Menge von {lineItemName} ist etwas schiefgegangen."
+      },
+      "remove": {
+        "successMessage": "{lineItemName} wurde aus dem Warenkorb entfernt",
+        "errorMessage": "Beim Entfernen von {lineItemName} ist etwas schiefgegangen.",
+        "buttonLabel": "Entfernen"
+      },
+      "digitalProduct": "Digitales Produkt"
+    },
+    "promotion": {
+      "successMessage": "Der Rabattcode {promotionCode} wurde hinzugefügt",
+      "errorMessage": "Etwas ist schiefgegangen!",
+      "code": {
+        "label": "Rabattcode"
+      },
+      "submitLabel": "Einlösen"
+    },
+    "summary": {
+      "heading": "Zusammenfassung",
+      "netPriceLabel": "Nettopreis",
+      "taxLabel": "MwSt.",
+      "shippingCostLabel": "Versand",
+      "totalLabel": "Gesamt"
+    },
+    "finish": {
+      "heading": "Vielen Dank für deine Bestellung!",
+      "confirmationMessage": "Wir haben deine Bestellung erhalten und werden sie so schnell wie möglich bearbeiten.",
+      "emailMessage": "Eine Bestätigungsmail wurde an deine Emailadresse gesendet.",
+      "orderNumberLabel": "Bestellnummer:",
+      "orderDateLabel": "Datum:",
+      "orderStatusLabel": "Status:",
+      "totalAmountLabel": "Gesamtbetrag:",
+      "orderHistoryLinkLabel": "Zu meinen Bestellungen",
+      "billingAddressHeading": "Rechnungsadresse",
+      "shippingAddressHeading": "Lieferadresse",
+      "paymentMethodHeading": "Bezahlmethode",
+      "shippingMethodHeading": "Versandmethode"
+    }
+  }
+}

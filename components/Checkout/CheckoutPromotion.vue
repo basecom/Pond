@@ -7,6 +7,7 @@ type FormkitPromotionFields = {
 
 const { addPromotionCode, consumeCartErrors } = useCart();
 const { pushError, pushSuccess } = useNotifications();
+const { t } = useI18n();
 
 const cartErrors = ref<Schemas['Cart']['errors']>([]);
 
@@ -18,11 +19,11 @@ const addPromotion = async (fields: FormkitPromotionFields) => {
             return;
         }
 
-        pushSuccess(`Promotion code ${fields['promotionCode']} was added`);
+        pushSuccess(t('checkout.promotion.successMessage', { promotionCode: fields['promotionCode'] }));
     } catch (e) {
         console.error(e);
 
-        pushError('Something went wrong!');
+        pushError(t('checkout.promotion.errorMessage'));
     }
 };
 </script>
@@ -38,7 +39,7 @@ const addPromotion = async (fields: FormkitPromotionFields) => {
     </ul>
     <FormKit
         type="form"
-        submit-label="redeem"
+        :submit-label="$t('checkout.promotion.submitLabel')"
         :classes="{
             form: 'w-full flex flex-row gap-4',
         }"
@@ -46,7 +47,7 @@ const addPromotion = async (fields: FormkitPromotionFields) => {
     >
         <FormKit
             type="text"
-            label="promotion code"
+            :label="$t('checkout.promotion.code.label')"
             name="promotionCode"
             required="true"
             :classes="{

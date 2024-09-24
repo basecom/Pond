@@ -18,7 +18,7 @@ onMounted(async () => {
 
 <template>
     <div>
-        <h1 class="mb-2 font-bold">Orders</h1>
+        <h1 class="mb-2 font-bold">{{ $t('account.orders.heading') }}</h1>
         <ul v-if="orders.length > 0">
             <li
                 v-for="order in orders"
@@ -29,6 +29,6 @@ onMounted(async () => {
                 </SharedAccordionRoot>
             </li>
         </ul>
-        <p v-else>Oops, no orders have been found. Have you placed an order yet?</p>
+        <p v-else>{{ $t('account.orders.noOrdersFound') }}</p>
     </div>
 </template>

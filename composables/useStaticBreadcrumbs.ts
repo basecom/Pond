@@ -3,18 +3,20 @@
  * Options can be defined to e.g. display only parts of the hierarchy or to alter its structure.
  */
 export function useStaticBreadcrumbs() {
+    const { t } = useI18n();
+
     const checkoutBreadcrumbs = ({ index, orderId }: { index: number; orderId?: string }) => {
         const breadcrumbs = [
             {
-                name: 'Cart',
+                name: t('composable.breadcrumbs.cartName'),
                 path: '/checkout/cart',
             },
             {
-                name: 'Checkout',
+                name: t('composable.breadcrumbs.checkoutName'),
                 path: '/checkout/confirm',
             },
             {
-                name: 'Order',
+                name: t('composable.breadcrumbs.orderName'),
                 path: orderId ? '/checkout/finish/' + orderId : '/checkout/finish',
             },
         ];
@@ -25,19 +27,19 @@ export function useStaticBreadcrumbs() {
     const accountBreadcrumbs = ({ type }: { type?: string }) => {
         const breadcrumbs = [
             {
-                name: 'Account',
+                name: t('composable.breadcrumbs.accountName'),
                 path: '/account',
             },
         ];
 
         if (type === 'login') {
             breadcrumbs.push({
-                name: 'Login',
+                name: t('composable.breadcrumbs.loginName'),
                 path: '/account/login',
             });
         } else if (type === 'register') {
             breadcrumbs.push({
-                name: 'Register',
+                name: t('composable.breadcrumbs.registerName'),
                 path: '/account/register',
             });
         }
