@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import FooterNavigation from '~/components/Footer/FooterNavigation.vue';
-import FooterServiceNavigation from '~/components/Footer/FooterServiceNavigation.vue';
-
 const { navigationElements, loadNavigationElements } = useNavigation({ type: 'footer-navigation' });
 const { navigationElements: serviceNavigationElements, loadNavigationElements: loadServiceElements } = useNavigation({
     type: 'service-navigation',
