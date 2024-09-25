@@ -13,13 +13,16 @@ const isMaintenanceMode = computed(() => {
     // 503 could also be thrown if the server is under heavy load, so we check the message too
     return props.error.statusCode === 503 && props.error.message.includes('maintenance mode');
 });
+
+const genericServerError = computed(() => {
+    return props.error.statusCode >= 500;
+});
 </script>
 
 <template>
     <NuxtLoadingIndicator />
 
     <template v-if="pageNotFound">
-        <!-- TODO: History back wenn man von error page woanders hingeht und dann zurück auf error drauf lädt nicht -->
         <ErrorNotFound />
     </template>
 
@@ -27,8 +30,11 @@ const isMaintenanceMode = computed(() => {
         <ErrorMaintenance />
     </template>
 
+    <template v-else-if="genericServerError">
+        <ErrorServer :error="props.error" />
+    </template>
+
     <template v-else>
-        <!-- TODO: History back wenn man von error page woanders hingeht und dann zurück auf error drauf lädt nicht -->
         <ErrorUnknown :error="props.error" />
     </template>
 </template>

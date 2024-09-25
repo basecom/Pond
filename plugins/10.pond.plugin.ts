@@ -1,5 +1,6 @@
 import { createShopwareContext } from '#imports';
 import { createAPIClient } from '@shopware/api-client';
+import { isMaintenanceMode } from '@shopware-pwa/helpers-next';
 
 export class AccessToken {
     public token?: string;
@@ -30,7 +31,18 @@ export default defineNuxtPlugin(async nuxtApp => {
         contextToken.value = newContextToken;
     });
 
-    // TODO: Maintenance mode
+    // TODO: Hook is throwing error too late
+    // apiClient.hook('onResponseError', response => {
+    //     console.log('Hook');
+    //     const maintenance = isMaintenanceMode(response._data?.errors ?? []);
+    //
+    //     if (maintenance) {
+    //         throw createError({
+    //             statusCode: 503,
+    //             statusMessage: "MAINTENANCE_MODE",
+    //         });
+    //     }
+    // });
 
     nuxtApp.vueApp.provide('apiClient', apiClient);
 

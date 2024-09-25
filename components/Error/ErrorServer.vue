@@ -7,19 +7,19 @@ const props = defineProps<{
 </script>
 
 <template>
-    <ErrorLayout>
+    <main class="container flex flex-col items-center justify-center min-h-screen p-8">
         <FormKitIcon
-            icon="question"
+            icon="server"
             class="block h-20 w-20 text-gray-dark"
         />
 
         <!-- TODO: Snippets -->
         <h1 class="pt-6 pb-4">
-            Unknown Error - {{ error.statusCode }}
+            Server Error - {{ error.statusCode }}
         </h1>
 
         <p class="pb-8 text-center">
-            Ooops, an unexpected error occured. This should not have happened. We apologize for the inconvenience!
+            A server error occured. We apologize for the inconvenience!
         </p>
 
         <NuxtLink
@@ -28,5 +28,5 @@ const props = defineProps<{
         >
             To the homepage
         </NuxtLink>
-    </ErrorLayout>
+    </main>
 </template>

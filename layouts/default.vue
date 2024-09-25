@@ -5,8 +5,9 @@ const { loading } = storeToRefs(customerStore);
 useNotifications();
 useBreadcrumbs();
 
+// one of the calls needs to be async for proper error catching
 customerStore.refreshContext();
-refreshCart();
+await refreshCart();
 </script>
 
 <template>
@@ -27,7 +28,7 @@ refreshCart();
         <NuxtPage />
     </main>
 
-    <LayoutFooter v-show="!loading" />
+<!--    <LayoutFooter v-show="!loading" />-->
 </template>
 
 <style>

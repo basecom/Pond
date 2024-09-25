@@ -13,7 +13,7 @@ refreshCart();
     <LayoutHeader v-show="!loading" />
 
     <main class="container flex flex-col items-center justify-center mt-4 md:mt-10" v-show="!loading">
-        <slot name="content" />
+        <slot />
     </main>
 
     <LayoutFooter v-show="!loading" />
