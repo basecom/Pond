@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { NuxtError } from "#app";
+import type { NuxtError } from '#app';
 
-const props = defineProps<{
+defineProps<{
     error: NuxtError;
 }>();
 </script>
@@ -14,9 +14,7 @@ const props = defineProps<{
         />
 
         <!-- TODO: Snippets -->
-        <h1 class="pt-6 pb-4">
-            Unknown Error - {{ error.statusCode }}
-        </h1>
+        <h1 class="pb-4 pt-6">Unknown Error - {{ error.statusCode }}</h1>
 
         <p class="pb-8 text-center">
             Ooops, an unexpected error occured. This should not have happened. We apologize for the inconvenience!

@@ -37,7 +37,10 @@ onMounted(async () => {
         <template #title>
             <div class="mt-4 p-4">
                 <div class="mt-4 flex gap-4">
-                    <div class="text-4xl font-bold" v-if="formattedOrderDate">
+                    <div
+                        v-if="formattedOrderDate"
+                        class="text-4xl font-bold"
+                    >
                         {{ formattedOrderDate }}
                     </div>
 

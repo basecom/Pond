@@ -8,13 +8,9 @@
         />
 
         <!-- TODO: Snippets -->
-        <h1 class="pt-6 pb-4">
-            Page not found
-        </h1>
+        <h1 class="pb-4 pt-6">Page not found</h1>
 
-        <p class="pb-8 text-center">
-            The page you requested could not be found. Sorry!
-        </p>
+        <p class="pb-8 text-center">The page you requested could not be found. Sorry!</p>
 
         <NuxtLink
             class="bg-brand-primary p-4 text-white hover:bg-brand-primary-dark"

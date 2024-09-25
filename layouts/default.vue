@@ -28,7 +28,7 @@ await refreshCart();
         <NuxtPage />
     </main>
 
-<!--    <LayoutFooter v-show="!loading" />-->
+    <LayoutFooter v-show="!loading" />
 </template>
 
 <style>

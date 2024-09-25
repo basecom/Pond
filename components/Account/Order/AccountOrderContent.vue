@@ -26,10 +26,11 @@ onMounted(async () => {
     <div>
         <h1 class="mb-2 font-bold">Orders</h1>
 
-        <div class="relative h-20" v-if="isLoading">
-            <UtilityLoadingSpinner
-                class="bg-white opacity-50"
-            />
+        <div
+            v-if="isLoading"
+            class="relative h-20"
+        >
+            <UtilityLoadingSpinner class="bg-white opacity-50" />
         </div>
 
         <ul v-if="orders.length > 0 && !isLoading">
@@ -43,8 +44,6 @@ onMounted(async () => {
             </li>
         </ul>
 
-        <p v-else-if="!isLoading">
-            Oops, no orders have been found. Have you placed an order yet?
-        </p>
+        <p v-else-if="!isLoading">Oops, no orders have been found. Have you placed an order yet?</p>
     </div>
 </template>

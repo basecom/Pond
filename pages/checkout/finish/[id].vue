@@ -45,7 +45,10 @@ onMounted(async () => {
                     <span class="font-bold text-gray-dark"> #{{ order.orderNumber }} </span>
                 </div>
 
-                <div class="px-3 text-center" v-if="formattedOrderDate">
+                <div
+                    v-if="formattedOrderDate"
+                    class="px-3 text-center"
+                >
                     Order Date:
                     <span class="font-bold text-gray-dark">
                         {{ formattedOrderDate }}
