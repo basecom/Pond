@@ -22,21 +22,21 @@ export type CookieGroup = {
     required?: boolean;
 };
 
-export const useCookieGroupsHelper = () => {
+export function useCookieGroupsHelper() {
     const defaultCookieGroup: CookieGroup[] = [
         {
             id: 'required',
-            name: 'Technically required',
-            description: 'Cookies required for this shop to function:',
+            name: 'cookie.groups.required.name',
+            description: 'cookie.groups.required.description',
             entries: [
                 {
                     id: 'session',
-                    name: 'Session',
+                    name: 'cookie.groups.required.entries.session',
                     cookie: 'session',
                 },
                 {
                     id: 'timezone',
-                    name: 'Timezone',
+                    name: 'cookie.groups.required.entries.timezone',
                     cookie: 'timezone',
                 },
                 {
@@ -49,7 +49,7 @@ export const useCookieGroupsHelper = () => {
                 },
                 {
                     id: 'captcha',
-                    name: 'CAPTCHA integration',
+                    name: 'cookie.groups.required.entries.captcha',
                     cookie: '_GRECAPTCHA',
                     value: '1',
                 },
@@ -58,12 +58,12 @@ export const useCookieGroupsHelper = () => {
         },
         {
             id: 'statistics',
-            name: 'Statistics',
-            description: 'Cookies used for statistics and shop performance metrics.',
+            name: 'cookie.groups.statistics.name',
+            description: 'cookie.groups.statistics.description',
             entries: [
                 {
                     id: 'google-analytics',
-                    name: 'Google Analytics',
+                    name: 'cookie.groups.statistics.entries.googleAnalytics',
                     cookie: 'google-analytics-enabled',
                     expiration: 30,
                     value: '1',
@@ -72,17 +72,17 @@ export const useCookieGroupsHelper = () => {
         },
         {
             id: 'comfort-features',
-            name: 'Comfort features',
+            name: 'cookie.groups.comfortFeatures.name',
             entries: [
                 {
                     id: 'wishlist',
-                    name: 'Wishlist',
+                    name: 'cookie.groups.comfortFeatures.entries.wishlist',
                     cookie: 'wishlist-enabled',
                     value: '1',
                 },
                 {
                     id: 'youtube-video',
-                    name: 'YouTube video',
+                    name: 'cookie.groups.comfortFeatures.entries.youtubeVideo',
                     cookie: 'youtube-video',
                     expiration: 30,
                     value: '1',
@@ -91,12 +91,12 @@ export const useCookieGroupsHelper = () => {
         },
         {
             id: 'marketing',
-            name: 'Marketing',
-            description: 'Allows Google to collect personal data for online advertising and marketing.',
+            name: 'cookie.groups.marketing.name',
+            description: 'cookie.groups.marketing.description',
             entries: [
                 {
                     id: 'google-ads',
-                    name: 'Google Advertising',
+                    name: 'cookie.groups.marketing.entries.googleAds',
                     cookie: 'google-ads-enabled',
                     expiration: 30,
                     value: '1',

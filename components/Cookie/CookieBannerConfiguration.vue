@@ -91,13 +91,13 @@ onMounted(() => {
                 <FormKit
                     :id="group.id"
                     type="checkbox"
-                    :label="group.name"
+                    :label="$t(group.name)"
                     :name="group.id"
                     :disabled="group.required"
                     :ignore="true"
                     @change="selectCookieGroup(group, $event)"
                 />
-                <div class="mb-1 ml-6">{{ group.description }}</div>
+                <div class="mb-1 ml-6">{{ group.description && $t(group.description) }}</div>
 
                 <div
                     v-for="entry in group.entries"
@@ -110,7 +110,7 @@ onMounted(() => {
                     <FormKit
                         :id="entry.id"
                         type="checkbox"
-                        :label="entry.name"
+                        :label="$t(entry.name)"
                         :disabled="group.required"
                         :name="entry.id"
                         @change="selectCookieEntry(entry, group, $event)"

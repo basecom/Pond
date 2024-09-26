@@ -13,6 +13,38 @@
       "title": "Cookie-Voreinstellungen",
       "settings": "Einstellungen",
       "submitLabel": "Speichern"
+    },
+    "groups": {
+      "required": {
+        "name": "Technisch erforderlich",
+        "description": "Für die Funktion des Shops erforderliche Cookies:",
+        "entries": {
+          "session": "Sitzung",
+          "timezone": "Zeitzone",
+          "captcha": "CAPTCHA-Integration"
+        }
+      },
+      "statistics": {
+        "name": "Statistiken",
+        "description": "Für Statistiken und Shop-Performance-Metriken genutzte Cookies.",
+        "entries": {
+          "googleAnalytics": "Google Analytics"
+        }
+      },
+      "comfortFeatures": {
+        "name": "Komfortfunktionen",
+        "entries": {
+          "wishlist": "Merkzettel",
+          "youtubeVideo": "YouTube-Video"
+        }
+      },
+      "marketing": {
+        "name": "Marketing",
+        "description": "Erlaubt es Google, personenbezogene Daten für Online-Werbung und Marketing zu sammeln.",
+        "entries": {
+          "googleAds": "Google Werbung und Marketing"
+        }
+      }
     }
   }
 }

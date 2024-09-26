@@ -13,6 +13,38 @@
       "title": "Cookie settings",
       "settings": "Settings",
       "submitLabel": "Save"
+    },
+    "groups": {
+      "required": {
+        "name": "Technically required",
+        "description": "Cookies required for this shop to function:",
+        "entries": {
+          "session": "Session",
+          "timezone": "Timezone",
+          "captcha": "CAPTCHA integration"
+        }
+      },
+      "statistics": {
+        "name": "Statistics",
+        "description": "Cookies used for statistics and shop performance metrics.",
+        "entries": {
+          "googleAnalytics": "Google Analytics"
+        }
+      },
+      "comfortFeatures": {
+        "name": "Comfort features",
+        "entries": {
+          "wishlist": "Wishlist",
+          "youtubeVideo": "YouTube video"
+        }
+      },
+      "marketing": {
+        "name": "Marketing",
+        "description": "Allows Google to collect personal data for online advertising and marketing.",
+        "entries": {
+          "googleAds": "Google Advertising"
+        }
+      }
     }
   }
 }

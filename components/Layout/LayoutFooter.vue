@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { getTranslatedProperty, getCategoryRoute } from '@shopware-pwa/helpers-next';
-import LayoutFooterActions from './LayoutFooterActions.vue';
 
 const { navigationElements, loadNavigationElements } = useNavigation({ type: 'footer-navigation' });
 const { navigationElements: serviceNavigationElements, loadNavigationElements: loadServiceElements } = useNavigation({
