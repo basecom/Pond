@@ -5,9 +5,8 @@ const { loading } = storeToRefs(customerStore);
 useNotifications();
 useBreadcrumbs();
 
-// one of the calls needs to be async for proper error catching
 customerStore.refreshContext();
-await refreshCart();
+refreshCart();
 </script>
 
 <template>

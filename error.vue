@@ -10,8 +10,7 @@ const pageNotFound = computed(() => {
 });
 
 const isMaintenanceMode = computed(() => {
-    // 503 could also be thrown if the server is under heavy load, so we check the message too
-    return props.error.statusCode === 503 && props.error.message.includes('maintenance mode');
+    return props.error.statusCode === 503 && props.error.statusMessage === "MAINTENANCE_MODE";
 });
 
 const genericServerError = computed(() => {
