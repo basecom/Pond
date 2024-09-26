@@ -28,7 +28,7 @@ const handleWishlistButtonClicked = async () => {
             await addToWishlist();
             pushSuccess(t('wishlist.addedSuccesfully'));
         } catch (error) {
-            pushSuccess(t('wishlist.errorAddingProduct'));
+            pushError(t('wishlist.errorAddingProduct'));
         }
     }
 };
