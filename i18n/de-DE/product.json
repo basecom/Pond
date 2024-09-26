@@ -1,19 +1,19 @@
 {
-  "product": {
-    "price": {
-      "vatInfo": "inkl. MwSt"
-    },
-    "addToCart": {
-      "successMessage": "{productName} wurde dem Warenkorb hinzugefügt.",
-      "errorMessage": "Beim Hinzufügen von {productName} zum Warenkorb ist etwas schiefgegangen.",
-      "submitLabel": "In den Warenkorb",
-      "notAvailable": "Dieses Produkt ist nicht vorrätig."
-    },
-    "availability": {
-      "deliveryTime": "Lieferzeit: {deliveryTime}",
-      "available": "Lieferbar, Lieferzeit {deliveryTime}",
-      "restock": "Lieferbar, in {restockTime} Tagen",
-      "notAvailable": "Aktuell nicht lieferbar"
+    "product": {
+        "price": {
+            "vatInfo": "inkl. MwSt"
+        },
+        "addToCart": {
+            "successMessage": "{productName} wurde dem Warenkorb hinzugefügt.",
+            "errorMessage": "Beim Hinzufügen von {productName} zum Warenkorb ist etwas schiefgegangen.",
+            "submitLabel": "In den Warenkorb",
+            "notAvailable": "Dieses Produkt ist nicht vorrätig."
+        },
+        "availability": {
+            "deliveryTime": "Lieferzeit: {deliveryTime}",
+            "available": "Lieferbar, Lieferzeit {deliveryTime}",
+            "restock": "Lieferbar, in {restockTime} Tagen",
+            "notAvailable": "Aktuell nicht lieferbar"
+        }
     }
-  }
 }
