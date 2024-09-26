@@ -61,12 +61,22 @@ const cover = getProductCover(props.product.cover);
             </div>
         </NuxtLink>
 
-        <div>
+        <template v-if="product.childCount > 0">
+            <NuxtLink
+                :to="getProductRoute(product)"
+                class="flex w-full justify-center rounded-md bg-gray px-4 py-2 text-sm text-white hover:bg-gray-dark"
+            >
+                <!-- TODO: Snippet + Component? -->
+                Details
+            </NuxtLink>
+        </template>
+
+        <template v-else>
             <ProductAddToCart
                 :product="product"
                 :label="false"
                 :icon="true"
             />
-        </div>
+        </template>
     </div>
 </template>
