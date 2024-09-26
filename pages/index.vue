@@ -3,9 +3,10 @@ import { pascalCase } from 'scule';
 
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
-
 const { refreshSessionContext } = useSessionContext();
+const { getWishlistProducts } = useWishlist();
 await refreshSessionContext();
+await getWishlistProducts();
 
 const { t, locale } = useI18n();
 const routePath = route.path.replace(`${locale.value}`, '').replace('//', '/');
