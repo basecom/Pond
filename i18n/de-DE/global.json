@@ -1,6 +1,5 @@
 {
-  "global": {
-    "errorMessage404": "Seite nicht gefunden",
-    "homepageLinkLabel": "Homepage"
-  }
+    "global": {
+        "homepageLinkLabel": "Zur Startseite"
+    }
 }

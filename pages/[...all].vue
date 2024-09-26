@@ -31,7 +31,7 @@ const { routeName, foreignKey } = useNavigationContext(seoResult);
 const { componentExists } = useCmsUtils();
 
 if (!routeName.value) {
-    throw createError({ statusCode: 404, message: t('global.errorMessage404') });
+    throw createError({ statusCode: 404, message: t('error.pageNotFound') });
 }
 
 onBeforeRouteLeave(() => {
