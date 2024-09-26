@@ -43,14 +43,14 @@ const navItems = ref([
 
         <div
             v-if="props.isInHeader"
-            class="ml-4 mt-4 pb-4 pl-2 text-2xl font-bold"
+            class="mt-4 pb-4 pl-2 text-2xl font-bold"
         >
             {{ $t('account.dropdownHeading') }}
         </div>
         <li
             v-for="(item, index) in navItems"
             :key="item.path"
-            class="ml-4 mt-4 pb-4 pl-2"
+            class="mt-4 pb-4 pl-2"
             :class="{ 'border-gray-300 border-b': index !== navItems.length - 1 }"
         >
             <NuxtLink

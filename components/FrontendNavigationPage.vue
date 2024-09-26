@@ -19,7 +19,7 @@ const { data: categoryResponse } = await useAsyncData('navigation' + props.navig
 });
 
 if (!categoryResponse.value) {
-    throw createError({ statusCode: 404, message: t('global.errorMessage404') });
+    throw createError({ statusCode: 404, message: t('error.pageNotFound') });
 }
 
 const { category } = useCategory(categoryResponse);

@@ -3,6 +3,7 @@ import account from './account.json';
 import checkout from './checkout.json';
 import cms from './cms.json';
 import composable from './composable.json';
+import error from './error.json';
 import layout from './layout.json';
 import navigation from './navigation.json';
 import order from './order.json';
@@ -18,6 +19,7 @@ export default {
     ...checkout,
     ...cms,
     ...composable,
+    ...error,
     ...layout,
     ...navigation,
     ...order,

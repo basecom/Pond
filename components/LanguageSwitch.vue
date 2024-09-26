@@ -20,7 +20,7 @@ const languageOptions = computed(() => entityArrayToOptions<Schemas['language']>
 
 <template>
     <div
-        v-if="languages"
+        v-if="languages && languages.length > 1"
         class="py-4 md:w-1/5"
     >
         <FormKit

@@ -1,18 +1,18 @@
 {
-  "composable": {
-    "apiErrorsResolver": {
-      "noDetails": "No details provided"
-    },
-    "media": {
-      "noImageMessage": "No product image available"
-    },
-    "breadcrumbs": {
-      "cartName": "Cart",
-      "checkoutName": "Checkout",
-      "orderName": "Order",
-      "accountName": "Account",
-      "loginName": "Login",
-      "registerName": "Register"
+    "composable": {
+        "apiErrorsResolver": {
+            "noDetails": "No details provided"
+        },
+        "media": {
+            "noImageMessage": "No product image available"
+        },
+        "breadcrumbs": {
+            "cartName": "Cart",
+            "checkoutName": "Checkout",
+            "orderName": "Order",
+            "accountName": "Account",
+            "loginName": "Login",
+            "registerName": "Register"
+        }
     }
-  }
 }

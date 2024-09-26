@@ -64,12 +64,16 @@ const cover = getProductCover(props.product.cover);
             </div>
         </NuxtLink>
 
-        <div>
+        <template v-if="product.childCount > 0">
+            <ProductGoToDetail :product="product" />
+        </template>
+
+        <template v-else>
             <ProductAddToCart
                 :product="product"
                 :label="false"
                 :icon="true"
             />
-        </div>
+        </template>
     </div>
 </template>
