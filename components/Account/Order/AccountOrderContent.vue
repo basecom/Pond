@@ -24,7 +24,9 @@ onMounted(async () => {
 
 <template>
     <div>
-        <h1 class="mb-2 font-bold">Orders</h1>
+        <h1 class="mb-2 font-bold">
+            {{ $t('account.orders.heading') }}
+        </h1>
 
         <div
             v-if="isLoading"
@@ -44,6 +46,8 @@ onMounted(async () => {
             </li>
         </ul>
 
-        <p v-else-if="!isLoading">Oops, no orders have been found. Have you placed an order yet?</p>
+        <p v-else-if="!isLoading">
+            {{ $t('account.orders.noOrdersFound') }}
+        </p>
     </div>
 </template>

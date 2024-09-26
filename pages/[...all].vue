@@ -8,6 +8,7 @@ await refreshSessionContext();
 
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
+const { t } = useI18n();
 
 const { locale } = useI18n();
 const routePath = route.path.replace(`${locale.value}`, '').replace('//', '/');
@@ -30,7 +31,7 @@ const { routeName, foreignKey } = useNavigationContext(seoResult);
 const { componentExists } = useCmsUtils();
 
 if (!routeName.value) {
-    throw createError({ statusCode: 404, message: 'page not found' });
+    throw createError({ statusCode: 404, message: t('global.errorMessage404') });
 }
 
 onBeforeRouteLeave(() => {

@@ -68,7 +68,7 @@ onMounted(() => {
                     outer: 'w-full',
                     input: 'border-b border-gray-medium py-1',
                 }"
-                placeholder="Search for products"
+                :placeholder="$t('search.searchBar.placeholder')"
                 @keyup.enter="
                     () => {
                         handleEnter();
@@ -109,10 +109,10 @@ onMounted(() => {
                         @click="$emit('closeSearch')"
                     >
                         <template v-if="getTotal > 1">
-                            <span>View all {{ getTotal }} results</span>
+                            <span>{{ $t('search.searchBar.resultsLinkLabel', { number: getTotal }) }}</span>
                         </template>
                         <template v-else>
-                            <span>View the result</span>
+                            <span>{{ $t('search.searchBar.oneResultLinkLabel') }}</span>
                         </template>
                     </NuxtLink>
 
@@ -120,7 +120,7 @@ onMounted(() => {
                         v-else
                         class="py-3"
                     >
-                        No results
+                        {{ $t('search.searchBar.noResultsLabel') }}
                     </div>
                 </template>
             </div>

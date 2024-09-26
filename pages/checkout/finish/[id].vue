@@ -27,12 +27,12 @@ onMounted(async () => {
     <div class="container">
         <template v-if="order">
             <div class="text-center">
-                <h1 class="mb-6">Thank you for your order</h1>
+                <h1 class="mb-6">{{ $t('checkout.finish.heading') }}</h1>
 
                 <p class="mb-4">
-                    We have received your order and will process it as soon as possible.
+                    {{ $t('checkout.finish.confirmationMessage') }}
                     <br />
-                    An order confirmation email has been sent to you.
+                    {{ $t('checkout.finish.emailMessage') }}
                 </p>
             </div>
 
@@ -41,7 +41,7 @@ onMounted(async () => {
                 class="flex justify-center divide-x divide-gray py-4"
             >
                 <div class="pr-3 text-center">
-                    Order Number:
+                    {{ $t('checkout.finish.orderNumberLabel') }}
                     <span class="font-bold text-gray-dark"> #{{ order.orderNumber }} </span>
                 </div>
 
@@ -49,21 +49,21 @@ onMounted(async () => {
                     v-if="formattedOrderDate"
                     class="px-3 text-center"
                 >
-                    Order Date:
+                    {{ $t('checkout.finish.orderDateLabel') }}
                     <span class="font-bold text-gray-dark">
                         {{ formattedOrderDate }}
                     </span>
                 </div>
 
                 <div class="px-3 text-center">
-                    Order Status:
+                    {{ $t('checkout.finish.orderStatusLabel') }}
                     <span class="font-bold text-gray-dark">
                         {{ status }}
                     </span>
                 </div>
 
                 <div class="pl-3 text-center">
-                    Total Amount:
+                    {{ $t('checkout.finish.totalAmountLabel') }}
                     <span class="font-bold text-gray-dark">
                         {{ getFormattedPrice(total) }}
                     </span>
@@ -74,19 +74,19 @@ onMounted(async () => {
                 class="mx-auto flex max-w-80 justify-center text-brand-primary"
                 :to="'/account/orders'"
             >
-                View all my orders
+                {{ $t('checkout.finish.orderHistoryLinkLabel') }}
             </NuxtLink>
 
             <div class="grid gap-6 pt-6 lg:grid-cols-2">
                 <div class="divide-y divide-gray-medium rounded-md p-4 shadow">
                     <div class="pb-4">
-                        <div class="mb-2 font-bold">Billing Address</div>
+                        <div class="mb-2 font-bold">{{ $t('checkout.finish.billingAddressHeading') }}</div>
 
                         <OrderAddressBilling :billing-address="billingAddress" />
                     </div>
 
                     <div class="py-4">
-                        <div class="mb-2 font-bold">Shipping Address</div>
+                        <div class="mb-2 font-bold">{{ $t('checkout.finish.shippingAddressHeading') }}</div>
 
                         <OrderAddressShipping
                             :shipping-address="shippingAddress"
@@ -95,20 +95,20 @@ onMounted(async () => {
                     </div>
 
                     <div class="py-4">
-                        <div class="mb-2 font-bold">Payment Method</div>
+                        <div class="mb-2 font-bold">{{ $t('checkout.finish.paymentMethodHeading') }}</div>
 
                         <OrderPayment :payment-method="paymentMethod" />
                     </div>
 
                     <div class="pt-4">
-                        <div class="mb-2 font-bold">Shipping Method</div>
+                        <div class="mb-2 font-bold">{{ $t('checkout.finish.shippingMethodHeading') }}</div>
 
                         <OrderShipping :shipping-method="shippingMethod" />
                     </div>
                 </div>
 
                 <div class="rounded-md p-4 shadow">
-                    <p class="font-bold">Products</p>
+                    <p class="font-bold">{{ $t('checkout.lineItemsHeading') }}</p>
 
                     <ul class="divide-y divide-gray-medium">
                         <li

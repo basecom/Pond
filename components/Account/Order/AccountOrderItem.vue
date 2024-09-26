@@ -54,19 +54,19 @@ onMounted(async () => {
 
                 <div class="gap-12 lg:flex">
                     <AccountOrderItemInfo
-                        title="Payment"
+                        :title="$t('account.orders.paymentStatusLabel')"
                         :state="paymentState"
                     />
                     <AccountOrderItemInfo
-                        title="Payment Method"
+                        :title="$t('account.orders.paymentMethodLabel')"
                         :state="paymentMethod"
                     />
                     <AccountOrderItemInfo
-                        title="Shipping"
+                        :title="$t('account.orders.shippingStatusLabel')"
                         :state="shippingStatus"
                     />
                     <AccountOrderItemInfo
-                        title="Shipping Method"
+                        :title="$t('account.orders.shippingMethodLabel')"
                         :state="shippingMethod"
                     />
                 </div>
@@ -75,7 +75,7 @@ onMounted(async () => {
 
         <template #content>
             <div class="py-4">
-                <div class="mt-5 font-bold">Products</div>
+                <div class="mt-5 font-bold">{{ $t('account.orders.lineItemsHeading') }}</div>
                 <div
                     v-for="(product, index) in order.lineItems"
                     :key="product.id"
