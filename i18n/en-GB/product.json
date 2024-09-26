@@ -14,6 +14,9 @@
             "available": "Available, delivery time {deliveryTime}",
             "restock": "Available, restock time of {restockTime} days",
             "notAvailable": "Currently not available"
+        },
+        "goToDetail": {
+            "label": "Details"
         }
     }
 }
