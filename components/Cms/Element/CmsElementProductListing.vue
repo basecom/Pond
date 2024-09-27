@@ -54,7 +54,7 @@ const changePage = async (page: number) => {
 </script>
 
 <template>
-    <div v-if="getElements[0]">
+    <div v-if="getElements.length > 0">
         <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
             <template
                 v-for="product in getElements"
