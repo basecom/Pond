@@ -6,6 +6,8 @@ const { cookieGroups, activeCookies } = defineProps<{
 
 const emit = defineEmits<{
     'update-cookies': [active: CookieEntry['cookie'][], inactive: CookieEntry['cookie'][]];
+    'deny-all': [];
+    'accept-all': [];
 }>();
 
 const selectCookieGroup = (group: CookieGroup, event: Event) => {
@@ -73,15 +75,15 @@ onMounted(() => {
 </script>
 
 <template>
+    <div class="mb-3">
+        <CookieBannerMessage />
+    </div>
     <FormKit
         type="form"
+        :actions="false"
         :submit-label="$t('cookie.modal.submitLabel')"
         @submit="handleSubmit"
     >
-        <div class="mb-3">
-            <CookieBannerMessage />
-        </div>
-        <div class="mb-3 text-xl font-bold">{{ $t('cookie.modal.settings') }}</div>
         <div class="mb-4 border-b border-t py-3">
             <div
                 v-for="group in cookieGroups"
@@ -117,6 +119,22 @@ onMounted(() => {
                     />
                 </div>
             </div>
+        </div>
+        <div class="flex flex-col justify-end gap-2 md:flex-row">
+            <FormKit
+                type="button"
+                :label="$t('cookie.modal.denyAllButton')"
+                @click="() => emit('deny-all')"
+            />
+            <FormKit
+                type="submit"
+                :label="$t('cookie.modal.submitLabel')"
+            />
+            <FormKit
+                type="button"
+                :label="$t('cookie.modal.allowAllButton')"
+                @click="() => emit('accept-all')"
+            />
         </div>
     </FormKit>
 </template>

@@ -12,7 +12,9 @@
     "modal": {
       "title": "Cookie settings",
       "settings": "Settings",
-      "submitLabel": "Save"
+      "submitLabel": "Save",
+      "denyAllButton": "Deny all",
+      "allowAllButton": "Accept all"
     },
     "groups": {
       "required": {

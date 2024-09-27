@@ -7,6 +7,17 @@ const onUpdateCookie = (active: CookieEntry['cookie'][], inactive: CookieEntry['
     cookieBannerStore.updateCookies(active, inactive);
     modalController.close();
 };
+
+const onAcceptAll = () => {
+    cookieBannerStore.acceptAll();
+    modalController.close();
+};
+
+const onDenyAll = () => {
+    cookieBannerStore.denyAll();
+    modalController.close();
+};
+
 </script>
 
 <template>
@@ -23,6 +34,8 @@ const onUpdateCookie = (active: CookieEntry['cookie'][], inactive: CookieEntry['
                 :cookie-groups="cookieGroups"
                 :active-cookies="activatedCookies"
                 @update-cookies="onUpdateCookie"
+                @deny-all="onDenyAll"
+                @accept-all="onAcceptAll"
             />
         </template>
     </LazySharedModal>

@@ -12,7 +12,9 @@
     "modal": {
       "title": "Cookie-Voreinstellungen",
       "settings": "Einstellungen",
-      "submitLabel": "Speichern"
+      "submitLabel": "Speichern",
+      "denyAllButton": "Alles leugnen",
+      "allowAllButton": "Akzeptiere alles"
     },
     "groups": {
       "required": {
