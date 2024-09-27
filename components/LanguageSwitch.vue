@@ -20,7 +20,7 @@ const languageOptions = computed(() => entityArrayToOptions<Schemas['language']>
 
 <template>
     <FormKit
-        v-if="languages"
+        v-if="languages && languages.length > 1"
         v-model="languageIdChain"
         type="select"
         name="language"

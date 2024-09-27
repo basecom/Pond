@@ -1,12 +1,12 @@
 {
-  "shared": {
-    "modal": {
-      "cancelButtonLabel": "Abbrechen",
-      "closeButtonAriaLabel": "Schließen"
-    },
-    "popover": {
-      "triggerAriaLabel": "Kundenkonto Dropdown",
-      "closeButtonAriaLabel": "Schließen"
+    "shared": {
+        "modal": {
+            "cancelButtonLabel": "Abbrechen",
+            "closeButtonAriaLabel": "Schließen"
+        },
+        "popover": {
+            "triggerAriaLabel": "Kundenkonto Dropdown",
+            "closeButtonAriaLabel": "Schließen"
+        }
     }
-  }
 }

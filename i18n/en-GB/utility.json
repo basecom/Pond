@@ -1,8 +1,8 @@
 {
-  "utility": {
-    "loadingSpinnerLabel": "Loading...",
-    "toast": {
-      "closeButtonAriaLabel": "Close Notification"
+    "utility": {
+        "loadingSpinnerLabel": "Loading...",
+        "toast": {
+            "closeButtonAriaLabel": "Close Notification"
+        }
     }
-  }
 }

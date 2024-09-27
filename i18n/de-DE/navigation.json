@@ -1,7 +1,7 @@
 {
-  "navigation": {
-    "sidebar": {
-      "backLinkLabel": "Zurück"
+    "navigation": {
+        "sidebar": {
+            "backLinkLabel": "Zurück"
+        }
     }
-  }
 }
