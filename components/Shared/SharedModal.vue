@@ -52,7 +52,7 @@ const onUpdatedOpen = (value: boolean) => {
                 leave-to-class="-translate-y-10 scale-50"
             >
                 <DialogContent
-                    class="absolute left-1/2 top-8 z-[100] -translate-x-1/2 rounded-lg bg-white shadow-lg focus:outline-none max-h-[calc(100vh-4rem)] overflow-auto"
+                    class="fixed left-1/2 top-8 z-[100] -translate-x-1/2 rounded-lg bg-white shadow-lg focus:outline-none max-h-[calc(100vh-4rem)] overflow-auto"
                     :class="{
                         'w-80': size === 'sm',
                         'w-128': size === 'md',
