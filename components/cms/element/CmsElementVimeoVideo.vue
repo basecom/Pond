@@ -14,8 +14,6 @@ onMounted(() => {
             id: parseInt(props.element.config.videoID.value),
             width: vimeoVideo.value?.offsetWidth ?? null,
         });
-        player.on('play', function () {
-        });
     }
 });
 </script>
