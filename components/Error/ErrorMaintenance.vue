@@ -13,7 +13,7 @@
 
         <p class="pb-8 text-center">
             {{ $t('error.maintenance.detail') }}
-            <br>
+            <br />
             {{ $t('error.maintenance.tryAgain') }}
         </p>
 
