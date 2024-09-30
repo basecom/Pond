@@ -1,8 +1,8 @@
 {
-  "layout": {
-    "breadcrumb": {
-      "ariaLabel": "Breadcrumb",
-      "homeLinkLabel": "Home"
+    "layout": {
+        "breadcrumb": {
+            "ariaLabel": "Breadcrumb",
+            "homeLinkLabel": "Home"
+        }
     }
-  }
 }

@@ -1,36 +1,34 @@
 <script setup lang="ts">
-withDefaults(
+const props = withDefaults(
     defineProps<{
+        controller?: ReturnType<typeof useModal>;
         withCloseButton?: boolean;
         withActionsButton?: boolean;
         size?: 'sm' | 'md' | 'lg';
     }>(),
     {
+        controller: useModal,
         withCloseButton: false,
         withActionsButton: false,
         size: 'md',
     },
 );
+const { controller } = toRefs(props);
 
-const isOpen = ref(false);
-
-const open = () => {
-    isOpen.value = true;
+const onUpdatedOpen = (value: boolean) => {
+    if (value) {
+        controller.value.open();
+    } else {
+        controller.value.close();
+    }
 };
-
-const close = () => {
-    isOpen.value = false;
-};
-
-defineExpose({
-    isOpen,
-    open,
-    close,
-});
 </script>
 
 <template>
-    <DialogRoot v-model:open="isOpen">
+    <DialogRoot
+        v-model:open="controller.isOpen.value"
+        @update:open="onUpdatedOpen"
+    >
         <DialogTrigger>
             <slot name="trigger"></slot>
         </DialogTrigger>
@@ -54,7 +52,7 @@ defineExpose({
                 leave-to-class="-translate-y-10 scale-50"
             >
                 <DialogContent
-                    class="absolute left-1/2 top-8 z-[100] -translate-x-1/2 rounded-lg bg-white shadow-lg focus:outline-none"
+                    class="fixed left-1/2 top-8 z-[100] -translate-x-1/2 rounded-lg bg-white shadow-lg focus:outline-none max-h-[calc(100vh-4rem)] overflow-auto"
                     :class="{
                         'w-80': size === 'sm',
                         'w-128': size === 'md',

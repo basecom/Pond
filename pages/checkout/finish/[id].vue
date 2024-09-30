@@ -6,9 +6,14 @@ const { order, loadOrderDetails, shippingAddress, billingAddress, shippingMethod
     useOrderDetails(orderId);
 const { getFormattedPrice } = usePrice();
 
-const dateFormat = 'DD.MM.YYYY';
-const formattedOrderDate = useDateFormat(order.orderDate, dateFormat, {
-    locales: (typeof navigator !== 'undefined' && navigator.language) || 'en-US',
+const formattedOrderDate = computed(() => {
+    if (order.value?.orderDate) {
+        return useDateFormat(order.value.orderDate, 'DD.MM.YYYY', {
+            locales: (typeof navigator !== 'undefined' && navigator.language) || 'en-US',
+        });
+    }
+
+    return undefined;
 });
 
 useBreadcrumbs(checkoutBreadcrumbs({ index: 2, orderId: orderId }));
@@ -40,7 +45,10 @@ onMounted(async () => {
                     <span class="font-bold text-gray-dark"> #{{ order.orderNumber }} </span>
                 </div>
 
-                <div class="px-3 text-center">
+                <div
+                    v-if="formattedOrderDate"
+                    class="px-3 text-center"
+                >
                     {{ $t('checkout.finish.orderDateLabel') }}
                     <span class="font-bold text-gray-dark">
                         {{ formattedOrderDate }}

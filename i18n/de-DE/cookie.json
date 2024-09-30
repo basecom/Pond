@@ -1,0 +1,52 @@
+{
+  "cookie": {
+    "banner": {
+      "message": "Diese Website verwendet Cookies, um eine bestmögliche Erfahrung bieten zu können.",
+      "additionalInformationTriggerButton": "Mehr Informationen...",
+      "additionalInformationTitle": "Datenschutz",
+      "additionalInformationText": "Diese Website verwendet Cookies, um eine bestmögliche Erfahrung bieten zu können. Durch die Nutzung dieser Website stimmen Sie der Verwendung von Cookies zu. Detaillierte Informationen zur Verwendung von Cookies auf dieser Website finden Sie in der Datenschutzerklärung.",
+      "denyAllButton": "Nur technisch notwendige",
+      "configureButton": "Konfigurieren",
+      "allowAllButton": "Alle Cookies akzeptieren"
+    },
+    "modal": {
+      "title": "Cookie-Voreinstellungen",
+      "settings": "Einstellungen",
+      "submitLabel": "Auswahl speichern",
+      "denyAllButton": "Alle ablehnen",
+      "allowAllButton": "Alle akzeptieren"
+    },
+    "groups": {
+      "required": {
+        "name": "Technisch erforderlich",
+        "description": "Für die Funktion des Shops erforderliche Cookies:",
+        "entries": {
+          "session": "Sitzung",
+          "timezone": "Zeitzone",
+          "captcha": "CAPTCHA-Integration"
+        }
+      },
+      "statistics": {
+        "name": "Statistiken",
+        "description": "Für Statistiken und Shop-Performance-Metriken genutzte Cookies.",
+        "entries": {
+          "googleAnalytics": "Google Analytics"
+        }
+      },
+      "comfortFeatures": {
+        "name": "Komfortfunktionen",
+        "entries": {
+          "wishlist": "Merkzettel",
+          "youtubeVideo": "YouTube-Video"
+        }
+      },
+      "marketing": {
+        "name": "Marketing",
+        "description": "Erlaubt es Google, personenbezogene Daten für Online-Werbung und Marketing zu sammeln.",
+        "entries": {
+          "googleAds": "Google Werbung und Marketing"
+        }
+      }
+    }
+  }
+}

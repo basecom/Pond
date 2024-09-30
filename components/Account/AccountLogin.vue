@@ -30,6 +30,7 @@ const { resolveApiErrors } = useApiErrorsResolver();
 const { signedIn } = storeToRefs(customerStore);
 const apiErrors = ref<ResolvedApiError[]>([]);
 const { pushError, pushSuccess } = useNotifications();
+const { mergeWishlistProducts } = useWishlist();
 const { t } = useI18n();
 
 const handleLogin = async (fields: FormkitLoginFields) => {
@@ -41,7 +42,7 @@ const handleLogin = async (fields: FormkitLoginFields) => {
         if (props.redirectAfterSuccess) {
             navigateTo(props.redirectTarget);
         }
-
+        mergeWishlistProducts();
         pushSuccess(t('account.login.successMessage'));
     } catch (error) {
         pushError(t('account.login.errorMessage'));
@@ -109,6 +110,7 @@ const handleLogin = async (fields: FormkitLoginFields) => {
             v-if="showRecoverLink"
             to="/account/recover"
             class="hover:text-brand-primary"
+            :class="{'text-right': showCreateLink}"
             @click="$emit('closeModal')"
         >
             {{ $t('account.login.recoverPasswordLink') }}
