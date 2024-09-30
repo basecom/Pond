@@ -1,0 +1,11 @@
+{
+    "order": {
+        "summary": {
+            "heading": "Order Summary",
+            "netPriceLabel": "Net",
+            "taxLabel": "Tax",
+            "shippingCostLabel": "Shipping",
+            "totalLabel": "Total"
+        }
+    }
+}

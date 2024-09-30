@@ -1,0 +1,116 @@
+{
+    "account": {
+        "greeting": "Hallo {firstname} {lastname}",
+        "dropdownHeading": "Your account",
+        "overview": {
+            "heading": "Overview",
+            "subHeading": "Directly access your profile information, the default payment method and given addresses.",
+            "personalInformation": {
+                "heading": "Personal Information",
+                "nameLabel": "Name:",
+                "emailLabel": "Email:"
+            },
+            "paymentMethod": {
+                "heading": "Payment Method",
+                "nameLabel": "Name:",
+                "descriptionLabel": "Description:"
+            },
+            "billingAddressHeading": "Billing Address",
+            "shippingAddressHeading": "Shipping Address",
+            "newsletter": {
+                "heading": "Newsletter Subcription",
+                "label": "Yes, I would like to subscribe to the free newsletter. (I may unsubscribe at any time.)"
+            }
+        },
+        "profile": {
+            "heading": "Your Profile"
+        },
+        "address": {
+            "heading": "Addresses"
+        },
+        "payment": {
+            "heading": "Payment Methods"
+        },
+        "orders": {
+            "heading": "Orders",
+            "noOrdersFound": "Oops, no orders have been found. Have you placed an order yet?",
+            "paymentStatusLabel": "Payment",
+            "paymentMethodLabel": "Payment Method",
+            "shippingStatusLabel": "Shipping",
+            "shippingMethodLabel": "Shipping Method",
+            "lineItemsHeading": "Products",
+            "status": "Status"
+        },
+        "login": {
+            "successMessage": "You successfully logged in.",
+            "errorMessage": "An error occurred trying to login. Please try again.",
+            "submitLabel": "Login",
+            "email": {
+                "label": "Email",
+                "placeholder": "Type your email address...",
+                "help": "Your email address"
+            },
+            "password": {
+                "label": "Password"
+            },
+            "createAccountLink": "Create your account here"
+        },
+        "register": {
+            "submitLabel": "Register",
+            "dataHeading": "Your data:",
+            "salutation": {
+                "label": "Salutation",
+                "placeholder": "Select a salutation",
+                "help": "Select how you would like to be addressed"
+            },
+            "firstname": {
+                "label": "First name",
+                "placeholder": "Your firstname"
+            },
+            "lastname": {
+                "label": "Last name",
+                "placeholder": "Your lastname"
+            },
+            "addressHeading": "Your address:",
+            "street": {
+                "label": "Street",
+                "placeholder": "Your street address "
+            },
+            "zipCode": {
+                "label": "Zip code",
+                "placeholder": "Your zip code"
+            },
+            "city": {
+                "label": "City",
+                "placeholder": "Your city"
+            },
+            "country": {
+                "label": "Country",
+                "placeholder": "Select your country"
+            },
+            "accountDataHeading": "Your account data:",
+            "email": {
+                "label": "Email",
+                "placeholder": "Your email address"
+            },
+            "password": {
+                "label": "Password",
+                "placeholder": "Choose a password"
+            },
+            "terms": {
+                "label": "Terms and Conditions",
+                "help": "Do you agree to our terms of service?"
+            }
+        },
+        "logout": {
+            "buttonLabel": "Logout"
+        },
+        "loginModal": {
+            "heading": "Login",
+            "tabs": {
+                "loginTabHeading": "Login",
+                "registerTabHeading": "Register"
+            }
+        }
+    }
+}

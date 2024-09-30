@@ -16,7 +16,7 @@ withDefaults(
 <template>
     <nav
         class="container mx-auto my-8 hidden lg:flex"
-        aria-label="Breadcrumb"
+        :aria-label="$t('layout.breadcrumb.ariaLabel')"
     >
         <ol class="inline-flex items-center gap-2">
             <li
@@ -32,7 +32,7 @@ withDefaults(
                         :icon="rootIcon"
                         class="h-4 w-4"
                     />
-                    Home
+                    {{ $t('layout.breadcrumb.homeLinkLabel') }}
                 </NuxtLink>
 
                 <FormKitIcon

@@ -62,7 +62,7 @@ withDefaults(
                             <DialogClose as-child>
                                 <FormKit
                                     type="button"
-                                    label="cancel"
+                                    :label="$t('shared.modal.cancelButtonLabel')"
                                     :classes="{
                                         outer: 'w-full',
                                     }"
@@ -73,7 +73,7 @@ withDefaults(
                     <DialogClose
                         v-if="withCloseButton"
                         class="absolute right-5 top-5 h-5 w-5 items-center justify-center text-gray hover:text-black focus:text-black"
-                        aria-label="Close"
+                        :aria-label="$t('shared.modal.closeButtonAriaLabel')"
                     >
                         <FormKitIcon
                             class="block"

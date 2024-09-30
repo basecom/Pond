@@ -16,6 +16,9 @@ const { getElements, changeCurrentPage, getCurrentPage, search, getTotal, getLim
 search({
     limit: props.element.data.listing.limit,
     p: props.element.data.listing.page,
+    associations: {
+        children: {},
+    },
     includes: {
         product: [
             'id',
@@ -28,6 +31,8 @@ search({
             'minPurchase',
             'maxPurchase',
             'purchaseSteps',
+            'children',
+            'childCount',
         ],
         product_media: ['media'],
         media: ['url'],

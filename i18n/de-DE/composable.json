@@ -1,0 +1,18 @@
+{
+    "composable": {
+        "apiErrorsResolver": {
+            "noDetails": "Keine Details angegeben"
+        },
+        "media": {
+            "noImageMessage": "Kein Produktbild verfügbar"
+        },
+        "breadcrumbs": {
+            "cartName": "Warenkorb",
+            "checkoutName": "Kasse",
+            "orderName": "Bestellung",
+            "accountName": "Konto",
+            "loginName": "Login",
+            "registerName": "Registrieren"
+        }
+    }
+}

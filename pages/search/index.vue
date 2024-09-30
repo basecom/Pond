@@ -2,6 +2,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 
 const route = useRoute();
+const { t } = useI18n();
 
 const { getCurrentListing, getElements: products, loading, search, setInitialListing } = useProductSearchListing();
 
@@ -29,7 +30,7 @@ setInitialListing(productSearch.value as Schemas['ProductListingResult']);
 
 useBreadcrumbs([
     {
-        name: 'Search results',
+        name: t('search.resultPage.breadcrumbName'),
         path: '/search?search=' + route.query.search,
     },
 ]);
@@ -39,9 +40,9 @@ useBreadcrumbs([
     <div class="container">
         <h1 class="mb-6 text-center">
             <span v-if="products?.length">
-                results for <strong>"{{ searchTerm }}"</strong>"
+                {{ $t('search.resultPage.heading') }} <strong>"{{ searchTerm }}"</strong>
             </span>
-            <span v-else>no results</span>
+            <span v-else>{{ $t('search.resultPage.headingNoResults') }}</span>
         </h1>
 
         <div
