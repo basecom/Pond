@@ -5,8 +5,6 @@ const props = defineProps<{
     element: CmsElementText;
 }>();
 
-const { t } = useI18n();
-
 const { getElements, changeCurrentPage, getCurrentPage, search, getTotal, getLimit } = useListing({
     listingType: 'categoryListing',
     defaultSearchCriteria: {
