@@ -27,12 +27,8 @@ const autoplayConfig = computed(( )=>{
     return false;
 });
 
-const speedConfig = computed(( )=>{
-    if (config.value?.autoSlide.value) {
-        return config.value?.speed.value;
-    } else {
-        return '300'; // Wenn autoplay deaktiviert sein soll
-    }
+const speedConfig = computed(( )=> {
+    return config.value?.autoSlide.value ? config.value?.speed.value: '300';
 });
 const items = ref(['Item 1', 'Item 2', 'Item 3', 'Item 4']);
 </script>
