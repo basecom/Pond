@@ -13,9 +13,7 @@ defineProps<{
             class="block h-20 w-20 text-gray-dark"
         />
 
-        <h1 class="pb-4 pt-6">
-            {{ $t('error.unknown.heading') }} - {{ error.statusCode }}
-        </h1>
+        <h1 class="pb-4 pt-6">{{ $t('error.unknown.heading') }} - {{ error.statusCode }}</h1>
 
         <p class="pb-8 text-center">
             {{ $t('error.unknown.detail') }}

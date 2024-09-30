@@ -1,7 +1,10 @@
 <template>
     <div>
         <span>{{ $t('cookie.banner.message') }}</span>
-        <LazySharedModal :with-close-button="true" size="sm">
+        <LazySharedModal
+            :with-close-button="true"
+            size="sm"
+        >
             <template #trigger>
                 <button class="ml-2 text-status-info">
                     {{ $t('cookie.banner.additionalInformationTriggerButton') }}
