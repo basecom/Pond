@@ -1,17 +1,17 @@
 <script setup lang="ts">
-const modal = ref(null);
 const customerStore = useCustomerStore();
 const { signedIn } = storeToRefs(customerStore);
+const modalController = useModal();
 
 const closeModal = () => {
-    modal.value.close();
+    modalController.close();
 };
 </script>
 
 <template>
     <LazySharedModal
         v-if="!signedIn"
-        ref="modal"
+        :controller="modalController"
         :with-close-button="true"
     >
         <template #trigger>
