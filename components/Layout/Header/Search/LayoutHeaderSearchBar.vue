@@ -77,7 +77,7 @@ onMounted(() => {
 
     // If on result page, set the search input to the last valid search term when opening it
     if (isResultPage.value) {
-        searchInput.value.$el.querySelector('input').value = searchStore.lastValidSearchTerm !== "" ? searchStore.lastValidSearchTerm : route.query.search;
+        searchInput.value.$el.querySelector('input').value = searchStore.lastValidSearchTerm !== "" ? searchStore.lastValidSearchTerm : route.query.search ?? '';
     }
 });
 </script>
