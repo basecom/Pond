@@ -14,7 +14,7 @@ const debounced = refDebounced(isOutsideNavItem, 300);
 <template>
     <div
         ref="navigationItem"
-        class="min-w-max px-2 py-4"
+        class="min-w-max px-2 py-4 first:pl-0 last:pr-0"
     >
         <NavigationLink
             :navigation-element="navigationElement"

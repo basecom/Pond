@@ -8,7 +8,15 @@ const { getCurrentListing, getElements: products, loading, search, setInitialLis
 
 const limit = ref(route.query.limit ? Number(route.query.limit) : 12);
 const cacheKey = computed(() => `productSearch-${JSON.stringify(route.query)}`);
-const searchTerm = ref(route.query.search);
+
+const searchStore = useSearchStore();
+const searchTerm = computed(() => {
+    if (searchStore.searchTerm.length < 3) {
+        return searchStore.lastValidSearchTerm !== "" ? searchStore.lastValidSearchTerm : route.query.search;
+    }
+
+    return searchStore.searchTerm;
+});
 
 const loadProducts = async (cacheKey: string) => {
     const { data: productSearch } = await useAsyncData(cacheKey, async () => {
@@ -40,9 +48,16 @@ useBreadcrumbs([
     <div class="container">
         <h1 class="mb-6 text-center">
             <span v-if="products?.length">
-                {{ $t('search.resultPage.heading') }} <strong>"{{ searchTerm }}"</strong>
+                {{ $t('search.resultPage.heading') }}
+
+                <strong>
+                    "{{ searchTerm }}"
+                </strong>
             </span>
-            <span v-else>{{ $t('search.resultPage.headingNoResults') }}</span>
+
+            <span v-else>
+                {{ $t('search.resultPage.headingNoResults') }}
+            </span>
         </h1>
 
         <div
