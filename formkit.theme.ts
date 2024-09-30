@@ -109,7 +109,7 @@ export const defaultClasses: Record<string, Record<string, boolean>> = {
         'peer-disabled:border-gray': true,
         'peer-disabled:peer-checked:border-gray': true,
         'peer-disabled:text-gray-light': true,
-        'peer-disabled:peer-checked:text-gray': true,
+        'peer-disabled:peer-checked:text-gray-dark': true,
         'peer-disabled:cursor-not-allowed': true,
     },
     'family:box__decoratorIcon': {
