@@ -58,6 +58,9 @@ const changePage = async (page: number) => {
 
     await changeCurrentPage(page, route.query);
 };
+
+const config = useCmsElementConfig(props.element);
+const boxLayout = config.getConfigValue('boxLayout');
 </script>
 
 <template>
@@ -69,7 +72,7 @@ const changePage = async (page: number) => {
             >
                 <ProductCard
                     :product="product"
-                    :layout="element.translated.config.boxLayout.value"
+                    :layout="boxLayout"
                 />
             </template>
         </div>
