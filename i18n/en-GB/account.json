@@ -53,7 +53,8 @@
       "password": {
         "label": "Password"
       },
-      "createAccountLink": "Create your account here"
+      "createAccountLink": "Create your account here",
+      "recoverPasswordLink": "Forgot password?"
     },
     "register": {
       "submitLabel": "Register",
@@ -104,6 +105,24 @@
     },
     "logout": {
       "buttonLabel": "Logout"
+    },
+    "recoverPassword": {
+      "request": {
+        "heading": "Password Recovery",
+        "subHeading": "We will send you an email. Click the link in that email in order to change your password.",
+        "submitLabel": "Request Email",
+        "successMessage": "If your email address is registered with us, we sent you an email. Please check your inbox.",
+        "loginButtonLabel": "Login"
+      },
+      "recover": {
+        "heading": "Choose a new password",
+        "submitLabel": "Change password",
+        "errorMessage": "Something went wrong changing your password.",
+        "passwordLabel": "New password",
+        "confirmLabel": "Confirm new password",
+        "linkNotValid": "This link doesn't seem to be valid. Please request another.",
+        "requestNewLink": "Request a new recovery link"
+      }
     },
     "loginModal": {
       "heading": "Login",

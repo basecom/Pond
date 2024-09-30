@@ -11,10 +11,26 @@ withDefaults(
         size: 'md',
     },
 );
+
+const isOpen = ref(false);
+
+const open = () => {
+    isOpen.value = true;
+};
+
+const close = () => {
+    isOpen.value = false;
+};
+
+defineExpose({
+    isOpen,
+    open,
+    close,
+});
 </script>
 
 <template>
-    <DialogRoot>
+    <DialogRoot v-model:open="isOpen">
         <DialogTrigger>
             <slot name="trigger"></slot>
         </DialogTrigger>

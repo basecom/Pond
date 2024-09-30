@@ -1,3 +1,7 @@
+<script setup lang="ts">
+defineEmits(['closeModal']);
+</script>
+
 <template>
     <TabsRoot
         class="flex w-full flex-col"
@@ -24,7 +28,10 @@
             class="grow rounded-b-md bg-white py-5 outline-none"
             value="tab-login"
         >
-            <AccountLogin :show-create-link="false" />
+            <AccountLogin
+                :show-create-link="false"
+                @close-modal="$emit('closeModal')"
+            />
         </TabsContent>
         <TabsContent
             class="grow rounded-b-md bg-white py-5 outline-none"

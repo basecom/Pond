@@ -12,7 +12,8 @@
       "orderName": "Order",
       "accountName": "Account",
       "loginName": "Login",
-      "registerName": "Register"
+      "registerName": "Register",
+      "recoverName": "Recover password"
     }
   }
 }
