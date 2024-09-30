@@ -15,7 +15,8 @@ const props = withDefaults(
 defineEmits(['closeSearch']);
 
 const { searchTerm, search, getProducts, getTotal, loading } = useProductSearchSuggest();
-const { push } = useRouter();
+
+const router = useRouter();
 
 // String the user has typed in the search field
 const typingQuery = ref('');
@@ -23,34 +24,62 @@ const typingQuery = ref('');
 // Reference to the searchInput to focus it onMount
 const searchInput = ref(null);
 
-// Perform search if input is greater or equal to the minimum characters prop
-watch(typingQuery, (value: string) => {
-    if (value.length >= props.minCharacters) {
-        performSuggestSearch(value);
-    }
-});
+// If the user is on the result page, hide suggestions since the listing is automatically updated
+const isResultPage = ref(false);
+const route = useRoute();
+if (route.path === '/search') {
+    isResultPage.value = true;
+}
 
-// Defer the search request to prevent the search from instantly being triggered after every character typed
-const performSuggestSearch = useDebounceFn((value: string) => {
-    searchTerm.value = value;
-    search();
-}, 300);
+// Use searchStore to share searchTerm with search result page
+const searchStore = useSearchStore();
+// Defer the search request to prevent the search from instantly being triggered, 500ms fixes holding backspace triggering twice
+const performDebouncedSearch = useDebounceFn((value: string) => {
+    // Only perform search and update valid searchTerm if searchTerm is longer than minCharacters
+    if (value.length >= props.minCharacters) {
+        searchTerm.value = value;
+        searchStore.updateLastValidSearchTerm(value);
+        search();
+
+        // Update URL with new valid search term
+        if (isResultPage.value) {
+            router.push({
+                query: {
+                    ...route.query,
+                    search: value,
+                },
+            });
+        }
+    }
+}, 500);
+
+watch(typingQuery, (value: string) => {
+    // Update searchTerm in searchStore
+    searchStore.updateSearchTerm(value);
+    performDebouncedSearch(value);
+});
 
 // Suggest results will only be shown, when the user has typed more than the minimum characters prop in the search field
 const showSuggest = computed(() => {
-    return typingQuery.value.length >= props.minCharacters;
+    return typingQuery.value.length >= props.minCharacters && !isResultPage.value;
 });
 
-// Redirect to search page when pressing enter
+// Redirect to search result page when pressing enter
 const handleEnter = () => {
     if (typingQuery.value.length >= 1) {
-        push('/search?search=' + typingQuery.value);
+        navigateTo('/search?search=' + typingQuery.value);
     }
 };
 
 onMounted(() => {
     // Get the input from the ref (need querySelector since the ref returns the FormKit wrapper and not the input itself)
     searchInput.value.$el.querySelector('input').focus();
+
+    // If on result page, set the search input to the last valid search term when opening it
+    if (isResultPage.value) {
+        searchInput.value.$el.querySelector('input').value =
+            searchStore.lastValidSearchTerm !== '' ? searchStore.lastValidSearchTerm : route.query.search ?? '';
+    }
 });
 </script>
 
@@ -72,7 +101,7 @@ onMounted(() => {
                 @keyup.enter="
                     () => {
                         handleEnter();
-                        $emit('closeSearch');
+                        isResultPage = true;
                     }
                 "
             />
@@ -106,10 +135,12 @@ onMounted(() => {
                         v-if="getTotal > 0"
                         :to="'/search?search=' + typingQuery"
                         class="block w-full py-3"
+                        @click="isResultPage = true"
                     >
                         <template v-if="getTotal > 1">
                             <span>{{ $t('search.searchBar.resultsLinkLabel', { number: getTotal }) }}</span>
                         </template>
+
                         <template v-else>
                             <span>{{ $t('search.searchBar.oneResultLinkLabel') }}</span>
                         </template>

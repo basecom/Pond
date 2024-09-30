@@ -26,6 +26,6 @@ const latestDeliveryDate = computed(() => {
 
 <template>
     <div v-if="earliestDeliveryDate && latestDeliveryDate">
-        Order delivery period: {{ earliestDeliveryDate }} - {{ latestDeliveryDate }}
+        {{ $t('order.deliveryPeriod') }} {{ earliestDeliveryDate }} - {{ latestDeliveryDate }}
     </div>
 </template>

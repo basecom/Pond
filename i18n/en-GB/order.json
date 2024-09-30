@@ -1,11 +1,12 @@
 {
-  "order": {
-    "summary": {
-      "heading": "Order Summary",
-      "netPriceLabel": "Net",
-      "taxLabel": "Tax",
-      "shippingCostLabel": "Shipping",
-      "totalLabel": "Total"
+    "order": {
+        "summary": {
+            "heading": "Order Summary",
+            "netPriceLabel": "Net",
+            "taxLabel": "Tax",
+            "shippingCostLabel": "Shipping",
+            "totalLabel": "Total"
+        },
+        "deliveryPeriod": "Order delivery period:"
     }
-  }
 }

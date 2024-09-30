@@ -2,11 +2,19 @@
 import { pascalCase } from 'scule';
 
 const { clearBreadcrumbs } = useBreadcrumbs();
+
+const { refreshSessionContext } = useSessionContext();
+await refreshSessionContext();
+
+const { getWishlistProducts } = useWishlist();
+await getWishlistProducts();
+
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
 const { t } = useI18n();
 
-const routePath = route.path.replace('//', '/');
+const { locale } = useI18n();
+const routePath = route.path.replace(`${locale.value}`, '').replace('//', '/');
 
 const { data: seoResult } = await useAsyncData('seoPath' + routePath, async () => {
     // For client links if the history state contains seo url information we can omit the api call
@@ -26,7 +34,7 @@ const { routeName, foreignKey } = useNavigationContext(seoResult);
 const { componentExists } = useCmsUtils();
 
 if (!routeName.value) {
-    throw createError({ statusCode: 404, message: t('global.errorMessage404') });
+    throw createError({ statusCode: 404, message: t('error.pageNotFound') });
 }
 
 onBeforeRouteLeave(() => {

@@ -18,7 +18,10 @@ const cover = getProductCover(props.product.cover);
 </script>
 
 <template>
-    <div class="rounded-md p-4 shadow-md">
+    <div class="relative rounded-md p-4 shadow-md">
+        <div class="absolute right-0 top-0 z-[2] p-4">
+            <ProductAddToWishlist :product-id="props.product.id" />
+        </div>
         <NuxtLink
             :to="getProductRoute(product)"
             class="group"
@@ -61,12 +64,16 @@ const cover = getProductCover(props.product.cover);
             </div>
         </NuxtLink>
 
-        <div>
+        <template v-if="product.childCount > 0">
+            <ProductGoToDetail :product="product" />
+        </template>
+
+        <template v-else>
             <ProductAddToCart
                 :product="product"
                 :label="false"
                 :icon="true"
             />
-        </div>
+        </template>
     </div>
 </template>

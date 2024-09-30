@@ -1,11 +1,12 @@
 {
-  "order": {
-    "summary": {
-      "heading": "Bestellübersicht",
-      "netPriceLabel": "Nettopreis",
-      "taxLabel": "MwSt.",
-      "shippingCostLabel": "Versand",
-      "totalLabel": "Gesamt"
+    "order": {
+        "summary": {
+            "heading": "Bestellübersicht",
+            "netPriceLabel": "Nettopreis",
+            "taxLabel": "MwSt.",
+            "shippingCostLabel": "Versand",
+            "totalLabel": "Gesamt"
+        },
+        "deliveryPeriod": "Lieferzeitraum:"
     }
-  }
 }

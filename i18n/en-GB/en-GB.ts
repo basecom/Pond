@@ -3,6 +3,8 @@ import account from './account.json';
 import checkout from './checkout.json';
 import cms from './cms.json';
 import composable from './composable.json';
+import cookie from './cookie.json';
+import error from './error.json';
 import layout from './layout.json';
 import navigation from './navigation.json';
 import order from './order.json';
@@ -10,6 +12,7 @@ import product from './product.json';
 import search from './search.json';
 import shared from './shared.json';
 import utility from './utility.json';
+import wishlist from './wishlist.json';
 
 export default {
     ...global,
@@ -17,6 +20,8 @@ export default {
     ...checkout,
     ...cms,
     ...composable,
+    ...cookie,
+    ...error,
     ...layout,
     ...navigation,
     ...order,
@@ -24,4 +29,5 @@ export default {
     ...search,
     ...shared,
     ...utility,
+    ...wishlist,
 };
