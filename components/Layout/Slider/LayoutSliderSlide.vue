@@ -1,5 +1,5 @@
 <template>
-    <li class="glide__slide">
+    <swiper-slide class="h-full w-full flex justify-center">
         <slot></slot>
-    </li>
+    </swiper-slide>
 </template>
