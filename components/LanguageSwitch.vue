@@ -19,17 +19,13 @@ const languageOptions = computed(() => entityArrayToOptions<Schemas['language']>
 </script>
 
 <template>
-    <div
+    <FormKit
         v-if="languages && languages.length > 1"
-        class="py-4 md:w-1/5"
-    >
-        <FormKit
-            v-model="languageIdChain"
-            type="select"
-            name="language"
-            prefix-icon="globe"
-            :options="languageOptions"
-            @change="onLanguageChange"
-        />
-    </div>
+        v-model="languageIdChain"
+        type="select"
+        name="language"
+        prefix-icon="globe"
+        :options="languageOptions"
+        @change="onLanguageChange"
+    />
 </template>

@@ -3,6 +3,7 @@ import account from './account.json';
 import checkout from './checkout.json';
 import cms from './cms.json';
 import composable from './composable.json';
+import cookie from './cookie.json';
 import error from './error.json';
 import layout from './layout.json';
 import listing from './listing.json';
@@ -20,6 +21,7 @@ export default {
     ...checkout,
     ...cms,
     ...composable,
+    ...cookie,
     ...error,
     ...layout,
     ...listing,
