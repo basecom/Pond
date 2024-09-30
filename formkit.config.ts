@@ -79,4 +79,7 @@ export default {
             useAsDefault: true, // defaults to false
         }),
     ],
+    props: {
+        decoratorIcon: 'check',
+    },
 };
