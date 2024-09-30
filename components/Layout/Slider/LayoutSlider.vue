@@ -1,8 +1,6 @@
 <script setup lang="ts">
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
     autoSlide?: boolean;
     autoplayTimeout?: number;
     speed?: number;

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import LayoutSlider from '~/components/Layout/Slider/LayoutSlider.vue';
-import LayoutSliderSlide from '~/components/Layout/Slider/LayoutSliderSlide.vue';
 
 const props = defineProps<{
     element: CmsElementImageSlider;
@@ -8,11 +6,10 @@ const props = defineProps<{
 // Main slider html object
 const sliderRef = ref(null);
 
-const config = computed(() => props.element.config);
+const config = useCmsElementConfig(props.element);
 const sliderItems = computed(() => props.element.data?.sliderItems ?? []);
 const slides = ref(Array.from({ length: sliderItems.value.length }));
 
-console.log(props.element.config);
 if (sliderItems.value.length > 0) {
     // Main slider swiper instance
     useSwiper(sliderRef, {
@@ -25,10 +22,11 @@ const autoplayConfig = computed(( )=>{
             delay: config.value?.autoplayTimeout.value,
             disableOnInteraction: false,
         };
-    } else {
-        return false; // Wenn autoplay deaktiviert sein soll
     }
+
+    return false;
 });
+
 const speedConfig = computed(( )=>{
     if (config.value?.autoSlide.value) {
         return config.value?.speed.value;
