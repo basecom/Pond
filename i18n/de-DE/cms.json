@@ -4,7 +4,8 @@
         "element": {
             "videoTagNotSupported": "Dein Browser unterstützt video-Tags nicht.",
             "product": {
-                "descriptionHeading": "Artikelbeschreibung"
+                "descriptionHeading": "Artikelbeschreibung",
+                "noProductsFound": "Keine Produkte gefunden"
             }
         }
     }
