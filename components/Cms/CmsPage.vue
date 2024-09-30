@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
-import LayoutSlider from '~/components/Layout/Slider/LayoutSlider.vue';
-import LayoutSliderSlide from '~/components/Layout/Slider/LayoutSliderSlide.vue';
 
 defineProps<{
     cmsPage: Schemas['CmsPage'];
@@ -14,7 +12,6 @@ const { getCmsSectionComponentName, componentExists, getSectionClasses } = useCm
 if (routeName.value === 'frontend.navigation.page') {
     createCategoryListingContext();
 }
-
 </script>
 
 <template>
