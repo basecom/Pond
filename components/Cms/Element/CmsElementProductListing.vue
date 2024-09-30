@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { CmsElementText } from '@shopware-pwa/composables-next';
 
 const props = defineProps<{
-    element: CmsElementText;
+    element: CmsElementProductListing;
 }>();
 
 const { getElements, changeCurrentPage, getCurrentPage, search, getTotal, getLimit } = useListing({
