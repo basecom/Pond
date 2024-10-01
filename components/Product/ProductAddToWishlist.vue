@@ -19,14 +19,14 @@ const handleWishlistButtonClicked = async () => {
     if (isInWishlist.value) {
         try {
             await removeFromWishlist();
-            pushInfo(t('wishlist.removedSuccesfully'));
+            pushInfo(t('wishlist.removedSuccessfully'));
         } catch (error) {
             pushError(t('wishlist.errorRemovingProduct'));
         }
     } else {
         try {
             await addToWishlist();
-            pushSuccess(t('wishlist.addedSuccesfully'));
+            pushSuccess(t('wishlist.addedSuccessfully'));
         } catch (error) {
             pushError(t('wishlist.errorAddingProduct'));
         }

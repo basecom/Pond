@@ -5,8 +5,8 @@
         "emptyListSubtitle": "No products were added to the Wishlist.",
         "continueShopping": "Continue shopping",
         "clearWishlist": "Clear wishlist",
-        "addedSuccesfully": "Product added to wishlist.",
-        "removedSuccesfully": "Product removed from wishlist.",
+        "addedSuccessfully": "Product added to wishlist.",
+        "removedSuccessfully": "Product removed from wishlist.",
         "errorRemovingProduct": "Error while removing product from whishlist",
         "errorAddingProduct": "Error while adding product to whishlist"
     }
