@@ -24,7 +24,7 @@ const {
     page,
 } = storeToRefs(productListingCriteriaStore);
 
-const cacheKey = computed(() => `productSearch-${JSON.stringify(route.query)}`);
+const cacheKey = computed(() => `productSearch-${JSON.stringify(criteria.value)}`);
 
 const searchStore = useSearchStore();
 const searchTerm = computed(() => {
@@ -48,27 +48,22 @@ const loadProducts = async (cacheKey: string) => {
 
 const changePage = async (page: number) => {
     productListingCriteriaStore.setPage(page);
-    await loadProducts(cacheKey.value);
 };
 
 const onSortChange = async (sorting: Schemas['ProductListingResult']['sorting']) => {
     productListingCriteriaStore.setSorting(sorting);
-    await loadProducts(cacheKey.value);
 };
 
 const onFilterChange = async (filters: Schemas['ProductListingResult']['currentFilters']) => {
     productListingCriteriaStore.setFilters(filters);
-    await loadProducts(cacheKey.value);
 };
 
 const onResetFilters = async () => {
     productListingCriteriaStore.resetFilters();
-    await loadProducts(cacheKey.value);
 };
 
 productListingCriteriaStore.initializeCriteria({
     search: route.query.search as string,
-    limit: 1,
 }, route.query);
 
 const productSearch = await loadProducts(cacheKey.value);
@@ -76,9 +71,12 @@ setInitialListing(productSearch.value as Schemas['ProductListingResult']);
 productListingCriteriaStore.setSearchResult(productSearch.value as Schemas['ProductListingResult']);
 
 watch(cacheKey, () => {
-    productListingCriteriaStore.setSearchResult(productSearch.value as Schemas['ProductListingResult']);
-    setInitialListing(productSearch.value as Schemas['ProductListingResult']);
+    loadProducts(cacheKey.value);
     // TODO: Works for backwards but not forwards to update listing, also needs to update searchTerm input and "Results for ..." display
+}, { immediate: false });
+
+watch(() => route.query, () => {
+    productListingCriteriaStore.updateCriteria(route.query);
 });
 
 useBreadcrumbs([

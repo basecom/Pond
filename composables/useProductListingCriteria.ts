@@ -20,6 +20,7 @@ export type UseProductListingCriteriaResult = {
     sortingOptions: ComputedRef<Schemas['ProductListingResult']['availableSortings']>;
     currentSorting: ComputedRef<Schemas['ProductListingResult']['sorting']>;
     initializeCriteria: (defaultCriteria: Partial<ProductListingCriteria>, query: LocationQuery) => void;
+    updateCriteria: (query: LocationQuery) => void;
     setSearchResult: (result: Schemas['ProductListingResult']) => void;
     setFilters: (filters: Schemas['ProductListingResult']['currentFilters']) => void;
     setSorting: (sorting: Schemas['ProductListingResult']['sorting']) => void;
@@ -110,8 +111,8 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
         }, {} as LocationQueryRaw);
     };
 
-    const initializeCriteria = (defaultCriteria: Partial<ProductListingCriteria>, routeQuery: LocationQuery) => {
-        const criteriaFromQuery: Partial<Schemas['ProductListingCriteria']> = filterCodes.reduce(
+    const _getFiltersFromQuery = (query: LocationQuery): Partial<Schemas['ProductListingCriteria']> => {
+        return filterCodes.reduce(
             (
                 acc: Partial<Schemas['ProductListingCriteria']>,
                 key: string,
@@ -124,27 +125,34 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
 
                 const mapper = urlMapper();
 
-                const partialCriteria = mapper.decodeUrl(routeQuery);
+                const partialCriteria = mapper.decodeUrl(query);
 
                 return { ...acc, ...partialCriteria };
             },
             {} as Partial<Schemas['ProductListingCriteria']>,
         );
+    }
 
+    const initializeCriteria = (defaultCriteria: Partial<ProductListingCriteria>, routeQuery: LocationQuery) => {
+        _defaultCriteria.value = defaultCriteria;
+        updateCriteria(routeQuery);
+    };
+
+    const updateCriteria = (routeQuery: LocationQuery) => {
+        const defaultCriteria = _defaultCriteria.value;
+        const filtersFromQuery = _getFiltersFromQuery(routeQuery);
         const sorting = routeQuery.sort ? (routeQuery.sort as string | undefined) : defaultCriteria.order;
         const limit = routeQuery.limit ? Number(routeQuery.limit) : defaultCriteria.limit;
         const page = routeQuery.p ? Number(routeQuery.p) : defaultCriteria.p;
-
-        _defaultCriteria.value = defaultCriteria;
         _criteria.value = {
             ..._defaultCriteria.value,
-            ...criteriaFromQuery,
+            ...filtersFromQuery,
             order: sorting,
             limit,
             p: page,
         };
         _updateFiltersChanged();
-    };
+    }
 
     const setSearchResult = (result: Schemas['ProductListingResult']) => {
         _appliedFilters.value = result.currentFilters;
@@ -236,6 +244,7 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
         limit,
         total,
         initializeCriteria,
+        updateCriteria,
         setSearchResult,
         setFilters,
         setSorting,
