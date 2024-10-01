@@ -87,7 +87,7 @@ watch(
                 {{ $t('wishlist.titleHeader') }}
             </h1>
             <button
-                class="hover:bg-secondary-700 mb-4 justify-center rounded-md border border-transparent bg-black px-4 py-2 text-sm font-medium text-white shadow-sm"
+                class="mb-4 justify-center rounded-md border border-transparent bg-brand-primary px-4 py-2 text-sm font-medium text-white shadow-sm"
                 @click="clearWishlistHandler"
             >
                 {{ $t('wishlist.clearWishlist') }}

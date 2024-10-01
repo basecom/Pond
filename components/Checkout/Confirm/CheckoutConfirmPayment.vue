@@ -45,7 +45,7 @@ onMounted(async () => {
 
                     <span
                         v-if="option.description"
-                        class="text-secondary-500 block text-sm italic"
+                        class="block text-sm italic"
                     >
                         {{ option.description }}
                     </span>
