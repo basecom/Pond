@@ -2,20 +2,8 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 
 const route = useRoute();
-const router = useRouter();
 const { t } = useI18n();
 
-const {
-    changeCurrentPage,
-    getCurrentListing,
-    getCurrentPage,
-    getTotalPagesCount,
-    getLimit,
-    getElements: products,
-    loading,
-    search,
-    setInitialListing,
-} = useProductSearchListing();
 const {
     getCurrentListing,
     getElements: products,
@@ -30,10 +18,12 @@ const {
     currentSorting,
     appliedFilters,
     areFiltersModified,
+    total,
+    limit,
     filters,
+    page,
 } = storeToRefs(productListingCriteriaStore);
 
-const limit = ref(route.query.limit ? Number(route.query.limit) : getLimit ?? 16);
 const cacheKey = computed(() => `productSearch-${JSON.stringify(route.query)}`);
 
 const searchStore = useSearchStore();
@@ -57,15 +47,8 @@ const loadProducts = async (cacheKey: string) => {
 };
 
 const changePage = async (page: number) => {
-    await router.push({
-        query: {
-            ...route.query,
-            limit: limit.value,
-            p: page,
-        },
-    });
-
-    await changeCurrentPage(page, route.query as unknown as operations['searchPage post /search']['body']);
+    productListingCriteriaStore.setPage(page);
+    await loadProducts(cacheKey.value);
 };
 
 const onSortChange = async (sorting: Schemas['ProductListingResult']['sorting']) => {
@@ -85,6 +68,7 @@ const onResetFilters = async () => {
 
 productListingCriteriaStore.initializeCriteria({
     search: route.query.search as string,
+    limit: 1,
 }, route.query);
 
 const productSearch = await loadProducts(cacheKey.value);
@@ -92,6 +76,7 @@ setInitialListing(productSearch.value as Schemas['ProductListingResult']);
 productListingCriteriaStore.setSearchResult(productSearch.value as Schemas['ProductListingResult']);
 
 watch(cacheKey, () => {
+    productListingCriteriaStore.setSearchResult(productSearch.value as Schemas['ProductListingResult']);
     setInitialListing(productSearch.value as Schemas['ProductListingResult']);
     // TODO: Works for backwards but not forwards to update listing, also needs to update searchTerm input and "Results for ..." display
 });
@@ -147,10 +132,10 @@ useBreadcrumbs([
         </div>
 
         <LayoutPagination
-            :total="getTotalPagesCount"
-            :items-per-page="getLimit"
-            :default-page="getCurrentPage"
-            @update-page="page => changePage(page)"
+            :total="total ?? 0"
+            :items-per-page="limit"
+            :default-page="page"
+            @update-page="currentPage => changePage(currentPage)"
         />
     </div>
 </template>
