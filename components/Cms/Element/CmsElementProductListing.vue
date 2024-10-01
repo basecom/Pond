@@ -1,60 +1,52 @@
 <script setup lang="ts">
-
 const props = defineProps<{
     element: CmsElementProductListing;
 }>();
+const route = useRoute();
+const { getElements, search, getCurrentListing } = useCategoryListing();
+const productListingCriteriaStore = useProductListingCriteriaStore('category');
+const { criteria, total, page, limit } = storeToRefs(productListingCriteriaStore);
 
-const { getElements, changeCurrentPage, getCurrentPage, search, getTotal, getLimit } = useListing({
-    listingType: 'categoryListing',
-    defaultSearchCriteria: {
+productListingCriteriaStore.initializeCriteria(
+    {
         limit: props.element.data.listing.limit,
         p: props.element.data.listing.page,
+        associations: {
+            children: {},
+        },
+        includes: {
+            product: [
+                'id',
+                'name',
+                'cover',
+                'calculatedPrice',
+                'description',
+                'translated',
+                'availableStock',
+                'minPurchase',
+                'maxPurchase',
+                'purchaseSteps',
+                'children',
+                'childCount',
+            ],
+            product_media: ['media'],
+            media: ['url'],
+        },
     },
-});
-
-search({
-    limit: props.element.data.listing.limit,
-    p: props.element.data.listing.page,
-    associations: {
-        children: {},
-    },
-    includes: {
-        product: [
-            'id',
-            'name',
-            'cover',
-            'calculatedPrice',
-            'description',
-            'translated',
-            'availableStock',
-            'minPurchase',
-            'maxPurchase',
-            'purchaseSteps',
-            'children',
-            'childCount',
-        ],
-        product_media: ['media'],
-        media: ['url'],
-    },
-});
-
-const router = useRouter();
-const route = useRoute();
+    route.query,
+);
 
 const { y: windowYPosition } = useScroll(window, { behavior: 'smooth' });
 
 const changePage = async (page: number) => {
-    await router.push({
-        query: {
-            ...route.query,
-            p: page,
-        },
-    });
-
     windowYPosition.value = 0;
+    productListingCriteriaStore.setPage(page);
 
-    await changeCurrentPage(page, route.query);
+    await search(criteria.value);
+    productListingCriteriaStore.setSearchResult(getCurrentListing.value);
 };
+await search(criteria.value);
+productListingCriteriaStore.setSearchResult(getCurrentListing.value);
 </script>
 
 <template>
@@ -71,9 +63,9 @@ const changePage = async (page: number) => {
     </div>
 
     <LayoutPagination
-        :total="getTotal"
-        :items-per-page="getLimit"
-        :default-page="getCurrentPage"
-        @update-page="page => changePage(page)"
+        :total="total ?? 0"
+        :items-per-page="limit"
+        :default-page="page"
+        @update-page="currentPage => changePage(currentPage)"
     />
 </template>

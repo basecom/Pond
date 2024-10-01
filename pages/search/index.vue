@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { ListingFilter } from '../../types/listing/filter';
 
 const route = useRoute();
 const { t } = useI18n();
@@ -11,23 +10,24 @@ const {
     loading,
     search,
     setInitialListing,
-    getAvailableFilters,
-    getSortingOrders,
-    getCurrentSortingOrder,
-    getCurrentFilters
 } = useProductSearchListing();
+const productListingCriteriaStore = useProductListingCriteriaStore('search');
+const {
+    criteria,
+    sortingOptions,
+    currentSorting,
+    appliedFilters,
+    areFiltersModified,
+    filters,
+} = storeToRefs(productListingCriteriaStore);
 
-const limit = ref(route.query.limit ? Number(route.query.limit) : 12);
 const cacheKey = computed(() => `productSearch-${JSON.stringify(route.query)}`);
 const searchTerm = ref(route.query.search);
 
 const loadProducts = async (cacheKey: string) => {
     const { data: productSearch } = await useAsyncData(cacheKey, async () => {
-        await search({
-            search: route.query.search as string,
-            limit: limit.value,
-            order: route.query.order ? (route.query.order as string) : 'name-asc',
-        });
+        await search(criteria.value);
+        productListingCriteriaStore.setSearchResult(getCurrentListing.value);
 
         return getCurrentListing.value;
     });
@@ -35,11 +35,28 @@ const loadProducts = async (cacheKey: string) => {
     return productSearch;
 };
 
-const productSearch = await loadProducts(cacheKey.value);
-const filters = computed(() => getAvailableFilters.value as ListingFilter[]);
-const sortingOrders = computed(() => getSortingOrders.value as Schemas['ProductListingResult']['availableSortings']);
+const onSortChange = async (sorting: Schemas['ProductListingResult']['sorting']) => {
+    productListingCriteriaStore.setSorting(sorting);
+    await loadProducts(cacheKey.value);
+};
 
+const onFilterChange = async (filters: Schemas['ProductListingResult']['currentFilters']) => {
+    productListingCriteriaStore.setFilters(filters);
+    await loadProducts(cacheKey.value);
+};
+
+const onResetFilters = async () => {
+    productListingCriteriaStore.resetFilters();
+    await loadProducts(cacheKey.value);
+};
+
+productListingCriteriaStore.initializeCriteria({
+    search: route.query.search as string,
+}, route.query);
+
+const productSearch = await loadProducts(cacheKey.value);
 setInitialListing(productSearch.value as Schemas['ProductListingResult']);
+productListingCriteriaStore.setSearchResult(productSearch.value as Schemas['ProductListingResult']);
 
 useBreadcrumbs([
     {
@@ -61,12 +78,16 @@ useBreadcrumbs([
         <div class="flex flex-wrap">
             <div class="w-full md:w-5/12 lg:w-3/12">
                 <ProductListingSidebar
+                    v-if="appliedFilters"
                     :filters="filters"
-                    :full-width="true"
-                    :show-reset-button="true"
-                    :sorting-options="sortingOrders"
-                    :sorting="getCurrentSortingOrder"
-                    :selected-filters="getCurrentFilters"
+                    :selected-filters="appliedFilters"
+                    :full-width="false"
+                    :show-reset-button="areFiltersModified"
+                    :sorting-options="sortingOptions"
+                    :sorting="currentSorting"
+                    @sorting-changed="onSortChange"
+                    @filter-changed="onFilterChange"
+                    @reset-filters="onResetFilters"
                 />
             </div>
             <div

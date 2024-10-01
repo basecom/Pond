@@ -2,7 +2,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilter } from '../../types/listing/filter';
 
-const { filters, fullWidth, sortingOptions, sorting, selectedFilters, showResetButton } = defineProps<{
+const props = defineProps<{
     filters: ListingFilter[];
     selectedFilters: Schemas['ProductListingResult']['currentFilters'];
     showResetButton?: boolean;
@@ -28,15 +28,15 @@ const emit = defineEmits<{
                     {{ $t('listing.sidebar.title') }}
                 </div>
                 <ProductListingSorting
-                    :options="sortingOptions"
-                    :selected-option="sorting"
+                    :options="props.sortingOptions"
+                    :selected-option="props.sorting"
                     @sorting-changed="emit('sorting-changed', $event)"
                 />
             </div>
             <ProductListingFilters
-                :filters="filters"
-                :selected-filters="selectedFilters"
-                :show-reset-button="showResetButton"
+                :filters="props.filters"
+                :selected-filters="props.selectedFilters"
+                :show-reset-button="props.showResetButton"
                 @filter-changed="$emit('filter-changed', $event)"
                 @reset-filters="$emit('reset-filters')"
             />

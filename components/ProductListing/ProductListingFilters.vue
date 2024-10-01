@@ -3,7 +3,7 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilter } from '../../types/listing/filter';
 import type { ValueOf } from '../../types/valueof';
 
-const { filters, selectedFilters } = defineProps<{
+const props = defineProps<{
     filters: ListingFilter[];
     selectedFilters: Schemas['ProductListingResult']['currentFilters'];
     showResetButton?: boolean;
@@ -23,7 +23,7 @@ const onFilterChanged = ({
     value: ValueOf<Schemas['ProductListingResult']['currentFilters']>;
 }) => {
     const newFilters = {
-        ...selectedFilters,
+        ...props.selectedFilters,
         [code]: value,
     };
 
@@ -37,23 +37,26 @@ const onFilterChanged = ({
         class="flex flex-col"
     >
         <AccordionRoot
-            class="w-full rounded-md flex flex-col gap-2"
+            class="flex w-full flex-col gap-2 rounded-md"
             type="multiple"
             :collapsible="true"
         >
             <template
-                v-for="filter in filters"
+                v-for="filter in props.filters"
                 :key="filter.code"
             >
                 <component
                     :is="componentsMapping[filter.code]"
                     :filter="filter"
-                    :selected-values="selectedFilters[filter.code]"
+                    :selected-values="props.selectedFilters"
                     @filter-changed="onFilterChanged"
                 />
             </template>
         </AccordionRoot>
-        <div v-if="showResetButton" class="mx-auto mt-4 mb-2">
+        <div
+            v-if="props.showResetButton"
+            class="mx-auto mb-2 mt-4"
+        >
             <FormKit
                 type="button"
                 suffix-icon="xmark"

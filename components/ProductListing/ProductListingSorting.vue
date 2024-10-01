@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const { options, selectedOption } = defineProps<{
+const props = defineProps<{
     options: Schemas['ProductListingResult']['availableSortings'];
     selectedOption: Schemas['ProductListingResult']['sorting'];
 }>();
@@ -31,17 +31,17 @@ const handleClick = (option: Schemas['ProductListingResult']['availableSortings'
         </DropdownMenuTrigger>
         <DropdownMenuPortal>
             <DropdownMenuContent
-                class="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade min-w-[220px] rounded-md bg-white p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] outline-none will-change-[opacity,transform] border border-gray"
+                class="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade min-w-[220px] rounded-md border border-gray bg-white p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] outline-none will-change-[opacity,transform]"
                 :side-offset="5"
             >
                 <DropdownMenuItem
-                    v-for="option in options"
+                    v-for="option in props.options"
                     :key="option.key"
                     :value="option.key"
-                    class="px-2 pl-4 outline-none data-[disabled]:pointer-events-none data-[highlighted]:text-black cursor-pointer"
+                    class="cursor-pointer px-2 pl-4 outline-none data-[disabled]:pointer-events-none data-[highlighted]:text-black"
                     :class="{
-                        'text-black': option.key === selectedOption,
-                        'text-gray-dark': option.key !== selectedOption
+                        'text-black': option.key === props.selectedOption,
+                        'text-gray-dark': option.key !== props.selectedOption,
                     }"
                     @click="() => handleClick(option)"
                 >
