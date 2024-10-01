@@ -10,6 +10,8 @@ useBreadcrumbs([
     },
 ]);
 
+const { pushSuccess, pushError } = useNotifications();
+
 const defaultLimit = 15;
 const defaultPage = 1;
 
@@ -29,7 +31,11 @@ const clearWishlistHandler = async () => {
     try {
         isLoading.value = true;
         await clearWishlist();
-    } finally {
+        pushSuccess(t('wishlist.clearedSuccessfully'));
+    } catch (error) {
+        pushError(t('wishlist.errorClearingWishlist'));
+    }
+    finally {
         isLoading.value = false;
     }
 };
@@ -52,6 +58,7 @@ const changePage = async (page: number) => {
             page: page,
         },
     });
+
     await getWishlistProducts({
         page: page,
         limit: defaultLimit,
