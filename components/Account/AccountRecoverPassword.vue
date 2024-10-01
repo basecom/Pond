@@ -44,7 +44,7 @@ const handlePasswordChange = async (fields: FormkitFields) => {
     <FormKit
         v-else
         type="form"
-        submit-label="Passwort ändern"
+        :submit-label="$t('account.recoverPassword.recover.submitLabel')"
         :classes="{
             form: 'w-full flex flex-wrap flex-col gap-4',
             actions: 'w-full',

@@ -22,11 +22,7 @@ const handleReset = async (fields: FormkitFields) => {
 // TODO: maybe change for prod env?
 const getEnvironmentStorefrontUrl = (): string => {
     const storefrontUrl = getStorefrontUrl();
-    if (import.meta.dev) {
-        return storefrontUrl + ':3000';
-    }
-
-    return storefrontUrl;
+    return import.meta.dev ? storefrontUrl + ':3000' : storefrontUrl;
 };
 </script>
 
