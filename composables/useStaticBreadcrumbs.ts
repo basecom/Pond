@@ -37,11 +37,26 @@ export function useStaticBreadcrumbs() {
                 name: t('composable.breadcrumbs.loginName'),
                 path: '/account/login',
             });
-        } else if (type === 'register') {
+
+            return breadcrumbs;
+        }
+
+        if (type === 'register') {
             breadcrumbs.push({
                 name: t('composable.breadcrumbs.registerName'),
                 path: '/account/register',
             });
+
+            return breadcrumbs;
+        }
+
+        if (type === 'recover') {
+            breadcrumbs.push({
+                name: t('composable.breadcrumbs.recoverName'),
+                path: '/account/recover',
+            });
+
+            return breadcrumbs;
         }
 
         return breadcrumbs;

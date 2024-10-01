@@ -53,7 +53,8 @@
             "password": {
                 "label": "Passwort"
             },
-            "createAccountLink": "Erstelle hier deinen Account"
+            "createAccountLink": "Erstelle hier deinen Account",
+            "recoverPasswordLink": "Passwort vergessen?"
         },
         "register": {
             "submitLabel": "Registrieren",
@@ -104,6 +105,25 @@
         },
         "logout": {
             "buttonLabel": "Logout"
+        },
+        "recoverPassword": {
+            "request": {
+                "heading": "Passwort wiederherstellen",
+                "subHeading": "Wir schicken dir eine Email zu. Klicke auf den Link in der Email, um ein neues Passwort zu vergeben.",
+                "submitLabel": "Email anfordern",
+                "successMessage": "Falls deine Emailadresse bei uns registriert ist, haben wir dir eine Email geschickt. Bitte schau in dein Postfach.",
+                "loginButtonLabel": "Zum Login"
+            },
+            "recover": {
+                "heading": "Lege ein neues Passwort fest",
+                "submitLabel": "Passwort ändern",
+                "errorMessage": "Etwas ist beim Ändern deines Passworts schiefgegangen.",
+                "successMessage": "Dein Passwort wurde erfolgreich geändert.",
+                "passwordLabel": "Neues Passwort",
+                "confirmLabel": "Neues Passwort bestätigen",
+                "linkNotValid": "Dieser Link scheint nicht gültig zu sein. Bitte fordere einen neuen an.",
+                "requestNewLink": "Neuen Link anfordern"
+            }
         },
         "loginModal": {
             "heading": "Login",
