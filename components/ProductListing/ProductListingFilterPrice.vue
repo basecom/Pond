@@ -10,6 +10,7 @@ const props = defineProps<{
     }>;
     selectedValues: Schemas['ProductListingResult']['currentFilters'];
 }>();
+
 defineEmits<{
     'filter-changed': [
         event: {

@@ -31,7 +31,7 @@ const handleClick = (option: Schemas['ProductListingResult']['availableSortings'
         </DropdownMenuTrigger>
         <DropdownMenuPortal>
             <DropdownMenuContent
-                class="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade min-w-[220px] rounded-md border border-gray bg-white p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] outline-none will-change-[opacity,transform]"
+                class="min-w-56 rounded-md border border-gray bg-white p-2 shadow-md outline-none"
                 :side-offset="5"
             >
                 <DropdownMenuItem

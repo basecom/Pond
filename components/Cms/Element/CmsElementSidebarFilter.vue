@@ -5,8 +5,10 @@ import type { Schemas } from '@shopware/api-client/api-types';
 defineProps<{
     element: CmsElementSidebarFilter;
 }>();
+
 const { getCurrentListing, search } = useCategoryListing();
 const productListingCriteriaStore = useProductListingCriteriaStore('category');
+
 const { criteria, sortingOptions, currentSorting, appliedFilters, areFiltersModified, filters } =
     storeToRefs(productListingCriteriaStore);
 
@@ -28,6 +30,7 @@ const onResetFilters = async () => {
     productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
 };
 </script>
+
 <template>
     <div class="mx-auto max-w-screen-xl">
         <ProductListingSidebar

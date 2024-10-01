@@ -8,6 +8,7 @@ const props = defineProps<{
     selectedFilters: Schemas['ProductListingResult']['currentFilters'];
     showResetButton?: boolean;
 }>();
+
 const emit = defineEmits<{
     'filter-changed': [key: Schemas['ProductListingResult']['currentFilters']];
     'reset-filters': [];

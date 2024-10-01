@@ -91,6 +91,7 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
                 return false;
             }
             const mapper = urlMapper();
+
             return !mapper.isSameCriteria(currentCriteria, defaultCriteria);
         });
     };
@@ -131,7 +132,7 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
             },
             {} as Partial<Schemas['ProductListingCriteria']>,
         );
-    }
+    };
 
     const initializeCriteria = (defaultCriteria: Partial<ProductListingCriteria>, routeQuery: LocationQuery) => {
         _defaultCriteria.value = defaultCriteria;
@@ -152,7 +153,7 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
             p: page,
         };
         _updateFiltersChanged();
-    }
+    };
 
     const setSearchResult = (result: Schemas['ProductListingResult']) => {
         _appliedFilters.value = result.currentFilters;

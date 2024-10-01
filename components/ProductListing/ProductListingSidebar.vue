@@ -24,7 +24,7 @@ const emit = defineEmits<{
             :class="{ 'px-5': !fullWidth }"
         >
             <div class="flex items-baseline justify-between border-b border-gray-light py-6">
-                <div class="text-gray-900 text-4xl">
+                <div class="text-4xl">
                     {{ $t('listing.sidebar.title') }}
                 </div>
                 <ProductListingSorting
