@@ -10,7 +10,7 @@ const pageNotFound = computed(() => {
 });
 
 const isMaintenanceMode = computed(() => {
-    return props.error.statusCode === 503 && props.error.statusMessage === "MAINTENANCE_MODE";
+    return props.error.statusCode === 503 && props.error.statusMessage === 'MAINTENANCE_MODE';
 });
 
 const genericServerError = computed(() => {

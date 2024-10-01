@@ -37,7 +37,7 @@ export default defineNuxtPlugin(async nuxtApp => {
         if (maintenance) {
             showError({
                 statusCode: 503,
-                statusMessage: "MAINTENANCE_MODE",
+                statusMessage: 'MAINTENANCE_MODE',
             });
         }
     });

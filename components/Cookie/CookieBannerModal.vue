@@ -17,7 +17,6 @@ const onDenyAll = () => {
     cookieBannerStore.denyAll();
     modalController.close();
 };
-
 </script>
 
 <template>

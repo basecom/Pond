@@ -1,4 +1,5 @@
 import { rootClasses } from './formkit.theme';
+import { de } from '@formkit/i18n';
 import { createAutoAnimatePlugin, createFloatingLabelsPlugin } from '@formkit/addons';
 import '@formkit/addons/css/floatingLabels';
 
@@ -58,6 +59,7 @@ export default {
                 return undefined;
             });
     },
+    locales: { de },
     config: {
         rootClasses,
     },
