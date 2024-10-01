@@ -51,5 +51,3 @@ const handleClick = (option: Schemas['ProductListingResult']['availableSortings'
         </DropdownMenuPortal>
     </DropdownMenuRoot>
 </template>
-
-<style scoped></style>

@@ -69,5 +69,3 @@ const onFilterChanged = ({
         </div>
     </div>
 </template>
-
-<style scoped></style>
