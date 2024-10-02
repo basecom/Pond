@@ -4,6 +4,7 @@ const props = defineProps<{
 }>();
 const route = useRoute();
 const { getElements, search, getCurrentListing } = useCategoryListing();
+// TODO create a better ID based on the CmsPage or even better CmsSlot identifier
 const productListingCriteriaStore = useProductListingCriteriaStore('category');
 const { criteria, total, page, limit } = storeToRefs(productListingCriteriaStore);
 

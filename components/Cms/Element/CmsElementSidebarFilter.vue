@@ -6,7 +6,9 @@ defineProps<{
     element: CmsElementSidebarFilter;
 }>();
 
+const route = useRoute();
 const { getCurrentListing, search } = useCategoryListing();
+// TODO create a better ID based on the CmsPage or even better CmsSlot identifier
 const productListingCriteriaStore = useProductListingCriteriaStore('category');
 
 const { criteria, sortingOptions, currentSorting, appliedFilters, areFiltersModified, filters } =
@@ -29,6 +31,12 @@ const onResetFilters = async () => {
     await search(criteria.value);
     productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
 };
+
+watch(() => route.query, async () => {
+    productListingCriteriaStore.updateCriteria(route.query);
+    await search(criteria.value);
+    productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
+});
 </script>
 
 <template>
