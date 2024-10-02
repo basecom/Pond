@@ -2,11 +2,16 @@
 const customerStore = useCustomerStore();
 const { signedIn } = storeToRefs(customerStore);
 const modalController = useModal();
+
+const closeModal = () => {
+    modalController.close();
+};
 </script>
 
 <template>
     <LazySharedModal
         v-if="!signedIn"
+        :controller="modalController"
         :with-close-button="true"
     >
         <template #trigger>
@@ -17,7 +22,7 @@ const modalController = useModal();
         </template>
         <template #title>{{ $t('account.loginModal.heading') }}</template>
         <template #content>
-            <AccountLoginRegisterTabs />
+            <AccountLoginRegisterTabs @close-modal="closeModal" />
         </template>
     </LazySharedModal>
     <LazySharedPopover v-else>
@@ -25,7 +30,6 @@ const modalController = useModal();
             <FormKitIcon
                 class="block h-6 w-6"
                 icon="user"
-                @click="!signedIn ? modalController.open() : null"
             />
         </template>
         <template #content>
