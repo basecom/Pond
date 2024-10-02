@@ -24,8 +24,8 @@ onMounted(async () => {
         <img
             v-if="method.media?.path"
             :src="`${runtimeConfig.public.pond.shopwareEndpoint}/${method.media.path}`"
-            :alt="getTranslatedProperty(method, 'name') || 'Payment Method'"
-            :title="getTranslatedProperty(method, 'name') || 'Payment Method'"
+            :alt="getTranslatedProperty(method, 'name')"
+            :title="getTranslatedProperty(method, 'name')"
             class="max-h-8 max-w-24 object-contain"
             loading="eager"
         />
