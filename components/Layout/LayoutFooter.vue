@@ -49,7 +49,7 @@ onMounted(async () => {
                     </template>
                 </div>
 
-                <LanguageSwitch />
+                <LayoutFooterActions />
                 <LayoutFooterPaymentMethods/>
 
                 <!-- footer service navigation -->
