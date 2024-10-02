@@ -1,20 +1,34 @@
 <script setup lang="ts">
-withDefaults(
+const props = withDefaults(
     defineProps<{
+        controller?: ReturnType<typeof useModal>;
         withCloseButton?: boolean;
         withActionsButton?: boolean;
         size?: 'sm' | 'md' | 'lg';
     }>(),
     {
+        controller: useModal,
         withCloseButton: false,
         withActionsButton: false,
         size: 'md',
     },
 );
+const { controller } = toRefs(props);
+
+const onUpdatedOpen = (value: boolean) => {
+    if (value) {
+        controller.value.open();
+    } else {
+        controller.value.close();
+    }
+};
 </script>
 
 <template>
-    <DialogRoot>
+    <DialogRoot
+        v-model:open="controller.isOpen.value"
+        @update:open="onUpdatedOpen"
+    >
         <DialogTrigger>
             <slot name="trigger"></slot>
         </DialogTrigger>
@@ -38,7 +52,7 @@ withDefaults(
                 leave-to-class="-translate-y-10 scale-50"
             >
                 <DialogContent
-                    class="absolute left-1/2 top-8 z-[100] -translate-x-1/2 rounded-lg bg-white shadow-lg focus:outline-none"
+                    class="fixed left-1/2 top-8 z-[100] max-h-[calc(100vh-4rem)] -translate-x-1/2 overflow-auto rounded-lg bg-white shadow-lg focus:outline-none"
                     :class="{
                         'w-80': size === 'sm',
                         'w-128': size === 'md',

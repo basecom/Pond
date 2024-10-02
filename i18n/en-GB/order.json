@@ -6,6 +6,7 @@
             "taxLabel": "Tax",
             "shippingCostLabel": "Shipping",
             "totalLabel": "Total"
-        }
+        },
+        "deliveryPeriod": "Order delivery period:"
     }
 }

@@ -2,7 +2,7 @@
     "layout": {
         "breadcrumb": {
             "ariaLabel": "Breadcrumb",
-            "homeLinkLabel": "Home"
+            "homeLinkLabel": "Startseite"
         }
     }
 }

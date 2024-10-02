@@ -6,6 +6,7 @@
             "taxLabel": "MwSt.",
             "shippingCostLabel": "Versand",
             "totalLabel": "Gesamt"
-        }
+        },
+        "deliveryPeriod": "Lieferzeitraum:"
     }
 }
