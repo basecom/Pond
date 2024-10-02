@@ -10,54 +10,55 @@ useBreadcrumbs([
     },
 ]);
 
-const { pushSuccess, pushError } = useNotifications();
-
-const defaultLimit = 15;
-const defaultPage = 1;
-
-const { items, clearWishlist, getWishlistProducts, currentPage, totalPagesCount, canSyncWishlist } = useWishlist();
-
-const { apiClient } = useShopwareContext();
 const products = ref<Schemas['Product'][]>([]);
-const isLoading = ref(false);
+
+// initialize isLoading with true, because onMounted fetches the items
+const isLoading = ref(true);
 const router = useRouter();
 const route = useRoute();
+const defaultLimit = 15;
+const defaultPage = 1;
 const page = ref(route.query.page ? Number(route.query.page) : defaultPage);
-const cacheKey = computed(() => `wishlist-${JSON.stringify(route.query)}`);
-
 const limit = ref(route.query.limit ? Number(route.query.limit) : defaultLimit);
 
-await getWishlistProducts({ page: page.value, limit: limit.value });
+const { pushSuccess, pushError } = useNotifications();
+const { items, clearWishlist, getWishlistProducts, currentPage, totalPagesCount, canSyncWishlist } = useWishlist();
+const { apiClient } = useShopwareContext();
 
 const clearWishlistHandler = async () => {
+    isLoading.value = true;
+
     try {
-        isLoading.value = true;
         await clearWishlist();
         pushSuccess(t('wishlist.clearedSuccessfully'));
     } catch (error) {
         pushError(t('wishlist.errorClearingWishlist'));
     }
-    finally {
-        isLoading.value = false;
-    }
+
+    isLoading.value = false;
 };
 
-const loadProductsByItemIds = async (itemIds: string[], cacheKey: string) => {
+const loadProductsByItemIds = async (itemIds: string[]) => {
     isLoading.value = true;
-    const { status } = await useAsyncData(cacheKey, async () => {
+
+    try {
         const { data } = await apiClient.invoke('readProduct post /product', {
             body: { ids: itemIds },
         });
+
         if (data?.elements) products.value = data.elements;
-        return data;
-    });
-    if (status.value !== 'pending') isLoading.value = false;
+    } catch (error) {
+        console.error('[wishlist][loadProductsByItemIds]', error);
+    }
+
+    isLoading.value = false;
 };
 
 const changePage = async (page: number) => {
     await router.push({
         query: {
             page: page,
+            limit: limit.value,
         },
     });
 
@@ -67,21 +68,67 @@ const changePage = async (page: number) => {
     });
 };
 
+// Watch for changes in wishlist items
 watch(
     items,
-    async (items, oldItems) => {
+    (items: Array<string>, oldItems: Array<string>) => {
+        // Remove item from the displayed products if it was removed from the wishlist
         if (items.length !== oldItems?.length) {
             products.value = products.value.filter(({ id }) => items.includes(id));
         }
+
+        // If no items are in the wishlist we don't need to fetch the products
         if (!items.length) {
             return;
         }
-        await loadProductsByItemIds(items, cacheKey.value);
+
+        // Fetch product data for the items that are in the wishlist
+        loadProductsByItemIds(items);
     },
     {
         immediate: true,
     },
 );
+
+const initialRoutePath = route.path;
+// Watch for changes to the route
+watch(
+    () => route,
+    newRoute => {
+        // the route is different = we are leaving the wishlist page
+        if (initialRoutePath !== newRoute.path) {
+            // update wishlist items
+            getWishlistProducts();
+            return;
+        }
+
+        // the route is the same and the query is not empty
+        if (Object.keys(newRoute.query).length > 0) {
+            return;
+        }
+
+        // the query is removed/empty for the same page (without hard reload), so we rest the limit and page
+        getWishlistProducts({
+            limit: defaultLimit,
+            page: defaultPage,
+        });
+
+        limit.value = defaultLimit;
+    },
+    { deep: true },
+);
+
+// Initial request to fetch wishlist items on mount and trigger items watcher
+onMounted(() => {
+    const route = useRoute();
+    const limit = ref(route.query.limit ? Number(route.query.limit) : defaultLimit);
+    const page = ref(route.query.page ? Number(route.query.page) : defaultPage);
+
+    getWishlistProducts({
+        limit: limit.value,
+        page: page.value,
+    });
+});
 </script>
 
 <template>
@@ -118,7 +165,7 @@ watch(
             >
                 <div class="place-self-center text-center">
                     <LayoutPagination
-                        :total="limit * totalPagesCount"
+                        :total="totalPagesCount"
                         :items-per-page="limit"
                         :default-page="Number(currentPage)"
                         @update-page="page => changePage(page)"
