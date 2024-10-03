@@ -6,7 +6,7 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
     const _cookieGroups = ref<CookieGroup[]>(defaultCookieGroup);
     const _activatedCookies = ref<CookieEntry['cookie'][]>([]);
     // TODO: Modify to take the value from configuration
-    const _isGoogleAnalyticsEnabled = ref(false);
+    const _isGoogleAnalyticsEnabled = ref(true);
     // TODO: Modify to take the value from configuration
     const _isCaptchaV2Enabled = ref(false);
     // TODO: Modify to take the value from configuration

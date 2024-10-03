@@ -1,12 +1,24 @@
 <script setup lang="ts">
 const customerStore = useCustomerStore();
+const cookieBannerStore = useCookieBannerStore();
+const googleAnalyticsStore = useGoogleAnalyticsStore();
 const { refreshCart } = useCart();
 const { loading } = storeToRefs(customerStore);
+const { activatedCookies } = storeToRefs(cookieBannerStore);
 useNotifications();
 useBreadcrumbs();
 
 customerStore.refreshContext();
 refreshCart();
+
+cookieBannerStore.$onAction(({ name, after }) => {
+    const actionsThatUpdateCookies = ['updateCookies', 'denyAll', 'acceptAll', 'initializeCookies'];
+    if (!actionsThatUpdateCookies.includes(name)) return;
+
+    after(() => {
+        googleAnalyticsStore.updateConsent(activatedCookies.value);
+    });
+});
 </script>
 
 <template>

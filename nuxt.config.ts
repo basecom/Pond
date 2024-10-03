@@ -7,16 +7,17 @@ const currentDir = dirname(fileURLToPath(import.meta.url));
 export default defineNuxtConfig({
     devtools: { enabled: true },
     modules: [
-        '@pinia/nuxt',
-        '@nuxtjs/tailwindcss',
-        '@formkit/auto-animate/nuxt',
-        '@vueuse/nuxt',
-        'nuxt-swiper',
-        'radix-vue/nuxt',
-        '@nuxt/eslint',
-        '@nuxt/fonts',
-        '@formkit/nuxt',
-        '@nuxtjs/i18n',
+      '@pinia/nuxt',
+      '@nuxtjs/tailwindcss',
+      '@formkit/auto-animate/nuxt',
+      '@vueuse/nuxt',
+      'nuxt-swiper',
+      'radix-vue/nuxt',
+      '@nuxt/eslint',
+      '@nuxt/fonts',
+      '@formkit/nuxt',
+      '@nuxtjs/i18n',
+      'nuxt-gtag',
     ],
     experimental: {
         asyncContext: true,
@@ -80,4 +81,16 @@ export default defineNuxtConfig({
             },
         ],
     },
+    gtag: {
+        initMode: 'manual',
+        initCommands: [
+            ['consent', 'default', {
+                ad_user_data: 'denied',
+                ad_personalization: 'denied',
+                ad_storage: 'denied',
+                analytics_storage: 'denied',
+                wait_for_update: 500,
+            }]
+        ],
+    }
 });
