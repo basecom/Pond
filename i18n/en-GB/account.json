@@ -39,7 +39,8 @@
             "shippingStatusLabel": "Shipping",
             "shippingMethodLabel": "Shipping Method",
             "lineItemsHeading": "Products",
-            "status": "Status"
+            "status": "Status",
+            "changePaymentMethod": "Change payment method"
         },
         "login": {
             "successMessage": "You successfully logged in.",
