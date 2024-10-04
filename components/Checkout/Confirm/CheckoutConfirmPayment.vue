@@ -36,27 +36,29 @@ onMounted(async () => {
             v-model="selectedPaymentMethod"
             type="radio"
             :options="paymentOptions"
+            fieldset-class="w-full"
+            wrapper-class="w-full !mb-5 !items-start"
+            decorator-class="mt-1"
         >
             <template #label="{ option }">
-                <div>
+                <div class="ml-1">
                     <span>
                         {{ option.label }}
                     </span>
-
                     <span
                         v-if="option.description"
-                        class="text-secondary-500 block text-sm italic"
+                        class="text-secondary-500 block text-sm"
                     >
                         {{ option.description }}
                     </span>
-
-                    <img
-                        v-if="option.mediaUrl"
-                        loading="lazy"
-                        :src="option.mediaUrl"
-                        :alt="`Logo of ${option.label}`"
-                    />
                 </div>
+                <img
+                    v-if="option.mediaUrl"
+                    loading="lazy"
+                    :src="option.mediaUrl"
+                    :alt="`Logo of ${option.label}`"
+                    class="ml-auto max-h-6 max-w-full object-contain"
+                />
             </template>
         </FormKit>
     </CheckoutConfirmCard>
