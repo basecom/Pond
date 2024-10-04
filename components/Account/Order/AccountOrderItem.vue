@@ -29,6 +29,13 @@ const shippingStatus = computed(() => {
     return stateName ? { name: stateName } : null;
 });
 
+const orderStatusTechnical = computed(() => {
+  const delivery = order.value?.deliveries?.[0];
+  const stateTechnicalName = delivery?.stateMachineState?.technicalName;
+  return stateTechnicalName ? stateTechnicalName : null;
+});
+
+
 const formattedOrderDate = computed(() => {
     if (order.value?.orderDate) {
         return useDateFormat(order.value.orderDate, 'DD.MM.YYYY', {
@@ -67,6 +74,13 @@ onMounted(async () => {
                     >
                         {{ status }}
                     </div>
+                  <NuxtLink
+                      class="ml-auto rounded-md px-2 py-2 text-white bg-status-success"
+                      v-if="orderStatusTechnical && orderStatusTechnical !=='done'"
+                      :to="`/order/edit/${orderId}`"
+                  >
+                    {{ $t('account.orders.changePaymentMethod') }}
+                  </NuxtLink>
                 </div>
 
                 <div class="gap-12 lg:flex">
