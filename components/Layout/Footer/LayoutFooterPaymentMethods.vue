@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
-import { useRuntimeConfig } from '#imports';
 const { paymentMethods, getPaymentMethods } = useCheckout();
-const runtimeConfig = useRuntimeConfig();
 
 const filteredPaymentMethods = computed(() => paymentMethods.value.filter(method => method.media?.path));
 
@@ -20,8 +18,8 @@ onMounted(async () => {
                 class="flex items-center justify-center"
             >
                 <img
-                    v-if="method.media?.path"
-                    :src="`${runtimeConfig.public.pond.shopwareEndpoint}/${method.media.path}`"
+                    v-if="method.media?.url"
+                    :src="method.media.url"
                     :alt="getTranslatedProperty(method, 'name')"
                     :title="getTranslatedProperty(method, 'name')"
                     class="max-h-8 max-w-24 object-contain"
