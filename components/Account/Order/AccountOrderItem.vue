@@ -76,7 +76,7 @@ onMounted(async () => {
                     </div>
                   <NuxtLink
                       class="ml-auto rounded-md px-2 py-2 text-white bg-status-success"
-                      v-if="orderStatusTechnical && orderStatusTechnical !=='done'"
+                      v-if="orderStatusTechnical && orderStatusTechnical !=='cancelled'"
                       :to="`/order/edit/${orderId}`"
                   >
                     {{ $t('account.orders.changePaymentMethod') }}
