@@ -1,5 +1,5 @@
 <template>
-    <swiper-slide class="h-full w-full flex justify-center">
+    <swiper-slide class="flex h-full w-full justify-center">
         <slot></slot>
     </swiper-slide>
 </template>

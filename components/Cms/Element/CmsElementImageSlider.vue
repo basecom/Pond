@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const props = defineProps<{
     element: CmsElementImageSlider;
 }>();
@@ -8,7 +7,6 @@ const sliderRef = ref(null);
 
 const config = useCmsElementConfig(props.element);
 const navigationDots = config.getConfigValue('navigationDots');
-const content = config.getConfigValue('content');
 const navigationArrows = config.getConfigValue('navigationArrows');
 const displayMode = config.getConfigValue('displayMode');
 const autoSlide = config.getConfigValue('autoSlide');
@@ -21,11 +19,9 @@ const slides = ref(Array.from({ length: sliderItems.value.length }));
 
 if (sliderItems.value.length > 0) {
     // Main slider swiper instance
-    useSwiper(sliderRef, {
-
-    });
+    useSwiper(sliderRef, {});
 }
-const autoplayConfig = computed(( )=>{
+const autoplayConfig = computed(() => {
     if (autoSlide) {
         return {
             delay: autoplayTimeout,
@@ -36,8 +32,8 @@ const autoplayConfig = computed(( )=>{
     return false;
 });
 
-const speedConfig = computed(( )=> {
-    return autoSlide ? speed: '300';
+const speedConfig = computed(() => {
+    return autoSlide ? speed : '300';
 });
 </script>
 
@@ -47,8 +43,8 @@ const speedConfig = computed(( )=> {
             <LayoutSlider
                 ref="sliderRef"
                 :class="{
-                        'cursor-grab': sliderItems.length > 1,
-                    }"
+                    'cursor-grab': sliderItems.length > 1,
+                }"
                 class="w-full"
                 :autoplay="autoplayConfig"
                 :speed="speedConfig"
@@ -59,13 +55,13 @@ const speedConfig = computed(( )=> {
                 <LayoutSliderSlide
                     v-for="(slide, idx) in slides"
                     :key="element.id + '-' + idx"
-                    :class="'min-h-['+minHeight+']'"
+                    :class="'min-h-[' + minHeight + ']'"
                 >
                     <img
                         :src="sliderItems[idx].media.url"
                         :alt="sliderItems[idx].media.translated.alt"
                         class="h-full w-full object-center"
-                        :class="'object-'+displayMode"
+                        :class="'object-' + displayMode"
                     />
                 </LayoutSliderSlide>
             </LayoutSlider>
