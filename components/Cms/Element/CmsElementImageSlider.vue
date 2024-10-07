@@ -39,7 +39,7 @@ const speedConfig = computed(() => {
 
 <template>
     <ClientOnly>
-        <template v-if="sliderItems.length > 0">
+        <template v-if="sliderItems?.length">
             <LayoutSlider
                 ref="sliderRef"
                 :class="{
@@ -53,13 +53,13 @@ const speedConfig = computed(() => {
                 :loop="true"
             >
                 <LayoutSliderSlide
-                    v-for="(slide, idx) in slides"
-                    :key="element.id + '-' + idx"
-                    :class="'min-h-[' + minHeight + ']'"
+                    v-for="(slide, index) in slides"
+                    :key="element.id + '-' + index"
+                    :class="`min-h-[${minHeight}]`"
                 >
                     <img
-                        :src="sliderItems[idx].media.url"
-                        :alt="sliderItems[idx].media.translated.alt"
+                        :src="sliderItems[index].media.url"
+                        :alt="sliderItems[index].media.translated.alt"
                         class="h-full w-full object-center"
                         :class="'object-' + displayMode"
                     />
