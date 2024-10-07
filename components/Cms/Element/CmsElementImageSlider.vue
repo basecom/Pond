@@ -50,7 +50,6 @@ const speedConfig = computed(( )=> {
                         'cursor-grab': sliderItems.length > 1,
                     }"
                 class="w-full"
-                :thumbs-swiper="`.thumbnailRef-${element.id}`"
                 :autoplay="autoplayConfig"
                 :speed="speedConfig"
                 :pagination="navigationDots !== 'None'"
