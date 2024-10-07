@@ -5,21 +5,25 @@ import type { TrackingLineItem } from '../../types/analytics/line-item';
 export function useCartTrackingHelper() {
     const { getTrackingLineItem } = useItemTracking();
     const { currencyCode } = usePrice();
+    const { cart } = useCart();
+    const cartItemsStore = useCartItemsStore();
+    const { products } = storeToRefs(cartItemsStore)
     const _category = useContext<Schemas['Category']>('category');
 
     const getCartTrackEventForSingleItem = (
-        cart: Schemas['Cart'],
         product: Schemas['Product'],
         quantity?: number,
     ): TrackingCartEvent | undefined => {
-        const lineItemIndex = cart.lineItems?.findIndex(item => item.referencedId === product.id) ?? -1;
+        const currentCart: Schemas['Cart'] = cart.value;
+
+        const lineItemIndex = currentCart.lineItems?.findIndex(item => item.referencedId === product.id) ?? -1;
 
         if (lineItemIndex === -1) {
             return;
         }
 
         const list = _category.value ? { id: _category.value.id, name: _category.value.name } : undefined;
-        const lineItem = cart.lineItems?.[lineItemIndex] as Schemas['LineItem'];
+        const lineItem = currentCart.lineItems?.[lineItemIndex] as Schemas['LineItem'];
         const lineItemTracking = getTrackingLineItem({
             item: lineItem,
             itemIndex: lineItemIndex + 1,
@@ -34,13 +38,11 @@ export function useCartTrackingHelper() {
         };
     };
 
-    const getCartTrackEventForMultipleItems = (
-        cart: Schemas['Cart'],
-        products: Schemas['Product'][],
-    ): TrackingCartEvent => {
-        const getLineItemsTracking = cart.lineItems
+    const getCartTrackEventForAllItems = (): TrackingCartEvent => {
+        const currentCart: Schemas['Cart'] = cart.value;
+        const getLineItemsTracking = currentCart.lineItems
             ?.map((lineItem, index) => {
-                const product = products.find(product => product.id === lineItem.referencedId);
+                const product = products.value.find(product => product.id === lineItem.referencedId);
                 if (!product) {
                     return;
                 }
@@ -58,7 +60,7 @@ export function useCartTrackingHelper() {
             .filter(Boolean) as TrackingLineItem[];
 
         return {
-            value: cart.price?.totalPrice ?? 0,
+            value: currentCart.price?.totalPrice ?? 0,
             items: getLineItemsTracking,
             currency: currencyCode.value,
         };
@@ -66,6 +68,6 @@ export function useCartTrackingHelper() {
 
     return {
         getCartTrackEventForSingleItem,
-        getCartTrackEventForMultipleItems,
+        getCartTrackEventForAllItems,
     };
 }

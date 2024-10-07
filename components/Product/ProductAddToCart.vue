@@ -29,9 +29,8 @@ const handleEnter = async $event => {
 
 const handleAddToCart = async () => {
     try {
-        const cart = await addToCart();
-
-        trackAddToCart(cart, product.value, quantity.value);
+        await addToCart();
+        trackAddToCart(product.value, quantity.value);
         quantity.value = product.value.minPurchase;
 
         pushSuccess(t('product.addToCart.successMessage', { productName: product.value.translated.name }));

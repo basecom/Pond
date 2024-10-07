@@ -18,7 +18,7 @@ const isLoading = ref(false);
 const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 
 const { getFormattedPrice } = usePrice();
-const { refreshCart, cart } = useCart();
+const { refreshCart } = useCart();
 const { trackAddToCart, trackRemoveFromCart } = useAnalytics();
 const {
     itemOptions,
@@ -44,9 +44,9 @@ const updateQuantity = async (quantityInput: number | undefined) => {
     try {
         const response = await changeItemQuantity(Number(quantityInput));
         if (addedProductsNumbers > 0) {
-            trackAddToCart(response, product.value, addedProductsNumbers);
+            trackAddToCart(product.value, addedProductsNumbers);
         } else {
-            trackRemoveFromCart(response, product.value, Math.abs(addedProductsNumbers));
+            trackRemoveFromCart(product.value, Math.abs(addedProductsNumbers));
         }
         // Refresh cart after quantity update
         await refreshCart(response);
@@ -70,7 +70,7 @@ const removeCartItem = async () => {
     isLoading.value = true;
 
     try {
-        trackRemoveFromCart(cart.value, product.value);
+        trackRemoveFromCart(product.value);
         await removeItem();
 
         pushSuccess(t('checkout.lineItem.remove.successMessage', { lineItemName: lineItem.value.label }));

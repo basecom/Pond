@@ -2,13 +2,13 @@
 const { isEmpty, cart } = useCart();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 const cartItemsStore = useCartItemsStore();
-const { cartItemsWithProduct, products } = storeToRefs(cartItemsStore);
+const { cartItemsWithProduct } = storeToRefs(cartItemsStore);
 const { trackViewCart } = useAnalytics();
 
 useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
 
 watch(cart, () => {
-    trackViewCart(cart.value, products.value);
+    trackViewCart();
 });
 </script>
 

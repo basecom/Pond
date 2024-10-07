@@ -9,7 +9,7 @@ export function useGtm(): UseAnalyticsReturn {
     // TODO: Modify to take the value from configuration
     const _isGoogleAnalyticsEnabled = ref(true);
     const runtimeConfig = useRuntimeConfig();
-    const { getCartTrackEventForSingleItem, getCartTrackEventForMultipleItems } = useCartTrackingHelper();
+    const { getCartTrackEventForSingleItem, getCartTrackEventForAllItems } = useCartTrackingHelper();
 
     const _trackEvent = (args: unknown) => {
         if (import.meta.client) {
@@ -77,8 +77,8 @@ export function useGtm(): UseAnalyticsReturn {
         ]);
     };
 
-    const trackAddToCart = (cart: Schemas['Cart'], product: Schemas['Product'], quantity?: number) => {
-        const trackingEvent = getCartTrackEventForSingleItem(cart, product, quantity);
+    const trackAddToCart = (product: Schemas['Product'], quantity?: number) => {
+        const trackingEvent = getCartTrackEventForSingleItem(product, quantity);
 
         if (!trackingEvent) {
             return;
@@ -90,8 +90,8 @@ export function useGtm(): UseAnalyticsReturn {
         });
     };
 
-    const trackRemoveFromCart = (cart: Schemas['Cart'], product: Schemas['Product'], quantity?: number) => {
-        const trackingEvent = getCartTrackEventForSingleItem(cart, product, quantity);
+    const trackRemoveFromCart = (product: Schemas['Product'], quantity?: number) => {
+        const trackingEvent = getCartTrackEventForSingleItem(product, quantity);
 
         if (!trackingEvent) {
             return;
@@ -103,8 +103,8 @@ export function useGtm(): UseAnalyticsReturn {
         });
     };
 
-    const trackViewCart = (cart: Schemas['Cart'], products: Schemas['Product'][]) => {
-        const trackingEvent = getCartTrackEventForMultipleItems(cart, products);
+    const trackViewCart = () => {
+        const trackingEvent = getCartTrackEventForAllItems();
 
         if (!trackingEvent) {
             return;

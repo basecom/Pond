@@ -11,6 +11,7 @@ const selectedShippingMethod = computed({
     },
     async set(shippingMethodId: string) {
         await setShippingMethod({ id: shippingMethodId });
+        
     },
 });
 

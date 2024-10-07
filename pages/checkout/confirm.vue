@@ -6,7 +6,7 @@ const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 const { push } = useRouter();
 const { refreshCart, isEmpty, cart } = useCart();
 const cartItemsStore = useCartItemsStore();
-const { cartItemsWithProduct, products } = storeToRefs(cartItemsStore);
+const { cartItemsWithProduct } = storeToRefs(cartItemsStore);
 const { createOrder } = useCheckout();
 const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
@@ -30,7 +30,7 @@ const placeOrder = async () => {
 
 useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
 watch(cart, () => {
-    trackViewCart(cart.value, products.value);
+    trackViewCart();
 });
 </script>
 
