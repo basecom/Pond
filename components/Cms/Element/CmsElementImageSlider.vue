@@ -30,7 +30,6 @@ const autoplayConfig = computed(( )=>{
 const speedConfig = computed(( )=> {
     return config.value?.autoSlide.value ? config.value?.speed.value: '300';
 });
-const items = ref(['Item 1', 'Item 2', 'Item 3', 'Item 4']);
 </script>
 
 <template>
@@ -70,10 +69,4 @@ const items = ref(['Item 1', 'Item 2', 'Item 3', 'Item 4']);
                 </div>
             </template>
     </ClientOnly>
-    <LayoutSlider>
-        Test
-        <LayoutSliderSlide v-for="element in items">
-            {{element}}
-        </LayoutSliderSlide>
-    </LayoutSlider>
 </template>
