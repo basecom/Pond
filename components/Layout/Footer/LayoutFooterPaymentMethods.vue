@@ -22,7 +22,7 @@ onMounted(async () => {
                     :src="method.media.url"
                     :alt="getTranslatedProperty(method, 'name')"
                     :title="getTranslatedProperty(method, 'name')"
-                    class="max-h-8 max-w-24 object-contain"
+                    class="h-8 w-auto object-contain"
                     loading="eager"
                 />
             </div>
