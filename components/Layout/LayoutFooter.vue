@@ -50,6 +50,7 @@ onMounted(async () => {
                 </div>
 
                 <LayoutFooterActions />
+                <LayoutFooterPaymentMethods />
 
                 <!-- footer service navigation -->
                 <div class="mt-4 grid gap-1 border-t-2 border-white pt-4 md:flex md:gap-6">
