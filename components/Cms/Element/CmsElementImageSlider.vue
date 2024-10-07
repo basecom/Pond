@@ -44,7 +44,7 @@ const speedConfig = computed(( )=> {
 <template>
     <ClientOnly>
         <template v-if="sliderItems.length > 0">
-            <swiper-container
+            <LayoutSlider
                 ref="sliderRef"
                 :class="{
                         'cursor-grab': sliderItems.length > 1,
@@ -57,7 +57,7 @@ const speedConfig = computed(( )=> {
                 :navigation="navigationArrows !== 'None'"
                 :loop="true"
             >
-                <swiper-slide
+                <LayoutSliderSlide
                     v-for="(slide, idx) in slides"
                     :key="element.id + '-' + idx"
                     :class="'min-h-['+minHeight+']'"
@@ -68,8 +68,8 @@ const speedConfig = computed(( )=> {
                         class="h-full w-full object-center"
                         :class="'object-'+displayMode"
                     />
-                </swiper-slide>
-            </swiper-container>
+                </LayoutSliderSlide>
+            </LayoutSlider>
         </template>
 
         <template v-else>
