@@ -65,23 +65,41 @@ const additionalMembers = [
       { icon: 'github', link: 'https://github.com/carojansing' },
     ]
   },
+  {
+    avatar: 'https://avatars.githubusercontent.com/u/127302312?v=4',
+    name: 'Malte',
+    title: 'Contributor',
+    links: [
+      { icon: 'github', link: 'https://github.com/mkoitka-bsc' },
+    ]
+  },
+  {
+    avatar: 'https://avatars.githubusercontent.com/u/179382099?v=4',
+    name: 'Christian',
+    title: 'Contributor',
+    links: [
+      { icon: 'github', link: 'https://github.com/chrisfinkh' },
+    ]
+  },
 ];
 </script>
 
 # Core Team
 
-Our core team is a group of dedicated individuals who are responsible for the development and maintenance of the project.
+Our core team is a group of dedicated individuals who are responsible for the development and maintenance of the
+project.
+If you have any questions or need help, feel free to reach out to any of us.
 
-<VPTeamMembers
-:members="members"
-/>
+<VPTeamMembers :members="members"></VPTeamMembers>
 
 ---
 
 # Additional Team
 
-Our core team is a group of dedicated individuals who are responsible for the development and maintenance of the project.
+Our additional team members are contributors who have made significant contributions to the project. They are not
+responsible for the maintenance of the project, but they are still an important part of our community.
 
-<VPTeamMembers
-:members="additionalMembers"
-/>
+If you have made significant contributions to the project and would like to be added to this list, please reach out to
+one of our core team members.
+
+<VPTeamMembers :members="additionalMembers"></VPTeamMembers>

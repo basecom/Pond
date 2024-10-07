@@ -42,6 +42,7 @@ export default defineConfig({
             },
             {
                 text: 'How-Tos',
+                collapsed: true,
                 items: [
                     { text: 'Customize design tokens', link: '/how-to/customize-design-tokens' },
                     { text: 'Add payment provider', link: '/how-to/add-payment-provider' },
@@ -51,7 +52,18 @@ export default defineConfig({
                 ]
             },
             {
+                text: 'Technical',
+                collapsed: true,
+                items: [
+                    { text: 'Technical introduction', link: '/technical/introduction' },
+                    { text: 'Architecture', link: '/technical/architecture' },
+                    { text: 'Composables', link: '/technical/composables' },
+                    { text: 'API Routes', link: '/technical/api-routes' },
+                ]
+            },
+            {
                 text: 'Contribute',
+                collapsed: true,
                 items: [
                     { text: 'Contributing', link: '/contribute' },
                     { text: 'Local development setup', link: '/contribute/local-development-setup' },
@@ -63,7 +75,8 @@ export default defineConfig({
         ],
 
         socialLinks: [
-            { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+            { icon: 'github', link: 'https://github.com/basecom/Pond' },
+            { icon: 'npm', link: 'https://www.npmjs.com/package/@basecom-gmbh/pond' }
         ],
 
         footer: {
