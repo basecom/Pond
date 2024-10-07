@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
-const { paymentMethods, getPaymentMethods } = useCheckout();
 
+const { paymentMethods, getPaymentMethods } = useCheckout();
 const filteredPaymentMethods = computed(() => paymentMethods.value.filter(method => method.media?.path));
 
 onMounted(async () => {
