@@ -14,7 +14,7 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
     const _isWishlistEnabled = ref(false);
     // TODO: Modify to take the value from configuration
     const _isAcceptAllEnabled = ref(true);
-    const _showCookieBanner = ref(false);
+    const _cookiePreference = useCookie('cookie-preference');
 
     const cookieGroups = computed(() =>
         filterCookieGroups(_cookieGroups.value, {
@@ -26,13 +26,7 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
     );
     const activatedCookies = computed(() => _activatedCookies.value);
     const isAcceptAllEnabled = computed(() => _isAcceptAllEnabled.value);
-    const showCookieBanner = computed(() => _showCookieBanner.value);
-
-    const updateBannerVisibility = () => {
-        const cookiePreference = useCookie('cookie-preference').value;
-
-        _showCookieBanner.value = !cookiePreference || cookiePreference.toString() !== '1';
-    };
+    const showCookieBanner = computed(() => !_cookiePreference.value || _cookiePreference.value.toString() !== '1');
 
     const initializeCookies = () => {
         _activatedCookies.value = filterCookieGroups(_cookieGroups.value, {
@@ -47,7 +41,6 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
             .filter(cookie => {
                 return cookie && useCookie(cookie).value;
             });
-        updateBannerVisibility();
     };
 
     const updateCookies = (active: CookieEntry['cookie'][], inactive: CookieEntry['cookie'][]) => {
@@ -60,7 +53,8 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
                 return;
             }
 
-            useCookie(cookie, { maxAge: entry.expiration }).value = entry.value;
+            const cookieRef = useCookie(cookie, { maxAge: entry.expiration });
+            cookieRef.value = entry.value;
         });
 
         inactive.forEach(cookie => {
@@ -68,7 +62,6 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
         });
 
         _activatedCookies.value = active.slice(0);
-        updateBannerVisibility();
     };
 
     const acceptAll = () => {
@@ -105,8 +98,6 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
         if (cookieConsent?.value) {
             useCookie(cookieConsent.cookie, { maxAge: cookieConsent.expiration }).value = cookieConsent.value;
         }
-
-        updateBannerVisibility();
     };
 
     return {

@@ -23,6 +23,7 @@ export function useGtm(): UseAnalyticsReturn {
         }
 
         const id = runtimeConfig.public.pond.analytics.id;
+        const trackingUrl = runtimeConfig.public.pond.analytics.trackingUrl ?? 'https://www.googletagmanager.com/';
 
         if (!id || !_isGoogleAnalyticsEnabled.value) {
             return;
@@ -33,11 +34,11 @@ export function useGtm(): UseAnalyticsReturn {
                 {
                     innerHTML: `
                         <!-- Google Tag Manager -->
-                        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                        (function(w,d,s,l,i,u){w[l]=w[l]||[];w[l].push({'gtm.start':
                         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                        })(window,document,'script','dataLayer','${id}');
+                        u+'gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                        })(window,document,'script','dataLayer','${id}', '${trackingUrl}');
                         <!-- End Google Tag Manager -->
                     `,
                     tagPosition: 'head',
@@ -46,7 +47,7 @@ export function useGtm(): UseAnalyticsReturn {
             noscript: [
                 {
                     innerHTML: `<!-- Google Tag Manager (noscript) -->
-                        <iframe src="https://www.googletagmanager.com/ns.html?id=${id}"
+                        <iframe src="${trackingUrl}ns.html?id=${id}"
                         height="0" width="0" style="display:none;visibility:hidden"></iframe>
                         <!-- End Google Tag Manager (noscript) -->
                     `,
@@ -58,11 +59,9 @@ export function useGtm(): UseAnalyticsReturn {
     };
 
     const updateConsent = (activeCookies: string[]) => {
-        if (activeCookies.includes(_cookieEnabledName)) {
-            _loadGtm();
-        }
-
         if (import.meta.server) {
+            _loadGtm();
+
             return;
         }
 
