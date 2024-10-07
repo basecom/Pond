@@ -11,6 +11,7 @@ const props = defineProps<{
 
 const { product } = useProduct(props.product);
 const { addToCart, quantity } = useAddToCart(product);
+const { trackAddToCart } = useAnalytics();
 quantity.value = product.value.minPurchase;
 const { resolveApiErrors } = useApiErrorsResolver();
 const { pushError, pushSuccess } = useNotifications();
@@ -28,7 +29,9 @@ const handleEnter = async $event => {
 
 const handleAddToCart = async () => {
     try {
-        await addToCart();
+        const cart = await addToCart();
+
+        trackAddToCart(cart, product.value, quantity.value);
         quantity.value = product.value.minPurchase;
 
         pushSuccess(t('product.addToCart.successMessage', { productName: product.value.translated.name }));

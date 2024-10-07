@@ -18,6 +18,8 @@ search({
     p: props.element.data.listing.page,
     associations: {
         children: {},
+        manufacturer: {},
+        options: {},
     },
     includes: {
         product: [
@@ -33,8 +35,13 @@ search({
             'purchaseSteps',
             'children',
             'childCount',
+            'manufacturer',
+            'options',
+            'categoryTree',
         ],
         product_media: ['media'],
+        product_manufacturer: ['name'],
+        property_group_option: ['name'],
         media: ['url'],
     },
 });

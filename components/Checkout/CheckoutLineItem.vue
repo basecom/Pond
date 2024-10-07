@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { ApiClientError } from '@shopware/api-client';
+
 const { getProductRoute } = useProductRoute();
 const { getProductCover } = useMedia();
 const { pushError, pushSuccess } = useNotifications();
@@ -8,15 +9,17 @@ const { t } = useI18n();
 
 const props = defineProps<{
     lineItem: Schemas['LineItem'];
+    product: Schemas['Product'];
 }>();
 
-const { lineItem } = toRefs(props);
+const { lineItem, product } = toRefs(props);
 const isLoading = ref(false);
 
 const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 
 const { getFormattedPrice } = usePrice();
-const { refreshCart } = useCart();
+const { refreshCart, cart } = useCart();
+const { trackAddToCart, trackRemoveFromCart } = useAnalytics();
 const {
     itemOptions,
     removeItem,
@@ -35,10 +38,16 @@ syncRefs(itemQuantity, quantity);
 const updateQuantity = async (quantityInput: number | undefined) => {
     if (quantityInput === itemQuantity.value) return;
 
+    const addedProductsNumbers = Number(quantityInput) - itemQuantity.value;
     isLoading.value = true;
 
     try {
         const response = await changeItemQuantity(Number(quantityInput));
+        if (addedProductsNumbers > 0) {
+            trackAddToCart(response, product.value, addedProductsNumbers);
+        } else {
+            trackRemoveFromCart(response, product.value, Math.abs(addedProductsNumbers));
+        }
         // Refresh cart after quantity update
         await refreshCart(response);
 
@@ -61,6 +70,7 @@ const removeCartItem = async () => {
     isLoading.value = true;
 
     try {
+        trackRemoveFromCart(cart.value, product.value);
         await removeItem();
 
         pushSuccess(t('checkout.lineItem.remove.successMessage', { lineItemName: lineItem.value.label }));

@@ -2,9 +2,9 @@
 const cookieBannerStore = useCookieBannerStore();
 const { showCookieBanner } = storeToRefs(cookieBannerStore);
 
-onMounted(() => {
+// onMounted(() => {
     cookieBannerStore.initializeCookies();
-});
+// });
 </script>
 
 <template>

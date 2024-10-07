@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import { type CookieEntry, type CookieGroup, useCookieGroupsHelper } from '../composables/useCookieGroupsHelper';
 
 export const useCookieBannerStore = defineStore('cookie-banner', () => {
@@ -30,8 +29,9 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
     const showCookieBanner = computed(() => _showCookieBanner.value);
 
     const updateBannerVisibility = () => {
-        const cookiePreference = Cookies.get('cookie-preference');
-        _showCookieBanner.value = !cookiePreference || cookiePreference !== '1';
+        const cookiePreference = useCookie('cookie-preference').value;
+
+        _showCookieBanner.value = !cookiePreference || cookiePreference.toString() !== '1';
     };
 
     const initializeCookies = () => {
@@ -44,7 +44,9 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
             .flatMap(group => group.entries)
             .filter(entry => entry.value)
             .map(entry => entry.cookie)
-            .filter(cookie => cookie && Cookies.get(cookie));
+            .filter(cookie => {
+                return cookie && useCookie(cookie).value;
+            });
         updateBannerVisibility();
     };
 
@@ -58,11 +60,11 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
                 return;
             }
 
-            Cookies.set(cookie, entry.value, { expires: entry.expiration });
+            useCookie(cookie, { maxAge: entry.expiration }).value = entry.value;
         });
 
         inactive.forEach(cookie => {
-            Cookies.remove(cookie);
+            useCookie(cookie).value = undefined;
         });
 
         _activatedCookies.value = active.slice(0);
@@ -101,7 +103,7 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
         updateCookies([], allCookieValues);
 
         if (cookieConsent?.value) {
-            Cookies.set(cookieConsent.cookie, cookieConsent.value, { expires: cookieConsent.expiration });
+            useCookie(cookieConsent.cookie, { maxAge: cookieConsent.expiration }).value = cookieConsent.value;
         }
 
         updateBannerVisibility();

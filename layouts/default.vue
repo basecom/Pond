@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const customerStore = useCustomerStore();
 const cookieBannerStore = useCookieBannerStore();
-const googleAnalyticsStore = useGoogleAnalyticsStore();
+const analyticsStore = useAnalytics();
 const { refreshCart } = useCart();
 const { loading } = storeToRefs(customerStore);
 const { activatedCookies } = storeToRefs(cookieBannerStore);
@@ -16,7 +16,7 @@ cookieBannerStore.$onAction(({ name, after }) => {
     if (!actionsThatUpdateCookies.includes(name)) return;
 
     after(() => {
-        googleAnalyticsStore.updateConsent(activatedCookies.value);
+        analyticsStore.updateConsent(activatedCookies.value);
     });
 });
 </script>
