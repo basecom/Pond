@@ -1,6 +1,5 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { UseAnalyticsReturn } from '../../types/analytics/analytics';
-import { useCartTrackingHelper } from '../tracking/useCartTrackingHelper';
 
 export function useGtm(): UseAnalyticsReturn {
     const _cookieEnabledName = 'google-analytics-enabled';
@@ -9,7 +8,8 @@ export function useGtm(): UseAnalyticsReturn {
     // TODO: Modify to take the value from configuration
     const _isGoogleAnalyticsEnabled = ref(true);
     const runtimeConfig = useRuntimeConfig();
-    const { getCartTrackEventForSingleItem, getCartTrackEventForAllItems } = useCartTrackingHelper();
+    const { getEventWithShippingInfo, getEventForAllItems, getEventForSingleItem, getEventWithPaymentInfo, getPurchasedEvent } =
+        useEcommerceTrackingHelper();
 
     const _trackEvent = (args: unknown) => {
         if (import.meta.client) {
@@ -78,7 +78,7 @@ export function useGtm(): UseAnalyticsReturn {
     };
 
     const trackAddToCart = (product: Schemas['Product'], quantity?: number) => {
-        const trackingEvent = getCartTrackEventForSingleItem(product, quantity);
+        const trackingEvent = getEventForSingleItem(product, quantity);
 
         if (!trackingEvent) {
             return;
@@ -92,7 +92,7 @@ export function useGtm(): UseAnalyticsReturn {
     };
 
     const trackRemoveFromCart = (product: Schemas['Product'], quantity?: number) => {
-        const trackingEvent = getCartTrackEventForSingleItem(product, quantity);
+        const trackingEvent = getEventForSingleItem(product, quantity);
 
         if (!trackingEvent) {
             return;
@@ -106,7 +106,7 @@ export function useGtm(): UseAnalyticsReturn {
     };
 
     const trackViewCart = () => {
-        const trackingEvent = getCartTrackEventForAllItems();
+        const trackingEvent = getEventForAllItems();
 
         if (!trackingEvent) {
             return;
@@ -119,10 +119,70 @@ export function useGtm(): UseAnalyticsReturn {
         });
     };
 
+    const trackBeginCheckout = () => {
+        const trackingEvent = getEventForAllItems();
+
+        if (!trackingEvent) {
+            return;
+        }
+
+        _trackEvent({ ecommerce: null });
+        _trackEvent({
+            event: 'begin_checkout',
+            ecommerce: trackingEvent,
+        });
+    };
+
+    const trackAddShippingInfo = () => {
+        const trackingEvent = getEventWithShippingInfo();
+
+        if (!trackingEvent) {
+            return;
+        }
+
+        _trackEvent({ ecommerce: null });
+        _trackEvent({
+            event: 'add_shipping_info',
+            ecommerce: trackingEvent,
+        });
+    };
+
+    const trackAddPaymentInfo = () => {
+        const trackingEvent = getEventWithPaymentInfo();
+
+        if (!trackingEvent) {
+            return;
+        }
+
+        _trackEvent({ ecommerce: null });
+        _trackEvent({
+            event: 'add_payment_info',
+            ecommerce: trackingEvent,
+        });
+    };
+
+    const trackPurchase = (order: Schemas['Order']) => {
+        const trackingEvent = getPurchasedEvent(order);
+
+        if (!trackingEvent) {
+            return;
+        }
+
+        _trackEvent({ ecommerce: null });
+        _trackEvent({
+            event: 'purchase',
+            ecommerce: trackingEvent,
+        });
+    }
+
     return {
         updateConsent,
         trackAddToCart,
         trackRemoveFromCart,
         trackViewCart,
+        trackBeginCheckout,
+        trackAddShippingInfo,
+        trackAddPaymentInfo,
+        trackPurchase,
     };
 }

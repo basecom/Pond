@@ -19,20 +19,21 @@ export type UseItemTrackingReturn = {
 };
 
 export function useItemTracking(): UseItemTrackingReturn {
-    const { navigationElements } = useNavigation();
+    const navigationStore = useNavigationStore();
+    const { mainNavigationElements } = storeToRefs(navigationStore);
     const { sessionContext } = useSessionContext();
 
     const _getCategoryTree = (product: Schemas['Product']): Schemas['Category'][] => {
         const categoryTreeId = product.categoryTree ?? [];
 
-        if (!navigationElements.value) {
+        if (!mainNavigationElements.value) {
             return [];
         }
 
         return categoryTreeId.reduce(
             (categoryTree, categoryId) => {
                 const currentCategoryLevel: Schemas['Category'][] =
-                    categoryTree[categoryTree.length - 1]?.children ?? navigationElements.value;
+                    categoryTree[categoryTree.length - 1]?.children ?? mainNavigationElements.value;
                 const currentCategory = currentCategoryLevel.find(category => category.id === categoryId);
 
                 if (currentCategory) {

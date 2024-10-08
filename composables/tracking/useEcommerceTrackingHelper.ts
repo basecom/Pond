@@ -1,19 +1,20 @@
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { TrackingCartEvent } from '../../types/analytics/cart';
+import type { TrackingEcommerceEvent } from '../../types/analytics/ecommerce';
 import type { TrackingLineItem } from '../../types/analytics/line-item';
 
-export function useCartTrackingHelper() {
+export function useEcommerceTrackingHelper() {
     const { getTrackingLineItem } = useItemTracking();
+    const { getShippingInfo, getPaymentInfo } = useCheckoutInfoTracking();
     const { currencyCode } = usePrice();
     const { cart } = useCart();
     const cartItemsStore = useCartItemsStore();
-    const { products } = storeToRefs(cartItemsStore)
+    const { products } = storeToRefs(cartItemsStore);
     const _category = useContext<Schemas['Category']>('category');
 
-    const getCartTrackEventForSingleItem = (
+    const getEventForSingleItem = (
         product: Schemas['Product'],
         quantity?: number,
-    ): TrackingCartEvent | undefined => {
+    ): TrackingEcommerceEvent | undefined => {
         const currentCart: Schemas['Cart'] = cart.value;
 
         const lineItemIndex = currentCart.lineItems?.findIndex(item => item.referencedId === product.id) ?? -1;
@@ -38,7 +39,7 @@ export function useCartTrackingHelper() {
         };
     };
 
-    const getCartTrackEventForAllItems = (): TrackingCartEvent => {
+    const getEventForAllItems = (): TrackingEcommerceEvent => {
         const currentCart: Schemas['Cart'] = cart.value;
         const getLineItemsTracking = currentCart.lineItems
             ?.map((lineItem, index) => {
@@ -66,8 +67,41 @@ export function useCartTrackingHelper() {
         };
     };
 
+    const getEventWithShippingInfo = (): TrackingEcommerceEvent => {
+        const trackingEvent = getEventForAllItems();
+
+        return {
+            ...trackingEvent,
+            shipping_tier: getShippingInfo(),
+        };
+    };
+
+    const getEventWithPaymentInfo = (): TrackingEcommerceEvent => {
+        const trackingEvent = getEventForAllItems();
+
+        return {
+            ...trackingEvent,
+            payment_type: getPaymentInfo(),
+        };
+    };
+
+    const getPurchasedEvent = (order: Schemas['Order']): TrackingEcommerceEvent => {
+        const trackingEvent = getEventForAllItems();
+
+        return {
+            ...trackingEvent,
+            transaction_id: order.id,
+            value: order.price.netPrice,
+            tax: order.price.calculatedTaxes?.reduce((acc, tax) => acc + tax.tax, 0) ?? 0,
+            shipping: order.deliveries?.[0]?.shippingCosts?.totalPrice ?? 0,
+        };
+    };
+
     return {
-        getCartTrackEventForSingleItem,
-        getCartTrackEventForAllItems,
+        getEventForSingleItem,
+        getEventForAllItems,
+        getEventWithShippingInfo,
+        getEventWithPaymentInfo,
+        getPurchasedEvent,
     };
 }

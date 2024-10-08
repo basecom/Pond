@@ -1,6 +1,6 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { UseAnalyticsReturn } from '../../types/analytics/analytics';
-import { useCartTrackingHelper } from '../tracking/useCartTrackingHelper';
+import { useEcommerceTrackingHelper } from '../tracking/useEcommerceTrackingHelper';
 
 export function useGtags(): UseAnalyticsReturn {
     const _cookieEnabledName = 'google-analytics-enabled';
@@ -10,7 +10,8 @@ export function useGtags(): UseAnalyticsReturn {
     const _isGoogleAnalyticsEnabled = ref(true);
     // TODO: Modify to take the value from configuration
     const _googleAnalyticsId = ref('G-XXXXXXX');
-    const { getCartTrackEventForSingleItem, getCartTrackEventForAllItems } = useCartTrackingHelper();
+    const { getEventForSingleItem, getEventForAllItems, getEventWithShippingInfo, getEventWithPaymentInfo, getPurchasedEvent } =
+        useEcommerceTrackingHelper();
 
     function _trackEvent(...args: unknown[]) {
         if (import.meta.client) {
@@ -65,7 +66,7 @@ export function useGtags(): UseAnalyticsReturn {
     };
 
     const trackAddToCart = (product: Schemas['Product'], quantity?: number) => {
-        const trackingEvent = getCartTrackEventForSingleItem(product, quantity);
+        const trackingEvent = getEventForSingleItem(product, quantity);
 
         if (!trackingEvent) {
             return;
@@ -75,7 +76,7 @@ export function useGtags(): UseAnalyticsReturn {
     };
 
     const trackRemoveFromCart = (product: Schemas['Product'], quantity?: number) => {
-        const trackingEvent = getCartTrackEventForSingleItem(product, quantity);
+        const trackingEvent = getEventForSingleItem(product, quantity);
 
         if (!trackingEvent) {
             return;
@@ -85,7 +86,7 @@ export function useGtags(): UseAnalyticsReturn {
     };
 
     const trackViewCart = () => {
-        const trackingEvent = getCartTrackEventForAllItems();
+        const trackingEvent = getEventForAllItems();
 
         if (!trackingEvent) {
             return;
@@ -94,10 +95,54 @@ export function useGtags(): UseAnalyticsReturn {
         _trackEvent('event', 'view_cart', trackingEvent);
     };
 
+    const trackBeginCheckout = () => {
+        const trackingEvent = getEventForAllItems();
+
+        if (!trackingEvent) {
+            return;
+        }
+
+        _trackEvent('event', 'begin_checkout', trackingEvent);
+    };
+
+    const trackAddShippingInfo = () => {
+        const trackingEvent = getEventWithShippingInfo();
+
+        if (!trackingEvent) {
+            return;
+        }
+
+        _trackEvent('event', 'add_shipping_info', trackingEvent);
+    };
+
+    const trackAddPaymentInfo = () => {
+        const trackingEvent = getEventWithPaymentInfo();
+
+        if (!trackingEvent) {
+            return;
+        }
+
+        _trackEvent('event', 'add_payment_info', trackingEvent);
+    };
+
+    const trackPurchase = (order: Schemas["Order"]) => {
+        const trackingEvent = getPurchasedEvent(order);
+
+        if (!trackingEvent) {
+            return;
+        }
+
+        _trackEvent('event', 'purchase', trackingEvent);
+    };
+
     return {
         updateConsent,
         trackAddToCart,
         trackRemoveFromCart,
         trackViewCart,
+        trackBeginCheckout,
+        trackAddShippingInfo,
+        trackAddPaymentInfo,
+        trackPurchase,
     };
 }
