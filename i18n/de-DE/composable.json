@@ -12,7 +12,8 @@
             "orderName": "Bestellung",
             "accountName": "Konto",
             "loginName": "Login",
-            "registerName": "Registrieren"
+            "registerName": "Registrieren",
+            "recoverName": "Passwort wiederherstellen"
         }
     }
 }

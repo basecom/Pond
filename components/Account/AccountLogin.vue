@@ -12,13 +12,17 @@ const props = withDefaults(
         redirectAfterSuccess?: boolean;
         redirectTarget?: string;
         showCreateLink?: boolean;
+        showRecoverLink?: boolean;
     }>(),
     {
         redirectAfterSuccess: false,
         redirectTarget: '/account',
         showCreateLink: true,
+        showRecoverLink: true,
     },
 );
+
+defineEmits(['closeModal']);
 
 const customerStore = useCustomerStore();
 const { togglePasswordVisibility } = useFormkitHelper();
@@ -91,11 +95,25 @@ const handleLogin = async (fields: FormkitLoginFields) => {
             suffix-icon="lock"
             @suffix-icon-click="togglePasswordVisibility"
         />
+    </FormKit>
 
+    <div class="mt-2 flex justify-between">
         <NuxtLink
             v-if="showCreateLink"
-            :to="{ name: 'account-register' }"
-            >{{ $t('account.login.createAccount') }}</NuxtLink
+            to="/account/register"
+            class="hover:text-brand-primary"
         >
-    </FormKit>
+            {{ $t('account.login.createAccountLink') }}
+        </NuxtLink>
+
+        <NuxtLink
+            v-if="showRecoverLink"
+            to="/account/recover"
+            class="hover:text-brand-primary"
+            :class="{ 'text-right': showCreateLink }"
+            @click="$emit('closeModal')"
+        >
+            {{ $t('account.login.recoverPasswordLink') }}
+        </NuxtLink>
+    </div>
 </template>
