@@ -84,6 +84,7 @@ export function useGtm(): UseAnalyticsReturn {
             return;
         }
 
+        _trackEvent({ ecommerce: null });
         _trackEvent({
             event: 'add_to_cart',
             ecommerce: trackingEvent,
@@ -97,6 +98,7 @@ export function useGtm(): UseAnalyticsReturn {
             return;
         }
 
+        _trackEvent({ ecommerce: null });
         _trackEvent({
             event: 'remove_from_cart',
             ecommerce: trackingEvent,
@@ -110,6 +112,7 @@ export function useGtm(): UseAnalyticsReturn {
             return;
         }
 
+        _trackEvent({ ecommerce: null });
         _trackEvent({
             event: 'view_cart',
             ecommerce: trackingEvent,
