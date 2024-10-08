@@ -1,6 +1,16 @@
 <script setup lang="ts">
 const cookieBannerStore = useCookieBannerStore();
-const { showCookieBanner } = storeToRefs(cookieBannerStore);
+const analyticsStore = useAnalytics();
+const { showCookieBanner, activatedCookies } = storeToRefs(cookieBannerStore);
+
+cookieBannerStore.$onAction(({ name, after }) => {
+    const actionsThatUpdateCookies = ['updateCookies', 'denyAll', 'acceptAll', 'initializeCookies'];
+    if (!actionsThatUpdateCookies.includes(name)) return;
+
+    after(() => {
+        analyticsStore.updateConsent(activatedCookies.value);
+    });
+});
 
 cookieBannerStore.initializeCookies();
 </script>

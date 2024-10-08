@@ -51,7 +51,7 @@ export function useGtm(): UseAnalyticsReturn {
                         height="0" width="0" style="display:none;visibility:hidden"></iframe>
                         <!-- End Google Tag Manager (noscript) -->
                     `,
-                    tagPosition: 'bodyClose',
+                    tagPosition: 'bodyOpen',
                 },
             ],
         });
