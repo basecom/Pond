@@ -25,19 +25,18 @@ const isEditMode = ref(false);
 const isLoading = ref(false);
 
 await loadCustomerAddresses();
-loading.value = false;
+loading.value = false;;
 
-const openEditModal = address => {
-    selectedAddress.value = address;
+const openModal = (address: Schemas['CustomerAddress']|null) => {
+    if (address) {
+        selectedAddress.value = address;
+        isEditMode.value = true;
+    } else {
+        selectedAddress.value = null;
+        isEditMode.value = false;
+    }
     modalController.open();
-    isEditMode.value = true;
-};
-
-const openCreateModal = () => {
-    modalController.open();
-    selectedAddress.value = null;
-    isEditMode.value = false;
-};
+}
 
 const handleSave = async (fields: FormkitFields) => {
     isLoading.value = true;
@@ -88,7 +87,7 @@ const deleteAddress = async addressId => {
     <h1 class="mb-2 font-bold">{{ $t('account.address.heading') }}</h1>
     <button
         class="mb-4 mt-4 rounded bg-brand-primary px-2 py-1 text-white"
-        @click="openCreateModal"
+        @click="openModal(null)"
     >
         {{ $t('account.address.create') }}
     </button>
@@ -96,33 +95,13 @@ const deleteAddress = async addressId => {
         v-if="customerAddresses.length"
         class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
     >
-        <div
+        <AddressCard
             v-for="address in customerAddresses"
             :key="address.id"
-            class="rounded-lg bg-white p-4 shadow"
-        >
-            <p class="font-semibold">{{ address.firstName }} {{ address.lastName }}</p>
-            <p v-if="address.company">{{ address.company }}</p>
-            <p>{{ address.street }}</p>
-            <p>{{ address.zipcode }} {{ address.city }}</p>
-            <p>{{ address.country.translated.name }}</p>
-            <p v-if="address.phoneNumber">{{ address.phoneNumber }}</p>
-
-            <div class="mt-2">
-                <button
-                    class="rounded bg-brand-primary px-2 py-1 text-white"
-                    @click="openEditModal(address)"
-                >
-                    {{ $t('account.address.edit') }}
-                </button>
-                <button
-                    class="ml-2 rounded bg-status-danger px-2 py-1 text-white"
-                    @click="deleteAddress(address.id)"
-                >
-                    {{ $t('account.address.delete') }}
-                </button>
-            </div>
-        </div>
+            :address="address"
+            @edit="openModal"
+            @delete="deleteAddress"
+        />
     </div>
     <div v-else>
         <p>{{ $t('account.address.nothingFound') }}</p>
@@ -154,7 +133,7 @@ const deleteAddress = async addressId => {
                     </li>
                 </ul>
 
-                <AccountAddressFormFields :initial-address="selectedAddress" :error-name-nested="false" />
+                <AddressFormFields :initial-address="selectedAddress" :error-name-nested="false" />
 
                 <FormKit
                     type="submit"

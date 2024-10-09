@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FormkitFields } from '~/types/formkit';
-import AccountAddressFormFields from '~/components/Account/AccountAddressFormFields.vue';
+import AccountAddressFormFields from '~/components/Address/AddressFormFields.vue';
 import { ApiClientError } from '@shopware/api-client';
 import { useFormErrorStore } from '~/stores/FormErrorStore';
 
@@ -61,7 +61,7 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
             <span>{{ $t('account.register.addressHeading') }}</span>
         </div>
 
-        <AccountAddressFormFields />
+        <AddressFormFields />
 
         <div class="col-span-2">
             <span>{{ $t('account.register.accountDataHeading') }}</span>
