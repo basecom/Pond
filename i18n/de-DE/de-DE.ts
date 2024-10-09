@@ -6,6 +6,7 @@ import composable from './composable.json';
 import cookie from './cookie.json';
 import error from './error.json';
 import layout from './layout.json';
+import listing from './listing.json';
 import navigation from './navigation.json';
 import order from './order.json';
 import product from './product.json';
@@ -23,6 +24,7 @@ export default {
     ...cookie,
     ...error,
     ...layout,
+    ...listing,
     ...navigation,
     ...order,
     ...product,

@@ -4,8 +4,10 @@
         "element": {
             "videoTagNotSupported": "Your browser does not support the video tag.",
             "product": {
-                "descriptionHeading": "Description"
-            }
+                "descriptionHeading": "Description",
+                "noProductsFound": "No products found"
+            },
+            "imageAlt": "Image in an image slider"
         }
     }
 }
