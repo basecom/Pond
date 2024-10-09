@@ -2,6 +2,8 @@ import type { ComputedRef, ImgHTMLAttributes, Ref } from 'vue';
 import type { Schemas } from '@shopware/api-client/api-types';
 
 export function useMedia() {
+    const { t } = useI18n();
+
     const thumbnailSizes = {
         xs: 3,
         s: 0,
@@ -31,7 +33,7 @@ export function useMedia() {
         if (!cover) {
             return {
                 url: '/fallback-product-cover.svg',
-                alt: 'No product image available',
+                alt: t('composable.media.noImageMessage'),
                 placeholder: true,
             };
         }

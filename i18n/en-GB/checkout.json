@@ -1,0 +1,81 @@
+{
+    "checkout": {
+        "cart": {
+            "heading": "Shopping Cart",
+            "checkoutButtonLabel": "Checkout",
+            "emptyCartMessage": "Your cart is empty."
+        },
+        "offcanvasCart": {
+            "toCartButtonLabel": "Go to cart"
+        },
+        "confirm": {
+            "heading": "Checkout",
+            "emptyCartMessage": "Your cart is empty.",
+            "payment": {
+                "cardTitle": "Payment Method",
+                "cardSubtitle": "Select a payment method"
+            },
+            "personal": {
+                "cardTitle": "Personal Information",
+                "loggedInMessage": "You are logged in as {firstname} {lastname} "
+            },
+            "shipping": {
+                "cardTitle": "Shipping Method",
+                "cardSubtitle": "Select a shipping method"
+            },
+            "terms": {
+                "cardTitle": "Terms and Conditions",
+                "label": "Terms and Conditions",
+                "help": "I have read and accepted the general terms and conditions."
+            },
+            "order": {
+                "successMessage": "Your order has been placed.",
+                "errorMessage": "An error occurred trying finish the order. Please try again.",
+                "buttonLabel": "Order",
+                "buttonLabelNotLoggedIn": "Log in to place order"
+            }
+        },
+        "lineItemsHeading": "Products",
+        "lineItem": {
+            "updateQuantity": {
+                "successMessage": "The quantity of {lineItemName} has been updated",
+                "errorMessage": "An error occurred trying to change the quantity of {lineItemName}."
+            },
+            "remove": {
+                "successMessage": "{lineItemName} has been removed from your cart",
+                "errorMessage": "An error occurred trying to remove {lineItemName} from the cart.",
+                "buttonLabel": "Remove"
+            },
+            "digitalProduct": "Digital Product"
+        },
+        "promotion": {
+            "successMessage": "Promotion code {promotionCode} was added",
+            "errorMessage": "Something went wrong!",
+            "code": {
+                "label": "Promotion code"
+            },
+            "submitLabel": "Redeem"
+        },
+        "summary": {
+            "heading": "Cart Summary",
+            "netPriceLabel": "Net",
+            "taxLabel": "Tax",
+            "shippingCostLabel": "Shipping",
+            "totalLabel": "Total"
+        },
+        "finish": {
+            "heading": "Thank you for your order!",
+            "confirmationMessage": "We have received your order and will process it as soon as possible.",
+            "emailMessage": "An order confirmation email has been sent to you.",
+            "orderNumberLabel": "Order Number:",
+            "orderDateLabel": "Order Date:",
+            "orderStatusLabel": "Order Status:",
+            "totalAmountLabel": " Total Amount:",
+            "orderHistoryLinkLabel": "View all my orders",
+            "billingAddressHeading": "Billing Address",
+            "shippingAddressHeading": "Shipping Address",
+            "paymentMethodHeading": "Payment Method",
+            "shippingMethodHeading": "Shipping Method"
+        }
+    }
+}

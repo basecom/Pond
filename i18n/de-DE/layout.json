@@ -1,0 +1,8 @@
+{
+    "layout": {
+        "breadcrumb": {
+            "ariaLabel": "Breadcrumb",
+            "homeLinkLabel": "Startseite"
+        }
+    }
+}

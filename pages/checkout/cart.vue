@@ -7,7 +7,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
 
 <template>
     <div class="container">
-        <h1>Shopping Cart</h1>
+        <h1>{{ $t('checkout.cart.heading') }}</h1>
 
         <div
             v-if="!isEmpty"
@@ -33,7 +33,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
                     class="flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
                     :to="'/checkout/confirm'"
                 >
-                    Checkout
+                    {{ $t('checkout.cart.checkoutButtonLabel') }}
                 </NuxtLink>
             </div>
         </div>
@@ -42,7 +42,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
             <UtilityStaticNotification
                 id="empty-cart"
                 type="info"
-                message="Your cart is empty."
+                :message="$t('checkout.cart.emptyCartMessage')"
                 class="mt-4"
             />
         </template>

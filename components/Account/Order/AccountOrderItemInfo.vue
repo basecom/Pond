@@ -22,7 +22,7 @@ defineProps<{
                 v-if="state?.name"
                 class="mt-5 font-bold"
             >
-                {{ title }} Status
+                {{ title }} {{ $t('account.orders.status') }}
             </div>
             <div v-if="state?.name">{{ state.name }}</div>
         </div>
