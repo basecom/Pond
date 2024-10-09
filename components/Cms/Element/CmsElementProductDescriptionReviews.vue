@@ -43,12 +43,7 @@ const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][]
                         >
                             <td class="px-4 py-2 font-bold">{{ getTranslatedProperty(group, 'name') }}</td>
                             <td class="px-4 py-2">
-                                <template v-for="(property, propertyIndex) in getPropertiesOfGroup(group.id)">
-                                    {{ getTranslatedProperty(property, 'name')
-                                    }}<template v-if="propertyIndex + 1 !== getPropertiesOfGroup(group.id).length"
-                                        >,
-                                    </template>
-                                </template>
+                                {{ getPropertiesOfGroup(group.id).join(',') }}
                             </td>
                         </tr>
                     </tbody>
