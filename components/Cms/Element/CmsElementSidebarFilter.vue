@@ -32,11 +32,14 @@ const onResetFilters = async () => {
     productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
 };
 
-watch(() => route.query, async () => {
-    productListingCriteriaStore.updateCriteria(route.query);
-    await search(criteria.value);
-    productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
-});
+watch(
+    () => route.query,
+    async () => {
+        productListingCriteriaStore.updateCriteria(route.query);
+        await search(criteria.value);
+        productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
+    },
+);
 </script>
 
 <template>
