@@ -46,27 +46,37 @@ const changePage = async (page: number) => {
     await search(criteria.value);
     productListingCriteriaStore.setSearchResult(getCurrentListing.value);
 };
+
+const config = useCmsElementConfig(props.element);
+const boxLayout = config.getConfigValue('boxLayout');
 await search(criteria.value);
 productListingCriteriaStore.setSearchResult(getCurrentListing.value, true);
 </script>
 
 <template>
-    <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-        <template
-            v-for="product in getElements"
-            :key="product.id"
-        >
-            <ProductCard
-                :product="product"
-                :layout="element.translated.config.boxLayout.value"
-            />
-        </template>
-    </div>
+    <div v-if="getElements.length > 0">
+        <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+            <template
+                v-for="product in getElements"
+                :key="product.id"
+            >
+                <ProductCard
+                    :product="product"
+                    :layout="boxLayout"
+                />
+            </template>
+        </div>
 
-    <LayoutPagination
-        :total="total ?? 0"
-        :items-per-page="limit"
-        :default-page="page"
-        @update-page="currentPage => changePage(currentPage)"
+        <LayoutPagination
+            :total="total ?? 0"
+            :items-per-page="limit"
+            :default-page="page"
+            @update-page="currentPage => changePage(currentPage)"
+        />
+    </div>
+    <SharedBanner
+        v-else
+        type="info"
+        :message="$t('cms.element.product.noProductsFound')"
     />
 </template>
