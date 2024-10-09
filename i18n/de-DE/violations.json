@@ -1,0 +1,7 @@
+{
+    "violation": {
+        "VIOLATION::IS_BLANK_ERROR": "Dieser Wert sollte nicht leer sein.",
+        "VIOLATION::CUSTOMER_EMAIL_NOT_UNIQUE": "Diese Adresse wird bereits genutzt.",
+        "VIOLATION::TOO_SHORT_ERROR": "Das Passwort sollte mindestens 8 Zeichen lang sein"
+    }
+}

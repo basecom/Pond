@@ -26,7 +26,16 @@
             "heading": "Your Profile"
         },
         "address": {
-            "heading": "Addresses"
+            "heading": "Addresses",
+            "create": "Add Address",
+            "createSuccess": "Your new address has been successfully created.",
+            "edit": "Edit",
+            "editSuccess": "Your address has been edited.",
+            "delete": "Delete",
+            "deleteSuccess": "Ihre Adresse wurde gelöscht.",
+            "deleteError": "There was an error deleting your address, please try again later.",
+            "nothingFound": "No addresses were found.",
+            "saveLabel": "Save"
         },
         "payment": {
             "heading": "Payment Methods"
