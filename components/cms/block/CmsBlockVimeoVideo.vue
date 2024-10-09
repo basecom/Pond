@@ -6,6 +6,7 @@ const props = defineProps<{
 }>();
 
 const { getSlotContent } = useCmsBlock(props.block);
+
 const video: Schemas['CmsSlot'] = getSlotContent('video');
 </script>
 

@@ -7,16 +7,20 @@ const props = defineProps<{
 
 const youtubeVideo = ref(null);
 
-const videoId = props.element.config.videoID.value
-const videoUrl = computed(() => `https://www.youtube.com/embed/${videoId}`)
+const config = useCmsElementConfig(props.element);
+const videoID = config.getConfigValue('videoID');
+const videoUrl = computed(() => `https://www.youtube.com/embed/${videoID}`);
 </script>
 
 <template>
-    <div ref="youtubeVideo" class="my-0 mx-auto youtube-player h-full w-full relative">
+    <div
+        ref="youtubeVideo"
+        class="youtube-player relative mx-auto my-0 h-full w-full"
+    >
         <iframe
             :src="videoUrl"
             frameborder="0"
-            class="w-full h-full absolute top-0 left-0"
+            class="absolute left-0 top-0 h-full w-full"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
             allowfullscreen
         />
@@ -24,7 +28,7 @@ const videoUrl = computed(() => `https://www.youtube.com/embed/${videoId}`)
 </template>
 
 <style scoped>
-.youtube-player{
+.youtube-player {
     padding-bottom: 56.25%;
 }
 </style>
