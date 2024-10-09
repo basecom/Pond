@@ -32,7 +32,7 @@ useSwiper(sliderRef, {});
         <swiper-container
             ref="sliderRef"
             class="m-6 flex w-full cursor-grab items-center justify-center"
-            :class="'min-h-[' + minHeight + 'px]'"
+            :class="`min-h-[${minHeight}px]`"
             :autoplay="autoSlide"
             :speed="speed"
             :pagination="navigationDots"

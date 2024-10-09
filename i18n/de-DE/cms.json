@@ -6,7 +6,8 @@
             "product": {
                 "descriptionHeading": "Artikelbeschreibung",
                 "noProductsFound": "Keine Produkte gefunden"
-            }
+            },
+            "imageAlt": "Bild in einem Bild-Slider"
         }
     }
 }

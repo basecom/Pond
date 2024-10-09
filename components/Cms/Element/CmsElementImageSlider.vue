@@ -2,8 +2,6 @@
 const props = defineProps<{
     element: CmsElementImageSlider;
 }>();
-// Main slider html object
-const sliderRef = ref(null);
 
 const config = useCmsElementConfig(props.element);
 const navigationDots = config.getConfigValue('navigationDots');
@@ -14,22 +12,20 @@ const autoplayTimeout = config.getConfigValue('autoplayTimeout');
 const minHeight = config.getConfigValue('minHeight');
 const speed = config.getConfigValue('speed');
 
-const sliderItems = computed(() => props.element.data?.sliderItems ?? []);
-const slides = ref(Array.from({ length: sliderItems.value.length }));
+const slides = computed(() => config.getConfigValue('sliderItems') ?? []);
+const sliderRef = ref(null);
 
-if (sliderItems.value.length > 0) {
-    // Main slider swiper instance
+if (slides.value.length > 0) {
     useSwiper(sliderRef, {});
 }
-const autoplayConfig = computed(() => {
-    if (autoSlide) {
-        return {
-            delay: autoplayTimeout,
-            disableOnInteraction: false,
-        };
-    }
 
-    return false;
+const autoplayConfig = computed(() => {
+    return autoSlide
+        ? {
+              delay: autoplayTimeout,
+              disableOnInteraction: false,
+          }
+        : false;
 });
 
 const speedConfig = computed(() => {
@@ -39,11 +35,11 @@ const speedConfig = computed(() => {
 
 <template>
     <ClientOnly>
-        <template v-if="sliderItems?.length">
+        <template v-if="slides?.length">
             <LayoutSlider
                 ref="sliderRef"
                 :class="{
-                    'cursor-grab': sliderItems.length > 1,
+                    'cursor-grab': slides.length > 1,
                 }"
                 class="w-full"
                 :autoplay="autoplayConfig"
@@ -53,13 +49,13 @@ const speedConfig = computed(() => {
                 :loop="true"
             >
                 <LayoutSliderSlide
-                    v-for="(slide, index) in slides"
-                    :key="element.id + '-' + index"
+                    v-for="slide in slides"
+                    :key="slide.mediaId"
                     :class="`min-h-[${minHeight}]`"
                 >
                     <img
-                        :src="sliderItems[index].media.url"
-                        :alt="sliderItems[index].media.translated.alt"
+                        :src="slide.mediaUrl"
+                        :alt="$t('cms.element.imageAlt')"
                         class="h-full w-full object-center"
                         :class="'object-' + displayMode"
                     />
