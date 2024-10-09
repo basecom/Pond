@@ -7,7 +7,7 @@ defineProps<{
 }>();
 
 const { mainNavigationElements, loadMainNavigation } = useNavigationStore();
-await loadMainNavigation (2);
+await loadMainNavigation(2);
 
 const { isActive } = useActivePath();
 </script>

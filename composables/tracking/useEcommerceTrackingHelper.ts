@@ -91,7 +91,7 @@ export function useEcommerceTrackingHelper() {
         return {
             ...trackingEvent,
             transaction_id: order.id,
-            value: order.price.netPrice,
+            value: order.price.totalPrice,
             tax: order.price.calculatedTaxes?.reduce((acc, tax) => acc + tax.tax, 0) ?? 0,
             shipping: order.deliveries?.[0]?.shippingCosts?.totalPrice ?? 0,
         };
