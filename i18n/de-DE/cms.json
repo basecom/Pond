@@ -1,5 +1,13 @@
 {
-  "cms": {
-    "componentNotFound": "{componentName} konnte nicht gefunden werden"
-  }
+    "cms": {
+        "componentNotFound": "{componentName} konnte nicht gefunden werden",
+        "element": {
+            "videoTagNotSupported": "Dein Browser unterstützt video-Tags nicht.",
+            "product": {
+                "descriptionHeading": "Artikelbeschreibung",
+                "noProductsFound": "Keine Produkte gefunden"
+            },
+            "imageAlt": "Bild in einem Bild-Slider"
+        }
+    }
 }

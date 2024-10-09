@@ -9,13 +9,17 @@ const props = defineProps<{
 }>();
 
 const { lineItem } = toRefs(props);
+const { isPromotion } = useCartItem(lineItem);
 
 const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 </script>
 
 <template>
     <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
-        <NuxtLink :to="getProductRoute(lineItem)">
+        <NuxtLink
+            v-if="!isPromotion"
+            :to="getProductRoute(lineItem)"
+        >
             <template v-if="lineItemCover.placeholder">
                 <SharedImagePlaceholder :size="'sm'" />
             </template>
@@ -28,6 +32,16 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
                 />
             </template>
         </NuxtLink>
+
+        <div
+            v-else-if="isPromotion"
+            class="flex h-full w-full items-center justify-center"
+        >
+            <FormKitIcon
+                icon="percent"
+                class="block h-16 w-16 text-gray"
+            />
+        </div>
     </div>
 
     <div class="flex flex-1 flex-col">

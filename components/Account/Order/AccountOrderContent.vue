@@ -3,23 +3,39 @@ const customerStore = useCustomerStore();
 const customerId = computed(() => customerStore.customer?.id);
 const { orders, loadOrders } = useCustomerOrders();
 
+const isLoading = ref(false);
+
 watch(customerId, async newId => {
     if (newId) {
+        isLoading.value = true;
         await loadOrders({ customerId: newId });
+        isLoading.value = false;
     }
 });
 
 onMounted(async () => {
     if (customerId.value) {
+        isLoading.value = true;
         await loadOrders({ customerId: customerId.value });
+        isLoading.value = false;
     }
 });
 </script>
 
 <template>
     <div>
-        <h1 class="mb-2 font-bold">Orders</h1>
-        <ul v-if="orders.length > 0">
+        <h1 class="mb-2 font-bold">
+            {{ $t('account.orders.heading') }}
+        </h1>
+
+        <div
+            v-if="isLoading"
+            class="relative h-20"
+        >
+            <UtilityLoadingSpinner class="bg-white opacity-50" />
+        </div>
+
+        <ul v-if="orders.length > 0 && !isLoading">
             <li
                 v-for="order in orders"
                 :key="order.id"
@@ -29,6 +45,9 @@ onMounted(async () => {
                 </SharedAccordionRoot>
             </li>
         </ul>
-        <p v-else>Oops, no orders have been found. Have you placed an order yet?</p>
+
+        <p v-else-if="!isLoading">
+            {{ $t('account.orders.noOrdersFound') }}
+        </p>
     </div>
 </template>

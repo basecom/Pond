@@ -5,6 +5,8 @@ const props = defineProps<{
     isInHeader: boolean;
 }>();
 
+const { t } = useI18n();
+
 const handleLogout = async () => {
     await customerStore.logout();
     navigateTo('/');
@@ -17,11 +19,11 @@ const isActive = (path: string, onlyExactMatch: boolean = false) => {
 };
 
 const navItems = ref([
-    { path: '/account', label: 'Overview' },
-    { path: '/account/profile', label: 'Your profile' },
-    { path: '/account/address', label: 'Address' },
-    { path: '/account/payment', label: 'Payment methods' },
-    { path: '/account/orders', label: 'Orders' },
+    { path: '/account', label: t('account.overview.heading') },
+    { path: '/account/profile', label: t('account.profile.heading') },
+    { path: '/account/address', label: t('account.address.heading') },
+    { path: '/account/payment', label: t('account.payment.heading') },
+    { path: '/account/orders', label: t('account.orders.heading') },
 ]);
 </script>
 
@@ -31,19 +33,24 @@ const navItems = ref([
             v-if="customerStore.customer && !props.isInHeader"
             class="text-2xl font-bold"
         >
-            Hallo {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}
+            {{
+                $t('account.greeting', {
+                    firstname: customerStore.customer.firstName,
+                    lastname: customerStore.customer.lastName,
+                })
+            }}
         </div>
 
         <div
             v-if="props.isInHeader"
-            class="ml-4 mt-4 pb-4 pl-2 text-2xl font-bold"
+            class="mt-4 pb-4 pl-2 text-2xl font-bold"
         >
-            Your account
+            {{ $t('account.dropdownHeading') }}
         </div>
         <li
             v-for="(item, index) in navItems"
             :key="item.path"
-            class="ml-4 mt-4 pb-4 pl-2"
+            class="mt-4 pb-4 pl-2"
             :class="{ 'border-gray-300 border-b': index !== navItems.length - 1 }"
         >
             <NuxtLink
@@ -60,7 +67,7 @@ const navItems = ref([
                 prefix-icon="right-from-bracket"
                 @click.prevent="handleLogout"
             >
-                logout
+                {{ $t('account.logout.buttonLabel') }}
             </FormKit>
         </li>
     </ul>

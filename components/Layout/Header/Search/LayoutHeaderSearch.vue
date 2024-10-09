@@ -8,6 +8,12 @@ onClickOutside(searchComponent, event => {
         searchVisible.value = false;
     }
 });
+
+// If the user is on the result page automatically open the search bar
+const route = useRoute();
+if (route.path === '/search') {
+    searchVisible.value = true;
+}
 </script>
 
 <template>

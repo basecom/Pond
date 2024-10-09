@@ -4,6 +4,7 @@ import { ApiClientError } from '@shopware/api-client';
 const { getProductRoute } = useProductRoute();
 const { getProductCover } = useMedia();
 const { pushError, pushSuccess } = useNotifications();
+const { t } = useI18n();
 
 const props = defineProps<{
     lineItem: Schemas['LineItem'];
@@ -41,9 +42,9 @@ const updateQuantity = async (quantityInput: number | undefined) => {
         // Refresh cart after quantity update
         await refreshCart(response);
 
-        pushSuccess('The quantity of ' + lineItem.value.label + ' has been updated');
+        pushSuccess(t('checkout.lineItem.updateQuantity.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
-        pushError('An error occured trying to change the quantity of ' + lineItem.value.label + '.');
+        pushError(t('checkout.lineItem.updateQuantity.errorMessage', { lineItemName: lineItem.value.label }));
 
         if (error instanceof ApiClientError) {
             console.log(error.details);
@@ -62,9 +63,9 @@ const removeCartItem = async () => {
     try {
         await removeItem();
 
-        pushSuccess(lineItem.value.label + ' has been removed from your cart');
+        pushSuccess(t('checkout.lineItem.remove.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
-        pushError('An error occured trying to remove ' + lineItem.value.label + ' from the cart.');
+        pushError(t('checkout.lineItem.remove.errorMessage', { lineItemName: lineItem.value.label }));
 
         if (error instanceof ApiClientError) {
             console.log(error.details);
@@ -128,7 +129,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                 </span>
             </div>
 
-            <span v-if="isDigital">Digital product</span>
+            <span v-if="isDigital">{{ $t('checkout.lineItem.digitalProduct') }}</span>
 
             <p
                 v-if="itemOptions"
@@ -163,7 +164,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                 :class="{ 'text-gray-medium': isLoading }"
                 @click="removeCartItem"
             >
-                Remove
+                {{ $t('checkout.lineItem.remove.buttonLabel') }}
             </button>
         </div>
     </div>
