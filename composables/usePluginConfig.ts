@@ -1,4 +1,3 @@
-
 export function usePluginConfig() {
     const { apiClient } = useShopwareContext();
     const configValues = ref({});

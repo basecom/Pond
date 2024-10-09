@@ -15,11 +15,16 @@ const props = withDefaults(
 const { getProductCover } = useMedia();
 
 const cover = getProductCover(props.product.cover);
+const configStore = useConfigStore();
+const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
 </script>
 
 <template>
     <div class="relative rounded-md p-4 shadow-md">
-        <div class="absolute right-0 top-0 z-[2] p-4">
+        <div
+            v-if="wishlistEnabled"
+            class="absolute right-0 top-0 z-[2] p-4"
+        >
             <ProductAddToWishlist :product-id="props.product.id" />
         </div>
         <NuxtLink

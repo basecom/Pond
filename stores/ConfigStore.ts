@@ -7,17 +7,17 @@ export const useConfigStore = defineStore('config', () => {
             return undefined;
         }
 
-        if (!configValues.value[key]) {
+        if (!(key in configValues.value)) {
             console.warn(`[Pond]: The configuration for '${key}' was not found`);
             return undefined;
         }
 
-        return configValues.value[key]
-    }
+        return configValues.value[key];
+    };
 
     return {
         loadConfig,
         configValues,
-        get
-    }
-})
+        get,
+    };
+});

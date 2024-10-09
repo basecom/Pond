@@ -10,9 +10,7 @@ const { getWishlistProducts } = useWishlist();
 await getWishlistProducts();
 
 const configStore = useConfigStore();
-console.log(configStore.configValues);
 await configStore.loadConfig();
-console.log(configStore.configValues)
 
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
