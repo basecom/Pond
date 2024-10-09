@@ -1,0 +1,15 @@
+{
+    "search": {
+        "searchBar": {
+            "placeholder": "Suche nach Produkten",
+            "resultsLinkLabel": "Zu allen {number} Ergebnissen",
+            "oneResultLinkLabel": "Zum Ergebnis",
+            "noResultsLabel": "Keine Ergebnisse"
+        },
+        "resultPage": {
+            "heading": "Ergebnisse für",
+            "headingNoResults": "Keine Ergebnisse gefunden",
+            "breadcrumbName": "Suchergebnisse"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "error": {
+        "maintenance": {
+            "heading": "Maintenance mode",
+            "detail": "We apologize for the inconvenience. We are currently undergoing planned maintenance.",
+            "tryAgain": "Please try again in a couple of minutes!",
+            "refresh": "Refresh"
+        },
+        "404": {
+            "heading": "Page not found",
+            "detail": "The requested page could not be found."
+        },
+        "server": {
+            "heading": "Server error",
+            "detail": "A server error occurred. We apologize for the inconvenience."
+        },
+        "unknown": {
+            "heading": "Unknown error",
+            "detail": "An unknown error occurred. We apologize for the inconvenience."
+        }
+    }
+}

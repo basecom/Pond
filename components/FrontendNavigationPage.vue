@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { getCategoryBreadcrumbs } from '@shopware-pwa/helpers-next';
+
 const props = defineProps<{
     navigationId: string;
 }>();
 
 const { search } = useCategorySearch();
 const route = useRoute();
+const { t } = useI18n();
 
 const { data: categoryResponse } = await useAsyncData('navigation' + props.navigationId, async () => {
     return await search(props.navigationId, {
@@ -16,10 +19,16 @@ const { data: categoryResponse } = await useAsyncData('navigation' + props.navig
 });
 
 if (!categoryResponse.value) {
-    throw createError({ statusCode: 404, message: 'page not found' });
+    throw createError({ statusCode: 404, message: t('error.pageNotFound') });
 }
 
 const { category } = useCategory(categoryResponse);
+
+const breadcrumbs = getCategoryBreadcrumbs(categoryResponse.value, {
+    startIndex: 1,
+});
+
+useBreadcrumbs(breadcrumbs);
 </script>
 
 <template>

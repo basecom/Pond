@@ -2,6 +2,8 @@ import type { ComputedRef, ImgHTMLAttributes, Ref } from 'vue';
 import type { Schemas } from '@shopware/api-client/api-types';
 
 export function useMedia() {
+    const { t } = useI18n();
+
     const thumbnailSizes = {
         xs: 3,
         s: 0,
@@ -30,8 +32,9 @@ export function useMedia() {
     const getProductCover = (cover: Schemas['ProductMedia'] | null | undefined, size: 'xs' | 's' | 'm' | 'l' = 's') => {
         if (!cover) {
             return {
-                url: '/fallback-product-cover.jpg',
-                alt: 'No product image available',
+                url: '/fallback-product-cover.svg',
+                alt: t('composable.media.noImageMessage'),
+                placeholder: true,
             };
         }
 
@@ -41,11 +44,13 @@ export function useMedia() {
                     ? cover.media.thumbnails[thumbnailSizes[size]]?.url
                     : cover.media.url,
                 alt: cover.media.alt,
+                placeholder: false,
             };
         } else {
             return {
                 url: cover.thumbnails?.length ? cover.thumbnails[thumbnailSizes[size]]?.url : cover.url,
                 alt: cover.alt,
+                placeholder: false,
             };
         }
     };
