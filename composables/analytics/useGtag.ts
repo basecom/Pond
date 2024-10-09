@@ -1,6 +1,5 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { UseAnalyticsReturn } from '../../types/analytics/analytics';
-import { useEcommerceTrackingHelper } from '../tracking/useEcommerceTrackingHelper';
 
 export function useGtags(): UseAnalyticsReturn {
     const _cookieEnabledName = 'google-analytics-enabled';
@@ -10,8 +9,16 @@ export function useGtags(): UseAnalyticsReturn {
     const _isGoogleAnalyticsEnabled = ref(true);
     // TODO: Modify to take the value from configuration
     const _googleAnalyticsId = ref('G-XXXXXXX');
-    const { getEventForSingleItem, getEventForAllItems, getEventWithShippingInfo, getEventWithPaymentInfo, getPurchasedEvent } =
-        useEcommerceTrackingHelper();
+    const {
+        getEventForSingleItem,
+        getEventForAllItems,
+        getEventWithShippingInfo,
+        getEventWithPaymentInfo,
+        getPurchasedEvent,
+        getEventForProductList,
+        getEventForProduct,
+        getEventForProductWithPrice,
+    } = useEcommerceTrackingHelper();
 
     function _trackEvent(...args: unknown[]) {
         if (import.meta.client) {
@@ -88,19 +95,11 @@ export function useGtags(): UseAnalyticsReturn {
     const trackViewCart = () => {
         const trackingEvent = getEventForAllItems();
 
-        if (!trackingEvent) {
-            return;
-        }
-
         _trackEvent('event', 'view_cart', trackingEvent);
     };
 
     const trackBeginCheckout = () => {
         const trackingEvent = getEventForAllItems();
-
-        if (!trackingEvent) {
-            return;
-        }
 
         _trackEvent('event', 'begin_checkout', trackingEvent);
     };
@@ -108,32 +107,38 @@ export function useGtags(): UseAnalyticsReturn {
     const trackAddShippingInfo = () => {
         const trackingEvent = getEventWithShippingInfo();
 
-        if (!trackingEvent) {
-            return;
-        }
-
         _trackEvent('event', 'add_shipping_info', trackingEvent);
     };
 
     const trackAddPaymentInfo = () => {
         const trackingEvent = getEventWithPaymentInfo();
 
-        if (!trackingEvent) {
-            return;
-        }
-
         _trackEvent('event', 'add_payment_info', trackingEvent);
     };
 
-    const trackPurchase = (order: Schemas["Order"]) => {
+    const trackPurchase = (order: Schemas['Order']) => {
         const trackingEvent = getPurchasedEvent(order);
-
-        if (!trackingEvent) {
-            return;
-        }
 
         _trackEvent('event', 'purchase', trackingEvent);
     };
+
+    const trackViewItemList = (products: Schemas['Product'][]) => {
+        const trackingEvent = getEventForProductList(products);
+
+        _trackEvent('event', 'view_item_list', trackingEvent);
+    };
+
+    const trackSelectItem = (product: Schemas['Product']) => {
+        const trackingEvent = getEventForProduct(product);
+
+        _trackEvent('event', 'select_item', trackingEvent);
+    }
+
+    const trackViewItem = (product: Schemas['Product']) => {
+        const trackingEvent = getEventForProductWithPrice(product);
+
+        _trackEvent('event', 'view_item', trackingEvent);
+    }
 
     return {
         updateConsent,
@@ -144,5 +149,8 @@ export function useGtags(): UseAnalyticsReturn {
         trackAddShippingInfo,
         trackAddPaymentInfo,
         trackPurchase,
+        trackViewItemList,
+        trackViewItem,
+        trackSelectItem,
     };
 }

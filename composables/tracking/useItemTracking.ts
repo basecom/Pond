@@ -7,15 +7,15 @@ export type TrackingLineItemList = {
 };
 
 export type GetTrackingLineItemConfig = {
-    item: Schemas['LineItem'];
     itemIndex: number;
     product: Schemas['Product'];
+    price: Schemas['CalculatedPrice'];
     list?: TrackingLineItemList;
     quantity?: number;
 };
 
 export type UseItemTrackingReturn = {
-    getTrackingLineItem: (config: GetTrackingLineItemConfig) => TrackingLineItem;
+    getTrackingItem: (config: GetTrackingLineItemConfig) => TrackingLineItem;
 };
 
 export function useItemTracking(): UseItemTrackingReturn {
@@ -46,27 +46,26 @@ export function useItemTracking(): UseItemTrackingReturn {
         );
     };
 
-    const getTrackingLineItem = ({
-        item,
+    const getTrackingItem = ({
         itemIndex,
         product,
+        price,
         list,
         quantity,
     }: GetTrackingLineItemConfig): TrackingLineItem => {
-        const payload = item.payload;
         const categoryTree = _getCategoryTree(product);
 
         const trackingLineItem: TrackingLineItem = {
-            item_id: payload.productNumber,
-            item_name: item.label!,
+            item_id: product.productNumber,
+            item_name: product.translated.name,
             affiliation: sessionContext.value.salesChannel.name,
             index: itemIndex,
-            price: item?.price?.listPrice?.price ?? item?.price?.unitPrice ?? 0,
+            price: price?.listPrice?.price ?? price?.unitPrice ?? 0,
             quantity: quantity ?? 1,
         };
 
-        if (item.price?.listPrice?.discount) {
-            trackingLineItem.discount = item.price.listPrice.discount;
+        if (price?.listPrice?.discount) {
+            trackingLineItem.discount = price.listPrice.discount;
         }
 
         if (product.manufacturer) {
@@ -106,6 +105,6 @@ export function useItemTracking(): UseItemTrackingReturn {
     };
 
     return {
-        getTrackingLineItem,
+        getTrackingItem,
     };
 }

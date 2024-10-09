@@ -25,6 +25,7 @@ search({
         product: [
             'id',
             'name',
+            'productNumber',
             'cover',
             'calculatedPrice',
             'description',
@@ -48,6 +49,7 @@ search({
 
 const router = useRouter();
 const route = useRoute();
+const { trackSelectItem } = useAnalytics();
 
 const { y: windowYPosition } = useScroll(window, { behavior: 'smooth' });
 
@@ -74,6 +76,7 @@ const changePage = async (page: number) => {
             <ProductCard
                 :product="product"
                 :layout="element.translated.config.boxLayout.value"
+                @view-product="trackSelectItem(product)"
             />
         </template>
     </div>

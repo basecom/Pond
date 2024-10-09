@@ -26,6 +26,7 @@ export const useCartItemsStore = defineStore('cart-items', () => {
                 product: [
                     'id',
                     'name',
+                    'productNumber',
                     'calculatedPrice',
                     'description',
                     'translated',

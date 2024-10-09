@@ -1,8 +1,8 @@
 import type { TrackingLineItem } from './line-item';
 
 export type TrackingEcommerceEvent = {
-    value: number;
-    currency: string;
+    value?: number;
+    currency?: string;
     coupon?: string;
     shipping_tier?: string;
     payment_type?: string;

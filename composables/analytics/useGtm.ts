@@ -8,8 +8,16 @@ export function useGtm(): UseAnalyticsReturn {
     // TODO: Modify to take the value from configuration
     const _isGoogleAnalyticsEnabled = ref(true);
     const runtimeConfig = useRuntimeConfig();
-    const { getEventWithShippingInfo, getEventForAllItems, getEventForSingleItem, getEventWithPaymentInfo, getPurchasedEvent } =
-        useEcommerceTrackingHelper();
+    const {
+        getEventWithShippingInfo,
+        getEventForAllItems,
+        getEventForSingleItem,
+        getEventWithPaymentInfo,
+        getPurchasedEvent,
+        getEventForProductList,
+        getEventForProduct,
+        getEventForProductWithPrice,
+    } = useEcommerceTrackingHelper();
 
     const _trackEvent = (args: unknown) => {
         if (import.meta.client) {
@@ -108,10 +116,6 @@ export function useGtm(): UseAnalyticsReturn {
     const trackViewCart = () => {
         const trackingEvent = getEventForAllItems();
 
-        if (!trackingEvent) {
-            return;
-        }
-
         _trackEvent({ ecommerce: null });
         _trackEvent({
             event: 'view_cart',
@@ -121,10 +125,6 @@ export function useGtm(): UseAnalyticsReturn {
 
     const trackBeginCheckout = () => {
         const trackingEvent = getEventForAllItems();
-
-        if (!trackingEvent) {
-            return;
-        }
 
         _trackEvent({ ecommerce: null });
         _trackEvent({
@@ -136,10 +136,6 @@ export function useGtm(): UseAnalyticsReturn {
     const trackAddShippingInfo = () => {
         const trackingEvent = getEventWithShippingInfo();
 
-        if (!trackingEvent) {
-            return;
-        }
-
         _trackEvent({ ecommerce: null });
         _trackEvent({
             event: 'add_shipping_info',
@@ -149,10 +145,6 @@ export function useGtm(): UseAnalyticsReturn {
 
     const trackAddPaymentInfo = () => {
         const trackingEvent = getEventWithPaymentInfo();
-
-        if (!trackingEvent) {
-            return;
-        }
 
         _trackEvent({ ecommerce: null });
         _trackEvent({
@@ -164,16 +156,43 @@ export function useGtm(): UseAnalyticsReturn {
     const trackPurchase = (order: Schemas['Order']) => {
         const trackingEvent = getPurchasedEvent(order);
 
-        if (!trackingEvent) {
-            return;
-        }
-
         _trackEvent({ ecommerce: null });
         _trackEvent({
             event: 'purchase',
             ecommerce: trackingEvent,
         });
-    }
+    };
+
+    const trackViewItemList = (products: Schemas['Product'][], page?: number) => {
+        const trackingEvent = getEventForProductList(products);
+
+        _trackEvent({ ecommerce: null });
+        _trackEvent({
+            event: 'view_item_list',
+            pagination: page ?? 1,
+            ecommerce: trackingEvent,
+        });
+    };
+
+    const trackSelectItem = (product: Schemas['Product']) => {
+        const trackingEvent = getEventForProduct(product);
+
+        _trackEvent({ ecommerce: null });
+        _trackEvent({
+            event: 'select_item',
+            ecommerce: trackingEvent,
+        });
+    };
+
+    const trackViewItem = (product: Schemas['Product']) => {
+        const trackingEvent = getEventForProductWithPrice(product);
+
+        _trackEvent({ ecommerce: null });
+        _trackEvent({
+            event: 'view_item',
+            ecommerce: trackingEvent,
+        });
+    };
 
     return {
         updateConsent,
@@ -184,5 +203,8 @@ export function useGtm(): UseAnalyticsReturn {
         trackAddShippingInfo,
         trackAddPaymentInfo,
         trackPurchase,
+        trackViewItemList,
+        trackSelectItem,
+        trackViewItem,
     };
 }
