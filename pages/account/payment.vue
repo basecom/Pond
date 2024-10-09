@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useAuth().authenticate();
+useAuthentication().authenticate();
 </script>
 
 <template>

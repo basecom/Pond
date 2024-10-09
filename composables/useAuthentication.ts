@@ -1,4 +1,4 @@
-export function useAuth() {
+export function useAuthentication() {
     const { signedIn } = useCustomerStore();
 
     const authenticate = () => {
