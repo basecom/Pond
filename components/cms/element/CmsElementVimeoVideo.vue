@@ -10,8 +10,10 @@ const vimeoVideo = ref(null);
 
 onMounted(() => {
     if (vimeoVideo.value) {
-        const player = new Player('vimeo-video', {
-            id: parseInt(props.element.config.videoID.value),
+        const config = useCmsElementConfig(props.element);
+        const videoID = config.getConfigValue('videoID');
+        new Player('vimeo-video', {
+            id: parseInt(videoID),
             width: vimeoVideo.value?.offsetWidth ?? null,
         });
     }

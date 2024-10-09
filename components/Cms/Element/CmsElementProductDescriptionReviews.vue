@@ -24,6 +24,8 @@ const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][]
     <div class="flex flex-col gap-4">
         <div class="text-xl font-bold">{{ $t('cms.element.product.descriptionHeading') }}</div>
         <div class="flex flex-col gap-8 md:flex-row">
+            <!-- v-html is necessary because we need to render html -->
+            <!-- eslint-disable vue/no-v-html -->
             <div
                 class="flex-grow"
                 v-html="getTranslatedProperty(product, 'description')"
@@ -41,9 +43,11 @@ const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][]
                         >
                             <td class="px-4 py-2 font-bold">{{ getTranslatedProperty(group, 'name') }}</td>
                             <td class="px-4 py-2">
-                                <template v-for="(property, index) in getPropertiesOfGroup(group.id)">
+                                <template v-for="(property, propertyIndex) in getPropertiesOfGroup(group.id)">
                                     {{ getTranslatedProperty(property, 'name')
-                                    }}<template v-if="index + 1 !== getPropertiesOfGroup(group.id).length">, </template>
+                                    }}<template v-if="propertyIndex + 1 !== getPropertiesOfGroup(group.id).length"
+                                        >,
+                                    </template>
                                 </template>
                             </td>
                         </tr>
