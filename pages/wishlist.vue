@@ -90,35 +90,7 @@ watch(
     },
 );
 
-const initialRoutePath = route.path;
-// Watch for changes to the route
-watch(
-    () => route,
-    newRoute => {
-        // the route is different = we are leaving the wishlist page
-        if (initialRoutePath !== newRoute.path) {
-            // update wishlist items
-            getWishlistProducts();
-            return;
-        }
-
-        // the route is the same and the query is not empty
-        if (Object.keys(newRoute.query).length > 0) {
-            return;
-        }
-
-        // the query is removed/empty for the same page (without hard reload), so we rest the limit and page
-        getWishlistProducts({
-            limit: defaultLimit,
-            page: defaultPage,
-        });
-
-        limit.value = defaultLimit;
-    },
-    { deep: true },
-);
-
-// Initial request to fetch wishlist items on mount and trigger items watcher
+// Initial request to fetch wishlist items with limit and page on mount and trigger items watcher through it
 onMounted(() => {
     const route = useRoute();
     const limit = ref(route.query.limit ? Number(route.query.limit) : defaultLimit);

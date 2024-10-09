@@ -1,5 +1,14 @@
 <script setup lang="ts">
 const { count: wishlistCount } = useWishlist();
+const { getWishlistProducts } = useWishlist();
+
+onMounted(() => {
+    const route = useRoute();
+    if (route.path !== '/wishlist') {
+        // If not on wishlist page we fetch for displaying the amount of items in the header
+        getWishlistProducts();
+    }
+});
 </script>
 
 <template>
