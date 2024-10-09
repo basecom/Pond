@@ -2,6 +2,8 @@ import type { ApiError } from '@shopware/api-client';
 import type { ResolvedApiError, UseApiErrorsResolver } from '~/types/errors';
 
 export function useApiErrorsResolver(): UseApiErrorsResolver {
+    const { t } = useI18n();
+
     /**
      * This function resolves the api errors into a structure where its clearly visible which field (key) is affected by which error (code)
      */
@@ -9,7 +11,7 @@ export function useApiErrorsResolver(): UseApiErrorsResolver {
         return errors.map(({ detail, code, source }) => {
             return {
                 key: source?.pointer ? formatErrorSourcePointer(source.pointer) : context,
-                code: code ?? detail ?? 'No details provided',
+                code: code ?? detail ?? t('composable.apiErrorsResolver.noDetails'),
             };
         });
     };

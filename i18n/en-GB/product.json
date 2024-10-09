@@ -1,0 +1,22 @@
+{
+    "product": {
+        "price": {
+            "vatInfo": "vat info"
+        },
+        "addToCart": {
+            "successMessage": "{productName} was added to your cart.",
+            "errorMessage": "An error occurred trying to add {productName} to your cart.",
+            "submitLabel": "Add to cart",
+            "notAvailable": "This product is currently not available."
+        },
+        "availability": {
+            "deliveryTime": "delivery time {deliveryTime}",
+            "available": "Available, delivery time {deliveryTime}",
+            "restock": "Available, restock time of {restockTime} days",
+            "notAvailable": "Currently not available"
+        },
+        "goToDetail": {
+            "label": "Details"
+        }
+    }
+}
