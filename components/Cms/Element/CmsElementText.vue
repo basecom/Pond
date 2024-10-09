@@ -13,5 +13,5 @@ const content = config.getConfigValue('content');
 <template>
     <!-- v-html is necessary because the text contains inline stylings -->
     <!-- eslint-disable vue/no-v-html -->
-    <div v-html="decodeHTML(content)" />
+    <div v-if="content" v-html="decodeHTML(content)" />
 </template>
