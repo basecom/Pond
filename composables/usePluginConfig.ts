@@ -12,7 +12,6 @@ export function usePluginConfig() {
 
     return {
         loadConfig,
-        // configValues: computed(() => _configValues.value),
         configValues,
     };
 }
