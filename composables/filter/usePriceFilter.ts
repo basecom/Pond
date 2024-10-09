@@ -2,7 +2,7 @@ import type { LocationQueryRaw } from '#vue-router';
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilterMapping } from '../../types/listing/mapping';
 
-export function usePriceUrlState(): ListingFilterMapping {
+export function usePriceFilter(): ListingFilterMapping {
     const encodeUrl = (value: Schemas['ProductListingCriteria']): LocationQueryRaw => {
         if (!value['min-price'] || !value['max-price']) {
             return {

@@ -1,5 +1,4 @@
-import type { ListingFilterMapping } from '../types/listing/mapping';
-import { usePriceUrlState } from './filters/usePriceUrlState';
+import type { ListingFilterMapping } from '../../types/listing/mapping';
 
 export function useListingFiltersMapping() {
     const filterCodes = ['price'];
@@ -8,7 +7,7 @@ export function useListingFiltersMapping() {
     };
 
     const filterMapping: Record<string, () => ListingFilterMapping> = {
-        price: usePriceUrlState,
+        price: usePriceFilter,
     };
 
     return {

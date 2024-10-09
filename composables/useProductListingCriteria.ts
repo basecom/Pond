@@ -3,7 +3,6 @@ import type { ComputedRef } from 'vue';
 import { getListingFilters } from '@shopware-pwa/helpers-next';
 import type { operations, Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilter } from '../types/listing/filter';
-import { useListingFiltersMapping } from './useListingFiltersMapping';
 
 export type ProductListingCriteria =
     | operations['readProductListing post /product-listing/{categoryId}']['body']
@@ -21,7 +20,7 @@ export type UseProductListingCriteriaResult = {
     currentSorting: ComputedRef<Schemas['ProductListingResult']['sorting']>;
     initializeCriteria: (defaultCriteria: Partial<ProductListingCriteria>, query: LocationQuery) => void;
     updateCriteria: (query: LocationQuery) => void;
-    setSearchResult: (result: Schemas['ProductListingResult']) => void;
+    setSearchResult: (result: Schemas['ProductListingResult'], forceUpdateFilters?: boolean) => void;
     setFilters: (filters: Schemas['ProductListingResult']['currentFilters']) => void;
     setSorting: (sorting: Schemas['ProductListingResult']['sorting']) => void;
     setPage: (page: Schemas['ProductListingResult']['page']) => void;
@@ -155,14 +154,14 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
         _updateFiltersChanged();
     };
 
-    const setSearchResult = (result: Schemas['ProductListingResult']) => {
+    const setSearchResult = (result: Schemas['ProductListingResult'], forceUpdate?: boolean) => {
         _appliedFilters.value = result.currentFilters;
         _currentSorting.value = result.sorting;
         _limit.value = result.limit;
         _page.value = result.page;
         _total.value = result.total;
 
-        if (_filters.value.length === 0) {
+        if (_filters.value.length === 0 || forceUpdate) {
             _filters.value = getListingFilters(result.aggregations) as ListingFilter[];
         }
 

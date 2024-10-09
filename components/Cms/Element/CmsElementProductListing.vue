@@ -47,7 +47,7 @@ const changePage = async (page: number) => {
     productListingCriteriaStore.setSearchResult(getCurrentListing.value);
 };
 await search(criteria.value);
-productListingCriteriaStore.setSearchResult(getCurrentListing.value);
+productListingCriteriaStore.setSearchResult(getCurrentListing.value, true);
 </script>
 
 <template>

@@ -68,7 +68,7 @@ productListingCriteriaStore.initializeCriteria({
 
 const productSearch = await loadProducts(cacheKey.value);
 setInitialListing(productSearch.value as Schemas['ProductListingResult']);
-productListingCriteriaStore.setSearchResult(productSearch.value as Schemas['ProductListingResult']);
+productListingCriteriaStore.setSearchResult(productSearch.value as Schemas['ProductListingResult'], true);
 
 watch(cacheKey, () => {
     loadProducts(cacheKey.value);
