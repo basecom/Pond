@@ -59,6 +59,12 @@ const handleSave = async (fields: FormkitFields) => {
     } catch (error) {
         isLoading.value = false;
 
+        if (isEditMode.value) {
+            pushError(t('account.address.editError'));
+        } else {
+            pushError(t('account.address.createError'));
+        }
+
         if (error instanceof ApiClientError) {
             formErrorStore.formErrors(error.details.errors);
             return;
@@ -72,7 +78,7 @@ const deleteAddress = async addressId => {
     try {
         await deleteCustomerAddress(addressId);
         await loadCustomerAddresses();
-        pushError(t('account.address.deleteSuccess'));
+        pushSuccess(t('account.address.deleteSuccess'));
     } catch (e) {
         pushError(t('account.address.deleteError'));
     }

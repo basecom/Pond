@@ -6,7 +6,6 @@ export const useFormErrorStore = defineStore('formErrors', () => {
 
     const formErrors = errors => {
         apiErrors.value = resolveApiErrors(errors);
-        console.log('a', apiErrors.value);
         return apiErrors;
     };
 
