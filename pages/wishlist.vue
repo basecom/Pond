@@ -38,7 +38,13 @@ const loadProductsByItemIds = async (itemIds: string[], cacheKey: string) => {
     isLoading.value = true;
     const { status } = await useAsyncData(cacheKey, async () => {
         const { data } = await apiClient.invoke('readProduct post /product', {
-            body: { ids: itemIds },
+            body: {
+                ids: itemIds,
+                associations: {
+                    manufacturer: {},
+                    options: {},
+                },
+            },
         });
         if (data?.elements) products.value = data.elements;
         return data;

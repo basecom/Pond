@@ -42,6 +42,7 @@ breadcrumbs.push({
 });
 
 useBreadcrumbs(breadcrumbs);
+useAnalytics({ pageType: 'pdp', trackPageView: true });
 </script>
 
 <template>

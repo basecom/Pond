@@ -12,6 +12,8 @@ const props = withDefaults(
     },
 );
 
+defineEmits(['view-product']);
+
 const { getProductCover } = useMedia();
 
 const cover = getProductCover(props.product.cover);
@@ -25,6 +27,7 @@ const cover = getProductCover(props.product.cover);
         <NuxtLink
             :to="getProductRoute(product)"
             class="group"
+            @click="$emit('view-product')"
         >
             <div class="flex flex-col">
                 <div
