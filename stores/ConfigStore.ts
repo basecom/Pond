@@ -3,12 +3,16 @@ export const useConfigStore = defineStore('config', () => {
 
     const get = (key: string) => {
         if (!configValues.value) {
-            console.warn('[Pond]: config values not loaded');
+            if (import.meta.dev) {
+                console.warn('[Pond]: config values not loaded');
+            }
             return undefined;
         }
 
         if (!(key in configValues.value)) {
-            console.warn(`[Pond]: The configuration for '${key}' was not found`);
+            if (import.meta.dev) {
+                console.warn(`[Pond]: The configuration for '${key}' was not found`);
+            }
             return undefined;
         }
 
@@ -17,7 +21,6 @@ export const useConfigStore = defineStore('config', () => {
 
     return {
         loadConfig,
-        configValues,
         get,
     };
 });

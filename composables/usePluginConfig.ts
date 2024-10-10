@@ -4,9 +4,13 @@ export function usePluginConfig() {
 
     const loadConfig = async () => {
         return useAsyncData('pluginConfiguration', async () => {
-            const data = (await apiClient.invoke('loadConfig get /pond/config')).data;
-            configValues.value = data;
-            return data;
+            try {
+                const data = (await apiClient.invoke('loadConfig get /pond/config')).data;
+                configValues.value = data;
+                return data;
+            } catch (e) {
+                return [];
+            }
         });
     };
 

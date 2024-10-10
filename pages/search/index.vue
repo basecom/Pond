@@ -4,25 +4,10 @@ import type { Schemas } from '@shopware/api-client/api-types';
 const route = useRoute();
 const { t } = useI18n();
 
-const {
-    getCurrentListing,
-    getElements: products,
-    loading,
-    search,
-    setInitialListing,
-} = useProductSearchListing();
+const { getCurrentListing, getElements: products, loading, search, setInitialListing } = useProductSearchListing();
 const productListingCriteriaStore = useProductListingCriteriaStore('search');
-const {
-    criteria,
-    sortingOptions,
-    currentSorting,
-    appliedFilters,
-    areFiltersModified,
-    total,
-    limit,
-    filters,
-    page,
-} = storeToRefs(productListingCriteriaStore);
+const { criteria, sortingOptions, currentSorting, appliedFilters, areFiltersModified, total, limit, filters, page } =
+    storeToRefs(productListingCriteriaStore);
 
 const cacheKey = computed(() => `productSearch-${JSON.stringify(criteria.value)}`);
 
@@ -62,22 +47,32 @@ const onResetFilters = async () => {
     productListingCriteriaStore.resetFilters();
 };
 
-productListingCriteriaStore.initializeCriteria({
-    search: route.query.search as string,
-}, route.query);
+productListingCriteriaStore.initializeCriteria(
+    {
+        search: route.query.search as string,
+    },
+    route.query,
+);
 
 const productSearch = await loadProducts(cacheKey.value);
 setInitialListing(productSearch.value as Schemas['ProductListingResult']);
 productListingCriteriaStore.setSearchResult(productSearch.value as Schemas['ProductListingResult'], true);
 
-watch(cacheKey, () => {
-    loadProducts(cacheKey.value);
-    // TODO: Works for backwards but not forwards to update listing, also needs to update searchTerm input and "Results for ..." display
-}, { immediate: false });
+watch(
+    cacheKey,
+    () => {
+        loadProducts(cacheKey.value);
+        // TODO: Works for backwards but not forwards to update listing, also needs to update searchTerm input and "Results for ..." display
+    },
+    { immediate: false },
+);
 
-watch(() => route.query, () => {
-    productListingCriteriaStore.updateCriteria(route.query);
-});
+watch(
+    () => route.query,
+    () => {
+        productListingCriteriaStore.updateCriteria(route.query);
+    },
+);
 
 useBreadcrumbs([
     {
@@ -118,7 +113,7 @@ useBreadcrumbs([
             </div>
             <div
                 v-if="!loading"
-                class="grid w-full md:w-7/12 lg:w-9/12 grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4"
+                class="grid w-full grid-cols-2 gap-6 md:w-7/12 md:grid-cols-3 lg:w-9/12 lg:grid-cols-4"
             >
                 <template
                     v-for="product in products"

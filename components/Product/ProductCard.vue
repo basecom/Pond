@@ -17,13 +17,14 @@ const { getProductCover } = useMedia();
 const cover = getProductCover(props.product.cover);
 const configStore = useConfigStore();
 const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
+configStore.get('test');
 </script>
 
 <template>
     <div class="relative rounded-md p-4 shadow-md">
         <div
             v-if="wishlistEnabled"
-            class="absolute right-0 top-0 z-[2] p-4"
+            class="absolute right-0 top-0 z-10 p-4"
         >
             <ProductAddToWishlist :product-id="props.product.id" />
         </div>
