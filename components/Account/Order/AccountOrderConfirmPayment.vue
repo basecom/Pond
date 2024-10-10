@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import CheckoutConfirmPaymentMethod from './CheckoutConfirmPaymentMethod.vue';
+const emit = defineEmits<{
+    'update-method': [key: string];
+}>();
 
 const { paymentMethods, getPaymentMethods } = useCheckout();
-
-const { selectedPaymentMethod: paymentMethod, setPaymentMethod } = useSessionContext();
+const { selectedPaymentMethod: paymentMethod } = useSessionContext();
 
 const selectedPaymentMethod = computed({
     get(): string {
         return paymentMethod.value?.id || '';
     },
-    async set(paymentMethodId: string) {
-        await setPaymentMethod({ id: paymentMethodId });
+    set(paymentMethodId: string) {
+        emit('update-method', paymentMethodId);
     },
 });
 
@@ -38,9 +39,6 @@ onMounted(async () => {
             v-model="selectedPaymentMethod"
             type="radio"
             :options="paymentOptions"
-            fieldset-class="w-full"
-            wrapper-class="w-full !mb-5 !items-start"
-            decorator-class="mt-1"
         >
             <template #label="{ option }">
                 <CheckoutConfirmPaymentMethod

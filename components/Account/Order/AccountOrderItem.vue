@@ -3,7 +3,24 @@ const props = defineProps<{
     orderId: string;
 }>();
 
-const { order, loadOrderDetails, shippingMethod, paymentMethod, status } = useOrderDetails(props.orderId);
+const { order, loadOrderDetails, shippingMethod, paymentMethod, status } = useOrderDetails(props.orderId, {
+    stateMachineState: {},
+});
+
+const isPaymentNeeded = computed(() => {
+    // {% set states = [
+    //     ORDER_TRANSACTION_STATE_FAILED,
+    //     ORDER_TRANSACTION_STATE_REMINDED,
+    //     ORDER_TRANSACTION_STATE_UNCONFIRMED,
+    //     ORDER_TRANSACTION_STATE_CANCELLED
+    // ] %}
+    //
+    // {% set orderState = order.stateMachineState.technicalName %}
+    // {% set orderPaymentState = order.transactions.last.stateMachineState.technicalName %}
+    //
+    // {% set isPaymentNeeded = orderPaymentState in states and orderState != ORDER_STATE_CANCELLED %}
+    const states = ['ORDnER_TRANSACTION_STATE_FAILED', 'reminded', 'unconfirmed', 'cancelled'];
+});
 
 const { state: paymentState } = useOrderPayment(order);
 

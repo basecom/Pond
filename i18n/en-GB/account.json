@@ -31,6 +31,14 @@
         "payment": {
             "heading": "Payment Methods"
         },
+        "order": {
+            "edit": {
+                "heading": "Complete payment",
+                "terms": {
+                    "help": "You have already accepted our terms of service"
+                }
+            }
+        },
         "orders": {
             "heading": "Orders",
             "noOrdersFound": "Oops, no orders have been found. Have you placed an order yet?",

@@ -31,6 +31,14 @@
         "payment": {
             "heading": "Bezahlmethoden"
         },
+        "order": {
+            "edit": {
+                "heading": "Zahlung abschließen",
+                "terms": {
+                    "help": "Sie haben bereits die AGB akzeptiert"
+                }
+            }
+        },
         "orders": {
             "heading": "Bestellungen",
             "noOrdersFound": "Whoops, es wurden keine Bestellungen gefunden. Hast du überhaupt schon was bestellt?",
