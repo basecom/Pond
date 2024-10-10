@@ -14,7 +14,7 @@ defineProps<{
 
         <span
             v-if="description"
-            class="text-secondary-500 block text-sm"
+            class="block text-sm"
         >
             {{ description }}
         </span>
