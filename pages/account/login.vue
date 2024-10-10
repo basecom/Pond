@@ -1,6 +1,7 @@
 <script setup lang="ts">
-const { accountBreadcrumbs } = useStaticBreadcrumbs();
+await useAuthentication().rerouteIfLoggedIn();
 
+const { accountBreadcrumbs } = useStaticBreadcrumbs();
 useBreadcrumbs(accountBreadcrumbs({ type: 'login' }));
 </script>
 

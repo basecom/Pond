@@ -97,7 +97,9 @@ const handleLogin = async (fields: FormkitLoginFields) => {
         />
     </FormKit>
 
-    <div class="mt-2 flex justify-between">
+    <div
+        v-if="!signedIn"
+        class="mt-2 flex justify-between">
         <NuxtLink
             v-if="showCreateLink"
             to="/account/register"

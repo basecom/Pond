@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useAuthentication().authenticate();
+await useAuthentication().rerouteIfLoggedOut();
 
 const { accountBreadcrumbs } = useStaticBreadcrumbs();
 useBreadcrumbs(accountBreadcrumbs({}));
