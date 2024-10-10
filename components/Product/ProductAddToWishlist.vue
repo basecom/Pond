@@ -12,21 +12,21 @@ const props = withDefaults(
 );
 
 const { isInWishlist, addToWishlist, removeFromWishlist } = useProductWishlist(props.productId);
-const { pushSuccess, pushError, pushInfo } = useNotifications();
+const { pushSuccess, pushError } = useNotifications();
 const { t } = useI18n();
 
 const handleWishlistButtonClicked = async () => {
     if (isInWishlist.value) {
         try {
             await removeFromWishlist();
-            pushInfo(t('wishlist.removedSuccesfully'));
+            pushSuccess(t('wishlist.removedSuccessfully'));
         } catch (error) {
             pushError(t('wishlist.errorRemovingProduct'));
         }
     } else {
         try {
             await addToWishlist();
-            pushSuccess(t('wishlist.addedSuccesfully'));
+            pushSuccess(t('wishlist.addedSuccessfully'));
         } catch (error) {
             pushError(t('wishlist.errorAddingProduct'));
         }
@@ -40,7 +40,7 @@ const handleWishlistButtonClicked = async () => {
         @click="handleWishlistButtonClicked"
     >
         <FormKitIcon
-            class="text-red-500 block h-6 w-6"
+            class="block h-6 w-6"
             :icon="isInWishlist ? 'heart' : 'empty-heart'"
         />
     </div>
