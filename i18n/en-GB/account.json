@@ -50,6 +50,17 @@
         "payment": {
             "heading": "Payment Methods"
         },
+        "order": {
+            "edit": {
+                "heading": "Complete payment",
+                "buttonLabel": "Complete payment",
+                "terms": {
+                    "help": "You have already accepted our terms of service"
+                },
+                "errorMessage": "Something went wrong completing the payment.",
+                "successMessage": "Your order has been successfully completed."
+            }
+        },
         "orders": {
             "heading": "Orders",
             "noOrdersFound": "Oops, no orders have been found. Have you placed an order yet?",
@@ -58,7 +69,8 @@
             "shippingStatusLabel": "Shipping",
             "shippingMethodLabel": "Shipping Method",
             "lineItemsHeading": "Products",
-            "status": "Status"
+            "status": "Status",
+            "changePaymentMethod": "Change payment method"
         },
         "login": {
             "successMessage": "You successfully logged in.",
