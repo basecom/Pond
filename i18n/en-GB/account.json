@@ -34,9 +34,12 @@
         "order": {
             "edit": {
                 "heading": "Complete payment",
+                "buttonLabel": "Complete payment",
                 "terms": {
                     "help": "You have already accepted our terms of service"
-                }
+                },
+                "errorMessage": "Something went wrong completing the payment.",
+                "successMessage": "Your order has been successfully completed."
             }
         },
         "orders": {

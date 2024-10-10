@@ -1,14 +1,18 @@
 <script setup lang="ts">
+import type { Schemas } from '@shopware/api-client/api-types';
+
+const props = defineProps<{
+    paymentMethod: Schemas['PaymentMethod'];
+}>()
 const emit = defineEmits<{
     'update-method': [key: string];
 }>();
 
 const { paymentMethods, getPaymentMethods } = useCheckout();
-const { selectedPaymentMethod: paymentMethod } = useSessionContext();
 
 const selectedPaymentMethod = computed({
     get(): string {
-        return paymentMethod.value?.id || '';
+        return props.paymentMethod?.id || '';
     },
     set(paymentMethodId: string) {
         emit('update-method', paymentMethodId);

@@ -1,25 +1,12 @@
 <script setup lang="ts">
+import type { Schemas } from '@shopware/api-client/api-types';
+
 const props = defineProps<{
     orderId: string;
 }>();
 
 const { order, loadOrderDetails, shippingMethod, paymentMethod, status } = useOrderDetails(props.orderId, {
     stateMachineState: {},
-});
-
-const isPaymentNeeded = computed(() => {
-    // {% set states = [
-    //     ORDER_TRANSACTION_STATE_FAILED,
-    //     ORDER_TRANSACTION_STATE_REMINDED,
-    //     ORDER_TRANSACTION_STATE_UNCONFIRMED,
-    //     ORDER_TRANSACTION_STATE_CANCELLED
-    // ] %}
-    //
-    // {% set orderState = order.stateMachineState.technicalName %}
-    // {% set orderPaymentState = order.transactions.last.stateMachineState.technicalName %}
-    //
-    // {% set isPaymentNeeded = orderPaymentState in states and orderState != ORDER_STATE_CANCELLED %}
-    const states = ['ORDnER_TRANSACTION_STATE_FAILED', 'reminded', 'unconfirmed', 'cancelled'];
 });
 
 const { state: paymentState } = useOrderPayment(order);
@@ -29,12 +16,20 @@ const shippingStatus = computed(() => {
     return stateName ? { name: stateName } : null;
 });
 
-const orderStatusTechnical = computed(() => {
-  const delivery = order.value?.deliveries?.[0];
-  const stateTechnicalName = delivery?.stateMachineState?.technicalName;
-  return stateTechnicalName ? stateTechnicalName : null;
-});
+const isPaymentNeeded = computed(() => {
+    const transactions = order.value?.transactions;
+    if (!transactions) {
+        return false;
+    }
 
+    const lastTransaction: Schemas['OrderTransaction'] = transactions[transactions.length - 1];
+    const stateNamesForPaymentNeeded = ['failed', 'reminded', 'unconfirmed', 'cancelled'];
+    const transactionStateName = lastTransaction.stateMachineState.technicalName;
+    const isTransactionStateInNeedOfPayment = stateNamesForPaymentNeeded.includes(transactionStateName);
+    const isOrderNotCanceled = order.value.stateMachineState.technicalName !== 'cancelled';
+
+    return isTransactionStateInNeedOfPayment && isOrderNotCanceled;
+});
 
 const formattedOrderDate = computed(() => {
     if (order.value?.orderDate) {
@@ -74,13 +69,13 @@ onMounted(async () => {
                     >
                         {{ status }}
                     </div>
-                  <NuxtLink
-                      class="ml-auto rounded-md px-2 py-2 text-white bg-status-success"
-                      v-if="orderStatusTechnical && orderStatusTechnical !=='cancelled'"
-                      :to="`/order/edit/${orderId}`"
-                  >
-                    {{ $t('account.orders.changePaymentMethod') }}
-                  </NuxtLink>
+                    <NuxtLink
+                        class="ml-auto rounded-md bg-status-success px-2 py-2 text-white"
+                        v-if="isPaymentNeeded"
+                        :to="`/account/order/edit/${orderId}`"
+                    >
+                        {{ $t('account.orders.changePaymentMethod') }}
+                    </NuxtLink>
                 </div>
 
                 <div class="gap-12 lg:flex">

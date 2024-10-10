@@ -34,9 +34,12 @@
         "order": {
             "edit": {
                 "heading": "Zahlung abschließen",
+                "buttonLabel": "Zahlung abschließen",
                 "terms": {
                     "help": "Sie haben bereits die AGB akzeptiert"
-                }
+                },
+                "errorMessage": "Etwas ist beim Abschließen der Zahlung schiefgegangen.",
+                "successMessage": "Deine Bestellung wurde erfolgreich abgeschlossen."
             }
         },
         "orders": {
