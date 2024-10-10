@@ -30,6 +30,8 @@ const currentCountry = computed(() =>
 const salutationOptions = computed(
     () => entityArrayToOptions<Schemas['Salutation']>(getSalutations.value, 'displayName', true) ?? [],
 );
+
+onUnmounted(() => formErrorStore.$reset);
 </script>
 
 <template>

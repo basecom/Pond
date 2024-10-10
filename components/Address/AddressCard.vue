@@ -77,16 +77,10 @@ const updateDefaultBilling = async () => {
         </div>
         <p>
             <span class="font-semibold"> {{ address.firstName }} {{ address.lastName }} </span><br />
-            <span v-if="address.company">
-                {{ address.company }} </span
-            ><br />
-            <span>
-                {{ address.street }} </span
-            ><br />
+            <span v-if="address.company"> {{ address.company }} </span><br />
+            <span> {{ address.street }} </span><br />
             <span> {{ address.zipcode }} {{ address.city }} </span><br />
-            <span>
-                {{ address.country.translated.name }} </span
-            ><br />
+            <span> {{ address.country.translated.name }} </span><br />
             <span v-if="address.phoneNumber">
                 {{ address.phoneNumber }}
             </span>
@@ -100,6 +94,10 @@ const updateDefaultBilling = async () => {
                 {{ $t('account.address.edit') }}
             </button>
             <button
+                v-if="
+                    address.id != customerStore.customer.defaultBillingAddressId &&
+                    address.id != customerStore.customer.defaultShippingAddressId
+                "
                 class="ml-2 rounded bg-status-danger px-2 py-1 text-white"
                 @click="() => $emit('delete', address.id)"
             >

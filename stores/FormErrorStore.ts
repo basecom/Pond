@@ -10,8 +10,13 @@ export const useFormErrorStore = defineStore('formErrors', () => {
         return apiErrors;
     };
 
+    function $reset() {
+        apiErrors.value = [];
+    }
+
     return {
         formErrors,
         apiErrors,
+        $reset,
     };
 });
