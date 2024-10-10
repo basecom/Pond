@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import CheckoutConfirmPaymentMethod from './CheckoutConfirmPaymentMethod.vue';
-
 const { paymentMethods, getPaymentMethods } = useCheckout();
 
 const { selectedPaymentMethod: paymentMethod, setPaymentMethod } = useSessionContext();

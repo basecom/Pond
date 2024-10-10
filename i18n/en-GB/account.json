@@ -18,7 +18,7 @@
             "billingAddressHeading": "Billing Address",
             "shippingAddressHeading": "Shipping Address",
             "newsletter": {
-                "heading": "Newsletter Subcription",
+                "heading": "Newsletter Subscription",
                 "label": "Yes, I would like to subscribe to the free newsletter. (I may unsubscribe at any time.)"
             }
         },
@@ -26,7 +26,26 @@
             "heading": "Your Profile"
         },
         "address": {
-            "heading": "Addresses"
+            "heading": "Addresses",
+            "create": "Add Address",
+            "createSuccess": "Your new address has been successfully created.",
+            "createError": "Your new address could not be created.",
+            "edit": "Edit",
+            "editSuccess": "Your address has been edited.",
+            "editError": "Your address could not be changed.",
+            "delete": "Delete",
+            "deleteSuccess": "Ihre Adresse wurde gelöscht.",
+            "deleteError": "There was an error deleting your address, please try again later.",
+            "nothingFound": "No addresses were found.",
+            "saveLabel": "Save",
+            "defaultBilling": "default delivery address",
+            "defaultShipping": "default shipping address",
+            "updateBilling": "Set as default shipping address",
+            "updateBillingError": "Default billing address could not be changed",
+            "updateBillingSuccess": "Default billing address has been changed",
+            "updateShipping": "Use as default delivery address",
+            "updateShippingError": "Default shipping address could not be changed",
+            "updateShippingSuccess": "Default shipping address has been changed"
         },
         "payment": {
             "heading": "Payment Methods"
