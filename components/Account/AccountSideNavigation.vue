@@ -51,7 +51,7 @@ const navItems = ref([
             v-for="(item, index) in navItems"
             :key="item.path"
             class="mt-4 pb-4 pl-2"
-            :class="{ 'border-gray-300 border-b': index !== navItems.length - 1 }"
+            :class="{ 'border-b border-gray': index !== navItems.length - 1 }"
         >
             <NuxtLink
                 :to="item.path"

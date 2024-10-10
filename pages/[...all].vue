@@ -6,9 +6,6 @@ const { clearBreadcrumbs } = useBreadcrumbs();
 const { refreshSessionContext } = useSessionContext();
 await refreshSessionContext();
 
-const { getWishlistProducts } = useWishlist();
-await getWishlistProducts();
-
 const configStore = useConfigStore();
 await configStore.loadConfig();
 
