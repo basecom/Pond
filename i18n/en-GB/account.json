@@ -35,7 +35,9 @@
             "deleteSuccess": "Ihre Adresse wurde gelöscht.",
             "deleteError": "There was an error deleting your address, please try again later.",
             "nothingFound": "No addresses were found.",
-            "saveLabel": "Save"
+            "saveLabel": "Save",
+            "updateBilling": "Set as default shipping address",
+            "updateShipping": "Set as default delivery address"
         },
         "payment": {
             "heading": "Payment Methods"

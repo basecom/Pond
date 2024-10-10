@@ -19,7 +19,6 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
         isLoading.value = false;
         navigateTo('/account');
     } catch (error) {
-        console.log('reg err', error);
         isLoading.value = false;
 
         if (error instanceof ApiClientError) {

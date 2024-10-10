@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FormkitFields } from '~/types/formkit';
-import { useFormErrorStore } from '~/stores/FormErrorStore';
 import { ApiClientError } from '@shopware/api-client';
+import type { Schemas } from '@shopware/api-client/api-types';
 
 const modalController = useModal();
 
@@ -13,7 +13,6 @@ const {
     deleteCustomerAddress,
     setDefaultCustomerBillingAddress,
     setDefaultCustomerShippingAddress,
-    errorMessageBuilder,
 } = useAddress();
 const { pushSuccess, pushError } = useNotifications();
 const { t } = useI18n();
@@ -25,7 +24,7 @@ const isEditMode = ref(false);
 const isLoading = ref(false);
 
 await loadCustomerAddresses();
-loading.value = false;;
+loading.value = false;
 
 const openModal = (address: Schemas['CustomerAddress']|null) => {
     if (address) {
@@ -60,7 +59,6 @@ const handleSave = async (fields: FormkitFields) => {
         modalController.close();
         isLoading.value = false;
     } catch (error) {
-        console.log('error', error, error instanceof ApiClientError);
         isLoading.value = false;
 
         if (error instanceof ApiClientError) {

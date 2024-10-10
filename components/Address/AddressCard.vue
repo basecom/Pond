@@ -1,24 +1,102 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 
-defineProps<{
+const props = defineProps<{
     address: Schemas["CustomerAddress"];
 }>();
+
+const customerStore = useCustomerStore();
+const {
+    setDefaultCustomerBillingAddress,
+    setDefaultCustomerShippingAddress,
+    loadCustomerAddresses,
+} = useAddress();
 
 defineEmits<{
     'edit': [address: Schemas["CustomerAddress"]],
     'delete': [address: Schemas["CustomerAddress"]['id']],
 }>()
+
+const updateDefaultShipping = async () => {
+    try {
+        await setDefaultCustomerShippingAddress(props.address.id)
+        customerStore.refreshContext();
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const updateDefaultBilling = async () => {
+    try {
+        await setDefaultCustomerBillingAddress(props.address.id)
+        customerStore.refreshContext();
+    } catch (e) {
+        console.log(e);
+    }
+}
 </script>
 
 <template>
     <div class="rounded-lg bg-white p-4 shadow">
-        <p class="font-semibold">{{ address.firstName }} {{ address.lastName }}</p>
-        <p v-if="address.company">{{ address.company }}</p>
-        <p>{{ address.street }}</p>
-        <p>{{ address.zipcode }} {{ address.city }}</p>
-        <p>{{ address.country.translated.name }}</p>
-        <p v-if="address.phoneNumber">{{ address.phoneNumber }}</p>
+        <div class="h-8 flex flex-col justify-between mb-2 relative">
+            <UtilityPill
+                v-if="address.id === customerStore.customer.defaultBillingAddressId"
+                :content="'default billing'"
+            />
+            <UtilityPill
+                v-if="address.id === customerStore.customer.defaultShippingAddressId"
+                :content="'default shipping'"
+            />
+
+            <div
+                v-if="address.id != customerStore.customer.defaultBillingAddressId
+                    || address.id != customerStore.customer.defaultShippingAddressId"
+                class="absolute top-0 right-0"
+            >
+                <LazySharedPopover>
+                    <template #trigger>
+                        <FormKitIcon
+                            icon="ellipsis-vertical"
+                            class="w-4 h-4"
+                        />
+                    </template>
+                    <template #content>
+                        <button
+                            v-if="address.id != customerStore.customer.defaultBillingAddressId"
+                            @click="updateDefaultBilling"
+                        >
+                            {{ $t('account.address.updateBilling')}}
+                        </button>
+                        <button
+                            v-if="address.id != customerStore.customer.defaultShippingAddressId"
+                            @click="updateDefaultShipping"
+                        >
+                            {{ $t('account.address.updateShipping')}}
+                        </button>
+                    </template>
+                </LazySharedPopover>
+            </div>
+        </div>
+        <p>
+            <span class="font-semibold">
+                {{ address.firstName }} {{ address.lastName }}
+            </span><br>
+            <span v-if="address.company">
+                {{ address.company }}
+            </span><br>
+            <span>
+                {{ address.street }}
+            </span><br>
+            <span>
+                {{ address.zipcode }} {{ address.city }}
+            </span><br>
+            <span>
+                {{ address.country.translated.name }}
+            </span><br>
+            <span v-if="address.phoneNumber">
+                {{ address.phoneNumber }}
+            </span>
+        </p>
 
         <div class="mt-2">
             <button

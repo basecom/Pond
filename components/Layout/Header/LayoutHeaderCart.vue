@@ -16,7 +16,7 @@ const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
             class="block h-6 w-6"
         />
         <UtilityPill
-            :number="cartItemCount"
+            :content="cartItemCount"
             class="absolute bottom-2.5 left-3"
         />
     </button>
