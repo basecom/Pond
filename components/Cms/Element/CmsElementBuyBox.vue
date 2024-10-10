@@ -6,6 +6,8 @@ const props = defineProps<{
 }>();
 
 const { product } = useProduct(props.element.data.product);
+const configStore = useConfigStore();
+const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
 </script>
 
 <template>
@@ -25,7 +27,10 @@ const { product } = useProduct(props.element.data.product);
                 :product="product"
                 :label="true"
             />
-            <div class="rounded-md border border-gray-medium bg-white">
+            <div
+                v-if="wishlistEnabled"
+                class="rounded-md border border-gray-medium bg-white"
+            >
                 <ProductAddToWishlist :product-id="product.id" />
             </div>
         </div>
