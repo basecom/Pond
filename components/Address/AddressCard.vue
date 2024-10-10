@@ -44,14 +44,7 @@ const updateDefaultBilling = async () => {
                 :content="$t('account.address.defaultBilling')"
                 :style="'success'"
                 size="sm"
-            >
-                <template #prefix>
-                    <FormKitIcon
-                        icon="heart"
-                        class="block h-2 w-2"
-                    />
-                </template>
-            </UtilityBadge>
+            />
             <UtilityBadge
                 v-if="address.id === customerStore.customer.defaultShippingAddressId"
                 :content="$t('account.address.defaultShipping')"
