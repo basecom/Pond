@@ -1,6 +1,7 @@
 <script setup lang="ts">
-const { accountBreadcrumbs } = useStaticBreadcrumbs();
+useAuthentication().authenticate();
 
+const { accountBreadcrumbs } = useStaticBreadcrumbs();
 useBreadcrumbs(accountBreadcrumbs({}));
 </script>
 
