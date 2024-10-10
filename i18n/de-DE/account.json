@@ -36,8 +36,14 @@
             "deleteError": "Beim Löschen ihrer Adresse ist ein Fehler aufgetreten, versuchen Sie es später erneut.",
             "nothingFound": "Es wurden keine Adressen gefunden.",
             "saveLabel": "Speichern",
+            "defaultBilling": "Standard-Rechnungsadresse",
+            "defaultShipping": "Standard-Lieferadresse",
             "updateBilling": "Als Standard-Rechnungsadresse verwenden",
-            "updateShipping": "Als Standard-Lieferadresse verwenden"
+            "updateBillingError": "Standard-Rechnungsadresse konnte nicht geändert werden",
+            "updateBillingSuccess": "Standard-Rechnungsadresse wurde geändert",
+            "updateShipping": "Als Standard-Lieferadresse verwenden",
+            "updateShippingError": "Standard-Lieferadresse konnte nicht geändert werden",
+            "updateShippingSuccess": "Standard-Lieferadresse wurde geändert"
         },
         "payment": {
             "heading": "Bezahlmethoden"

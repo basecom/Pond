@@ -7,6 +7,8 @@ const props = defineProps<{
 
 const customerStore = useCustomerStore();
 const { setDefaultCustomerBillingAddress, setDefaultCustomerShippingAddress } = useAddress();
+const { pushSuccess, pushError } = useNotifications();
+const { t } = useI18n();
 
 defineEmits<{
     edit: [address: Schemas['CustomerAddress']];
@@ -17,8 +19,9 @@ const updateDefaultShipping = async () => {
     try {
         await setDefaultCustomerShippingAddress(props.address.id);
         customerStore.refreshContext();
+        pushSuccess(t('account.address.updateShippingSuccess'));
     } catch (e) {
-        console.log(e);
+        pushError(t('account.address.updateShippingError'));
     }
 };
 
@@ -26,22 +29,34 @@ const updateDefaultBilling = async () => {
     try {
         await setDefaultCustomerBillingAddress(props.address.id);
         customerStore.refreshContext();
+        pushSuccess(t('account.address.updateBillingSuccess'));
     } catch (e) {
-        console.log(e);
+        pushError(t('account.address.updateBillingError'));
     }
 };
 </script>
 
 <template>
     <div class="rounded-lg bg-white p-4 shadow">
-        <div class="relative mb-2 flex h-8 flex-col justify-between">
-            <UtilityPill
+        <div class="relative mb-2 flex h-11 flex-col justify-between">
+            <UtilityBadge
                 v-if="address.id === customerStore.customer.defaultBillingAddressId"
-                :content="'default billing'"
-            />
-            <UtilityPill
+                :content="$t('account.address.defaultBilling')"
+                :style="'success'"
+                size="sm"
+            >
+                <template #prefix>
+                    <FormKitIcon
+                        icon="heart"
+                        class="block h-2 w-2"
+                    />
+                </template>
+            </UtilityBadge>
+            <UtilityBadge
                 v-if="address.id === customerStore.customer.defaultShippingAddressId"
-                :content="'default shipping'"
+                :content="$t('account.address.defaultShipping')"
+                :style="'success'"
+                size="sm"
             />
 
             <div
