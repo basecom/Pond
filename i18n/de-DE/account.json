@@ -20,7 +20,8 @@
             "newsletter": {
                 "heading": "Newsletter Abonnement",
                 "label": "Ja, ich möchte den kostenlosen Newsletter erhalten. (Ich kann ihn jederzeit abbestellen)"
-            }
+            },
+            "latestOrderHeading" : "Letzte Bestellung"
         },
         "profile": {
             "heading": "Dein Profil"
