@@ -20,4 +20,5 @@ refreshCart();
     </main>
 
     <LayoutFooter v-show="!loading" />
+    <CookieBanner />
 </template>

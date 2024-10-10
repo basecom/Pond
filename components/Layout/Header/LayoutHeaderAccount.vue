@@ -25,6 +25,7 @@ const closeModal = () => {
             <AccountLoginRegisterTabs @close-modal="closeModal" />
         </template>
     </LazySharedModal>
+
     <LazySharedPopover v-else>
         <template #trigger>
             <FormKitIcon
