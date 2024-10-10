@@ -1,6 +1,5 @@
 export function useAuthentication() {
     const { signedIn, loading } = storeToRefs(useCustomerStore());
-    const { refreshContext } = useCustomerStore();
 
     const rerouteIfLoggedOut = async (targetRoute: string = '/account/login') => {
         await sessionContextLoaded();
@@ -18,7 +17,7 @@ export function useAuthentication() {
 
     const sessionContextLoaded = async () => {
         if (loading.value) {
-            await refreshContext();
+            await until(loading).toBe(false);
         }
     }
 
