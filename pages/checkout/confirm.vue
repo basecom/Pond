@@ -10,12 +10,13 @@ const { cartItemsWithProduct } = storeToRefs(cartItemsStore);
 const { createOrder } = useCheckout();
 const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
-const { trackViewCart } = useAnalytics();
+const { trackPurchase } = useAnalytics({ trackPageView: true, pageType: 'checkout' });
 
 const placeOrder = async () => {
     try {
         const order = await createOrder();
         await push('/checkout/finish/' + order.id);
+        trackPurchase(order);
         await refreshCart();
 
         pushSuccess(t('checkout.confirm.order.successMessage'));
@@ -29,9 +30,6 @@ const placeOrder = async () => {
 };
 
 useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
-watch(cart, () => {
-    trackViewCart();
-});
 </script>
 
 <template>

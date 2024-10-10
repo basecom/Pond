@@ -3,6 +3,7 @@ const props = defineProps<{
     element: CmsElementProductListing;
 }>();
 const route = useRoute();
+const { trackSelectItem } = useAnalytics();
 const { getElements, search, getCurrentListing } = useCategoryListing();
 // TODO create a better ID based on the CmsPage or even better CmsSlot identifier
 const productListingCriteriaStore = useProductListingCriteriaStore('category');
@@ -21,6 +22,7 @@ productListingCriteriaStore.initializeCriteria(
             product: [
                 'id',
                 'name',
+                'productNumber',
                 'cover',
                 'calculatedPrice',
                 'description',
@@ -70,6 +72,7 @@ productListingCriteriaStore.setSearchResult(getCurrentListing.value, true);
                 <ProductCard
                     :product="product"
                     :layout="boxLayout"
+                    @view-product="trackSelectItem(product)"
                 />
             </template>
         </div>

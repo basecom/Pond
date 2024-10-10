@@ -1,15 +1,11 @@
 <script setup lang="ts">
-const { isEmpty, cart } = useCart();
+const { isEmpty } = useCart();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 const cartItemsStore = useCartItemsStore();
 const { cartItemsWithProduct } = storeToRefs(cartItemsStore);
-const { trackViewCart } = useAnalytics();
 
+useAnalytics({ trackPageView: true, pageType: 'cart' });
 useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
-
-watch(cart, () => {
-    trackViewCart();
-});
 </script>
 
 <template>
