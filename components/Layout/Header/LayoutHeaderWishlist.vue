@@ -1,7 +1,5 @@
 <script setup lang="ts">
 const { count: wishlistCount } = useWishlist();
-const configStore = useConfigStore();
-const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
 </script>
 
 <template>

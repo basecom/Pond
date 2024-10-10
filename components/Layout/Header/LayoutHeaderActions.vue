@@ -1,8 +1,12 @@
+<script setup lang="ts">
+const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
+</script>
+
 <template>
     <div class="flex items-center gap-3.5">
         <LayoutHeaderSearch />
 
-        <LayoutHeaderWishlist />
+        <LayoutHeaderWishlist v-if="wishlistEnabled"/>
 
         <LayoutHeaderAccount />
 
