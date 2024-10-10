@@ -11,8 +11,6 @@ const {
     createCustomerAddress,
     updateCustomerAddress,
     deleteCustomerAddress,
-    setDefaultCustomerBillingAddress,
-    setDefaultCustomerShippingAddress,
 } = useAddress();
 const { pushSuccess, pushError } = useNotifications();
 const { t } = useI18n();
@@ -26,7 +24,7 @@ const isLoading = ref(false);
 await loadCustomerAddresses();
 loading.value = false;
 
-const openModal = (address: Schemas['CustomerAddress']|null) => {
+const openModal = (address: Schemas['CustomerAddress'] | null) => {
     if (address) {
         selectedAddress.value = address;
         isEditMode.value = true;
@@ -35,7 +33,7 @@ const openModal = (address: Schemas['CustomerAddress']|null) => {
         isEditMode.value = false;
     }
     modalController.open();
-}
+};
 
 const handleSave = async (fields: FormkitFields) => {
     isLoading.value = true;
@@ -48,12 +46,12 @@ const handleSave = async (fields: FormkitFields) => {
         if (isEditMode.value) {
             await updateCustomerAddress({
                 ...addressData,
-                id: selectedAddress.value.id
+                id: selectedAddress.value.id,
             });
-            pushSuccess('account.address.editSuccess')
+            pushSuccess('account.address.editSuccess');
         } else {
             await createCustomerAddress(addressData);
-            pushSuccess('account.address.createSuccess')
+            pushSuccess('account.address.createSuccess');
         }
         await loadCustomerAddresses();
         modalController.close();
@@ -74,9 +72,9 @@ const deleteAddress = async addressId => {
     try {
         await deleteCustomerAddress(addressId);
         await loadCustomerAddresses();
-        pushError(t('account.address.deleteSuccess'))
+        pushError(t('account.address.deleteSuccess'));
     } catch (e) {
-        pushError(t('account.address.deleteError'))
+        pushError(t('account.address.deleteError'));
     }
 };
 </script>
@@ -131,7 +129,10 @@ const deleteAddress = async addressId => {
                     </li>
                 </ul>
 
-                <AddressFormFields :initial-address="selectedAddress" :error-name-nested="false" />
+                <AddressFormFields
+                    :initial-address="selectedAddress"
+                    :error-name-nested="false"
+                />
 
                 <FormKit
                     type="submit"

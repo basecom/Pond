@@ -12,7 +12,7 @@ withDefaults(
 <template>
     <span
         v-if="content"
-        class="grid h-3.5 w-fit items-center justify-center rounded-full bg-brand-primary py-0.5 px-1.5 text-xs leading-none text-white outline outline-1 outline-white"
+        class="grid h-3.5 w-fit items-center justify-center rounded-full bg-brand-primary px-1.5 py-0.5 text-xs leading-none text-white outline outline-1 outline-white"
     >
         {{ content }}
     </span>

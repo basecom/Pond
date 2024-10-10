@@ -4,14 +4,14 @@ import { useFormErrorStore } from '~/stores/FormErrorStore';
 
 const props = withDefaults(
     defineProps<{
-        addressType?: 'billingAddress'|'shippingAddress';
-        initialAddress?: Schemas["CustomerAddress"]|null;
+        addressType?: 'billingAddress' | 'shippingAddress';
+        initialAddress?: Schemas['CustomerAddress'] | null;
         errorNameNested?: boolean;
     }>(),
     {
         addressType: 'billingAddress',
         initialAddress: null,
-        errorNameNested: true
+        errorNameNested: true,
     },
 );
 
@@ -23,7 +23,9 @@ const formErrorStore = useFormErrorStore();
 
 const countryOptions = computed(() => entityArrayToOptions<Schemas['Country']>(getCountries.value, 'name', true) ?? []);
 
-const currentCountry = computed(() => props.initialAddress? props.initialAddress?.countryId : sessionContext.countryId.value);
+const currentCountry = computed(() =>
+    props.initialAddress ? props.initialAddress?.countryId : sessionContext.countryId.value,
+);
 
 const salutationOptions = computed(
     () => entityArrayToOptions<Schemas['Salutation']>(getSalutations.value, 'displayName', true) ?? [],
@@ -44,10 +46,10 @@ const salutationOptions = computed(
         :errors="errorOfField('firstName', formErrorStore.apiErrors)"
         validation="required"
         :classes="{
-                outer: {
-                    'col-span-2 md:col-span-1 col-1': true,
-                },
-            }"
+            outer: {
+                'col-span-2 md:col-span-1 col-1': true,
+            },
+        }"
         :options="salutationOptions"
         :help="$t('account.register.salutation.help')"
     />

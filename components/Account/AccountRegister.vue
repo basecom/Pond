@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { FormkitFields } from '~/types/formkit';
-import AccountAddressFormFields from '~/components/Address/AddressFormFields.vue';
 import { ApiClientError } from '@shopware/api-client';
 import { useFormErrorStore } from '~/stores/FormErrorStore';
 
