@@ -5,7 +5,13 @@ const { isNewsletterSubscriber, newsletterSubscribe, newsletterUnsubscribe, getN
 const billingAddress = computed(() => customer.value.defaultBillingAddress);
 const shippingAddress = computed(() => customer.value.defaultShippingAddress);
 const paymentMethod = computed(() => customer.value.defaultPaymentMethod);
+const { latestOrder, loadLatestOrder } = useCustomerLatestOrder();
 
+const props = defineProps<{
+    showLatestOrder: boolean;
+}>();
+
+props.showLatestOrder && await loadLatestOrder();
 getNewsletterStatus();
 
 const handleNewsletterChange = async (event: Event) => {
@@ -92,5 +98,14 @@ const handleNewsletterChange = async (event: Event) => {
             />
             {{ $t('account.overview.newsletter.label') }}
         </label>
+    </div>
+    <div
+        v-if="customer && latestOrder"
+        class="mt-4 rounded-lg bg-white p-4 shadow-md"
+    >
+        <h3 class="text-lg font-semibold"> Latest order</h3>
+        <SharedAccordionRoot>
+            <AccountOrderItem :order-id="latestOrder.id" />
+        </SharedAccordionRoot>
     </div>
 </template>
