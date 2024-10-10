@@ -4,7 +4,6 @@ const { count: wishlistCount } = useWishlist();
 
 <template>
     <NuxtLink
-        v-if="wishlistEnabled"
         to="/wishlist"
         class="relative"
     >
