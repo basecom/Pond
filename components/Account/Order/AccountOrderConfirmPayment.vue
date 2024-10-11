@@ -48,7 +48,7 @@ onMounted(async () => {
                 <CheckoutConfirmPaymentMethod
                     :label="option.label"
                     :description="option.description"
-                    :mediaUrl="option.mediaUrl"
+                    :media-url="option.mediaUrl"
                 />
             </template>
         </FormKit>

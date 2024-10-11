@@ -5,7 +5,7 @@ useAuthentication().authenticate();
 
 const { params } = useRoute();
 const orderId = params.id as string;
-const { order, loadOrderDetails, shippingMethod, paymentMethod, status, changePaymentMethod } =
+const { order, loadOrderDetails, shippingMethod, paymentMethod, changePaymentMethod } =
     useOrderDetails(orderId);
 const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();

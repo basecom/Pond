@@ -70,8 +70,8 @@ onMounted(async () => {
                         {{ status }}
                     </div>
                     <NuxtLink
-                        class="ml-auto rounded-md bg-status-success px-2 py-2 text-white"
                         v-if="isPaymentNeeded"
+                        class="ml-auto rounded-md bg-status-success px-2 py-2 text-white"
                         :to="`/account/order/edit/${orderId}`"
                     >
                         {{ $t('account.orders.changePaymentMethod') }}

@@ -15,9 +15,9 @@ defineProps<{
         <template v-if="method">
             <CheckoutConfirmShippingMethod
                 :label="getTranslatedProperty(method, 'name')"
-                :deliveryTime="getShippingMethodDeliveryTime(method)"
+                :delivery-time="getShippingMethodDeliveryTime(method)"
                 :description="getTranslatedProperty(method, 'description')"
-                :mediaUrl="method.media?.url"
+                :media-url="method.media?.url"
             />
         </template>
     </CheckoutConfirmCard>

@@ -43,9 +43,9 @@ onMounted(async () => {
             <template #label="{ option }">
                 <CheckoutConfirmShippingMethod
                     :label="option.label"
-                    :deliveryTime="option.deliveryTime"
+                    :delivery-time="option.deliveryTime"
                     :description="option.description"
-                    :mediaUrl="option.mediaUrl"
+                    :media-url="option.mediaUrl"
                 />
             </template>
         </FormKit>
