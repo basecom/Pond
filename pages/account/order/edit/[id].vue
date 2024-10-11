@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 
-useAuthentication().authenticate();
+await useAuthentication().rerouteIfLoggedOut();
 
 const { params } = useRoute();
 const orderId = params.id as string;
