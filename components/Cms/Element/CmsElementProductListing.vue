@@ -29,6 +29,7 @@ productListingCriteriaStore.initializeCriteria(
                 'purchaseSteps',
                 'children',
                 'childCount',
+                'seoUrls',
             ],
             product_media: ['media'],
             media: ['url'],

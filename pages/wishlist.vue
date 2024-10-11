@@ -10,69 +10,97 @@ useBreadcrumbs([
     },
 ]);
 
-const defaultLimit = 15;
-const defaultPage = 1;
-
-const { items, clearWishlist, getWishlistProducts, currentPage, totalPagesCount, canSyncWishlist } = useWishlist();
-
-const { apiClient } = useShopwareContext();
 const products = ref<Schemas['Product'][]>([]);
-const isLoading = ref(false);
+
+// initialize isLoading with true, because onMounted fetches the items
+const isLoading = ref(true);
 const router = useRouter();
 const route = useRoute();
+const defaultLimit = 15;
+const defaultPage = 1;
 const page = ref(route.query.page ? Number(route.query.page) : defaultPage);
-const cacheKey = computed(() => `wishlist-${JSON.stringify(route.query)}`);
+const limit = ref(route.query.limit ? Number(route.query.limit) : defaultLimit);
 
-await getWishlistProducts({ page: page.value, limit: defaultLimit });
+const { pushSuccess, pushError } = useNotifications();
+const { items, clearWishlist, getWishlistProducts, currentPage, totalPagesCount, canSyncWishlist } = useWishlist();
+const { apiClient } = useShopwareContext();
 
 const clearWishlistHandler = async () => {
+    isLoading.value = true;
+
     try {
-        isLoading.value = true;
         await clearWishlist();
-    } finally {
-        isLoading.value = false;
+        pushSuccess(t('wishlist.clearedSuccessfully'));
+    } catch (error) {
+        pushError(t('wishlist.errorClearingWishlist'));
     }
+
+    isLoading.value = false;
 };
 
-const loadProductsByItemIds = async (itemIds: string[], cacheKey: string) => {
+const loadProductsByItemIds = async (itemIds: string[]) => {
     isLoading.value = true;
-    const { status } = await useAsyncData(cacheKey, async () => {
+
+    try {
         const { data } = await apiClient.invoke('readProduct post /product', {
             body: { ids: itemIds },
         });
+
         if (data?.elements) products.value = data.elements;
-        return data;
-    });
-    if (status.value !== 'pending') isLoading.value = false;
+    } catch (error) {
+        console.error('[wishlist][loadProductsByItemIds]', error);
+    }
+
+    isLoading.value = false;
 };
 
 const changePage = async (page: number) => {
     await router.push({
         query: {
             page: page,
+            limit: limit.value,
         },
     });
+
     await getWishlistProducts({
         page: page,
-        limit: defaultLimit,
+        limit: limit.value,
     });
 };
 
+// Watch for changes in wishlist items
 watch(
     items,
-    async (items, oldItems) => {
+    (items: Array<string>, oldItems: Array<string>) => {
+        // Remove item from the displayed products if it was removed from the wishlist
         if (items.length !== oldItems?.length) {
             products.value = products.value.filter(({ id }) => items.includes(id));
         }
+
+        // If no items are in the wishlist we don't need to fetch the products
         if (!items.length) {
             return;
         }
-        await loadProductsByItemIds(items, cacheKey.value);
+
+        // Fetch product data for the items that are in the wishlist
+        loadProductsByItemIds(items);
     },
     {
         immediate: true,
     },
 );
+
+// Initial request to fetch wishlist items with limit and page on mount and trigger items watcher through it
+onMounted(() => {
+    const route = useRoute();
+    const limit = ref(route.query.limit ? Number(route.query.limit) : defaultLimit);
+    const page = ref(route.query.page ? Number(route.query.page) : defaultPage);
+
+    getWishlistProducts({
+        limit: limit.value,
+        page: page.value,
+    });
+});
 </script>
 
 <template>
@@ -86,12 +114,14 @@ watch(
             <h1 class="my-3 text-3xl font-extrabold">
                 {{ $t('wishlist.titleHeader') }}
             </h1>
+
             <button
-                class="hover:bg-secondary-700 mb-4 justify-center rounded-md border border-transparent bg-black px-4 py-2 text-sm font-medium text-white shadow-sm"
+                class="mb-4 justify-center rounded-md border border-transparent bg-brand-primary px-4 py-2 text-sm font-medium text-white shadow-sm"
                 @click="clearWishlistHandler"
             >
                 {{ $t('wishlist.clearWishlist') }}
             </button>
+
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
                 <ProductCard
                     v-for="product in products"
@@ -100,14 +130,15 @@ watch(
                     class="sm:w-3/7 lg:w-2/7 2xl:w-7/24 mb-8 mr-0 w-full sm:mr-8"
                 />
             </div>
+
             <div
                 v-if="canSyncWishlist"
                 class="lg- grid grid-cols-1 gap-4 p-4 md:gap-6 md:p-6 lg:flex lg:justify-center lg:gap-8 lg:p-8"
             >
                 <div class="place-self-center text-center">
                     <LayoutPagination
-                        :total="defaultLimit * totalPagesCount"
-                        :items-per-page="defaultLimit"
+                        :total="totalPagesCount"
+                        :items-per-page="limit"
                         :default-page="Number(currentPage)"
                         @update-page="page => changePage(page)"
                     />
@@ -122,7 +153,9 @@ watch(
             <h1 class="my-3 text-3xl font-extrabold">
                 {{ $t('wishlist.emptyListTitle') }}
             </h1>
+
             <p class="my-4">{{ $t('wishlist.emptyListSubtitle') }}</p>
+
             <NuxtLink to="/">
                 <FormKit type="submit">
                     {{ $t('wishlist.continueShopping') }}

@@ -76,8 +76,9 @@ onMounted(() => {
 
 <template>
     <div class="mb-3">
-        <CookieBannerMessage />
+        {{ $t('cookie.banner.additionalInformationText') }}
     </div>
+
     <FormKit
         type="form"
         :actions="false"
