@@ -17,7 +17,6 @@ const { getProductCover } = useMedia();
 const cover = getProductCover(props.product.cover);
 const configStore = useConfigStore();
 const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
-configStore.get('test');
 </script>
 
 <template>

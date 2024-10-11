@@ -8,7 +8,7 @@ export function usePluginConfig() {
                 const data = (await apiClient.invoke('loadConfig get /pond/config')).data;
                 configValues.value = data;
                 return data;
-            } catch (e) {
+            } catch (error) {
                 return [];
             }
         });

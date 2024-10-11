@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const configStore = useConfigStore();
 const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
 </script>
 
