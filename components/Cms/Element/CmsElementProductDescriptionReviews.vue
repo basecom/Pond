@@ -18,6 +18,12 @@ propertyGroups.value = product.value.properties
 const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][] => {
     return product.value.properties.filter((property: Schemas['PropertyGroupOption']) => property.group.id === groupId);
 };
+
+const getPropertyNamesOfGroup = (groupId: string) => {
+    const properties = getPropertiesOfGroup(groupId);
+
+    return properties.map(property => getTranslatedProperty(property, 'name'));
+};
 </script>
 
 <template>
@@ -43,7 +49,7 @@ const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][]
                         >
                             <td class="px-4 py-2 font-bold">{{ getTranslatedProperty(group, 'name') }}</td>
                             <td class="px-4 py-2">
-                                {{ getPropertiesOfGroup(group.id).join(',') }}
+                                {{ getPropertyNamesOfGroup(group.id).join(', ') }}
                             </td>
                         </tr>
                     </tbody>

@@ -1,21 +1,16 @@
 <script setup lang="ts">
-import { ApiClientError } from '@shopware/api-client';
-import type { ResolvedApiError } from '~/types/errors';
 import type { FormkitFields } from '~/types/formkit';
-import type { Schemas } from '@shopware/api-client/api-types';
+import { ApiClientError } from '@shopware/api-client';
+import { useFormErrorStore } from '~/stores/FormErrorStore';
 
 const customerStore = useCustomerStore();
-const sessionContext = useSessionContext();
-const { getSalutations } = useSalutations();
-const { getCountries } = useCountries();
-const { resolveApiErrors } = useApiErrorsResolver();
-const { errorOfField, togglePasswordVisibility, entityArrayToOptions } = useFormkitHelper();
-const apiErrors = ref<ResolvedApiError[]>([]);
+const { errorOfField, togglePasswordVisibility } = useFormkitHelper();
+const formErrorStore = useFormErrorStore();
+
 const isLoading = ref(false);
 
 const handleRegisterSubmit = async (fields: FormkitFields) => {
     isLoading.value = true;
-    apiErrors.value = [];
     try {
         await customerStore.register({
             ...fields,
@@ -26,20 +21,13 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
         isLoading.value = false;
 
         if (error instanceof ApiClientError) {
-            apiErrors.value = resolveApiErrors(error.details.errors);
+            formErrorStore.formErrors(error.details.errors);
             return;
         }
 
-        apiErrors.value.push({ key: 'register', code: 'REGISTER_GENERAL_ERROR' });
+        formErrorStore.apiErrors.value.push({ key: 'register', code: 'REGISTER_GENERAL_ERROR' });
     }
 };
-
-const countryOptions = computed(() => entityArrayToOptions<Schemas['Country']>(getCountries.value, 'name', true) ?? []);
-const salutationOptions = computed(
-    () => entityArrayToOptions<Schemas['Salutation']>(getSalutations.value, 'displayName', true) ?? [],
-);
-
-const currentCountry = computed(() => sessionContext.countryId.value);
 </script>
 
 <template>
@@ -56,112 +44,22 @@ const currentCountry = computed(() => sessionContext.countryId.value);
         @submit="handleRegisterSubmit"
     >
         <ul
-            v-if="apiErrors.filter(error => error.key === 'register').length"
+            v-if="formErrorStore.apiErrors.filter(error => error.key === 'register').length"
             class="validation-errors text-status-danger"
         >
             <li
-                v-for="(error, index) in apiErrors.filter(error => error.key === 'register')"
+                v-for="(error, index) in formErrorStore.apiErrors.filter(error => error.key === 'register')"
                 :key="`login-error-${index}`"
             >
                 {{ error.code }}
             </li>
         </ul>
-        <div class="col-span-2">
-            <span>{{ $t('account.register.dataHeading') }}</span>
-        </div>
-
-        <FormKit
-            type="select"
-            :label="$t('account.register.salutation.label')"
-            name="salutationId"
-            :placeholder="$t('account.register.salutation.placeholder')"
-            :errors="errorOfField('firstName', apiErrors)"
-            validation="required"
-            :classes="{
-                outer: {
-                    'col-span-2 md:col-span-1 col-1': true,
-                },
-            }"
-            :options="salutationOptions"
-            :help="$t('account.register.salutation.help')"
-        />
-
-        <FormKit
-            type="text"
-            :label="$t('account.register.firstname.label')"
-            name="firstName"
-            :placeholder="$t('account.register.firstname.placeholder')"
-            :errors="errorOfField('firstName', apiErrors)"
-            validation="required"
-            :classes="{
-                outer: {
-                    'col-start-1 col-1': true,
-                },
-            }"
-        />
-
-        <FormKit
-            type="text"
-            :label="$t('account.register.lastname.label')"
-            name="lastName"
-            :placeholder="$t('account.register.lastname.placeholder')"
-            :errors="errorOfField('lastName', apiErrors)"
-            validation="required"
-        />
 
         <div class="col-span-2">
             <span>{{ $t('account.register.addressHeading') }}</span>
         </div>
 
-        <FormKit
-            type="group"
-            name="billingAddress"
-        >
-            <FormKit
-                type="text"
-                :label="$t('account.register.street.label')"
-                autocomplete="street-address"
-                name="street"
-                :placeholder="$t('account.register.street.placeholder')"
-                :errors="errorOfField('billingAddress[street]', apiErrors)"
-                validation="required"
-                :classes="{
-                    outer: {
-                        'col-start-1 col-span-2': true,
-                    },
-                }"
-            />
-            <FormKit
-                type="text"
-                :label="$t('account.register.zipCode.label')"
-                name="zipcode"
-                :placeholder="$t('account.register.zipCode.placeholder')"
-                :errors="errorOfField('billingAddress[zipcode]', apiErrors)"
-                validation="required"
-            />
-            <FormKit
-                type="text"
-                :label="$t('account.register.city.label')"
-                name="city"
-                :placeholder="$t('account.register.city.placeholder')"
-                :errors="errorOfField('billingAddress[city]', apiErrors)"
-                validation="required"
-            />
-            <FormKit
-                v-if="currentCountry"
-                type="select"
-                :label="$t('account.register.country.label')"
-                name="countryId"
-                :placeholder="$t('account.register.country.placeholder')"
-                :options="countryOptions"
-                :value="currentCountry"
-                :classes="{
-                    outer: {
-                        'col-span-2 md:col-span-1 col-1': true,
-                    },
-                }"
-            />
-        </FormKit>
+        <AddressFormFields />
 
         <div class="col-span-2">
             <span>{{ $t('account.register.accountDataHeading') }}</span>
@@ -172,7 +70,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             :label="$t('account.register.email.label')"
             name="email"
             :placeholder="$t('account.register.email.placeholder')"
-            :errors="errorOfField('email', apiErrors)"
+            :errors="errorOfField('email', formErrorStore.apiErrors)"
             validation="required"
         />
 
@@ -181,7 +79,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
             :label="$t('account.register.password.label')"
             name="password"
             :placeholder="$t('account.register.password.placeholder')"
-            :errors="errorOfField('password', apiErrors)"
+            :errors="errorOfField('password', formErrorStore.apiErrors)"
             validation="required"
             suffix-icon="lock"
             @suffix-icon-click="togglePasswordVisibility"

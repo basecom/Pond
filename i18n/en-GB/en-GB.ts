@@ -13,6 +13,7 @@ import product from './product.json';
 import search from './search.json';
 import shared from './shared.json';
 import utility from './utility.json';
+import violations from './violations.json';
 import wishlist from './wishlist.json';
 
 export default {
@@ -31,5 +32,6 @@ export default {
     ...search,
     ...shared,
     ...utility,
+    ...violations,
     ...wishlist,
 };
