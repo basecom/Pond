@@ -1,15 +1,34 @@
 <script setup lang="ts">
+import type { Schemas } from '@shopware/api-client/api-types';
+
 const props = defineProps<{
     orderId: string;
 }>();
 
-const { order, loadOrderDetails, shippingMethod, paymentMethod, status } = useOrderDetails(props.orderId);
+const { order, loadOrderDetails, shippingMethod, paymentMethod, status } = useOrderDetails(props.orderId, {
+    stateMachineState: {},
+});
 
 const { state: paymentState } = useOrderPayment(order);
 
 const shippingStatus = computed(() => {
     const stateName = order.value?.deliveries?.[0]?.stateMachineState?.translated?.name;
     return stateName ? { name: stateName } : null;
+});
+
+const isPaymentNeeded = computed(() => {
+    const transactions = order.value?.transactions;
+    if (!transactions) {
+        return false;
+    }
+
+    const lastTransaction: Schemas['OrderTransaction'] = transactions[transactions.length - 1];
+    const stateNamesForPaymentNeeded = ['failed', 'reminded', 'unconfirmed', 'cancelled'];
+    const transactionStateName = lastTransaction.stateMachineState.technicalName;
+    const isTransactionStateInNeedOfPayment = stateNamesForPaymentNeeded.includes(transactionStateName);
+    const isOrderNotCanceled = order.value.stateMachineState.technicalName !== 'cancelled';
+
+    return isTransactionStateInNeedOfPayment && isOrderNotCanceled;
 });
 
 const formattedOrderDate = computed(() => {
@@ -50,6 +69,13 @@ onMounted(async () => {
                     >
                         {{ status }}
                     </div>
+                    <NuxtLink
+                        v-if="isPaymentNeeded"
+                        class="ml-auto rounded-md bg-status-success px-2 py-2 text-white"
+                        :to="`/account/order/edit/${orderId}`"
+                    >
+                        {{ $t('account.orders.changePaymentMethod') }}
+                    </NuxtLink>
                 </div>
 
                 <div class="gap-12 lg:flex">

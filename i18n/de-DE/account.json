@@ -51,6 +51,18 @@
         "payment": {
             "heading": "Bezahlmethoden"
         },
+        "order": {
+            "edit": {
+                "heading": "Zahlung abschließen",
+                "buttonLabel": "Zahlung abschließen",
+                "terms": {
+                    "help": "Sie haben bereits die AGB akzeptiert"
+                },
+                "errorMessage": "Etwas ist beim Abschließen der Zahlung schiefgegangen.",
+                "successMessage": "Deine Bestellung wurde erfolgreich abgeschlossen.",
+                "noOrderFound": "Deine Bestellung wurde nicht gefunden, bitte gehe zurück zur Bestellübersicht."
+            }
+        },
         "orders": {
             "heading": "Bestellungen",
             "noOrdersFound": "Whoops, es wurden keine Bestellungen gefunden. Hast du überhaupt schon was bestellt?",
@@ -59,7 +71,8 @@
             "shippingStatusLabel": "Versand",
             "shippingMethodLabel": "Versandmethode",
             "lineItemsHeading": "Produkte",
-            "status": "Status"
+            "status": "Status",
+            "changePaymentMethod": "Bezahlmethode ändern"
         },
         "login": {
             "successMessage": "Du wurdest erfolgreich eingeloggt.",
