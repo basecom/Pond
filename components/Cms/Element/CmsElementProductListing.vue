@@ -33,6 +33,7 @@ productListingCriteriaStore.initializeCriteria(
                 'purchaseSteps',
                 'children',
                 'childCount',
+                'seoUrls',
                 'manufacturer',
                 'options',
                 'categoryTree',

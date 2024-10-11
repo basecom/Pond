@@ -17,7 +17,7 @@ const { isActive } = useActivePath();
         <li
             v-for="item in mainNavigationElements"
             :key="item.id"
-            class="border-gray-300 mt-4 border-b pb-4 pl-2"
+            class="mt-4 border-b border-gray pb-4 pl-2"
         >
             <NuxtLink
                 :to="getCategoryRoute(item)"

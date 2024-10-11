@@ -1,12 +1,26 @@
 <script setup lang="ts">
 const customerStore = useCustomerStore();
-const { refreshCart } = useCart();
 const { loading } = storeToRefs(customerStore);
+
+const configStore = useConfigStore();
+await configStore.loadConfig();
+
+const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
+
+const { refreshCart } = useCart();
+const { getWishlistProducts } = useWishlist();
+
 useNotifications();
 useBreadcrumbs();
 
 customerStore.refreshContext();
 refreshCart();
+
+const route = useRoute();
+if (route.path !== '/wishlist' && wishlistEnabled) {
+    // If not on wishlist page we fetch for displaying the amount of items in the header
+    getWishlistProducts();
+}
 </script>
 
 <template>

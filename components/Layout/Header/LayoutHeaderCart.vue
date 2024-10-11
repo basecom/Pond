@@ -15,7 +15,7 @@ const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
             class="block h-6 w-6"
         />
         <UtilityPill
-            :number="cartItemsCount"
+            :content="cartItemsCount"
             class="absolute bottom-2.5 left-3"
         />
     </button>
