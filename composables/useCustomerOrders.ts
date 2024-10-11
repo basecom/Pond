@@ -9,6 +9,9 @@ export const useCustomerLatestOrder = () => {
             body: {
                 limit: 1,
                 'total-count-mode': 'exact',
+                includes: {
+                    order: ['id']
+                },
                 sort: [
                     {
                         field: 'createdAt',
