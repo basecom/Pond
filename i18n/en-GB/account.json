@@ -58,7 +58,8 @@
                     "help": "You have already accepted our terms of service"
                 },
                 "errorMessage": "Something went wrong completing the payment.",
-                "successMessage": "Your order has been successfully completed."
+                "successMessage": "Your order has been successfully completed.",
+                "noOrderFound": "Your order was not found, please go back to the order overview."
             }
         },
         "orders": {

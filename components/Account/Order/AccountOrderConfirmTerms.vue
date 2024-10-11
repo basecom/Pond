@@ -1,6 +1,3 @@
-<script setup lang="ts">
-</script>
-
 <template>
     <CheckoutConfirmCard :title="$t('checkout.confirm.terms.cardTitle')">
         <FormKit

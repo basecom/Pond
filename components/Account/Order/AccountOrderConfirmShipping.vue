@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getShippingMethodDeliveryTime } from '@shopware-pwa/helpers-next';
+import { getShippingMethodDeliveryTime, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
 
 defineProps<{
@@ -14,9 +14,9 @@ defineProps<{
     >
         <template v-if="method">
             <CheckoutConfirmShippingMethod
-                :label="method.translated.name"
+                :label="getTranslatedProperty(method, 'name')"
                 :deliveryTime="getShippingMethodDeliveryTime(method)"
-                :description="method.translated.description"
+                :description="getTranslatedProperty(method, 'description')"
                 :mediaUrl="method.media?.url"
             />
         </template>

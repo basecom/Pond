@@ -1,10 +1,9 @@
 <script setup lang="ts">
-// useAuthentication().authenticate();
-
 import type { Schemas } from '@shopware/api-client/api-types';
 
+useAuthentication().authenticate();
+
 const { params } = useRoute();
-const router = useRouter();
 const orderId = params.id as string;
 const { order, loadOrderDetails, shippingMethod, paymentMethod, status, changePaymentMethod } =
     useOrderDetails(orderId);
@@ -96,5 +95,10 @@ onMounted(async () => {
                 </div>
             </FormKit>
         </template>
+        <SharedBanner
+            v-else
+            type="info"
+            :message="$t('account.order.edit.noOrderFound')"
+        />
     </div>
 </template>

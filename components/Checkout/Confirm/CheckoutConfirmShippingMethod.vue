@@ -6,6 +6,7 @@ defineProps<{
     mediaUrl?: string;
 }>();
 </script>
+
 <template>
     <div>
         <span>
