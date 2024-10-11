@@ -29,3 +29,7 @@ h3 {
 h4, h5 {
     @apply text-lg;
 }
+
+#__nuxt {
+    @apply grid min-h-screen grid-rows-[auto_1fr_auto];
+}
