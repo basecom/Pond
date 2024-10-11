@@ -43,27 +43,12 @@ onMounted(async () => {
             :options="shippingOptions"
         >
             <template #label="{ option }">
-                <div>
-                    <span>
-                        {{ option.label }}
-                    </span>
-
-                    <span v-if="option.deliveryTime"> ({{ option.deliveryTime }}) </span>
-
-                    <span
-                        v-if="option.description"
-                        class="block text-sm italic"
-                    >
-                        {{ option.description }}
-                    </span>
-
-                    <img
-                        v-if="option.mediaUrl"
-                        loading="lazy"
-                        :src="option.mediaUrl"
-                        :alt="`Logo of ${option.label}`"
-                    />
-                </div>
+                <CheckoutConfirmShippingMethod
+                    :label="option.label"
+                    :delivery-time="option.deliveryTime"
+                    :description="option.description"
+                    :media-url="option.mediaUrl"
+                />
             </template>
         </FormKit>
     </CheckoutConfirmCard>

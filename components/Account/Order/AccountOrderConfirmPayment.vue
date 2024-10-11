@@ -1,16 +1,21 @@
 <script setup lang="ts">
-const { paymentMethods, getPaymentMethods } = useCheckout();
+import type { Schemas } from '@shopware/api-client/api-types';
 
-const { selectedPaymentMethod: paymentMethod, setPaymentMethod } = useSessionContext();
-const { trackAddPaymentInfo } = useAnalytics();
+const props = defineProps<{
+    paymentMethod: Schemas['PaymentMethod'];
+}>()
+const emit = defineEmits<{
+    'update-method': [key: string];
+}>();
+
+const { paymentMethods, getPaymentMethods } = useCheckout();
 
 const selectedPaymentMethod = computed({
     get(): string {
-        return paymentMethod.value?.id || '';
+        return props.paymentMethod?.id || '';
     },
-    async set(paymentMethodId: string) {
-        await setPaymentMethod({ id: paymentMethodId });
-        trackAddPaymentInfo();
+    set(paymentMethodId: string) {
+        emit('update-method', paymentMethodId);
     },
 });
 
@@ -38,9 +43,6 @@ onMounted(async () => {
             v-model="selectedPaymentMethod"
             type="radio"
             :options="paymentOptions"
-            fieldset-class="w-full"
-            wrapper-class="w-full !mb-5 !items-start"
-            decorator-class="mt-1"
         >
             <template #label="{ option }">
                 <CheckoutConfirmPaymentMethod
