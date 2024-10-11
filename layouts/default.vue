@@ -19,7 +19,7 @@ if (route.path !== '/wishlist') {
 </script>
 
 <template>
-    <NuxtLoadingIndicator />
+    <NuxtLoadingIndicator class="!bg-brand-primary !bg-none" />
     <NuxtRouteAnnouncer />
     <UtilityLoadingSpinner v-if="loading" />
 
@@ -39,13 +39,3 @@ if (route.path !== '/wishlist') {
     <LayoutFooter v-show="!loading" />
     <CookieBanner />
 </template>
-
-<style>
-#__nuxt {
-    @apply grid min-h-screen grid-rows-[auto_1fr_auto];
-}
-
-.nuxt-loading-indicator {
-    @apply !bg-brand-primary !bg-none;
-}
-</style>

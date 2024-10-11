@@ -3,6 +3,23 @@ import { de } from '@formkit/i18n';
 import { createAutoAnimatePlugin, createFloatingLabelsPlugin } from '@formkit/addons';
 import '@formkit/addons/css/floatingLabels';
 
+export const plugins = {
+    'autoAnimate': createAutoAnimatePlugin(
+    {
+        duration: 250,
+        easing: 'ease-in-out',
+    },
+    {
+        global: ['outer', 'inner'],
+        form: ['form'],
+        repeater: ['items'],
+    }),
+    'floatingLabels': createFloatingLabelsPlugin(
+    {
+        useAsDefault: true,
+    }),
+};
+
 export default {
     iconLoader: (iconName: string) => {
         const getIcon = async (iconkey: string) => {
@@ -63,22 +80,7 @@ export default {
     config: {
         rootClasses,
     },
-    plugins: [
-        createAutoAnimatePlugin(
-            {
-                duration: 250,
-                easing: 'ease-in-out',
-            },
-            {
-                global: ['outer', 'inner'],
-                form: ['form'],
-                repeater: ['items'],
-            },
-        ),
-        createFloatingLabelsPlugin({
-            useAsDefault: true, // defaults to false
-        }),
-    ],
+    plugins: Object.values(plugins),
     props: {
         decoratorIcon: 'check',
     },
