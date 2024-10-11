@@ -6,9 +6,6 @@ const { clearBreadcrumbs } = useBreadcrumbs();
 const { refreshSessionContext } = useSessionContext();
 await refreshSessionContext();
 
-const { getWishlistProducts } = useWishlist();
-await getWishlistProducts();
-
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
 const { t } = useI18n();

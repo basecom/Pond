@@ -6,12 +6,14 @@ import composable from './composable.json';
 import cookie from './cookie.json';
 import error from './error.json';
 import layout from './layout.json';
+import listing from './listing.json';
 import navigation from './navigation.json';
 import order from './order.json';
 import product from './product.json';
 import search from './search.json';
 import shared from './shared.json';
 import utility from './utility.json';
+import violations from './violations.json';
 import wishlist from './wishlist.json';
 
 export default {
@@ -23,11 +25,13 @@ export default {
     ...cookie,
     ...error,
     ...layout,
+    ...listing,
     ...navigation,
     ...order,
     ...product,
     ...search,
     ...shared,
     ...utility,
+    ...violations,
     ...wishlist,
 };

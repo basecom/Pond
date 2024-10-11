@@ -110,7 +110,7 @@ const handleLogin = async (fields: FormkitLoginFields) => {
             v-if="showRecoverLink"
             to="/account/recover"
             class="hover:text-brand-primary"
-            :class="{'text-right': showCreateLink}"
+            :class="{ 'text-right': showCreateLink }"
             @click="$emit('closeModal')"
         >
             {{ $t('account.login.recoverPasswordLink') }}
