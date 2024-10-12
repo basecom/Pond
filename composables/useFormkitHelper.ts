@@ -3,6 +3,7 @@ import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { FormKitNode } from '@formkit/core';
 
 export function useFormkitHelper() {
+    const { t } = useI18n();
     /**
      *  This function formats EntityArrays to the structure of Array<{label: '', value: ''}>
      *  This is necessary/helpfully since this way we don't have to create select options manually and allows us to use
@@ -25,7 +26,7 @@ export function useFormkitHelper() {
      * Returns an array with alls error Codes for the given key. Combined with the key it can be used as a snippet key.
      */
     const errorOfField = (name: string, apiErrors: ResolvedApiError[]): string[] => {
-        return apiErrors?.filter(err => err.key === name).map(err => `${err.key}_${err.code}`);
+        return apiErrors?.filter(err => err.key === name).map(err => t(`violation.${err.code}`));
     };
 
     const togglePasswordVisibility = (node: FormKitNode) => {
