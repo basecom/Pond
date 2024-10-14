@@ -4,7 +4,6 @@ const { loading } = storeToRefs(customerStore);
 
 const configStore = useConfigStore();
 await configStore.loadConfig();
-console.log('config: ', configStore.get('core.listing.productsPerPage'));
 
 const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
 

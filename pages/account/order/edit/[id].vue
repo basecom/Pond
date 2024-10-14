@@ -28,7 +28,7 @@ const updateOrder = async () => {
         } else {
             pushError(t('account.order.edit.errorMessage'));
         }
-    } catch (e) {
+    } catch (error) {
         pushError(t('account.order.edit.errorMessage'));
     }
 };
