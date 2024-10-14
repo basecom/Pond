@@ -60,7 +60,7 @@
                 },
                 "errorMessage": "Etwas ist beim Abschließen der Zahlung schiefgegangen.",
                 "successMessage": "Deine Bestellung wurde erfolgreich abgeschlossen.",
-                "noOrderFound": "Deine Bestellung wurde nicht gefunden, bitte gehe zurück zur Bestellübersicht."
+                "noOrderFound": "Diese Bestellung wurde leider nicht gefunden."
             }
         },
         "orders": {
