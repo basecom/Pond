@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import type { CmsElementImageGallery } from '@shopware-pwa/composables-next';
-
 const props = defineProps<{
     element: CmsElementImageGallery;
 }>();
 
 const elementConfig = useCmsElementConfig(props.element);
+const elementData = useCmsElementData(props.element);
+
 const navigationDots = elementConfig.getConfigValue('navigationDots');
 const navigationArrows = elementConfig.getConfigValue('navigationArrows');
 const displayMode = elementConfig.getConfigValue('displayMode');
 const minHeight = elementConfig.getConfigValue('minHeight');
 const galleryPosition = elementConfig.getConfigValue('galleryPosition');
 
-const elementData = useCmsElementData(props.element);
-const slides = elementData.getData('sliderItems') ?? [];
-
 const thumbnailSlidesPerView = 3;
+const spaceBetween = 16;
+
+const slides = elementData.getData('sliderItems') ?? [];
 </script>
 
 <template>
@@ -44,11 +44,18 @@ const thumbnailSlidesPerView = 3;
                         :class="`min-h-[${minHeight}]`"
                     >
                         <img
+                            v-if="slide.media.url"
                             :src="slide.media.url"
                             :alt="slide.translated?.alt ?? $t('cms.element.imageAlt')"
                             class="h-full w-full object-center"
                             :class="'object-' + displayMode"
                         />
+
+                        <template v-else>
+                            <div class="w-full bg-gray-light">
+                                <SharedImagePlaceholder :size="'lg'" />
+                            </div>
+                        </template>
                     </LayoutSliderSlide>
                 </LayoutSlider>
 
@@ -61,7 +68,7 @@ const thumbnailSlidesPerView = 3;
                     :navigationDots="false"
                     :navigationArrows="false"
                     :direction="galleryPosition === 'left' ? 'vertical' : 'horizontal'"
-                    :spaceBetween="16"
+                    :spaceBetween="spaceBetween"
                     :slidesPerView="thumbnailSlidesPerView"
                 >
                     <LayoutSliderSlide
@@ -71,10 +78,17 @@ const thumbnailSlidesPerView = 3;
                         :class="`min-h-[${minHeight}]`"
                     >
                         <img
+                            v-if="slide.media.url"
                             :src="slide.media.url"
                             :alt="slide.translated?.alt ?? $t('cms.element.imageAlt')"
                             class="h-full w-full object-cover object-center opacity-40 group-[.swiper-slide-thumb-active]:border-2 group-[.swiper-slide-thumb-active]:border-brand-primary group-[.swiper-slide-thumb-active]:opacity-100"
                         />
+
+                        <template v-else>
+                            <div class="w-full bg-gray-light  opacity-40 group-[.swiper-slide-thumb-active]:border-2 group-[.swiper-slide-thumb-active]:border-brand-primary group-[.swiper-slide-thumb-active]:opacity-100">
+                                <SharedImagePlaceholder :size="'sm'" />
+                            </div>
+                        </template>
                     </LayoutSliderSlide>
                 </LayoutSlider>
             </template>

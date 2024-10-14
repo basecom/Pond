@@ -5,10 +5,12 @@ import { getProductRoute, getTranslatedProperty } from '@shopware-pwa/helpers-ne
 const props = withDefaults(
     defineProps<{
         product: Schemas['Product'];
-        layout?: 'standard' | 'minimal';
+        layout?: 'standard' | 'minimal' | 'image';
+        displayMode?: 'standard' | 'cover' | 'contain';
     }>(),
     {
         layout: 'standard',
+        displayMode: 'cover',
     },
 );
 
@@ -43,7 +45,8 @@ const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
                         <img
                             :src="cover.url"
                             :alt="cover.alt"
-                            class="aspect-square h-full w-full object-cover object-center group-hover:opacity-75"
+                            class="aspect-square h-full w-full object-center group-hover:opacity-75"
+                            :class="displayMode === 'standard' ? 'object-scale-down' : 'object-' + displayMode"
                         />
                     </template>
                 </div>

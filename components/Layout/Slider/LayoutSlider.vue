@@ -23,7 +23,7 @@ withDefaults(
         navigationArrows: true,
         displayMode: 'cover',
         minHeight: '300',
-        classes: '',
+        classes: null,
         loop: true,
         direction: 'horizontal',
         spaceBetween: 0,
@@ -43,7 +43,7 @@ useSwiper(sliderRef, {});
     <ClientOnly>
         <swiper-container
             ref="sliderRef"
-            :class="classes?.join(' ') + ` min-h-[${minHeight}px]`"
+            :class="classes ? classes.join(' ') + ` min-h-[${minHeight}px]` : `min-h-[${minHeight}px]`"
             :autoplay="autoSlide"
             :speed="speed"
             :pagination="navigationDots"
