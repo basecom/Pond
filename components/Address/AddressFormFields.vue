@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import { useFormErrorStore } from '~/stores/FormErrorStore';
 
 const props = withDefaults(
     defineProps<{
@@ -36,7 +35,7 @@ onUnmounted(() => formErrorStore.$reset);
 
 <template>
     <div class="col-span-2">
-        <span>{{ $t('account.register.dataHeading') }}</span>
+        <span>{{ $t('account.register.addressHeading') }}</span>
     </div>
 
     <FormKit
