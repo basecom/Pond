@@ -44,7 +44,7 @@ onUnmounted(() => formErrorStore.$reset);
         name="salutationId"
         :value="initialAddress?.salutationId"
         :placeholder="$t('account.register.salutation.placeholder')"
-        :errors="errorOfField('firstName', formErrorStore.apiErrors)"
+        :errors="errorOfField('salutationId', formErrorStore.apiErrors)"
         validation="required"
         :classes="{
             outer: {

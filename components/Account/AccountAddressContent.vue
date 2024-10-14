@@ -48,10 +48,10 @@ const handleSave = async (fields: FormkitFields) => {
                 ...addressData,
                 id: selectedAddress.value.id,
             });
-            pushSuccess('account.address.editSuccess');
+            pushSuccess(t('account.address.editSuccess'));
         } else {
             await createCustomerAddress(addressData);
-            pushSuccess('account.address.createSuccess');
+            pushSuccess(t('account.address.createSuccess'));
         }
         await loadCustomerAddresses();
         modalController.close();
