@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { getShippingMethodDeliveryTime } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
 
-defineProps<{
+const props = defineProps<{
     shippingMethod: Schemas['ShippingMethod'];
 }>();
+
+const deliveryTime = computed(() => getShippingMethodDeliveryTime(props.shippingMethod));
 </script>
 
 <template>
@@ -11,7 +14,7 @@ defineProps<{
         {{ shippingMethod?.translated.name }}
     </div>
 
-    <div v-if="shippingMethod?.deliveryTime">
-        {{ shippingMethod.deliveryTime?.name }}
+    <div v-if="deliveryTime">
+        {{ deliveryTime }}
     </div>
 </template>

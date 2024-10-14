@@ -22,6 +22,11 @@ const onUpdatedOpen = (value: boolean) => {
         controller.value.close();
     }
 };
+
+watch(controller.value.isOpen, () => {
+    // TODO: Workaround due to weird behaviour when passing a controller as prop and using it as v-model - Needs cleaner solution in the future
+    document.body.style.overflow = 'unset';
+});
 </script>
 
 <template>

@@ -12,7 +12,7 @@ const props = withDefaults(
     },
 );
 
-defineEmits(['closeSearch']);
+const emit = defineEmits(['closeSearch']);
 
 const { searchTerm, search, getProducts, getTotal, loading } = useProductSearchSuggest();
 
@@ -68,6 +68,10 @@ const showSuggest = computed(() => {
 const handleEnter = () => {
     if (typingQuery.value.length >= 1) {
         navigateTo('/search?search=' + typingQuery.value);
+    }
+
+    if (isResultPage.value) {
+        emit('closeSearch');
     }
 };
 

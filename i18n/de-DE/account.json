@@ -20,16 +20,48 @@
             "newsletter": {
                 "heading": "Newsletter Abonnement",
                 "label": "Ja, ich möchte den kostenlosen Newsletter erhalten. (Ich kann ihn jederzeit abbestellen)"
-            }
+            },
+            "latestOrderHeading" : "Letzte Bestellung"
         },
         "profile": {
             "heading": "Dein Profil"
         },
         "address": {
-            "heading": "Adressen"
+            "heading": "Adressen",
+            "create": "Adresse anlegen",
+            "createSuccess": "Ihre neue Adresse wurde erfolgreich angelegt.",
+            "createError": "Ihre neue Adresse konnte nicht angelegt werden.",
+            "edit": "Bearbeiten",
+            "editSuccess": "Ihre Adresse wurde bearbeitet.",
+            "editError": "Ihre Adresse konnte nicht geändert werden.",
+            "delete": "Löschen",
+            "deleteSuccess": "Ihre Adresse wurde gelöscht.",
+            "deleteError": "Beim Löschen ihrer Adresse ist ein Fehler aufgetreten, versuchen Sie es später erneut.",
+            "nothingFound": "Es wurden keine Adressen gefunden.",
+            "saveLabel": "Speichern",
+            "defaultBilling": "Standard-Rechnungsadresse",
+            "defaultShipping": "Standard-Lieferadresse",
+            "updateBilling": "Als Standard-Rechnungsadresse verwenden",
+            "updateBillingError": "Standard-Rechnungsadresse konnte nicht geändert werden",
+            "updateBillingSuccess": "Standard-Rechnungsadresse wurde geändert",
+            "updateShipping": "Als Standard-Lieferadresse verwenden",
+            "updateShippingError": "Standard-Lieferadresse konnte nicht geändert werden",
+            "updateShippingSuccess": "Standard-Lieferadresse wurde geändert"
         },
         "payment": {
             "heading": "Bezahlmethoden"
+        },
+        "order": {
+            "edit": {
+                "heading": "Zahlung abschließen",
+                "buttonLabel": "Zahlung abschließen",
+                "terms": {
+                    "help": "Sie haben bereits die AGB akzeptiert"
+                },
+                "errorMessage": "Etwas ist beim Abschließen der Zahlung schiefgegangen.",
+                "successMessage": "Deine Bestellung wurde erfolgreich abgeschlossen.",
+                "noOrderFound": "Deine Bestellung wurde nicht gefunden, bitte gehe zurück zur Bestellübersicht."
+            }
         },
         "orders": {
             "heading": "Bestellungen",
@@ -39,7 +71,8 @@
             "shippingStatusLabel": "Versand",
             "shippingMethodLabel": "Versandmethode",
             "lineItemsHeading": "Produkte",
-            "status": "Status"
+            "status": "Status",
+            "changePaymentMethod": "Bezahlmethode ändern"
         },
         "login": {
             "successMessage": "Du wurdest erfolgreich eingeloggt.",

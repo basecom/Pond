@@ -1,10 +1,14 @@
 <script setup lang="ts">
 const customerStore = useCustomerStore();
 const { loading } = storeToRefs(customerStore);
+
 const { refreshCart } = useCart();
+const { getWishlistProducts } = useWishlist();
 
 customerStore.refreshContext();
 refreshCart();
+
+getWishlistProducts();
 </script>
 
 <template>
@@ -20,4 +24,5 @@ refreshCart();
     </main>
 
     <LayoutFooter v-show="!loading" />
+    <CookieBanner />
 </template>
