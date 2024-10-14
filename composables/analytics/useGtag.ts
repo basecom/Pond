@@ -5,10 +5,7 @@ export function useGtags(): UseAnalyticsReturn {
     const _cookieEnabledName = 'google-analytics-enabled';
     const _cookieAdsEnabledName = 'google-ads-enabled';
     const _isLoaded = useState<boolean>('isGtagLoaded', () => false);
-    // TODO: Modify to take the value from configuration
-    const _isGoogleAnalyticsEnabled = ref(true);
-    // TODO: Modify to take the value from configuration
-    const _googleAnalyticsId = ref('G-XXXXXXX');
+    const { isEnabled, id } = useAnalyticsConfig();
     const {
         getEventForSingleItem,
         getEventForAllItems,
@@ -30,7 +27,7 @@ export function useGtags(): UseAnalyticsReturn {
         useHead({
             script: [
                 {
-                    src: `https://www.googletagmanager.com/gtag/js?id=${_googleAnalyticsId.value}`,
+                    src: `https://www.googletagmanager.com/gtag/js?id=${id.value}`,
                     tagPosition: 'head',
                 },
                 {
@@ -38,7 +35,7 @@ export function useGtags(): UseAnalyticsReturn {
                         window.dataLayer = window.dataLayer || [];
                         function gtag(){dataLayer.push(arguments);}
                         gtag('js', new Date());
-                        gtag('config', '${_googleAnalyticsId.value}');
+                        gtag('config', '${id.value}');
                     `,
                     tagPosition: 'head',
                 },
@@ -47,7 +44,7 @@ export function useGtags(): UseAnalyticsReturn {
     };
 
     const _initialize = () => {
-        if (!_isGoogleAnalyticsEnabled.value || _isLoaded.value) {
+        if (!isEnabled.value || _isLoaded.value) {
             return;
         }
 

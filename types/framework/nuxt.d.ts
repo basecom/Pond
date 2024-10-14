@@ -14,6 +14,7 @@ declare module '@nuxt/schema' {
             accessToken: string;
             shopwareEndpoint: string;
             analytics: {
+                enabled: boolean;
                 type: PondAnalyticsType;
                 trackingUrl?: string;
                 id?: string;

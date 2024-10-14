@@ -1,8 +1,8 @@
 import type { PondAnalyticsType, UseAnalyticsConfig, UseAnalyticsReturn } from '../../types/analytics/analytics';
 
 export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
-    const runtimeConfig = useRuntimeConfig();
-    const type = runtimeConfig.public.pond.analytics.type as PondAnalyticsType;
+    const analyticsConfig = useAnalyticsConfig();
+    const type = analyticsConfig.type.value as PondAnalyticsType;
     const analytics: UseAnalyticsReturn = {
         gtag: useGtags,
         gtm: useGtm,

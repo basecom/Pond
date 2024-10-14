@@ -5,9 +5,7 @@ export function useGtm(): UseAnalyticsReturn {
     const _cookieEnabledName = 'google-analytics-enabled';
     const _cookieAdsEnabledName = 'google-ads-enabled';
     const _isLoaded = useState<boolean>('isGtmLoaded', () => false);
-    // TODO: Modify to take the value from configuration
-    const _isGoogleAnalyticsEnabled = ref(true);
-    const runtimeConfig = useRuntimeConfig();
+    const { isEnabled, id, trackingUrl } = useAnalyticsConfig();
     const {
         getEventWithShippingInfo,
         getEventForAllItems,
@@ -30,10 +28,9 @@ export function useGtm(): UseAnalyticsReturn {
             return;
         }
 
-        const id = runtimeConfig.public.pond.analytics.id;
-        const trackingUrl = runtimeConfig.public.pond.analytics.trackingUrl ?? 'https://www.googletagmanager.com/';
+        const trackingUrlHref = trackingUrl.value ?? 'https://www.googletagmanager.com/';
 
-        if (!id || !_isGoogleAnalyticsEnabled.value) {
+        if (!id.value || !isEnabled.value) {
             return;
         }
 
@@ -46,7 +43,7 @@ export function useGtm(): UseAnalyticsReturn {
                         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         u+'gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                        })(window,document,'script','dataLayer','${id}', '${trackingUrl}');
+                        })(window,document,'script','dataLayer','${id.value}', '${trackingUrlHref}');
                         <!-- End Google Tag Manager -->
                     `,
                     tagPosition: 'head',
@@ -55,7 +52,7 @@ export function useGtm(): UseAnalyticsReturn {
             noscript: [
                 {
                     innerHTML: `<!-- Google Tag Manager (noscript) -->
-                        <iframe src="${trackingUrl}ns.html?id=${id}"
+                        <iframe src="${trackingUrlHref}ns.html?id=${id.value}"
                         height="0" width="0" style="display:none;visibility:hidden"></iframe>
                         <!-- End Google Tag Manager (noscript) -->
                     `,

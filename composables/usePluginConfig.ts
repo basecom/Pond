@@ -1,6 +1,6 @@
 export function usePluginConfig() {
     const { apiClient } = useShopwareContext();
-    const configValues = ref({});
+    const configValues = useState('pluginConfig', () => {});
 
     const loadConfig = async () => {
         return useAsyncData('pluginConfiguration', async () => {
