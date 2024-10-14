@@ -4,8 +4,7 @@ import { createAutoAnimatePlugin, createFloatingLabelsPlugin } from '@formkit/ad
 import '@formkit/addons/css/floatingLabels';
 
 export const plugins = {
-    'autoAnimate': createAutoAnimatePlugin
-    (
+    autoAnimate: createAutoAnimatePlugin(
         {
             duration: 250,
             easing: 'ease-in-out',
@@ -14,14 +13,11 @@ export const plugins = {
             global: ['outer', 'inner'],
             form: ['form'],
             repeater: ['items'],
-        }
+        },
     ),
-    'floatingLabels': createFloatingLabelsPlugin
-    (
-        {
-            useAsDefault: true,
-        }
-    ),
+    floatingLabels: createFloatingLabelsPlugin({
+        useAsDefault: true,
+    }),
 };
 
 export default {

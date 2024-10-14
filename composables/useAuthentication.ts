@@ -13,13 +13,13 @@ export function useAuthentication() {
         if (signedIn.value) {
             navigateTo(targetRoute);
         }
-    }
+    };
 
     const sessionContextLoaded = async () => {
         if (loading.value) {
             await until(loading).toBe(false);
         }
-    }
+    };
 
     return {
         rerouteIfLoggedIn,

@@ -1,13 +1,10 @@
 export function usePluginConfig() {
     const { apiClient } = useShopwareContext();
-    const configValues = ref({});
 
-    const loadConfig = async () => {
-        return useAsyncData('pluginConfiguration', async () => {
+    const fetchConfig = async () => {
+        return useAsyncData('pluginConfiguration__2', async () => {
             try {
-                const data = (await apiClient.invoke('loadConfig get /pond/config')).data;
-                configValues.value = data;
-                return data;
+                return (await apiClient.invoke('loadConfig get /pond/config')).data;
             } catch (error) {
                 return [];
             }
@@ -15,7 +12,6 @@ export function usePluginConfig() {
     };
 
     return {
-        loadConfig,
-        configValues,
+        fetchConfig,
     };
 }

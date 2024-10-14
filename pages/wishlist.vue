@@ -18,7 +18,6 @@ const router = useRouter();
 const route = useRoute();
 const defaultLimit = 15;
 const defaultPage = 1;
-const page = ref(route.query.page ? Number(route.query.page) : defaultPage);
 const limit = ref(route.query.limit ? Number(route.query.limit) : defaultLimit);
 
 const { pushSuccess, pushError } = useNotifications();
