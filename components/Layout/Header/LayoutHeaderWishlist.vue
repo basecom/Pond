@@ -12,7 +12,7 @@ const { count: wishlistCount } = useWishlist();
             icon="heart"
         />
         <UtilityPill
-            :content="wishlistCount"
+            :number="wishlistCount"
             class="absolute bottom-2.5 left-3"
         />
     </NuxtLink>

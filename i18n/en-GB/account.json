@@ -20,7 +20,8 @@
             "newsletter": {
                 "heading": "Newsletter Subscription",
                 "label": "Yes, I would like to subscribe to the free newsletter. (I may unsubscribe at any time.)"
-            }
+            },
+            "latestOrderHeading" : "Latest Order"
         },
         "profile": {
             "heading": "Your Profile"
