@@ -15,25 +15,6 @@ productListingCriteriaStore.initializeCriteria(
         associations: {
             children: {},
         },
-        includes: {
-            product: [
-                'id',
-                'name',
-                'cover',
-                'calculatedPrice',
-                'description',
-                'translated',
-                'availableStock',
-                'minPurchase',
-                'maxPurchase',
-                'purchaseSteps',
-                'children',
-                'childCount',
-                'seoUrls',
-            ],
-            product_media: ['media'],
-            media: ['url'],
-        },
     },
     route.query,
 );
