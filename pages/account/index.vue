@@ -9,6 +9,6 @@ const showLatestOrder = ref(true);
 
 <template>
     <Account>
-        <AccountOverviewContent :show-latest-order="showLatestOrder"/>
+        <AccountOverviewContent :show-latest-order="showLatestOrder" />
     </Account>
 </template>

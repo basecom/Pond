@@ -5,8 +5,7 @@ await useAuthentication().rerouteIfLoggedOut();
 
 const { params } = useRoute();
 const orderId = params.id as string;
-const { order, loadOrderDetails, shippingMethod, paymentMethod, changePaymentMethod } =
-    useOrderDetails(orderId);
+const { order, loadOrderDetails, shippingMethod, paymentMethod, changePaymentMethod } = useOrderDetails(orderId);
 const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
 
@@ -20,7 +19,7 @@ const updateOrder = async () => {
     }
 
     try {
-        const response: Schemas["SuccessResponse"] = await changePaymentMethod(newPaymentMethod.value);
+        const response: Schemas['SuccessResponse'] = await changePaymentMethod(newPaymentMethod.value);
 
         if (response.success) {
             navigateTo('/checkout/finish/' + orderId);
@@ -29,7 +28,7 @@ const updateOrder = async () => {
         } else {
             pushError(t('account.order.edit.errorMessage'));
         }
-    } catch ( e ) {
+    } catch (error) {
         pushError(t('account.order.edit.errorMessage'));
     }
 };
@@ -54,7 +53,10 @@ onMounted(async () => {
                     <div class="divide-y divide-gray-medium rounded-md p-4 shadow">
                         <AccountOrderConfirmPersonal />
                         <AccountOrderConfirmShipping :method="shippingMethod" />
-                        <AccountOrderConfirmPayment :payment-method="paymentMethod" @update-method="updateMethod" />
+                        <AccountOrderConfirmPayment
+                            :payment-method="paymentMethod"
+                            @update-method="updateMethod"
+                        />
 
                         <!-- TODO: Address Management (BUS-841) -->
 
