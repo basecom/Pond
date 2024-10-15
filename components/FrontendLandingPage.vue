@@ -13,7 +13,7 @@ const { data: landingResponse } = await useAsyncData('landing' + props.navigatio
 });
 
 if (!landingResponse.value) {
-    throw createError({ statusCode: 404, message: t('error.pageNotFound') });
+    throw createError({ statusCode: 404, message: t('error.404.detail') });
 }
 
 useBreadcrumbs([

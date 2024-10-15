@@ -3,8 +3,9 @@ import { de } from '@formkit/i18n';
 import { createAutoAnimatePlugin, createFloatingLabelsPlugin } from '@formkit/addons';
 import '@formkit/addons/css/floatingLabels';
 
-export const plugins = {
-    autoAnimate: createAutoAnimatePlugin(
+export const defaultPlugins = {
+    'autoAnimate': createAutoAnimatePlugin
+    (
         {
             duration: 250,
             easing: 'ease-in-out',
@@ -13,11 +14,14 @@ export const plugins = {
             global: ['outer', 'inner'],
             form: ['form'],
             repeater: ['items'],
-        },
+        }
     ),
-    floatingLabels: createFloatingLabelsPlugin({
-        useAsDefault: true,
-    }),
+    'floatingLabels': createFloatingLabelsPlugin
+    (
+        {
+            useAsDefault: true,
+        }
+    ),
 };
 
 export default {
@@ -80,7 +84,7 @@ export default {
     config: {
         rootClasses,
     },
-    plugins: Object.values(plugins),
+    plugins: Object.values(defaultPlugins),
     props: {
         decoratorIcon: 'check',
     },

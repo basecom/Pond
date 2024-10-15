@@ -81,6 +81,7 @@ watch(
 
         // If no items are in the wishlist we don't need to fetch the products
         if (!items.length) {
+            isLoading.value = false;
             return;
         }
 

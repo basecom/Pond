@@ -43,18 +43,16 @@ watch(
 </script>
 
 <template>
-    <div class="mx-auto max-w-screen-xl">
-        <ProductListingSidebar
-            v-if="appliedFilters"
-            :filters="filters"
-            :selected-filters="appliedFilters"
-            :full-width="false"
-            :show-reset-button="areFiltersModified"
-            :sorting-options="sortingOptions"
-            :sorting="currentSorting"
-            @sorting-changed="onSortChange"
-            @filter-changed="onFilterChange"
-            @reset-filters="onResetFilters"
-        />
-    </div>
+    <ProductListingSidebar
+        v-if="appliedFilters"
+        :filters="filters"
+        :selected-filters="appliedFilters"
+        :full-width="false"
+        :show-reset-button="areFiltersModified"
+        :sorting-options="sortingOptions"
+        :sorting="currentSorting"
+        @sorting-changed="onSortChange"
+        @filter-changed="onFilterChange"
+        @reset-filters="onResetFilters"
+    />
 </template>
