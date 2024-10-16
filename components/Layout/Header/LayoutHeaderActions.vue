@@ -7,7 +7,7 @@ const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
     <div class="flex items-center gap-3.5">
         <LayoutHeaderSearch />
 
-        <LayoutHeaderWishlist v-if="wishlistEnabled"/>
+        <LayoutHeaderWishlist v-if="wishlistEnabled" />
 
         <LayoutHeaderAccount />
 

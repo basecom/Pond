@@ -3,7 +3,7 @@ import type { Schemas } from '@shopware/api-client/api-types';
 
 const props = defineProps<{
     paymentMethod: Schemas['PaymentMethod'];
-}>()
+}>();
 const emit = defineEmits<{
     'update-method': [key: string];
 }>();

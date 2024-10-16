@@ -89,7 +89,7 @@ const handleAddToCart = async () => {
 
     <div
         v-else
-        class="flex w-full gap-1 rounded bg-gray-light px-4 py-2 text-gray"
+        class="flex w-full gap-1 rounded bg-gray-light px-4 py-2 text-gray text-sm"
     >
         <FormKitIcon
             icon="info"

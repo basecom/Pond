@@ -10,7 +10,7 @@ export const useCustomerLatestOrder = () => {
                 limit: 1,
                 'total-count-mode': 'exact',
                 includes: {
-                    order: ['id']
+                    order: ['id'],
                 },
                 sort: [
                     {

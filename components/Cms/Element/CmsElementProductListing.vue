@@ -18,31 +18,6 @@ productListingCriteriaStore.initializeCriteria(
             manufacturer: {},
             options: {},
         },
-        includes: {
-            product: [
-                'id',
-                'name',
-                'productNumber',
-                'cover',
-                'calculatedPrice',
-                'description',
-                'translated',
-                'availableStock',
-                'minPurchase',
-                'maxPurchase',
-                'purchaseSteps',
-                'children',
-                'childCount',
-                'seoUrls',
-                'manufacturer',
-                'options',
-                'categoryTree',
-            ],
-            product_media: ['media'],
-            product_manufacturer: ['name'],
-            property_group_option: ['name'],
-            media: ['url'],
-        },
     },
     route.query,
 );
@@ -85,9 +60,12 @@ productListingCriteriaStore.setSearchResult(getCurrentListing.value, true);
             @update-page="currentPage => changePage(currentPage)"
         />
     </div>
-    <SharedBanner
+
+    <UtilityStaticNotification
         v-else
+        :id="props.element.id + '-no-products-found'"
         type="info"
         :message="$t('cms.element.product.noProductsFound')"
+        class="mt-4"
     />
 </template>
