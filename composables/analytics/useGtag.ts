@@ -16,6 +16,7 @@ export function useGtags(): UseAnalyticsReturn {
         getEventForProduct,
         getEventForProductWithPrice,
     } = useEcommerceTrackingHelper();
+    const { getSearchEvent, getSearchSuggestionEvent } = useSearchTrackingHelper();
 
     function _trackEvent(...args: unknown[]) {
         if (import.meta.client) {
@@ -137,6 +138,18 @@ export function useGtags(): UseAnalyticsReturn {
         _trackEvent('event', 'view_item', trackingEvent);
     }
 
+    const trackSearchSuggestions = () => {
+        const trackingEvent = getSearchSuggestionEvent();
+
+        _trackEvent('event', 'search_suggest', trackingEvent);
+    };
+
+    const trackSearch = () => {
+        const trackingEvent = getSearchEvent();
+
+        _trackEvent('event', 'search', trackingEvent);
+    };
+
     return {
         updateConsent,
         trackAddToCart,
@@ -149,5 +162,7 @@ export function useGtags(): UseAnalyticsReturn {
         trackViewItemList,
         trackViewItem,
         trackSelectItem,
+        trackSearchSuggestions,
+        trackSearch,
     };
 }

@@ -15,6 +15,7 @@ const props = withDefaults(
 const emit = defineEmits(['closeSearch']);
 
 const { searchTerm, search, getProducts, getTotal, loading } = useProductSearchSuggest();
+const { trackSearchSuggestions, trackSearch } = useAnalytics();
 
 const router = useRouter();
 
@@ -34,12 +35,11 @@ if (route.path === '/search') {
 // Use searchStore to share searchTerm with search result page
 const searchStore = useSearchStore();
 // Defer the search request to prevent the search from instantly being triggered, 500ms fixes holding backspace triggering twice
-const performDebouncedSearch = useDebounceFn((value: string) => {
+const performDebouncedSearch = useDebounceFn(async (value: string) => {
     // Only perform search and update valid searchTerm if searchTerm is longer than minCharacters
     if (value.length >= props.minCharacters) {
         searchTerm.value = value;
         searchStore.updateLastValidSearchTerm(value);
-        search();
 
         // Update URL with new valid search term
         if (isResultPage.value) {
@@ -50,6 +50,8 @@ const performDebouncedSearch = useDebounceFn((value: string) => {
                 },
             });
         }
+        await search();
+        trackSearchSuggestions();
     }
 }, 500);
 
@@ -67,6 +69,7 @@ const showSuggest = computed(() => {
 // Redirect to search result page when pressing enter
 const handleEnter = () => {
     if (typingQuery.value.length >= 1) {
+        trackSearch();
         navigateTo('/search?search=' + typingQuery.value);
     }
 

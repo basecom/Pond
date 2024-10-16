@@ -17,6 +17,8 @@ export type UseAnalyticsReturn = {
     trackViewItemList: (products: Schemas['Product'][], page?: number) => void;
     trackSelectItem: (product: Schemas['Product']) => void;
     trackViewItem: (product: Schemas['Product']) => void;
+    trackSearchSuggestions: () => void;
+    trackSearch: () => void;
 };
 
 export type PondAnalyticsType = 'gtm' | 'gtag';
