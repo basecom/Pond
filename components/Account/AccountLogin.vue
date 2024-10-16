@@ -31,6 +31,7 @@ const { signedIn } = storeToRefs(customerStore);
 const apiErrors = ref<ResolvedApiError[]>([]);
 const { pushError, pushSuccess } = useNotifications();
 const { mergeWishlistProducts } = useWishlist();
+const { trackLogin } = useAnalytics();
 const { t } = useI18n();
 
 const handleLogin = async (fields: FormkitLoginFields) => {
@@ -43,6 +44,7 @@ const handleLogin = async (fields: FormkitLoginFields) => {
             navigateTo(props.redirectTarget);
         }
         mergeWishlistProducts();
+        trackLogin();
         pushSuccess(t('account.login.successMessage'));
     } catch (error) {
         pushError(t('account.login.errorMessage'));

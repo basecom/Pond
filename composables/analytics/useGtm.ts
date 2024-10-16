@@ -191,6 +191,18 @@ export function useGtm(): UseAnalyticsReturn {
         });
     };
 
+    const trackLogin = () => {
+        _trackEvent({
+            event: 'login'
+        });
+    }
+
+    const trackRegister = () => {
+        _trackEvent({
+            event: 'registration'
+        });
+    }
+
     return {
         updateConsent,
         trackAddToCart,
@@ -203,5 +215,7 @@ export function useGtm(): UseAnalyticsReturn {
         trackViewItemList,
         trackSelectItem,
         trackViewItem,
+        trackLogin,
+        trackRegister,
     };
 }
