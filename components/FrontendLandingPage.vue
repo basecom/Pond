@@ -22,6 +22,7 @@ useBreadcrumbs([
         path: landingResponse.value.url,
     },
 ]);
+useAnalytics({ trackPageView: true, pageType: 'cms' });
 </script>
 
 <template>

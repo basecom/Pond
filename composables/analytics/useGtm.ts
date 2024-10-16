@@ -16,6 +16,7 @@ export function useGtm(): UseAnalyticsReturn {
         getEventForProduct,
         getEventForProductWithPrice,
     } = useEcommerceTrackingHelper();
+    const { getPageTrackingEvent } = usePageTrackingHelper();
 
     const _trackEvent = (args: unknown) => {
         if (import.meta.client) {
@@ -191,6 +192,21 @@ export function useGtm(): UseAnalyticsReturn {
         });
     };
 
+    const trackPage = (pageType: string) => {
+        const trackingEvent = getPageTrackingEvent(pageType);
+
+        _trackEvent({
+            event: 'page_meta',
+            page: trackingEvent,
+        });
+    };
+
+    const setUserId = (userId: string) => {
+        _trackEvent({
+            user_id: userId,
+        })
+    }
+
     return {
         updateConsent,
         trackAddToCart,
@@ -203,5 +219,7 @@ export function useGtm(): UseAnalyticsReturn {
         trackViewItemList,
         trackSelectItem,
         trackViewItem,
+        trackPage,
+        setUserId,
     };
 }

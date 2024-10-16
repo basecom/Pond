@@ -18,6 +18,7 @@ export default defineNuxtConfig({
         '@nuxt/fonts',
         '@formkit/nuxt',
         '@nuxtjs/i18n',
+        '@nuxtjs/device',
     ],
 
     experimental: {

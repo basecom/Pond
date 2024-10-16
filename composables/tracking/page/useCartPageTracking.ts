@@ -5,6 +5,7 @@ export function useCartPageTracking(analytics: UseAnalyticsReturn) {
     const navigationStore = useNavigationStore();
     const { mainNavigationElements } = storeToRefs(navigationStore);
     const { cartItemsCount } = storeToRefs(cartItemsCountStore);
+    const { loading } = storeToRefs(useCustomerStore());
 
     watchEffect(() => {
         if (!cartItemsCount.value || !mainNavigationElements.value.length) {
@@ -12,5 +13,12 @@ export function useCartPageTracking(analytics: UseAnalyticsReturn) {
         }
 
         setTimeout(() => analytics.trackViewCart());
+    });
+
+    watchEffect(() => {
+        if (loading.value) {
+            return;
+        }
+        analytics.trackPage('cart');
     });
 }

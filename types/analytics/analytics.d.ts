@@ -2,7 +2,23 @@ import type { Schemas } from '@shopware/api-client/api-types';
 
 export type UseAnalyticsConfig = {
     trackPageView: boolean;
-    pageType: 'cart' | 'checkout' | 'cms' | 'pdp';
+    pageType:
+        | 'cart'
+        | 'checkout'
+        | 'cms'
+        | 'pdp'
+        | 'plp'
+        | 'search'
+        | 'wishlist'
+        | 'finish'
+        | 'editOrder'
+        | 'accountAddress'
+        | 'account'
+        | 'login'
+        | 'register'
+        | 'accountOrders'
+        | 'accountPayment'
+        | 'accountProfile';
 };
 
 export type UseAnalyticsReturn = {
@@ -17,6 +33,8 @@ export type UseAnalyticsReturn = {
     trackViewItemList: (products: Schemas['Product'][], page?: number) => void;
     trackSelectItem: (product: Schemas['Product']) => void;
     trackViewItem: (product: Schemas['Product']) => void;
+    trackPage: (pageType: string) => void;
+    setUserId: (userId: string) => void;
 };
 
 export type PondAnalyticsType = 'gtm' | 'gtag';

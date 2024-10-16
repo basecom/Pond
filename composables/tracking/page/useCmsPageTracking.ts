@@ -1,23 +1,22 @@
+import type { Schemas } from '@shopware/api-client/api-types';
 import type { UseAnalyticsReturn } from '../../../types/analytics/analytics';
 
 export function useCmsPageTracking(analytics: UseAnalyticsReturn) {
-    const { category } = useCategory();
-    const { getElements } = useCategoryListing();
-    const _initialTrackingDone = ref(false);
+    const _category = useContext<Schemas['Category']>('category');
+    const { loading } = storeToRefs(useCustomerStore());
 
-    const unwatch = watch([category, getElements], () => {
-        if (_initialTrackingDone.value) {
-            unwatch();
+    watchEffect(() => {
+        if (loading.value) {
             return;
         }
+        const pageTypeMapping: Record<string, string> = {
+            product_list: 'category',
+            landingpage: 'home',
+        };
+        const pageType = _category?.value?.cmsPage?.type
+            ? pageTypeMapping[_category.value.cmsPage.type] ?? 'unknown'
+            : 'unknown';
 
-        if (!category.value || !getElements.value.length) {
-            return;
-        }
-
-        _initialTrackingDone.value = true;
-        if (category.value.cmsPage.type === 'product_list') {
-            analytics.trackViewItemList(getElements.value);
-        }
-    }, { immediate: true });
+        analytics.trackPage(pageType);
+    });
 }

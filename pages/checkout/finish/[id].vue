@@ -17,6 +17,7 @@ const formattedOrderDate = computed(() => {
 });
 
 useBreadcrumbs(checkoutBreadcrumbs({ index: 2, orderId: orderId }));
+useAnalytics({ trackPageView: true, pageType: 'finish' });
 
 onMounted(async () => {
     await loadOrderDetails();

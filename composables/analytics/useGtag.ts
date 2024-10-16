@@ -16,6 +16,7 @@ export function useGtags(): UseAnalyticsReturn {
         getEventForProduct,
         getEventForProductWithPrice,
     } = useEcommerceTrackingHelper();
+    const { getPageTrackingEvent } = usePageTrackingHelper();
 
     function _trackEvent(...args: unknown[]) {
         if (import.meta.client) {
@@ -129,13 +130,23 @@ export function useGtags(): UseAnalyticsReturn {
         const trackingEvent = getEventForProduct(product);
 
         _trackEvent('event', 'select_item', trackingEvent);
-    }
+    };
 
     const trackViewItem = (product: Schemas['Product']) => {
         const trackingEvent = getEventForProductWithPrice(product);
 
         _trackEvent('event', 'view_item', trackingEvent);
-    }
+    };
+
+    const trackPage = (pageType: string) => {
+        const trackingEvent = getPageTrackingEvent(pageType);
+
+        _trackEvent('event', 'page_meta', trackingEvent);
+    };
+
+    const setUserId = (userId: string) => {
+        _trackEvent('config', id.value, { user_id: userId });
+    };
 
     return {
         updateConsent,
@@ -149,5 +160,7 @@ export function useGtags(): UseAnalyticsReturn {
         trackViewItemList,
         trackViewItem,
         trackSelectItem,
+        trackPage,
+        setUserId,
     };
 }
