@@ -80,6 +80,7 @@ useBreadcrumbs([
         path: '/search?search=' + route.query.search,
     },
 ]);
+useAnalytics({ trackPageView: true, pageType: 'search' });
 </script>
 
 <template>

@@ -5,6 +5,7 @@ export function useCheckoutPageTracking(analytics: UseAnalyticsReturn) {
     const navigationStore = useNavigationStore();
     const { mainNavigationElements } = storeToRefs(navigationStore);
     const _checkoutTracked = ref(false);
+    const { loading } = storeToRefs(useCustomerStore());
 
     const unwatch = watch([cart, mainNavigationElements], () => {
         if (_checkoutTracked.value) {
@@ -19,4 +20,11 @@ export function useCheckoutPageTracking(analytics: UseAnalyticsReturn) {
         _checkoutTracked.value = true;
         analytics.trackBeginCheckout();
     }, { immediate: true });
+
+    watchEffect(() => {
+        if (loading.value) {
+            return;
+        }
+        analytics.trackPage('checkout');
+    });
 }

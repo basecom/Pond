@@ -33,6 +33,8 @@ const updateOrder = async () => {
     }
 };
 
+useAnalytics({ trackPageView: true, pageType: 'editOrder' });
+
 onMounted(async () => {
     await loadOrderDetails();
 });

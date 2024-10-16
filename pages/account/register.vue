@@ -2,7 +2,9 @@
 await useAuthentication().rerouteIfLoggedIn();
 
 const { accountBreadcrumbs } = useStaticBreadcrumbs();
+
 useBreadcrumbs(accountBreadcrumbs({ type: 'register' }));
+useAnalytics({ trackPageView: true, pageType: 'register' });
 </script>
 
 <template>

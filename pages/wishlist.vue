@@ -9,6 +9,7 @@ useBreadcrumbs([
         path: '/wishlist',
     },
 ]);
+useAnalytics({ trackPageView: true, pageType: 'wishlist' });
 
 const products = ref<Schemas['Product'][]>([]);
 
