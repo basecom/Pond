@@ -7,7 +7,15 @@
                 "descriptionHeading": "Artikelbeschreibung",
                 "noProductsFound": "Keine Produkte gefunden"
             },
-            "imageAlt": "Bild in einem Bild-Slider"
+            "imageAlt": "Bild in einem Bild-Slider",
+            "form": {
+                "subscribeNewsletter": "Newsletter abonnieren",
+                "unsubscribeNewsletter": "Newsletter deabonnieren",
+                "privacy": {
+                    "label": "Datenschutz",
+                    "help": "Ich bin damit einverstanden, dass meine Daten zum Erhalt des Newsletters verwendet werden. Ich habe die Datenschutzinformationen gelesen und akzeptiere die allgemeinen Geschäftsbedingungen."
+                }
+            }
         }
     }
 }
