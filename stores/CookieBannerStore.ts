@@ -16,7 +16,7 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
     const cookieGroups = computed(() =>
         filterCookieGroups(_cookieGroups.value, {
             isGoogleAnalyticsEnabled: isEnabled.value,
-            isWishlistEnabled: _isWishlistEnabled,
+            isWishlistEnabled: _isWishlistEnabled ?? false,
             isCaptchaV2Enabled: _isCaptchaV2Enabled.value,
             isCaptchaV3Enabled: _isCaptchaV3Enabled.value,
         }),
@@ -28,7 +28,7 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
     const initializeCookies = () => {
         _activatedCookies.value = filterCookieGroups(_cookieGroups.value, {
             isGoogleAnalyticsEnabled: isEnabled.value,
-            isWishlistEnabled: _isWishlistEnabled,
+            isWishlistEnabled: _isWishlistEnabled ?? false,
             isCaptchaV2Enabled: _isCaptchaV2Enabled.value,
             isCaptchaV3Enabled: _isCaptchaV3Enabled.value,
         })
@@ -67,7 +67,7 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
         }
         const allCookies = filterCookieGroups(_cookieGroups.value, {
             isGoogleAnalyticsEnabled: isEnabled.value,
-            isWishlistEnabled: _isWishlistEnabled,
+            isWishlistEnabled: _isWishlistEnabled ?? false,
             isCaptchaV2Enabled: _isCaptchaV2Enabled.value,
             isCaptchaV3Enabled: _isCaptchaV3Enabled.value,
         })
@@ -81,7 +81,7 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
     const denyAll = () => {
         const allCookies = filterCookieGroups(_cookieGroups.value, {
             isGoogleAnalyticsEnabled: isEnabled.value,
-            isWishlistEnabled: _isWishlistEnabled,
+            isWishlistEnabled: _isWishlistEnabled ?? false,
             isCaptchaV2Enabled: _isCaptchaV2Enabled.value,
             isCaptchaV3Enabled: _isCaptchaV3Enabled.value,
         })
