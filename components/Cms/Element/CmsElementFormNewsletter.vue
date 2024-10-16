@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Schemas } from "@shopware/api-client/api-types";
+import type { Schemas } from '@shopware/api-client/api-types';
 
 const props = defineProps<{
     element: CmsElementForm;
@@ -52,7 +52,11 @@ async function handleNewsletterSubmit(formValues) {
                 lastName: formValues.lastName,
             });
 
-            pushSuccess(isSubscriber.value ? t('cms.element.form.newsletter.successSubscribe') : t('cms.element.form.newsletter.successConfirmSubscribe'));
+            pushSuccess(
+                isSubscriber.value
+                    ? t('cms.element.form.newsletter.successSubscribe')
+                    : t('cms.element.form.newsletter.successConfirmSubscribe'),
+            );
         } catch (error) {
             pushError(t('cms.element.form.newsletter.errorSubscribe'));
         }
@@ -67,36 +71,38 @@ async function handleNewsletterSubmit(formValues) {
     }
 }
 
-const newsletterAction = ref(isSubscriber.value ? t('cms.element.form.newsletter.unsubscribe') : t('cms.element.form.newsletter.subscribe'));
+const newsletterAction = ref(
+    isSubscriber.value ? t('cms.element.form.newsletter.unsubscribe') : t('cms.element.form.newsletter.subscribe'),
+);
 
-const newsletterOptions = [
-    t('cms.element.form.newsletter.subscribe'),
-    t('cms.element.form.newsletter.unsubscribe')
-];
+const newsletterOptions = [t('cms.element.form.newsletter.subscribe'), t('cms.element.form.newsletter.unsubscribe')];
 </script>
 
 <template>
-    <h3 class="pb-2 font-bold border-b border-gray">
+    <h3 class="border-b border-gray pb-2 font-bold">
         {{ title }}
     </h3>
 
-    <div v-if="isSubscriber" class="py-2">
+    <div
+        v-if="isSubscriber"
+        class="py-2"
+    >
         {{ $t('cms.element.form.newsletter.alreadySubscriber') }}
-        <br>
+        <br />
         {{ $t('cms.element.form.newsletter.unsubscribeInfo') }}
     </div>
 
     <FormKit
         type="form"
         :actions="false"
-        @submit="handleNewsletterSubmit"
         :classes="{
             form: 'grid-cols-3 grid gap-4 mt-4',
         }"
+        @submit="handleNewsletterSubmit"
     >
         <FormKit
-            v-model="newsletterAction"
             v-if="!isSubscriber"
+            v-model="newsletterAction"
             type="radio"
             :options="newsletterOptions"
             validation="required"

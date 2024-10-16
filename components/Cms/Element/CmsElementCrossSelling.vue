@@ -18,15 +18,18 @@ const crossSellings = computed(() => elementData.getData('crossSellings') ?? [])
 
 <template>
     <ClientOnly>
-        <template v-for="crossSelling in crossSellings">
-            <h3 class="font-bold mt-8">
+        <template
+            v-for="crossSelling in crossSellings"
+            :key="crossSelling.crossSelling.id"
+        >
+            <h3 class="mt-8 font-bold">
                 {{ crossSelling.crossSelling.translated.name }}
             </h3>
 
             <LayoutSlider
                 :class="{
-                'cursor-grab': crossSelling.products.length > 1,
-            }"
+                    'cursor-grab': crossSelling.products.length > 1,
+                }"
                 class="w-full"
                 :navigation-dots="false"
                 :slides-per-view="slidesPerView"

@@ -55,8 +55,11 @@ onMounted(async () => {
     >
         <template #title>
             <div class="mt-4 p-4">
-                <div class="mt-4 flex flex-wrap text-left gap-4">
-                    <div class="w-full text-4xl font-bold" v-if="order">
+                <div class="mt-4 flex flex-wrap gap-4 text-left">
+                    <div
+                        v-if="order"
+                        class="w-full text-4xl font-bold"
+                    >
                         {{ $t('checkout.finish.orderNumberLabel') }} {{ order.orderNumber }}
                     </div>
 

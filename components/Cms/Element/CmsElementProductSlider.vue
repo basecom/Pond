@@ -22,8 +22,14 @@ const slides = computed(() => elementData.getData('products') ?? []);
 
 <template>
     <ClientOnly>
-        <div v-if="slides?.length" :class="border ? 'border border-gray px-4 py-2' : null">
-            <h3 v-if="title" class="font-bold">
+        <div
+            v-if="slides?.length"
+            :class="border ? 'border border-gray px-4 py-2' : null"
+        >
+            <h3
+                v-if="title"
+                class="font-bold"
+            >
                 {{ title }}
             </h3>
 
