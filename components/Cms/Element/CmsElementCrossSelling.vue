@@ -10,8 +10,19 @@ const boxLayout = config.getConfigValue('boxLayout');
 const displayMode = config.getConfigValue('displayMode');
 const minWidth = config.getConfigValue('elMinWidth');
 
-const slidesPerView = 4;
+const slidesPerView = 1;
 const spaceBetween = 24;
+const breakpoints = {
+    540: {
+        slidesPerView: 2,
+    },
+    768: {
+        slidesPerView: 3,
+    },
+    1024: {
+        slidesPerView: 4,
+    }
+};
 
 const crossSellings = computed(() => elementData.getData('crossSellings') ?? []);
 </script>
@@ -34,6 +45,7 @@ const crossSellings = computed(() => elementData.getData('crossSellings') ?? [])
                 :navigation-dots="false"
                 :slides-per-view="slidesPerView"
                 :space-between="spaceBetween"
+                :breakpoints="breakpoints"
             >
                 <LayoutSliderSlide
                     v-for="slide in crossSelling.products"

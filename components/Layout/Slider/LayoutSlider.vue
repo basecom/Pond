@@ -14,6 +14,7 @@ withDefaults(
         spaceBetween?: number;
         slidesPerView?: number;
         thumbsSwiper?: string;
+        breakpoints?: object;
     }>(),
     {
         autoSlide: false,
@@ -29,6 +30,7 @@ withDefaults(
         spaceBetween: 0,
         slidesPerView: 1,
         thumbsSwiper: null,
+        breakpoints: {},
     },
 );
 
@@ -53,6 +55,7 @@ useSwiper(sliderRef, {});
             :space-between="spaceBetween"
             :slides-per-view="slidesPerView"
             :thumbs-swiper="thumbsSwiper"
+            :breakpoints="breakpoints"
         >
             <slot></slot>
         </swiper-container>

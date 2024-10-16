@@ -14,8 +14,19 @@ const navigation = config.getConfigValue('navigation');
 const title = config.getConfigValue('title');
 const autoSlide = config.getConfigValue('rotate');
 
-const slidesPerView = 4;
+const slidesPerView = 1;
 const spaceBetween = 24;
+const breakpoints = {
+    540: {
+        slidesPerView: 2,
+    },
+    768: {
+        slidesPerView: 3,
+    },
+    1024: {
+        slidesPerView: 4,
+    }
+};
 
 const slides = computed(() => elementData.getData('products') ?? []);
 </script>
@@ -43,6 +54,7 @@ const slides = computed(() => elementData.getData('products') ?? []);
                 :navigation-dots="false"
                 :slides-per-view="slidesPerView"
                 :space-between="spaceBetween"
+                :breakpoints="breakpoints"
             >
                 <LayoutSliderSlide
                     v-for="slide in slides"
