@@ -191,6 +191,26 @@ export function useGtm(): UseAnalyticsReturn {
         });
     };
 
+    const trackAddToWishlist = (product: Schemas['Product']) => {
+        const trackingEvent = getEventForProductWithPrice(product);
+
+        _trackEvent({ ecommerce: null });
+        _trackEvent({
+            event: 'add_to_wishlist',
+            ecommerce: trackingEvent,
+        });
+    };
+
+    const trackRemoveFromWishlist = (product: Schemas['Product']) => {
+        const trackingEvent = getEventForProductWithPrice(product);
+
+        _trackEvent({ ecommerce: null });
+        _trackEvent({
+            event: 'remove_from_wishlist',
+            ecommerce: trackingEvent,
+        });
+    }
+
     return {
         updateConsent,
         trackAddToCart,
@@ -203,5 +223,7 @@ export function useGtm(): UseAnalyticsReturn {
         trackViewItemList,
         trackSelectItem,
         trackViewItem,
+        trackAddToWishlist,
+        trackRemoveFromWishlist,
     };
 }
