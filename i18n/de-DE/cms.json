@@ -9,11 +9,20 @@
             },
             "imageAlt": "Bild in einem Bild-Slider",
             "form": {
-                "subscribeNewsletter": "Newsletter abonnieren",
-                "unsubscribeNewsletter": "Newsletter deabonnieren",
-                "privacy": {
-                    "label": "Datenschutz",
-                    "help": "Ich bin damit einverstanden, dass meine Daten zum Erhalt des Newsletters verwendet werden. Ich habe die Datenschutzinformationen gelesen und akzeptiere die allgemeinen Geschäftsbedingungen."
+                "newsletter": {
+                    "subscribe": "Newsletter abonnieren",
+                    "unsubscribe": "Newsletter deabonnieren",
+                    "successSubscribe": "Der Newsletter wurde erfolgreich abonniert",
+                    "successConfirmSubscribe": "An Ihre E-Mail-Adresse wurde eine Bestätigungsmail gesendet.",
+                    "errorSubscribe": "Beim Abonnieren des Newsletters ist ein Fehler aufgetreten",
+                    "successUnsubscribe": "Der Newsletter wurde erfolgreich deabonniert",
+                    "errorUnsubscribe": "Beim Abmelden des Newsletters ist ein Fehler aufgetreten",
+                    "alreadySubscriber": "Sie sind mit ihrem Konto bereits beim Newsletter angemeldet. Vielen Dank!",
+                    "unsubscribeInfo": "Wenn Sie den Newsletter nicht länger erhalten wollen, können Sie ihn an dieser Stelle abmelden.",
+                    "privacy": {
+                        "label": "Datenschutz",
+                        "help": "Ich bin damit einverstanden, dass meine Daten zum Erhalt des Newsletters verwendet werden. Ich habe die Datenschutzinformationen gelesen und akzeptiere die allgemeinen Geschäftsbedingungen."
+                    }
                 }
             }
         }
