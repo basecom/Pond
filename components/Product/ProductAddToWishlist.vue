@@ -3,7 +3,7 @@ import type { Schemas } from '@shopware/api-client/api-types';
 
 const props = withDefaults(
     defineProps<{
-        productId: Schemas['Product']['id'];
+        product: Schemas['Product'];
         layout?: 'standard' | 'minimal';
     }>(),
     {
@@ -11,7 +11,8 @@ const props = withDefaults(
     },
 );
 
-const { isInWishlist, addToWishlist, removeFromWishlist } = useProductWishlist(props.productId);
+const { isInWishlist, addToWishlist, removeFromWishlist } = useProductWishlist(props.product.id);
+const { trackAddToWishlist, trackRemoveFromWishlist } = useAnalytics();
 const { pushSuccess, pushError } = useNotifications();
 const { t } = useI18n();
 
@@ -19,6 +20,7 @@ const handleWishlistButtonClicked = async () => {
     if (isInWishlist.value) {
         try {
             await removeFromWishlist();
+            trackRemoveFromWishlist(props.product);
             pushSuccess(t('wishlist.removedSuccessfully'));
         } catch (error) {
             pushError(t('wishlist.errorRemovingProduct'));
@@ -26,6 +28,7 @@ const handleWishlistButtonClicked = async () => {
     } else {
         try {
             await addToWishlist();
+            trackAddToWishlist(props.product);
             pushSuccess(t('wishlist.addedSuccessfully'));
         } catch (error) {
             pushError(t('wishlist.errorAddingProduct'));

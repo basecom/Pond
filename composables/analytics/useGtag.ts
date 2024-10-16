@@ -137,6 +137,18 @@ export function useGtags(): UseAnalyticsReturn {
         _trackEvent('event', 'view_item', trackingEvent);
     }
 
+    const trackAddToWishlist = (product: Schemas['Product']) => {
+        const trackingEvent = getEventForProductWithPrice(product);
+
+        _trackEvent('event', 'add_to_wishlist', trackingEvent);
+    };
+
+    const trackRemoveFromWishlist = (product: Schemas['Product']) => {
+        const trackingEvent = getEventForProductWithPrice(product);
+
+        _trackEvent('event', 'remove_from_wishlist', trackingEvent);
+    }
+
     return {
         updateConsent,
         trackAddToCart,
@@ -149,5 +161,7 @@ export function useGtags(): UseAnalyticsReturn {
         trackViewItemList,
         trackViewItem,
         trackSelectItem,
+        trackAddToWishlist,
+        trackRemoveFromWishlist,
     };
 }

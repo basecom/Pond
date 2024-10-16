@@ -31,7 +31,7 @@ const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
                 v-if="wishlistEnabled"
                 class="rounded-md border border-gray-medium bg-white"
             >
-                <ProductAddToWishlist :product-id="product.id" />
+                <ProductAddToWishlist :product="product" />
             </div>
         </div>
     </div>
