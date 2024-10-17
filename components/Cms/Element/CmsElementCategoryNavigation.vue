@@ -6,17 +6,16 @@ defineProps<{
     element: CmsElementCategoryNavigation;
 }>();
 
-const { navigationElements, loadNavigationElements } = useNavigation();
-
-await loadNavigationElements({ depth: 2 });
+const { mainNavigationElements, loadMainNavigation } = useNavigationStore();
+await loadMainNavigation(2);
 
 const { isActive } = useActivePath();
 </script>
 
 <template>
-    <ul v-if="navigationElements?.length">
+    <ul v-if="mainNavigationElements?.length">
         <li
-            v-for="item in navigationElements"
+            v-for="item in mainNavigationElements"
             :key="item.id"
             class="mt-4 border-b border-gray pb-4 pl-2"
         >
