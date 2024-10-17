@@ -14,16 +14,33 @@ const navigation = config.getConfigValue('navigation');
 const title = config.getConfigValue('title');
 const autoSlide = config.getConfigValue('rotate');
 
-const slidesPerView = 4;
+const slidesPerView = 1;
 const spaceBetween = 24;
+const breakpoints = {
+    540: {
+        slidesPerView: 2,
+    },
+    768: {
+        slidesPerView: 3,
+    },
+    1024: {
+        slidesPerView: 4,
+    }
+};
 
 const slides = computed(() => elementData.getData('products') ?? []);
 </script>
 
 <template>
     <ClientOnly>
-        <div v-if="slides?.length" :class="border ? 'border border-gray px-4 py-2' : null">
-            <h3 v-if="title" class="font-bold">
+        <div
+            v-if="slides?.length"
+            :class="border ? 'border border-gray px-4 py-2' : null"
+        >
+            <h3
+                v-if="title"
+                class="font-bold"
+            >
                 {{ title }}
             </h3>
 
@@ -37,6 +54,7 @@ const slides = computed(() => elementData.getData('products') ?? []);
                 :navigation-dots="false"
                 :slides-per-view="slidesPerView"
                 :space-between="spaceBetween"
+                :breakpoints="breakpoints"
             >
                 <LayoutSliderSlide
                     v-for="slide in slides"
