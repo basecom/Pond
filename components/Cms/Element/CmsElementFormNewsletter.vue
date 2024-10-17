@@ -41,7 +41,7 @@ if (customer.value) {
 // current implementation seems to ignore this and directly subscribes if the customer is logged in with the same mail address
 const subscribeBehavior = 'subscribe';
 
-async function handleNewsletterSubmit(formValues) {
+const handleNewsletterSubmit = async (formValues) => {
     if (newsletterAction.value === t('cms.element.form.newsletter.subscribe')) {
         try {
             await newsletterSubscribe({
