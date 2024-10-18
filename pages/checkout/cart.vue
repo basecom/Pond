@@ -1,7 +1,10 @@
 <script setup lang="ts">
-const { isEmpty, cartItems } = useCart();
+const { isEmpty } = useCart();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
+const cartItemsStore = useCartItemsStore();
+const { cartItemsWithProduct } = storeToRefs(cartItemsStore);
 
+useAnalytics({ trackPageView: true, pageType: 'cart' });
 useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
 </script>
 
@@ -16,11 +19,14 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
             <div class="w-full lg:w-2/3">
                 <ul class="divide-y divide-gray-medium border-t border-gray-medium">
                     <li
-                        v-for="cartItem in cartItems"
-                        :key="cartItem.id"
+                        v-for="item in cartItemsWithProduct"
+                        :key="item.cartItem.id"
                         class="flex py-6"
                     >
-                        <CheckoutLineItem :line-item="cartItem" />
+                        <CheckoutLineItem
+                            :line-item="item.cartItem"
+                            :product="item.product"
+                        />
                     </li>
                 </ul>
             </div>

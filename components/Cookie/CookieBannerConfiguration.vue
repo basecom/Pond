@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { cookieGroups, activeCookies } = defineProps<{
+    isAcceptAllEnabled: boolean;
     cookieGroups: CookieGroup[];
     activeCookies: CookieEntry['cookie'][];
 }>();
@@ -132,6 +133,7 @@ onMounted(() => {
                 :label="$t('cookie.modal.submitLabel')"
             />
             <FormKit
+                v-if="isAcceptAllEnabled"
                 type="button"
                 :label="$t('cookie.modal.allowAllButton')"
                 @click="() => emit('accept-all')"

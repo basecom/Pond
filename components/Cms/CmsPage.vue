@@ -11,6 +11,7 @@ const { getCmsSectionComponentName, componentExists, getSectionClasses } = useCm
 
 if (routeName.value === 'frontend.navigation.page') {
     createCategoryListingContext();
+    useAnalytics({ trackPageView: true, pageType: 'cms' });
 }
 </script>
 

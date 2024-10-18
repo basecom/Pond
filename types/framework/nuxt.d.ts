@@ -1,3 +1,5 @@
+import type { PondAnalyticsType } from '../analytics/analytics';
+
 export interface PondHooks {
     'pond:determine-access-token': (accessKey: AccessToken) => HookResult;
 }
@@ -11,6 +13,12 @@ declare module '@nuxt/schema' {
         pond: {
             accessToken: string;
             shopwareEndpoint: string;
+            analytics: {
+                enabled: boolean;
+                type: PondAnalyticsType;
+                trackingUrl?: string;
+                id?: string;
+            };
         };
     }
 }
