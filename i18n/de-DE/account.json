@@ -122,6 +122,8 @@
                 "label": "Land:",
                 "placeholder": "Wähle dein Land"
             },
+            "alternativeShippingAddress": "Lieferadresse weicht von Rechnungsadresse ab",
+            "shippingAddressHeading": "Lieferadresse",
             "accountDataHeading": "Deine Accountdaten:",
             "email": {
                 "label": "Email",

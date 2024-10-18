@@ -11,9 +11,20 @@ const isLoading = ref(false);
 
 const handleRegisterSubmit = async (fields: FormkitFields) => {
     isLoading.value = true;
+
+    const userData = {
+        ...fields,
+        shippingAddress: {
+            ...fields.alternativeShippingAddress,
+            ...fields.alternativeShippingAddress.shippingAddress,
+        },
+    };
+
+    console.log(userData)
+
     try {
         await customerStore.register({
-            ...fields,
+            ...userData,
         });
         isLoading.value = false;
         navigateTo('/account');
@@ -60,6 +71,39 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
         </div>
 
         <AddressFormFields />
+
+        <FormKit
+            #default="{ value }"
+            type="group"
+            name="alternativeShippingAddress"
+            :classes="{
+                outer: {
+                    'col-span-2': true,
+                },
+            }"
+        >
+            <FormKit
+                type="checkbox"
+                :label="$t('account.register.alternativeShippingAddress')"
+                name="showAlternativeShippingAddress"
+                :value="false"
+                :classes="{
+                    outer: {
+                        'col-span-2': true,
+                    },
+                }"
+            />
+
+            <div class="col-span-2 border-b border-gray-light" />
+
+            <template v-if="value.showAlternativeShippingAddress === true">
+                <div class="col-span-2">
+                    <span>{{ $t('account.register.shippingAddressHeading') }}</span>
+                </div>
+                <AddressFormFields address-type="shippingAddress" />
+                <div class="col-span-2 border-b border-gray-light" />
+            </template>
+        </FormKit>
 
         <div class="col-span-2">
             <span>{{ $t('account.register.accountDataHeading') }}</span>

@@ -122,6 +122,8 @@
                 "label": "Country",
                 "placeholder": "Select your country"
             },
+            "alternativeShippingAddress": "Shipping address does not match billing address",
+            "shippingAddressHeading": "Shipping address",
             "accountDataHeading": "Your account data:",
             "email": {
                 "label": "Email",
