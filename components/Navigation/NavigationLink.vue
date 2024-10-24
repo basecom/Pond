@@ -27,6 +27,7 @@ if (isInternalLink) {
 }
 
 const { isActive } = useActivePath();
+const { trackNavigation } = useAnalytics();
 </script>
 
 <template>
@@ -38,6 +39,7 @@ const { isActive } = useActivePath();
         :to="isExternalLink ? externalLink : isInternalLink ? path : getCategoryRoute(navigationElement)"
         class="transition-all hover:text-brand-primary"
         :class="[classes, isActive(navigationElement.seoUrls, activeWithExactMatch) ? activeClasses : '']"
+        @click="trackNavigation(navigationElement.level ?? 0, getTranslatedProperty(navigationElement, 'name'))"
     >
         {{ getTranslatedProperty(navigationElement, 'name') }}
     </NuxtLink>

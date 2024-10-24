@@ -204,6 +204,13 @@ export function useGtags(): UseAnalyticsReturn {
         _trackEvent('event', 'registration');
     };
 
+    const trackNavigation = (level: number, name: string) => {
+        _trackEvent('event', 'navigation_header', {
+            navigation_level: level,
+            navigation_name: name,
+        });
+    };
+
     return {
         isPageTrackingReady,
         updateConsent,
@@ -225,5 +232,6 @@ export function useGtags(): UseAnalyticsReturn {
         trackRemoveFromWishlist,
         trackLogin,
         trackRegister,
+        trackNavigation,
     };
 }

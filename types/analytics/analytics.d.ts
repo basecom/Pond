@@ -42,6 +42,7 @@ export type UseAnalyticsReturn = {
     trackRemoveFromWishlist: (product: Schemas['Product']) => void;
     trackLogin: () => void;
     trackRegister: () => void;
+    trackNavigation: (level: number, name: string) => void;
 };
 
 export type PondAnalyticsType = 'gtm' | 'gtag';

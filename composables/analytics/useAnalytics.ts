@@ -52,5 +52,6 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
         trackRemoveFromWishlist: analytics.trackRemoveFromWishlist,
         trackLogin: analytics.trackLogin,
         trackRegister: analytics.trackRegister,
+        trackNavigation: analytics.trackNavigation,
     };
 }
