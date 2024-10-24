@@ -31,5 +31,6 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
         trackViewItemList: analytics.trackViewItemList,
         trackSelectItem: analytics.trackSelectItem,
         trackViewItem: analytics.trackViewItem,
+        trackNavigation: analytics.trackNavigation,
     };
 }

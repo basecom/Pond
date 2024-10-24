@@ -191,6 +191,14 @@ export function useGtm(): UseAnalyticsReturn {
         });
     };
 
+    const trackNavigation = (level: number, name: string) => {
+        _trackEvent({
+            event: 'navigation_header',
+            navigation_level: level,
+            navigation_name: name,
+        });
+    }
+
     return {
         updateConsent,
         trackAddToCart,
@@ -203,5 +211,6 @@ export function useGtm(): UseAnalyticsReturn {
         trackViewItemList,
         trackSelectItem,
         trackViewItem,
+        trackNavigation,
     };
 }

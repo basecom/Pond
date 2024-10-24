@@ -137,6 +137,13 @@ export function useGtags(): UseAnalyticsReturn {
         _trackEvent('event', 'view_item', trackingEvent);
     }
 
+    const trackNavigation = (level: number, name: string) => {
+        _trackEvent('event', 'navigation_header', {
+            navigation_level: level,
+            navigation_name: name,
+        });
+    };
+
     return {
         updateConsent,
         trackAddToCart,
@@ -149,5 +156,6 @@ export function useGtags(): UseAnalyticsReturn {
         trackViewItemList,
         trackViewItem,
         trackSelectItem,
+        trackNavigation,
     };
 }
