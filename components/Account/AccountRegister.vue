@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { FormkitFields } from '~/types/formkit';
 import { ApiClientError } from '@shopware/api-client';
-import { useFormErrorStore } from '~/stores/FormErrorStore';
 
 const customerStore = useCustomerStore();
 const { errorOfField, togglePasswordVisibility } = useFormkitHelper();
@@ -67,10 +66,6 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
                 {{ error.code }}
             </li>
         </ul>
-
-        <div class="col-span-2">
-            <span>{{ $t('account.register.addressHeading') }}</span>
-        </div>
 
         <AddressFormFields />
 

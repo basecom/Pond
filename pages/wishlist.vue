@@ -18,6 +18,8 @@ const router = useRouter();
 const route = useRoute();
 const defaultLimit = 15;
 const defaultPage = 1;
+// variable is actually used for LayoutPagination, eslint incorrectly marks this
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const page = ref(route.query.page ? Number(route.query.page) : defaultPage);
 const limit = ref(route.query.limit ? Number(route.query.limit) : defaultLimit);
 
@@ -79,6 +81,7 @@ watch(
 
         // If no items are in the wishlist we don't need to fetch the products
         if (!items.length) {
+            isLoading.value = false;
             return;
         }
 

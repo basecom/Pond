@@ -7,7 +7,24 @@
                 "descriptionHeading": "Description",
                 "noProductsFound": "No products found"
             },
-            "imageAlt": "Image in an image slider"
+            "imageAlt": "Image in an image slider",
+            "form": {
+                "newsletter": {
+                    "subscribe": "Subscribe to newsletter",
+                    "unsubscribe": "Unsubscribe from newsletter",
+                    "successSubscribe": "Your newsletter subscription was successful",
+                    "successConfirmSubscribe": "A confirmation email has been sent to your email address",
+                    "errorSubscribe": "An error occurred while subscribing to the newsletter",
+                    "successUnsubscribe": "You successfully unsubscribed from the newsletter",
+                    "errorUnsubscribe": "An error occurred while unsubscribing from the newsletter",
+                    "alreadySubscriber": "You are already subscribed to the newsletter. Thank you!",
+                    "unsubscribeInfo": "If you wish to unsubscribe from the newsletter, you can do so using this form.",
+                    "privacy": {
+                        "label": "Privacy",
+                        "help": "I consent to my data being used to receive the newsletter. I have read the data protection information and accept the general terms and conditions."
+                    }
+                }
+            }
         }
     }
 }

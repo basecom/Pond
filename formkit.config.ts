@@ -3,7 +3,7 @@ import { de } from '@formkit/i18n';
 import { createAutoAnimatePlugin, createFloatingLabelsPlugin } from '@formkit/addons';
 import '@formkit/addons/css/floatingLabels';
 
-export const plugins = {
+export const defaultPlugins = {
     autoAnimate: createAutoAnimatePlugin(
         {
             duration: 250,
@@ -80,7 +80,7 @@ export default {
     config: {
         rootClasses,
     },
-    plugins: Object.values(plugins),
+    plugins: Object.values(defaultPlugins),
     props: {
         decoratorIcon: 'check',
     },

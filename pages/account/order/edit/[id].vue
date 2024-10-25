@@ -28,7 +28,7 @@ const updateOrder = async () => {
         } else {
             pushError(t('account.order.edit.errorMessage'));
         }
-    } catch (e) {
+    } catch (error) {
         pushError(t('account.order.edit.errorMessage'));
     }
 };
@@ -98,10 +98,13 @@ onMounted(async () => {
                 </div>
             </FormKit>
         </template>
-        <SharedBanner
+
+        <UtilityStaticNotification
             v-else
+            id="no-order-found"
             type="info"
             :message="$t('account.order.edit.noOrderFound')"
+            class="mt-4"
         />
     </div>
 </template>
