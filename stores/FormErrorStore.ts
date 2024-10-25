@@ -17,7 +17,7 @@ export const useFormErrorStore = defineStore('formErrors', () => {
         }
 
         apiErrors.value.push(fallback);
-    }
+    };
 
     function $reset() {
         apiErrors.value = [];

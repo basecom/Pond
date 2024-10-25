@@ -25,23 +25,21 @@ const modalAddressType = ref('shippingAddress');
 
 const activeShippingAddress = computed(() => customer.value.activeShippingAddress);
 const activeBillingAddress = computed(() => customer.value.activeBillingAddress);
-const billingAddressIsSameAsShippingAddress = activeBillingAddress.value.id === activeShippingAddress.value.id ? ref(true) : ref(false);
+const billingAddressIsSameAsShippingAddress =
+    activeBillingAddress.value.id === activeShippingAddress.value.id ? ref(true) : ref(false);
 
 watch(billingAddressIsSameAsShippingAddress, () => handleSameBillingAddress());
 
 const handleSameBillingAddress = async () => {
-    //billingAddressIsSameAsShippingAddress.value = !billingAddressIsSameAsShippingAddress.value;
-    console.log(billingAddressIsSameAsShippingAddress.value);
-
     if (billingAddressIsSameAsShippingAddress.value) {
-        await syncBillingAddress(billingAddressIsSameAsShippingAddress.value, activeShippingAddress.value.id, activeBillingAddress.value.id);
+        await syncBillingAddress(
+            billingAddressIsSameAsShippingAddress.value,
+            activeShippingAddress.value.id,
+            activeBillingAddress.value.id,
+        );
         await refreshContext();
     }
-
-    console.log(billingAddressIsSameAsShippingAddress.value);
-    console.log(activeShippingAddress.value.id);
-    console.log(activeBillingAddress.value.id);
-}
+};
 
 const syncBillingAddress = async (sameBillingAddress: boolean, shippingId: string, billingId: string) => {
     if (sameBillingAddress && shippingId !== billingId) {
@@ -49,22 +47,23 @@ const syncBillingAddress = async (sameBillingAddress: boolean, shippingId: strin
             await setDefaultCustomerBillingAddress(shippingId);
             pushSuccess(t('account.address.updateBillingSuccess'));
         } catch (error) {
-            pushError(t('global.generalError'));
+            pushError(t('account.address.updateBillingError'));
             handleError(error);
         }
     }
-}
+};
 
-const handleChange = async (payload: {
-    type: 'shippingAddress' | 'billingAddress',
-    id: string,
-}) => {
+const handleChange = async (payload: { type: 'shippingAddress' | 'billingAddress'; id: string }) => {
     isLoading.value = true;
-    console.log(billingAddressIsSameAsShippingAddress.value);
+
     try {
         if (payload.type === 'shippingAddress' && payload.id !== activeShippingAddress.value.id) {
             await setDefaultCustomerShippingAddress(payload.id);
-            await syncBillingAddress(billingAddressIsSameAsShippingAddress.value, payload.id, activeBillingAddress.value.id);
+            await syncBillingAddress(
+                billingAddressIsSameAsShippingAddress.value,
+                payload.id,
+                activeBillingAddress.value.id,
+            );
             pushSuccess(t('account.address.updateShippingSuccess'));
         }
 
@@ -74,8 +73,6 @@ const handleChange = async (payload: {
         }
 
         await refreshContext();
-        console.log(activeShippingAddress.value.id);
-        console.log(activeBillingAddress.value.id);
         isLoading.value = false;
         modalController.close();
     } catch (error) {
@@ -92,7 +89,8 @@ const handleSave = async (payload: {
 }) => {
     isLoading.value = true;
 
-    const addressFields = payload.type === 'shippingAddress' ? payload.formFields.shippingAddress : payload.formFields.billingAddress;
+    const addressFields =
+        payload.type === 'shippingAddress' ? payload.formFields.shippingAddress : payload.formFields.billingAddress;
     const addressData = {
         ...payload.formFields,
         ...addressFields,
@@ -110,7 +108,11 @@ const handleSave = async (payload: {
     try {
         if (payload.type === 'shippingAddress' && savedAddress.id !== activeShippingAddress.value.id) {
             await setDefaultCustomerShippingAddress(savedAddress.id);
-            await syncBillingAddress(billingAddressIsSameAsShippingAddress.value, savedAddress.id, activeBillingAddress.value.id);
+            await syncBillingAddress(
+                billingAddressIsSameAsShippingAddress.value,
+                savedAddress.id,
+                activeBillingAddress.value.id,
+            );
         }
 
         if (payload.type === 'billingAddress' && savedAddress.id !== activeBillingAddress.value.id) {
@@ -128,7 +130,6 @@ const handleSave = async (payload: {
     }
 };
 
-
 const updateAddress = async (addressData: FormkitFields, id: string) => {
     try {
         const savedAddress = await updateCustomerAddress({
@@ -138,9 +139,10 @@ const updateAddress = async (addressData: FormkitFields, id: string) => {
         pushSuccess(t('account.address.editSuccess'));
         return savedAddress;
     } catch (error) {
+        pushSuccess(t('account.address.editError'));
         handleError(error);
     }
-}
+};
 
 const createAddress = async (addressData: FormkitFields) => {
     try {
@@ -148,22 +150,26 @@ const createAddress = async (addressData: FormkitFields) => {
         pushSuccess(t('account.address.createSuccess'));
         return savedAddress;
     } catch (error) {
+        pushSuccess(t('account.address.createError'));
         handleError(error);
     }
-}
+};
 
 const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas['CustomerAddress']) => {
     modalAddress.value = address;
     modalAddressType.value = type;
     modalController.open();
-}
+};
 </script>
 
 <template>
     <CheckoutConfirmCard :title="$t('checkout.confirm.address.shipping')">
         <template v-if="customer">
-            <div class="flex w-full sm:items-end justify-between flex-col sm:flex-row">
-                <AddressData :address="activeShippingAddress" class="mb-4 sm:mb-0"/>
+            <div class="flex w-full flex-col justify-between sm:flex-row sm:items-end">
+                <AddressData
+                    :address="activeShippingAddress"
+                    class="mb-4 sm:mb-0"
+                />
                 <button
                     class="rounded bg-brand-primary px-6 py-1 text-white hover:bg-brand-primary-dark"
                     @click="openModal('shippingAddress', activeShippingAddress)"
@@ -176,7 +182,7 @@ const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas[
 
     <CheckoutConfirmCard :title="$t('checkout.confirm.address.billing')">
         <template v-if="customer">
-            <div class="flex w-full sm:items-end justify-between flex-col sm:flex-row">
+            <div class="flex w-full flex-col justify-between sm:flex-row sm:items-end">
                 <div>
                     <FormKit
                         v-model="billingAddressIsSameAsShippingAddress"

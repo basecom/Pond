@@ -49,7 +49,7 @@ const handleChange = () => {
         type: props.addressType,
         id: selectedAddress.value.id,
     });
-}
+};
 
 const handleSave = (fields: FormkitFields) => {
     emit('submit', {
@@ -78,8 +78,22 @@ const changeMode = (mode: string) => {
 };
 
 const addressText = (address: Schemas['CustomerAddress']) => {
-    return address.firstName + ' ' + address.lastName + ' ' + (address.company ? address.company : '') + ' ' + address.street + ' ' + address.zipcode + ' ' + address.city + ' ' + address.country?.name;
-}
+    return (
+        address.firstName +
+        ' ' +
+        address.lastName +
+        ' ' +
+        (address.company ? address.company : '') +
+        ' ' +
+        address.street +
+        ' ' +
+        address.zipcode +
+        ' ' +
+        address.city +
+        ' ' +
+        address.country?.name
+    );
+};
 </script>
 
 <template>
@@ -129,11 +143,11 @@ const addressText = (address: Schemas['CustomerAddress']) => {
             </button>
         </div>
         <button
-            class="w-full relative rounded bg-brand-primary py-2 text-white hover:bg-brand-primary-dark disabled:bg-gray disabled:cursor-not-allowed"
+            class="relative w-full rounded bg-brand-primary py-2 text-white hover:bg-brand-primary-dark disabled:cursor-not-allowed disabled:bg-gray"
             :disabled="isLoading"
             @click="handleChange"
         >
-            <span :class="{'opacity-0': isLoading}">
+            <span :class="{ 'opacity-0': isLoading }">
                 {{ $t('checkout.confirm.address.modal.selectSubmitLabel') }}
             </span>
             <UtilityLoadingSpinner
