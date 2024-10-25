@@ -1,5 +1,11 @@
 {
     "global": {
-        "homepageLinkLabel": "To the Homepage"
+        "homepageLinkLabel": "To the Homepage",
+        "generalError": "Something went wrong.",
+        "save": "Save",
+        "change": "Change",
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "delete": "Delete"
     }
 }

@@ -12,6 +12,8 @@ const {
     updateCustomerAddress,
     deleteCustomerAddress,
 } = useAddress();
+
+const { refreshContext } = useCustomerStore();
 const { pushSuccess, pushError } = useNotifications();
 const { t } = useI18n();
 const formErrorStore = useFormErrorStore();
@@ -48,12 +50,13 @@ const handleSave = async (fields: FormkitFields) => {
                 ...addressData,
                 id: selectedAddress.value.id,
             });
-            pushSuccess('account.address.editSuccess');
+            pushSuccess(t('account.address.editSuccess'));
         } else {
             await createCustomerAddress(addressData);
-            pushSuccess('account.address.createSuccess');
+            pushSuccess(t('account.address.createSuccess'));
         }
         await loadCustomerAddresses();
+        await refreshContext();
         modalController.close();
         isLoading.value = false;
     } catch (error) {
@@ -113,7 +116,6 @@ const deleteAddress = async addressId => {
         <template #content>
             <FormKit
                 type="form"
-                :submit-label="$t('account.register.submitLabel')"
                 :classes="{
                     form: 'grid grid-cols-2 gap-3 w-full max-w-md',
                 }"
@@ -153,7 +155,7 @@ const deleteAddress = async addressId => {
                             'opacity-0': isLoading,
                         }"
                     >
-                        {{ $t('account.address.saveLabel') }}
+                        {{ $t('global.save') }}
                     </span>
                     <UtilityLoadingSpinner
                         v-if="isLoading"
