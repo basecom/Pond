@@ -45,9 +45,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                         <CheckoutConfirmPersonal />
                         <CheckoutConfirmShipping />
                         <CheckoutConfirmPayment />
-
-                        <!-- TODO: Address Management (BUS-841) -->
-
+                        <CheckoutConfirmAddress />
                         <CheckoutConfirmTerms />
                     </div>
 

@@ -23,6 +23,23 @@
                 "cardTitle": "Versandmethoden",
                 "cardSubtitle": "Wähle eine Versandmethode aus"
             },
+            "address": {
+                "billing": "Rechnungsadresse",
+                "shipping": "Lieferadresse",
+                "sameAsShippingAddress": "Identisch zur Lieferadresse",
+                "modal": {
+                    "billingHeading": "Rechnungsadresse auswählen",
+                    "shippingHeading": "Lieferadresse auswählen",
+                    "chosenAddress": "Ausgewählte Adresse:",
+                    "ariaLabel": "Adresse",
+                    "editLabel": "Diese Adresse bearbeiten",
+                    "createLabel": "Neue Adresse anlegen",
+                    "selectLabel": "Adressauswahl",
+                    "selectHeading": "Verfügbare Adressen",
+                    "selectSubmitLabel": "Ausgewählte Adresse als Standardadresse speichern",
+                    "formSubmitLabel": "Adresse als Standardadresse speichern"
+                }
+            },
             "terms": {
                 "cardTitle": "Allgemeine Geschäftsbedingungen",
                 "label": "AGB",
