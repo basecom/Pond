@@ -11,7 +11,7 @@ const props = defineProps<{
     showLatestOrder: boolean;
 }>();
 
-props.showLatestOrder && await loadLatestOrder();
+props.showLatestOrder && (await loadLatestOrder());
 getNewsletterStatus();
 
 const handleNewsletterChange = async (event: Event) => {
@@ -94,7 +94,7 @@ const handleNewsletterChange = async (event: Event) => {
         v-if="customer && latestOrder"
         class="mt-4 rounded-lg bg-white p-4 shadow-md"
     >
-        <h3 class="text-lg font-semibold"> {{ $t('account.overview.latestOrderHeading') }}</h3>
+        <h3 class="text-lg font-semibold">{{ $t('account.overview.latestOrderHeading') }}</h3>
         <SharedAccordionRoot>
             <AccountOrderItem :order-id="latestOrder.id" />
         </SharedAccordionRoot>

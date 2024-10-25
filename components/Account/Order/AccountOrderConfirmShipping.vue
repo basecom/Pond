@@ -4,7 +4,7 @@ import type { Schemas } from '@shopware/api-client/api-types';
 
 defineProps<{
     method: Schemas['ShippingMethod'];
-}>()
+}>();
 </script>
 
 <template>

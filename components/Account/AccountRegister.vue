@@ -12,18 +12,17 @@ const isLoading = ref(false);
 const handleRegisterSubmit = async (fields: FormkitFields) => {
     isLoading.value = true;
 
-    const userData = fields.alternativeShippingAddress.showAlternativeShippingAddress ?
-        {
-            ...fields,
-            shippingAddress: {
-                ...fields.alternativeShippingAddress,
-                ...fields.alternativeShippingAddress.shippingAddress,
-            },
-        }
-        :
-        {
-            ...fields,
-        }
+    const userData = fields.alternativeShippingAddress.showAlternativeShippingAddress
+        ? {
+              ...fields,
+              shippingAddress: {
+                  ...fields.alternativeShippingAddress,
+                  ...fields.alternativeShippingAddress.shippingAddress,
+              },
+          }
+        : {
+              ...fields,
+          };
 
     try {
         await customerStore.register({
@@ -76,7 +75,7 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
         <AddressFormFields />
 
         <FormKit
-            #default="{ value }"
+            v-slot="{ value }"
             type="group"
             name="alternativeShippingAddress"
             :classes="{
