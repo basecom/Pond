@@ -14,17 +14,28 @@ const props = withDefaults(
     },
 );
 
-defineEmits(['view-product']);
+const emit = defineEmits(['select-product', 'view-product']);
 
 const { getProductCover } = useMedia();
 
+const productCard = ref(null);
 const cover = getProductCover(props.product.cover);
 const configStore = useConfigStore();
 const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
+
+const { stop } = useIntersectionObserver(
+    productCard,
+    ([{ isIntersecting }]) => {
+        if (isIntersecting) {
+            emit('view-product');
+            stop();
+        }
+    },
+);
 </script>
 
 <template>
-    <div class="relative rounded-md w-full p-4 border border-gray-medium shadow-md">
+    <div class="relative rounded-md w-full p-4 border border-gray-medium shadow-md" ref="productCard">
         <div
             v-if="wishlistEnabled"
             class="absolute right-0 top-0 z-10 p-4"
@@ -34,7 +45,7 @@ const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
         <NuxtLink
             :to="getProductRoute(product)"
             class="group"
-            @click="$emit('view-product')"
+            @click="$emit('select-product')"
         >
             <div class="flex flex-col">
                 <div

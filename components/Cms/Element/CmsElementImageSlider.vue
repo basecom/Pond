@@ -4,6 +4,8 @@ const props = defineProps<{
 }>();
 
 const config = useCmsElementConfig(props.element);
+const { trackPromotionView, trackSelectPromotion } = useAnalytics();
+const { routeName } = useNavigationContext();
 const navigationDots = config.getConfigValue('navigationDots');
 const navigationArrows = config.getConfigValue('navigationArrows');
 const displayMode = config.getConfigValue('displayMode');
@@ -31,6 +33,9 @@ const autoplayConfig = computed(() => {
 const speedConfig = computed(() => {
     return autoSlide ? speed : '300';
 });
+const slidesRef = ref([]);
+const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
+}
 </script>
 
 <template>
@@ -54,6 +59,7 @@ const speedConfig = computed(() => {
                     :class="`min-h-[${minHeight}]`"
                 >
                     <img
+                        ref="slides"
                         :src="slide.mediaUrl"
                         :alt="$t('cms.element.imageAlt')"
                         class="h-full w-full object-center"

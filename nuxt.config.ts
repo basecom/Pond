@@ -7,6 +7,10 @@ const currentDir = dirname(fileURLToPath(import.meta.url));
 export default defineNuxtConfig({
     devtools: { enabled: true },
 
+    extends: [
+        "@shopware-pwa/composables-next/nuxt-layer",
+    ],
+
     modules: [
         '@pinia/nuxt',
         '@nuxtjs/tailwindcss',
@@ -54,7 +58,6 @@ export default defineNuxtConfig({
         dirs: [
             join(currentDir, 'composables/**'),
             join(currentDir, 'utils'),
-            './node_modules/@shopware-pwa/composables-next/composables',
         ],
     },
 

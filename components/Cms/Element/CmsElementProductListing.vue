@@ -48,7 +48,7 @@ productListingCriteriaStore.setSearchResult(getCurrentListing.value, true);
                 <ProductCard
                     :product="product"
                     :layout="boxLayout"
-                    @view-product="trackSelectItem(product)"
+                    @select-product="trackSelectItem(product)"
                 />
             </template>
         </div>

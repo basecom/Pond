@@ -3,13 +3,15 @@ import { kebabCase } from 'scule';
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
 
-defineProps<{
+const props = defineProps<{
     block: Schemas['CmsBlock'];
 }>();
 
 const { getCmsBlockComponentName, componentExists, getBlockClasses } = useCmsUtils();
 
 const isDevelopment = computed(() => import.meta.dev);
+
+useProvideCmsBlock(props.block);
 </script>
 
 <template>
@@ -26,7 +28,6 @@ const isDevelopment = computed(() => import.meta.dev);
         <component
             :is="getCmsBlockComponentName(block.type)"
             :id="block.id"
-            :block="block"
         />
     </div>
     <div v-else-if="isDevelopment">

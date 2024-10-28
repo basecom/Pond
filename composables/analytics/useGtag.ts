@@ -16,6 +16,7 @@ export function useGtags(): UseAnalyticsReturn {
         getEventForProduct,
         getEventForProductWithPrice,
     } = useEcommerceTrackingHelper();
+    const { getTrackingPromotionEvent } = usePromotionTracking();
 
     function _trackEvent(...args: unknown[]) {
         if (import.meta.client) {
@@ -144,6 +145,18 @@ export function useGtags(): UseAnalyticsReturn {
         });
     };
 
+    const trackSelectPromotion = (creativeName: string, product?: Schemas['Product'], indexOfProduct?: number) => {
+        const promotionEvent = getTrackingPromotionEvent(creativeName, product, indexOfProduct);
+
+        _trackEvent('event', 'select_promotion', promotionEvent);
+    };
+
+    const trackPromotionView = (creativeName: string, product?: Schemas['Product'], indexOfProduct?: number) => {
+        const promotionEvent = getTrackingPromotionEvent(creativeName, product, indexOfProduct);
+
+        _trackEvent('event', 'view_promotion', promotionEvent);
+    }
+
     return {
         updateConsent,
         trackAddToCart,
@@ -157,5 +170,7 @@ export function useGtags(): UseAnalyticsReturn {
         trackViewItem,
         trackSelectItem,
         trackNavigation,
+        trackSelectPromotion,
+        trackPromotionView,
     };
 }

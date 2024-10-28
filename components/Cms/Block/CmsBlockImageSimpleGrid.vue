@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const props = defineProps<{
-    block: Schemas['CmsBlock'];
-}>();
-
-const { getSlotContent } = useCmsBlock(props.block);
+const { getSlotContent } = useCmsBlock();
 
 const leftBottomContent: Schemas['CmsSlot'] = getSlotContent('left-bottom');
 const leftTopContent: Schemas['CmsSlot'] = getSlotContent('left-top');
