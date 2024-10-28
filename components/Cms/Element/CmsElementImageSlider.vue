@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import type { Schemas } from '@shopware/api-client/api-types';
+
 const props = defineProps<{
     element: CmsElementImageSlider;
 }>();
 
 const config = useCmsElementConfig(props.element);
+const data = useCmsElementData(props.element);
 const { trackPromotionView, trackSelectPromotion } = useAnalytics();
-const { routeName } = useNavigationContext();
+const { isHomePage } = useHomePage();
 const navigationDots = config.getConfigValue('navigationDots');
 const navigationArrows = config.getConfigValue('navigationArrows');
 const displayMode = config.getConfigValue('displayMode');
@@ -34,8 +37,27 @@ const speedConfig = computed(() => {
     return autoSlide ? speed : '300';
 });
 const slidesRef = ref([]);
-const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
-}
+const trackedSlides = ref([]);
+
+// if (isHomePage.value) {
+    const { stop } = useIntersectionObserver(
+        slidesRef,
+        (events) => {
+            events.forEach((event) => {
+                if (event.isIntersecting) {
+                    const mediaUrl = (event.target as HTMLImageElement).src;
+                    const slidesData = data.getData('sliderItems');
+                    const media: Schemas["Media"] = slidesData?.find((slide) => slide.media?.url === mediaUrl)?.media;
+
+                    if (media && !trackedSlides.value.includes(media.fileName)) {
+                        trackPromotionView(media.fileName);
+                        trackedSlides.value = [ ...trackedSlides.value, media.fileName ];
+                    }
+                }
+            });
+        },
+    );
+// }
 </script>
 
 <template>
@@ -59,7 +81,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
                     :class="`min-h-[${minHeight}]`"
                 >
                     <img
-                        ref="slides"
+                        ref="slidesRef"
                         :src="slide.mediaUrl"
                         :alt="$t('cms.element.imageAlt')"
                         class="h-full w-full object-center"

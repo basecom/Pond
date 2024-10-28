@@ -28,6 +28,7 @@ useProvideCmsBlock(props.block);
         <component
             :is="getCmsBlockComponentName(block.type)"
             :id="block.id"
+            :block="block"
         />
     </div>
     <div v-else-if="isDevelopment">

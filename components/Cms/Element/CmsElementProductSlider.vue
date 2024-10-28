@@ -8,7 +8,7 @@ const props = defineProps<{
 const config = useCmsElementConfig(props.element);
 const elementData = useCmsElementData(props.element);
 const { trackPromotionView, trackSelectPromotion } = useAnalytics();
-const { routeName } = useNavigationContext();
+const { isHomePage } = useHomePage();
 
 const border = config.getConfigValue('border');
 const boxLayout = config.getConfigValue('boxLayout');
@@ -24,13 +24,12 @@ const spaceBetween = 24;
 const slides = computed(() => elementData.getData('products') ?? []);
 
 const onProductView = (product: Schemas['Product'], index: string | number) => {
-    console.log(1111, routeName.value);
-    if (routeName.value === 'frontend.home.page') {
+    if (isHomePage.value) {
         trackPromotionView(product.cover?.media.fileName ?? '', product, Number(index));
     }
 };
 const onProductSelect = (product: Schemas['Product'], index: string | number) => {
-    if (routeName.value === 'frontend.home.page') {
+    if (isHomePage.value) {
         trackSelectPromotion(product.cover?.media.fileName ?? '', product, Number(index));
     }
 };

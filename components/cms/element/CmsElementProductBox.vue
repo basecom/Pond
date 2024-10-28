@@ -8,20 +8,20 @@ const props = defineProps<{
 
 const { product } = useProduct(props.element.data.product);
 const { trackPromotionView, trackSelectPromotion } = useAnalytics();
-const { routeName } = useNavigationContext();
+const { isHomePage } = useHomePage();
 
-const onProductView = (product: Schemas['Product']) => {
-    if (routeName.value === 'frontend.home.page') {
-        trackPromotionView(product.cover?.media.fileName ?? '', product);
+const onProductView = () => {
+    if (isHomePage.value) {
+        trackPromotionView(product.value.cover?.media.fileName ?? '', product.value);
     }
 };
-const onProductSelect = (product: Schemas['Product']) => {
-    if (routeName.value === 'frontend.home.page') {
-        trackSelectPromotion(product.cover?.media.fileName ?? '', product);
+const onProductSelect = () => {
+    if (isHomePage.value) {
+        trackSelectPromotion(product.value?.media.fileName ?? '', product.value);
     }
 };
 </script>
 
 <template>
-    <ProductCard :product="product" @view-product="onProductView" @select-product="onProductSelect" />
+    <ProductCard :product="product" @view-product="onProductView()" @select-product="onProductSelect()" />
 </template>
