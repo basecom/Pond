@@ -10,5 +10,5 @@ export function useAnalyticsConfig() {
         type,
         id,
         trackingUrl,
-    }
+    };
 }
