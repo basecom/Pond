@@ -1,11 +1,9 @@
 export function useCmsElementData(element) {
-    const getData = (key) => {
-        return (
-            element.data[key]
-        );
-    }
+    const getData = (key?: string) => {
+        return key ? element.data[key] : element.data;
+    };
 
     return {
         getData,
-    }
+    };
 }
