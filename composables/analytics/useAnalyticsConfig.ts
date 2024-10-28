@@ -5,7 +5,6 @@ export function useAnalyticsConfig() {
     const id = computed(() => runtimeConfig.public.pond.analytics.id);
     const trackingUrl = computed(() => runtimeConfig.public.pond.analytics.trackingUrl);
 
-
     return {
         isEnabled,
         type,
