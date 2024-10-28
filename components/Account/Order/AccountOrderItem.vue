@@ -55,10 +55,17 @@ onMounted(async () => {
     >
         <template #title>
             <div class="mt-4 p-4">
-                <div class="mt-4 flex gap-4">
+                <div class="mt-4 flex flex-wrap gap-4 text-left">
+                    <div
+                        v-if="order"
+                        class="w-full text-4xl font-bold"
+                    >
+                        {{ $t('checkout.finish.orderNumberLabel') }} {{ order.orderNumber }}
+                    </div>
+
                     <div
                         v-if="formattedOrderDate"
-                        class="text-4xl font-bold"
+                        class="text-3xl font-bold"
                     >
                         {{ formattedOrderDate }}
                     </div>
@@ -69,6 +76,7 @@ onMounted(async () => {
                     >
                         {{ status }}
                     </div>
+
                     <NuxtLink
                         v-if="isPaymentNeeded"
                         class="ml-auto rounded-md bg-status-success px-2 py-2 text-white"
