@@ -40,6 +40,12 @@ export default defineNuxtConfig({
             pond: {
                 shopwareEndpoint: '',
                 accessToken: '',
+                analytics: {
+                    enabled: true,
+                    type: 'gtag',
+                    id: 'G-XXXX',
+                    trackingUrl: '',
+                }
             },
         },
     },

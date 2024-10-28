@@ -44,7 +44,7 @@ export function useCookieGroupsHelper() {
                     name: '',
                     cookie: 'cookie-preference',
                     value: '1',
-                    expiration: 30,
+                    expiration: 2592000, // 30 days
                     hidden: true,
                 },
                 {
@@ -65,7 +65,7 @@ export function useCookieGroupsHelper() {
                     id: 'google-analytics',
                     name: 'cookie.groups.statistics.entries.googleAnalytics',
                     cookie: 'google-analytics-enabled',
-                    expiration: 30,
+                    expiration: 2592000, // 30 days
                     value: '1',
                 },
             ],
@@ -84,7 +84,7 @@ export function useCookieGroupsHelper() {
                     id: 'youtube-video',
                     name: 'cookie.groups.comfortFeatures.entries.youtubeVideo',
                     cookie: 'youtube-video',
-                    expiration: 30,
+                    expiration: 2592000, // 30 days
                     value: '1',
                 },
             ],
@@ -98,7 +98,7 @@ export function useCookieGroupsHelper() {
                     id: 'google-ads',
                     name: 'cookie.groups.marketing.entries.googleAds',
                     cookie: 'google-ads-enabled',
-                    expiration: 30,
+                    expiration: 2592000, // 30 days
                     value: '1',
                 },
             ],

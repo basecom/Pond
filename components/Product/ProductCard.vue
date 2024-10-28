@@ -14,6 +14,8 @@ const props = withDefaults(
     },
 );
 
+defineEmits(['view-product']);
+
 const { getProductCover } = useMedia();
 
 const cover = getProductCover(props.product.cover);
@@ -32,6 +34,7 @@ const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
         <NuxtLink
             :to="getProductRoute(product)"
             class="group"
+            @click="$emit('view-product')"
         >
             <div class="flex flex-col">
                 <div

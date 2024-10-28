@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const { loadNavigationElements, navigationElements } = useNavigation();
-await loadNavigationElements({ depth: 2 });
+const { mainNavigationElements, loadMainNavigation } = useNavigationStore();
+await loadMainNavigation(2);
 const sideMenuController = useModal();
 
 // shownNavigationItems stores the nav items that should be shown at the moment, navigationElements initially
 // will be updated with the child categories when a category with children is selected
-const shownNavigationItems = ref(navigationElements.value);
+const shownNavigationItems = ref(mainNavigationElements.value);
 
 // previousNavigationItems stores the nav items that got selected and whoes children get displayed
 // used to navigate back and display the link above the children
@@ -27,7 +27,7 @@ const handleBack = () => {
     previousNavigationItems.value.pop();
 
     if (previousNavigationItems.value.length <= 1) {
-        shownNavigationItems.value = navigationElements.value;
+        shownNavigationItems.value = mainNavigationElements.value;
         return;
     }
 
