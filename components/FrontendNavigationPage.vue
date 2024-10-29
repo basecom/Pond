@@ -28,7 +28,9 @@ const breadcrumbs = getCategoryBreadcrumbs(categoryResponse.value, {
     startIndex: 1,
 });
 
+createCategoryListingContext();
 useBreadcrumbs(breadcrumbs);
+useAnalytics({ trackPageView: true, pageType: 'navigation' });
 </script>
 
 <template>

@@ -16,12 +16,35 @@ export function useGtags(): UseAnalyticsReturn {
         getEventForProduct,
         getEventForProductWithPrice,
     } = useEcommerceTrackingHelper();
+    const { getPageTrackingEvent, isPageTrackingReady } = usePageTrackingHelper();
+    const sessionId = useState<string | undefined>('pondSessionId');
 
     function _trackEvent(...args: unknown[]) {
         if (import.meta.client) {
             window.dataLayer?.push(args);
         }
     }
+
+    const _getSessionId = async (tagId: string): Promise<string | undefined> => {
+        return new Promise((resolve) => {
+            const timeout = setTimeout(() => {
+                resolve(undefined);
+            }, 500);
+
+            gtag?.('get', tagId, 'session_id', (currentSessionId: string) => {
+                clearTimeout(timeout);
+                resolve(currentSessionId);
+            });
+        });
+    };
+
+    const _loadSessionId = async () => {
+        if (import.meta.server) {
+            return;
+        }
+
+        sessionId.value = await _getSessionId(id.value);
+    };
 
     const _loadGtag = () => {
         useHead({
@@ -61,6 +84,7 @@ export function useGtags(): UseAnalyticsReturn {
             return;
         }
 
+        _loadSessionId();
         _trackEvent('consent', 'update', {
             ad_user_data: activeCookies.includes(_cookieAdsEnabledName) ? 'granted' : 'denied',
             ad_personalization: activeCookies.includes(_cookieAdsEnabledName) ? 'granted' : 'denied',
@@ -129,13 +153,23 @@ export function useGtags(): UseAnalyticsReturn {
         const trackingEvent = getEventForProduct(product);
 
         _trackEvent('event', 'select_item', trackingEvent);
-    }
+    };
 
     const trackViewItem = (product: Schemas['Product']) => {
         const trackingEvent = getEventForProductWithPrice(product);
 
         _trackEvent('event', 'view_item', trackingEvent);
-    }
+    };
+
+    const trackPage = (pageType: string) => {
+        const trackingEvent = getPageTrackingEvent(pageType, sessionId.value);
+
+        _trackEvent('event', 'page_meta', trackingEvent);
+    };
+
+    const setUserId = (userId: string) => {
+        _trackEvent('config', id.value, { user_id: userId });
+    };
 
     return {
         updateConsent,
@@ -149,5 +183,8 @@ export function useGtags(): UseAnalyticsReturn {
         trackViewItemList,
         trackViewItem,
         trackSelectItem,
+        trackPage,
+        setUserId,
+        isPageTrackingReady,
     };
 }
