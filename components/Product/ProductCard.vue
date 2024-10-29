@@ -24,7 +24,7 @@ const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
 </script>
 
 <template>
-    <div class="relative rounded-md w-full p-4 border border-gray-medium shadow-md">
+    <div class="relative w-full rounded-md border border-gray-medium p-4 shadow-md">
         <div
             v-if="wishlistEnabled"
             class="absolute right-0 top-0 z-10 p-4"

@@ -17,11 +17,47 @@ export function useGtm(): UseAnalyticsReturn {
         getEventForProductWithPrice,
     } = useEcommerceTrackingHelper();
     const { getSearchEvent, getSearchSuggestionEvent } = useSearchTrackingHelper();
+    const { getPageTrackingEvent, isPageTrackingReady } = usePageTrackingHelper();
+    const sessionId = useState<string | undefined>('pondSessionId');
 
     const _trackEvent = (args: unknown) => {
         if (import.meta.client) {
             window.dataLayer?.push(args);
         }
+    };
+
+    const _getSessionId = async (tagId: string): Promise<string | undefined> => {
+        return new Promise((resolve) => {
+            const timeout = setTimeout(() => {
+                resolve(undefined);
+            }, 500);
+
+            gtag('get', tagId, 'session_id', (currentSessionId: string) => {
+                clearTimeout(timeout);
+                resolve(currentSessionId);
+            });
+        });
+    };
+
+    const _loadSessionId = async () => {
+        if (import.meta.server) {
+            return;
+        }
+
+        const googleTagManagerData = window['google_tag_manager'];
+
+        if (!googleTagManagerData) {
+            return;
+        }
+
+        const keys = Object.keys(googleTagManagerData);
+        const googleAnalyticsTagId = keys.find(key => key.startsWith('G-'));
+
+        if (!googleAnalyticsTagId) {
+            return;
+        }
+
+        sessionId.value = await _getSessionId(googleAnalyticsTagId);
     };
 
     const _loadGtm = () => {
@@ -49,6 +85,13 @@ export function useGtm(): UseAnalyticsReturn {
                     `,
                     tagPosition: 'head',
                 },
+                {
+                    innerHTML: `
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                    `,
+                    tagPosition: 'head',
+                },
             ],
             noscript: [
                 {
@@ -71,6 +114,7 @@ export function useGtm(): UseAnalyticsReturn {
             return;
         }
 
+        _loadSessionId();
         _trackEvent([
             'consent',
             'update',
@@ -192,6 +236,21 @@ export function useGtm(): UseAnalyticsReturn {
         });
     };
 
+    const trackPage = (pageType: string) => {
+        const trackingEvent = getPageTrackingEvent(pageType, sessionId.value);
+
+        _trackEvent({
+            event: 'page_meta',
+            page: trackingEvent,
+        });
+    };
+
+    const setUserId = (userId: string) => {
+        _trackEvent({
+            user_id: userId,
+        })
+    };
+
     const trackSearchSuggestions = () => {
         const trackingEvent = getSearchSuggestionEvent();
 
@@ -204,7 +263,9 @@ export function useGtm(): UseAnalyticsReturn {
         _trackEvent({ event: 'search', ...trackingEvent });
     };
 
+
     return {
+        isPageTrackingReady,
         updateConsent,
         trackAddToCart,
         trackRemoveFromCart,
@@ -216,6 +277,8 @@ export function useGtm(): UseAnalyticsReturn {
         trackViewItemList,
         trackSelectItem,
         trackViewItem,
+        trackPage,
+        setUserId,
         trackSearchSuggestions,
         trackSearch,
     };
