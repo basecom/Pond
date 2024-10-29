@@ -1,12 +1,18 @@
-import type { UseAnalyticsConfig, UseAnalyticsReturn } from '../../../types/analytics/analytics';
+import type { UseAnalyticsReturn } from '../../../types/analytics/analytics';
 
-export function usePageTracking(analytics: UseAnalyticsReturn, pageType: UseAnalyticsConfig['pageType']) {
-    const { loading } = storeToRefs(useCustomerStore());
+export function usePageTracking({ trackPage, isPageTrackingReady }: UseAnalyticsReturn, pageType: string) {
+    const { path } = useRoute();
 
-    watchEffect(() => {
-        if (loading.value) {
-            return;
-        }
-        analytics.trackPage(pageType);
-    });
+    whenever(
+        isPageTrackingReady,
+        () => {
+            const isHomePage = path === '/';
+            if (isHomePage) {
+                trackPage('home');
+            } else {
+                trackPage(pageType);
+            }
+        },
+        { once: true, immediate: true },
+    );
 }

@@ -6,12 +6,7 @@ defineProps<{
     cmsPage: Schemas['CmsPage'];
 }>();
 
-const { routeName } = useNavigationContext();
 const { getCmsSectionComponentName, componentExists, getSectionClasses } = useCmsUtils();
-if (routeName.value === 'frontend.navigation.page') {
-    createCategoryListingContext();
-    useAnalytics({ trackPageView: true, pageType: 'plp' });
-}
 </script>
 
 <template>

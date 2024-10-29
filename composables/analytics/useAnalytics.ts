@@ -12,7 +12,7 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
         const pageTracker: Record<UseAnalyticsConfig['pageType'], (analytics: UseAnalyticsReturn, type: UseAnalyticsConfig['pageType']) => void> = {
             cart: useCartPageTracking,
             checkout: useCheckoutPageTracking,
-            cms: useCmsPageTracking,
+            landingpage: usePageTracking,
             plp: useProductListPageTracking,
             pdp: useProductDetailPageTracking,
             search: useProductListPageTracking,
@@ -45,5 +45,6 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
         trackViewItem: analytics.trackViewItem,
         trackPage: analytics.trackPage,
         setUserId: analytics.setUserId,
+        isPageTrackingReady: analytics.isPageTrackingReady,
     };
 }

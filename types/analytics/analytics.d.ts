@@ -5,7 +5,7 @@ export type UseAnalyticsConfig = {
     pageType:
         | 'cart'
         | 'checkout'
-        | 'cms'
+        | 'landingpage'
         | 'pdp'
         | 'plp'
         | 'search'
@@ -35,6 +35,7 @@ export type UseAnalyticsReturn = {
     trackViewItem: (product: Schemas['Product']) => void;
     trackPage: (pageType: string) => void;
     setUserId: (userId: string) => void;
+    isPageTrackingReady: ComputedRef<boolean>;
 };
 
 export type PondAnalyticsType = 'gtm' | 'gtag';
@@ -43,5 +44,9 @@ declare global {
     interface Window {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         dataLayer?: any[];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        google_tag_manager?: any;
     }
+
+    declare function gtag(...args: unknown[]): void;
 }

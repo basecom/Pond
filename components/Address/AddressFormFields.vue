@@ -118,7 +118,7 @@ onUnmounted(() => formErrorStore.$reset);
             validation="required"
         />
         <FormKit
-            v-if="currentCountrycurrentCountry"
+            v-if="currentCountry"
             type="select"
             :label="$t('account.register.country.label')"
             name="countryId"

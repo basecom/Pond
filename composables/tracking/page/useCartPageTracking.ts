@@ -5,20 +5,10 @@ export function useCartPageTracking(analytics: UseAnalyticsReturn) {
     const navigationStore = useNavigationStore();
     const { mainNavigationElements } = storeToRefs(navigationStore);
     const { cartItemsCount } = storeToRefs(cartItemsCountStore);
-    const { loading } = storeToRefs(useCustomerStore());
+    const isCartPageReady = computed(() => !!cartItemsCount.value && !!mainNavigationElements.value.length);
 
-    watchEffect(() => {
-        if (!cartItemsCount.value || !mainNavigationElements.value.length) {
-            return;
-        }
-
+    usePageTracking(analytics, 'cart');
+    whenever(isCartPageReady, () => {
         setTimeout(() => analytics.trackViewCart());
-    });
-
-    watchEffect(() => {
-        if (loading.value) {
-            return;
-        }
-        analytics.trackPage('cart');
-    });
+    }, { immediate: true });
 }
