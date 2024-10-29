@@ -29,7 +29,7 @@ const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
             v-if="wishlistEnabled"
             class="absolute right-0 top-0 z-10 p-4"
         >
-            <ProductAddToWishlist :product-id="props.product.id" />
+            <ProductAddToWishlist :product="props.product" />
         </div>
         <NuxtLink
             :to="getProductRoute(product)"

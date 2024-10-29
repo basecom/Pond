@@ -48,5 +48,9 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
         setUserId: analytics.setUserId,
         trackSearchSuggestions: analytics.trackSearchSuggestions,
         trackSearch: analytics.trackSearch,
+        trackAddToWishlist: analytics.trackAddToWishlist,
+        trackRemoveFromWishlist: analytics.trackRemoveFromWishlist,
+        trackLogin: analytics.trackLogin,
+        trackRegister: analytics.trackRegister,
     };
 }

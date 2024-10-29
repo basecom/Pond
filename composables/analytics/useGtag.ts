@@ -27,7 +27,7 @@ export function useGtags(): UseAnalyticsReturn {
     }
 
     const _getSessionId = async (tagId: string): Promise<string | undefined> => {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             const timeout = setTimeout(() => {
                 resolve(undefined);
             }, 500);
@@ -184,6 +184,26 @@ export function useGtags(): UseAnalyticsReturn {
         _trackEvent('event', 'search', trackingEvent);
     };
 
+    const trackAddToWishlist = (product: Schemas['Product']) => {
+        const trackingEvent = getEventForProductWithPrice(product);
+
+        _trackEvent('event', 'add_to_wishlist', trackingEvent);
+    };
+
+    const trackRemoveFromWishlist = (product: Schemas['Product']) => {
+        const trackingEvent = getEventForProductWithPrice(product);
+
+        _trackEvent('event', 'remove_from_wishlist', trackingEvent);
+    };
+
+    const trackLogin = () => {
+        _trackEvent('event', 'login');
+    };
+
+    const trackRegister = () => {
+        _trackEvent('event', 'registration');
+    };
+
     return {
         isPageTrackingReady,
         updateConsent,
@@ -201,5 +221,9 @@ export function useGtags(): UseAnalyticsReturn {
         setUserId,
         trackSearchSuggestions,
         trackSearch,
+        trackAddToWishlist,
+        trackRemoveFromWishlist,
+        trackLogin,
+        trackRegister,
     };
 }

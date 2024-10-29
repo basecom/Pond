@@ -38,6 +38,10 @@ export type UseAnalyticsReturn = {
     isPageTrackingReady: ComputedRef<boolean>;
     trackSearchSuggestions: () => void;
     trackSearch: () => void;
+    trackAddToWishlist: (product: Schemas['Product']) => void;
+    trackRemoveFromWishlist: (product: Schemas['Product']) => void;
+    trackLogin: () => void;
+    trackRegister: () => void;
 };
 
 export type PondAnalyticsType = 'gtm' | 'gtag';

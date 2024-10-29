@@ -27,7 +27,7 @@ export function useGtm(): UseAnalyticsReturn {
     };
 
     const _getSessionId = async (tagId: string): Promise<string | undefined> => {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             const timeout = setTimeout(() => {
                 resolve(undefined);
             }, 500);
@@ -248,7 +248,7 @@ export function useGtm(): UseAnalyticsReturn {
     const setUserId = (userId: string) => {
         _trackEvent({
             user_id: userId,
-        })
+        });
     };
 
     const trackSearchSuggestions = () => {
@@ -263,6 +263,37 @@ export function useGtm(): UseAnalyticsReturn {
         _trackEvent({ event: 'search', ...trackingEvent });
     };
 
+    const trackAddToWishlist = (product: Schemas['Product']) => {
+        const trackingEvent = getEventForProductWithPrice(product);
+
+        _trackEvent({ ecommerce: null });
+        _trackEvent({
+            event: 'add_to_wishlist',
+            ecommerce: trackingEvent,
+        });
+    };
+
+    const trackRemoveFromWishlist = (product: Schemas['Product']) => {
+        const trackingEvent = getEventForProductWithPrice(product);
+
+        _trackEvent({ ecommerce: null });
+        _trackEvent({
+            event: 'remove_from_wishlist',
+            ecommerce: trackingEvent,
+        });
+    };
+
+    const trackLogin = () => {
+        _trackEvent({
+            event: 'login',
+        });
+    };
+
+    const trackRegister = () => {
+        _trackEvent({
+            event: 'registration',
+        });
+    };
 
     return {
         isPageTrackingReady,
@@ -281,5 +312,9 @@ export function useGtm(): UseAnalyticsReturn {
         setUserId,
         trackSearchSuggestions,
         trackSearch,
+        trackAddToWishlist,
+        trackRemoveFromWishlist,
+        trackLogin,
+        trackRegister,
     };
 }
