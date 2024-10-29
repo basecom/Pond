@@ -10,27 +10,42 @@ const boxLayout = config.getConfigValue('boxLayout');
 const displayMode = config.getConfigValue('displayMode');
 const minWidth = config.getConfigValue('elMinWidth');
 
-const slidesPerView = 4;
+const slidesPerView = 1;
 const spaceBetween = 24;
+const breakpoints = {
+    540: {
+        slidesPerView: 2,
+    },
+    768: {
+        slidesPerView: 3,
+    },
+    1024: {
+        slidesPerView: 4,
+    }
+};
 
 const crossSellings = computed(() => elementData.getData('crossSellings') ?? []);
 </script>
 
 <template>
     <ClientOnly>
-        <template v-for="crossSelling in crossSellings">
-            <h3 class="font-bold mt-8">
+        <template
+            v-for="crossSelling in crossSellings"
+            :key="crossSelling.crossSelling.id"
+        >
+            <h3 class="mt-8 font-bold">
                 {{ crossSelling.crossSelling.translated.name }}
             </h3>
 
             <LayoutSlider
                 :class="{
-                'cursor-grab': crossSelling.products.length > 1,
-            }"
+                    'cursor-grab': crossSelling.products.length > 1,
+                }"
                 class="w-full"
                 :navigation-dots="false"
                 :slides-per-view="slidesPerView"
                 :space-between="spaceBetween"
+                :breakpoints="breakpoints"
             >
                 <LayoutSliderSlide
                     v-for="slide in crossSelling.products"

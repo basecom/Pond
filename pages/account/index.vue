@@ -2,9 +2,10 @@
 await useAuthentication().rerouteIfLoggedOut();
 
 const { accountBreadcrumbs } = useStaticBreadcrumbs();
-useBreadcrumbs(accountBreadcrumbs({}));
-
 const showLatestOrder = ref(true);
+
+useBreadcrumbs(accountBreadcrumbs({}));
+useAnalytics({ trackPageView: true, pageType: 'account' });
 </script>
 
 <template>

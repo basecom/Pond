@@ -9,17 +9,30 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
     }[type]();
 
     if (config?.trackPageView) {
-        const pageTracker: Record<UseAnalyticsConfig['pageType'], (analytics: UseAnalyticsReturn) => void> = {
+        const pageTracker: Record<UseAnalyticsConfig['pageType'], (analytics: UseAnalyticsReturn, type: UseAnalyticsConfig['pageType']) => void> = {
             cart: useCartPageTracking,
             checkout: useCheckoutPageTracking,
-            cms: useCmsPageTracking,
+            landingpage: usePageTracking,
+            navigation: useNavigationPageTracking,
             pdp: useProductDetailPageTracking,
+            search: useSearchPageTracking,
+            wishlist: usePageTracking,
+            finish: usePageTracking,
+            editOrder: usePageTracking,
+            accountAddress: usePageTracking,
+            account: usePageTracking,
+            login: usePageTracking,
+            register: usePageTracking,
+            accountOrders: usePageTracking,
+            accountPayment: usePageTracking,
+            accountProfile: usePageTracking,
         };
 
-        pageTracker[config.pageType](analytics);
+        pageTracker[config.pageType](analytics, config.pageType);
     }
 
     return {
+        isPageTrackingReady: analytics.isPageTrackingReady,
         updateConsent: analytics.updateConsent,
         trackAddToCart: analytics.trackAddToCart,
         trackRemoveFromCart: analytics.trackRemoveFromCart,
@@ -31,6 +44,10 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
         trackViewItemList: analytics.trackViewItemList,
         trackSelectItem: analytics.trackSelectItem,
         trackViewItem: analytics.trackViewItem,
+        trackPage: analytics.trackPage,
+        setUserId: analytics.setUserId,
+        trackSearchSuggestions: analytics.trackSearchSuggestions,
+        trackSearch: analytics.trackSearch,
         trackAddToWishlist: analytics.trackAddToWishlist,
         trackRemoveFromWishlist: analytics.trackRemoveFromWishlist,
     };

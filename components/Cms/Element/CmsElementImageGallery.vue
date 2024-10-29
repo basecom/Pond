@@ -22,20 +22,16 @@ const slides = elementData.getData('sliderItems') ?? [];
     <ClientOnly>
         <div
             class="flex max-h-[640px] gap-4"
-            :class="
-                galleryPosition.value === 'underneath'
-                    ? 'max-h-full flex-col flex-wrap'
-                    : 'flex-row-reverse'
-            "
+            :class="galleryPosition.value === 'underneath' ? 'max-h-full flex-col flex-wrap' : 'flex-row-reverse'"
         >
             <template v-if="slides.length > 0">
                 <LayoutSlider
                     :classes="[
                         slides.length > 1 ? 'cursor-grab' : '',
-                        galleryPosition.value === 'underneath' ? 'w-full' : 'w-4/5'
+                        galleryPosition.value === 'underneath' ? 'w-full' : 'w-4/5',
                     ]"
-                    :navigationDots="navigationDots !== 'None'"
-                    :navigationArrows="navigationArrows !== 'None'"
+                    :navigation-dots="navigationDots !== 'None'"
+                    :navigation-arrows="navigationArrows !== 'None'"
                     :thumbs-swiper="`.thumbnailRef-${element.id}`"
                 >
                     <LayoutSliderSlide
@@ -65,11 +61,11 @@ const slides = elementData.getData('sliderItems') ?? [];
                         galleryPosition.value === 'underneath' ? 'w-full' : 'w-1/5',
                         slides.length > 1 ? 'cursor-grab' : '',
                     ]"
-                    :navigationDots="false"
-                    :navigationArrows="false"
+                    :navigation-dots="false"
+                    :navigation-arrows="false"
                     :direction="galleryPosition === 'left' ? 'vertical' : 'horizontal'"
-                    :spaceBetween="spaceBetween"
-                    :slidesPerView="thumbnailSlidesPerView"
+                    :space-between="spaceBetween"
+                    :slides-per-view="thumbnailSlidesPerView"
                 >
                     <LayoutSliderSlide
                         v-for="slide in slides"
@@ -85,7 +81,9 @@ const slides = elementData.getData('sliderItems') ?? [];
                         />
 
                         <template v-else>
-                            <div class="w-full bg-gray-light  opacity-40 group-[.swiper-slide-thumb-active]:border-2 group-[.swiper-slide-thumb-active]:border-brand-primary group-[.swiper-slide-thumb-active]:opacity-100">
+                            <div
+                                class="w-full bg-gray-light opacity-40 group-[.swiper-slide-thumb-active]:border-2 group-[.swiper-slide-thumb-active]:border-brand-primary group-[.swiper-slide-thumb-active]:opacity-100"
+                            >
                                 <SharedImagePlaceholder :size="'sm'" />
                             </div>
                         </template>

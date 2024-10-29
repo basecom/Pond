@@ -6,6 +6,8 @@ const billingAddress = computed(() => customer.value.defaultBillingAddress);
 const shippingAddress = computed(() => customer.value.defaultShippingAddress);
 const paymentMethod = computed(() => customer.value.defaultPaymentMethod);
 const { latestOrder, loadLatestOrder } = useCustomerLatestOrder();
+const { pushSuccess, pushError } = useNotifications();
+const { t } = useI18n();
 
 const props = defineProps<{
     showLatestOrder: boolean;
@@ -17,12 +19,24 @@ getNewsletterStatus();
 const handleNewsletterChange = async (event: Event) => {
     const checked = (event.target as HTMLInputElement).checked;
     if (checked) {
-        await newsletterSubscribe({
-            email: customer.value.email,
-            option: 'subscribe',
-        });
+        try {
+            await newsletterSubscribe({
+                email: customer.value.email,
+                option: 'subscribe',
+            });
+
+            pushSuccess(t('cms.element.form.newsletter.successSubscribe'));
+        } catch (error) {
+            pushError(t('cms.element.form.newsletter.errorSubscribe'));
+        }
     } else {
-        await newsletterUnsubscribe(customerStore.customer.email);
+        try {
+            await newsletterUnsubscribe(customerStore.customer.email);
+
+            pushSuccess(t('cms.element.form.newsletter.successUnsubscribe'));
+        } catch (error) {
+            pushError(t('cms.element.form.newsletter.errorUnsubscribe'));
+        }
     }
 };
 </script>

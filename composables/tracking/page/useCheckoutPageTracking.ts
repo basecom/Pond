@@ -4,19 +4,15 @@ export function useCheckoutPageTracking(analytics: UseAnalyticsReturn) {
     const { cart } = useCart();
     const navigationStore = useNavigationStore();
     const { mainNavigationElements } = storeToRefs(navigationStore);
-    const _checkoutTracked = ref(false);
+    const isCheckoutPageReady = computed(() => !!cart.value && !!mainNavigationElements.value.length);
 
-    const unwatch = watch([cart, mainNavigationElements], () => {
-        if (_checkoutTracked.value) {
-            unwatch();
-            return;
-        }
+    usePageTracking(analytics, 'checkout');
 
-        if (!cart.value || !mainNavigationElements.value.length) {
-            return;
-        }
-
-        _checkoutTracked.value = true;
-        analytics.trackBeginCheckout();
-    }, { immediate: true });
+    whenever(
+        isCheckoutPageReady,
+        () => {
+            analytics.trackBeginCheckout();
+        },
+        { once: true, immediate: true },
+    );
 }
