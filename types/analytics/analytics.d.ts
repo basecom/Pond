@@ -7,7 +7,7 @@ export type UseAnalyticsConfig = {
         | 'checkout'
         | 'landingpage'
         | 'pdp'
-        | 'plp'
+        | 'navigation'
         | 'search'
         | 'wishlist'
         | 'finish'

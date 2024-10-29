@@ -30,7 +30,7 @@ const breadcrumbs = getCategoryBreadcrumbs(categoryResponse.value, {
 
 createCategoryListingContext();
 useBreadcrumbs(breadcrumbs);
-useAnalytics({ trackPageView: true, pageType: 'plp' });
+useAnalytics({ trackPageView: true, pageType: 'navigation' });
 </script>
 
 <template>
