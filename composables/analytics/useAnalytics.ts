@@ -55,5 +55,6 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
         trackNavigation: analytics.trackNavigation,
         trackSelectPromotion: analytics.trackSelectPromotion,
         trackPromotionView: analytics.trackPromotionView,
+        trackNewsletterRegistration: analytics.trackNewsletterRegistration,
     };
 }

@@ -323,6 +323,12 @@ export function useGtm(): UseAnalyticsReturn {
         });
     };
 
+    const trackNewsletterRegistration = () => {
+        _trackEvent({
+            event: 'newsletter_registration',
+        });
+    };
+
     return {
         isPageTrackingReady,
         updateConsent,
@@ -347,5 +353,6 @@ export function useGtm(): UseAnalyticsReturn {
         trackNavigation,
         trackPromotionView,
         trackSelectPromotion,
+        trackNewsletterRegistration,
     };
 }

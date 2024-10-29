@@ -225,6 +225,10 @@ export function useGtags(): UseAnalyticsReturn {
         _trackEvent('event', 'view_promotion', promotionEvent);
     };
 
+    const trackNewsletterRegistration = () => {
+        _trackEvent('event', 'newsletter_registration');
+    };
+
     return {
         isPageTrackingReady,
         updateConsent,
@@ -249,5 +253,6 @@ export function useGtags(): UseAnalyticsReturn {
         trackNavigation,
         trackSelectPromotion,
         trackPromotionView,
+        trackNewsletterRegistration,
     };
 }

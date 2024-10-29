@@ -46,6 +46,7 @@ export type UseAnalyticsReturn = {
     trackNavigation: (level: number, name: string) => void;
     trackPromotionView: (promotion: PromotionInfo, product?: Schemas['Product'], indexOfProduct?: number) => void;
     trackSelectPromotion: (promotion: PromotionInfo, product?: Schemas['Product'], indexOfProduct?: number) => void;
+    trackNewsletterRegistration: () => void;
 };
 
 export type PondAnalyticsType = 'gtm' | 'gtag';
