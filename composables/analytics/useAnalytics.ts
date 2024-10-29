@@ -32,6 +32,7 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
     }
 
     return {
+        isPageTrackingReady: analytics.isPageTrackingReady,
         updateConsent: analytics.updateConsent,
         trackAddToCart: analytics.trackAddToCart,
         trackRemoveFromCart: analytics.trackRemoveFromCart,
@@ -45,7 +46,6 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
         trackViewItem: analytics.trackViewItem,
         trackPage: analytics.trackPage,
         setUserId: analytics.setUserId,
-        isPageTrackingReady: analytics.isPageTrackingReady,
         trackSearchSuggestions: analytics.trackSearchSuggestions,
         trackSearch: analytics.trackSearch,
     };
