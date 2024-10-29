@@ -36,6 +36,8 @@ export type UseAnalyticsReturn = {
     trackPage: (pageType: string) => void;
     setUserId: (userId: string) => void;
     isPageTrackingReady: ComputedRef<boolean>;
+    trackSearchSuggestions: () => void;
+    trackSearch: () => void;
 };
 
 export type PondAnalyticsType = 'gtm' | 'gtag';

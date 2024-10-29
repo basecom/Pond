@@ -16,6 +16,7 @@ export function useGtm(): UseAnalyticsReturn {
         getEventForProduct,
         getEventForProductWithPrice,
     } = useEcommerceTrackingHelper();
+    const { getSearchEvent, getSearchSuggestionEvent } = useSearchTrackingHelper();
     const { getPageTrackingEvent, isPageTrackingReady } = usePageTrackingHelper();
     const sessionId = useState<string | undefined>('pondSessionId');
 
@@ -248,9 +249,23 @@ export function useGtm(): UseAnalyticsReturn {
         _trackEvent({
             user_id: userId,
         })
-    }
+    };
+
+    const trackSearchSuggestions = () => {
+        const trackingEvent = getSearchSuggestionEvent();
+
+        _trackEvent({ event: 'search_suggestions', ...trackingEvent });
+    };
+
+    const trackSearch = () => {
+        const trackingEvent = getSearchEvent();
+
+        _trackEvent({ event: 'search', ...trackingEvent });
+    };
+
 
     return {
+        isPageTrackingReady,
         updateConsent,
         trackAddToCart,
         trackRemoveFromCart,
@@ -264,6 +279,7 @@ export function useGtm(): UseAnalyticsReturn {
         trackViewItem,
         trackPage,
         setUserId,
-        isPageTrackingReady,
+        trackSearchSuggestions,
+        trackSearch,
     };
 }
