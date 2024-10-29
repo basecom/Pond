@@ -196,6 +196,14 @@ export function useGtags(): UseAnalyticsReturn {
         _trackEvent('event', 'remove_from_wishlist', trackingEvent);
     };
 
+    const trackLogin = () => {
+        _trackEvent('event', 'login');
+    };
+
+    const trackRegister = () => {
+        _trackEvent('event', 'registration');
+    };
+
     return {
         isPageTrackingReady,
         updateConsent,
@@ -215,5 +223,7 @@ export function useGtags(): UseAnalyticsReturn {
         trackSearch,
         trackAddToWishlist,
         trackRemoveFromWishlist,
+        trackLogin,
+        trackRegister,
     };
 }

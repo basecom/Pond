@@ -5,6 +5,7 @@ import { ApiClientError } from '@shopware/api-client';
 const customerStore = useCustomerStore();
 const { errorOfField, togglePasswordVisibility } = useFormkitHelper();
 const formErrorStore = useFormErrorStore();
+const { trackRegister } = useAnalytics();
 
 const isLoading = ref(false);
 
@@ -15,6 +16,7 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
             ...fields,
         });
         isLoading.value = false;
+        trackRegister();
         navigateTo('/account');
     } catch (error) {
         isLoading.value = false;

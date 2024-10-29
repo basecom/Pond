@@ -40,6 +40,8 @@ export type UseAnalyticsReturn = {
     trackSearch: () => void;
     trackAddToWishlist: (product: Schemas['Product']) => void;
     trackRemoveFromWishlist: (product: Schemas['Product']) => void;
+    trackLogin: () => void;
+    trackRegister: () => void;
 };
 
 export type PondAnalyticsType = 'gtm' | 'gtag';

@@ -283,6 +283,18 @@ export function useGtm(): UseAnalyticsReturn {
         });
     };
 
+    const trackLogin = () => {
+        _trackEvent({
+            event: 'login',
+        });
+    };
+
+    const trackRegister = () => {
+        _trackEvent({
+            event: 'registration',
+        });
+    };
+
     return {
         isPageTrackingReady,
         updateConsent,
@@ -302,5 +314,7 @@ export function useGtm(): UseAnalyticsReturn {
         trackSearch,
         trackAddToWishlist,
         trackRemoveFromWishlist,
+        trackLogin,
+        trackRegister,
     };
 }
