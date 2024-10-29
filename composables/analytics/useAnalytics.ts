@@ -53,5 +53,7 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
         trackLogin: analytics.trackLogin,
         trackRegister: analytics.trackRegister,
         trackNavigation: analytics.trackNavigation,
+        trackSelectPromotion: analytics.trackSelectPromotion,
+        trackPromotionView: analytics.trackPromotionView,
     };
 }

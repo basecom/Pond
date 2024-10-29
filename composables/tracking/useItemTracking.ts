@@ -6,11 +6,17 @@ export type TrackingLineItemList = {
     name: string;
 };
 
+export type TrackingLineItemPromotion = {
+    id: string;
+    name: string;
+};
+
 export type GetTrackingLineItemConfig = {
     itemIndex: number;
     product: Schemas['Product'];
     price: Schemas['CalculatedPrice'];
     list?: TrackingLineItemList;
+    promotion?: TrackingLineItemPromotion;
     quantity?: number;
 };
 
@@ -52,6 +58,7 @@ export function useItemTracking(): UseItemTrackingReturn {
         price,
         list,
         quantity,
+        promotion,
     }: GetTrackingLineItemConfig): TrackingLineItem => {
         const categoryTree = _getCategoryTree(product);
 
@@ -99,6 +106,11 @@ export function useItemTracking(): UseItemTrackingReturn {
 
         if (product.options?.length) {
             trackingLineItem.item_variant = product.options.map(option => option.name).join(', ');
+        }
+
+        if (promotion) {
+            trackingLineItem.promotion_id = promotion.id;
+            trackingLineItem.promotion_name = promotion.name;
         }
 
         return trackingLineItem;

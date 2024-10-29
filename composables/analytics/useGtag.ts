@@ -1,5 +1,6 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { UseAnalyticsReturn } from '../../types/analytics/analytics';
+import type { PromotionInfo } from '../../types/analytics/promotion';
 
 export function useGtags(): UseAnalyticsReturn {
     const _cookieEnabledName = 'google-analytics-enabled';
@@ -18,6 +19,7 @@ export function useGtags(): UseAnalyticsReturn {
     } = useEcommerceTrackingHelper();
     const { getSearchEvent, getSearchSuggestionEvent } = useSearchTrackingHelper();
     const { getPageTrackingEvent, isPageTrackingReady } = usePageTrackingHelper();
+    const { getTrackingPromotionEvent } = usePromotionTracking();
     const sessionId = useState<string | undefined>('pondSessionId');
 
     function _trackEvent(...args: unknown[]) {
@@ -211,6 +213,18 @@ export function useGtags(): UseAnalyticsReturn {
         });
     };
 
+    const trackSelectPromotion = (promotion: PromotionInfo, product?: Schemas['Product'], indexOfProduct?: number) => {
+        const promotionEvent = getTrackingPromotionEvent(promotion, product, indexOfProduct);
+
+        _trackEvent('event', 'select_promotion', promotionEvent);
+    };
+
+    const trackPromotionView = (promotion: PromotionInfo, product?: Schemas['Product'], indexOfProduct?: number) => {
+        const promotionEvent = getTrackingPromotionEvent(promotion, product, indexOfProduct);
+
+        _trackEvent('event', 'view_promotion', promotionEvent);
+    };
+
     return {
         isPageTrackingReady,
         updateConsent,
@@ -233,5 +247,7 @@ export function useGtags(): UseAnalyticsReturn {
         trackLogin,
         trackRegister,
         trackNavigation,
+        trackSelectPromotion,
+        trackPromotionView,
     };
 }
