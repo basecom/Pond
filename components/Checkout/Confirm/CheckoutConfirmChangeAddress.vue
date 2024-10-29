@@ -27,6 +27,7 @@ const emit = defineEmits<{
     ): void;
 }>();
 
+const form = useFormKitContext();
 const formErrorStore = useFormErrorStore();
 const { pushError } = useNotifications();
 const { t } = useI18n();
@@ -42,21 +43,6 @@ const changeSelectedAddress = (newAddressId: string) => {
         return;
     }
     selectedAddress.value = foundAddress[0];
-};
-
-const handleChange = () => {
-    emit('change', {
-        type: props.addressType,
-        id: selectedAddress.value.id,
-    });
-};
-
-const handleSave = (fields: FormkitFields) => {
-    emit('submit', {
-        type: props.addressType,
-        id: isEditMode.value ? selectedAddress.value.id : '',
-        formFields: fields,
-    });
 };
 
 const changeMode = (mode: string) => {
@@ -145,7 +131,10 @@ const addressText = (address: Schemas['CustomerAddress']) => {
         <button
             class="relative w-full rounded bg-brand-primary py-2 text-white hover:bg-brand-primary-dark disabled:cursor-not-allowed disabled:bg-gray"
             :disabled="isLoading"
-            @click="handleChange"
+            @click="emit('change', {
+                type: addressType,
+                id: selectedAddress.id,
+            });"
         >
             <span :class="{ 'opacity-0': isLoading }">
                 {{ $t('checkout.confirm.address.modal.selectSubmitLabel') }}
@@ -160,6 +149,7 @@ const addressText = (address: Schemas['CustomerAddress']) => {
     <template v-if="isEditMode || isCreateMode">
         <FormKit
             type="form"
+            name="address"
             :classes="{
                 form: 'grid grid-cols-2 gap-3',
             }"
@@ -167,7 +157,11 @@ const addressText = (address: Schemas['CustomerAddress']) => {
                 validationVisibility: 'dirty',
             }"
             :actions="false"
-            @submit="handleSave"
+            @submit="emit('submit', {
+                type: addressType,
+                id: isEditMode ? selectedAddress.id : '',
+                formFields: form.value.address,
+            });"
         >
             <ul
                 v-if="formErrorStore.apiErrors.filter(error => error.key === 'register').length"

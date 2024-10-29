@@ -13,7 +13,10 @@ defineProps<{
     </CheckoutConfirmCard>
 
     <CheckoutConfirmCard :title="$t('checkout.confirm.address.billing')">
-        <AddressData v-if="shippingAddress.id !== billingAddress.id" :address="billingAddress" />
+        <AddressData
+            v-if="shippingAddress.id !== billingAddress.id"
+            :address="billingAddress"
+        />
         <p v-else>{{ $t('checkout.confirm.address.sameAsShippingAddress') }}</p>
     </CheckoutConfirmCard>
 </template>

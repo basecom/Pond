@@ -2,54 +2,38 @@
 import type { FormkitFields } from '~/types/formkit';
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const { customer } = storeToRefs(useCustomerStore());
 const { refreshContext } = useCustomerStore();
 const { handleError } = useFormErrorStore();
-const { pushSuccess, pushError } = useNotifications();
+const { pushError } = useNotifications();
 const { t } = useI18n();
 const modalController = useModal();
 const isLoading = ref(false);
 
-const {
-    customerAddresses,
-    loadCustomerAddresses,
-    createCustomerAddress,
-    updateCustomerAddress,
-    setDefaultCustomerShippingAddress,
-    setDefaultCustomerBillingAddress,
-} = useAddress();
-
+const { changeAddress, saveAddress, syncBillingAddress, loadCustomerAddresses, customerAddresses } = useCustomerAddress();
+const { activeShippingAddress, activeBillingAddress } = useCustomerAddress();
 await loadCustomerAddresses();
+
 const modalAddress = ref<Schemas['CustomerAddress']>(null);
 const modalAddressType = ref('shippingAddress');
 
-const activeShippingAddress = computed(() => customer.value.activeShippingAddress);
-const activeBillingAddress = computed(() => customer.value.activeBillingAddress);
 const billingAddressIsSameAsShippingAddress =
     activeBillingAddress.value.id === activeShippingAddress.value.id ? ref(true) : ref(false);
 
 watch(billingAddressIsSameAsShippingAddress, () => handleSameBillingAddress());
 
 const handleSameBillingAddress = async () => {
-    if (billingAddressIsSameAsShippingAddress.value) {
-        await syncBillingAddress(
-            billingAddressIsSameAsShippingAddress.value,
-            activeShippingAddress.value.id,
-            activeBillingAddress.value.id,
-        );
-        await refreshContext();
-    }
-};
-
-const syncBillingAddress = async (sameBillingAddress: boolean, shippingId: string, billingId: string) => {
-    if (sameBillingAddress && shippingId !== billingId) {
-        try {
-            await setDefaultCustomerBillingAddress(shippingId);
-            pushSuccess(t('account.address.updateBillingSuccess'));
-        } catch (error) {
-            pushError(t('account.address.updateBillingError'));
-            handleError(error);
+    try {
+        if (billingAddressIsSameAsShippingAddress.value) {
+            await syncBillingAddress(
+                billingAddressIsSameAsShippingAddress.value,
+                activeShippingAddress.value.id,
+                activeBillingAddress.value.id,
+            );
+            await refreshContext();
         }
+    } catch (error) {
+        pushError(t('global.generalError'));
+        handleError(error);
     }
 };
 
@@ -57,22 +41,10 @@ const handleChange = async (payload: { type: 'shippingAddress' | 'billingAddress
     isLoading.value = true;
 
     try {
-        if (payload.type === 'shippingAddress' && payload.id !== activeShippingAddress.value.id) {
-            await setDefaultCustomerShippingAddress(payload.id);
-            await syncBillingAddress(
-                billingAddressIsSameAsShippingAddress.value,
-                payload.id,
-                activeBillingAddress.value.id,
-            );
-            pushSuccess(t('account.address.updateShippingSuccess'));
-        }
-
-        if (payload.type === 'billingAddress' && payload.id !== activeBillingAddress.value.id) {
-            await setDefaultCustomerBillingAddress(payload.id);
-            pushSuccess(t('account.address.updateBillingSuccess'));
-        }
+        await changeAddress(payload.type, payload.id, billingAddressIsSameAsShippingAddress.value);
 
         await refreshContext();
+
         isLoading.value = false;
         modalController.close();
     } catch (error) {
@@ -96,61 +68,18 @@ const handleSave = async (payload: {
         ...addressFields,
     };
 
-    let savedAddress;
-    if (payload.id !== '') {
-        savedAddress = await updateAddress(addressData, payload.id);
-    }
-
-    if (payload.id === '') {
-        savedAddress = await createAddress(addressData);
-    }
-
     try {
-        if (payload.type === 'shippingAddress' && savedAddress.id !== activeShippingAddress.value.id) {
-            await setDefaultCustomerShippingAddress(savedAddress.id);
-            await syncBillingAddress(
-                billingAddressIsSameAsShippingAddress.value,
-                savedAddress.id,
-                activeBillingAddress.value.id,
-            );
-        }
+        const savedAddress = await saveAddress(payload.id, addressData);
+        await changeAddress(payload.type, savedAddress.id, billingAddressIsSameAsShippingAddress.value);
 
-        if (payload.type === 'billingAddress' && savedAddress.id !== activeBillingAddress.value.id) {
-            await setDefaultCustomerBillingAddress(savedAddress.id);
-        }
-
-        await refreshContext();
         await loadCustomerAddresses();
+        await refreshContext();
 
         isLoading.value = false;
         modalController.close();
     } catch (error) {
         isLoading.value = false;
-        handleError(error);
-    }
-};
-
-const updateAddress = async (addressData: FormkitFields, id: string) => {
-    try {
-        const savedAddress = await updateCustomerAddress({
-            ...addressData,
-            id: id,
-        });
-        pushSuccess(t('account.address.editSuccess'));
-        return savedAddress;
-    } catch (error) {
-        pushSuccess(t('account.address.editError'));
-        handleError(error);
-    }
-};
-
-const createAddress = async (addressData: FormkitFields) => {
-    try {
-        const savedAddress = await createCustomerAddress(addressData);
-        pushSuccess(t('account.address.createSuccess'));
-        return savedAddress;
-    } catch (error) {
-        pushSuccess(t('account.address.createError'));
+        pushError(t('global.generalError'));
         handleError(error);
     }
 };
@@ -164,50 +93,47 @@ const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas[
 
 <template>
     <CheckoutConfirmCard :title="$t('checkout.confirm.address.shipping')">
-        <template v-if="customer">
-            <div class="flex w-full flex-col justify-between sm:flex-row sm:items-end">
-                <AddressData
-                    :address="activeShippingAddress"
-                    class="mb-4 sm:mb-0"
-                />
-                <button
-                    class="rounded bg-brand-primary px-6 py-1 text-white hover:bg-brand-primary-dark"
-                    @click="openModal('shippingAddress', activeShippingAddress)"
-                >
-                    {{ $t('global.change') }}
-                </button>
-            </div>
-        </template>
+        <div class="flex w-full flex-col justify-between sm:flex-row sm:items-end">
+            <AddressData
+                :address="activeShippingAddress"
+                class="mb-4 sm:mb-0"
+            />
+            <button
+                class="rounded bg-brand-primary px-6 py-1 text-white hover:bg-brand-primary-dark"
+                @click="openModal('shippingAddress', activeShippingAddress)"
+            >
+                {{ $t('global.change') }}
+            </button>
+        </div>
     </CheckoutConfirmCard>
 
     <CheckoutConfirmCard :title="$t('checkout.confirm.address.billing')">
-        <template v-if="customer">
-            <div class="flex w-full flex-col justify-between sm:flex-row sm:items-end">
-                <div>
-                    <FormKit
-                        v-model="billingAddressIsSameAsShippingAddress"
-                        type="checkbox"
-                        :label="$t('checkout.confirm.address.sameAsShippingAddress')"
-                        :classes="{
-                            outer: 'mb-4',
-                        }"
-                    />
+        <div class="flex w-full flex-col justify-between sm:flex-row sm:items-end">
+            <div>
+                <FormKit
+                    v-model="billingAddressIsSameAsShippingAddress"
+                    type="checkbox"
+                    :label="$t('checkout.confirm.address.sameAsShippingAddress')"
+                    :classes="{
+                        outer: 'mb-4',
+                    }"
+                />
 
-                    <AddressData
-                        v-if="!billingAddressIsSameAsShippingAddress"
-                        :address="activeBillingAddress"
-                        class="mb-4 sm:mb-0"
-                    />
-                </div>
-
-                <button
-                    class="rounded bg-brand-primary px-6 py-1 text-white hover:bg-brand-primary-dark"
-                    @click="openModal('billingAddress', activeBillingAddress)"
-                >
-                    {{ $t('global.change') }}
-                </button>
+                <AddressData
+                    v-if="!billingAddressIsSameAsShippingAddress"
+                    :address="activeBillingAddress"
+                    class="mb-4 sm:mb-0"
+                />
             </div>
-        </template>
+
+            <button
+                v-if="!billingAddressIsSameAsShippingAddress"
+                class="rounded bg-brand-primary px-6 py-1 text-white hover:bg-brand-primary-dark"
+                @click="openModal('billingAddress', activeBillingAddress)"
+            >
+                {{ $t('global.change') }}
+            </button>
+        </div>
     </CheckoutConfirmCard>
 
     <LazySharedModal
