@@ -22,7 +22,7 @@ useBreadcrumbs([
         path: landingResponse.value.url,
     },
 ]);
-useAnalytics({ trackPageView: true, pageType: 'cms' });
+useAnalytics({ trackPageView: true, pageType: 'landingpage' });
 </script>
 
 <template>
