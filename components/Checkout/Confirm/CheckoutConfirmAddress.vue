@@ -9,7 +9,7 @@ const { t } = useI18n();
 const modalController = useModal();
 const isLoading = ref(false);
 
-const { changeAddress, saveAddress, syncBillingAddress, loadCustomerAddresses, customerAddresses } = useCustomerAddress();
+const { changeDefaultAddress, saveAddress, syncBillingAddress, loadCustomerAddresses, customerAddresses } = useCustomerAddress();
 const { activeShippingAddress, activeBillingAddress } = useCustomerAddress();
 await loadCustomerAddresses();
 
@@ -41,7 +41,7 @@ const handleChange = async (payload: { type: 'shippingAddress' | 'billingAddress
     isLoading.value = true;
 
     try {
-        await changeAddress(payload.type, payload.id, billingAddressIsSameAsShippingAddress.value);
+        await changeDefaultAddress(payload.type, payload.id, billingAddressIsSameAsShippingAddress.value);
 
         await refreshContext();
 
@@ -70,7 +70,7 @@ const handleSave = async (payload: {
 
     try {
         const savedAddress = await saveAddress(payload.id, addressData);
-        await changeAddress(payload.type, savedAddress.id, billingAddressIsSameAsShippingAddress.value);
+        await changeDefaultAddress(payload.type, savedAddress.id, billingAddressIsSameAsShippingAddress.value);
 
         await loadCustomerAddresses();
         await refreshContext();

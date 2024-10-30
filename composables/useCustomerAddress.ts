@@ -31,7 +31,7 @@ export function useCustomerAddress() {
         }
     };
 
-    const changeAddress = async (addressType: 'shippingAddress' | 'billingAddress', newAddressId: string, shouldSyncBillingAddress: boolean) => {
+    const changeDefaultAddress = async (addressType: 'shippingAddress' | 'billingAddress', newAddressId: string, shouldSyncBillingAddress: boolean) => {
         try {
             if (addressType === 'shippingAddress' && newAddressId !== activeShippingAddress.value.id) {
                 await setDefaultCustomerShippingAddress(newAddressId);
@@ -106,7 +106,7 @@ export function useCustomerAddress() {
         activeShippingAddress,
         activeBillingAddress,
         syncBillingAddress,
-        changeAddress,
+        changeDefaultAddress,
         saveAddress,
         deleteAddress,
     };
