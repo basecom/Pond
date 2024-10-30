@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import type { Schemas } from '@shopware/api-client/api-types';
+import type { PromotionInfo } from '../../../types/analytics/promotion';
+
 const props = defineProps<{
     element: CmsElementProductSlider;
 }>();
 
 const config = useCmsElementConfig(props.element);
 const elementData = useCmsElementData(props.element);
-
+const { trackPromotionView, trackSelectPromotion } = useAnalytics();
+const { isHomePage } = useHomePage();
 const border = config.getConfigValue('border');
 const boxLayout = config.getConfigValue('boxLayout');
 const displayMode = config.getConfigValue('displayMode');
@@ -29,6 +33,26 @@ const breakpoints = {
 };
 
 const slides = computed(() => elementData.getData('products') ?? []);
+
+const getPromotion = (product: Schemas['Product']): PromotionInfo => {
+    return {
+        creative_name: product.cover?.media.fileName ?? '',
+        creative_slot: props.element?.type ?? '',
+        promotion_id: props.element?.blockId ?? '',
+        promotion_name: props.element?.type ?? '',
+    }
+};
+
+const onProductView = (product: Schemas['Product'], index: string | number) => {
+    if (isHomePage.value) {
+        trackPromotionView(getPromotion(product), product, Number(index));
+    }
+};
+const onProductSelect = (product: Schemas['Product'], index: string | number) => {
+    if (isHomePage.value) {
+        trackSelectPromotion(getPromotion(product), product, Number(index));
+    }
+};
 </script>
 
 <template>
@@ -57,7 +81,7 @@ const slides = computed(() => elementData.getData('products') ?? []);
                 :breakpoints="breakpoints"
             >
                 <LayoutSliderSlide
-                    v-for="slide in slides"
+                    v-for="(slide, index) in slides"
                     :key="slide.id"
                     :class="`min-w-[${minWidth}] py-2`"
                 >
@@ -65,6 +89,8 @@ const slides = computed(() => elementData.getData('products') ?? []);
                         :product="slide"
                         :layout="boxLayout"
                         :display-mode="displayMode"
+                        @view-product="onProductView(slide, index)"
+                        @select-product="onProductSelect(slide, index)"
                     />
                 </LayoutSliderSlide>
             </LayoutSlider>

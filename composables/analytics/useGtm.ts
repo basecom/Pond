@@ -1,5 +1,6 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { UseAnalyticsReturn } from '../../types/analytics/analytics';
+import type { PromotionInfo } from '../../types/analytics/promotion';
 
 export function useGtm(): UseAnalyticsReturn {
     const _cookieEnabledName = 'google-analytics-enabled';
@@ -18,6 +19,7 @@ export function useGtm(): UseAnalyticsReturn {
     } = useEcommerceTrackingHelper();
     const { getSearchEvent, getSearchSuggestionEvent } = useSearchTrackingHelper();
     const { getPageTrackingEvent, isPageTrackingReady } = usePageTrackingHelper();
+    const { getTrackingPromotionEvent } = usePromotionTracking();
     const sessionId = useState<string | undefined>('pondSessionId');
 
     const _trackEvent = (args: unknown) => {
@@ -295,6 +297,38 @@ export function useGtm(): UseAnalyticsReturn {
         });
     };
 
+    const trackNavigation = (level: number, name: string) => {
+        _trackEvent({
+            event: 'navigation_header',
+            navigation_level: level,
+            navigation_name: name,
+        });
+    };
+
+    const trackPromotionView = (promotion: PromotionInfo, product?: Schemas['Product'], indexOfProduct?: number) => {
+        const promotionEvent = getTrackingPromotionEvent(promotion, product, indexOfProduct);
+
+        _trackEvent({
+            event: 'view_promotion',
+            ...promotionEvent,
+        });
+    };
+
+    const trackSelectPromotion = (promotion: PromotionInfo, product?: Schemas['Product'], indexOfProduct?: number) => {
+        const promotionEvent = getTrackingPromotionEvent(promotion, product, indexOfProduct);
+
+        _trackEvent({
+            event: 'select_promotion',
+            ...promotionEvent,
+        });
+    };
+
+    const trackNewsletterRegistration = () => {
+        _trackEvent({
+            event: 'newsletter_registration',
+        });
+    };
+
     return {
         isPageTrackingReady,
         updateConsent,
@@ -316,5 +350,9 @@ export function useGtm(): UseAnalyticsReturn {
         trackRemoveFromWishlist,
         trackLogin,
         trackRegister,
+        trackNavigation,
+        trackPromotionView,
+        trackSelectPromotion,
+        trackNewsletterRegistration,
     };
 }

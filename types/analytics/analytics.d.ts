@@ -1,4 +1,5 @@
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { PromotionInfo } from './promotion';
 
 export type UseAnalyticsConfig = {
     trackPageView: boolean;
@@ -42,6 +43,10 @@ export type UseAnalyticsReturn = {
     trackRemoveFromWishlist: (product: Schemas['Product']) => void;
     trackLogin: () => void;
     trackRegister: () => void;
+    trackNavigation: (level: number, name: string) => void;
+    trackPromotionView: (promotion: PromotionInfo, product?: Schemas['Product'], indexOfProduct?: number) => void;
+    trackSelectPromotion: (promotion: PromotionInfo, product?: Schemas['Product'], indexOfProduct?: number) => void;
+    trackNewsletterRegistration: () => void;
 };
 
 export type PondAnalyticsType = 'gtm' | 'gtag';

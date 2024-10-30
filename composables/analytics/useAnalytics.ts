@@ -52,5 +52,9 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
         trackRemoveFromWishlist: analytics.trackRemoveFromWishlist,
         trackLogin: analytics.trackLogin,
         trackRegister: analytics.trackRegister,
+        trackNavigation: analytics.trackNavigation,
+        trackSelectPromotion: analytics.trackSelectPromotion,
+        trackPromotionView: analytics.trackPromotionView,
+        trackNewsletterRegistration: analytics.trackNewsletterRegistration,
     };
 }

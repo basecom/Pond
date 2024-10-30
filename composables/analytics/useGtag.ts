@@ -1,5 +1,6 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { UseAnalyticsReturn } from '../../types/analytics/analytics';
+import type { PromotionInfo } from '../../types/analytics/promotion';
 
 export function useGtags(): UseAnalyticsReturn {
     const _cookieEnabledName = 'google-analytics-enabled';
@@ -18,6 +19,7 @@ export function useGtags(): UseAnalyticsReturn {
     } = useEcommerceTrackingHelper();
     const { getSearchEvent, getSearchSuggestionEvent } = useSearchTrackingHelper();
     const { getPageTrackingEvent, isPageTrackingReady } = usePageTrackingHelper();
+    const { getTrackingPromotionEvent } = usePromotionTracking();
     const sessionId = useState<string | undefined>('pondSessionId');
 
     function _trackEvent(...args: unknown[]) {
@@ -204,6 +206,29 @@ export function useGtags(): UseAnalyticsReturn {
         _trackEvent('event', 'registration');
     };
 
+    const trackNavigation = (level: number, name: string) => {
+        _trackEvent('event', 'navigation_header', {
+            navigation_level: level,
+            navigation_name: name,
+        });
+    };
+
+    const trackSelectPromotion = (promotion: PromotionInfo, product?: Schemas['Product'], indexOfProduct?: number) => {
+        const promotionEvent = getTrackingPromotionEvent(promotion, product, indexOfProduct);
+
+        _trackEvent('event', 'select_promotion', promotionEvent);
+    };
+
+    const trackPromotionView = (promotion: PromotionInfo, product?: Schemas['Product'], indexOfProduct?: number) => {
+        const promotionEvent = getTrackingPromotionEvent(promotion, product, indexOfProduct);
+
+        _trackEvent('event', 'view_promotion', promotionEvent);
+    };
+
+    const trackNewsletterRegistration = () => {
+        _trackEvent('event', 'newsletter_registration');
+    };
+
     return {
         isPageTrackingReady,
         updateConsent,
@@ -225,5 +250,9 @@ export function useGtags(): UseAnalyticsReturn {
         trackRemoveFromWishlist,
         trackLogin,
         trackRegister,
+        trackNavigation,
+        trackSelectPromotion,
+        trackPromotionView,
+        trackNewsletterRegistration,
     };
 }
