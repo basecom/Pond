@@ -9,6 +9,7 @@ useBreadcrumbs([
         path: '/wishlist',
     },
 ]);
+useAnalytics({ trackPageView: true, pageType: 'wishlist' });
 
 const products = ref<Schemas['Product'][]>([]);
 
@@ -45,7 +46,13 @@ const loadProductsByItemIds = async (itemIds: string[]) => {
 
     try {
         const { data } = await apiClient.invoke('readProduct post /product', {
-            body: { ids: itemIds },
+            body: {
+                ids: itemIds,
+                associations: {
+                    manufacturer: {},
+                    options: {},
+                },
+            },
         });
 
         if (data?.elements) products.value = data.elements;

@@ -1,9 +1,8 @@
 <script setup lang="ts">
 const offcanvasCartController = useModal();
-const { cartItems, isEmpty } = useCart();
-const { getCartItemsCount } = useCartItems();
-
-const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
+const { isEmpty } = useCart();
+const cartItemsStore = useCartItemsStore();
+const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
 </script>
 
 <template>
@@ -16,7 +15,7 @@ const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
             class="block h-6 w-6"
         />
         <UtilityPill
-            :number="cartItemCount"
+            :number="cartItemsCount"
             class="absolute bottom-2.5 left-3"
         />
     </button>
@@ -30,11 +29,14 @@ const cartItemCount = computed(() => getCartItemsCount(cartItems.value));
             <div v-if="!isEmpty">
                 <ul class="divide-y divide-gray-medium border-t border-gray-medium pb-4">
                     <li
-                        v-for="cartItem in cartItems"
-                        :key="cartItem.id"
+                        v-for="item in cartItemsWithProduct"
+                        :key="item.cartItem.id"
                         class="flex py-6"
                     >
-                        <CheckoutLineItem :line-item="cartItem" />
+                        <CheckoutLineItem
+                            :line-item="item.cartItem"
+                            :product="item.product"
+                        />
                     </li>
                 </ul>
                 <CheckoutSummary :reduced-display="true" />

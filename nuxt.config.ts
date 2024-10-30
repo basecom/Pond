@@ -18,6 +18,7 @@ export default defineNuxtConfig({
         '@nuxt/fonts',
         '@formkit/nuxt',
         '@nuxtjs/i18n',
+        '@nuxtjs/device',
     ],
 
     experimental: {
@@ -40,6 +41,12 @@ export default defineNuxtConfig({
             pond: {
                 shopwareEndpoint: '',
                 accessToken: '',
+                analytics: {
+                    enabled: true,
+                    type: 'gtag',
+                    id: 'G-XXXX',
+                    trackingUrl: '',
+                }
             },
         },
     },

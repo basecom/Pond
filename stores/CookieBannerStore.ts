@@ -1,51 +1,43 @@
-import Cookies from 'js-cookie';
 import { type CookieEntry, type CookieGroup, useCookieGroupsHelper } from '../composables/useCookieGroupsHelper';
 
 export const useCookieBannerStore = defineStore('cookie-banner', () => {
     const { defaultCookieGroup, filterCookieGroups } = useCookieGroupsHelper();
     const _cookieGroups = ref<CookieGroup[]>(defaultCookieGroup);
     const _activatedCookies = ref<CookieEntry['cookie'][]>([]);
-    // TODO: Modify to take the value from configuration
-    const _isGoogleAnalyticsEnabled = ref(false);
-    // TODO: Modify to take the value from configuration
-    const _isCaptchaV2Enabled = ref(false);
-    // TODO: Modify to take the value from configuration
-    const _isCaptchaV3Enabled = ref(false);
-    // TODO: Modify to take the value from configuration
-    const _isWishlistEnabled = ref(false);
-    // TODO: Modify to take the value from configuration
-    const _isAcceptAllEnabled = ref(true);
-    const _showCookieBanner = ref(false);
+    const { isEnabled } = useAnalyticsConfig();
+    const configStore = useConfigStore();
+    const _isWishlistEnabled: boolean | undefined = configStore.get('core.cart.wishlistEnabled');
+    const _isAcceptAllEnabled: boolean | undefined = configStore.get('core.basicInformation.acceptAllCookies');
+    const _captchaConfig = configStore.get('core.basicInformation.activeCaptchasV2');
+    const _isCaptchaV2Enabled: ComputedRef<boolean> = computed(() => _captchaConfig?.googleReCaptchaV2?.isActive ?? false);
+    const _isCaptchaV3Enabled: ComputedRef<boolean> = computed(() => _captchaConfig?.googleReCaptchaV3?.isActive ?? false);
+    const _cookiePreference = useCookie('cookie-preference');
 
     const cookieGroups = computed(() =>
         filterCookieGroups(_cookieGroups.value, {
-            isGoogleAnalyticsEnabled: _isGoogleAnalyticsEnabled.value,
-            isWishlistEnabled: _isWishlistEnabled.value,
+            isGoogleAnalyticsEnabled: isEnabled.value,
+            isWishlistEnabled: _isWishlistEnabled ?? false,
             isCaptchaV2Enabled: _isCaptchaV2Enabled.value,
             isCaptchaV3Enabled: _isCaptchaV3Enabled.value,
         }),
     );
     const activatedCookies = computed(() => _activatedCookies.value);
-    const isAcceptAllEnabled = computed(() => _isAcceptAllEnabled.value);
-    const showCookieBanner = computed(() => _showCookieBanner.value);
-
-    const updateBannerVisibility = () => {
-        const cookiePreference = Cookies.get('cookie-preference');
-        _showCookieBanner.value = !cookiePreference || cookiePreference !== '1';
-    };
+    const isAcceptAllEnabled = computed(() => _isAcceptAllEnabled);
+    const showCookieBanner = computed(() => !_cookiePreference.value || _cookiePreference.value.toString() !== '1');
 
     const initializeCookies = () => {
         _activatedCookies.value = filterCookieGroups(_cookieGroups.value, {
-            isGoogleAnalyticsEnabled: _isGoogleAnalyticsEnabled.value,
-            isWishlistEnabled: _isWishlistEnabled.value,
+            isGoogleAnalyticsEnabled: isEnabled.value,
+            isWishlistEnabled: _isWishlistEnabled ?? false,
             isCaptchaV2Enabled: _isCaptchaV2Enabled.value,
             isCaptchaV3Enabled: _isCaptchaV3Enabled.value,
         })
             .flatMap(group => group.entries)
             .filter(entry => entry.value)
             .map(entry => entry.cookie)
-            .filter(cookie => cookie && Cookies.get(cookie));
-        updateBannerVisibility();
+            .filter(cookie => {
+                return cookie && useCookie(cookie).value;
+            });
     };
 
     const updateCookies = (active: CookieEntry['cookie'][], inactive: CookieEntry['cookie'][]) => {
@@ -58,24 +50,24 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
                 return;
             }
 
-            Cookies.set(cookie, entry.value, { expires: entry.expiration });
+            const cookieRef = useCookie(cookie, { maxAge: entry.expiration });
+            cookieRef.value = entry.value;
         });
 
         inactive.forEach(cookie => {
-            Cookies.remove(cookie);
+            useCookie(cookie).value = undefined;
         });
 
         _activatedCookies.value = active.slice(0);
-        updateBannerVisibility();
     };
 
     const acceptAll = () => {
-        if (!_isAcceptAllEnabled.value) {
+        if (!_isAcceptAllEnabled) {
             return;
         }
         const allCookies = filterCookieGroups(_cookieGroups.value, {
-            isGoogleAnalyticsEnabled: _isGoogleAnalyticsEnabled.value,
-            isWishlistEnabled: _isWishlistEnabled.value,
+            isGoogleAnalyticsEnabled: isEnabled.value,
+            isWishlistEnabled: _isWishlistEnabled ?? false,
             isCaptchaV2Enabled: _isCaptchaV2Enabled.value,
             isCaptchaV3Enabled: _isCaptchaV3Enabled.value,
         })
@@ -88,8 +80,8 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
 
     const denyAll = () => {
         const allCookies = filterCookieGroups(_cookieGroups.value, {
-            isGoogleAnalyticsEnabled: _isGoogleAnalyticsEnabled.value,
-            isWishlistEnabled: _isWishlistEnabled.value,
+            isGoogleAnalyticsEnabled: isEnabled.value,
+            isWishlistEnabled: _isWishlistEnabled ?? false,
             isCaptchaV2Enabled: _isCaptchaV2Enabled.value,
             isCaptchaV3Enabled: _isCaptchaV3Enabled.value,
         })
@@ -101,10 +93,8 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
         updateCookies([], allCookieValues);
 
         if (cookieConsent?.value) {
-            Cookies.set(cookieConsent.cookie, cookieConsent.value, { expires: cookieConsent.expiration });
+            useCookie(cookieConsent.cookie, { maxAge: cookieConsent.expiration }).value = cookieConsent.value;
         }
-
-        updateBannerVisibility();
     };
 
     return {

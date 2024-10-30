@@ -4,15 +4,19 @@ import { ApiClientError } from '@shopware/api-client';
 const customerStore = useCustomerStore();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 const { push } = useRouter();
-const { refreshCart, isEmpty, cartItems } = useCart();
+const { refreshCart, isEmpty, cart } = useCart();
+const cartItemsStore = useCartItemsStore();
+const { cartItemsWithProduct } = storeToRefs(cartItemsStore);
 const { createOrder } = useCheckout();
 const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
+const { trackPurchase } = useAnalytics({ trackPageView: true, pageType: 'checkout' });
 
 const placeOrder = async () => {
     try {
         const order = await createOrder();
         await push('/checkout/finish/' + order.id);
+        trackPurchase(order);
         await refreshCart();
 
         pushSuccess(t('checkout.confirm.order.successMessage'));
@@ -54,11 +58,14 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
 
                         <ul class="divide-y divide-gray-medium">
                             <li
-                                v-for="cartItem in cartItems"
-                                :key="cartItem.id"
+                                v-for="item in cartItemsWithProduct"
+                                :key="item.cartItem.id"
                                 class="flex py-6"
                             >
-                                <CheckoutLineItem :line-item="cartItem" />
+                                <CheckoutLineItem
+                                    :line-item="item.cartItem"
+                                    :product="item.product"
+                                />
                             </li>
                         </ul>
 
@@ -83,6 +90,6 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
             </FormKit>
         </template>
 
-        <template v-else> {{ $t('checkout.confirm.emptyCartMessage') }} </template>
+        <template v-else> {{ $t('checkout.confirm.emptyCartMessage') }}</template>
     </div>
 </template>
