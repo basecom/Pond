@@ -1,7 +1,6 @@
 import type { UseAnalyticsReturn } from '../../../types/analytics/analytics';
 
 export function usePageTracking({ trackPage, isPageTrackingReady }: UseAnalyticsReturn, pageType: string) {
-    const { path } = useRoute();
     const { isHomePage } = useHomePage();
 
     whenever(
