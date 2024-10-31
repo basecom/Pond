@@ -42,7 +42,7 @@ export default defineNuxtConfig({
                 shopwareEndpoint: '',
                 accessToken: '',
                 analytics: {
-                    enabled: true,
+                    enabled: false,
                     type: 'gtag',
                     id: 'G-XXXX',
                     trackingUrl: '',
