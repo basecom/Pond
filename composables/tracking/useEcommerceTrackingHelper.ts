@@ -44,7 +44,8 @@ export function useEcommerceTrackingHelper() {
     const getEventForAllItems = (): TrackingEcommerceEvent => {
         const currentCart: Schemas['Cart'] = cart.value;
         const getLineItemsTracking = currentCart.lineItems
-            ?.map((lineItem, index) => {
+            ?.filter(item => item.type === 'product')
+            .map((lineItem, index) => {
                 const product = _products.value.find(product => product.id === lineItem.referencedId);
                 if (!product) {
                     return;
