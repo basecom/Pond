@@ -29,15 +29,10 @@ if (route.path !== '/wishlist' && wishlistEnabled) {
     <UtilityLoadingSpinner v-if="loading" />
 
     <LayoutHeader v-show="!loading" />
-
     <UtilityToastNotifications />
 
-    <main
-        v-show="!loading"
-        class="mt-4 w-screen"
-    >
+    <main v-show="!loading">
         <LayoutBreadcrumbs />
-
         <NuxtPage />
     </main>
 

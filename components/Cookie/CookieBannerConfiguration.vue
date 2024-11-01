@@ -122,19 +122,28 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-        <div class="flex flex-col justify-end gap-2 md:flex-row">
+        <div class="flex flex-col justify-end gap-2 lg:flex-row">
             <FormKit
                 type="button"
+                :classes="{
+                    outer: 'w-full',
+                }"
                 :label="$t('cookie.modal.denyAllButton')"
                 @click="() => emit('deny-all')"
             />
             <FormKit
                 type="submit"
+                :classes="{
+                    outer: 'w-full',
+                }"
                 :label="$t('cookie.modal.submitLabel')"
             />
             <FormKit
                 v-if="isAcceptAllEnabled"
                 type="button"
+                :classes="{
+                    outer: 'w-full',
+                }"
                 :label="$t('cookie.modal.allowAllButton')"
                 @click="() => emit('accept-all')"
             />
