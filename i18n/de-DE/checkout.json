@@ -3,21 +3,21 @@
         "cart": {
             "heading": "Warenkorb",
             "checkoutButtonLabel": "Kasse",
-            "emptyCartMessage": "Dein Warenkorb ist leer."
+            "emptyCartMessage": "Ihr Warenkorb ist leer."
         },
         "offcanvasCart": {
             "toCartButtonLabel": "Zum Warenkorb"
         },
         "confirm": {
             "heading": "Kasse",
-            "emptyCartMessage": "Dein Warenkorb ist leer.",
+            "emptyCartMessage": "Ihr Warenkorb ist leer.",
             "payment": {
                 "cardTitle": "Bezahlmethoden",
                 "cardSubtitle": "Wähle eine Methode zum Bezahlen aus"
             },
             "personal": {
                 "cardTitle": "Persönliche Informationen",
-                "loggedInMessage": "Du bist als {firstname} {lastname} eingeloggt"
+                "loggedInMessage": "Sie sind als {firstname} {lastname} eingeloggt"
             },
             "shipping": {
                 "cardTitle": "Versandmethoden",
@@ -29,8 +29,8 @@
                 "help": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen und akzeptiere sie."
             },
             "order": {
-                "successMessage": "Deine Bestellung wurde aufgegeben.",
-                "errorMessage": "Ein Fehler ist bei deiner Bestellung aufgetreten. Bitte versuche es noch einmal.",
+                "successMessage": "Ihre Bestellung wurde aufgegeben.",
+                "errorMessage": "Ein Fehler ist bei ihrer Bestellung aufgetreten. Bitte versuche es noch einmal.",
                 "buttonLabel": "Bestellen",
                 "buttonLabelNotLoggedIn": "Zum Bestellen einloggen"
             }
@@ -64,9 +64,9 @@
             "totalLabel": "Gesamt"
         },
         "finish": {
-            "heading": "Vielen Dank für deine Bestellung!",
-            "confirmationMessage": "Wir haben deine Bestellung erhalten und werden sie so schnell wie möglich bearbeiten.",
-            "emailMessage": "Eine Bestätigungsmail wurde an deine Emailadresse gesendet.",
+            "heading": "Vielen Dank für ihre Bestellung!",
+            "confirmationMessage": "Wir haben ihre Bestellung erhalten und werden sie so schnell wie möglich bearbeiten.",
+            "emailMessage": "Eine Bestätigungsmail wurde an ihre Email-Adresse gesendet.",
             "orderNumberLabel": "Bestellnummer:",
             "orderDateLabel": "Datum:",
             "orderStatusLabel": "Status:",

@@ -65,7 +65,7 @@
         },
         "orders": {
             "heading": "Orders",
-            "noOrdersFound": "Oops, no orders have been found. Have you placed an order yet?",
+            "noOrdersFound": "No orders could be found.",
             "paymentStatusLabel": "Payment",
             "paymentMethodLabel": "Payment Method",
             "shippingStatusLabel": "Shipping",
