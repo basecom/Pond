@@ -50,8 +50,8 @@ onMounted(async () => {
     <SharedAccordionItem
         class="overflow-hidden"
         :value="`item-${orderId}`"
-        headline-classes="bg-white rounded-lg"
-        :headline-default-text-style="false"
+        headline-classes="flex w-full items-center justify-between gap-4 px-4 py-2 bg-white"
+        trigger-classes="h-6 w-6 self-baseline mt-3.5 ml-auto"
     >
         <template #title>
             <div class="py-2">

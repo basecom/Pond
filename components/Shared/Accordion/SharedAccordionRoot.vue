@@ -14,11 +14,12 @@
  */
 withDefaults(
     defineProps<{
-        defaultValue: string;
+        defaultValue?: string | string[];
         collapsible?: boolean;
         type?: 'single' | 'multiple';
     }>(),
     {
+        defaultValue: '',
         collapsible: true,
         type: 'single',
     },
@@ -28,8 +29,8 @@ withDefaults(
 <template>
     <AccordionRoot
         :default-value="defaultValue"
-        type="single"
-        :collapsible="true"
+        :type=type
+        :collapsible=collapsible
     >
         <slot></slot>
     </AccordionRoot>
