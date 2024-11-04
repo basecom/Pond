@@ -25,6 +25,7 @@ onMounted(async () => {
         description: method.translated.description,
         mediaUrl: method.media?.url,
     }));
+    trackAddPaymentInfo();
 });
 </script>
 
