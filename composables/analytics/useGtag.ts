@@ -16,6 +16,7 @@ export function useGtags(): UseAnalyticsReturn {
         getEventForProductList,
         getEventForProduct,
         getEventForProductWithPrice,
+        getEventForProductsWithPrice,
     } = useEcommerceTrackingHelper();
     const { getSearchEvent, getSearchSuggestionEvent } = useSearchTrackingHelper();
     const { getPageTrackingEvent, isPageTrackingReady } = usePageTrackingHelper();
@@ -198,6 +199,12 @@ export function useGtags(): UseAnalyticsReturn {
         _trackEvent('event', 'remove_from_wishlist', trackingEvent);
     };
 
+    const trackClearWishlist = (products: Schemas['Product'][]) => {
+        const trackingEvent = getEventForProductsWithPrice(products);
+
+        _trackEvent('event', 'remove_from_wishlist', trackingEvent);
+    };
+
     const trackLogin = () => {
         _trackEvent('event', 'login');
     };
@@ -248,6 +255,7 @@ export function useGtags(): UseAnalyticsReturn {
         trackSearch,
         trackAddToWishlist,
         trackRemoveFromWishlist,
+        trackClearWishlist,
         trackLogin,
         trackRegister,
         trackNavigation,

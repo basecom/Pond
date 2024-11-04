@@ -9,7 +9,7 @@ useBreadcrumbs([
         path: '/wishlist',
     },
 ]);
-useAnalytics({ trackPageView: true, pageType: 'wishlist' });
+const { trackClearWishlist } = useAnalytics({ trackPageView: true, pageType: 'wishlist' });
 
 const products = ref<Schemas['Product'][]>([]);
 
@@ -32,7 +32,9 @@ const clearWishlistHandler = async () => {
     isLoading.value = true;
 
     try {
+        const productsList = products.value.slice(0);
         await clearWishlist();
+        trackClearWishlist(productsList);
         pushSuccess(t('wishlist.clearedSuccessfully'));
     } catch (error) {
         pushError(t('wishlist.errorClearingWishlist'));

@@ -41,6 +41,7 @@ export type UseAnalyticsReturn = {
     trackSearch: () => void;
     trackAddToWishlist: (product: Schemas['Product']) => void;
     trackRemoveFromWishlist: (product: Schemas['Product']) => void;
+    trackClearWishlist: (products: Schemas['Product'][]) => void;
     trackLogin: () => void;
     trackRegister: () => void;
     trackNavigation: (level: number, name: string) => void;

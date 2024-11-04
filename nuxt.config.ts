@@ -45,7 +45,7 @@ export default defineNuxtConfig({
                     enabled: false,
                     type: 'gtag',
                     id: 'G-XXXX',
-                    trackingUrl: '',
+                    trackingUrl: 'https://www.googletagmanager.com/',
                 }
             },
         },

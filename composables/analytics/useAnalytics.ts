@@ -50,6 +50,7 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
         trackSearch: analytics.trackSearch,
         trackAddToWishlist: analytics.trackAddToWishlist,
         trackRemoveFromWishlist: analytics.trackRemoveFromWishlist,
+        trackClearWishlist: analytics.trackClearWishlist,
         trackLogin: analytics.trackLogin,
         trackRegister: analytics.trackRegister,
         trackNavigation: analytics.trackNavigation,

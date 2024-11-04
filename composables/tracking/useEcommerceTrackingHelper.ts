@@ -116,6 +116,17 @@ export function useEcommerceTrackingHelper() {
         };
     };
 
+    const getEventForProductsWithPrice = (products: Schemas['Product'][]): TrackingEcommerceEvent => {
+        const event = getEventForProductList(products);
+        const value = event.items.reduce((price, item) => price + item.price, 0);
+
+        return {
+            ...event,
+            value,
+            currency: currencyCode.value,
+        };
+    };
+
     const getEventWithShippingInfo = (): TrackingEcommerceEvent => {
         const trackingEvent = getEventForAllItems();
 
@@ -152,6 +163,7 @@ export function useEcommerceTrackingHelper() {
         getEventForProductList,
         getEventForProduct,
         getEventForProductWithPrice,
+        getEventForProductsWithPrice,
         getEventWithShippingInfo,
         getEventWithPaymentInfo,
         getPurchasedEvent,
