@@ -1,6 +1,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { UseAnalyticsReturn } from '../../types/analytics/analytics';
 import type { PromotionInfo } from '../../types/analytics/promotion';
+import type { TrackingLineItemList } from '../tracking/useItemTracking';
 
 export function useGtm(): UseAnalyticsReturn {
     const _cookieEnabledName = 'google-analytics-enabled';
@@ -219,8 +220,8 @@ export function useGtm(): UseAnalyticsReturn {
         });
     };
 
-    const trackSelectItem = (product: Schemas['Product']) => {
-        const trackingEvent = getEventForProduct(product);
+    const trackSelectItem = (product: Schemas['Product'], list?: TrackingLineItemList) => {
+        const trackingEvent = getEventForProduct(product, list);
 
         _trackEvent({ ecommerce: null });
         _trackEvent({

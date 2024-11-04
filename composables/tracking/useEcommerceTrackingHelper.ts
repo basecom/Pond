@@ -89,8 +89,12 @@ export function useEcommerceTrackingHelper() {
         };
     };
 
-    const getEventForProduct = (product: Schemas['Product']): TrackingEcommerceEvent => {
-        const list = _category.value ? { id: _category.value.id, name: _category.value.name } : undefined;
+    const getEventForProduct = (product: Schemas['Product'], list?: TrackingLineItemList): TrackingEcommerceEvent => {
+        const listItem = list ?
+            list :
+            _category.value
+                ? { id: _category.value.id, name: _category.value.name }
+                : undefined;
         _currentProduct.value = product;
 
         const item = getTrackingItem({
@@ -98,7 +102,7 @@ export function useEcommerceTrackingHelper() {
             quantity: 1,
             price: _currentProductPrice.price.value,
             product,
-            list,
+            list: listItem,
         });
 
         return {

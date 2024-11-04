@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { getProductRoute } from '@shopware-pwa/helpers-next';
+import type { Schemas } from '@shopware/api-client/api-types';
 
 const props = withDefaults(
     defineProps<{
@@ -15,7 +16,7 @@ const props = withDefaults(
 const emit = defineEmits(['closeSearch']);
 
 const { searchTerm, search, getProducts, getTotal, loading } = useProductSearchSuggest();
-const { trackSearchSuggestions, trackSearch } = useAnalytics();
+const { trackSearchSuggestions, trackSearch, trackSelectItem } = useAnalytics();
 
 const router = useRouter();
 
@@ -78,6 +79,11 @@ const handleEnter = () => {
     }
 };
 
+const onClickProduct = (product: Schemas['Product']) => {
+    trackSelectItem(product, { id: 'search-suggest', name: 'search-suggest' });
+    emit('closeSearch')
+};
+
 onMounted(() => {
     // Get the input from the ref (need querySelector since the ref returns the FormKit wrapper and not the input itself)
     searchInput.value.$el.querySelector('input').focus();
@@ -122,7 +128,7 @@ onMounted(() => {
                 v-for="product in getProducts?.slice(0, displayTotal)"
                 :key="product.id"
                 :to="getProductRoute(product)"
-                @click="$emit('closeSearch')"
+                @click="onClickProduct(product)"
             >
                 <LayoutHeaderSearchSuggestions :product="product" />
             </NuxtLink>
