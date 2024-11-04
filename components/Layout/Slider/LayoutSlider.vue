@@ -92,7 +92,7 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
 
             <swiper-container
                 ref="sliderRef"
-                class="h-full"
+                class="h-full w-full grid"
                 :class="thumbRef ? thumbRef : `min-h-[${minHeight}px]`"
                 :autoplay="autoSlide"
                 :speed="speed"

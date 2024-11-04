@@ -29,7 +29,7 @@ const slides = elementData.getData('sliderItems') ?? [];
                     :classes="[
                         slides.length > 1 ? 'cursor-grab' : '',
                         galleryPosition.value === 'underneath' ? 'w-full' : 'w-auto',
-                        'max-w-full md:max-w-[calc(100%-150px-16px)]',
+                        'max-w-[calc(100%-clamp(100px,100%,150px)-16px)]',
                     ]"
                     :navigation-dots="navigationDots !== 'None' && navigationDots !== 'Keine'"
                     :navigation-arrows="navigationArrows !== 'None' && navigationArrows !== 'Keine'"
@@ -60,6 +60,7 @@ const slides = elementData.getData('sliderItems') ?? [];
                     :classes="[
                         galleryPosition.value === 'underneath' ? 'w-full' : '',
                         slides.length > 1 ? 'cursor-grab' : '',
+                        'max-w-[clamp(100px,100%,150px)]'
                     ]"
                     :navigation-dots="false"
                     :navigation-arrows="slides.length > thumbnailSlidesPerView"
