@@ -16,7 +16,7 @@ const salutationOptions = computed(
 
 const { t } = useI18n();
 
-const { isNewsletterSubscriber, newsletterSubscribe, newsletterUnsubscribe, getNewsletterStatus } = useNewsletter();
+const { isNewsletterSubscriber, newsletterSubscribe, newsletterUnsubscribe, getNewsletterStatus, confirmationNeeded } = useNewsletter();
 const { pushSuccess, pushError } = useNotifications();
 const { trackNewsletterRegistration } = useAnalytics();
 
@@ -31,7 +31,7 @@ if (customer.value) {
 
     await getNewsletterStatus();
 
-    if (isNewsletterSubscriber.value) {
+    if (isNewsletterSubscriber.value && !confirmationNeeded.value) {
         isSubscriber.value = true;
     }
 }
@@ -39,8 +39,10 @@ if (customer.value) {
 // Store-API provides two options: direct and subscribe
 // direct: The subscription is directly active and does not need a confirmation.
 // subscribe: An email will be sent to the provided email address containing a link to the /newsletter/confirm route.
-// current implementation seems to ignore this and directly subscribes if the customer is logged in with the same mail address
-const subscribeBehavior = 'subscribe';
+const configStore = useConfigStore();
+const doubleOptIn = configStore.get('core.newsletter.doubleOptIn');
+const doubleOptInRegistered = configStore.get('core.newsletter.doubleOptInRegistered');
+const subscribeBehavior = customer.value && doubleOptInRegistered || !customer.value && doubleOptIn ? 'subscribe' : 'direct';
 
 const handleNewsletterSubmit = async (formValues) => {
     if (newsletterAction.value === t('cms.element.form.newsletter.subscribe')) {
@@ -55,16 +57,21 @@ const handleNewsletterSubmit = async (formValues) => {
 
             trackNewsletterRegistration();
             pushSuccess(
-                isSubscriber.value
+                subscribeBehavior === 'direct'
                     ? t('cms.element.form.newsletter.successSubscribe')
                     : t('cms.element.form.newsletter.successConfirmSubscribe'),
             );
+
+            if (subscribeBehavior === 'direct') {
+                isSubscriber.value = true;
+            }
         } catch (error) {
             pushError(t('cms.element.form.newsletter.errorSubscribe'));
         }
     } else if (newsletterAction.value === t('cms.element.form.newsletter.unsubscribe')) {
         try {
             await newsletterUnsubscribe(formValues.email);
+            isSubscriber.value = false;
 
             pushSuccess(t('cms.element.form.newsletter.successUnsubscribe'));
         } catch (error) {
@@ -73,11 +80,25 @@ const handleNewsletterSubmit = async (formValues) => {
     }
 }
 
-const newsletterAction = ref(
-    isSubscriber.value ? t('cms.element.form.newsletter.unsubscribe') : t('cms.element.form.newsletter.subscribe'),
+const newsletterAction = computed(() =>
+    isSubscriber.value ? t('cms.element.form.newsletter.unsubscribe') : t('cms.element.form.newsletter.subscribe')
 );
 
 const newsletterOptions = [t('cms.element.form.newsletter.subscribe'), t('cms.element.form.newsletter.unsubscribe')];
+
+// Update isSubscriber when customer logs in / out while on the same page as this component
+// TODO: update customerMail value in both cases
+watch(customer, async (newCustomer) => {
+    if (newCustomer) {
+        await getNewsletterStatus();
+
+        if (isNewsletterSubscriber.value && !confirmationNeeded.value) {
+            isSubscriber.value = true;
+        }
+    } else {
+        isSubscriber.value = false;
+    }
+});
 </script>
 
 <template>

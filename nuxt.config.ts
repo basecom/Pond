@@ -51,11 +51,18 @@ export default defineNuxtConfig({
         },
     },
 
+    routeRules: {
+        '/newsletter-subscribe': { redirect: '/newsletter/confirm' },
+    },
+
+    extends: [
+        '@shopware-pwa/composables-next/nuxt-layer',
+    ],
+
     imports: {
         dirs: [
             join(currentDir, 'composables/**'),
             join(currentDir, 'utils'),
-            './node_modules/@shopware-pwa/composables-next/composables',
         ],
     },
 
