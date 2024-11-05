@@ -1,6 +1,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { UseAnalyticsReturn } from '../../types/analytics/analytics';
 import type { PromotionInfo } from '../../types/analytics/promotion';
+import type { TrackingLineItemList } from '../tracking/useItemTracking';
 
 export function useGtags(): UseAnalyticsReturn {
     const _cookieEnabledName = 'google-analytics-enabled';
@@ -16,6 +17,7 @@ export function useGtags(): UseAnalyticsReturn {
         getEventForProductList,
         getEventForProduct,
         getEventForProductWithPrice,
+        getEventForProductsWithPrice,
     } = useEcommerceTrackingHelper();
     const { getSearchEvent, getSearchSuggestionEvent } = useSearchTrackingHelper();
     const { getPageTrackingEvent, isPageTrackingReady } = usePageTrackingHelper();
@@ -152,8 +154,8 @@ export function useGtags(): UseAnalyticsReturn {
         _trackEvent('event', 'view_item_list', trackingEvent);
     };
 
-    const trackSelectItem = (product: Schemas['Product']) => {
-        const trackingEvent = getEventForProduct(product);
+    const trackSelectItem = (product: Schemas['Product'], list?: TrackingLineItemList) => {
+        const trackingEvent = getEventForProduct(product, list);
 
         _trackEvent('event', 'select_item', trackingEvent);
     };
@@ -194,6 +196,12 @@ export function useGtags(): UseAnalyticsReturn {
 
     const trackRemoveFromWishlist = (product: Schemas['Product']) => {
         const trackingEvent = getEventForProductWithPrice(product);
+
+        _trackEvent('event', 'remove_from_wishlist', trackingEvent);
+    };
+
+    const trackClearWishlist = (products: Schemas['Product'][]) => {
+        const trackingEvent = getEventForProductsWithPrice(products);
 
         _trackEvent('event', 'remove_from_wishlist', trackingEvent);
     };
@@ -248,6 +256,7 @@ export function useGtags(): UseAnalyticsReturn {
         trackSearch,
         trackAddToWishlist,
         trackRemoveFromWishlist,
+        trackClearWishlist,
         trackLogin,
         trackRegister,
         trackNavigation,

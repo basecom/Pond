@@ -1,6 +1,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { UseAnalyticsReturn } from '../../types/analytics/analytics';
 import type { PromotionInfo } from '../../types/analytics/promotion';
+import type { TrackingLineItemList } from '../tracking/useItemTracking';
 
 export function useGtm(): UseAnalyticsReturn {
     const _cookieEnabledName = 'google-analytics-enabled';
@@ -16,6 +17,7 @@ export function useGtm(): UseAnalyticsReturn {
         getEventForProductList,
         getEventForProduct,
         getEventForProductWithPrice,
+        getEventForProductsWithPrice,
     } = useEcommerceTrackingHelper();
     const { getSearchEvent, getSearchSuggestionEvent } = useSearchTrackingHelper();
     const { getPageTrackingEvent, isPageTrackingReady } = usePageTrackingHelper();
@@ -218,8 +220,8 @@ export function useGtm(): UseAnalyticsReturn {
         });
     };
 
-    const trackSelectItem = (product: Schemas['Product']) => {
-        const trackingEvent = getEventForProduct(product);
+    const trackSelectItem = (product: Schemas['Product'], list?: TrackingLineItemList) => {
+        const trackingEvent = getEventForProduct(product, list);
 
         _trackEvent({ ecommerce: null });
         _trackEvent({
@@ -256,7 +258,7 @@ export function useGtm(): UseAnalyticsReturn {
     const trackSearchSuggestions = () => {
         const trackingEvent = getSearchSuggestionEvent();
 
-        _trackEvent({ event: 'search_suggestions', ...trackingEvent });
+        _trackEvent({ event: 'search_suggest', ...trackingEvent });
     };
 
     const trackSearch = () => {
@@ -277,6 +279,16 @@ export function useGtm(): UseAnalyticsReturn {
 
     const trackRemoveFromWishlist = (product: Schemas['Product']) => {
         const trackingEvent = getEventForProductWithPrice(product);
+
+        _trackEvent({ ecommerce: null });
+        _trackEvent({
+            event: 'remove_from_wishlist',
+            ecommerce: trackingEvent,
+        });
+    };
+
+    const trackClearWishlist = (products: Schemas['Product'][]) => {
+        const trackingEvent = getEventForProductsWithPrice(products);
 
         _trackEvent({ ecommerce: null });
         _trackEvent({
@@ -348,6 +360,7 @@ export function useGtm(): UseAnalyticsReturn {
         trackSearch,
         trackAddToWishlist,
         trackRemoveFromWishlist,
+        trackClearWishlist,
         trackLogin,
         trackRegister,
         trackNavigation,

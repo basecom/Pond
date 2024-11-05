@@ -44,7 +44,8 @@ export function useEcommerceTrackingHelper() {
     const getEventForAllItems = (): TrackingEcommerceEvent => {
         const currentCart: Schemas['Cart'] = cart.value;
         const getLineItemsTracking = currentCart.lineItems
-            ?.map((lineItem, index) => {
+            ?.filter(item => item.type === 'product')
+            .map((lineItem, index) => {
                 const product = _products.value.find(product => product.id === lineItem.referencedId);
                 if (!product) {
                     return;
@@ -88,8 +89,12 @@ export function useEcommerceTrackingHelper() {
         };
     };
 
-    const getEventForProduct = (product: Schemas['Product']): TrackingEcommerceEvent => {
-        const list = _category.value ? { id: _category.value.id, name: _category.value.name } : undefined;
+    const getEventForProduct = (product: Schemas['Product'], list?: TrackingLineItemList): TrackingEcommerceEvent => {
+        const listItem = list ?
+            list :
+            _category.value
+                ? { id: _category.value.id, name: _category.value.name }
+                : undefined;
         _currentProduct.value = product;
 
         const item = getTrackingItem({
@@ -97,7 +102,7 @@ export function useEcommerceTrackingHelper() {
             quantity: 1,
             price: _currentProductPrice.price.value,
             product,
-            list,
+            list: listItem,
         });
 
         return {
@@ -111,6 +116,17 @@ export function useEcommerceTrackingHelper() {
         return {
             ...event,
             value: event.items[0]?.price,
+            currency: currencyCode.value,
+        };
+    };
+
+    const getEventForProductsWithPrice = (products: Schemas['Product'][]): TrackingEcommerceEvent => {
+        const event = getEventForProductList(products);
+        const value = event.items.reduce((price, item) => price + item.price, 0);
+
+        return {
+            ...event,
+            value,
             currency: currencyCode.value,
         };
     };
@@ -151,6 +167,7 @@ export function useEcommerceTrackingHelper() {
         getEventForProductList,
         getEventForProduct,
         getEventForProductWithPrice,
+        getEventForProductsWithPrice,
         getEventWithShippingInfo,
         getEventWithPaymentInfo,
         getPurchasedEvent,

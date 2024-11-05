@@ -1,4 +1,5 @@
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { TrackingLineItemList } from '../../composables/tracking/useItemTracking';
 import type { PromotionInfo } from './promotion';
 
 export type UseAnalyticsConfig = {
@@ -32,7 +33,7 @@ export type UseAnalyticsReturn = {
     trackAddPaymentInfo: () => void;
     trackPurchase: (order: Schemas['Order']) => void;
     trackViewItemList: (products: Schemas['Product'][], page?: number) => void;
-    trackSelectItem: (product: Schemas['Product']) => void;
+    trackSelectItem: (product: Schemas['Product'], list?: TrackingLineItemList) => void;
     trackViewItem: (product: Schemas['Product']) => void;
     trackPage: (pageType: string) => void;
     setUserId: (userId: string) => void;
@@ -41,6 +42,7 @@ export type UseAnalyticsReturn = {
     trackSearch: () => void;
     trackAddToWishlist: (product: Schemas['Product']) => void;
     trackRemoveFromWishlist: (product: Schemas['Product']) => void;
+    trackClearWishlist: (products: Schemas['Product'][]) => void;
     trackLogin: () => void;
     trackRegister: () => void;
     trackNavigation: (level: number, name: string) => void;
