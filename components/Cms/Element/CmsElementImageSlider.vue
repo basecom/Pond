@@ -1,9 +1,15 @@
 <script setup lang="ts">
+import type { Schemas } from '@shopware/api-client/api-types';
+import type { PromotionInfo } from '../../../types/analytics/promotion';
+
 const props = defineProps<{
     element: CmsElementImageSlider;
 }>();
 
 const config = useCmsElementConfig(props.element);
+const data = useCmsElementData(props.element);
+const { trackPromotionView } = useAnalytics();
+const { isHomePage } = useHomePage();
 const navigationDots = config.getConfigValue('navigationDots');
 const navigationArrows = config.getConfigValue('navigationArrows');
 const displayMode = config.getConfigValue('displayMode');
@@ -31,6 +37,41 @@ const autoplayConfig = computed(() => {
 const speedConfig = computed(() => {
     return autoSlide ? speed : '300';
 });
+const slidesRef = ref([]);
+const trackedSlides = ref([]);
+
+const getPromotion = (media: Schemas["Media"]): PromotionInfo => {
+    return {
+        creative_name: media.fileName ?? '',
+        creative_slot: props.element?.type ?? '',
+        promotion_id: props.element?.blockId ?? '',
+        promotion_name: props.element?.type ?? '',
+    }
+};
+
+if (isHomePage.value) {
+    const { stop } = useIntersectionObserver(
+        slidesRef,
+        (events) => {
+            events.forEach((event) => {
+                if (event.isIntersecting) {
+                    const mediaUrl = (event.target as HTMLImageElement).src;
+                    const slidesData = data.getData('sliderItems');
+                    const media: Schemas["Media"] = slidesData?.find((slide) => slide.media?.url === mediaUrl)?.media;
+
+                    if (media && !trackedSlides.value.includes(media.fileName)) {
+                        trackPromotionView(getPromotion(media));
+                        trackedSlides.value = [ ...trackedSlides.value, media.fileName ];
+                    }
+
+                    if (trackedSlides.value.length === slidesRef.value.length) {
+                        stop();
+                    }
+                }
+            });
+        },
+    );
+}
 </script>
 
 <template>
@@ -54,6 +95,7 @@ const speedConfig = computed(() => {
                     :class="`min-h-[${minHeight}]`"
                 >
                     <img
+                        ref="slidesRef"
                         :src="slide.mediaUrl"
                         :alt="$t('cms.element.imageAlt')"
                         class="h-full w-full object-center"

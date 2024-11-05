@@ -18,6 +18,7 @@ const { t } = useI18n();
 
 const { isNewsletterSubscriber, newsletterSubscribe, newsletterUnsubscribe, getNewsletterStatus } = useNewsletter();
 const { pushSuccess, pushError } = useNotifications();
+const { trackNewsletterRegistration } = useAnalytics();
 
 const customerStore = useCustomerStore();
 const { customer } = storeToRefs(customerStore);
@@ -52,6 +53,7 @@ const handleNewsletterSubmit = async (formValues) => {
                 lastName: formValues.lastName,
             });
 
+            trackNewsletterRegistration();
             pushSuccess(
                 isSubscriber.value
                     ? t('cms.element.form.newsletter.successSubscribe')

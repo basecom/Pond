@@ -28,6 +28,8 @@ onMounted(async () => {
         description: method.translated.description,
         mediaUrl: method.media?.url,
     }));
+
+    trackAddShippingInfo();
 });
 </script>
 

@@ -15,6 +15,8 @@ export type TrackingLineItem = {
     item_list_name?: string;
     item_variant?: string;
     location_id?: string;
+    promotion_id?: string;
+    promotion_name?: string;
     price: number;
     quantity: number;
 }

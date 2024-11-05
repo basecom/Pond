@@ -70,7 +70,7 @@ const removeCartItem = async () => {
     isLoading.value = true;
 
     try {
-        trackRemoveFromCart(product.value);
+        trackRemoveFromCart(product.value, lineItem.value.quantity);
         await removeItem();
 
         pushSuccess(t('checkout.lineItem.remove.successMessage', { lineItemName: lineItem.value.label }));

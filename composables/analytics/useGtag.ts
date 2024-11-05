@@ -1,5 +1,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { UseAnalyticsReturn } from '../../types/analytics/analytics';
+import type { PromotionInfo } from '../../types/analytics/promotion';
+import type { TrackingLineItemList } from '../tracking/useItemTracking';
 
 export function useGtags(): UseAnalyticsReturn {
     const _cookieEnabledName = 'google-analytics-enabled';
@@ -15,9 +17,11 @@ export function useGtags(): UseAnalyticsReturn {
         getEventForProductList,
         getEventForProduct,
         getEventForProductWithPrice,
+        getEventForProductsWithPrice,
     } = useEcommerceTrackingHelper();
     const { getSearchEvent, getSearchSuggestionEvent } = useSearchTrackingHelper();
     const { getPageTrackingEvent, isPageTrackingReady } = usePageTrackingHelper();
+    const { getTrackingPromotionEvent } = usePromotionTracking();
     const sessionId = useState<string | undefined>('pondSessionId');
 
     function _trackEvent(...args: unknown[]) {
@@ -150,8 +154,8 @@ export function useGtags(): UseAnalyticsReturn {
         _trackEvent('event', 'view_item_list', trackingEvent);
     };
 
-    const trackSelectItem = (product: Schemas['Product']) => {
-        const trackingEvent = getEventForProduct(product);
+    const trackSelectItem = (product: Schemas['Product'], list?: TrackingLineItemList) => {
+        const trackingEvent = getEventForProduct(product, list);
 
         _trackEvent('event', 'select_item', trackingEvent);
     };
@@ -196,12 +200,41 @@ export function useGtags(): UseAnalyticsReturn {
         _trackEvent('event', 'remove_from_wishlist', trackingEvent);
     };
 
+    const trackClearWishlist = (products: Schemas['Product'][]) => {
+        const trackingEvent = getEventForProductsWithPrice(products);
+
+        _trackEvent('event', 'remove_from_wishlist', trackingEvent);
+    };
+
     const trackLogin = () => {
         _trackEvent('event', 'login');
     };
 
     const trackRegister = () => {
         _trackEvent('event', 'registration');
+    };
+
+    const trackNavigation = (level: number, name: string) => {
+        _trackEvent('event', 'navigation_header', {
+            navigation_level: level,
+            navigation_name: name,
+        });
+    };
+
+    const trackSelectPromotion = (promotion: PromotionInfo, product?: Schemas['Product'], indexOfProduct?: number) => {
+        const promotionEvent = getTrackingPromotionEvent(promotion, product, indexOfProduct);
+
+        _trackEvent('event', 'select_promotion', promotionEvent);
+    };
+
+    const trackPromotionView = (promotion: PromotionInfo, product?: Schemas['Product'], indexOfProduct?: number) => {
+        const promotionEvent = getTrackingPromotionEvent(promotion, product, indexOfProduct);
+
+        _trackEvent('event', 'view_promotion', promotionEvent);
+    };
+
+    const trackNewsletterRegistration = () => {
+        _trackEvent('event', 'newsletter_registration');
     };
 
     return {
@@ -223,7 +256,12 @@ export function useGtags(): UseAnalyticsReturn {
         trackSearch,
         trackAddToWishlist,
         trackRemoveFromWishlist,
+        trackClearWishlist,
         trackLogin,
         trackRegister,
+        trackNavigation,
+        trackSelectPromotion,
+        trackPromotionView,
+        trackNewsletterRegistration,
     };
 }

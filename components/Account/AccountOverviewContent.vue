@@ -7,6 +7,7 @@ const shippingAddress = computed(() => customer.value.defaultShippingAddress);
 const paymentMethod = computed(() => customer.value.defaultPaymentMethod);
 const { latestOrder, loadLatestOrder } = useCustomerLatestOrder();
 const { pushSuccess, pushError } = useNotifications();
+const { trackNewsletterRegistration } = useAnalytics();
 const { t } = useI18n();
 
 const props = defineProps<{
@@ -25,6 +26,7 @@ const handleNewsletterChange = async (event: Event) => {
                 option: 'subscribe',
             });
 
+            trackNewsletterRegistration();
             pushSuccess(t('cms.element.form.newsletter.successSubscribe'));
         } catch (error) {
             pushError(t('cms.element.form.newsletter.errorSubscribe'));
