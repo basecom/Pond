@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { getNewsletterStatus, confirmationNeeded, newsletterConfirm } = useNewsletter();
+const { getNewsletterStatus, confirmationNeeded, newsletterStatus, newsletterConfirm } = useNewsletter();
 const customerStore = useCustomerStore();
 const { customer } = storeToRefs(customerStore);
 const { t } = useI18n();
@@ -19,26 +19,33 @@ const route = useRoute()
 const emailHash = route.query.em;
 const hash = route.query.hash;
 
-await getNewsletterStatus();
+onMounted(async () => {
+    await getNewsletterStatus();
 
-if (confirmationNeeded.value) {
-    try {
-        await newsletterConfirm(emailHash, hash);
+    if (confirmationNeeded.value) {
+        try {
+            await newsletterConfirm(emailHash, hash);
 
-        notificationText.value = t('cms.element.form.newsletter.successSubscribe');
-        notificationType.value = 'success';
-    } catch (error) {
-        notificationText.value = t('cms.element.form.newsletter.errorSubscribe');
+            notificationText.value = t('cms.element.form.newsletter.successSubscribe');
+            notificationType.value = 'success';
+        } catch (error) {
+            notificationText.value = t('cms.element.form.newsletter.errorSubscribe');
+            notificationType.value = 'danger';
+        }
+
+        isLoading.value = false;
+    } else if (newsletterStatus.value === 'optOut') {
+        notificationText.value = t('cms.element.form.newsletter.noRegisterData');
         notificationType.value = 'danger';
+
+        isLoading.value = false;
+    } else {
+        notificationText.value = t('cms.element.form.newsletter.alreadySubscriber');
+        notificationType.value = 'info';
+
+        isLoading.value = false;
     }
-
-    isLoading.value = false;
-} else {
-    notificationText.value = t('cms.element.form.newsletter.alreadySubscriber');
-    notificationType.value = 'info';
-
-    isLoading.value = false;
-}
+});
 </script>
 
 <template>
