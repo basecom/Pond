@@ -83,23 +83,15 @@ const updateDefaultBilling = async () => {
                 </LazySharedPopover>
             </div>
         </div>
-        <p>
-            <span class="font-semibold"> {{ address.firstName }} {{ address.lastName }} </span><br />
-            <span v-if="address.company"> {{ address.company }} </span><br />
-            <span> {{ address.street }} </span><br />
-            <span> {{ address.zipcode }} {{ address.city }} </span><br />
-            <span> {{ address.country.translated.name }} </span><br />
-            <span v-if="address.phoneNumber">
-                {{ address.phoneNumber }}
-            </span>
-        </p>
+
+        <AddressData :address="address" />
 
         <div class="mt-2">
             <button
                 class="rounded bg-brand-primary px-2 py-1 text-white"
                 @click="() => $emit('edit', address)"
             >
-                {{ $t('account.address.edit') }}
+                {{ $t('global.edit') }}
             </button>
             <button
                 v-if="
@@ -109,7 +101,7 @@ const updateDefaultBilling = async () => {
                 class="ml-2 rounded bg-status-danger px-2 py-1 text-white"
                 @click="() => $emit('delete', address.id)"
             >
-                {{ $t('account.address.delete') }}
+                {{ $t('global.delete') }}
             </button>
         </div>
     </div>

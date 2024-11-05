@@ -5,7 +5,7 @@ await useAuthentication().rerouteIfLoggedOut();
 
 const { params } = useRoute();
 const orderId = params.id as string;
-const { order, loadOrderDetails, shippingMethod, paymentMethod, changePaymentMethod } = useOrderDetails(orderId);
+const { order, loadOrderDetails, shippingMethod, paymentMethod, changePaymentMethod, shippingAddress, billingAddress } = useOrderDetails(orderId);
 const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
 
@@ -59,9 +59,10 @@ onMounted(async () => {
                             :payment-method="paymentMethod"
                             @update-method="updateMethod"
                         />
-
-                        <!-- TODO: Address Management (BUS-841) -->
-
+                        <AccountOrderConfirmAddress
+                            :shipping-address="shippingAddress"
+                            :billing-address="billingAddress"
+                        />
                         <AccountOrderConfirmTerms />
                     </div>
 

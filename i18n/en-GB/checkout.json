@@ -23,6 +23,23 @@
                 "cardTitle": "Shipping Method",
                 "cardSubtitle": "Select a shipping method"
             },
+            "address": {
+                "billing": "Billing Address",
+                "shipping": "Shipping Address",
+                "sameAsShippingAddress": "Same as shipping address",
+                "modal": {
+                    "billingHeading": "Choose billing address",
+                    "shippingHeading": "Choose shipping address",
+                    "chosenAddress": "Chosen address:",
+                    "ariaLabel": "Address",
+                    "editLabel": "Edit this address",
+                    "createLabel": "Enter new address",
+                    "selectLabel": "Select an address",
+                    "selectHeading": "Available addresses",
+                    "selectSubmitLabel": "Save selected address as default",
+                    "formSubmitLabel": "Save address as default"
+                }
+            },
             "terms": {
                 "cardTitle": "Terms and Conditions",
                 "label": "Terms and Conditions",

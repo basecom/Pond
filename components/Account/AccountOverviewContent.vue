@@ -82,22 +82,12 @@ const handleNewsletterChange = async (event: Event) => {
     >
         <div class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">{{ $t('account.overview.billingAddressHeading') }}</h3>
-            <p>{{ billingAddress.street }}</p>
-            <p>
-                {{ billingAddress.zipcode }}
-                {{ billingAddress.city }}
-            </p>
-            <p>{{ billingAddress.country.name }}</p>
+            <AddressData :address="billingAddress" />
         </div>
 
         <div class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">{{ $t('account.overview.shippingAddressHeading') }}</h3>
-            <p>{{ shippingAddress.street }}</p>
-            <p>
-                {{ shippingAddress.zipcode }}
-                {{ shippingAddress.city }}
-            </p>
-            <p>{{ shippingAddress.country.name }}</p>
+            <AddressData :address="shippingAddress" />
         </div>
     </div>
 

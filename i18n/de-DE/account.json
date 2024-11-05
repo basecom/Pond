@@ -31,14 +31,11 @@
             "create": "Adresse anlegen",
             "createSuccess": "Ihre neue Adresse wurde erfolgreich angelegt.",
             "createError": "Ihre neue Adresse konnte nicht angelegt werden.",
-            "edit": "Bearbeiten",
             "editSuccess": "Ihre Adresse wurde bearbeitet.",
             "editError": "Ihre Adresse konnte nicht geändert werden.",
-            "delete": "Löschen",
             "deleteSuccess": "Ihre Adresse wurde gelöscht.",
             "deleteError": "Beim Löschen ihrer Adresse ist ein Fehler aufgetreten, versuchen Sie es später erneut.",
             "nothingFound": "Es wurden keine Adressen gefunden.",
-            "saveLabel": "Speichern",
             "defaultBilling": "Standard-Rechnungsadresse",
             "defaultShipping": "Standard-Lieferadresse",
             "updateBilling": "Als Standard-Rechnungsadresse verwenden",
@@ -122,6 +119,8 @@
                 "label": "Land:",
                 "placeholder": "Wähle dein Land"
             },
+            "alternativeShippingAddress": "Lieferadresse weicht von Rechnungsadresse ab",
+            "shippingAddressHeading": "Lieferadresse",
             "accountDataHeading": "Deine Accountdaten:",
             "email": {
                 "label": "Email",

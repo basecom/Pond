@@ -1,5 +1,11 @@
 {
     "global": {
-        "homepageLinkLabel": "Zur Startseite"
+        "homepageLinkLabel": "Zur Startseite",
+        "generalError": "Etwas ist schiefgegangen.",
+        "save": "Speichern",
+        "change": "Ändern",
+        "cancel": "Abbrechen",
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
     }
 }
