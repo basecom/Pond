@@ -38,10 +38,9 @@ const crossSellings = computed(() => elementData.getData('crossSellings') ?? [])
             </h3>
 
             <LayoutSlider
-                :class="{
-                    'cursor-grab': crossSelling.products.length > 1,
-                }"
-                class="w-full"
+                :classes="[
+                    crossSelling.products.length > 1 ?? 'cursor-grab',
+                ]"
                 :navigation-dots="false"
                 :slides-per-view="slidesPerView"
                 :space-between="spaceBetween"

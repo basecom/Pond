@@ -2,7 +2,7 @@
     "cms": {
         "componentNotFound": "{componentName} konnte nicht gefunden werden",
         "element": {
-            "videoTagNotSupported": "Dein Browser unterstützt video-Tags nicht.",
+            "videoTagNotSupported": "Ihr Browser unterstützt video-Tags nicht.",
             "product": {
                 "descriptionHeading": "Artikelbeschreibung",
                 "noProductsFound": "Keine Produkte gefunden"
@@ -19,6 +19,7 @@
                     "errorUnsubscribe": "Beim Abmelden des Newsletters ist ein Fehler aufgetreten",
                     "alreadySubscriber": "Sie sind mit ihrem Konto bereits beim Newsletter angemeldet. Vielen Dank!",
                     "unsubscribeInfo": "Wenn Sie den Newsletter nicht länger erhalten wollen, können Sie ihn an dieser Stelle abmelden.",
+                    "noRegisterData": "Für diese Daten liegt keine Newsletteranmeldung vor.",
                     "privacy": {
                         "label": "Datenschutz",
                         "help": "Ich bin damit einverstanden, dass meine Daten zum Erhalt des Newsletters verwendet werden. Ich habe die Datenschutzinformationen gelesen und akzeptiere die allgemeinen Geschäftsbedingungen."

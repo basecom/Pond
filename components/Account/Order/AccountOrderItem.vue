@@ -5,7 +5,7 @@ const props = defineProps<{
     orderId: string;
 }>();
 
-const { order, loadOrderDetails, shippingMethod, paymentMethod, status } = useOrderDetails(props.orderId, {
+const { order, loadOrderDetails, shippingMethod, paymentMethod, status, shippingAddress, billingAddress } = useOrderDetails(props.orderId, {
     stateMachineState: {},
 });
 
@@ -50,24 +50,21 @@ onMounted(async () => {
     <SharedAccordionItem
         class="overflow-hidden"
         :value="`item-${orderId}`"
-        headline-classes="bg-white rounded-lg"
-        :headline-default-text-style="false"
+        headline-classes="flex w-full items-center justify-between gap-4 px-4 py-2 bg-white"
+        trigger-classes="h-6 w-6 self-baseline mt-3.5 ml-auto"
     >
         <template #title>
-            <div class="mt-4 p-4">
-                <div class="mt-4 flex flex-wrap gap-4 text-left">
+            <div class="py-2">
+                <div class="flex flex-wrap gap-4 text-left">
                     <div
                         v-if="order"
-                        class="w-full text-4xl font-bold"
+                        class="w-full text-2xl font-bold"
                     >
-                        {{ $t('checkout.finish.orderNumberLabel') }} {{ order.orderNumber }}
-                    </div>
+                        <template v-if="formattedOrderDate">
+                            {{ formattedOrderDate }} -
+                        </template>
 
-                    <div
-                        v-if="formattedOrderDate"
-                        class="text-3xl font-bold"
-                    >
-                        {{ formattedOrderDate }}
+                        {{ $t('checkout.finish.orderNumberLabel') }} {{ order.orderNumber }}
                     </div>
 
                     <div
@@ -79,29 +76,32 @@ onMounted(async () => {
 
                     <NuxtLink
                         v-if="isPaymentNeeded"
-                        class="ml-auto rounded-md bg-status-success px-2 py-2 text-white"
+                        class="rounded-md bg-brand-primary px-2 py-2 text-white"
                         :to="`/account/order/edit/${orderId}`"
                     >
                         {{ $t('account.orders.changePaymentMethod') }}
                     </NuxtLink>
                 </div>
 
-                <div class="gap-12 lg:flex">
+                <div class="gap-12 lg:flex text-left">
                     <AccountOrderItemInfo
                         :title="$t('account.orders.paymentStatusLabel')"
                         :state="paymentState"
                     />
+
                     <AccountOrderItemInfo
                         :title="$t('account.orders.paymentMethodLabel')"
-                        :state="paymentMethod"
+                        :method="paymentMethod"
                     />
+
                     <AccountOrderItemInfo
                         :title="$t('account.orders.shippingStatusLabel')"
                         :state="shippingStatus"
                     />
+
                     <AccountOrderItemInfo
                         :title="$t('account.orders.shippingMethodLabel')"
-                        :state="shippingMethod"
+                        :method="shippingMethod"
                     />
                 </div>
             </div>
@@ -109,6 +109,19 @@ onMounted(async () => {
 
         <template #content>
             <div class="py-4">
+                <div class="pb-4">
+                    <div class="font-bold mb-2">
+                        {{ $t('checkout.finish.shippingAddressHeading') }}
+                    </div>
+
+                    <div>
+                        <OrderAddressShipping
+                            :shipping-address="shippingAddress"
+                            :billing-address="billingAddress"
+                        />
+                    </div>
+                </div>
+
                 <div class="mt-5 font-bold">{{ $t('account.orders.lineItemsHeading') }}</div>
                 <div
                     v-for="(product, index) in order.lineItems"
