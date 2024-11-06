@@ -11,9 +11,22 @@ const isLoading = ref(false);
 
 const handleRegisterSubmit = async (fields: FormkitFields) => {
     isLoading.value = true;
+
+    const userData = fields.alternativeShippingAddress.showAlternativeShippingAddress
+        ? {
+              ...fields,
+              shippingAddress: {
+                  ...fields.alternativeShippingAddress,
+                  ...fields.alternativeShippingAddress.shippingAddress,
+              },
+          }
+        : {
+              ...fields,
+          };
+
     try {
         await customerStore.register({
-            ...fields,
+            ...userData,
         });
         isLoading.value = false;
         trackRegister();
@@ -57,6 +70,39 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
         </ul>
 
         <AddressFormFields />
+
+        <FormKit
+            v-slot="{ value }"
+            type="group"
+            name="alternativeShippingAddress"
+            :classes="{
+                outer: {
+                    'col-span-2': true,
+                },
+            }"
+        >
+            <FormKit
+                type="checkbox"
+                :label="$t('account.register.alternativeShippingAddress')"
+                name="showAlternativeShippingAddress"
+                :value="false"
+                :classes="{
+                    outer: {
+                        'col-span-2': true,
+                    },
+                }"
+            />
+
+            <div class="col-span-2 border-b border-gray-light" />
+
+            <template v-if="value.showAlternativeShippingAddress === true">
+                <div class="col-span-2">
+                    <span>{{ $t('account.register.shippingAddressHeading') }}</span>
+                </div>
+                <AddressFormFields address-type="shippingAddress" />
+                <div class="col-span-2 border-b border-gray-light" />
+            </template>
+        </FormKit>
 
         <div class="col-span-2">
             <span>{{ $t('account.register.accountDataHeading') }}</span>

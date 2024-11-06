@@ -31,14 +31,11 @@
             "create": "Add Address",
             "createSuccess": "Your new address has been successfully created.",
             "createError": "Your new address could not be created.",
-            "edit": "Edit",
             "editSuccess": "Your address has been edited.",
             "editError": "Your address could not be changed.",
-            "delete": "Delete",
             "deleteSuccess": "Ihre Adresse wurde gelöscht.",
             "deleteError": "There was an error deleting your address, please try again later.",
             "nothingFound": "No addresses were found.",
-            "saveLabel": "Save",
             "defaultBilling": "default delivery address",
             "defaultShipping": "default shipping address",
             "updateBilling": "Set as default shipping address",
@@ -122,6 +119,8 @@
                 "label": "Country",
                 "placeholder": "Select your country"
             },
+            "alternativeShippingAddress": "Shipping address does not match billing address",
+            "shippingAddressHeading": "Shipping address",
             "accountDataHeading": "Your account data:",
             "email": {
                 "label": "Email",
