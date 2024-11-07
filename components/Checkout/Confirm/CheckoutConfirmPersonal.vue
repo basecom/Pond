@@ -6,7 +6,7 @@ const customerStore = useCustomerStore();
     <CheckoutConfirmCard :title="$t('checkout.confirm.personal.cardTitle')">
         <span
             v-if="customerStore.customer"
-            class="text-sm flex gap-2"
+            class="flex gap-2 text-sm"
         >
             {{
                 $t('checkout.confirm.personal.loggedInMessage', {

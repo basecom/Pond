@@ -9,15 +9,13 @@ withDefaults(
     {
         headlineClasses: 'flex w-full items-center justify-between gap-4 px-4 py-2 bg-gray-light',
         contentClasses: 'px-4',
-        triggerClasses: 'h-6 w-6'
+        triggerClasses: 'h-6 w-6',
     },
 );
 </script>
 
 <template>
-    <AccordionItem
-        :value="value"
-    >
+    <AccordionItem :value="value">
         <AccordionHeader>
             <AccordionTrigger
                 class="group"

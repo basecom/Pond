@@ -39,7 +39,7 @@ const { trackNavigation } = useAnalytics();
         :to="isExternalLink ? externalLink : isInternalLink ? path : getCategoryRoute(navigationElement)"
         class="transition-all hover:text-brand-primary"
         :class="[classes, isActive(navigationElement.seoUrls, activeWithExactMatch) ? activeClasses : '']"
-        @click="trackNavigation((navigationElement.level - 1) ?? 0, getTranslatedProperty(navigationElement, 'name'))"
+        @click="trackNavigation(navigationElement.level - 1 ?? 0, getTranslatedProperty(navigationElement, 'name'))"
     >
         {{ getTranslatedProperty(navigationElement, 'name') }}
     </NuxtLink>

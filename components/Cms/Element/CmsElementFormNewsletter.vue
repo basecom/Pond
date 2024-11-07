@@ -16,7 +16,8 @@ const salutationOptions = computed(
 
 const { t } = useI18n();
 
-const { isNewsletterSubscriber, newsletterSubscribe, newsletterUnsubscribe, getNewsletterStatus, confirmationNeeded } = useNewsletter();
+const { isNewsletterSubscriber, newsletterSubscribe, newsletterUnsubscribe, getNewsletterStatus, confirmationNeeded } =
+    useNewsletter();
 const { pushSuccess, pushError } = useNotifications();
 const { trackNewsletterRegistration } = useAnalytics();
 
@@ -42,9 +43,10 @@ if (customer.value) {
 const configStore = useConfigStore();
 const doubleOptIn = configStore.get('core.newsletter.doubleOptIn');
 const doubleOptInRegistered = configStore.get('core.newsletter.doubleOptInRegistered');
-const subscribeBehavior = customer.value && doubleOptInRegistered || !customer.value && doubleOptIn ? 'subscribe' : 'direct';
+const subscribeBehavior =
+    (customer.value && doubleOptInRegistered) || (!customer.value && doubleOptIn) ? 'subscribe' : 'direct';
 
-const handleNewsletterSubmit = async (formValues) => {
+const handleNewsletterSubmit = async formValues => {
     if (newsletterAction.value === t('cms.element.form.newsletter.subscribe')) {
         try {
             await newsletterSubscribe({
@@ -78,17 +80,17 @@ const handleNewsletterSubmit = async (formValues) => {
             pushError(t('cms.element.form.newsletter.errorUnsubscribe'));
         }
     }
-}
+};
 
 const newsletterAction = computed(() =>
-    isSubscriber.value ? t('cms.element.form.newsletter.unsubscribe') : t('cms.element.form.newsletter.subscribe')
+    isSubscriber.value ? t('cms.element.form.newsletter.unsubscribe') : t('cms.element.form.newsletter.subscribe'),
 );
 
 const newsletterOptions = [t('cms.element.form.newsletter.subscribe'), t('cms.element.form.newsletter.unsubscribe')];
 
 // Update isSubscriber when customer logs in / out while on the same page as this component
 // TODO: update customerMail value in both cases
-watch(customer, async (newCustomer) => {
+watch(customer, async newCustomer => {
     if (newCustomer) {
         await getNewsletterStatus();
 

@@ -1,7 +1,6 @@
 import type { FormkitFields } from '~/types/formkit';
 
 export function useCustomerAddress() {
-
     const { pushSuccess, pushError } = useNotifications();
     const { t } = useI18n();
 
@@ -31,15 +30,15 @@ export function useCustomerAddress() {
         }
     };
 
-    const changeDefaultAddress = async (addressType: 'shippingAddress' | 'billingAddress', newAddressId: string, shouldSyncBillingAddress: boolean) => {
+    const changeDefaultAddress = async (
+        addressType: 'shippingAddress' | 'billingAddress',
+        newAddressId: string,
+        shouldSyncBillingAddress: boolean,
+    ) => {
         try {
             if (addressType === 'shippingAddress' && newAddressId !== activeShippingAddress.value.id) {
                 await setDefaultCustomerShippingAddress(newAddressId);
-                await syncBillingAddress(
-                    shouldSyncBillingAddress,
-                    newAddressId,
-                    activeBillingAddress.value.id,
-                );
+                await syncBillingAddress(shouldSyncBillingAddress, newAddressId, activeBillingAddress.value.id);
                 pushSuccess(t('account.address.updateShippingSuccess'));
             }
 
@@ -55,7 +54,7 @@ export function useCustomerAddress() {
 
             pushError(t('account.address.updateBillingError'));
         }
-    }
+    };
 
     const saveAddress = async (newAddressId: string, addressData: FormkitFields) => {
         if (newAddressId !== '') {
@@ -65,7 +64,7 @@ export function useCustomerAddress() {
         if (newAddressId === '') {
             return await createAddress(addressData);
         }
-    }
+    };
 
     const updateAddress = async (addressData: FormkitFields, id: string) => {
         try {

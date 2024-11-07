@@ -10,15 +10,12 @@ export function useNewsletter(): ExtendedUseNewsletterReturn {
     const { apiClient } = useShopwareContext();
 
     async function newsletterConfirm(email: string, hash: string) {
-        await apiClient.invoke(
-            "confirmNewsletter post /newsletter/confirm",
-            {
-                body: {
-                    em: email,
-                    hash: hash,
-                },
+        await apiClient.invoke('confirmNewsletter post /newsletter/confirm', {
+            body: {
+                em: email,
+                hash: hash,
             },
-        );
+        });
     }
 
     return {

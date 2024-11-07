@@ -17,7 +17,7 @@ const getPromotion = (product: Schemas['Product']): PromotionInfo => {
         creative_slot: props.element?.type ?? '',
         promotion_id: props.element?.blockId ?? '',
         promotion_name: props.element?.type ?? '',
-    }
+    };
 };
 
 const onProductView = () => {
@@ -33,5 +33,9 @@ const onProductSelect = () => {
 </script>
 
 <template>
-    <ProductCard :product="product" @view-product="onProductView()" @select-product="onProductSelect()" />
+    <ProductCard
+        :product="product"
+        @view-product="onProductView()"
+        @select-product="onProductSelect()"
+    />
 </template>

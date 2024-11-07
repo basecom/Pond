@@ -12,7 +12,7 @@ export const useCartItemsStore = defineStore('cart-items', () => {
         };
 
         const ids = cartItems.value
-            .filter((item) => item.type === 'product')
+            .filter(item => item.type === 'product')
             .map(item => item.referencedId)
             .filter((key: string | undefined): key is string => !!key);
 

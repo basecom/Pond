@@ -9,7 +9,8 @@ const { t } = useI18n();
 const modalController = useModal();
 const isLoading = ref(false);
 
-const { changeDefaultAddress, saveAddress, syncBillingAddress, loadCustomerAddresses, customerAddresses } = useCustomerAddress();
+const { changeDefaultAddress, saveAddress, syncBillingAddress, loadCustomerAddresses, customerAddresses } =
+    useCustomerAddress();
 const { activeShippingAddress, activeBillingAddress } = useCustomerAddress();
 if (signedIn) {
     await loadCustomerAddresses();

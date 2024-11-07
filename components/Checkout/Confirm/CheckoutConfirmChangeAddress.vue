@@ -131,10 +131,12 @@ const addressText = (address: Schemas['CustomerAddress']) => {
         <button
             class="relative w-full rounded bg-brand-primary py-2 text-white hover:bg-brand-primary-dark disabled:cursor-not-allowed disabled:bg-gray"
             :disabled="isLoading"
-            @click="emit('change', {
-                type: addressType,
-                id: selectedAddress.id,
-            });"
+            @click="
+                emit('change', {
+                    type: addressType,
+                    id: selectedAddress.id,
+                })
+            "
         >
             <span :class="{ 'opacity-0': isLoading }">
                 {{ $t('checkout.confirm.address.modal.selectSubmitLabel') }}
@@ -157,11 +159,13 @@ const addressText = (address: Schemas['CustomerAddress']) => {
                 validationVisibility: 'dirty',
             }"
             :actions="false"
-            @submit="emit('submit', {
-                type: addressType,
-                id: isEditMode ? selectedAddress.id : '',
-                formFields: form.value.address,
-            });"
+            @submit="
+                emit('submit', {
+                    type: addressType,
+                    id: isEditMode ? selectedAddress.id : '',
+                    formFields: form.value.address,
+                })
+            "
         >
             <ul
                 v-if="formErrorStore.apiErrors.filter(error => error.key === 'register').length"

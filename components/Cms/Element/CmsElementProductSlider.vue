@@ -29,7 +29,7 @@ const breakpoints = {
     },
     1024: {
         slidesPerView: 4,
-    }
+    },
 };
 
 const slides = computed(() => elementData.getData('products') ?? []);
@@ -40,7 +40,7 @@ const getPromotion = (product: Schemas['Product']): PromotionInfo => {
         creative_slot: props.element?.type ?? '',
         promotion_id: props.element?.blockId ?? '',
         promotion_name: props.element?.type ?? '',
-    }
+    };
 };
 
 const onProductView = (product: Schemas['Product'], index: string | number) => {

@@ -60,7 +60,7 @@ const slides = elementData.getData('sliderItems') ?? [];
                     :classes="[
                         galleryPosition.value === 'underneath' ? 'w-full' : '',
                         slides.length > 1 ? 'cursor-grab' : '',
-                        'max-w-[clamp(100px,100%,150px)]'
+                        'max-w-[clamp(100px,100%,150px)]',
                     ]"
                     :navigation-dots="false"
                     :navigation-arrows="slides.length > thumbnailSlidesPerView"

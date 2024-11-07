@@ -21,7 +21,7 @@ const breakpoints = {
     },
     1024: {
         slidesPerView: 4,
-    }
+    },
 };
 
 const crossSellings = computed(() => elementData.getData('crossSellings') ?? []);
@@ -38,9 +38,7 @@ const crossSellings = computed(() => elementData.getData('crossSellings') ?? [])
             </h3>
 
             <LayoutSlider
-                :classes="[
-                    crossSelling.products.length > 1 ?? 'cursor-grab',
-                ]"
+                :classes="[crossSelling.products.length > 1 ?? 'cursor-grab']"
                 :navigation-dots="false"
                 :slides-per-view="slidesPerView"
                 :space-between="spaceBetween"

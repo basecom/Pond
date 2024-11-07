@@ -19,4 +19,4 @@ export type TrackingLineItem = {
     promotion_name?: string;
     price: number;
     quantity: number;
-}
+};
