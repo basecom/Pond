@@ -6,7 +6,7 @@ const customerStore = useCustomerStore();
     <CheckoutConfirmCard :title="$t('checkout.confirm.personal.cardTitle')">
         <span
             v-if="customerStore.customer"
-            class="text-sm"
+            class="text-sm flex gap-2"
         >
             {{
                 $t('checkout.confirm.personal.loggedInMessage', {
@@ -14,9 +14,10 @@ const customerStore = useCustomerStore();
                     lastname: customerStore.customer.lastName,
                 })
             }}
-            <UtilityPill
+            <UtilityBadge
                 v-if="customerStore.customer.guest"
-                content="guest"
+                :content="$t('account.register.guest.label')"
+                size="sm"
                 class="max-w-fit px-1.5"
             />
         </span>

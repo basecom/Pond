@@ -22,6 +22,7 @@ const { errorOfField, togglePasswordVisibility } = useFormkitHelper();
 const { pushError, pushSuccess } = useNotifications();
 const formErrorStore = useFormErrorStore();
 const { trackRegister } = useAnalytics();
+const { t } = useI18n();
 
 const isLoading = ref(false);
 
@@ -52,9 +53,9 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
             navigateTo(props.redirectTarget);
         }
 
-        pushSuccess('You successfully logged in');
+        pushSuccess(t('account.register.success'));
     } catch (error) {
-        pushError('An error occured. Please try again.');
+        pushError(t('account.register.error'));
         isLoading.value = false;
 
         if (error instanceof ApiClientError) {
@@ -78,7 +79,7 @@ const handleGuestChange = fields => {
         type="form"
         :submit-label="$t('account.register.submitLabel')"
         :classes="{
-            form: 'grid grid-cols-2 gap-3 w-full max-w-md',
+            form: 'grid grid-cols-2 gap-3 w-full',
         }"
         :config="{
             validationVisibility: 'dirty',
@@ -140,7 +141,7 @@ const handleGuestChange = fields => {
         <FormKit
             v-if="allowGuest"
             type="checkbox"
-            label="dont create a customer account"
+            :label="$t('account.register.guest.toggle')"
             name="guest"
             :value="false"
             decorator-icon="check"

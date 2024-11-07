@@ -17,8 +17,8 @@ export function useCustomerAddress() {
 
     const { customer } = storeToRefs(useCustomerStore());
 
-    const activeShippingAddress = computed(() => customer.value.activeShippingAddress);
-    const activeBillingAddress = computed(() => customer.value.activeBillingAddress);
+    const activeShippingAddress = computed(() => customer.value?.activeShippingAddress);
+    const activeBillingAddress = computed(() => customer.value?.activeBillingAddress);
 
     const syncBillingAddress = async (sameBillingAddress: boolean, shippingId: string, billingId: string) => {
         if (sameBillingAddress && shippingId !== billingId) {

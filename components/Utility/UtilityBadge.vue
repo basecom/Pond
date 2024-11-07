@@ -28,7 +28,7 @@ withDefaults(
 <template>
     <div
         v-if="content"
-        class="flex w-fit flex-row items-center justify-center gap-2 rounded-full font-light text-white outline outline-1 outline-white"
+        class="flex w-fit flex-row items-center justify-center gap-2 rounded-full font-light text-white"
         :class="{
             'bg-status-info': style === 'info',
             'bg-status-warning': style === 'warning',

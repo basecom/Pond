@@ -133,7 +133,13 @@
             "terms": {
                 "label": "AGB",
                 "help": "Akzeptieren Sie unsere Allgemeinen Geschäftsbedingungen?"
-            }
+            },
+            "guest": {
+                "label": "Gast",
+                "toggle": "Ich möchte keinen Account erstellen"
+            },
+            "success": "Sie wurden erfolgreich angemeldet.",
+            "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
         },
         "logout": {
             "buttonLabel": "Logout"
