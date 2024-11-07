@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const { getNewsletterStatus, confirmationNeeded, newsletterStatus, newsletterConfirm } = useNewsletter();
 const customerStore = useCustomerStore();
-const { customer } = storeToRefs(customerStore);
 const { t } = useI18n();
 
 const breadcrumbs = [];

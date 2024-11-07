@@ -4,7 +4,7 @@ import { ApiClientError } from '@shopware/api-client';
 const customerStore = useCustomerStore();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 const { push } = useRouter();
-const { refreshCart, isEmpty, cart } = useCart();
+const { refreshCart, isEmpty } = useCart();
 const cartItemsStore = useCartItemsStore();
 const { cartItemsWithProduct } = storeToRefs(cartItemsStore);
 const { createOrder } = useCheckout();

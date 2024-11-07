@@ -35,6 +35,7 @@ const props = withDefaults(
         spaceBetween: 0,
         slidesPerView: 1,
         thumbsSwiper: null,
+        // eslint-disable-next-line vue/require-valid-default-prop
         breakpoints: {},
         init: false,
         verticalNavigation: false,
@@ -45,7 +46,6 @@ const props = withDefaults(
 const sliderRef : Swiper = ref();
 const prevSlide = ref(null);
 const nextSlide = ref(null);
-const navigation = props.navigationArrows ? ref(null) : false;
 
 watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
     if (prevSlideValue && nextSlideValue && props.navigationArrows) {
