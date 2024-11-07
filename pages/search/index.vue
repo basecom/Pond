@@ -11,6 +11,7 @@ const { criteria, sortingOptions, currentSorting, appliedFilters, areFiltersModi
 
 const cacheKey = computed(() => `productSearch-${JSON.stringify(criteria.value)}`);
 
+const { trackSelectItem } = useAnalytics({ trackPageView: true, pageType: 'search' });
 const searchStore = useSearchStore();
 const searchTerm = computed(() => {
     if (searchStore.searchTerm.length < 3) {
@@ -47,9 +48,19 @@ const onResetFilters = async () => {
     productListingCriteriaStore.resetFilters();
 };
 
+const onSelectProduct = async (product: Schemas['Product']) => {
+    trackSelectItem(product, { id: 'search', name: 'search' });
+}
+
 productListingCriteriaStore.initializeCriteria(
     {
         search: route.query.search as string,
+        associations: {
+            children: {},
+            media: {},
+            manufacturer: {},
+            options: {},
+        }
     },
     route.query,
 );
@@ -80,7 +91,6 @@ useBreadcrumbs([
         path: '/search?search=' + route.query.search,
     },
 ]);
-useAnalytics({ trackPageView: true, pageType: 'search' });
 </script>
 
 <template>
@@ -120,7 +130,7 @@ useAnalytics({ trackPageView: true, pageType: 'search' });
                     v-for="product in products"
                     :key="product.id"
                 >
-                    <ProductCard :product="product" />
+                    <ProductCard :product="product" @select-product="onSelectProduct(product)" />
                 </template>
             </div>
         </div>
