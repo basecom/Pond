@@ -2,6 +2,7 @@
 const { paymentMethods, getPaymentMethods } = useCheckout();
 
 const { selectedPaymentMethod: paymentMethod, setPaymentMethod } = useSessionContext();
+const { trackAddPaymentInfo } = useAnalytics();
 
 const selectedPaymentMethod = computed({
     get(): string {
@@ -9,6 +10,7 @@ const selectedPaymentMethod = computed({
     },
     async set(paymentMethodId: string) {
         await setPaymentMethod({ id: paymentMethodId });
+        trackAddPaymentInfo();
     },
 });
 
@@ -23,40 +25,30 @@ onMounted(async () => {
         description: method.translated.description,
         mediaUrl: method.media?.url,
     }));
+    trackAddPaymentInfo();
 });
 </script>
 
 <template>
     <CheckoutConfirmCard
-        title="Payment Method"
-        subtitle="Select a payment method"
+        :title="$t('checkout.confirm.payment.cardTitle')"
+        :subtitle="$t('checkout.confirm.payment.cardSubtitle')"
     >
         <FormKit
             v-if="paymentOptions.length > 0"
             v-model="selectedPaymentMethod"
             type="radio"
             :options="paymentOptions"
+            fieldset-class="w-full"
+            wrapper-class="w-full !mb-5 !items-start"
+            decorator-class="mt-1"
         >
             <template #label="{ option }">
-                <div>
-                    <span>
-                        {{ option.label }}
-                    </span>
-
-                    <span
-                        v-if="option.description"
-                        class="text-secondary-500 block text-sm italic"
-                    >
-                        {{ option.description }}
-                    </span>
-
-                    <img
-                        v-if="option.mediaUrl"
-                        loading="lazy"
-                        :src="option.mediaUrl"
-                        :alt="`Logo of ${option.label}`"
-                    />
-                </div>
+                <CheckoutConfirmPaymentMethod
+                    :label="option.label"
+                    :description="option.description"
+                    :media-url="option.mediaUrl"
+                />
             </template>
         </FormKit>
     </CheckoutConfirmCard>

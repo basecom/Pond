@@ -21,6 +21,7 @@ const isDevelopment = computed(() => import.meta.dev);
             :element="content"
         />
     </div>
+
     <div v-else-if="isDevelopment">
         {{ $t('cms.componentNotFound', { componentName: getCmsElementComponentName(content.type) }) }}
     </div>

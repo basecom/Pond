@@ -2,11 +2,16 @@
 const customerStore = useCustomerStore();
 const { signedIn } = storeToRefs(customerStore);
 const modalController = useModal();
+
+const closeModal = () => {
+    modalController.close();
+};
 </script>
 
 <template>
     <LazySharedModal
         v-if="!signedIn"
+        :controller="modalController"
         :with-close-button="true"
     >
         <template #trigger>
@@ -15,30 +20,24 @@ const modalController = useModal();
                 icon="user"
             />
         </template>
-        <template #title>Login</template>
+        <template #title>{{ $t('account.loginModal.heading') }}</template>
         <template #content>
-            <AccountLoginRegisterTabs />
+            <AccountLoginRegisterTabs @close-modal="closeModal" />
         </template>
     </LazySharedModal>
+
     <LazySharedPopover v-else>
         <template #trigger>
             <FormKitIcon
                 class="block h-6 w-6"
                 icon="user"
-                @click="!signedIn ? modalController.open() : null"
             />
         </template>
         <template #content>
-            <div class="py-2 first:pt-0">
-                <NuxtLink to="/account">account</NuxtLink>
-            </div>
-            <FormKit
-                type="submit"
-                prefix-icon="right-from-bracket"
-                @click.prevent="customerStore.logout()"
-            >
-                logout
-            </FormKit>
+            <AccountSideNavigation
+                class="mt-4"
+                :is-in-header="true"
+            />
         </template>
     </LazySharedPopover>
 </template>

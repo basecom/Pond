@@ -1,20 +1,39 @@
 <script setup lang="ts">
-withDefaults(
+const props = withDefaults(
     defineProps<{
+        controller?: ReturnType<typeof useModal>;
         withCloseButton?: boolean;
         withActionsButton?: boolean;
         size?: 'sm' | 'md' | 'lg';
     }>(),
     {
+        controller: useModal,
         withCloseButton: false,
         withActionsButton: false,
         size: 'md',
     },
 );
+const { controller } = toRefs(props);
+
+const onUpdatedOpen = (value: boolean) => {
+    if (value) {
+        controller.value.open();
+    } else {
+        controller.value.close();
+    }
+};
+
+watch(controller.value.isOpen, () => {
+    // TODO: Workaround due to weird behaviour when passing a controller as prop and using it as v-model - Needs cleaner solution in the future
+    document.body.style.overflow = 'unset';
+});
 </script>
 
 <template>
-    <DialogRoot>
+    <DialogRoot
+        v-model:open="controller.isOpen.value"
+        @update:open="onUpdatedOpen"
+    >
         <DialogTrigger>
             <slot name="trigger"></slot>
         </DialogTrigger>
@@ -38,11 +57,11 @@ withDefaults(
                 leave-to-class="-translate-y-10 scale-50"
             >
                 <DialogContent
-                    class="absolute left-1/2 top-8 z-[100] -translate-x-1/2 rounded-lg bg-white shadow-lg focus:outline-none"
+                    class="fixed w-full left-1/2 top-8 z-[100] max-h-[calc(100vh-4rem)] -translate-x-1/2 overflow-auto rounded-lg bg-white shadow-lg focus:outline-none"
                     :class="{
-                        'w-80': size === 'sm',
-                        'w-128': size === 'md',
-                        'w-2/3': size === 'lg',
+                        'max-w-[min(calc(100%-40px),320px)]': size === 'sm',
+                        'max-w-[min(calc(100%-40px),600px)]': size === 'md',
+                        'max-w-[min(calc(100%-40px),66.66%)]': size === 'lg',
                     }"
                 >
                     <DialogTitle class="border-b border-gray-light px-6 pb-4 pt-6 font-bold">
@@ -62,7 +81,7 @@ withDefaults(
                             <DialogClose as-child>
                                 <FormKit
                                     type="button"
-                                    label="cancel"
+                                    :label="$t('shared.modal.cancelButtonLabel')"
                                     :classes="{
                                         outer: 'w-full',
                                     }"
@@ -73,7 +92,7 @@ withDefaults(
                     <DialogClose
                         v-if="withCloseButton"
                         class="absolute right-5 top-5 h-5 w-5 items-center justify-center text-gray hover:text-black focus:text-black"
-                        aria-label="Close"
+                        :aria-label="$t('shared.modal.closeButtonAriaLabel')"
                     >
                         <FormKitIcon
                             class="block"

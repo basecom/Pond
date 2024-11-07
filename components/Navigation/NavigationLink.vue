@@ -26,14 +26,8 @@ if (isInternalLink) {
     await getInternalRoute();
 }
 
-const isActive = (path: Schemas['SeoUrl'][] | undefined, onlyExactMatch: boolean = false) => {
-    if (!path) return false;
-
-    const formattedPath = '/' + path[0]?.seoPathInfo;
-    const { path: currentPath } = useRoute();
-
-    return onlyExactMatch ? formattedPath === currentPath : currentPath.includes(formattedPath);
-};
+const { isActive } = useActivePath();
+const { trackNavigation } = useAnalytics();
 </script>
 
 <template>
@@ -45,6 +39,7 @@ const isActive = (path: Schemas['SeoUrl'][] | undefined, onlyExactMatch: boolean
         :to="isExternalLink ? externalLink : isInternalLink ? path : getCategoryRoute(navigationElement)"
         class="transition-all hover:text-brand-primary"
         :class="[classes, isActive(navigationElement.seoUrls, activeWithExactMatch) ? activeClasses : '']"
+        @click="trackNavigation((navigationElement.level - 1) ?? 0, getTranslatedProperty(navigationElement, 'name'))"
     >
         {{ getTranslatedProperty(navigationElement, 'name') }}
     </NuxtLink>

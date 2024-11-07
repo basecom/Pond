@@ -1,0 +1,98 @@
+{
+    "checkout": {
+        "cart": {
+            "heading": "Warenkorb",
+            "checkoutButtonLabel": "Kasse",
+            "emptyCartMessage": "Ihr Warenkorb ist leer."
+        },
+        "offcanvasCart": {
+            "toCartButtonLabel": "Zum Warenkorb"
+        },
+        "confirm": {
+            "heading": "Kasse",
+            "emptyCartMessage": "Ihr Warenkorb ist leer.",
+            "payment": {
+                "cardTitle": "Bezahlmethoden",
+                "cardSubtitle": "Wähle eine Methode zum Bezahlen aus"
+            },
+            "personal": {
+                "cardTitle": "Persönliche Informationen",
+                "loggedInMessage": "Sie sind als {firstname} {lastname} eingeloggt"
+            },
+            "shipping": {
+                "cardTitle": "Versandmethoden",
+                "cardSubtitle": "Wähle eine Versandmethode aus"
+            },
+            "address": {
+                "billing": "Rechnungsadresse",
+                "shipping": "Lieferadresse",
+                "sameAsShippingAddress": "Identisch zur Lieferadresse",
+                "modal": {
+                    "billingHeading": "Rechnungsadresse auswählen",
+                    "shippingHeading": "Lieferadresse auswählen",
+                    "chosenAddress": "Ausgewählte Adresse:",
+                    "ariaLabel": "Adresse",
+                    "editLabel": "Diese Adresse bearbeiten",
+                    "createLabel": "Neue Adresse anlegen",
+                    "selectLabel": "Adressauswahl",
+                    "selectHeading": "Verfügbare Adressen",
+                    "selectSubmitLabel": "Ausgewählte Adresse als Standardadresse speichern",
+                    "formSubmitLabel": "Adresse als Standardadresse speichern"
+                }
+            },
+            "terms": {
+                "cardTitle": "Allgemeine Geschäftsbedingungen",
+                "label": "AGB",
+                "help": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen und akzeptiere sie."
+            },
+            "order": {
+                "successMessage": "Ihre Bestellung wurde aufgegeben.",
+                "errorMessage": "Ein Fehler ist bei ihrer Bestellung aufgetreten. Bitte versuche es noch einmal.",
+                "buttonLabel": "Bestellen",
+                "buttonLabelNotLoggedIn": "Zum Bestellen einloggen"
+            }
+        },
+        "lineItemsHeading": "Produkte",
+        "lineItem": {
+            "updateQuantity": {
+                "successMessage": "Die Menge von {lineItemName} wurde aktualisiert",
+                "errorMessage": "Beim Ändern der Menge von {lineItemName} ist etwas schiefgegangen."
+            },
+            "remove": {
+                "successMessage": "{lineItemName} wurde aus dem Warenkorb entfernt",
+                "errorMessage": "Beim Entfernen von {lineItemName} ist etwas schiefgegangen.",
+                "buttonLabel": "Entfernen"
+            },
+            "digitalProduct": "Digitales Produkt"
+        },
+        "promotion": {
+            "successMessage": "Der Rabattcode {promotionCode} wurde hinzugefügt",
+            "errorMessage": "Etwas ist schiefgegangen!",
+            "code": {
+                "label": "Rabattcode"
+            },
+            "submitLabel": "Einlösen"
+        },
+        "summary": {
+            "heading": "Zusammenfassung",
+            "netPriceLabel": "Nettopreis",
+            "taxLabel": "MwSt.",
+            "shippingCostLabel": "Versand",
+            "totalLabel": "Gesamt"
+        },
+        "finish": {
+            "heading": "Vielen Dank für ihre Bestellung!",
+            "confirmationMessage": "Wir haben ihre Bestellung erhalten und werden sie so schnell wie möglich bearbeiten.",
+            "emailMessage": "Eine Bestätigungsmail wurde an ihre Email-Adresse gesendet.",
+            "orderNumberLabel": "Bestellnummer:",
+            "orderDateLabel": "Datum:",
+            "orderStatusLabel": "Status:",
+            "totalAmountLabel": "Gesamtbetrag:",
+            "orderHistoryLinkLabel": "Zu meinen Bestellungen",
+            "billingAddressHeading": "Rechnungsadresse",
+            "shippingAddressHeading": "Lieferadresse",
+            "paymentMethodHeading": "Bezahlmethode",
+            "shippingMethodHeading": "Versandmethode"
+        }
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "cookie": {
+        "banner": {
+            "message": "This website uses cookies to provide the best possible experience.",
+            "additionalInformationTriggerButton": "More Information...",
+            "additionalInformationTitle": "Data protection",
+            "additionalInformationText": "This website uses cookies to provide the best possible experience. By using this website, you agree to the use of cookies. Detailed information on the use of cookies on this website can be found in the data protection declaration.",
+            "denyAllButton": "Only technically required",
+            "configureButton": "Configure",
+            "allowAllButton": "Accept all cookies"
+        },
+        "modal": {
+            "title": "Cookie settings",
+            "settings": "Settings",
+            "submitLabel": "Save selection",
+            "denyAllButton": "Deny all",
+            "allowAllButton": "Accept all"
+        },
+        "groups": {
+            "required": {
+                "name": "Technically required",
+                "description": "Cookies required for this shop to function:",
+                "entries": {
+                    "session": "Session",
+                    "timezone": "Timezone",
+                    "captcha": "CAPTCHA integration"
+                }
+            },
+            "statistics": {
+                "name": "Statistics",
+                "description": "Cookies used for statistics and shop performance metrics.",
+                "entries": {
+                    "googleAnalytics": "Google Analytics"
+                }
+            },
+            "comfortFeatures": {
+                "name": "Comfort features",
+                "entries": {
+                    "wishlist": "Wishlist",
+                    "youtubeVideo": "YouTube video"
+                }
+            },
+            "marketing": {
+                "name": "Marketing",
+                "description": "Allows Google to collect personal data for online advertising and marketing.",
+                "entries": {
+                    "googleAds": "Google Advertising"
+                }
+            }
+        }
+    }
+}

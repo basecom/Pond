@@ -1,19 +1,39 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app';
 
-defineProps<{
+const props = defineProps<{
     error: NuxtError;
 }>();
+
+const pageNotFound = computed(() => {
+    return props.error.statusCode === 404;
+});
+
+const isMaintenanceMode = computed(() => {
+    return props.error.statusCode === 503 && props.error.statusMessage === 'MAINTENANCE_MODE';
+});
+
+const genericServerError = computed(() => {
+    return props.error.statusCode >= 500;
+});
 </script>
 
 <template>
-    <div class="container flex flex-col items-center justify-center">
-        <h1>{{ error.statusCode }} - {{ error.message }}</h1>
-        <NuxtLink
-            class="inline-flex max-w-56 items-center justify-center bg-brand-primary px-4 py-2 text-center text-white hover:bg-brand-primary-dark"
-            :to="{ name: 'index' }"
-        >
-            Homepage
-        </NuxtLink>
-    </div>
+    <NuxtLoadingIndicator />
+
+    <template v-if="pageNotFound">
+        <ErrorNotFound />
+    </template>
+
+    <template v-else-if="isMaintenanceMode">
+        <ErrorMaintenance />
+    </template>
+
+    <template v-else-if="genericServerError">
+        <ErrorServer :error="props.error" />
+    </template>
+
+    <template v-else>
+        <ErrorUnknown :error="props.error" />
+    </template>
 </template>

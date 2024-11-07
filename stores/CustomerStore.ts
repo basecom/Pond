@@ -3,6 +3,8 @@ import type { Schemas } from '@shopware/api-client/api-types';
 export const useCustomerStore = defineStore('customer', () => {
     const { refreshSessionContext, sessionContext } = useSessionContext();
     const { login, logout, register } = useUser();
+    const { resetPassword } = useCustomerPassword();
+    const { isRecoveryHashValid, recoverPassword } = usePasswordRecovery();
     const loading = ref(true);
 
     async function refreshContext() {
@@ -22,5 +24,8 @@ export const useCustomerStore = defineStore('customer', () => {
         logout,
         loading,
         register,
+        resetPassword,
+        isRecoveryHashValid,
+        recoverPassword,
     };
 });

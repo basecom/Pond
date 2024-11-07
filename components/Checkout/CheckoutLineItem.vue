@@ -1,21 +1,25 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { ApiClientError } from '@shopware/api-client';
+
 const { getProductRoute } = useProductRoute();
 const { getProductCover } = useMedia();
 const { pushError, pushSuccess } = useNotifications();
+const { t } = useI18n();
 
 const props = defineProps<{
     lineItem: Schemas['LineItem'];
+    product: Schemas['Product'];
 }>();
 
-const { lineItem } = toRefs(props);
+const { lineItem, product } = toRefs(props);
 const isLoading = ref(false);
 
 const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 
 const { getFormattedPrice } = usePrice();
 const { refreshCart } = useCart();
+const { trackAddToCart, trackRemoveFromCart } = useAnalytics();
 const {
     itemOptions,
     removeItem,
@@ -34,16 +38,22 @@ syncRefs(itemQuantity, quantity);
 const updateQuantity = async (quantityInput: number | undefined) => {
     if (quantityInput === itemQuantity.value) return;
 
+    const addedProductsNumbers = Number(quantityInput) - itemQuantity.value;
     isLoading.value = true;
 
     try {
         const response = await changeItemQuantity(Number(quantityInput));
+        if (addedProductsNumbers > 0) {
+            trackAddToCart(product.value, addedProductsNumbers);
+        } else {
+            trackRemoveFromCart(product.value, Math.abs(addedProductsNumbers));
+        }
         // Refresh cart after quantity update
         await refreshCart(response);
 
-        pushSuccess('The quantity of ' + lineItem.value.label + ' has been updated');
+        pushSuccess(t('checkout.lineItem.updateQuantity.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
-        pushError('An error occured trying to change the quantity of ' + lineItem.value.label + '.');
+        pushError(t('checkout.lineItem.updateQuantity.errorMessage', { lineItemName: lineItem.value.label }));
 
         if (error instanceof ApiClientError) {
             console.log(error.details);
@@ -60,11 +70,12 @@ const removeCartItem = async () => {
     isLoading.value = true;
 
     try {
+        trackRemoveFromCart(product.value, lineItem.value.quantity);
         await removeItem();
 
-        pushSuccess(lineItem.value.label + ' has been removed from your cart');
+        pushSuccess(t('checkout.lineItem.remove.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
-        pushError('An error occured trying to remove ' + lineItem.value.label + ' from the cart.');
+        pushError(t('checkout.lineItem.remove.errorMessage', { lineItemName: lineItem.value.label }));
 
         if (error instanceof ApiClientError) {
             console.log(error.details);
@@ -86,16 +97,22 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
 </script>
 
 <template>
-    <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium">
+    <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
         <NuxtLink
             v-if="!isPromotion"
             :to="getProductRoute(lineItem)"
         >
-            <img
-                :src="lineItemCover.url"
-                :alt="lineItemCover.alt"
-                class="h-full w-full object-cover object-center"
-            />
+            <template v-if="lineItemCover.placeholder">
+                <SharedImagePlaceholder :size="'sm'" />
+            </template>
+
+            <template v-else>
+                <img
+                    :src="lineItemCover.url"
+                    :alt="lineItemCover.alt"
+                    class="h-full w-full object-cover object-center"
+                />
+            </template>
         </NuxtLink>
         <div
             v-else-if="isPromotion"
@@ -110,7 +127,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
 
     <div class="flex flex-1 flex-col">
         <div>
-            <div class="flex flex-col justify-between lg:flex-row">
+            <div class="flex flex-col justify-between gap-4 lg:flex-row">
                 <NuxtLink :to="getProductRoute(lineItem)">
                     <p>
                         {{ lineItem.label }}
@@ -122,7 +139,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                 </span>
             </div>
 
-            <span v-if="isDigital">Digital product</span>
+            <span v-if="isDigital">{{ $t('checkout.lineItem.digitalProduct') }}</span>
 
             <p
                 v-if="itemOptions"
@@ -136,6 +153,8 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                     {{ option.group }}: {{ option.option }}
                 </span>
             </p>
+
+            <ProductAvailability :product="lineItem" />
         </div>
 
         <div class="flex flex-1 items-end justify-between text-sm">
@@ -155,7 +174,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                 :class="{ 'text-gray-medium': isLoading }"
                 @click="removeCartItem"
             >
-                Remove
+                {{ $t('checkout.lineItem.remove.buttonLabel') }}
             </button>
         </div>
     </div>

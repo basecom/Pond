@@ -1,0 +1,167 @@
+{
+    "account": {
+        "greeting": "Hallo {firstname} {lastname}",
+        "dropdownHeading": "Your account",
+        "overview": {
+            "heading": "Overview",
+            "subHeading": "Directly access your profile information, the default payment method and given addresses.",
+            "personalInformation": {
+                "heading": "Personal Information",
+                "nameLabel": "Name:",
+                "emailLabel": "Email:"
+            },
+            "paymentMethod": {
+                "heading": "Payment Method",
+                "nameLabel": "Name:",
+                "descriptionLabel": "Description:"
+            },
+            "billingAddressHeading": "Billing Address",
+            "shippingAddressHeading": "Shipping Address",
+            "newsletter": {
+                "heading": "Newsletter Subscription",
+                "label": "Yes, I would like to subscribe to the free newsletter. (I may unsubscribe at any time.)"
+            },
+            "latestOrderHeading" : "Latest Order"
+        },
+        "profile": {
+            "heading": "Your Profile"
+        },
+        "address": {
+            "heading": "Addresses",
+            "create": "Add Address",
+            "createSuccess": "Your new address has been successfully created.",
+            "createError": "Your new address could not be created.",
+            "editSuccess": "Your address has been edited.",
+            "editError": "Your address could not be changed.",
+            "deleteSuccess": "Ihre Adresse wurde gelöscht.",
+            "deleteError": "There was an error deleting your address, please try again later.",
+            "nothingFound": "No addresses were found.",
+            "defaultBilling": "default delivery address",
+            "defaultShipping": "default shipping address",
+            "updateBilling": "Set as default shipping address",
+            "updateBillingError": "Default billing address could not be changed",
+            "updateBillingSuccess": "Default billing address has been changed",
+            "updateShipping": "Use as default delivery address",
+            "updateShippingError": "Default shipping address could not be changed",
+            "updateShippingSuccess": "Default shipping address has been changed"
+        },
+        "payment": {
+            "heading": "Payment Methods"
+        },
+        "order": {
+            "edit": {
+                "heading": "Complete payment",
+                "buttonLabel": "Complete payment",
+                "terms": {
+                    "help": "You have already accepted our terms of service"
+                },
+                "errorMessage": "Something went wrong completing the payment.",
+                "successMessage": "Your order has been successfully completed.",
+                "noOrderFound": "Your order was not found, please go back to the order overview."
+            }
+        },
+        "orders": {
+            "heading": "Orders",
+            "noOrdersFound": "No orders could be found.",
+            "paymentStatusLabel": "Payment",
+            "paymentMethodLabel": "Payment Method",
+            "shippingStatusLabel": "Shipping",
+            "shippingMethodLabel": "Shipping Method",
+            "lineItemsHeading": "Products",
+            "status": "Status",
+            "changePaymentMethod": "Change payment method"
+        },
+        "login": {
+            "successMessage": "You successfully logged in.",
+            "errorMessage": "An error occurred trying to login. Please try again.",
+            "submitLabel": "Login",
+            "email": {
+                "label": "Email",
+                "placeholder": "Type your email address...",
+                "help": "Your email address"
+            },
+            "password": {
+                "label": "Password"
+            },
+            "createAccountLink": "Create your account here",
+            "recoverPasswordLink": "Forgot password?"
+        },
+        "register": {
+            "submitLabel": "Register",
+            "dataHeading": "Your data:",
+            "salutation": {
+                "label": "Salutation",
+                "placeholder": "Select a salutation",
+                "help": "Select how you would like to be addressed"
+            },
+            "firstname": {
+                "label": "First name",
+                "placeholder": "Your firstname"
+            },
+            "lastname": {
+                "label": "Last name",
+                "placeholder": "Your lastname"
+            },
+            "addressHeading": "Your address:",
+            "street": {
+                "label": "Street",
+                "placeholder": "Your street address "
+            },
+            "zipCode": {
+                "label": "Zip code",
+                "placeholder": "Your zip code"
+            },
+            "city": {
+                "label": "City",
+                "placeholder": "Your city"
+            },
+            "country": {
+                "label": "Country",
+                "placeholder": "Select your country"
+            },
+            "alternativeShippingAddress": "Shipping address does not match billing address",
+            "shippingAddressHeading": "Shipping address",
+            "accountDataHeading": "Your account data:",
+            "email": {
+                "label": "Email",
+                "placeholder": "Your email address"
+            },
+            "password": {
+                "label": "Password",
+                "placeholder": "Choose a password"
+            },
+            "terms": {
+                "label": "Terms and Conditions",
+                "help": "Do you agree to our terms of service?"
+            }
+        },
+        "logout": {
+            "buttonLabel": "Logout"
+        },
+        "recoverPassword": {
+            "request": {
+                "heading": "Password Recovery",
+                "subHeading": "We will send you an email. Click the link in that email in order to change your password.",
+                "submitLabel": "Request Email",
+                "successMessage": "If your email address is registered with us, we sent you an email. Please check your inbox.",
+                "loginButtonLabel": "Login"
+            },
+            "recover": {
+                "heading": "Choose a new password",
+                "submitLabel": "Change password",
+                "errorMessage": "Something went wrong changing your password.",
+                "passwordLabel": "New password",
+                "confirmLabel": "Confirm new password",
+                "linkNotValid": "This link doesn't seem to be valid. Please request another.",
+                "requestNewLink": "Request a new recovery link"
+            }
+        },
+        "loginModal": {
+            "heading": "Login",
+            "tabs": {
+                "loginTabHeading": "Login",
+                "registerTabHeading": "Register"
+            }
+        }
+    }
+}

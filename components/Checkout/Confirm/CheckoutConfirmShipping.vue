@@ -2,6 +2,7 @@
 import { getShippingMethodDeliveryTime } from '@shopware-pwa/helpers-next';
 
 const { shippingMethods, getShippingMethods } = useCheckout();
+const { trackAddShippingInfo } = useAnalytics();
 
 const { selectedShippingMethod: shippingMethod, setShippingMethod } = useSessionContext();
 
@@ -11,6 +12,7 @@ const selectedShippingMethod = computed({
     },
     async set(shippingMethodId: string) {
         await setShippingMethod({ id: shippingMethodId });
+        trackAddShippingInfo();
     },
 });
 
@@ -26,13 +28,15 @@ onMounted(async () => {
         description: method.translated.description,
         mediaUrl: method.media?.url,
     }));
+
+    trackAddShippingInfo();
 });
 </script>
 
 <template>
     <CheckoutConfirmCard
-        title="Shipping Method"
-        subtitle="Select a shipping method"
+        :title="$t('checkout.confirm.shipping.cardTitle')"
+        :subtitle="$t('checkout.confirm.shipping.cardSubtitle')"
     >
         <FormKit
             v-if="shippingOptions.length > 0"
@@ -41,27 +45,12 @@ onMounted(async () => {
             :options="shippingOptions"
         >
             <template #label="{ option }">
-                <div>
-                    <span>
-                        {{ option.label }}
-                    </span>
-
-                    <span v-if="option.deliveryTime"> ({{ option.deliveryTime }}) </span>
-
-                    <span
-                        v-if="option.description"
-                        class="text-secondary-500 block text-sm italic"
-                    >
-                        {{ option.description }}
-                    </span>
-
-                    <img
-                        v-if="option.mediaUrl"
-                        loading="lazy"
-                        :src="option.mediaUrl"
-                        :alt="`Logo of ${option.label}`"
-                    />
-                </div>
+                <CheckoutConfirmShippingMethod
+                    :label="option.label"
+                    :delivery-time="option.deliveryTime"
+                    :description="option.description"
+                    :media-url="option.mediaUrl"
+                />
             </template>
         </FormKit>
     </CheckoutConfirmCard>

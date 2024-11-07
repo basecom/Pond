@@ -3,12 +3,17 @@ const customerStore = useCustomerStore();
 </script>
 
 <template>
-    <CheckoutConfirmCard title="Personal Information">
+    <CheckoutConfirmCard :title="$t('checkout.confirm.personal.cardTitle')">
         <span
             v-if="customerStore.customer"
             class="text-sm"
         >
-            You are logged in as {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}
+            {{
+                $t('checkout.confirm.personal.loggedInMessage', {
+                    firstname: customerStore.customer.firstName,
+                    lastname: customerStore.customer.lastName,
+                })
+            }}
             <UtilityPill
                 v-if="customerStore.customer.guest"
                 content="guest"

@@ -1,27 +1,15 @@
 <script setup lang="ts">
-const customerStore = useCustomerStore();
-const { accountBreadcrumbs } = useStaticBreadcrumbs();
+await useAuthentication().rerouteIfLoggedOut();
 
-const handleLogout = async () => {
-    await customerStore.logout();
-    navigateTo('/');
-};
+const { accountBreadcrumbs } = useStaticBreadcrumbs();
+const showLatestOrder = ref(true);
 
 useBreadcrumbs(accountBreadcrumbs({}));
+useAnalytics({ trackPageView: true, pageType: 'account' });
 </script>
 
 <template>
-    <div class="container">
-        <h1>Account</h1>
-        <template v-if="customerStore.customer">
-            hi {{ customerStore.customer.firstName }} {{ customerStore.customer.lastName }}
-        </template>
-        <FormKit
-            type="submit"
-            prefix-icon="right-from-bracket"
-            @click.prevent="handleLogout"
-        >
-            logout
-        </FormKit>
-    </div>
+    <Account>
+        <AccountOverviewContent :show-latest-order="showLatestOrder" />
+    </Account>
 </template>

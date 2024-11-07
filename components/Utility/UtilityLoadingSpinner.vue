@@ -24,7 +24,7 @@ withDefaults(
                 icon="spinner"
                 class="h-8 w-8 animate-spin fill-status-important text-brand-primary"
             />
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only">{{ $t('utility.loadingSpinnerLabel') }}</span>
         </div>
     </Teleport>
     <template v-else>
@@ -40,7 +40,7 @@ withDefaults(
                     'h-5 w-5': size === 'small',
                 }"
             />
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only">{{ $t('utility.loadingSpinnerLabel') }}</span>
         </div>
     </template>
 </template>
