@@ -6,6 +6,8 @@ const props = defineProps<{
 }>();
 
 const { product } = useProduct(props.element.data.product);
+const configStore = useConfigStore();
+const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
 </script>
 
 <template>
@@ -20,9 +22,17 @@ const { product } = useProduct(props.element.data.product);
 
         <ProductAvailability :product="product" />
 
-        <ProductAddToCart
-            :product="product"
-            :label="true"
-        />
+        <div class="flex w-full flex-row gap-4">
+            <ProductAddToCart
+                :product="product"
+                :label="true"
+            />
+            <div
+                v-if="wishlistEnabled"
+                class="rounded-md border border-gray-medium bg-white"
+            >
+                <ProductAddToWishlist :product="product" />
+            </div>
+        </div>
     </div>
 </template>

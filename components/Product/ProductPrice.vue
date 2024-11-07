@@ -68,7 +68,7 @@ const { price, unitPrice, isListPrice, referencePrice } = useProductPrice(produc
             v-if="displayVat"
             class="w-full text-xs text-gray"
         >
-            vat info
+            {{ $t('product.price.vatInfo') }}
         </p>
     </div>
 </template>

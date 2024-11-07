@@ -16,16 +16,22 @@ propertyGroups.value = product.value.properties
     });
 
 const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][] => {
-    return product.value.properties.filter(
-        (propertiy: Schemas['PropertyGroupOption']) => propertiy.group.id === groupId,
-    );
+    return product.value.properties.filter((property: Schemas['PropertyGroupOption']) => property.group.id === groupId);
+};
+
+const getPropertyNamesOfGroup = (groupId: string) => {
+    const properties = getPropertiesOfGroup(groupId);
+
+    return properties.map(property => getTranslatedProperty(property, 'name'));
 };
 </script>
 
 <template>
     <div class="flex flex-col gap-4">
-        <div class="text-xl font-bold">description</div>
+        <div class="text-xl font-bold">{{ $t('cms.element.product.descriptionHeading') }}</div>
         <div class="flex flex-col gap-8 md:flex-row">
+            <!-- v-html is necessary because we need to render html -->
+            <!-- eslint-disable vue/no-v-html -->
             <div
                 class="flex-grow"
                 v-html="getTranslatedProperty(product, 'description')"
@@ -43,10 +49,7 @@ const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][]
                         >
                             <td class="px-4 py-2 font-bold">{{ getTranslatedProperty(group, 'name') }}</td>
                             <td class="px-4 py-2">
-                                <template v-for="(property, index) in getPropertiesOfGroup(group.id)">
-                                    {{ getTranslatedProperty(property, 'name')
-                                    }}<template v-if="index + 1 !== getPropertiesOfGroup(group.id).length">, </template>
-                                </template>
+                                {{ getPropertyNamesOfGroup(group.id).join(', ') }}
                             </td>
                         </tr>
                     </tbody>

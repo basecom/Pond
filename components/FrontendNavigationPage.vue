@@ -7,6 +7,7 @@ const props = defineProps<{
 
 const { search } = useCategorySearch();
 const route = useRoute();
+const { t } = useI18n();
 
 const { data: categoryResponse } = await useAsyncData('navigation' + props.navigationId, async () => {
     return await search(props.navigationId, {
@@ -18,7 +19,7 @@ const { data: categoryResponse } = await useAsyncData('navigation' + props.navig
 });
 
 if (!categoryResponse.value) {
-    throw createError({ statusCode: 404, message: 'page not found' });
+    throw createError({ statusCode: 404, message: t('error.404.detail') });
 }
 
 const { category } = useCategory(categoryResponse);
@@ -27,7 +28,9 @@ const breadcrumbs = getCategoryBreadcrumbs(categoryResponse.value, {
     startIndex: 1,
 });
 
+createCategoryListingContext();
 useBreadcrumbs(breadcrumbs);
+useAnalytics({ trackPageView: true, pageType: 'navigation' });
 </script>
 
 <template>

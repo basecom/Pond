@@ -1,0 +1,17 @@
+{
+  "listing": {
+    "sidebar": {
+      "title": "Filters",
+      "sorting": {
+        "text": "Sort by",
+        "ariaLabel": "Sort by"
+      },
+      "filter": {
+        "price": {
+          "title": "Price"
+        },
+        "reset": "Reset filters"
+      }
+    }
+  }
+}

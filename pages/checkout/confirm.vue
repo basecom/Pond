@@ -4,19 +4,24 @@ import { ApiClientError } from '@shopware/api-client';
 const customerStore = useCustomerStore();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 const { push } = useRouter();
-const { refreshCart, isEmpty, cartItems } = useCart();
+const { refreshCart, isEmpty, cart } = useCart();
+const cartItemsStore = useCartItemsStore();
+const { cartItemsWithProduct } = storeToRefs(cartItemsStore);
 const { createOrder } = useCheckout();
 const { pushError, pushSuccess } = useNotifications();
+const { t } = useI18n();
+const { trackPurchase } = useAnalytics({ trackPageView: true, pageType: 'checkout' });
 
 const placeOrder = async () => {
     try {
         const order = await createOrder();
         await push('/checkout/finish/' + order.id);
+        trackPurchase(order);
         await refreshCart();
 
-        pushSuccess('Your order has been placed.');
+        pushSuccess(t('checkout.confirm.order.successMessage'));
     } catch (error) {
-        pushError('An error occured trying finish the order. Please try again.');
+        pushError(t('checkout.confirm.order.errorMessage'));
 
         if (error instanceof ApiClientError) {
             console.log(error.details);
@@ -29,7 +34,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
 
 <template>
     <div class="container">
-        <h1>Checkout</h1>
+        <h1>{{ $t('checkout.confirm.heading') }}</h1>
 
         <template v-if="!isEmpty">
             <FormKit
@@ -44,22 +49,23 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                         <CheckoutConfirmPersonal />
                         <CheckoutConfirmShipping />
                         <CheckoutConfirmPayment />
-
-                        <!-- TODO: Address Management (BUS-841) -->
-
+                        <CheckoutConfirmAddress />
                         <CheckoutConfirmTerms />
                     </div>
 
                     <div class="rounded-md p-4 shadow">
-                        <div class="font-bold">Products</div>
+                        <div class="font-bold">{{ $t('checkout.lineItemsHeading') }}</div>
 
                         <ul class="divide-y divide-gray-medium">
                             <li
-                                v-for="cartItem in cartItems"
-                                :key="cartItem.id"
+                                v-for="item in cartItemsWithProduct"
+                                :key="item.cartItem.id"
                                 class="flex py-6"
                             >
-                                <CheckoutLineItem :line-item="cartItem" />
+                                <CheckoutLineItem
+                                    :line-item="item.cartItem"
+                                    :product="item.product"
+                                />
                             </li>
                         </ul>
 
@@ -69,7 +75,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                             v-if="customerStore.customer"
                             class="mt-4 flex w-full cursor-pointer items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
                         >
-                            Order
+                            {{ $t('checkout.confirm.order.buttonLabel') }}
                         </button>
 
                         <div
@@ -77,13 +83,13 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                             class="mt-4 flex cursor-not-allowed items-center justify-center rounded-md bg-gray-dark px-6 py-3 text-white"
                             disabled="disabled"
                         >
-                            Log in to place order
+                            {{ $t('checkout.confirm.order.buttonLabelNotLoggedIn') }}
                         </div>
                     </div>
                 </div>
             </FormKit>
         </template>
 
-        <template v-else> Your cart is empty </template>
+        <template v-else> {{ $t('checkout.confirm.emptyCartMessage') }}</template>
     </div>
 </template>

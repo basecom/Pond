@@ -1,160 +1,113 @@
 <script setup lang="ts">
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import Glide from '@glidejs/glide';
+import type Swiper from 'swiper';
 
 const props = withDefaults(
     defineProps<{
-        autoplay?: boolean;
-        itemsToShow?: number;
-        itemsToScroll?: number;
-        numberOfSlides?: number;
-        wrapAround?: boolean;
-        navigationArrows?: null | 'inside' | 'outside';
-        navigationDots?: null | 'inside' | 'outside';
-        gap?: number;
-        imagePreview?: null | 'left' | 'bottom';
+        autoSlide?: boolean;
+        autoplayTimeout?: number;
+        speed?: number;
+        navigationDots?: boolean;
+        navigationArrows?: boolean;
+        displayMode?: string;
+        minHeight?: string;
+        classes?: string;
+        loop?: boolean;
+        direction?: string;
+        spaceBetween?: number;
+        slidesPerView?: number;
+        thumbsSwiper?: string;
+        breakpoints?: object;
+        init?: boolean;
+        verticalNavigation?: boolean;
+        thumbRef?: string;
     }>(),
     {
-        autoplay: false,
-        itemsToShow: 1,
-        itemsToScroll: 1,
-        numberOfSlides: -1,
-        wrapAround: true,
-        navigationArrows: null,
-        navigationDots: null,
-        gap: 16,
-        imagePreview: null,
+        autoSlide: false,
+        autoplayTimeout: 3000,
+        speed: 300,
+        navigationDots: true,
+        navigationArrows: true,
+        displayMode: 'cover',
+        minHeight: '300',
+        classes: null,
+        loop: true,
+        direction: 'horizontal',
+        spaceBetween: 0,
+        slidesPerView: 1,
+        thumbsSwiper: null,
+        breakpoints: {},
+        init: false,
+        verticalNavigation: false,
+        thumbRef: null,
     },
 );
 
-const glide: Ref<Glide | undefined> = ref(undefined);
-const activeIndex = ref(0);
-const layoutSliderRef = ref();
+const sliderRef : Swiper = ref();
+const prevSlide = ref(null);
+const nextSlide = ref(null);
+const navigation = props.navigationArrows ? ref(null) : false;
 
-onMounted(async () => {
-    glide.value = new Glide(layoutSliderRef.value, {
-        type: props.wrapAround ? 'carousel' : 'slider',
-        perView: props.itemsToShow,
-        autoplay: props.autoplay,
-        cloningRatio: props.wrapAround ? 1 : 0,
-        rewind: 0,
-        bound: true,
-        gap: props.gap,
-        touchRatio: 1,
-    });
-    await glide.value.mount();
+watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
+    if (prevSlideValue && nextSlideValue && props.navigationArrows) {
+        const swiperParams = {
+            navigation: {
+                prevEl: prevSlideValue,
+                nextEl: nextSlideValue,
+            },
+        };
 
-    glide.value.on('run.after', () => {
-        activeIndex.value = glide.value.index;
-    });
+        Object.assign(sliderRef.value, swiperParams);
+    }
+
+    sliderRef.value.initialize();
 });
-
-onUnmounted(async () => {
-    await glide?.value?.destroy();
-});
-
-const goToSlide = (index: number) => {
-    glide.value.go(`=${index}`);
-    activeIndex.value = index;
-};
 </script>
 
 <template>
-    <div
-        ref="layoutSliderRef"
-        class="glide"
-        :class="{
-            'flex gap-4': imagePreview === 'left',
-        }"
-    >
-        <div
-            v-if="imagePreview === 'left'"
-            class="hidden w-4/12 md:block"
-        >
-            <slot name="imagePreview"></slot>
-        </div>
-
-        <div class="relative">
-            <div
-                class="glide__track"
-                data-glide-el="track"
-            >
-                <ul class="glide__slides">
-                    <slot></slot>
-                </ul>
-            </div>
-
-            <div
-                v-if="navigationArrows"
-                class="glide__arrows flex items-center"
-                data-glide-el="controls"
-            >
-                <button
-                    class="glide__arrow glide__arrow--left absolute top-1/2 -translate-y-1/2"
-                    :class="{
-                        '-left-6': navigationArrows === 'outside',
-                        'left-2 flex h-6 w-6 items-center justify-center rounded-full bg-gray-light/50':
-                            navigationArrows === 'inside',
-                    }"
-                    data-glide-dir="<"
-                    @click="activeIndex === 0 ? (activeIndex = numberOfSlides - 1) : activeIndex--"
+    <ClientOnly>
+        <div class="relative" :class="classes">
+            <template v-if="navigationArrows">
+                <div
+                    ref="prevSlide"
+                    class="absolute z-10 bg-gray-light bg-opacity-50"
+                    :class="verticalNavigation ? 'left-1/2 -translate-x-1/2 top-0 py-1 lg:py-2 w-full flex justify-center' : 'top-1/2 -translate-y-1/2 left-5 sm:left-0 py-6 lg:py-12 px-1 lg:px-2'"
                 >
                     <FormKitIcon
-                        icon="chevron-left"
-                        class="inline-block h-4 w-auto"
+                        :icon="verticalNavigation ? 'chevron-up' : 'chevron-left'"
+                        class="block h-6 w-6 text-brand-primary"
                     />
-                </button>
-                <button
-                    class="glide__arrow glide__arrow--right absolute top-1/2 -translate-y-1/2"
-                    :class="{
-                        '-right-6': navigationArrows === 'outside',
-                        'right-2 flex h-6 w-6 items-center justify-center rounded-full bg-gray-light/50':
-                            navigationArrows === 'inside',
-                    }"
-                    data-glide-dir=">"
-                    @click="activeIndex === numberOfSlides - 1 ? (activeIndex = 0) : activeIndex++"
+                </div>
+
+                <div
+                    ref="nextSlide"
+                    class="absolute z-10 bg-gray-light bg-opacity-50"
+                    :class="verticalNavigation ? 'left-1/2 -translate-x-1/2 bottom-0 py-1 lg:py-2 w-full flex justify-center' : 'top-1/2 -translate-y-1/2 right-5 sm:right-0 py-6 lg:py-12 px-1 lg:px-2'"
                 >
                     <FormKitIcon
-                        icon="chevron-right"
-                        class="inline-block h-4 w-auto"
+                        :icon="verticalNavigation ? 'chevron-down' : 'chevron-right'"
+                        class="block h-6 w-6 text-brand-primary"
                     />
-                </button>
-            </div>
+                </div>
+            </template>
 
-            <div
-                v-if="navigationDots && numberOfSlides > 0"
-                class="glide__bullets relative z-10 flex items-center justify-center gap-2"
-                :class="{
-                    'mt-4': navigationDots === 'outside',
-                    'absolute bottom-8 w-full': navigationDots === 'inside',
-                }"
+            <swiper-container
+                ref="sliderRef"
+                class="h-full w-full grid"
+                :class="thumbRef ? thumbRef : `min-h-[${minHeight}px]`"
+                :autoplay="autoSlide"
+                :speed="speed"
+                :pagination="navigationDots"
+                :navigation="navigationArrows"
+                :loop="loop"
+                :direction="direction"
+                :space-between="spaceBetween"
+                :slides-per-view="slidesPerView"
+                :thumbs-swiper="thumbsSwiper"
+                :breakpoints="breakpoints"
+                :init="init"
             >
-                <template
-                    v-for="index in numberOfSlides"
-                    :key="index"
-                >
-                    <button
-                        class="glide__bullet h-4 w-4 cursor-pointer rounded-full"
-                        :class="{
-                            'bg-gray': activeIndex === index - 1 && navigationDots === 'outside',
-                            'bg-gray/50': activeIndex !== index - 1 && navigationDots === 'outside',
-                            'bg-gray-light': activeIndex === index - 1 && navigationDots === 'inside',
-                            'bg-gray-light/50': activeIndex !== index - 1 && navigationDots === 'inside',
-                        }"
-                        :data-glide-dir="index - 1"
-                        :aria-label="'Slide index ' + (index - 1)"
-                        @click="goToSlide(index - 1)"
-                    ></button>
-                </template>
-            </div>
+                <slot></slot>
+            </swiper-container>
         </div>
-
-        <div
-            v-if="imagePreview === 'bottom'"
-            class="hidden md:block"
-        >
-            <slot name="imagePreview"></slot>
-        </div>
-    </div>
+    </ClientOnly>
 </template>

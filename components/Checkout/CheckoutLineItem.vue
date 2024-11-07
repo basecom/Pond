@@ -1,21 +1,25 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { ApiClientError } from '@shopware/api-client';
+
 const { getProductRoute } = useProductRoute();
 const { getProductCover } = useMedia();
 const { pushError, pushSuccess } = useNotifications();
+const { t } = useI18n();
 
 const props = defineProps<{
     lineItem: Schemas['LineItem'];
+    product: Schemas['Product'];
 }>();
 
-const { lineItem } = toRefs(props);
+const { lineItem, product } = toRefs(props);
 const isLoading = ref(false);
 
 const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 
 const { getFormattedPrice } = usePrice();
 const { refreshCart } = useCart();
+const { trackAddToCart, trackRemoveFromCart } = useAnalytics();
 const {
     itemOptions,
     removeItem,
@@ -34,16 +38,22 @@ syncRefs(itemQuantity, quantity);
 const updateQuantity = async (quantityInput: number | undefined) => {
     if (quantityInput === itemQuantity.value) return;
 
+    const addedProductsNumbers = Number(quantityInput) - itemQuantity.value;
     isLoading.value = true;
 
     try {
         const response = await changeItemQuantity(Number(quantityInput));
+        if (addedProductsNumbers > 0) {
+            trackAddToCart(product.value, addedProductsNumbers);
+        } else {
+            trackRemoveFromCart(product.value, Math.abs(addedProductsNumbers));
+        }
         // Refresh cart after quantity update
         await refreshCart(response);
 
-        pushSuccess('The quantity of ' + lineItem.value.label + ' has been updated');
+        pushSuccess(t('checkout.lineItem.updateQuantity.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
-        pushError('An error occured trying to change the quantity of ' + lineItem.value.label + '.');
+        pushError(t('checkout.lineItem.updateQuantity.errorMessage', { lineItemName: lineItem.value.label }));
 
         if (error instanceof ApiClientError) {
             console.log(error.details);
@@ -60,11 +70,12 @@ const removeCartItem = async () => {
     isLoading.value = true;
 
     try {
+        trackRemoveFromCart(product.value, lineItem.value.quantity);
         await removeItem();
 
-        pushSuccess(lineItem.value.label + ' has been removed from your cart');
+        pushSuccess(t('checkout.lineItem.remove.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
-        pushError('An error occured trying to remove ' + lineItem.value.label + ' from the cart.');
+        pushError(t('checkout.lineItem.remove.errorMessage', { lineItemName: lineItem.value.label }));
 
         if (error instanceof ApiClientError) {
             console.log(error.details);
@@ -128,7 +139,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                 </span>
             </div>
 
-            <span v-if="isDigital">Digital product</span>
+            <span v-if="isDigital">{{ $t('checkout.lineItem.digitalProduct') }}</span>
 
             <p
                 v-if="itemOptions"
@@ -163,7 +174,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                 :class="{ 'text-gray-medium': isLoading }"
                 @click="removeCartItem"
             >
-                Remove
+                {{ $t('checkout.lineItem.remove.buttonLabel') }}
             </button>
         </div>
     </div>

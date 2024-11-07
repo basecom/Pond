@@ -5,23 +5,47 @@ import { getProductRoute, getTranslatedProperty } from '@shopware-pwa/helpers-ne
 const props = withDefaults(
     defineProps<{
         product: Schemas['Product'];
-        layout?: 'standard' | 'minimal';
+        layout?: 'standard' | 'minimal' | 'image';
+        displayMode?: 'standard' | 'cover' | 'contain';
     }>(),
     {
         layout: 'standard',
+        displayMode: 'cover',
     },
 );
 
+const emit = defineEmits(['select-product', 'view-product']);
+
 const { getProductCover } = useMedia();
 
+const productCard = ref(null);
 const cover = getProductCover(props.product.cover);
+const configStore = useConfigStore();
+const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
+
+const { stop } = useIntersectionObserver(
+    productCard,
+    ([{ isIntersecting }]) => {
+        if (isIntersecting) {
+            emit('view-product');
+            stop();
+        }
+    },
+);
 </script>
 
 <template>
-    <div class="rounded-md p-4 shadow-md">
+    <div ref="productCard" class="relative w-full rounded-md border border-gray-medium p-4 shadow-md">
+        <div
+            v-if="wishlistEnabled"
+            class="absolute right-0 top-0 z-10 p-4"
+        >
+            <ProductAddToWishlist :product="props.product" />
+        </div>
         <NuxtLink
             :to="getProductRoute(product)"
             class="group"
+            @click="$emit('select-product')"
         >
             <div class="flex flex-col">
                 <div
@@ -35,7 +59,8 @@ const cover = getProductCover(props.product.cover);
                         <img
                             :src="cover.url"
                             :alt="cover.alt"
-                            class="aspect-square h-full w-full object-cover object-center group-hover:opacity-75"
+                            class="aspect-square h-full w-full object-center group-hover:opacity-75"
+                            :class="displayMode === 'standard' ? 'object-scale-down' : 'object-' + displayMode"
                         />
                     </template>
                 </div>
@@ -61,12 +86,16 @@ const cover = getProductCover(props.product.cover);
             </div>
         </NuxtLink>
 
-        <div>
+        <template v-if="product.childCount > 0">
+            <ProductGoToDetail :product="product" />
+        </template>
+
+        <template v-else>
             <ProductAddToCart
                 :product="product"
                 :label="false"
                 :icon="true"
             />
-        </div>
+        </template>
     </div>
 </template>

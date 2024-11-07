@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { getCategoryBreadcrumbs } from '@shopware-pwa/helpers-next';
 const { getProductRoute } = useProductRoute();
+const { t } = useI18n();
 
 const props = defineProps<{
     navigationId: string;
@@ -25,7 +26,7 @@ const { data: productResponse } = await useAsyncData('pdp' + props.navigationId,
 });
 
 if (!productResponse.value) {
-    throw createError({ statusCode: 404, message: 'page not found' });
+    throw createError({ statusCode: 404, message: t('error.404.detail') });
 }
 
 const { product } = useProduct(productResponse.value.product, productResponse.value.configurator);
@@ -41,6 +42,7 @@ breadcrumbs.push({
 });
 
 useBreadcrumbs(breadcrumbs);
+useAnalytics({ pageType: 'pdp', trackPageView: true });
 </script>
 
 <template>

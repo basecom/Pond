@@ -4,6 +4,7 @@ const props = defineProps<{
 }>();
 
 const { search } = useLandingSearch();
+const { t } = useI18n();
 
 const { data: landingResponse } = await useAsyncData('landing' + props.navigationId, async () => {
     return await search(props.navigationId, {
@@ -12,7 +13,7 @@ const { data: landingResponse } = await useAsyncData('landing' + props.navigatio
 });
 
 if (!landingResponse.value) {
-    throw createError({ statusCode: 404, message: 'page not found' });
+    throw createError({ statusCode: 404, message: t('error.404.detail') });
 }
 
 useBreadcrumbs([
@@ -21,6 +22,7 @@ useBreadcrumbs([
         path: landingResponse.value.url,
     },
 ]);
+useAnalytics({ trackPageView: true, pageType: 'landingpage' });
 </script>
 
 <template>

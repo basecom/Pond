@@ -1,13 +1,16 @@
 <script setup lang="ts">
-const { isEmpty, cartItems } = useCart();
+const { isEmpty } = useCart();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
+const cartItemsStore = useCartItemsStore();
+const { cartItemsWithProduct } = storeToRefs(cartItemsStore);
 
+useAnalytics({ trackPageView: true, pageType: 'cart' });
 useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
 </script>
 
 <template>
     <div class="container">
-        <h1>Shopping Cart</h1>
+        <h1>{{ $t('checkout.cart.heading') }}</h1>
 
         <div
             v-if="!isEmpty"
@@ -16,11 +19,14 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
             <div class="w-full lg:w-2/3">
                 <ul class="divide-y divide-gray-medium border-t border-gray-medium">
                     <li
-                        v-for="cartItem in cartItems"
-                        :key="cartItem.id"
+                        v-for="item in cartItemsWithProduct"
+                        :key="item.cartItem.id"
                         class="flex py-6"
                     >
-                        <CheckoutLineItem :line-item="cartItem" />
+                        <CheckoutLineItem
+                            :line-item="item.cartItem"
+                            :product="item.product"
+                        />
                     </li>
                 </ul>
             </div>
@@ -33,7 +39,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
                     class="flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
                     :to="'/checkout/confirm'"
                 >
-                    Checkout
+                    {{ $t('checkout.cart.checkoutButtonLabel') }}
                 </NuxtLink>
             </div>
         </div>
@@ -42,7 +48,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
             <UtilityStaticNotification
                 id="empty-cart"
                 type="info"
-                message="Your cart is empty."
+                :message="$t('checkout.cart.emptyCartMessage')"
                 class="mt-4"
             />
         </template>

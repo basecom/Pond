@@ -1,0 +1,15 @@
+{
+    "wishlist": {
+        "titleHeader": "Wishlist",
+        "emptyListTitle": "Wishlist is empty",
+        "emptyListSubtitle": "No products were added to the Wishlist.",
+        "continueShopping": "Continue shopping",
+        "clearWishlist": "Clear wishlist",
+        "addedSuccessfully": "Product added to wishlist",
+        "removedSuccessfully": "Product removed from wishlist",
+        "errorRemovingProduct": "Error while removing product from wishlist",
+        "errorAddingProduct": "Error while adding product to wishlist",
+        "clearedSuccessfully": "Wishlist cleared successfully",
+        "errorClearingWishlist": "Error while clearing wishlist"
+    }
+}

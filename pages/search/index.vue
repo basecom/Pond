@@ -2,20 +2,28 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 
 const route = useRoute();
+const { t } = useI18n();
 
 const { getCurrentListing, getElements: products, loading, search, setInitialListing } = useProductSearchListing();
+const productListingCriteriaStore = useProductListingCriteriaStore('search');
+const { criteria, sortingOptions, currentSorting, appliedFilters, areFiltersModified, total, limit, filters, page } =
+    storeToRefs(productListingCriteriaStore);
 
-const limit = ref(route.query.limit ? Number(route.query.limit) : 12);
-const cacheKey = computed(() => `productSearch-${JSON.stringify(route.query)}`);
-const searchTerm = ref(route.query.search);
+const cacheKey = computed(() => `productSearch-${JSON.stringify(criteria.value)}`);
+
+const searchStore = useSearchStore();
+const searchTerm = computed(() => {
+    if (searchStore.searchTerm.length < 3) {
+        return searchStore.lastValidSearchTerm !== '' ? searchStore.lastValidSearchTerm : route.query.search;
+    }
+
+    return searchStore.searchTerm;
+});
 
 const loadProducts = async (cacheKey: string) => {
     const { data: productSearch } = await useAsyncData(cacheKey, async () => {
-        await search({
-            search: route.query.search as string,
-            limit: limit.value,
-            order: route.query.order ? (route.query.order as string) : 'name-asc',
-        });
+        await search(criteria.value);
+        productListingCriteriaStore.setSearchResult(getCurrentListing.value);
 
         return getCurrentListing.value;
     });
@@ -23,37 +31,105 @@ const loadProducts = async (cacheKey: string) => {
     return productSearch;
 };
 
-const productSearch = await loadProducts(cacheKey.value);
+const changePage = async (page: number) => {
+    productListingCriteriaStore.setPage(page);
+};
 
+const onSortChange = async (sorting: Schemas['ProductListingResult']['sorting']) => {
+    productListingCriteriaStore.setSorting(sorting);
+};
+
+const onFilterChange = async (filters: Schemas['ProductListingResult']['currentFilters']) => {
+    productListingCriteriaStore.setFilters(filters);
+};
+
+const onResetFilters = async () => {
+    productListingCriteriaStore.resetFilters();
+};
+
+productListingCriteriaStore.initializeCriteria(
+    {
+        search: route.query.search as string,
+    },
+    route.query,
+);
+
+const productSearch = await loadProducts(cacheKey.value);
 setInitialListing(productSearch.value as Schemas['ProductListingResult']);
+productListingCriteriaStore.setSearchResult(productSearch.value as Schemas['ProductListingResult'], true);
+
+watch(
+    cacheKey,
+    () => {
+        loadProducts(cacheKey.value);
+        // TODO: Works for backwards but not forwards to update listing, also needs to update searchTerm input and "Results for ..." display
+    },
+    { immediate: false },
+);
+
+watch(
+    () => route.query,
+    () => {
+        productListingCriteriaStore.updateCriteria(route.query);
+    },
+);
 
 useBreadcrumbs([
     {
-        name: 'Search results',
+        name: t('search.resultPage.breadcrumbName'),
         path: '/search?search=' + route.query.search,
     },
 ]);
+useAnalytics({ trackPageView: true, pageType: 'search' });
 </script>
 
 <template>
     <div class="container">
         <h1 class="mb-6 text-center">
             <span v-if="products?.length">
-                results for <strong>"{{ searchTerm }}"</strong>"
+                {{ $t('search.resultPage.heading') }}
+
+                <strong> "{{ searchTerm }}" </strong>
             </span>
-            <span v-else>no results</span>
+
+            <span v-else>
+                {{ $t('search.resultPage.headingNoResults') }}
+            </span>
         </h1>
 
-        <div
-            v-if="!loading"
-            class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4"
-        >
-            <template
-                v-for="product in products"
-                :key="product.id"
+        <div class="flex flex-wrap">
+            <div class="w-full md:w-5/12 lg:w-3/12">
+                <ProductListingSidebar
+                    v-if="appliedFilters"
+                    :filters="filters"
+                    :selected-filters="appliedFilters"
+                    :full-width="false"
+                    :show-reset-button="areFiltersModified"
+                    :sorting-options="sortingOptions"
+                    :sorting="currentSorting"
+                    @sorting-changed="onSortChange"
+                    @filter-changed="onFilterChange"
+                    @reset-filters="onResetFilters"
+                />
+            </div>
+            <div
+                v-if="!loading"
+                class="grid w-full grid-cols-2 gap-6 md:w-7/12 md:grid-cols-3 lg:w-9/12 lg:grid-cols-4"
             >
-                <ProductCard :product="product" />
-            </template>
+                <template
+                    v-for="product in products"
+                    :key="product.id"
+                >
+                    <ProductCard :product="product" />
+                </template>
+            </div>
         </div>
+
+        <LayoutPagination
+            :total="total ?? 0"
+            :items-per-page="limit"
+            :default-page="page"
+            @update-page="currentPage => changePage(currentPage)"
+        />
     </div>
 </template>

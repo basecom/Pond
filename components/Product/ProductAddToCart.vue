@@ -11,10 +11,12 @@ const props = defineProps<{
 
 const { product } = useProduct(props.product);
 const { addToCart, quantity } = useAddToCart(product);
+const { trackAddToCart } = useAnalytics();
 quantity.value = product.value.minPurchase;
 const { resolveApiErrors } = useApiErrorsResolver();
 const { pushError, pushSuccess } = useNotifications();
 const apiErrors = ref<ResolvedApiError[]>([]);
+const { t } = useI18n();
 
 const handleEnter = async $event => {
     if ($event.target !== null) {
@@ -27,12 +29,14 @@ const handleEnter = async $event => {
 
 const handleAddToCart = async () => {
     try {
+        const quantityNumber = quantity.value ?? 1;
         await addToCart();
+        trackAddToCart(product.value, quantityNumber);
         quantity.value = product.value.minPurchase;
 
-        pushSuccess(product.value.translated.name + ' was added to your cart.');
+        pushSuccess(t('product.addToCart.successMessage', { productName: product.value.translated.name }));
     } catch (error) {
-        pushError('An error occured trying to add ' + product.value.translated.name + ' to your cart.');
+        pushError(t('product.addToCart.errorMessage', { productName: product.value.translated.name }));
 
         if (error instanceof ApiClientError) {
             apiErrors.value = resolveApiErrors(error.details.errors, 'product');
@@ -79,19 +83,19 @@ const handleAddToCart = async () => {
             :classes="{
                 outer: 'w-full',
             }"
-            :label="props.label ? 'add to cart' : ' '"
+            :label="props.label ? $t('product.addToCart.submitLabel') : ' '"
             :prefix-icon="props.icon ? 'cart-shopping' : ''"
         />
     </FormKit>
 
     <div
         v-else
-        class="flex w-full gap-1 rounded bg-gray-light px-4 py-2 text-gray"
+        class="flex w-full gap-1 rounded bg-gray-light px-4 py-2 text-sm text-gray"
     >
         <FormKitIcon
             icon="info"
             class="block h-5 w-5"
         />
-        <span> product currently not available </span>
+        <span>{{ $t('product.addToCart.notAvailable') }}</span>
     </div>
 </template>

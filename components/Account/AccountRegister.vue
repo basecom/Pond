@@ -1,51 +1,53 @@
 <script setup lang="ts">
-import { ApiClientError } from '@shopware/api-client';
-import type { ResolvedApiError } from '~/types/errors';
 import type { FormkitFields } from '~/types/formkit';
-import type { Schemas } from '@shopware/api-client/api-types';
+import { ApiClientError } from '@shopware/api-client';
 
 const customerStore = useCustomerStore();
-const sessionContext = useSessionContext();
-const { getSalutations } = useSalutations();
-const { getCountries } = useCountries();
-const { resolveApiErrors } = useApiErrorsResolver();
-const { errorOfField, togglePasswordVisibility, entityArrayToOptions } = useFormkitHelper();
-const apiErrors = ref<ResolvedApiError[]>([]);
+const { errorOfField, togglePasswordVisibility } = useFormkitHelper();
+const formErrorStore = useFormErrorStore();
+const { trackRegister } = useAnalytics();
+
 const isLoading = ref(false);
 
 const handleRegisterSubmit = async (fields: FormkitFields) => {
     isLoading.value = true;
-    apiErrors.value = [];
+
+    const userData = fields.alternativeShippingAddress.showAlternativeShippingAddress
+        ? {
+              ...fields,
+              shippingAddress: {
+                  ...fields.alternativeShippingAddress,
+                  ...fields.alternativeShippingAddress.shippingAddress,
+              },
+          }
+        : {
+              ...fields,
+          };
+
     try {
         await customerStore.register({
-            ...fields,
+            ...userData,
         });
         isLoading.value = false;
+        trackRegister();
         navigateTo('/account');
     } catch (error) {
         isLoading.value = false;
 
         if (error instanceof ApiClientError) {
-            apiErrors.value = resolveApiErrors(error.details.errors);
+            formErrorStore.formErrors(error.details.errors);
             return;
         }
 
-        apiErrors.value.push({ key: 'register', code: 'REGISTER_GENERAL_ERROR' });
+        formErrorStore.apiErrors.value.push({ key: 'register', code: 'REGISTER_GENERAL_ERROR' });
     }
 };
-
-const countryOptions = computed(() => entityArrayToOptions<Schemas['Country']>(getCountries.value, 'name', true) ?? []);
-const salutationOptions = computed(
-    () => entityArrayToOptions<Schemas['Salutation']>(getSalutations.value, 'displayName', true) ?? [],
-);
-
-const currentCountry = computed(() => sessionContext.countryId.value);
 </script>
 
 <template>
     <FormKit
         type="form"
-        submit-label="register"
+        :submit-label="$t('account.register.submitLabel')"
         :classes="{
             form: 'grid grid-cols-2 gap-3 w-full max-w-md',
         }"
@@ -56,132 +58,71 @@ const currentCountry = computed(() => sessionContext.countryId.value);
         @submit="handleRegisterSubmit"
     >
         <ul
-            v-if="apiErrors.filter(error => error.key === 'register').length"
+            v-if="formErrorStore.apiErrors.filter(error => error.key === 'register').length"
             class="validation-errors text-status-danger"
         >
             <li
-                v-for="(error, index) in apiErrors.filter(error => error.key === 'register')"
+                v-for="(error, index) in formErrorStore.apiErrors.filter(error => error.key === 'register')"
                 :key="`login-error-${index}`"
             >
                 {{ error.code }}
             </li>
         </ul>
-        <div class="col-span-2">
-            <span>your data</span>
-        </div>
+
+        <AddressFormFields />
 
         <FormKit
-            type="select"
-            label="salutation"
-            name="salutationId"
-            placeholder="Select a salutation"
-            :errors="errorOfField('firstName', apiErrors)"
-            validation="required"
-            :classes="{
-                outer: {
-                    'col-span-2 md:col-span-1 col-1': true,
-                },
-            }"
-            :options="salutationOptions"
-            help="select how you would like to be addressed"
-        />
-
-        <FormKit
-            type="text"
-            label="first name"
-            name="firstName"
-            placeholder="donald"
-            :errors="errorOfField('firstName', apiErrors)"
-            validation="required"
-            :classes="{
-                outer: {
-                    'col-start-1 col-1': true,
-                },
-            }"
-        />
-
-        <FormKit
-            type="text"
-            label="last name"
-            name="lastName"
-            placeholder="duck"
-            :errors="errorOfField('lastName', apiErrors)"
-            validation="required"
-        />
-
-        <div class="col-span-2">
-            <span>your address</span>
-        </div>
-
-        <FormKit
+            v-slot="{ value }"
             type="group"
-            name="billingAddress"
+            name="alternativeShippingAddress"
+            :classes="{
+                outer: {
+                    'col-span-2': true,
+                },
+            }"
         >
             <FormKit
-                type="text"
-                label="street"
-                autocomplete="street-address"
-                name="street"
-                placeholder="13 quack street"
-                :errors="errorOfField('billingAddress[street]', apiErrors)"
-                validation="required"
+                type="checkbox"
+                :label="$t('account.register.alternativeShippingAddress')"
+                name="showAlternativeShippingAddress"
+                :value="false"
                 :classes="{
                     outer: {
-                        'col-start-1 col-span-2': true,
+                        'col-span-2': true,
                     },
                 }"
             />
-            <FormKit
-                type="text"
-                label="zip"
-                name="zipcode"
-                placeholder="1313"
-                :errors="errorOfField('billingAddress[zipcode]', apiErrors)"
-                validation="required"
-            />
-            <FormKit
-                type="text"
-                label="city"
-                name="city"
-                placeholder="Quackburg"
-                :errors="errorOfField('billingAddress[city]', apiErrors)"
-                validation="required"
-            />
-            <FormKit
-                v-if="currentCountry"
-                type="select"
-                label="country"
-                name="countryId"
-                placeholder="Select a country"
-                :options="countryOptions"
-                :value="currentCountry"
-                :classes="{
-                    outer: {
-                        'col-span-2 md:col-span-1 col-1': true,
-                    },
-                }"
-            />
+
+            <div class="col-span-2 border-b border-gray-light" />
+
+            <template v-if="value.showAlternativeShippingAddress === true">
+                <div class="col-span-2">
+                    <span>{{ $t('account.register.shippingAddressHeading') }}</span>
+                </div>
+                <AddressFormFields address-type="shippingAddress" />
+                <div class="col-span-2 border-b border-gray-light" />
+            </template>
         </FormKit>
 
         <div class="col-span-2">
-            <span>your account data</span>
+            <span>{{ $t('account.register.accountDataHeading') }}</span>
         </div>
 
         <FormKit
             type="email"
-            label="email"
+            :label="$t('account.register.email.label')"
             name="email"
-            placeholder="quack@platsch.com"
-            :errors="errorOfField('email', apiErrors)"
+            :placeholder="$t('account.register.email.placeholder')"
+            :errors="errorOfField('email', formErrorStore.apiErrors)"
             validation="required"
         />
 
         <FormKit
             type="password"
-            label="password"
+            :label="$t('account.register.password.label')"
             name="password"
-            placeholder="password"
-            :errors="errorOfField('password', apiErrors)"
+            :placeholder="$t('account.register.password.placeholder')"
+            :errors="errorOfField('password', formErrorStore.apiErrors)"
             validation="required"
             suffix-icon="lock"
             @suffix-icon-click="togglePasswordVisibility"
@@ -189,8 +130,8 @@ const currentCountry = computed(() => sessionContext.countryId.value);
 
         <FormKit
             type="checkbox"
-            label="Terms and Conditions"
-            help="Do you agree to our terms of service?"
+            :label="$t('account.register.terms.label')"
+            :help="$t('account.register.terms.help')"
             name="terms"
             :value="false"
             decorator-icon="check"
@@ -210,7 +151,7 @@ const currentCountry = computed(() => sessionContext.countryId.value);
                     'opacity-0': isLoading,
                 }"
             >
-                register
+                {{ $t('account.register.submitLabel') }}
             </span>
             <UtilityLoadingSpinner
                 v-if="isLoading"
