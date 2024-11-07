@@ -46,6 +46,7 @@ const props = withDefaults(
 const sliderRef: Swiper = ref();
 const prevSlide = ref(null);
 const nextSlide = ref(null);
+const navigation = props.navigationArrows ? ref(null) : false;
 
 watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
     if (prevSlideValue && nextSlideValue && props.navigationArrows) {
@@ -108,7 +109,7 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                 :autoplay="autoSlide"
                 :speed="speed"
                 :pagination="navigationDots"
-                :navigation="navigationArrows"
+                :navigation="navigation"
                 :loop="loop"
                 :direction="direction"
                 :space-between="spaceBetween"
