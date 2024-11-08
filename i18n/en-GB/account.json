@@ -133,7 +133,13 @@
             "terms": {
                 "label": "Terms and Conditions",
                 "help": "Do you agree to our terms of service?"
-            }
+            },
+            "guest": {
+                "label": "guest",
+                "toggle": "I don't want to create an account"
+            },
+            "success": "You have been successfully logged in.",
+            "error": "An error has occurred. Please try again."
         },
         "logout": {
             "buttonLabel": "Logout"

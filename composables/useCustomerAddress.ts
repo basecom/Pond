@@ -36,9 +36,9 @@ export function useCustomerAddress() {
         shouldSyncBillingAddress: boolean,
     ) => {
         try {
-            if (addressType === 'shippingAddress' && newAddressId !== activeShippingAddress.value.id) {
+            if (addressType === 'shippingAddress' && newAddressId !== activeShippingAddress?.value.id) {
                 await setDefaultCustomerShippingAddress(newAddressId);
-                await syncBillingAddress(shouldSyncBillingAddress, newAddressId, activeBillingAddress.value.id);
+                await syncBillingAddress(shouldSyncBillingAddress, newAddressId, activeBillingAddress?.value.id);
                 pushSuccess(t('account.address.updateShippingSuccess'));
             }
 

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
-import { useNavigationElement } from '~/composables/useNavigationElement';
 
 const props = withDefaults(
     defineProps<{

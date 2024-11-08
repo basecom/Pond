@@ -69,8 +69,8 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
 
 const passwordRequired = ref(true);
 
-const handleGuestChange = fields => {
-    passwordRequired.value = !fields.target.checked;
+const handleGuestChange = (event: MouseEvent) => {
+    passwordRequired.value = !event.target.checked;
 };
 </script>
 
