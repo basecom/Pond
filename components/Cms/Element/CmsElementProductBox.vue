@@ -8,7 +8,7 @@ const props = defineProps<{
 }>();
 
 const { product } = useProduct(props.element.data.product);
-const { trackPromotionView, trackSelectPromotion } = useAnalytics();
+const { trackPromotionView, trackSelectPromotion, trackSelectItem } = useAnalytics();
 const { isHomePage } = useHomePage();
 
 const getPromotion = (product: Schemas['Product']): PromotionInfo => {
@@ -17,7 +17,7 @@ const getPromotion = (product: Schemas['Product']): PromotionInfo => {
         creative_slot: props.element?.type ?? '',
         promotion_id: props.element?.blockId ?? '',
         promotion_name: props.element?.type ?? '',
-    }
+    };
 };
 
 const onProductView = () => {
@@ -28,10 +28,16 @@ const onProductView = () => {
 const onProductSelect = () => {
     if (isHomePage.value) {
         trackSelectPromotion(getPromotion(product.value), product.value);
+    } else {
+        trackSelectItem(product.value, { id: props.element?.blockId, name: props.element?.type });
     }
 };
 </script>
 
 <template>
-    <ProductCard :product="product" @view-product="onProductView()" @select-product="onProductSelect()" />
+    <ProductCard
+        :product="product"
+        @view-product="onProductView()"
+        @select-product="onProductSelect()"
+    />
 </template>

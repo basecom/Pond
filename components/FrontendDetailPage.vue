@@ -14,6 +14,7 @@ const { data: productResponse } = await useAsyncData('pdp' + props.navigationId,
         withCmsAssociations: true,
         criteria: {
             associations: {
+                options: {},
                 properties: {
                     associations: {
                         group: {},
