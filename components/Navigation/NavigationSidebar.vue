@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const { mainNavigationElements, loadMainNavigation } = useNavigationStore();
-await loadMainNavigation(2);
+const navigationStore = useNavigationStore();
+const { mainNavigationElements } = storeToRefs(navigationStore);
+await navigationStore.loadMainNavigation(2);
 const sideMenuController = useModal();
 
 // shownNavigationItems stores the nav items that should be shown at the moment, navigationElements initially

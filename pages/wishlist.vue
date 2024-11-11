@@ -9,7 +9,7 @@ useBreadcrumbs([
         path: '/wishlist',
     },
 ]);
-const { trackClearWishlist } = useAnalytics({ trackPageView: true, pageType: 'wishlist' });
+const { trackClearWishlist, trackSelectItem } = useAnalytics({ trackPageView: true, pageType: 'wishlist' });
 
 const products = ref<Schemas['Product'][]>([]);
 
@@ -79,6 +79,10 @@ const changePage = async (page: number) => {
     });
 };
 
+const onSelectProduct = async (product: Schemas['Product']) => {
+    trackSelectItem(product, { id: 'wishlist', name: 'wishlist' });
+};
+
 // Watch for changes in wishlist items
 watch(
     items,
@@ -140,6 +144,7 @@ onMounted(() => {
                     :key="product.id"
                     :product="product"
                     class="sm:w-3/7 lg:w-2/7 2xl:w-7/24 mb-8 mr-0 w-full sm:mr-8"
+                    @select-product="onSelectProduct(product)"
                 />
             </div>
 

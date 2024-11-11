@@ -8,7 +8,7 @@ const props = defineProps<{
 
 const config = useCmsElementConfig(props.element);
 const elementData = useCmsElementData(props.element);
-const { trackPromotionView, trackSelectPromotion } = useAnalytics();
+const { trackPromotionView, trackSelectPromotion, trackSelectItem } = useAnalytics();
 const { isHomePage } = useHomePage();
 const border = config.getConfigValue('border');
 const boxLayout = config.getConfigValue('boxLayout');
@@ -46,6 +46,8 @@ const getPromotion = (product: Schemas['Product']): PromotionInfo => {
 const onProductView = (product: Schemas['Product'], index: string | number) => {
     if (isHomePage.value) {
         trackPromotionView(getPromotion(product), product, Number(index));
+    } else {
+        trackSelectItem(product, { id: props.element?.blockId ?? '' , name: props.element?.type ?? '' });
     }
 };
 const onProductSelect = (product: Schemas['Product'], index: string | number) => {

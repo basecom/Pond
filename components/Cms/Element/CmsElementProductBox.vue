@@ -8,7 +8,7 @@ const props = defineProps<{
 }>();
 
 const { product } = useProduct(props.element.data.product);
-const { trackPromotionView, trackSelectPromotion } = useAnalytics();
+const { trackPromotionView, trackSelectPromotion, trackSelectItem } = useAnalytics();
 const { isHomePage } = useHomePage();
 
 const getPromotion = (product: Schemas['Product']): PromotionInfo => {
@@ -28,6 +28,8 @@ const onProductView = () => {
 const onProductSelect = () => {
     if (isHomePage.value) {
         trackSelectPromotion(getPromotion(product.value), product.value);
+    } else {
+        trackSelectItem(product.value, { id: props.element?.blockId, name: props.element?.type });
     }
 };
 </script>

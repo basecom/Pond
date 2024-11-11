@@ -1,6 +1,7 @@
 <script setup lang="ts">
-const { mainNavigationElements, loadMainNavigation } = useNavigationStore();
-await loadMainNavigation(2);
+const navigationStore = useNavigationStore();
+const { mainNavigationElements } = storeToRefs(navigationStore);
+await navigationStore.loadMainNavigation(2);
 </script>
 
 <template>

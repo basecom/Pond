@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import type { Schemas } from '@shopware/api-client/api-types';
+
 const props = defineProps<{
     element: CmsElementCrossSelling;
 }>();
 
 const config = useCmsElementConfig(props.element);
 const elementData = useCmsElementData(props.element);
+const { trackSelectItem } = useAnalytics();
 
 const boxLayout = config.getConfigValue('boxLayout');
 const displayMode = config.getConfigValue('displayMode');
@@ -25,6 +28,10 @@ const breakpoints = {
 };
 
 const crossSellings = computed(() => elementData.getData('crossSellings') ?? []);
+
+const onSelectProduct = async (product: Schemas['Product']) => {
+    trackSelectItem(product, { id: 'cross-selling', name: 'cross-selling' });
+};
 </script>
 
 <template>
@@ -53,6 +60,7 @@ const crossSellings = computed(() => elementData.getData('crossSellings') ?? [])
                         :product="slide"
                         :layout="boxLayout"
                         :display-mode="displayMode"
+                        @select-product="onSelectProduct(slide)"
                     />
                 </LayoutSliderSlide>
             </LayoutSlider>
