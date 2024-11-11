@@ -1,7 +1,5 @@
 <script setup lang="ts">
 const { getNewsletterStatus, confirmationNeeded, newsletterStatus, newsletterConfirm } = useNewsletter();
-const customerStore = useCustomerStore();
-const { customer } = storeToRefs(customerStore);
 const { t } = useI18n();
 
 const breadcrumbs = [];
@@ -15,7 +13,7 @@ const isLoading = ref(true);
 const notificationText = ref('');
 const notificationType = ref('');
 
-const route = useRoute()
+const route = useRoute();
 const emailHash = route.query.em;
 const hash = route.query.hash;
 
@@ -51,7 +49,10 @@ onMounted(async () => {
 <template>
     <UtilityLoadingSpinner v-if="isLoading" />
 
-    <div v-else class="container">
+    <div
+        v-else
+        class="container"
+    >
         <UtilityStaticNotification
             id="newsletter-confirmation-status"
             :type="notificationType"

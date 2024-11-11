@@ -25,13 +25,12 @@ const handleClick = navigationElement => {
 };
 
 const handleBack = () => {
-    previousNavigationItems.value.pop();
-
-    if (previousNavigationItems.value.length <= 0) {
-        shownNavigationItems.value = mainNavigationElements.value;
+    if (previousNavigationItems.value.length <= 1) {
+        shownNavigationItems.value = navigationElements.value;
+        previousNavigationItems.value.pop();
         return;
     }
-
+    previousNavigationItems.value.pop();
     shownNavigationItems.value = previousNavigationItems.value.at(-1)?.children;
 };
 

@@ -5,7 +5,8 @@ await useAuthentication().rerouteIfLoggedOut();
 
 const { params } = useRoute();
 const orderId = params.id as string;
-const { order, loadOrderDetails, shippingMethod, paymentMethod, changePaymentMethod, shippingAddress, billingAddress } = useOrderDetails(orderId);
+const { order, loadOrderDetails, shippingMethod, paymentMethod, changePaymentMethod, shippingAddress, billingAddress } =
+    useOrderDetails(orderId);
 const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
 

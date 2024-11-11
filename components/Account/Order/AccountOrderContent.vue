@@ -35,7 +35,10 @@ onMounted(async () => {
             <UtilityLoadingSpinner class="bg-white opacity-50" />
         </div>
 
-        <ul v-if="orders.length > 0 && !isLoading" class="divide-brand-primary divide-y-2">
+        <ul
+            v-if="orders.length > 0 && !isLoading"
+            class="divide-y-2 divide-brand-primary"
+        >
             <li
                 v-for="order in orders"
                 :key="order.id"

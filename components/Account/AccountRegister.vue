@@ -2,10 +2,27 @@
 import type { FormkitFields } from '~/types/formkit';
 import { ApiClientError } from '@shopware/api-client';
 
+const props = withDefaults(
+    defineProps<{
+        redirectAfterSuccess?: boolean;
+        redirectTarget?: string;
+        showCreateLink?: boolean;
+        allowGuest?: boolean;
+    }>(),
+    {
+        redirectAfterSuccess: false,
+        redirectTarget: '/account',
+        showCreateLink: true,
+        allowGuest: false,
+    },
+);
+
 const customerStore = useCustomerStore();
 const { errorOfField, togglePasswordVisibility } = useFormkitHelper();
+const { pushError, pushSuccess } = useNotifications();
 const formErrorStore = useFormErrorStore();
 const { trackRegister } = useAnalytics();
+const { t } = useI18n();
 
 const isLoading = ref(false);
 
@@ -29,9 +46,20 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
             ...userData,
         });
         isLoading.value = false;
+
         trackRegister();
-        navigateTo('/account');
+
+        if (props.redirectAfterSuccess) {
+            navigateTo(props.redirectTarget);
+        }
+
+        if (props.allowGuest && customerStore.customer.guest) {
+            pushSuccess(t('account.register.guest.sessionStarted'));
+        } else {
+            pushSuccess(t('account.register.success'));
+        }
     } catch (error) {
+        pushError(t('account.register.error'));
         isLoading.value = false;
 
         if (error instanceof ApiClientError) {
@@ -42,6 +70,12 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
         formErrorStore.apiErrors.value.push({ key: 'register', code: 'REGISTER_GENERAL_ERROR' });
     }
 };
+
+const passwordRequired = ref(true);
+
+const handleGuestChange = (event: MouseEvent) => {
+    passwordRequired.value = !event.target.checked;
+};
 </script>
 
 <template>
@@ -49,7 +83,7 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
         type="form"
         :submit-label="$t('account.register.submitLabel')"
         :classes="{
-            form: 'grid grid-cols-2 gap-3 w-full max-w-md',
+            form: 'grid grid-cols-2 gap-3 w-full',
         }"
         :config="{
             validationVisibility: 'dirty',
@@ -109,6 +143,21 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
         </div>
 
         <FormKit
+            v-if="allowGuest"
+            type="checkbox"
+            :label="$t('account.register.guest.toggle')"
+            name="guest"
+            :value="false"
+            decorator-icon="check"
+            :classes="{
+                outer: {
+                    'col-span-2': true,
+                },
+            }"
+            @click="handleGuestChange"
+        />
+
+        <FormKit
             type="email"
             :label="$t('account.register.email.label')"
             name="email"
@@ -118,6 +167,7 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
         />
 
         <FormKit
+            v-if="passwordRequired"
             type="password"
             :label="$t('account.register.password.label')"
             name="password"
@@ -136,6 +186,11 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
             :value="false"
             decorator-icon="check"
             validation="accepted"
+            :classes="{
+                outer: {
+                    'col-span-2': true,
+                },
+            }"
         />
 
         <FormKit

@@ -9,7 +9,10 @@ export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
     }[type]();
 
     if (config?.trackPageView) {
-        const pageTracker: Record<UseAnalyticsConfig['pageType'], (analytics: UseAnalyticsReturn, type: UseAnalyticsConfig['pageType']) => void> = {
+        const pageTracker: Record<
+            UseAnalyticsConfig['pageType'],
+            (analytics: UseAnalyticsReturn, type: UseAnalyticsConfig['pageType']) => void
+        > = {
             cart: useCartPageTracking,
             checkout: useCheckoutPageTracking,
             landingpage: usePageTracking,

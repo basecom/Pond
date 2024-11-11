@@ -46,7 +46,7 @@ export default defineNuxtConfig({
                     type: 'gtag',
                     id: 'G-XXXX',
                     trackingUrl: 'https://www.googletagmanager.com/',
-                }
+                },
             },
         },
     },
@@ -55,15 +55,10 @@ export default defineNuxtConfig({
         '/newsletter-subscribe': { redirect: '/newsletter/confirm' },
     },
 
-    extends: [
-        '@shopware-pwa/composables-next/nuxt-layer',
-    ],
+    extends: ['@shopware-pwa/composables-next/nuxt-layer'],
 
     imports: {
-        dirs: [
-            join(currentDir, 'composables/**'),
-            join(currentDir, 'utils'),
-        ],
+        dirs: [join(currentDir, 'composables/**'), join(currentDir, 'utils')],
     },
 
     formkit: {

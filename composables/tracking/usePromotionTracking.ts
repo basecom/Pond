@@ -6,7 +6,11 @@ export function usePromotionTracking() {
     const _currentProduct = ref<Schemas['Product'] | undefined>(undefined);
     const _currentProductPrice = useProductPrice(_currentProduct);
 
-    const getTrackingPromotionEvent = (promotion: PromotionInfo , product?: Schemas['Product'], itemId?: number): TrackingPromotionEvent => {
+    const getTrackingPromotionEvent = (
+        promotion: PromotionInfo,
+        product?: Schemas['Product'],
+        itemId?: number,
+    ): TrackingPromotionEvent => {
         const promotionEvent: TrackingPromotionEvent = {
             ...promotion,
         };
@@ -30,5 +34,5 @@ export function usePromotionTracking() {
 
     return {
         getTrackingPromotionEvent,
-    }
+    };
 }
