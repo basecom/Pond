@@ -35,6 +35,7 @@ const props = withDefaults(
         spaceBetween: 0,
         slidesPerView: 1,
         thumbsSwiper: null,
+        // eslint-disable-next-line vue/require-valid-default-prop
         breakpoints: {},
         init: false,
         verticalNavigation: false,
@@ -42,7 +43,7 @@ const props = withDefaults(
     },
 );
 
-const sliderRef : Swiper = ref();
+const sliderRef: Swiper = ref();
 const prevSlide = ref(null);
 const nextSlide = ref(null);
 const navigation = props.navigationArrows ? ref(null) : false;
@@ -65,12 +66,19 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
 
 <template>
     <ClientOnly>
-        <div class="relative" :class="classes">
+        <div
+            class="relative"
+            :class="classes"
+        >
             <template v-if="navigationArrows">
                 <div
                     ref="prevSlide"
                     class="absolute z-10 bg-gray-light bg-opacity-50"
-                    :class="verticalNavigation ? 'left-1/2 -translate-x-1/2 top-0 py-1 lg:py-2 w-full flex justify-center' : 'top-1/2 -translate-y-1/2 left-5 sm:left-0 py-6 lg:py-12 px-1 lg:px-2'"
+                    :class="
+                        verticalNavigation
+                            ? 'left-1/2 top-0 flex w-full -translate-x-1/2 justify-center py-1 lg:py-2'
+                            : 'left-5 top-1/2 -translate-y-1/2 px-1 py-6 sm:left-0 lg:px-2 lg:py-12'
+                    "
                 >
                     <FormKitIcon
                         :icon="verticalNavigation ? 'chevron-up' : 'chevron-left'"
@@ -81,7 +89,11 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                 <div
                     ref="nextSlide"
                     class="absolute z-10 bg-gray-light bg-opacity-50"
-                    :class="verticalNavigation ? 'left-1/2 -translate-x-1/2 bottom-0 py-1 lg:py-2 w-full flex justify-center' : 'top-1/2 -translate-y-1/2 right-5 sm:right-0 py-6 lg:py-12 px-1 lg:px-2'"
+                    :class="
+                        verticalNavigation
+                            ? 'bottom-0 left-1/2 flex w-full -translate-x-1/2 justify-center py-1 lg:py-2'
+                            : 'right-5 top-1/2 -translate-y-1/2 px-1 py-6 sm:right-0 lg:px-2 lg:py-12'
+                    "
                 >
                     <FormKitIcon
                         :icon="verticalNavigation ? 'chevron-down' : 'chevron-right'"
@@ -92,12 +104,12 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
 
             <swiper-container
                 ref="sliderRef"
-                class="h-full w-full grid"
+                class="grid h-full w-full"
                 :class="thumbRef ? thumbRef : `min-h-[${minHeight}px]`"
                 :autoplay="autoSlide"
                 :speed="speed"
                 :pagination="navigationDots"
-                :navigation="navigationArrows"
+                :navigation="navigation"
                 :loop="loop"
                 :direction="direction"
                 :space-between="spaceBetween"

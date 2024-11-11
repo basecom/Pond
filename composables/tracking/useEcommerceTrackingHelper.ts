@@ -90,11 +90,11 @@ export function useEcommerceTrackingHelper() {
     };
 
     const getEventForProduct = (product: Schemas['Product'], list?: TrackingLineItemList): TrackingEcommerceEvent => {
-        const listItem = list ?
-            list :
-            _category.value
-                ? { id: _category.value.id, name: _category.value.name }
-                : undefined;
+        const listItem = list
+            ? list
+            : _category.value
+              ? { id: _category.value.id, name: _category.value.name }
+              : undefined;
         _currentProduct.value = product;
 
         const item = getTrackingItem({

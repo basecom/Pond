@@ -40,49 +40,47 @@ const speedConfig = computed(() => {
 const slidesRef = ref([]);
 const trackedSlides = ref([]);
 
-const getPromotion = (media: Schemas["Media"]): PromotionInfo => {
+const getPromotion = (media: Schemas['Media']): PromotionInfo => {
     return {
         creative_name: media.fileName ?? '',
         creative_slot: props.element?.type ?? '',
         promotion_id: props.element?.blockId ?? '',
         promotion_name: props.element?.type ?? '',
-    }
+    };
 };
 
 if (isHomePage.value) {
-    const { stop } = useIntersectionObserver(
-        slidesRef,
-        (events) => {
-            events.forEach((event) => {
-                if (event.isIntersecting) {
-                    const mediaUrl = (event.target as HTMLImageElement).src;
-                    const slidesData = data.getData('sliderItems');
-                    const media: Schemas["Media"] = slidesData?.find((slide) => slide.media?.url === mediaUrl)?.media;
+    const { stop } = useIntersectionObserver(slidesRef, events => {
+        events.forEach(event => {
+            if (event.isIntersecting) {
+                const mediaUrl = (event.target as HTMLImageElement).src;
+                const slidesData = data.getData('sliderItems');
+                const media: Schemas['Media'] = slidesData?.find(slide => slide.media?.url === mediaUrl)?.media;
 
-                    if (media && !trackedSlides.value.includes(media.fileName)) {
-                        trackPromotionView(getPromotion(media));
-                        trackedSlides.value = [ ...trackedSlides.value, media.fileName ];
-                    }
-
-                    if (trackedSlides.value.length === slidesRef.value.length) {
-                        stop();
-                    }
+                if (media && !trackedSlides.value.includes(media.fileName)) {
+                    trackPromotionView(getPromotion(media));
+                    trackedSlides.value = [...trackedSlides.value, media.fileName];
                 }
-            });
-        },
-    );
+
+                if (trackedSlides.value.length === slidesRef.value.length) {
+                    stop();
+                }
+            }
+        });
+    });
 }
 </script>
 
 <template>
     <ClientOnly>
-        <template v-if="slides?.length">
+        <div v-if="slides?.length" :style="{ 'minHeight': minHeight }">
             <LayoutSlider
                 ref="sliderRef"
                 :class="{
                     'cursor-grab': slides.length > 1,
                 }"
                 class="w-full"
+                :style="{ 'minHeight': minHeight }"
                 :autoplay="autoplayConfig"
                 :speed="speedConfig"
                 :pagination="navigationDots !== 'None'"
@@ -103,7 +101,7 @@ if (isHomePage.value) {
                     />
                 </LayoutSliderSlide>
             </LayoutSlider>
-        </template>
+        </div>
 
         <template v-else>
             <div class="w-full bg-gray-light">

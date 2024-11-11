@@ -5,9 +5,10 @@ const props = defineProps<{
     orderId: string;
 }>();
 
-const { order, loadOrderDetails, shippingMethod, paymentMethod, status, shippingAddress, billingAddress } = useOrderDetails(props.orderId, {
-    stateMachineState: {},
-});
+const { order, loadOrderDetails, shippingMethod, paymentMethod, status, shippingAddress, billingAddress } =
+    useOrderDetails(props.orderId, {
+        stateMachineState: {},
+    });
 
 const { state: paymentState } = useOrderPayment(order);
 
@@ -60,9 +61,7 @@ onMounted(async () => {
                         v-if="order"
                         class="w-full text-2xl font-bold"
                     >
-                        <template v-if="formattedOrderDate">
-                            {{ formattedOrderDate }} -
-                        </template>
+                        <template v-if="formattedOrderDate"> {{ formattedOrderDate }} - </template>
 
                         {{ $t('checkout.finish.orderNumberLabel') }} {{ order.orderNumber }}
                     </div>
@@ -83,7 +82,7 @@ onMounted(async () => {
                     </NuxtLink>
                 </div>
 
-                <div class="gap-12 lg:flex text-left">
+                <div class="gap-12 text-left lg:flex">
                     <AccountOrderItemInfo
                         :title="$t('account.orders.paymentStatusLabel')"
                         :state="paymentState"
@@ -110,7 +109,7 @@ onMounted(async () => {
         <template #content>
             <div class="py-4">
                 <div class="pb-4">
-                    <div class="font-bold mb-2">
+                    <div class="mb-2 font-bold">
                         {{ $t('checkout.finish.shippingAddressHeading') }}
                     </div>
 

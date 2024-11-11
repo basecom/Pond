@@ -29,8 +29,8 @@ withDefaults(
 <template>
     <AccordionRoot
         :default-value="defaultValue"
-        :type=type
-        :collapsible=collapsible
+        :type="type"
+        :collapsible="collapsible"
     >
         <slot></slot>
     </AccordionRoot>

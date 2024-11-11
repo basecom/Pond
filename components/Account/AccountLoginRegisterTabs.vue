@@ -1,4 +1,13 @@
 <script setup lang="ts">
+withDefaults(
+    defineProps<{
+        allowGuest?: boolean;
+    }>(),
+    {
+        allowGuest: false,
+    },
+);
+
 defineEmits(['closeModal']);
 </script>
 
@@ -37,7 +46,7 @@ defineEmits(['closeModal']);
             class="grow rounded-b-md bg-white py-5 outline-none"
             value="tab-register"
         >
-            <AccountRegister />
+            <AccountRegister :allow-guest="allowGuest" />
         </TabsContent>
     </TabsRoot>
 </template>

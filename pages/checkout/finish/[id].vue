@@ -5,6 +5,7 @@ const orderId = params.id as string;
 const { order, loadOrderDetails, shippingAddress, billingAddress, shippingMethod, paymentMethod, status, total } =
     useOrderDetails(orderId);
 const { getFormattedPrice } = usePrice();
+const customerStore = useCustomerStore();
 
 const formattedOrderDate = computed(() => {
     if (order.value?.orderDate) {
@@ -72,6 +73,7 @@ onMounted(async () => {
             </div>
 
             <NuxtLink
+                v-if="customerStore.customer && !customerStore.customer.guest"
                 class="mx-auto flex max-w-80 justify-center text-brand-primary"
                 :to="'/account/orders'"
             >

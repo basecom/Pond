@@ -6,10 +6,16 @@ export function useCartPageTracking(analytics: UseAnalyticsReturn) {
     const { cart } = useCart();
     const { mainNavigationElements } = storeToRefs(navigationStore);
     const { cartItemsCount } = storeToRefs(cartItemsCountStore);
-    const isCartPageReady = computed(() => cart.value?.lineItems.length && !!cartItemsCount.value && !!mainNavigationElements.value.length);
+    const isCartPageReady = computed(
+        () => cart.value?.lineItems.length && !!cartItemsCount.value && !!mainNavigationElements.value.length,
+    );
 
     usePageTracking(analytics, 'cart');
-    whenever(isCartPageReady, () => {
-        analytics.trackViewCart();
-    }, { immediate: true });
+    whenever(
+        isCartPageReady,
+        () => {
+            analytics.trackViewCart();
+        },
+        { immediate: true },
+    );
 }

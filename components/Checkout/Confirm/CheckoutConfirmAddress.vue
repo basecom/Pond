@@ -2,22 +2,25 @@
 import type { FormkitFields } from '~/types/formkit';
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const { refreshContext } = useCustomerStore();
+const { refreshContext, signedIn } = useCustomerStore();
 const { handleError } = useFormErrorStore();
 const { pushError } = useNotifications();
 const { t } = useI18n();
 const modalController = useModal();
 const isLoading = ref(false);
 
-const { changeDefaultAddress, saveAddress, syncBillingAddress, loadCustomerAddresses, customerAddresses } = useCustomerAddress();
+const { changeDefaultAddress, saveAddress, syncBillingAddress, loadCustomerAddresses, customerAddresses } =
+    useCustomerAddress();
 const { activeShippingAddress, activeBillingAddress } = useCustomerAddress();
-await loadCustomerAddresses();
+if (signedIn) {
+    await loadCustomerAddresses();
+}
 
 const modalAddress = ref<Schemas['CustomerAddress']>(null);
 const modalAddressType = ref('shippingAddress');
 
 const billingAddressIsSameAsShippingAddress =
-    activeBillingAddress.value.id === activeShippingAddress.value.id ? ref(true) : ref(false);
+    activeBillingAddress.value?.id === activeShippingAddress.value?.id ? ref(true) : ref(false);
 
 watch(billingAddressIsSameAsShippingAddress, () => handleSameBillingAddress());
 
@@ -95,6 +98,7 @@ const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas[
     <CheckoutConfirmCard :title="$t('checkout.confirm.address.shipping')">
         <div class="flex w-full flex-col justify-between sm:flex-row sm:items-end">
             <AddressData
+                v-if="activeShippingAddress"
                 :address="activeShippingAddress"
                 class="mb-4 sm:mb-0"
             />

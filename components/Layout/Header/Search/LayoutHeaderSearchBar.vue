@@ -81,7 +81,7 @@ const handleEnter = () => {
 
 const onClickProduct = (product: Schemas['Product']) => {
     trackSelectItem(product, { id: 'search-suggest', name: 'search-suggest' });
-    emit('closeSearch')
+    emit('closeSearch');
 };
 
 onMounted(() => {
