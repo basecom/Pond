@@ -76,7 +76,7 @@ if (isHomePage.value) {
 
 <template>
     <ClientOnly>
-        <div v-if="slides?.length">
+        <div v-if="slides?.length" :style="{ 'minHeight': minHeight }">
             <LayoutSlider
                 ref="sliderRef"
                 :class="{

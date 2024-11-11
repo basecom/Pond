@@ -6,8 +6,9 @@ defineProps<{
     element: CmsElementCategoryNavigation;
 }>();
 
-const { mainNavigationElements, loadMainNavigation } = useNavigationStore();
-await loadMainNavigation(2);
+const navigationStore = useNavigationStore();
+const { mainNavigationElements } = storeToRefs(navigationStore);
+await navigationStore.loadMainNavigation(2);
 
 const { isActive } = useActivePath();
 </script>
