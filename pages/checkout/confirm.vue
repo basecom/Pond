@@ -26,6 +26,11 @@ const placeOrder = async () => {
         if (error instanceof ApiClientError) {
             console.log(error.details);
         }
+    } finally {
+        // TODO: Instead of logging out handle guest state in account area by toggeling options
+        if (customerStore.customer.guest) {
+            await customerStore.logout();
+        }
     }
 };
 
@@ -49,7 +54,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                         <CheckoutConfirmPersonal />
                         <CheckoutConfirmShipping />
                         <CheckoutConfirmPayment />
-                        <CheckoutConfirmAddress />
+                        <CheckoutConfirmAddress v-if="customerStore.customer" />
                         <CheckoutConfirmTerms />
                     </div>
 

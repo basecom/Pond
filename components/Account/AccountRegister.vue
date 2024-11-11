@@ -53,7 +53,11 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
             navigateTo(props.redirectTarget);
         }
 
-        pushSuccess(t('account.register.success'));
+        if (props.allowGuest && customerStore.customer.guest) {
+            pushSuccess(t('account.register.guest.sessionStarted'));
+        } else {
+            pushSuccess(t('account.register.success'));
+        }
     } catch (error) {
         pushError(t('account.register.error'));
         isLoading.value = false;
