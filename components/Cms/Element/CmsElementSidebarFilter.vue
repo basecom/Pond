@@ -44,7 +44,7 @@ watch(
 
 <template>
     <ProductListingSidebar
-        v-if="appliedFilters && total || areFiltersModified"
+        v-if="appliedFilters && (total || areFiltersModified)"
         :filters="filters"
         :selected-filters="appliedFilters"
         :full-width="false"

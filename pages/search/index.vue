@@ -50,7 +50,7 @@ const onResetFilters = async () => {
 
 const onSelectProduct = async (product: Schemas['Product']) => {
     trackSelectItem(product, { id: 'search', name: 'search' });
-}
+};
 
 productListingCriteriaStore.initializeCriteria(
     {
@@ -60,7 +60,7 @@ productListingCriteriaStore.initializeCriteria(
             media: {},
             manufacturer: {},
             options: {},
-        }
+        },
     },
     route.query,
 );
@@ -110,7 +110,7 @@ useBreadcrumbs([
         <div class="flex flex-wrap">
             <div class="w-full md:w-5/12 lg:w-3/12">
                 <ProductListingSidebar
-                    v-if="appliedFilters && products?.length || areFiltersModified"
+                    v-if="appliedFilters && (products?.length || areFiltersModified)"
                     :filters="filters"
                     :selected-filters="appliedFilters"
                     :full-width="false"
@@ -131,7 +131,10 @@ useBreadcrumbs([
                     v-for="product in products"
                     :key="product.id"
                 >
-                    <ProductCard :product="product" @select-product="onSelectProduct(product)" />
+                    <ProductCard
+                        :product="product"
+                        @select-product="onSelectProduct(product)"
+                    />
                 </template>
             </div>
         </div>

@@ -73,14 +73,17 @@ if (isHomePage.value) {
 
 <template>
     <ClientOnly>
-        <div v-if="slides?.length" :style="{ 'minHeight': minHeight }">
+        <div
+            v-if="slides?.length"
+            :style="{ minHeight: minHeight }"
+        >
             <LayoutSlider
                 ref="sliderRef"
                 :class="{
                     'cursor-grab': slides.length > 1,
                 }"
                 class="w-full"
-                :style="{ 'minHeight': minHeight }"
+                :style="{ minHeight: minHeight }"
                 :autoplay="autoplayConfig"
                 :speed="speedConfig"
                 :pagination="navigationDots !== 'None'"
