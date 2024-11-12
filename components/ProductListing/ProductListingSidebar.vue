@@ -10,6 +10,7 @@ const props = defineProps<{
     sortingOptions: Schemas['ProductListingResult']['availableSortings'];
     sorting: Schemas['ProductListingResult']['sorting'];
 }>();
+
 const emit = defineEmits<{
     'sorting-changed': [key: Schemas['ProductListingResult']['sorting']];
     'filter-changed': [key: Schemas['ProductListingResult']['currentFilters']];
@@ -27,12 +28,14 @@ const emit = defineEmits<{
                 <div class="text-4xl">
                     {{ $t('listing.sidebar.title') }}
                 </div>
+
                 <ProductListingSorting
                     :options="props.sortingOptions"
                     :selected-option="props.sorting"
                     @sorting-changed="emit('sorting-changed', $event)"
                 />
             </div>
+
             <ProductListingFilters
                 :filters="props.filters"
                 :selected-filters="props.selectedFilters"

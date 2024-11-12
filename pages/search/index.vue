@@ -110,7 +110,7 @@ useBreadcrumbs([
         <div class="flex flex-wrap">
             <div class="w-full md:w-5/12 lg:w-3/12">
                 <ProductListingSidebar
-                    v-if="appliedFilters && products?.length"
+                    v-if="appliedFilters && products?.length || areFiltersModified"
                     :filters="filters"
                     :selected-filters="appliedFilters"
                     :full-width="false"
@@ -122,6 +122,7 @@ useBreadcrumbs([
                     @reset-filters="onResetFilters"
                 />
             </div>
+
             <div
                 v-if="!loading"
                 class="grid w-full grid-cols-2 gap-6 md:w-7/12 md:grid-cols-3 lg:w-9/12 lg:grid-cols-4"
