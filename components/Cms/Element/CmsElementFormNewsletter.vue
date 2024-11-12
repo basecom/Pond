@@ -58,6 +58,7 @@ const handleNewsletterSubmit = async formValues => {
             });
 
             trackNewsletterRegistration();
+
             pushSuccess(
                 subscribeBehavior === 'direct'
                     ? t('cms.element.form.newsletter.successSubscribe')
@@ -66,6 +67,7 @@ const handleNewsletterSubmit = async formValues => {
 
             if (subscribeBehavior === 'direct') {
                 isSubscriber.value = true;
+                newsletterAction.value = t('cms.element.form.newsletter.unsubscribe');
             }
         } catch (error) {
             pushError(t('cms.element.form.newsletter.errorSubscribe'));
@@ -74,6 +76,7 @@ const handleNewsletterSubmit = async formValues => {
         try {
             await newsletterUnsubscribe(formValues.email);
             isSubscriber.value = false;
+            newsletterAction.value = t('cms.element.form.newsletter.subscribe');
 
             pushSuccess(t('cms.element.form.newsletter.successUnsubscribe'));
         } catch (error) {
@@ -82,23 +85,27 @@ const handleNewsletterSubmit = async formValues => {
     }
 };
 
-const newsletterAction = computed(() =>
+const newsletterAction = ref(
     isSubscriber.value ? t('cms.element.form.newsletter.unsubscribe') : t('cms.element.form.newsletter.subscribe'),
 );
 
 const newsletterOptions = [t('cms.element.form.newsletter.subscribe'), t('cms.element.form.newsletter.unsubscribe')];
 
-// Update isSubscriber when customer logs in / out while on the same page as this component
-// TODO: update customerMail value in both cases
+// Update values when customer logs in / out while on the same page as this component
 watch(customer, async newCustomer => {
     if (newCustomer) {
         await getNewsletterStatus();
 
         if (isNewsletterSubscriber.value && !confirmationNeeded.value) {
             isSubscriber.value = true;
+            newsletterAction.value = t('cms.element.form.newsletter.unsubscribe');
         }
+
+        customerMail.value = newCustomer.email;
     } else {
         isSubscriber.value = false;
+        newsletterAction.value = t('cms.element.form.newsletter.subscribe');
+        customerMail.value = '';
     }
 });
 </script>
@@ -135,7 +142,7 @@ watch(customer, async newCustomer => {
 
         <FormKit
             type="email"
-            :value="customerMail"
+            v-model="customerMail"
             :label="$t('account.login.email.label')"
             name="email"
             :placeholder="$t('account.login.email.placeholder')"
