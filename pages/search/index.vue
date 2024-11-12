@@ -110,7 +110,7 @@ useBreadcrumbs([
         <div class="flex flex-wrap">
             <div class="w-full md:w-5/12 lg:w-3/12">
                 <ProductListingSidebar
-                    v-if="appliedFilters"
+                    v-if="appliedFilters && products?.length"
                     :filters="filters"
                     :selected-filters="appliedFilters"
                     :full-width="false"
@@ -136,6 +136,7 @@ useBreadcrumbs([
         </div>
 
         <LayoutPagination
+            v-if="products?.length"
             :total="total ?? 0"
             :items-per-page="limit"
             :default-page="page"
