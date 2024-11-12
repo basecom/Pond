@@ -1,6 +1,7 @@
 import { useNewsletter as coreUseNewsletter } from '@shopware-pwa/composables-next';
 
-// Extend default newsletter composable and add newsletterConfirm method
+// Extend default newsletter composable
+// Add newsletterConfirm method
 export type ExtendedUseNewsletterReturn = UseNewsletterReturn & {
     newsletterConfirm(email: string, hash: string): Promise<void>;
 };
