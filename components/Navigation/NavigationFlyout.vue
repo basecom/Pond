@@ -32,7 +32,10 @@ const selfNotHovered = refDebounced(isOutsideFlyout, 200);
                         :as-link="child.type !== 'folder'"
                     />
 
-                    <div v-if="child.childCount > 0" class="flex flex-col gap-2">
+                    <div
+                        v-if="child.childCount > 0"
+                        class="flex flex-col gap-2"
+                    >
                         <NavigationLink
                             v-for="subChild in child.children"
                             :key="`nav-item-${subChild.id}`"

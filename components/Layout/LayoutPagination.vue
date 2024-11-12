@@ -32,7 +32,7 @@ defineEmits<{
             class="mt-10 flex items-center justify-center gap-1"
         >
             <PaginationFirst
-                class="flex h-4 w-4 items-center justify-center rounded focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 disabled:opacity-50"
+                class="flex h-4 w-4 items-center justify-center rounded focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             >
                 <FormKitIcon
                     icon="angles-left"
@@ -41,7 +41,7 @@ defineEmits<{
             </PaginationFirst>
 
             <PaginationPrev
-                class="mr-4 flex h-4 w-4 items-center justify-center rounded focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 disabled:opacity-50"
+                class="mr-4 flex h-4 w-4 items-center justify-center rounded focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             >
                 <FormKitIcon
                     icon="chevron-left"
@@ -70,7 +70,7 @@ defineEmits<{
             </template>
 
             <PaginationNext
-                class="ml-4 flex h-4 w-4 items-center justify-center rounded focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 disabled:opacity-50"
+                class="ml-4 flex h-4 w-4 items-center justify-center rounded focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             >
                 <FormKitIcon
                     icon="chevron-right"
@@ -79,7 +79,7 @@ defineEmits<{
             </PaginationNext>
 
             <PaginationLast
-                class="flex h-4 w-4 items-center justify-center rounded focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 disabled:opacity-50"
+                class="flex h-4 w-4 items-center justify-center rounded focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             >
                 <FormKitIcon
                     icon="angles-right"
