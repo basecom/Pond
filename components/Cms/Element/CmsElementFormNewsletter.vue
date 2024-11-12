@@ -141,8 +141,8 @@ watch(customer, async newCustomer => {
         />
 
         <FormKit
-            type="email"
             v-model="customerMail"
+            type="email"
             :label="$t('account.login.email.label')"
             name="email"
             :placeholder="$t('account.login.email.placeholder')"
