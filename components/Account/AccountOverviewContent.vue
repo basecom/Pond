@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const customerStore = useCustomerStore();
 const { customer } = storeToRefs(customerStore);
-const { isNewsletterSubscriber, newsletterSubscribe, newsletterUnsubscribe, getNewsletterStatus } = useNewsletter();
+const { isNewsletterSubscriber, newsletterSubscribe, newsletterUnsubscribe, getNewsletterStatus, confirmationNeeded } =
+    useNewsletter();
 const billingAddress = computed(() => customer.value.defaultBillingAddress);
 const shippingAddress = computed(() => customer.value.defaultShippingAddress);
 const paymentMethod = computed(() => customer.value.defaultPaymentMethod);
@@ -17,17 +18,28 @@ const props = defineProps<{
 props.showLatestOrder && (await loadLatestOrder());
 getNewsletterStatus();
 
+const configStore = useConfigStore();
+const doubleOptIn = configStore.get('core.newsletter.doubleOptIn');
+const doubleOptInRegistered = configStore.get('core.newsletter.doubleOptInRegistered');
+const subscribeBehavior =
+    (customer.value && doubleOptInRegistered) || (!customer.value && doubleOptIn) ? 'subscribe' : 'direct';
+
 const handleNewsletterChange = async (event: Event) => {
     const checked = (event.target as HTMLInputElement).checked;
     if (checked) {
         try {
             await newsletterSubscribe({
                 email: customer.value.email,
-                option: 'subscribe',
+                option: subscribeBehavior,
             });
 
             trackNewsletterRegistration();
-            pushSuccess(t('cms.element.form.newsletter.successSubscribe'));
+
+            pushSuccess(
+                subscribeBehavior === 'direct'
+                    ? t('cms.element.form.newsletter.successSubscribe')
+                    : t('cms.element.form.newsletter.successConfirmSubscribe'),
+            );
         } catch (error) {
             pushError(t('cms.element.form.newsletter.errorSubscribe'));
         }
@@ -99,7 +111,7 @@ const handleNewsletterChange = async (event: Event) => {
         <label>
             <input
                 type="checkbox"
-                :checked="isNewsletterSubscriber"
+                :checked="isNewsletterSubscriber && !confirmationNeeded"
                 @change="handleNewsletterChange"
             />
             {{ $t('account.overview.newsletter.label') }}

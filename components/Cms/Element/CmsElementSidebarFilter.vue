@@ -11,7 +11,7 @@ const { getCurrentListing, search } = useCategoryListing();
 // TODO create a better ID based on the CmsPage or even better CmsSlot identifier
 const productListingCriteriaStore = useProductListingCriteriaStore('category');
 
-const { criteria, sortingOptions, currentSorting, appliedFilters, areFiltersModified, filters } =
+const { criteria, sortingOptions, currentSorting, appliedFilters, areFiltersModified, filters, total } =
     storeToRefs(productListingCriteriaStore);
 
 const onSortChange = async (sorting: Schemas['ProductListingResult']['sorting']) => {
@@ -44,7 +44,7 @@ watch(
 
 <template>
     <ProductListingSidebar
-        v-if="appliedFilters"
+        v-if="appliedFilters && (total || areFiltersModified)"
         :filters="filters"
         :selected-filters="appliedFilters"
         :full-width="false"

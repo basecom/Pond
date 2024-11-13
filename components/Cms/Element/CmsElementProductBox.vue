@@ -7,7 +7,10 @@ const props = defineProps<{
     element: CmsElementProductBox;
 }>();
 
-const { product } = useProduct(props.element.data.product);
+const elementData = useCmsElementData(props.element);
+const productData = elementData.getData('product');
+
+const { product } = productData ? useProduct(productData) : {};
 const { trackPromotionView, trackSelectPromotion, trackSelectItem } = useAnalytics();
 const { isHomePage } = useHomePage();
 
@@ -36,6 +39,7 @@ const onProductSelect = () => {
 
 <template>
     <ProductCard
+        v-if="product"
         :product="product"
         @view-product="onProductView()"
         @select-product="onProductSelect()"

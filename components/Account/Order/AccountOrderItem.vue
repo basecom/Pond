@@ -5,12 +5,18 @@ const props = defineProps<{
     orderId: string;
 }>();
 
-const { order, loadOrderDetails, shippingMethod, paymentMethod, status, shippingAddress, billingAddress } =
-    useOrderDetails(props.orderId, {
-        stateMachineState: {},
-    });
-
-const { state: paymentState } = useOrderPayment(order);
+const {
+    order,
+    loadOrderDetails,
+    shippingMethod,
+    paymentMethod,
+    paymentState,
+    status,
+    shippingAddress,
+    billingAddress,
+} = useOrderDetails(props.orderId, {
+    stateMachineState: {},
+});
 
 const shippingStatus = computed(() => {
     const stateName = order.value?.deliveries?.[0]?.stateMachineState?.translated?.name;

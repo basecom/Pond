@@ -47,7 +47,7 @@ const onProductView = (product: Schemas['Product'], index: string | number) => {
     if (isHomePage.value) {
         trackPromotionView(getPromotion(product), product, Number(index));
     } else {
-        trackSelectItem(product, { id: props.element?.blockId ?? '' , name: props.element?.type ?? '' });
+        trackSelectItem(product, { id: props.element?.blockId ?? '', name: props.element?.type ?? '' });
     }
 };
 const onProductSelect = (product: Schemas['Product'], index: string | number) => {
