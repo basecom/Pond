@@ -4,12 +4,12 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import type { ComputedRef } from 'vue';
 
 export type UseCustomOrderDetailsReturn = UseOrderDetailsReturn & {
-    paymentState: ComputedRef<Schemas["StateMachineState"] | undefined>;
-}
+    paymentState: ComputedRef<Schemas['StateMachineState'] | undefined>;
+};
 
 export function useOrderDetails(
     orderId: string,
-    associations?: Schemas["Criteria"]["associations"],
+    associations?: Schemas['Criteria']['associations'],
 ): UseCustomOrderDetailsReturn {
     const baseUserDetails = useBaseOrderDetails(orderId, associations);
     const paymentMethod = computed(() => {

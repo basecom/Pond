@@ -36,10 +36,12 @@ export function useGtags(): UseAnalyticsReturn {
                 resolve(undefined);
             }, 500);
 
-            gtag?.('get', tagId, 'session_id', (currentSessionId: string) => {
-                clearTimeout(timeout);
-                resolve(currentSessionId);
-            });
+            if (typeof gtag === 'function') {
+                gtag?.('get', tagId, 'session_id', (currentSessionId: string) => {
+                    clearTimeout(timeout);
+                    resolve(currentSessionId);
+                });
+            }
         });
     };
 
