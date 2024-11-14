@@ -16,17 +16,19 @@ const { isOpen, close } = controller.value;
 
 const sidebarContentElement = ref();
 onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
+const openSidebar = debouncedRef(isOpen, 100)
 </script>
 
 <template>
     <Teleport to="body">
         <div
+            v-if="isOpen"
             ref="sidebarContentElement"
             class="fixed top-0 z-40 h-screen w-10/12 overflow-y-auto bg-white transition-transform duration-500 sm:w-96"
             tabindex="-1"
             aria-labelledby="sidebar"
             :class="{
-                '!translate-x-0': isOpen,
+                '!translate-x-0': openSidebar,
                 'left-0 -translate-x-full': side === 'left',
                 'right-0 translate-x-full': side === 'right',
             }"
@@ -47,7 +49,10 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
         <!-- body overlay -->
         <div
             v-if="isOpen"
-            class="fixed inset-0 z-30 h-screen w-screen bg-black/50"
+            class="fixed inset-0 z-30 h-screen w-screen bg-black/50 transition-opacity duration-500 opacity-0"
+            :class="{
+                'opacity-100': openSidebar
+            }"
         />
     </Teleport>
 </template>

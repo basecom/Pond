@@ -52,6 +52,7 @@ const handleAddToCart = async () => {
     <FormKit
         v-if="product.availableStock > 0"
         type="form"
+        :name="`add_to_cart_${product.id}`"
         :actions="false"
         :classes="{
             form: 'w-full flex gap-4',
@@ -83,8 +84,8 @@ const handleAddToCart = async () => {
             :classes="{
                 outer: 'w-full',
             }"
-            :label="props.label ? $t('product.addToCart.submitLabel') : ' '"
-            :prefix-icon="props.icon ? 'cart-shopping' : ''"
+            :label="label ? $t('product.addToCart.submitLabel') : ' '"
+            :prefix-icon="icon ? 'cart-shopping' : ''"
         />
     </FormKit>
 

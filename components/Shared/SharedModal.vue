@@ -31,7 +31,7 @@ watch(controller.value.isOpen, () => {
 
 <template>
     <DialogRoot
-        v-model:open="controller.isOpen.value"
+        :open="controller.isOpen.value"
         @update:open="onUpdatedOpen"
     >
         <DialogTrigger>

@@ -84,6 +84,7 @@ const handleSave = async (fields: FormkitFields) => {
         <template #content>
             <FormKit
                 type="form"
+                name="addressForm"
                 :classes="{
                     form: 'grid grid-cols-2 gap-3 w-full max-w-md',
                 }"
@@ -112,6 +113,7 @@ const handleSave = async (fields: FormkitFields) => {
 
                 <FormKit
                     type="submit"
+                    name="addressFormSubmit"
                     :classes="{
                         outer: 'col-span-2 relative',
                     }"

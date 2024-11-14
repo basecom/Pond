@@ -23,6 +23,7 @@ const languageOptions = computed(() => entityArrayToOptions<Schemas['language']>
         v-if="languages && languages.length > 1"
         v-model="languageIdChain"
         type="select"
+        id="languageSwitch"
         name="language"
         prefix-icon="globe"
         :options="languageOptions"

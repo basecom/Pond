@@ -126,6 +126,7 @@ watch(customer, async newCustomer => {
 
     <FormKit
         type="form"
+        name="newsletterForm"
         :actions="false"
         :classes="{
             form: 'grid-cols-3 grid gap-4 mt-4',
@@ -136,6 +137,7 @@ watch(customer, async newCustomer => {
             v-if="!isSubscriber"
             v-model="newsletterAction"
             type="radio"
+            name="options"
             :options="newsletterOptions"
             validation="required"
         />

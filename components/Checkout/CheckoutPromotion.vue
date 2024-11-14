@@ -39,6 +39,7 @@ const addPromotion = async (fields: FormkitPromotionFields) => {
     </ul>
     <FormKit
         type="form"
+        name="addPromotion"
         :submit-label="$t('checkout.promotion.submitLabel')"
         :classes="{
             form: 'w-full flex flex-row gap-4',

@@ -117,6 +117,7 @@ const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas[
                 <FormKit
                     v-model="billingAddressIsSameAsShippingAddress"
                     type="checkbox"
+                    name="sameShippingAndBillingAddress"
                     :label="$t('checkout.confirm.address.sameAsShippingAddress')"
                     :classes="{
                         outer: 'mb-4',
