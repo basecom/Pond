@@ -1,9 +1,6 @@
 <script setup lang="ts">
-const { cookieGroups, activeCookies } = defineProps<{
-    isAcceptAllEnabled: boolean;
-    cookieGroups: CookieGroup[];
-    activeCookies: CookieEntry['cookie'][];
-}>();
+const cookieBannerStore = useCookieBannerStore();
+const { activatedCookies, cookieGroups, isAcceptAllEnabled } = storeToRefs(cookieBannerStore);
 
 const emit = defineEmits<{
     'update-cookies': [active: CookieEntry['cookie'][], inactive: CookieEntry['cookie'][]];
@@ -39,7 +36,7 @@ const selectCookieEntry = (entry: CookieEntry, group: CookieGroup, event: Event)
 };
 
 const handleSubmit = (values: Record<CookieEntry['cookie'], boolean | undefined>) => {
-    const cookieEntryWithValue = cookieGroups.flatMap(group => group.entries).filter(entry => entry.cookie);
+    const cookieEntryWithValue = cookieGroups.value.flatMap(group => group.entries).filter(entry => entry.cookie);
     const active: CookieEntry['cookie'][] = cookieEntryWithValue
         .filter(entry => values[entry.id])
         .map(entry => entry.cookie);
@@ -47,14 +44,29 @@ const handleSubmit = (values: Record<CookieEntry['cookie'], boolean | undefined>
         .filter(entry => !values[entry.id])
         .map(entry => entry.cookie);
 
+    updateCookie(active, inactive);
+};
+
+const updateCookie = (active: CookieEntry['cookie'][], inactive: CookieEntry['cookie'][]) => {
+    cookieBannerStore.updateCookies(active, inactive);
     emit('update-cookies', active, inactive);
 };
 
+const acceptAll = () => {
+    cookieBannerStore.acceptAll();
+    emit('accept-all')
+};
+
+const denyAll = () => {
+    cookieBannerStore.denyAll();
+    emit('deny-all')
+};
+
 onMounted(() => {
-    cookieGroups.forEach(group => {
+    cookieGroups.value.forEach(group => {
         const isRequired = group.required;
         const groupNode = getNode(group.id);
-        const areAllCookiesSelected = group.entries.every(entry => activeCookies.includes(entry.cookie));
+        const areAllCookiesSelected = group.entries.every(entry => activatedCookies.value.includes(entry.cookie));
 
         if (!groupNode) {
             return;
@@ -67,7 +79,7 @@ onMounted(() => {
                 return;
             }
 
-            node.input(activeCookies.includes(entry.cookie) || isRequired);
+            node.input(activatedCookies.value.includes(entry.cookie) || isRequired);
         });
 
         groupNode.input(areAllCookiesSelected || isRequired);
@@ -129,7 +141,7 @@ onMounted(() => {
                     outer: 'w-full',
                 }"
                 :label="$t('cookie.modal.denyAllButton')"
-                @click="() => emit('deny-all')"
+                @click="denyAll"
             />
             <FormKit
                 type="submit"
@@ -145,7 +157,7 @@ onMounted(() => {
                     outer: 'w-full',
                 }"
                 :label="$t('cookie.modal.allowAllButton')"
-                @click="() => emit('accept-all')"
+                @click="acceptAll"
             />
         </div>
     </FormKit>

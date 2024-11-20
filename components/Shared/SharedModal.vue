@@ -34,10 +34,10 @@ watch(controller.value.isOpen, () => {
         :open="controller.isOpen.value"
         @update:open="onUpdatedOpen"
     >
-        <DialogTrigger>
+        <DialogTrigger name="blubb">
             <slot name="trigger"></slot>
         </DialogTrigger>
-        <DialogPortal>
+        <DialogPortal to="#teleports">
             <Transition
                 enter-active-class="transition ease-out duration-200 transform"
                 enter-from-class="opacity-0"
