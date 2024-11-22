@@ -3,11 +3,17 @@ import { ApiClientError } from '@shopware/api-client';
 import type { ResolvedApiError } from '~/types/errors';
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const props = defineProps<{
+const props = withDefaults(
+    defineProps<{
     product: Schemas['Product'];
     icon?: boolean;
     label?: boolean;
-}>();
+    }>(),
+    {
+        icon: true,
+        label: true,
+    },
+);
 
 const { product } = useProduct(props.product);
 const { addToCart, quantity } = useAddToCart(product);
@@ -85,7 +91,7 @@ const handleAddToCart = async () => {
                 outer: 'w-full',
             }"
             :label="label ? $t('product.addToCart.submitLabel') : ' '"
-            :prefix-icon="icon ? 'cart-shopping' : ''"
+            :prefix-icon="icon ? 'cart-shopping' : null"
         />
     </FormKit>
 

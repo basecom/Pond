@@ -19,10 +19,8 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <div class="bg-white">
         <div
             class="m-0 mx-auto"
-            :class="{ 'px-5': !fullWidth }"
         >
             <div class="flex items-baseline justify-between border-b border-gray-light py-6">
                 <div class="text-4xl">
@@ -44,5 +42,4 @@ const emit = defineEmits<{
                 @reset-filters="$emit('reset-filters')"
             />
         </div>
-    </div>
 </template>

@@ -25,7 +25,6 @@ const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
         <div class="flex w-full flex-row gap-4">
             <ProductAddToCart
                 :product="product"
-                :label="true"
             />
             <div
                 v-if="wishlistEnabled"

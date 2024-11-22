@@ -40,7 +40,7 @@ productListingCriteriaStore.setSearchResult(getCurrentListing.value, true);
 
 <template>
     <div v-if="getElements.length > 0">
-        <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+        <div class="grid grid-cols-1 min-[480px]:grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
             <template
                 v-for="product in getElements"
                 :key="product.id"
