@@ -37,24 +37,13 @@ watch(props, () => {
 </script>
 
 <template>
-    <AccordionItem
-        key="price"
-        class="overflow-hidden border-b border-gray"
-    >
-        <AccordionHeader class="flex">
-            <AccordionTrigger class="group flex w-full cursor-pointer items-center justify-between bg-white px-5 py-3">
-                <span>{{ $t('listing.sidebar.filter.price.title') }}</span>
-
-                <FormKitIcon
-                    icon="chevron-up"
-                    class="ml-6 h-4 w-auto group-data-[state=open]:rotate-180"
-                />
-            </AccordionTrigger>
-        </AccordionHeader>
-
-        <AccordionContent
-            class="overflow-hidden px-5 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown"
-        >
+    <SharedPopover :with-close-button="false">
+        <template #trigger>
+            <div class="px-4 py-2 border border-gray rounded">
+                {{ $t('listing.sidebar.filter.price.title') }}
+            </div>
+        </template>
+        <template #content>
             <div class="flex justify-between pb-4 text-sm">
                 <div>{{ currentValue[0] }} {{ currency?.symbol }}</div>
                 <div>{{ currentValue[1] }} {{ currency?.symbol }}</div>
@@ -84,6 +73,6 @@ watch(props, () => {
                 <SliderThumb class="block h-5 w-5 rounded-full bg-brand-primary" />
                 <SliderThumb class="block h-5 w-5 rounded-full bg-brand-primary" />
             </SliderRoot>
-        </AccordionContent>
-    </AccordionItem>
+        </template>
+    </SharedPopover>
 </template>

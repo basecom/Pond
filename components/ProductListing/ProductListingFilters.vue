@@ -35,13 +35,9 @@ const onFilterChanged = ({
 <template>
     <div
         v-if="filters.length"
-        class="flex flex-col"
+        class="flex flex-col gap-4"
     >
-        <AccordionRoot
-            class="flex w-full flex-col gap-2 rounded-md"
-            type="multiple"
-            :collapsible="true"
-        >
+        <div class="flex gap-2">
             <template
                 v-for="filter in props.filters"
                 :key="filter.code"
@@ -53,10 +49,10 @@ const onFilterChanged = ({
                     @filter-changed="onFilterChanged"
                 />
             </template>
-        </AccordionRoot>
+        </div>
         <div
             v-if="props.showResetButton"
-            class="mx-auto mb-2 mt-4"
+            class="mx-auto"
         >
             <FormKit
                 type="button"
