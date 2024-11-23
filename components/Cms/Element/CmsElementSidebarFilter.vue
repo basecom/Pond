@@ -16,18 +16,21 @@ const { criteria, sortingOptions, currentSorting, appliedFilters, areFiltersModi
 
 const onSortChange = async (sorting: Schemas['ProductListingResult']['sorting']) => {
     productListingCriteriaStore.setSorting(sorting);
+    console.log(1);
     await search(criteria.value);
     productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
 };
 
 const onFilterChange = async (filters: Schemas['ProductListingResult']['currentFilters']) => {
     productListingCriteriaStore.setFilters(filters);
+    console.log(2);
     await search(criteria.value);
     productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
 };
 
 const onResetFilters = async () => {
     productListingCriteriaStore.resetFilters();
+    console.log(3);
     await search(criteria.value);
     productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
 };
@@ -36,6 +39,7 @@ watch(
     () => route.query,
     async () => {
         productListingCriteriaStore.updateCriteria(route.query);
+    console.log(4);
         await search(criteria.value);
         productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
     },

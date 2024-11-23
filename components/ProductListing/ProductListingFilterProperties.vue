@@ -9,11 +9,11 @@ const props = defineProps<{
     selectedValues: Schemas['ProductListingResult']['currentFilters'];
 }>();
 
-defineEmits<{
+const emits = defineEmits<{
     'filter-changed': [
         event: {
             code: 'price';
-            value: ValueOf<Schemas['ProductListingResult']['currentFilters']['price']>;
+            value: ValueOf<Schemas['ProductListingResult']['currentFilters']['properties']>;
         },
     ];
 }>();
@@ -26,13 +26,19 @@ defineEmits<{
 //     props.selectedValues.price.max || filterMax.value || 0,
 // ]);
 //
-// watch(props, () => {
-//     currentValue.value = [
-//         props.selectedValues.price.min || filterMin.value || 0,
-//         props.selectedValues.price.max || filterMax.value || 0,
-//     ];
-// });
+watch(props, () => {
+    // currentValue.value = [
+    //     props.selectedValues.price.min || filterMin.value || 0,
+    //     props.selectedValues.price.max || filterMax.value || 0,
+    // ];
+});
+
+
+// TODO selected values filter und nur die drin lassen, die auch in filter.options drin sind
+
 const { entityArrayToOptions } = useFormkitHelper();
+const selection = ref([])
+watch(selection, newSelection => emits('filter-changed', {code: 'properties', value: newSelection}))
 </script>
 
 <template>
@@ -70,9 +76,14 @@ const { entityArrayToOptions } = useFormkitHelper();
             class="w-64 rounded border border-gray-light bg-white p-4 shadow-md"
         >
             <div>
+                <!-- just for debugging start -->
+                <span v-for="option in selection">
+                    {{option}}<br>
+                </span>
+                <!-- just for debugging end -->
                 <FormKit
+                    v-model="selection"
                     type="checkbox"
-                    :label="getTranslatedProperty(filter, 'name')"
                     :options="entityArrayToOptions(filter.options, 'name')"
                     :name="getTranslatedProperty(filter, 'name')"
                     decorator-icon="check"

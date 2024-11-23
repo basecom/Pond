@@ -112,6 +112,7 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
     };
 
     const _getFiltersFromQuery = (query: LocationQuery): Partial<Schemas['ProductListingCriteria']> => {
+        console.log('getFiltersFromQuery');
         return filterCodes.reduce(
             (
                 acc: Partial<Schemas['ProductListingCriteria']>,
@@ -134,11 +135,13 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
     };
 
     const initializeCriteria = (defaultCriteria: Partial<ProductListingCriteria>, routeQuery: LocationQuery) => {
+        console.log('init criteria');
         _defaultCriteria.value = defaultCriteria;
         updateCriteria(routeQuery);
     };
 
     const updateCriteria = (routeQuery: LocationQuery) => {
+        console.log('update');
         const defaultCriteria = _defaultCriteria.value;
         const filtersFromQuery = _getFiltersFromQuery(routeQuery);
         const sorting = routeQuery.sort ? (routeQuery.sort as string | undefined) : defaultCriteria.order;
