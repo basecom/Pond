@@ -1,7 +1,6 @@
 import type { LocationQueryRaw } from '#vue-router';
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilterMapping } from '../../types/listing/mapping';
-import { isString } from 'is-what';
 
 export function usePropertiesFilter(): ListingFilterMapping {
     const encodeUrl = (value: Schemas['ProductListingCriteria']): LocationQueryRaw => {
@@ -36,7 +35,7 @@ export function usePropertiesFilter(): ListingFilterMapping {
         value: Schemas['ProductListingResult']['currentFilters'],
     ): Partial<Schemas['ProductListingCriteria']> => {
         return {
-            'properties': value.properties.join('|'),
+            'properties': value.properties.length > 0 ? value.properties.join('|') : null,
         };
     };
 

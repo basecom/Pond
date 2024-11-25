@@ -34,7 +34,6 @@ const changePage = async (page: number) => {
 
 const config = useCmsElementConfig(props.element);
 const boxLayout = config.getConfigValue('boxLayout');
-console.log(5, criteria.value);
 await search(criteria.value);
 productListingCriteriaStore.setSearchResult(getCurrentListing.value, true);
 </script>

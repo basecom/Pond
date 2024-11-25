@@ -18,27 +18,28 @@ const emits = defineEmits<{
     ];
 }>();
 
-// const { currency } = useSessionContext();
-// const filterMax = computed(() => Math.ceil(parseFloat(props.filter.max)) || 0);
-// const filterMin = computed(() => Math.floor(parseFloat(props.filter.min)) || 0);
-// const currentValue = ref([
-//     props.selectedValues.price.min || filterMin.value || 0,
-//     props.selectedValues.price.max || filterMax.value || 0,
-// ]);
-//
-watch(props, () => {
-    // currentValue.value = [
-    //     props.selectedValues.price.min || filterMin.value || 0,
-    //     props.selectedValues.price.max || filterMax.value || 0,
-    // ];
-});
-
-
 // TODO selected values filter und nur die drin lassen, die auch in filter.options drin sind
 
 const { entityArrayToOptions } = useFormkitHelper();
 const selection = ref([])
-watch(selection, newSelection => emits('filter-changed', {code: 'properties', value: newSelection}))
+const optionIds = computed(() => props.filter.options.map(option => option.id))
+selection.value =
+    (props.selectedValues['properties']
+        .filter((propertyId) => optionIds.value.includes(propertyId)))
+    ?? []
+
+watch(selection, (newSelection, oldSelection) => {
+    const merged = updateSelection(props.selectedValues['properties'], newSelection, oldSelection)
+    emits('filter-changed', { code: 'properties', value: merged });
+});
+
+const updateSelection = (initial, newSelection, oldSelection) => {
+    return [
+        ...new Set(
+            initial.filter(id => !oldSelection.includes(id)).concat(newSelection)
+        ),
+    ];
+}
 </script>
 
 <template>
@@ -66,9 +67,13 @@ watch(selection, newSelection => emits('filter-changed', {code: 'properties', va
             class="none inline-flex items-center justify-center"
             :aria-label="$t('shared.popover.triggerAriaLabel')"
         >
-            <slot name="trigger">
+            <div class="px-4 py-2 border border-gray rounded flex items-center gap-2">
                 {{ getTranslatedProperty(filter, 'name') }}
-            </slot>
+                <UtilityPill
+                    v-if="selection.length > 0"
+                    :number="selection.length"
+                />
+            </div>
         </PopoverTrigger>
         <PopoverContent
             side="bottom"
@@ -76,10 +81,6 @@ watch(selection, newSelection => emits('filter-changed', {code: 'properties', va
             class="w-64 rounded border border-gray-light bg-white p-4 shadow-md"
         >
             <div>
-                <!-- just for debugging start -->
-                <span v-for="option in selection">
-                    {{option}}<br>
-                </span>
                 <!-- just for debugging end -->
                 <FormKit
                     v-model="selection"
