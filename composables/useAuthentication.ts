@@ -1,8 +1,12 @@
 export function useAuthentication() {
-    const { signedIn, loading } = storeToRefs(useCustomerStore());
+    const { signedIn, loading, customer } = storeToRefs(useCustomerStore());
 
     const rerouteIfLoggedOut = async (targetRoute: string = '/account/login') => {
         await sessionContextLoaded();
+
+        if(signedIn.value && customer.value?.guest) {
+            navigateTo('/');
+        }
         if (!signedIn.value) {
             navigateTo(targetRoute);
         }

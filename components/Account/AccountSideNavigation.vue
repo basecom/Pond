@@ -46,8 +46,10 @@ const navItems = ref([
             class="mt-4 pb-4 pl-2 text-2xl font-bold"
         >
             {{ $t('account.dropdownHeading') }}
+            {{ customerStore.customer?.guest ? $t('account.dropdownHeadingGuest') : $t('account.dropdownHeading')  }}
         </div>
         <li
+            v-if="!customerStore.customer?.guest"
             v-for="(item, index) in navItems"
             :key="item.path"
             class="mt-4 pb-4 pl-2"
@@ -66,8 +68,11 @@ const navItems = ref([
                 type="submit"
                 prefix-icon="right-from-bracket"
                 @click.prevent="handleLogout"
+                :classes="{
+                        input: '!px-0 flex gap-2',
+                    }"
             >
-                {{ $t('account.logout.buttonLabel') }}
+                {{ customerStore.customer?.guest ? $t('account.logout.guestButtonLabel') : $t('account.logout.buttonLabel')  }}
             </FormKit>
         </li>
     </ul>
