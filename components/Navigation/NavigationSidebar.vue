@@ -26,7 +26,7 @@ const handleClick = navigationElement => {
 
 const handleBack = () => {
     if (previousNavigationItems.value.length <= 1) {
-        shownNavigationItems.value = navigationElements.value;
+        shownNavigationItems.value = mainNavigationElements.value;
         previousNavigationItems.value.pop();
         return;
     }
