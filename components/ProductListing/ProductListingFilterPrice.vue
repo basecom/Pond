@@ -18,13 +18,18 @@ defineEmits<{
         },
     ];
 }>();
+const { priceFilterApplied } = useProductListingCriteriaStore('category');
 </script>
 
 <template>
     <SharedPopover :with-close-button="false">
         <template #trigger>
-            <div class="rounded border border-gray px-4 py-2">
+            <div class="flex items-center gap-2 rounded border border-gray px-4 py-2">
                 {{ $t('listing.sidebar.filter.price.title') }}
+                <UtilityPill
+                    v-if="filter.code === 'price' && priceFilterApplied()"
+                    number="1"
+                />
             </div>
         </template>
         <template #content>

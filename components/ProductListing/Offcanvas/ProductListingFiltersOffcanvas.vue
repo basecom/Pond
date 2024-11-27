@@ -2,6 +2,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilter } from '../../../types/listing/filter';
 import ProductListingFiltersOffcanvasItem from '~/components/ProductListing/Offcanvas/ProductListingFiltersOffcanvasItem.vue';
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 const props = defineProps<{
     filters: ListingFilter[];
@@ -14,20 +15,55 @@ defineEmits<{
 }>();
 
 const { componentsMappingOffcanvas } = useListingFiltersMapping();
+const productListingCriteriaStore = useProductListingCriteriaStore('category');
+const {appliedFiltersTotal} = storeToRefs(productListingCriteriaStore);
 
 const sideMenuController = useModal();
 const displayedFilter = ref(null);
 </script>
 
 <template>
-    <div @click="sideMenuController.open()">filter - bottom</div>
+    <FormKit
+        type="button"
+        @click="sideMenuController.open()"
+    >
+        <span>
+            {{ $t('listing.sidebar.title') }}
+        </span>
+        {{appliedFiltersTotal}}
+        <UtilityPill :number="appliedFiltersTotal" />
+        <FormKitIcon
+            icon="filter"
+            class="w-6 h-6"
+        />
+    </FormKit>
 
     <LayoutSidebar
         v-if="sideMenuController.isOpen"
         :controller="sideMenuController"
         side="bottom"
     >
-        <template #header> Filter </template>
+        <template #header>
+            <span v-if="!displayedFilter">
+                {{ $t('listing.sidebar.title') }}
+            </span>
+            <button
+                v-else
+                class="flex gap-2 items-center"
+                @click="displayedFilter = null"
+            >
+                <FormKitIcon
+                    icon="chevron-left"
+                    class="block w-4 h-4"
+                />
+                <template v-if="displayedFilter?.code === 'properties'">
+                    {{ getTranslatedProperty(displayedFilter, 'name') }}
+                </template>
+                <template v-else>
+                    {{ $t(`listing.sidebar.filter.${displayedFilter.code}.title`) }}
+                </template>
+            </button>
+        </template>
         <template #content>
             <div class="h-full w-full overflow-hidden">
                 <div
@@ -50,7 +86,6 @@ const displayedFilter = ref(null);
                         </template>
                     </div>
                     <div class="flex h-full w-full shrink-0 flex-col">
-                        <div @click="displayedFilter = null">back</div>
                         <component
                             :is="componentsMappingOffcanvas[displayedFilter?.code]"
                             :filter="displayedFilter"

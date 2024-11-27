@@ -11,6 +11,7 @@ export type ProductListingCriteria =
 export type UseProductListingCriteriaResult = {
     criteria: ComputedRef<ProductListingCriteria | undefined>;
     appliedFilters: ComputedRef<Schemas['ProductListingResult']['currentFilters'] | undefined>;
+    appliedFiltersTotal: ComputedRef<number>;
     page: ComputedRef<Schemas['ProductListingResult']['page'] | undefined>;
     limit: ComputedRef<Schemas['ProductListingResult']['limit'] | undefined>;
     total: ComputedRef<Schemas['ProductListingResult']['total']>;
@@ -26,6 +27,9 @@ export type UseProductListingCriteriaResult = {
     setPage: (page: Schemas['ProductListingResult']['page']) => void;
     setLimit: (limit: Schemas['ProductListingResult']['limit']) => void;
     resetFilters: () => void;
+    priceFilterApplied: () => boolean;
+    propertyFilterAppliedTotal: (id: Schemas['PropertyGroup']['id']) => number;
+    propertyFilterApplied: (id: Schemas['PropertyGroup']['id']) => boolean;
 };
 
 export function useProductListingCriteria(): UseProductListingCriteriaResult {
@@ -35,6 +39,7 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
     const _defaultCriteria = ref<Partial<ProductListingCriteria>>({});
     const _criteria = ref<ProductListingCriteria | undefined>(undefined);
     const _appliedFilters = ref<Schemas['ProductListingResult']['currentFilters'] | undefined>(undefined);
+    const _appliedFiltersTotal = ref(0);
     const _page = ref<Schemas['ProductListingResult']['page'] | undefined>(undefined);
     const _limit = ref<Schemas['ProductListingResult']['limit'] | undefined>(undefined);
     const _total = ref<Schemas['ProductListingResult']['total'] | undefined>(undefined);
@@ -171,7 +176,6 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
     };
 
     const setFilters = (filters: Schemas['ProductListingResult']['currentFilters']) => {
-        console.log('setFilters', filters);
         const criteria = _filtersToCriteria(filters);
         const query = _criteriaToUrl(criteria);
 
@@ -234,9 +238,66 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
         });
     };
 
+    const _priceFilter = computed(() => _filters.value.find(filter => filter.code === 'price'))
+    const _propertyFilter = computed(() => _filters.value.filter(filter => filter.code === 'properties'))
+
+    const priceFilterApplied = () => {
+        // check if price filter values are set
+        if (_appliedFilters.value?.price?.min && appliedFilters.value?.price?.max) {
+            // check if filtered values are different from min and max values
+            // const priceFilter = _filters.value.find(filter => filter.code === 'price' )
+            if (_appliedFilters.value?.price?.min !== _priceFilter.value.min
+                || _appliedFilters.value?.price?.max !== _priceFilter.value.max
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    const propertyFilterAppliedTotal = (id: Schemas['PropertyGroup']['id']) => {
+        if (_appliedFilters.value.properties.length <= 0) {
+            return false;
+        }
+        const filter = _propertyFilter.value.find(filter => filter.id == id);
+
+        const appliedOptions = filter.options.filter(option => {
+            return _appliedFilters.value.properties.includes(option.id);
+        })
+        return appliedOptions.length;
+    }
+
+    const propertyFilterApplied = (id: Schemas['PropertyGroup']['id']) => {
+        return propertyFilterAppliedTotal(id) > 0;
+    }
+
+    const appliedFiltersTotal = computed(() => {
+        _appliedFiltersTotal.value = 0;
+
+        // check for the number of property groups where at least one option is selected
+        if (_appliedFilters.value?.properties?.length > 0) {
+            _propertyFilter.value.forEach(filter => {
+                const appliedOptions = filter.options.filter(option => {
+                    return _appliedFilters.value.properties.includes(option.id);
+                })
+                if (appliedOptions.length > 0) {
+                    _appliedFiltersTotal.value += 1;
+                }
+            })
+        }
+
+        if (priceFilterApplied()) {
+            _appliedFiltersTotal.value += 1;
+        }
+
+        return _appliedFiltersTotal.value
+    })
+
     return {
         criteria,
         appliedFilters,
+        appliedFiltersTotal,
         filters,
         areFiltersModified,
         sortingOptions,
@@ -252,5 +313,8 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
         resetFilters,
         setPage,
         setLimit,
+        priceFilterApplied,
+        propertyFilterAppliedTotal,
+        propertyFilterApplied,
     };
 }

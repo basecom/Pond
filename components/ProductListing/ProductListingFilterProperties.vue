@@ -19,12 +19,14 @@ defineEmits<{
     ];
 }>();
 
-// TODO anzahl der selecteted filter options dieses Filters anzeigen lassen, idealerweise durch helper function ausm store
-// TODO resetten der property filter
-// TODO anzeige der aktuellen filter als badges incl löschen
-// TODO Badge am preis filter wenn selected
+const { propertyFilterApplied, propertyFilterAppliedTotal } = useProductListingCriteriaStore('category');
 
-const selection = ref([]);
+// TODO X anzahl der selecteted filter options dieses Filters anzeigen lassen, idealerweise durch helper function ausm store
+// TODO X resetten der property filter
+// TODO anzeige der aktuellen filter als badges incl löschen
+// TODO löschen der Filter über badges
+// TODO X Badge am preis filter wenn selected
+// TODO arrow am Desktop trigger der rotated beim öffnen
 </script>
 
 <template>
@@ -54,9 +56,10 @@ const selection = ref([]);
         >
             <div class="flex items-center gap-2 rounded border border-gray px-4 py-2">
                 {{ getTranslatedProperty(filter, 'name') }}
+
                 <UtilityPill
-                    v-if="selection.length > 0"
-                    :number="selection.length"
+                    v-if="filter.code === 'properties' && propertyFilterApplied(filter.id)"
+                    :number="propertyFilterAppliedTotal(filter.id)"
                 />
                 <FormKitIcon
                     class="block h-3 w-3 text-gray transition-all duration-150"

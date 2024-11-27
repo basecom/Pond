@@ -21,7 +21,6 @@ const onSortChange = async (sorting: Schemas['ProductListingResult']['sorting'])
 };
 
 const onFilterChange = async (filters: Schemas['ProductListingResult']['currentFilters']) => {
-    console.log('cms', filters);
     productListingCriteriaStore.setFilters(filters);
     await search(criteria.value);
     productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
