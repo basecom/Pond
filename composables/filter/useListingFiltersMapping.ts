@@ -5,7 +5,11 @@ export function useListingFiltersMapping() {
     const filterCodes = ['price', 'properties'];
     const componentsMapping: Record<string, string> = {
         price: 'ProductListingFilterPrice',
-        properties: 'ProductListingFilterProperties'
+        properties: 'ProductListingFilterProperties',
+    };
+    const componentsMappingOffcanvas: Record<string, string> = {
+        price: 'ProductListingFilterOptionsPrice',
+        properties: 'ProductListingFilterOptionsProperties',
     };
 
     const filterMapping: Record<string, () => ListingFilterMapping> = {
@@ -16,6 +20,7 @@ export function useListingFiltersMapping() {
     return {
         filterCodes,
         componentsMapping,
+        componentsMappingOffcanvas,
         filterMapping,
     };
 }

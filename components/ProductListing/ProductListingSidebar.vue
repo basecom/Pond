@@ -40,7 +40,7 @@ const emit = defineEmits<{
                 :filters="props.filters"
                 :selected-filters="props.selectedFilters"
                 :show-reset-button="props.showResetButton"
-                @filter-changed="$emit('filter-changed', $event)"
+                @filter-changed="$event => $emit('filter-changed', $event)"
                 @reset-filters="$emit('reset-filters')"
             />
         </div>

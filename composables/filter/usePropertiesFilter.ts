@@ -6,12 +6,12 @@ export function usePropertiesFilter(): ListingFilterMapping {
     const encodeUrl = (value: Schemas['ProductListingCriteria']): LocationQueryRaw => {
         if (!value['properties']) {
             return {
-                'properties': undefined,
+                properties: undefined,
             };
         }
 
         return {
-            'properties': value['properties'],
+            properties: value['properties'],
         };
     };
 
@@ -20,14 +20,14 @@ export function usePropertiesFilter(): ListingFilterMapping {
 
         if (properties === undefined) {
             return {
-                'properties': undefined,
+                properties: undefined,
             };
         }
 
         const propertiesValue = String(properties);
 
         return {
-            'properties': propertiesValue,
+            properties: propertiesValue,
         };
     };
 
@@ -35,7 +35,7 @@ export function usePropertiesFilter(): ListingFilterMapping {
         value: Schemas['ProductListingResult']['currentFilters'],
     ): Partial<Schemas['ProductListingCriteria']> => {
         return {
-            'properties': value.properties.length > 0 ? value.properties.join('|') : null,
+            properties: value.properties.length > 0 ? value.properties.join('|') : null,
         };
     };
 

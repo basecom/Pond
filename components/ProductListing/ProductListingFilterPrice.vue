@@ -2,8 +2,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilter } from '../../types/listing/filter';
 import type { ValueOf } from '../../types/valueof';
-
-const props = defineProps<{
+defineProps<{
     filter: ListingFilter<{
         max: string;
         min: string;
@@ -19,60 +18,21 @@ defineEmits<{
         },
     ];
 }>();
-
-const { currency } = useSessionContext();
-const filterMax = computed(() => Math.ceil(parseFloat(props.filter.max)) || 0);
-const filterMin = computed(() => Math.floor(parseFloat(props.filter.min)) || 0);
-const currentValue = ref([
-    props.selectedValues.price.min || filterMin.value || 0,
-    props.selectedValues.price.max || filterMax.value || 0,
-]);
-
-watch(props, () => {
-    currentValue.value = [
-        props.selectedValues.price.min || filterMin.value || 0,
-        props.selectedValues.price.max || filterMax.value || 0,
-    ];
-});
 </script>
 
 <template>
     <SharedPopover :with-close-button="false">
         <template #trigger>
-            <div class="px-4 py-2 border border-gray rounded">
+            <div class="rounded border border-gray px-4 py-2">
                 {{ $t('listing.sidebar.filter.price.title') }}
             </div>
         </template>
         <template #content>
-            <div class="flex justify-between pb-4 text-sm">
-                <div>{{ currentValue[0] }} {{ currency?.symbol }}</div>
-                <div>{{ currentValue[1] }} {{ currency?.symbol }}</div>
-            </div>
-
-            <SliderRoot
-                v-model:model-value="currentValue"
-                class="relative flex h-5 w-full touch-none select-none items-center pb-6"
-                :max="filterMax"
-                :min="filterMin"
-                :step="1"
-                :min-steps-between-thumbs="1"
-                @value-commit="
-                    $emit('filter-changed', {
-                        code: 'price',
-                        value: {
-                            min: $event[0],
-                            max: $event[1],
-                        },
-                    })
-                "
-            >
-                <SliderTrack class="relative h-[3px] grow rounded-full bg-gray">
-                    <SliderRange class="absolute h-full rounded-full bg-brand-primary" />
-                </SliderTrack>
-
-                <SliderThumb class="block h-5 w-5 rounded-full bg-brand-primary" />
-                <SliderThumb class="block h-5 w-5 rounded-full bg-brand-primary" />
-            </SliderRoot>
+            <ProductListingFilterOptionsPrice
+                :filter="filter"
+                :selected-values="selectedValues"
+                @filter-changed="$emit('filter-changed', $event)"
+            />
         </template>
     </SharedPopover>
 </template>

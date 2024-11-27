@@ -2,6 +2,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilter } from '../../types/listing/filter';
 import type { ValueOf } from '../../types/valueof';
+import ProductListingFiltersOffcanvas from '~/components/ProductListing/Offcanvas/ProductListingFiltersOffcanvas.vue';
 
 const props = defineProps<{
     filters: ListingFilter[];
@@ -27,6 +28,7 @@ const onFilterChanged = ({
         ...props.selectedFilters,
         [code]: value,
     };
+    console.log('filters', code, value, newFilters);
 
     emit('filter-changed', newFilters);
 };
@@ -35,9 +37,9 @@ const onFilterChanged = ({
 <template>
     <div
         v-if="filters.length"
-        class="flex flex-col gap-4"
+        class=""
     >
-        <div class="flex gap-2">
+        <div class="relative z-10 flex gap-2">
             <template
                 v-for="filter in props.filters"
                 :key="filter.code"
@@ -64,4 +66,10 @@ const onFilterChanged = ({
             </FormKit>
         </div>
     </div>
+
+    <ProductListingFiltersOffcanvas
+        :filters="filters"
+        :selected-filters="selectedFilters"
+        @filter-changed="onFilterChanged"
+    />
 </template>
