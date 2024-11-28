@@ -82,8 +82,6 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
                             :product="product"
                             class="text-lg font-medium"
                         />
-                        <!--                        <p >-->
-                        <!--                        </p>-->
                     </div>
                 </div>
             </div>
