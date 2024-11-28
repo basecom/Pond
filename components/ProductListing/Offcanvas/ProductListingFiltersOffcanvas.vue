@@ -25,12 +25,14 @@ const displayedFilter = ref(null);
 <template>
     <FormKit
         type="button"
+        :classes="{
+            input: 'items-center'
+        }"
         @click="sideMenuController.open()"
     >
         <span>
             {{ $t('listing.sidebar.title') }}
         </span>
-        {{appliedFiltersTotal}}
         <UtilityPill :number="appliedFiltersTotal" />
         <FormKitIcon
             icon="filter"

@@ -14,9 +14,16 @@ const props = defineProps<{
 const emit = defineEmits<{
     'filter-changed': [key: Schemas['ProductListingResult']['currentFilters']];
     'reset-filters': [];
+    'reset-filter': [key: string];
+    'remove-filter': [
+        event: {
+            code: 'properties';
+            value: ValueOf<Schemas['PropertyGroupOption']['id']|null>;
+        },
+    ];
 }>();
 
-const { componentsMapping } = useListingFiltersMapping();
+const { componentsMapping, componentsMappingBadge } = useListingFiltersMapping();
 const breakpoints = useBreakpoints(breakpointsTailwind);
 
 const onFilterChanged = ({
@@ -35,42 +42,55 @@ const onFilterChanged = ({
 };
 
 const isDesktop = computed(() => breakpoints.greater('md'))
+console.log(props.selectedFilters);
 </script>
 
 <template>
-    <template v-if="isDesktop.value">
-        <div
-            v-if="filters.length"
-            class=""
-        >
-            <div class="relative z-10 flex gap-2">
-                <template
-                    v-for="filter in props.filters"
-                    :key="filter.code"
-                >
-                    <component
-                        :is="componentsMapping[filter.code]"
-                        :filter="filter"
-                        :selected-values="props.selectedFilters"
-                        @filter-changed="onFilterChanged"
-                    />
-                </template>
-            </div>
-            <div
-                v-if="props.showResetButton"
-                class="mx-auto"
+    <div
+        v-if="isDesktop.value && filters.length"
+        class="flex flex-col gap-4"
+    >
+        <div class="relative z-10 flex gap-2">
+            <template
+                v-for="filter in props.filters"
+                :key="filter.code"
             >
-                <FormKit
-                    type="button"
-                    suffix-icon="xmark"
-                    :ignore="true"
-                    @click="emit('reset-filters')"
-                >
-                    {{ $t('listing.sidebar.filter.reset') }}
-                </FormKit>
-            </div>
+                <component
+                    :is="componentsMapping[filter.code]"
+                    :filter="filter"
+                    :selected-values="props.selectedFilters"
+                    @filter-changed="onFilterChanged"
+                />
+            </template>
         </div>
-    </template>
+        <div
+            v-if="props.showResetButton"
+            class="mx-auto w-full"
+        >
+            <FormKit
+                type="button"
+                suffix-icon="xmark"
+                :ignore="true"
+                @click="emit('reset-filters')"
+            >
+                {{ $t('listing.sidebar.filter.reset') }}
+            </FormKit>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+            <template
+                v-for="(filter, key) in selectedFilters"
+                :key="key"
+            >
+                <component
+                    :is="componentsMappingBadge[key]"
+                    :filter="filter"
+                    @reset-filter="$event => $emit('reset-filter', $event)"
+                    @remove-filter="$event => $emit('remove-filter', $event)"
+                />
+            </template>
+        </div>
+    </div>
 
     <ProductListingFiltersOffcanvas
         v-else

@@ -30,6 +30,9 @@ export type UseProductListingCriteriaResult = {
     priceFilterApplied: () => boolean;
     propertyFilterAppliedTotal: (id: Schemas['PropertyGroup']['id']) => number;
     propertyFilterApplied: (id: Schemas['PropertyGroup']['id']) => boolean;
+    resetPrice: () => void;
+    removeFilter: () => void;
+    propertyOptionForId: (id: Schemas['PropertyGroupOption']['id']) => Schemas['PropertyGroupOption']|null;
 };
 
 export function useProductListingCriteria(): UseProductListingCriteriaResult {
@@ -294,6 +297,57 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
         return _appliedFiltersTotal.value
     })
 
+    const resetPrice = () => {
+        _criteria.value = {
+            ..._criteria.value,
+            'min-price': null,
+            'max-price': null,
+        };
+        const query = _criteriaToUrl(_criteria.value);
+
+        router.push({
+            query: {
+                ...route.query,
+                ...query,
+            },
+        });
+
+        _updateFiltersChanged();
+    };
+
+    const removeFilter = (value) => {
+        const urlMapper = filterMapping[value.code];
+
+        if (!urlMapper) {
+            return;
+        }
+
+        const mapper = urlMapper();
+
+        mapper.removeFilter(appliedFilters, value.value);
+
+        const criteria = _filtersToCriteria(appliedFilters.value);
+        const query = _criteriaToUrl(criteria);
+
+        router.push({
+            query: {
+                ...route.query,
+                ...query,
+            },
+        });
+
+        _updateFiltersChanged();
+    }
+
+    const propertyOptionForId = (id: Schemas['PropertyGroupOption']['id']) => {
+        _propertyFilter.value
+        for (const filter of _propertyFilter.value) {
+            const option = filter.options.find(option => option.id === id);
+            if (option) return option;
+        }
+        return null;
+    }
+
     return {
         criteria,
         appliedFilters,
@@ -316,5 +370,8 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
         priceFilterApplied,
         propertyFilterAppliedTotal,
         propertyFilterApplied,
+        resetPrice,
+        removeFilter,
+        propertyOptionForId,
     };
 }

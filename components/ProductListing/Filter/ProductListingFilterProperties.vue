@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { ListingFilter } from '../../types/listing/filter';
-import type { ValueOf } from '../../types/valueof';
+import type { ListingFilter } from '../../../types/listing/filter';
+import type { ValueOf } from '../../../types/valueof';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
-import ProductListingFilterOptionsProperties from '~/components/ProductListing/FilterOptions/ProductListingFilterOptionsProperties.vue';
+import ProductListingFilterOptionsProperties from '~/components/ProductListing/Filter/Options/ProductListingFilterOptionsProperties.vue';
 
 defineProps<{
     filter: ListingFilter & Schemas['PropertyGroup'];

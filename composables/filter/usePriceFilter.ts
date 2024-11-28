@@ -53,10 +53,20 @@ export function usePriceFilter(): ListingFilterMapping {
         return a['min-price'] === b['min-price'] && a['max-price'] === b['max-price'];
     };
 
+    const removeFilter = (
+        currentFilters: ComputedRef<Schemas['ProductListingResult']['currentFilters']>,
+    ) => {
+        currentFilters.value['price']= {
+            max: null,
+            min: null,
+        }
+    }
+
     return {
         encodeUrl,
         decodeUrl,
         createCriteria,
         isSameCriteria,
+        removeFilter
     };
 }

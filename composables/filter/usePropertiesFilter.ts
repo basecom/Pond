@@ -46,10 +46,23 @@ export function usePropertiesFilter(): ListingFilterMapping {
         return a['properties'] === b['properties'];
     };
 
+    const removeFilter = (
+        currentFilters: ComputedRef<Schemas['ProductListingResult']['currentFilters']>,
+        toRemove: Schemas['PropertyGroupOption']['id']
+    ) => {
+        const index = currentFilters.value.properties.indexOf(toRemove);
+        if (index < 0) {
+            return;
+        }
+
+        currentFilters.value.properties.splice(index, 1);
+    }
+
     return {
         encodeUrl,
         decodeUrl,
         createCriteria,
         isSameCriteria,
+        removeFilter
     };
 }

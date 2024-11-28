@@ -32,6 +32,20 @@ const onResetFilters = async () => {
     productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
 };
 
+const onResetFilter = async (code: string) => {
+    if (code === 'price') {
+        productListingCriteriaStore.resetPrice();
+    }
+    await search(criteria.value);
+    productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
+}
+
+const onRemoveFilter = async (filter: Schemas['PropertyGroupOption']['id']) => {
+    productListingCriteriaStore.removeFilter(filter);
+    // await search(criteria.value);
+    // productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
+}
+
 watch(
     () => route.query,
     async () => {
@@ -54,5 +68,7 @@ watch(
         @sorting-changed="onSortChange"
         @filter-changed="onFilterChange"
         @reset-filters="onResetFilters"
+        @reset-filter="onResetFilter"
+        @remove-filter="onRemoveFilter"
     />
 </template>
