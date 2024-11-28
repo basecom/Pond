@@ -1,22 +1,5 @@
 <script setup lang="ts">
-const cookieBannerStore = useCookieBannerStore();
-const { activatedCookies, cookieGroups, isAcceptAllEnabled } = storeToRefs(cookieBannerStore);
 const modalController = useModal();
-
-const onUpdateCookie = (active: CookieEntry['cookie'][], inactive: CookieEntry['cookie'][]) => {
-    cookieBannerStore.updateCookies(active, inactive);
-    modalController.close();
-};
-
-const onAcceptAll = () => {
-    cookieBannerStore.acceptAll();
-    modalController.close();
-};
-
-const onDenyAll = () => {
-    cookieBannerStore.denyAll();
-    modalController.close();
-};
 </script>
 
 <template>
@@ -25,17 +8,17 @@ const onDenyAll = () => {
         :controller="modalController"
     >
         <template #trigger>
-            <slot name="trigger" />
+            <FormKitIcon
+                class="block h-9 w-9 cursor-pointer rounded-full bg-brand-primary p-2 text-white"
+                icon="cookie"
+            />
         </template>
         <template #title>{{ $t('cookie.modal.title') }}</template>
         <template #content>
             <CookieBannerConfiguration
-                :is-accept-all-enabled="isAcceptAllEnabled"
-                :cookie-groups="cookieGroups"
-                :active-cookies="activatedCookies"
-                @update-cookies="onUpdateCookie"
-                @deny-all="onDenyAll"
-                @accept-all="onAcceptAll"
+                @update-cookies="modalController.close()"
+                @deny-all="modalController.close()"
+                @accept-all="modalController.close()"
             />
         </template>
     </LazySharedModal>

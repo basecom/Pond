@@ -42,6 +42,7 @@ onMounted(async () => {
             v-if="shippingOptions.length > 0"
             v-model="selectedShippingMethod"
             type="radio"
+            name="shippingOptions"
             :options="shippingOptions"
         >
             <template #label="{ option }">

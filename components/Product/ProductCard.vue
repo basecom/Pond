@@ -58,7 +58,7 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
                     <template v-else>
                         <img
                             :src="cover.url"
-                            :alt="cover.alt"
+                            :alt="cover.alt ?? getTranslatedProperty(product, 'name')"
                             class="aspect-square h-full w-full object-center group-hover:opacity-75"
                             :class="displayMode === 'standard' ? 'object-scale-down' : 'object-' + displayMode"
                         />
@@ -78,9 +78,10 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
                             {{ getTranslatedProperty(product, 'description') }}
                         </p>
 
-                        <p class="text-lg font-medium">
-                            <ProductPrice :product="product" />
-                        </p>
+                        <ProductPrice
+                            :product="product"
+                            class="text-lg font-medium"
+                        />
                     </div>
                 </div>
             </div>
@@ -94,7 +95,6 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
             <ProductAddToCart
                 :product="product"
                 :label="false"
-                :icon="true"
             />
         </template>
     </div>

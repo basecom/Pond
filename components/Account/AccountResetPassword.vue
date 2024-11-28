@@ -31,6 +31,7 @@ const getEnvironmentStorefrontUrl = (): string => {
     <FormKit
         v-if="!formSent"
         type="form"
+        name="resetPasswordForm"
         :submit-label="$t('account.recoverPassword.request.submitLabel')"
         :classes="{
             form: 'w-full flex flex-wrap flex-col gap-4',

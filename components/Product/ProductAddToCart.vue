@@ -3,11 +3,17 @@ import { ApiClientError } from '@shopware/api-client';
 import type { ResolvedApiError } from '~/types/errors';
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const props = defineProps<{
-    product: Schemas['Product'];
-    icon?: boolean;
-    label?: boolean;
-}>();
+const props = withDefaults(
+    defineProps<{
+        product: Schemas['Product'];
+        icon?: boolean;
+        label?: boolean;
+    }>(),
+    {
+        icon: true,
+        label: true,
+    },
+);
 
 const { product } = useProduct(props.product);
 const { addToCart, quantity } = useAddToCart(product);
@@ -52,6 +58,7 @@ const handleAddToCart = async () => {
     <FormKit
         v-if="product.availableStock > 0"
         type="form"
+        :name="`add_to_cart_${product.id}`"
         :actions="false"
         :classes="{
             form: 'w-full flex gap-4',
@@ -83,8 +90,8 @@ const handleAddToCart = async () => {
             :classes="{
                 outer: 'w-full',
             }"
-            :label="props.label ? $t('product.addToCart.submitLabel') : ' '"
-            :prefix-icon="props.icon ? 'cart-shopping' : ''"
+            :label="label ? $t('product.addToCart.submitLabel') : ' '"
+            :prefix-icon="icon ? 'cart-shopping' : null"
         />
     </FormKit>
 

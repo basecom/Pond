@@ -81,6 +81,7 @@ const handleGuestChange = (event: MouseEvent) => {
 <template>
     <FormKit
         type="form"
+        name="registerForm"
         :submit-label="$t('account.register.submitLabel')"
         :classes="{
             form: 'grid grid-cols-2 gap-3 w-full',

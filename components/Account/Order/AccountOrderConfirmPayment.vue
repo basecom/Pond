@@ -42,6 +42,7 @@ onMounted(async () => {
             v-if="paymentOptions.length > 0"
             v-model="selectedPaymentMethod"
             type="radio"
+            name="paymentOption"
             :options="paymentOptions"
         >
             <template #label="{ option }">

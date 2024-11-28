@@ -14,7 +14,7 @@ const selfNotHovered = refDebounced(isOutsideFlyout, 200);
 <template>
     <Teleport to="#flyouts">
         <div
-            v-show="parentHovered || !selfNotHovered"
+            v-if="parentHovered || !selfNotHovered"
             ref="flyout"
             class="absolute left-0 top-full w-full bg-white py-4 shadow-md"
             :data-flyout-category="navigationElement.id"

@@ -63,6 +63,7 @@ const handleLogin = async (fields: FormkitLoginFields) => {
     <FormKit
         v-if="!signedIn"
         type="form"
+        name="loginForm"
         :submit-label="$t('account.login.submitLabel')"
         :classes="{
             form: 'w-full flex flex-wrap flex-col gap-4',

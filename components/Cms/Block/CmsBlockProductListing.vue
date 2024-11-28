@@ -10,5 +10,8 @@ const productListing: Schemas['CmsSlot'] = getSlotContent('content');
 </script>
 
 <template>
-    <CmsLoader :content="productListing" />
+    <CmsLoader
+        :content="productListing"
+        class="-mx-5"
+    />
 </template>
