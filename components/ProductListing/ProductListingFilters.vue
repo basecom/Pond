@@ -18,7 +18,7 @@ const emit = defineEmits<{
     'remove-filter': [
         event: {
             code: 'properties';
-            value: ValueOf<Schemas['PropertyGroupOption']['id']|null>;
+            value: ValueOf<Schemas['PropertyGroupOption']['id'] | null>;
         },
     ];
 }>();
@@ -45,11 +45,11 @@ const onFilterChanged = ({
     emit('filter-changed', newFilters);
 };
 
-const isDesktop = computed(() => breakpoints.greater('md'))
+const isDesktop = computed(() => breakpoints.greater('md'));
 
-const {height: containerHeight} = useElementBounding(filterPopoverContainer);
+const { height: containerHeight } = useElementBounding(filterPopoverContainer);
 
-const containerMultipleLined = computed(() => containerHeight.value > 42)
+const containerMultipleLined = computed(() => containerHeight.value > 42);
 </script>
 
 <template>
@@ -58,17 +58,15 @@ const containerMultipleLined = computed(() => containerHeight.value > 42)
         class="flex flex-col gap-4"
     >
         <div
-            class="transition-all duration-300 h-11 overflow-hidden"
+            class="h-11 overflow-hidden transition-all duration-300"
             :class="{
-                'h-full ': displayFullPopoverContainer
+                'h-full': displayFullPopoverContainer,
             }"
         >
-            <div
-                class="relative z-10 flex flex-row gap-2"
-            >
+            <div class="relative z-10 flex flex-row gap-2">
                 <div
                     ref="filterPopoverContainer"
-                    class="flex flex-row gap-4 flex-wrap"
+                    class="flex flex-row flex-wrap gap-4"
                 >
                     <template
                         v-for="filter in props.filters"
@@ -86,8 +84,8 @@ const containerMultipleLined = computed(() => containerHeight.value > 42)
                 <button
                     v-if="containerMultipleLined"
                     ref="expandPopoverContainerButton"
-                    class="flex items-center gap-2 rounded border border-gray px-4 py-2 h-fit whitespace-nowrap"
-                    @click="() => displayFullPopoverContainer = !displayFullPopoverContainer"
+                    class="flex h-fit items-center gap-2 whitespace-nowrap rounded border border-gray px-4 py-2"
+                    @click="() => (displayFullPopoverContainer = !displayFullPopoverContainer)"
                 >
                     <template v-if="displayFullPopoverContainer">
                         <span>
@@ -95,7 +93,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42)
                         </span>
                         <FormKitIcon
                             icon="minus"
-                            class="w-3 h-3"
+                            class="h-3 w-3"
                         />
                     </template>
                     <template v-else>
@@ -104,11 +102,10 @@ const containerMultipleLined = computed(() => containerHeight.value > 42)
                         </span>
                         <FormKitIcon
                             icon="plus"
-                            class="w-3 h-3"
+                            class="h-3 w-3"
                         />
                     </template>
                 </button>
-
             </div>
         </div>
         <div

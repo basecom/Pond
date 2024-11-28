@@ -38,13 +38,13 @@ const onResetFilter = async (code: string) => {
     }
     await search(criteria.value);
     productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
-}
+};
 
 const onRemoveFilter = async (filter: Schemas['PropertyGroupOption']['id']) => {
     productListingCriteriaStore.removeFilter(filter);
     // await search(criteria.value);
     // productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
-}
+};
 
 watch(
     () => route.query,

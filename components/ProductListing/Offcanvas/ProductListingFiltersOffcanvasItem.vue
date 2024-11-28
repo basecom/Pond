@@ -2,7 +2,8 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilter } from '../../../types/listing/filter';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
-const { priceFilterApplied, propertyFilterApplied, propertyFilterAppliedTotal } = useProductListingCriteriaStore('category');
+const { priceFilterApplied, propertyFilterApplied, propertyFilterAppliedTotal } =
+    useProductListingCriteriaStore('category');
 
 defineProps<{
     filter: ListingFilter;
@@ -12,7 +13,7 @@ defineProps<{
 </script>
 
 <template>
-    <button class="border-b border-brand-primary py-2.5 text-start flex justify-between items-center">
+    <button class="flex items-center justify-between border-b border-brand-primary py-2.5 text-start">
         <span>
             <template v-if="filter.code === 'properties'">
                 {{ getTranslatedProperty(filter, 'name') }}

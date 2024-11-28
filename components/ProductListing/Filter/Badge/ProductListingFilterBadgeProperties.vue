@@ -8,7 +8,6 @@ defineProps<{
     selectedValues: Schemas['ProductListingResult']['currentFilters'];
 }>();
 
-
 defineEmits<{
     'remove-filter': [
         event: {
@@ -17,7 +16,7 @@ defineEmits<{
         },
     ];
 }>();
-const {propertyOptionForId} = useProductListingCriteriaStore('category');
+const { propertyOptionForId } = useProductListingCriteriaStore('category');
 </script>
 
 <template>
@@ -30,7 +29,7 @@ const {propertyOptionForId} = useProductListingCriteriaStore('category');
             :content="getTranslatedProperty(propertyOptionForId(property), 'name')"
             size="sm"
             suffix-icon="x"
-            @click="$emit('remove-filter', {code: 'properties', value: property})"
+            @click="$emit('remove-filter', { code: 'properties', value: property })"
         />
     </template>
 </template>

@@ -16,7 +16,7 @@ defineEmits<{
 
 const { componentsMappingOffcanvas } = useListingFiltersMapping();
 const productListingCriteriaStore = useProductListingCriteriaStore('category');
-const {appliedFiltersTotal} = storeToRefs(productListingCriteriaStore);
+const { appliedFiltersTotal } = storeToRefs(productListingCriteriaStore);
 
 const sideMenuController = useModal();
 const displayedFilter = ref(null);
@@ -26,7 +26,7 @@ const displayedFilter = ref(null);
     <FormKit
         type="button"
         :classes="{
-            input: 'items-center'
+            input: 'items-center',
         }"
         @click="sideMenuController.open()"
     >
@@ -36,7 +36,7 @@ const displayedFilter = ref(null);
         <UtilityPill :number="appliedFiltersTotal" />
         <FormKitIcon
             icon="filter"
-            class="w-6 h-6"
+            class="h-6 w-6"
         />
     </FormKit>
 
@@ -51,12 +51,12 @@ const displayedFilter = ref(null);
             </span>
             <button
                 v-else
-                class="flex gap-2 items-center"
+                class="flex items-center gap-2"
                 @click="displayedFilter = null"
             >
                 <FormKitIcon
                     icon="chevron-left"
-                    class="block w-4 h-4"
+                    class="block h-4 w-4"
                 />
                 <template v-if="displayedFilter?.code === 'properties'">
                     {{ getTranslatedProperty(displayedFilter, 'name') }}

@@ -48,7 +48,7 @@ export function usePropertiesFilter(): ListingFilterMapping {
 
     const removeFilter = (
         currentFilters: ComputedRef<Schemas['ProductListingResult']['currentFilters']>,
-        toRemove: Schemas['PropertyGroupOption']['id']
+        toRemove: Schemas['PropertyGroupOption']['id'],
     ) => {
         const index = currentFilters.value.properties.indexOf(toRemove);
         if (index < 0) {
@@ -56,13 +56,13 @@ export function usePropertiesFilter(): ListingFilterMapping {
         }
 
         currentFilters.value.properties.splice(index, 1);
-    }
+    };
 
     return {
         encodeUrl,
         decodeUrl,
         createCriteria,
         isSameCriteria,
-        removeFilter
+        removeFilter,
     };
 }

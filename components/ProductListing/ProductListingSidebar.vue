@@ -20,7 +20,7 @@ const emit = defineEmits<{
     'remove-filter': [
         event: {
             code: 'properties';
-            value: ValueOf<Schemas['PropertyGroupOption']['id']|null>;
+            value: ValueOf<Schemas['PropertyGroupOption']['id'] | null>;
         },
     ];
 }>();
@@ -28,7 +28,7 @@ const emit = defineEmits<{
 
 <template>
     <div
-        class="m-0 mx-auto gap-4 grid"
+        class="m-0 mx-auto grid gap-4"
         :class="{ 'px-5': !fullWidth }"
     >
         <div class="flex items-baseline justify-between border-b border-gray-light py-6">

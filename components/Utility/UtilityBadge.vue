@@ -12,8 +12,8 @@ withDefaults(
         content?: number | string | null;
         style?: 'info' | 'warning' | 'danger' | 'success' | 'primary' | 'secondary';
         size?: 'sm' | 'md' | 'lg';
-        prefixIcon?: string|null
-        suffixIcon?: string|null
+        prefixIcon?: string | null;
+        suffixIcon?: string | null;
     }>(),
     {
         content: null,
@@ -44,8 +44,8 @@ withDefaults(
             :icon="prefixIcon"
             class="block"
             :class="{
-                'w-2.5 h-2.5': size === 'sm',
-                'w-4 h-4': size === 'md' || size === 'lg',
+                'h-2.5 w-2.5': size === 'sm',
+                'h-4 w-4': size === 'md' || size === 'lg',
             }"
         />
         <span>
@@ -56,8 +56,8 @@ withDefaults(
             :icon="suffixIcon"
             class="block"
             :class="{
-                'w-2.5 h-2.5': size === 'sm',
-                'w-4 h-4': size === 'md' || size === 'lg',
+                'h-2.5 w-2.5': size === 'sm',
+                'h-4 w-4': size === 'md' || size === 'lg',
             }"
         />
     </div>

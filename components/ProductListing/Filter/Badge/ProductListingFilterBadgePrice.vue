@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { ValueOf } from '~/types/valueof';
 
 const props = defineProps<{
     filter: Schemas['ProductListingResult']['currentFilters'];
@@ -16,7 +15,7 @@ defineEmits<{
         },
     ];
 }>();
-const {priceFilterApplied} = useProductListingCriteriaStore('category');
+const { priceFilterApplied } = useProductListingCriteriaStore('category');
 </script>
 
 <template>
@@ -25,6 +24,6 @@ const {priceFilterApplied} = useProductListingCriteriaStore('category');
         :content="`${filter.min} - ${filter.max}`"
         size="sm"
         suffix-icon="x"
-        @click="$emit('remove-filter', {code: 'price', value: null})"
+        @click="$emit('remove-filter', { code: 'price', value: null })"
     />
 </template>

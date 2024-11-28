@@ -32,7 +32,7 @@ export type UseProductListingCriteriaResult = {
     propertyFilterApplied: (id: Schemas['PropertyGroup']['id']) => boolean;
     resetPrice: () => void;
     removeFilter: () => void;
-    propertyOptionForId: (id: Schemas['PropertyGroupOption']['id']) => Schemas['PropertyGroupOption']|null;
+    propertyOptionForId: (id: Schemas['PropertyGroupOption']['id']) => Schemas['PropertyGroupOption'] | null;
 };
 
 export function useProductListingCriteria(): UseProductListingCriteriaResult {
@@ -241,23 +241,24 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
         });
     };
 
-    const _priceFilter = computed(() => _filters.value.find(filter => filter.code === 'price'))
-    const _propertyFilter = computed(() => _filters.value.filter(filter => filter.code === 'properties'))
+    const _priceFilter = computed(() => _filters.value.find(filter => filter.code === 'price'));
+    const _propertyFilter = computed(() => _filters.value.filter(filter => filter.code === 'properties'));
 
     const priceFilterApplied = () => {
         // check if price filter values are set
         if (_appliedFilters.value?.price?.min && appliedFilters.value?.price?.max) {
             // check if filtered values are different from min and max values
             // const priceFilter = _filters.value.find(filter => filter.code === 'price' )
-            if (_appliedFilters.value?.price?.min !== _priceFilter.value.min
-                || _appliedFilters.value?.price?.max !== _priceFilter.value.max
+            if (
+                _appliedFilters.value?.price?.min !== _priceFilter.value.min ||
+                _appliedFilters.value?.price?.max !== _priceFilter.value.max
             ) {
                 return true;
             }
         }
 
         return false;
-    }
+    };
 
     const propertyFilterAppliedTotal = (id: Schemas['PropertyGroup']['id']) => {
         if (_appliedFilters.value.properties.length <= 0) {
@@ -267,13 +268,13 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
 
         const appliedOptions = filter.options.filter(option => {
             return _appliedFilters.value.properties.includes(option.id);
-        })
+        });
         return appliedOptions.length;
-    }
+    };
 
     const propertyFilterApplied = (id: Schemas['PropertyGroup']['id']) => {
         return propertyFilterAppliedTotal(id) > 0;
-    }
+    };
 
     const appliedFiltersTotal = computed(() => {
         _appliedFiltersTotal.value = 0;
@@ -283,19 +284,19 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
             _propertyFilter.value.forEach(filter => {
                 const appliedOptions = filter.options.filter(option => {
                     return _appliedFilters.value.properties.includes(option.id);
-                })
+                });
                 if (appliedOptions.length > 0) {
                     _appliedFiltersTotal.value += 1;
                 }
-            })
+            });
         }
 
         if (priceFilterApplied()) {
             _appliedFiltersTotal.value += 1;
         }
 
-        return _appliedFiltersTotal.value
-    })
+        return _appliedFiltersTotal.value;
+    });
 
     const resetPrice = () => {
         _criteria.value = {
@@ -315,7 +316,7 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
         _updateFiltersChanged();
     };
 
-    const removeFilter = (value) => {
+    const removeFilter = value => {
         const urlMapper = filterMapping[value.code];
 
         if (!urlMapper) {
@@ -337,16 +338,16 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
         });
 
         _updateFiltersChanged();
-    }
+    };
 
     const propertyOptionForId = (id: Schemas['PropertyGroupOption']['id']) => {
-        _propertyFilter.value
+        _propertyFilter.value;
         for (const filter of _propertyFilter.value) {
             const option = filter.options.find(option => option.id === id);
             if (option) return option;
         }
         return null;
-    }
+    };
 
     return {
         criteria,
