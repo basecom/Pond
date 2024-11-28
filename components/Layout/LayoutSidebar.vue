@@ -16,7 +16,7 @@ const { isOpen, close } = controller.value;
 
 const sidebarContentElement = ref();
 onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
-const openSidebar = debouncedRef(isOpen, 100)
+const openSidebar = debouncedRef(isOpen, 100);
 </script>
 
 <template>
@@ -49,9 +49,9 @@ const openSidebar = debouncedRef(isOpen, 100)
         <!-- body overlay -->
         <div
             v-if="isOpen"
-            class="fixed inset-0 z-30 h-screen w-screen bg-black/50 transition-opacity duration-500 opacity-0"
+            class="fixed inset-0 z-30 h-screen w-screen bg-black/50 opacity-0 transition-opacity duration-500"
             :class="{
-                'opacity-100': openSidebar
+                'opacity-100': openSidebar,
             }"
         />
     </Teleport>

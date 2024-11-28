@@ -5,9 +5,9 @@ import type { Schemas } from '@shopware/api-client/api-types';
 
 const props = withDefaults(
     defineProps<{
-    product: Schemas['Product'];
-    icon?: boolean;
-    label?: boolean;
+        product: Schemas['Product'];
+        icon?: boolean;
+        label?: boolean;
     }>(),
     {
         icon: true,

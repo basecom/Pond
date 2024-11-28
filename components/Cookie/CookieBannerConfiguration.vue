@@ -54,12 +54,12 @@ const updateCookie = (active: CookieEntry['cookie'][], inactive: CookieEntry['co
 
 const acceptAll = () => {
     cookieBannerStore.acceptAll();
-    emit('accept-all')
+    emit('accept-all');
 };
 
 const denyAll = () => {
     cookieBannerStore.denyAll();
-    emit('deny-all')
+    emit('deny-all');
 };
 
 onMounted(() => {

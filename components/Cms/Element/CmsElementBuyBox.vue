@@ -23,9 +23,7 @@ const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
         <ProductAvailability :product="product" />
 
         <div class="flex w-full flex-row gap-4">
-            <ProductAddToCart
-                :product="product"
-            />
+            <ProductAddToCart :product="product" />
             <div
                 v-if="wishlistEnabled"
                 class="rounded-md border border-gray-medium bg-white"

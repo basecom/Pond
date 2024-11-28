@@ -19,27 +19,25 @@ const emit = defineEmits<{
 </script>
 
 <template>
-        <div
-            class="m-0 mx-auto"
-        >
-            <div class="flex items-baseline justify-between border-b border-gray-light py-6">
-                <div class="text-4xl">
-                    {{ $t('listing.sidebar.title') }}
-                </div>
-
-                <ProductListingSorting
-                    :options="props.sortingOptions"
-                    :selected-option="props.sorting"
-                    @sorting-changed="emit('sorting-changed', $event)"
-                />
+    <div class="m-0 mx-auto">
+        <div class="flex items-baseline justify-between border-b border-gray-light py-6">
+            <div class="text-4xl">
+                {{ $t('listing.sidebar.title') }}
             </div>
 
-            <ProductListingFilters
-                :filters="props.filters"
-                :selected-filters="props.selectedFilters"
-                :show-reset-button="props.showResetButton"
-                @filter-changed="$emit('filter-changed', $event)"
-                @reset-filters="$emit('reset-filters')"
+            <ProductListingSorting
+                :options="props.sortingOptions"
+                :selected-option="props.sorting"
+                @sorting-changed="emit('sorting-changed', $event)"
             />
         </div>
+
+        <ProductListingFilters
+            :filters="props.filters"
+            :selected-filters="props.selectedFilters"
+            :show-reset-button="props.showResetButton"
+            @filter-changed="$emit('filter-changed', $event)"
+            @reset-filters="$emit('reset-filters')"
+        />
+    </div>
 </template>

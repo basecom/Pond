@@ -22,7 +22,7 @@ const languageOptions = computed(() => entityArrayToOptions<Schemas['language']>
     <FormKit
         v-if="languages && languages.length > 1"
         id="languageSwitch"
-        value="languageIdChain"
+        :value="languageIdChain"
         type="select"
         name="language"
         prefix-icon="globe"
