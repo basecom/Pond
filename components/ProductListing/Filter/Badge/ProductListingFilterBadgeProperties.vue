@@ -15,6 +15,7 @@ defineEmits<{
         },
     ];
 }>();
+
 const { propertyOptionForId } = useProductListingCriteriaStore('category');
 </script>
 

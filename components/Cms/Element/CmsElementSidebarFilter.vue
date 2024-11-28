@@ -16,34 +16,18 @@ const { criteria, sortingOptions, currentSorting, appliedFilters, areFiltersModi
 
 const onSortChange = async (sorting: Schemas['ProductListingResult']['sorting']) => {
     productListingCriteriaStore.setSorting(sorting);
-    await search(criteria.value);
-    productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
 };
 
 const onFilterChange = async (filters: Schemas['ProductListingResult']['currentFilters']) => {
     productListingCriteriaStore.setFilters(filters);
-    await search(criteria.value);
-    productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
 };
 
 const onResetFilters = async () => {
     productListingCriteriaStore.resetFilters();
-    await search(criteria.value);
-    productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
-};
-
-const onResetFilter = async (code: string) => {
-    if (code === 'price') {
-        productListingCriteriaStore.resetPrice();
-    }
-    await search(criteria.value);
-    productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
 };
 
 const onRemoveFilter = async (filter: Schemas['PropertyGroupOption']['id']) => {
     productListingCriteriaStore.removeFilter(filter);
-    // await search(criteria.value);
-    // productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
 };
 
 watch(
@@ -68,7 +52,6 @@ watch(
         @sorting-changed="onSortChange"
         @filter-changed="onFilterChange"
         @reset-filters="onResetFilters"
-        @reset-filter="onResetFilter"
         @remove-filter="onRemoveFilter"
     />
 </template>

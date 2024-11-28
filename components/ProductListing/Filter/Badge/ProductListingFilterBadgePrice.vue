@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const props = defineProps<{
+defineProps<{
     filter: Schemas['ProductListingResult']['currentFilters'];
 }>();
-console.log(props.filter);
 
 defineEmits<{
     'reset-filter': [key: string];
@@ -15,6 +14,7 @@ defineEmits<{
         },
     ];
 }>();
+
 const { priceFilterApplied } = useProductListingCriteriaStore('category');
 </script>
 

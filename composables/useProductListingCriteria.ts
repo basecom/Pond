@@ -30,7 +30,6 @@ export type UseProductListingCriteriaResult = {
     priceFilterApplied: () => boolean;
     propertyFilterAppliedTotal: (id: Schemas['PropertyGroup']['id']) => number;
     propertyFilterApplied: (id: Schemas['PropertyGroup']['id']) => boolean;
-    resetPrice: () => void;
     removeFilter: () => void;
     propertyOptionForId: (id: Schemas['PropertyGroupOption']['id']) => Schemas['PropertyGroupOption'] | null;
 };
@@ -279,15 +278,7 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
     const appliedFiltersTotal = computed(() => {
         _appliedFiltersTotal.value = 0;
 
-        // check for the number of property groups where at least one option is selected
         if (_appliedFilters.value?.properties?.length > 0) {
-            // _propertyFilter.value.forEach(filter => {
-            //     const appliedOptions = filter.options.filter(option => {
-            //         return _appliedFilters.value.properties.includes(option.id);
-            //     });
-            //     if (appliedOptions.length > 0) {
-            //     }
-            // });
             _appliedFiltersTotal.value += _appliedFilters.value.properties.length;
         }
 
@@ -297,24 +288,6 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
 
         return _appliedFiltersTotal.value;
     });
-
-    const resetPrice = () => {
-        _criteria.value = {
-            ..._criteria.value,
-            'min-price': null,
-            'max-price': null,
-        };
-        const query = _criteriaToUrl(_criteria.value);
-
-        router.push({
-            query: {
-                ...route.query,
-                ...query,
-            },
-        });
-
-        _updateFiltersChanged();
-    };
 
     const removeFilter = value => {
         const urlMapper = filterMapping[value.code];
@@ -371,7 +344,6 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
         priceFilterApplied,
         propertyFilterAppliedTotal,
         propertyFilterApplied,
-        resetPrice,
         removeFilter,
         propertyOptionForId,
     };
