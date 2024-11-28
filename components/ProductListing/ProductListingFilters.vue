@@ -23,6 +23,10 @@ const emit = defineEmits<{
     ];
 }>();
 
+const filterPopoverContainer = ref(null);
+const expandPopoverContainerButton = ref(null);
+const displayFullPopoverContainer = ref(false);
+
 const { componentsMapping, componentsMappingBadge } = useListingFiltersMapping();
 const breakpoints = useBreakpoints(breakpointsTailwind);
 
@@ -42,7 +46,10 @@ const onFilterChanged = ({
 };
 
 const isDesktop = computed(() => breakpoints.greater('md'))
-console.log(props.selectedFilters);
+
+const {height: containerHeight} = useElementBounding(filterPopoverContainer);
+
+const containerMultipleLined = computed(() => containerHeight.value > 42)
 </script>
 
 <template>
@@ -50,18 +57,59 @@ console.log(props.selectedFilters);
         v-if="isDesktop.value && filters.length"
         class="flex flex-col gap-4"
     >
-        <div class="relative z-10 flex gap-2">
-            <template
-                v-for="filter in props.filters"
-                :key="filter.code"
+        <div
+            class="transition-all duration-300 h-11 overflow-hidden"
+            :class="{
+                'h-full ': displayFullPopoverContainer
+            }"
+        >
+            <div
+                class="relative z-10 flex flex-row gap-2"
             >
-                <component
-                    :is="componentsMapping[filter.code]"
-                    :filter="filter"
-                    :selected-values="props.selectedFilters"
-                    @filter-changed="onFilterChanged"
-                />
-            </template>
+                <div
+                    ref="filterPopoverContainer"
+                    class="flex flex-row gap-4 flex-wrap"
+                >
+                    <template
+                        v-for="filter in props.filters"
+                        :key="filter.code"
+                    >
+                        <component
+                            :is="componentsMapping[filter.code]"
+                            :filter="filter"
+                            :selected-values="props.selectedFilters"
+                            @filter-changed="onFilterChanged"
+                        />
+                    </template>
+                </div>
+
+                <button
+                    v-if="containerMultipleLined"
+                    ref="expandPopoverContainerButton"
+                    class="flex items-center gap-2 rounded border border-gray px-4 py-2 h-fit whitespace-nowrap"
+                    @click="() => displayFullPopoverContainer = !displayFullPopoverContainer"
+                >
+                    <template v-if="displayFullPopoverContainer">
+                        <span>
+                            {{ $t('listing.sidebar.filter.showLess') }}
+                        </span>
+                        <FormKitIcon
+                            icon="minus"
+                            class="w-3 h-3"
+                        />
+                    </template>
+                    <template v-else>
+                        <span>
+                            {{ $t('listing.sidebar.filter.showMore') }}
+                        </span>
+                        <FormKitIcon
+                            icon="plus"
+                            class="w-3 h-3"
+                        />
+                    </template>
+                </button>
+
+            </div>
         </div>
         <div
             v-if="props.showResetButton"

@@ -10,7 +10,7 @@
 withDefaults(
     defineProps<{
         content?: number | string | null;
-        style?: 'info' | 'warning' | 'danger' | 'success';
+        style?: 'info' | 'warning' | 'danger' | 'success' | 'primary' | 'secondary';
         size?: 'sm' | 'md' | 'lg';
         prefixIcon?: string|null
         suffixIcon?: string|null
