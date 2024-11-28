@@ -20,36 +20,12 @@ defineEmits<{
 }>();
 
 const { propertyFilterApplied, propertyFilterAppliedTotal } = useProductListingCriteriaStore('category');
-
-// TODO X anzahl der selecteted filter options dieses Filters anzeigen lassen, idealerweise durch helper function ausm store
-// TODO X resetten der property filter
-// TODO anzeige der aktuellen filter als badges incl löschen
-// TODO löschen der Filter über badges
-// TODO X Badge am preis filter wenn selected
-// TODO arrow am Desktop trigger der rotated beim öffnen
+const popoverOpen = ref(false);
 </script>
 
 <template>
-    <!--    <SharedPopover :with-close-button="false">-->
-    <!--        <template #trigger>-->
-    <!--            <div class="px-4 py-2 border border-gray rounded">-->
-    <!--                {{ getTranslatedProperty(filter, 'name') }}-->
-    <!--            </div>-->
-    <!--        </template>-->
-
-    <!--        <template #content>-->
-
-    <!--            <FormKit-->
-    <!--                type="checkbox"-->
-    <!--                :label="$t('account.register.terms.label')"-->
-    <!--                :help="$t('account.register.terms.help')"-->
-    <!--                name="terms"-->
-    <!--                decorator-icon="check"-->
-    <!--            />-->
-    <!--        </template>-->
-    <!--    </SharedPopover>-->
     <!-- copied shared popover, as formkit component could not be added to template#content. popover just disappeared without any error -->
-    <PopoverRoot>
+    <PopoverRoot @update:open="popoverOpen = !popoverOpen">
         <PopoverTrigger
             class="none inline-flex items-center justify-center"
             :aria-label="$t('shared.popover.triggerAriaLabel')"
@@ -64,6 +40,9 @@ const { propertyFilterApplied, propertyFilterAppliedTotal } = useProductListingC
                 <FormKitIcon
                     class="block h-3 w-3 text-gray transition-all duration-150"
                     icon="chevron-down"
+                    :class="{
+                        'rotate-180': popoverOpen,
+                    }"
                 />
             </div>
         </PopoverTrigger>

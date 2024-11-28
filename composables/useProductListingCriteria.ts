@@ -281,14 +281,14 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
 
         // check for the number of property groups where at least one option is selected
         if (_appliedFilters.value?.properties?.length > 0) {
-            _propertyFilter.value.forEach(filter => {
-                const appliedOptions = filter.options.filter(option => {
-                    return _appliedFilters.value.properties.includes(option.id);
-                });
-                if (appliedOptions.length > 0) {
-                    _appliedFiltersTotal.value += 1;
-                }
-            });
+            // _propertyFilter.value.forEach(filter => {
+            //     const appliedOptions = filter.options.filter(option => {
+            //         return _appliedFilters.value.properties.includes(option.id);
+            //     });
+            //     if (appliedOptions.length > 0) {
+            //     }
+            // });
+            _appliedFiltersTotal.value += _appliedFilters.value.properties.length;
         }
 
         if (priceFilterApplied()) {

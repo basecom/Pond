@@ -2,6 +2,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilter } from '~/types/listing/filter';
 import type { ValueOf } from '~/types/valueof';
+
 defineProps<{
     filter: ListingFilter<{
         max: string;
@@ -19,25 +20,41 @@ defineEmits<{
     ];
 }>();
 const { priceFilterApplied } = useProductListingCriteriaStore('category');
+const popoverOpen = ref(false);
 </script>
 
 <template>
-    <SharedPopover :with-close-button="false">
-        <template #trigger>
+    <!-- copied shared popover, as formkit component could not be added to template#content. popover just disappeared without any error -->
+    <PopoverRoot @update:open="popoverOpen = !popoverOpen">
+        <PopoverTrigger
+            class="none inline-flex items-center justify-center"
+            :aria-label="$t('shared.popover.triggerAriaLabel')"
+        >
             <div class="flex items-center gap-2 rounded border border-gray px-4 py-2">
                 {{ $t('listing.sidebar.filter.price.title') }}
                 <UtilityPill
                     v-if="filter.code === 'price' && priceFilterApplied()"
                     number="1"
                 />
+                <FormKitIcon
+                    class="block h-3 w-3 text-gray transition-all duration-150"
+                    :class="{
+                        'rotate-180': popoverOpen,
+                    }"
+                    icon="chevron-down"
+                />
             </div>
-        </template>
-        <template #content>
+        </PopoverTrigger>
+        <PopoverContent
+            side="bottom"
+            :side-offset="5"
+            class="w-64 rounded border border-gray-light bg-white p-4 shadow-md"
+        >
             <ProductListingFilterOptionsPrice
                 :filter="filter"
                 :selected-values="selectedValues"
                 @filter-changed="$emit('filter-changed', $event)"
             />
-        </template>
-    </SharedPopover>
+        </PopoverContent>
+    </PopoverRoot>
 </template>

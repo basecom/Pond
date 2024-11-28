@@ -5,7 +5,6 @@ import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 defineProps<{
     filter: string[];
-    selectedValues: Schemas['ProductListingResult']['currentFilters'];
 }>();
 
 defineEmits<{
