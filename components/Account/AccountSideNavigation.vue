@@ -45,7 +45,6 @@ const navItems = ref([
             v-if="props.isInHeader"
             class="mt-4 pb-4 pl-2 text-2xl font-bold"
         >
-            {{ $t('account.dropdownHeading') }}
             {{ customerStore.customer?.guest ? $t('account.dropdownHeadingGuest') : $t('account.dropdownHeading')  }}
         </div>
         <li
@@ -69,8 +68,8 @@ const navItems = ref([
                 prefix-icon="right-from-bracket"
                 @click.prevent="handleLogout"
                 :classes="{
-                        input: '!px-0 flex gap-2',
-                    }"
+                    input: '!px-0 flex gap-2',
+                }"
             >
                 {{ customerStore.customer?.guest ? $t('account.logout.guestButtonLabel') : $t('account.logout.buttonLabel')  }}
             </FormKit>
