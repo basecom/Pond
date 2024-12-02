@@ -2,6 +2,7 @@
     "account": {
         "greeting": "Hallo {firstname} {lastname}",
         "dropdownHeading": "Ihr Konto",
+        "dropdownHeadingGuest": "Gast",
         "overview": {
             "heading": "Übersicht",
             "subHeading": "Hier sehen Sie ihre Daten, gespeicherten Bezahlmethoden und Adressen.",
@@ -143,7 +144,8 @@
             "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
         },
         "logout": {
-            "buttonLabel": "Logout"
+            "buttonLabel": "Logout",
+            "guestButtonLabel": "Gast-Sitzung beenden"
         },
         "recoverPassword": {
             "request": {
