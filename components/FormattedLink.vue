@@ -15,7 +15,7 @@ const { formatLink } = useInternationalization(localePath);
 
 const props = withDefaults(
     defineProps<{
-        to: string,
+        to: string | RouteObject,
         format?: boolean
     }>(),
     {
