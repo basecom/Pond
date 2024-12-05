@@ -1,4 +1,22 @@
 <script setup lang="ts">
+// Synchronize the back-end language with the front-end language
+const { changeLanguage, getLanguageCodeFromId, getLanguageIdFromCode } = useInternationalization();
+const { locale } = useI18n();
+const { languageIdChain, refreshSessionContext } = useSessionContext();
+
+watchEffect(async () => {
+    if (languageIdChain.value) {
+        const frontendLocale = locale.value;
+        const backendLocale = getLanguageCodeFromId(languageIdChain.value);
+
+        if (frontendLocale !== backendLocale) {
+            await changeLanguage(getLanguageIdFromCode(frontendLocale));
+            await refreshSessionContext();
+            window.location.reload();
+        }
+    }
+});
+
 const customerStore = useCustomerStore();
 const { loading } = storeToRefs(customerStore);
 
