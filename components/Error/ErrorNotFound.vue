@@ -15,11 +15,11 @@
             {{ $t('error.404.detail') }}
         </p>
 
-        <NuxtLink
+        <FormattedLink
             class="bg-brand-primary p-4 text-white hover:bg-brand-primary-dark"
             :to="'/'"
         >
             {{ $t('global.homepageLinkLabel') }}
-        </NuxtLink>
+        </FormattedLink>
     </ErrorLayout>
 </template>

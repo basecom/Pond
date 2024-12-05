@@ -103,15 +103,15 @@ const handleLogin = async (fields: FormkitLoginFields) => {
         v-if="!signedIn"
         class="mt-2 flex justify-between"
     >
-        <NuxtLink
+        <FormattedLink
             v-if="showCreateLink"
             to="/account/register"
             class="hover:text-brand-primary"
         >
             {{ $t('account.login.createAccountLink') }}
-        </NuxtLink>
+        </FormattedLink>
 
-        <NuxtLink
+        <FormattedLink
             v-if="showRecoverLink"
             to="/account/recover"
             class="hover:text-brand-primary"
@@ -119,6 +119,6 @@ const handleLogin = async (fields: FormkitLoginFields) => {
             @click="$emit('closeModal')"
         >
             {{ $t('account.login.recoverPasswordLink') }}
-        </NuxtLink>
+        </FormattedLink>
     </div>
 </template>

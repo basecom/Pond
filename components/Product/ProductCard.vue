@@ -42,7 +42,7 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
         >
             <ProductAddToWishlist :product="props.product" />
         </div>
-        <NuxtLink
+        <FormattedLink
             :to="getProductRoute(product)"
             class="group"
             @click="$emit('select-product')"
@@ -84,7 +84,7 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
                     </div>
                 </div>
             </div>
-        </NuxtLink>
+        </FormattedLink>
 
         <template v-if="product.childCount > 0">
             <ProductGoToDetail :product="product" />

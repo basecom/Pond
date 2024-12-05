@@ -52,11 +52,11 @@ const getEnvironmentStorefrontUrl = (): string => {
         <p>
             {{ $t('account.recoverPassword.request.successMessage') }}
         </p>
-        <NuxtLink
+        <FormattedLink
             to="/account/login"
             class="mt-4 flex w-full justify-center rounded bg-brand-primary px-4 py-2 text-white hover:bg-brand-primary-dark"
         >
             {{ $t('account.recoverPassword.request.loginButtonLabel') }}
-        </NuxtLink>
+        </FormattedLink>
     </template>
 </template>

@@ -17,7 +17,7 @@ const shopName = 'pond';
 </script>
 
 <template>
-    <NuxtLink
+    <FormattedLink
         :aria-label="shopName"
         :title="shopName"
         :to="withLink ? '/' : ''"
@@ -36,5 +36,5 @@ const shopName = 'pond';
             :alt="shopName"
             :class="logoClasses"
         />
-    </NuxtLink>
+    </FormattedLink>
 </template>
