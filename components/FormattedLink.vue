@@ -15,15 +15,15 @@ const { formatLink } = useInternationalization(localePath);
 
 const props = withDefaults(
     defineProps<{
-        to: string | RouteObject,
-        format?: boolean
+        to: string | RouteObject;
+        format?: boolean;
     }>(),
     {
         format: true,
     },
 );
 
-const getLink = computed(() => props.format ? formatLink(props.to) : props.to);
+const getLink = computed(() => (props.format ? formatLink(props.to) : props.to));
 </script>
 
 <template>
