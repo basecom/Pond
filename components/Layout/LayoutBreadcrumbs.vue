@@ -23,7 +23,7 @@ withDefaults(
                 v-if="displayRoot"
                 class="inline-flex items-center gap-2"
             >
-                <NuxtLink
+                <FormattedLink
                     :to="'/'"
                     class="inline-flex items-center gap-2 text-sm font-medium last:text-brand-primary hover:text-brand-primary"
                 >
@@ -33,7 +33,7 @@ withDefaults(
                         class="h-4 w-4"
                     />
                     {{ $t('layout.breadcrumb.homeLinkLabel') }}
-                </NuxtLink>
+                </FormattedLink>
 
                 <FormKitIcon
                     v-if="breadcrumbs?.length > 0"
@@ -47,13 +47,13 @@ withDefaults(
                 :key="breadcrumb.path"
                 class="inline-flex items-center gap-2"
             >
-                <NuxtLink
+                <FormattedLink
                     v-if="breadcrumb.path"
                     :to="breadcrumb.path"
                     class="inline-flex items-center text-sm font-medium last:text-brand-primary hover:text-brand-primary"
                 >
                     {{ breadcrumb.name }}
-                </NuxtLink>
+                </FormattedLink>
 
                 <span
                     v-else

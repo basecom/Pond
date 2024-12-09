@@ -72,13 +72,13 @@ onMounted(async () => {
                 </div>
             </div>
 
-            <NuxtLink
+            <FormattedLink
                 v-if="customerStore.customer && !customerStore.customer.guest"
                 class="mx-auto flex max-w-80 justify-center text-brand-primary"
                 :to="'/account/orders'"
             >
                 {{ $t('checkout.finish.orderHistoryLinkLabel') }}
-            </NuxtLink>
+            </FormattedLink>
 
             <div class="grid gap-6 pt-6 lg:grid-cols-2">
                 <div class="divide-y divide-gray-medium rounded-md p-4 shadow">

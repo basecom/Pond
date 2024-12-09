@@ -15,7 +15,7 @@ const onLanguageChange = async (option: Event) => {
     }
 };
 
-const languageOptions = computed(() => entityArrayToOptions<Schemas['language']>(languages.value, 'name', true) ?? []);
+const languageOptions = computed(() => entityArrayToOptions<Schemas['Language']>(languages.value, 'name', true) ?? []);
 </script>
 
 <template>

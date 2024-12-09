@@ -35,12 +35,12 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
 
                 <CheckoutPromotion />
 
-                <NuxtLink
+                <FormattedLink
                     class="flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
                     :to="'/checkout/confirm'"
                 >
                     {{ $t('checkout.cart.checkoutButtonLabel') }}
-                </NuxtLink>
+                </FormattedLink>
             </div>
         </div>
 

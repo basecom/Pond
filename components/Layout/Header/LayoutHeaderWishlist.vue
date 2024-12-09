@@ -3,7 +3,7 @@ const { count: wishlistCount } = useWishlist();
 </script>
 
 <template>
-    <NuxtLink
+    <FormattedLink
         to="/wishlist"
         class="relative"
     >
@@ -15,5 +15,5 @@ const { count: wishlistCount } = useWishlist();
             :number="wishlistCount"
             class="absolute bottom-2.5 left-3"
         />
-    </NuxtLink>
+    </FormattedLink>
 </template>
