@@ -3,7 +3,7 @@ const props = withDefaults(
     defineProps<{
         controller: ReturnType<typeof useModal>;
         isClosable?: boolean;
-        side?: 'left' | 'right';
+        side?: 'left' | 'right' | 'bottom';
     }>(),
     {
         side: 'left',
@@ -22,16 +22,20 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
     <Teleport to="body">
         <div
             ref="sidebarContentElement"
-            class="fixed top-0 z-40 h-screen w-10/12 overflow-y-auto bg-white transition-transform duration-500 sm:w-96"
+            class="fixed z-40 overflow-y-auto bg-white transition-transform duration-500"
             tabindex="-1"
             aria-labelledby="sidebar"
             :class="{
-                '!translate-x-0': isOpen,
+                '!translate-x-0': isOpen && (side === 'left' || side === 'right'),
+                'top-0 h-dvh w-10/12 sm:w-96': side === 'left' || side === 'right',
+                '!translate-y-0': isOpen && side === 'bottom',
+                'bottom-0 h-[90dvh] w-full': side === 'bottom',
                 'left-0 -translate-x-full': side === 'left',
                 'right-0 translate-x-full': side === 'right',
+                'bottom-0 translate-y-full': side === 'bottom',
             }"
         >
-            <div class="flex justify-between bg-gray-light p-3.5">
+            <div class="flex items-center justify-between bg-gray-light p-3.5">
                 <slot name="header"></slot>
                 <FormKitIcon
                     icon="xmark"
@@ -39,9 +43,10 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
                     @click="controller.close()"
                 />
             </div>
-            <div class="p-4">
+            <div class="overflow-y-scroll p-4">
                 <slot name="content"></slot>
             </div>
+            <slot name="footer" />
         </div>
 
         <!-- body overlay -->

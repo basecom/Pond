@@ -1,4 +1,11 @@
 <script setup lang="ts">
+/**
+ * example usage:
+ * <SharedPopover default-value="item-1">
+ *     <template #trigger>account</template>
+ *     <template #content><ul> ... </ul></template>
+ * </SharedAccordionRoot>
+ */
 withDefaults(
     defineProps<{
         withCloseButton?: boolean;
@@ -12,7 +19,7 @@ withDefaults(
 <template>
     <PopoverRoot>
         <PopoverTrigger
-            class="none inline-flex h-6 w-6 items-center justify-center"
+            class="none inline-flex items-center justify-center"
             :aria-label="$t('shared.popover.triggerAriaLabel')"
         >
             <slot name="trigger"></slot>
