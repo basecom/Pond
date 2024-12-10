@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import type { ListingFilter } from '~/types/listing/filter';
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { ValueOf } from '~/types/valueof';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 const props = defineProps<{
@@ -17,8 +15,6 @@ const emits = defineEmits<{
         },
     ];
 }>();
-
-// TODO selected values filter und nur die drin lassen, die auch in filter.options drin sind
 
 const { entityArrayToOptions } = useFormkitHelper();
 const selection = ref([]);

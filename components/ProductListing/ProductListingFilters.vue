@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { ListingFilter } from '~/types/listing/filter';
-import type { ValueOf } from '~/types/valueof';
 import { breakpointsTailwind } from '@vueuse/core';
 
 const props = defineProps<{

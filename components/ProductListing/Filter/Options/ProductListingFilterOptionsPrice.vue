@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import type { ListingFilter } from '~/types/listing/filter';
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { ValueOf } from '~/types/valueof';
 
 const props = defineProps<{
     filter: ListingFilter<{

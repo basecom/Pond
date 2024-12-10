@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { ListingFilter } from '../../../types/listing/filter';
-import ProductListingFiltersOffcanvasItem from '~/components/ProductListing/Offcanvas/ProductListingFiltersOffcanvasItem.vue';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 const props = defineProps<{
