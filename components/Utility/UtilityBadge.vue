@@ -5,22 +5,22 @@
  * <UtilityBadge content="example" style="warning" size="lg" />
  *
  * this will result in a medium badge in info color with an icon in front of the content
- * <UtilityBadge content="example">
- *     <template #prefix>
- *          <FormKitIcon icon="heart" class="w-2 h-2 block" />
- *     </template>
- * </UtilityBadge>
+ * <UtilityBadge content="example" prefix-icon="heart" />
  **/
 withDefaults(
     defineProps<{
         content?: number | string | null;
-        style?: 'info' | 'warning' | 'danger' | 'success';
+        style?: 'info' | 'warning' | 'danger' | 'success' | 'primary' | 'secondary';
         size?: 'sm' | 'md' | 'lg';
+        prefixIcon?: string | null;
+        suffixIcon?: string | null;
     }>(),
     {
         content: null,
         style: 'info',
         size: 'md',
+        prefixIcon: null,
+        suffixIcon: null,
     },
 );
 </script>
@@ -39,10 +39,26 @@ withDefaults(
             'text-md px-6 py-2': size === 'lg',
         }"
     >
-        <slot name="prefix" />
+        <FormKitIcon
+            v-if="prefixxIcon"
+            :icon="prefixIcon"
+            class="block"
+            :class="{
+                'h-2.5 w-2.5': size === 'sm',
+                'h-4 w-4': size === 'md' || size === 'lg',
+            }"
+        />
         <span>
             {{ content }}
         </span>
-        <slot name="suffix" />
+        <FormKitIcon
+            v-if="suffixIcon"
+            :icon="suffixIcon"
+            class="block"
+            :class="{
+                'h-2.5 w-2.5': size === 'sm',
+                'h-4 w-4': size === 'md' || size === 'lg',
+            }"
+        />
     </div>
 </template>

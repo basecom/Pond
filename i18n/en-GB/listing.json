@@ -10,7 +10,9 @@
         "price": {
           "title": "Price"
         },
-        "reset": "Reset filters"
+        "reset": "Reset filters",
+        "showMore": "More filter",
+        "showLess": "Less filter"
       }
     }
   }
