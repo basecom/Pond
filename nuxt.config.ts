@@ -73,7 +73,7 @@ export default defineNuxtConfig({
     },
 
     components: {
-        dirs: [join(currentDir, 'components'), join(currentDir, 'components/*')],
+        dirs: [join(currentDir, 'components'), join(currentDir, 'components/*'), join(currentDir, 'types/*')],
         global: true,
     },
 
