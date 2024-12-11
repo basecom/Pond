@@ -83,8 +83,6 @@ export default defineNuxtConfig({
         },
     },
 
-    css: ['~/node_modules/@glidejs/glide/dist/css/glide.core.min.css'],
-
     i18n: {
         vueI18n: './i18n.config.ts',
         strategy: 'prefix_except_default',
