@@ -1,4 +1,4 @@
-<script lang="ts">
+<script setup lang="ts">
 /**
  * # Locale Link
  *
@@ -14,10 +14,7 @@
  * // Link localization can be disabled (e.g. for external links). In this case, the link is not changed in any way.
  * <LocaleLink to="https://www.google.com/" :format="false"></LocaleLink>
  */
-export default {};
-</script>
 
-<script setup lang="ts">
 const localePath = useLocalePath();
 const { formatLink } = useInternationalization(localePath);
 
