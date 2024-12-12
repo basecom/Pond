@@ -1,5 +1,6 @@
 <script setup lang="ts">
-// Synchronize the back-end language with the front-end language
+// Synchronize the back-end language with the front-end language. This resolves mismatches that can occur, for example,
+// when the language is manually changed in the URL.
 const { changeLanguage, getLanguageCodeFromId, getLanguageIdFromCode } = useInternationalization();
 const { locale } = useI18n();
 const { languageIdChain, refreshSessionContext } = useSessionContext();
