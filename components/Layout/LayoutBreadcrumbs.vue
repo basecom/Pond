@@ -23,7 +23,7 @@ withDefaults(
                 v-if="displayRoot"
                 class="inline-flex items-center gap-2"
             >
-                <FormattedLink
+                <LocaleLink
                     :to="'/'"
                     class="inline-flex items-center gap-2 text-sm font-medium last:text-brand-primary hover:text-brand-primary"
                 >
@@ -33,7 +33,7 @@ withDefaults(
                         class="h-4 w-4"
                     />
                     {{ $t('layout.breadcrumb.homeLinkLabel') }}
-                </FormattedLink>
+                </LocaleLink>
 
                 <FormKitIcon
                     v-if="breadcrumbs?.length > 0"
@@ -47,13 +47,13 @@ withDefaults(
                 :key="breadcrumb.path"
                 class="inline-flex items-center gap-2"
             >
-                <FormattedLink
+                <LocaleLink
                     v-if="breadcrumb.path"
                     :to="breadcrumb.path"
                     class="inline-flex items-center text-sm font-medium last:text-brand-primary hover:text-brand-primary"
                 >
                     {{ breadcrumb.name }}
-                </FormattedLink>
+                </LocaleLink>
 
                 <span
                     v-else

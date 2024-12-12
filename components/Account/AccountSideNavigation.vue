@@ -53,13 +53,13 @@ const navItems = ref([
             class="mt-4 pb-4 pl-2"
             :class="{ 'border-b border-gray': index !== navItems.length - 1 }"
         >
-            <FormattedLink
+            <LocaleLink
                 :to="item.path"
                 class="text-lg"
                 :class="{ 'font-bold': isActive(item.path, true) }"
             >
                 {{ item.label }}
-            </FormattedLink>
+            </LocaleLink>
         </li>
         <li>
             <FormKit

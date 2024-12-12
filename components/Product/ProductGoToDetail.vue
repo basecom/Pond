@@ -8,10 +8,10 @@ defineProps<{
 </script>
 
 <template>
-    <FormattedLink
+    <LocaleLink
         :to="getProductRoute(product)"
         class="flex w-full justify-center rounded-md bg-gray px-4 py-2 text-sm text-white hover:bg-gray-dark"
     >
         {{ $t('product.goToDetail.label') }}
-    </FormattedLink>
+    </LocaleLink>
 </template>

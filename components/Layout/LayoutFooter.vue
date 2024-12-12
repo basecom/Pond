@@ -24,26 +24,26 @@ onMounted(async () => {
                     >
                         <ul class="list-none">
                             <li class="mb-1 max-w-max font-bold hover:text-brand-primary hover:underline">
-                                <FormattedLink
+                                <LocaleLink
                                     :target="
                                         navigationElement.externalLink || navigationElement.linkNewTab ? '_blank' : ''
                                     "
                                     :to="getCategoryRoute(navigationElement)"
                                 >
                                     {{ getTranslatedProperty(navigationElement, 'name') }}
-                                </FormattedLink>
+                                </LocaleLink>
                             </li>
                             <li
                                 v-for="navigationChild in navigationElement.children"
                                 :key="navigationChild.id"
                             >
-                                <FormattedLink
+                                <LocaleLink
                                     :target="navigationChild.externalLink || navigationChild.linkNewTab ? '_blank' : ''"
                                     :to="getCategoryRoute(navigationChild)"
                                     class="text-sm font-normal transition duration-200 hover:text-brand-primary hover:underline"
                                 >
                                     {{ getTranslatedProperty(navigationChild, 'name') }}
-                                </FormattedLink>
+                                </LocaleLink>
                             </li>
                         </ul>
                     </template>
@@ -58,13 +58,13 @@ onMounted(async () => {
                         v-for="navigationElement in serviceNavigationElements"
                         :key="navigationElement.id"
                     >
-                        <FormattedLink
+                        <LocaleLink
                             :target="navigationElement.externalLink || navigationElement.linkNewTab ? '_blank' : ''"
                             :to="getCategoryRoute(navigationElement)"
                             class="text-sm font-normal transition duration-200 hover:text-brand-primary hover:underline"
                         >
                             {{ getTranslatedProperty(navigationElement, 'name') }}
-                        </FormattedLink>
+                        </LocaleLink>
                     </template>
                 </div>
             </div>

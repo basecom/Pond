@@ -79,13 +79,13 @@ onMounted(async () => {
                         {{ status }}
                     </div>
 
-                    <FormattedLink
+                    <LocaleLink
                         v-if="isPaymentNeeded"
                         class="rounded-md bg-brand-primary px-2 py-2 text-white"
                         :to="`/account/order/edit/${orderId}`"
                     >
                         {{ $t('account.orders.changePaymentMethod') }}
-                    </FormattedLink>
+                    </LocaleLink>
                 </div>
 
                 <div class="gap-12 text-left lg:flex">

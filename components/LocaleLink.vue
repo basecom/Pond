@@ -1,10 +1,10 @@
 <script lang="ts">
 /**
- * # Formatted Link
+ * # Locale Link
  *
  * Wraps the `<NuxtLink>` component, optionally (by default) formatting links with the current locale.
  *
- * `<FormattedLink>` is a drop-in replacement for Nuxt's `<NuxtLink>`, Vue Router's `<RouterLink>`, and HTML's `<a>` tag.
+ * `<LocaleLink>` is a drop-in replacement for Nuxt's `<NuxtLink>`, Vue Router's `<RouterLink>`, and HTML's `<a>` tag.
  */
 export default {};
 </script>

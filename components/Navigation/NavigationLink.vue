@@ -30,7 +30,7 @@ const { trackNavigation } = useAnalytics();
 </script>
 
 <template>
-    <FormattedLink
+    <LocaleLink
         v-if="asLink"
         :target="isExternalLink || linkNewTab ? '_blank' : ''"
         :rel="isExternalLink || linkNewTab ? 'noopener noreferrer nofollow' : ''"
@@ -42,7 +42,7 @@ const { trackNavigation } = useAnalytics();
         @click="trackNavigation(navigationElement.level - 1 ?? 0, getTranslatedProperty(navigationElement, 'name'))"
     >
         {{ getTranslatedProperty(navigationElement, 'name') }}
-    </FormattedLink>
+    </LocaleLink>
     <div
         v-else
         :class="[classes, isActive(navigationElement.seoUrls) ? activeClasses : '']"

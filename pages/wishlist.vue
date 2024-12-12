@@ -173,11 +173,11 @@ onMounted(() => {
 
             <p class="my-4">{{ $t('wishlist.emptyListSubtitle') }}</p>
 
-            <FormattedLink to="/">
+            <LocaleLink to="/">
                 <FormKit type="submit">
                     {{ $t('wishlist.continueShopping') }}
                 </FormKit>
-            </FormattedLink>
+            </LocaleLink>
         </div>
     </div>
 </template>

@@ -42,7 +42,7 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
         >
             <ProductAddToWishlist :product="props.product" />
         </div>
-        <FormattedLink
+        <LocaleLink
             :to="getProductRoute(product)"
             class="group"
             @click="$emit('select-product')"
@@ -84,7 +84,7 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
                     </div>
                 </div>
             </div>
-        </FormattedLink>
+        </LocaleLink>
 
         <template v-if="product.childCount > 0">
             <ProductGoToDetail :product="product" />
