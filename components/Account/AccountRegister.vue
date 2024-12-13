@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { FormkitFields } from '~/types/formkit';
 import { ApiClientError } from '@shopware/api-client';
 
 const props = withDefaults(
