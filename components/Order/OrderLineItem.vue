@@ -16,7 +16,7 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 
 <template>
     <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
-        <NuxtLink
+        <LocaleLink
             v-if="!isPromotion"
             :to="getProductRoute(lineItem)"
         >
@@ -31,7 +31,7 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
                     class="h-full w-full object-cover object-center"
                 />
             </template>
-        </NuxtLink>
+        </LocaleLink>
 
         <div
             v-else-if="isPromotion"
@@ -47,11 +47,11 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
     <div class="flex flex-1 flex-col">
         <div>
             <div class="flex flex-col justify-between gap-4 lg:flex-row">
-                <NuxtLink :to="getProductRoute(lineItem)">
+                <LocaleLink :to="getProductRoute(lineItem)">
                     <h3 class="text-base">
                         {{ lineItem?.label }}
                     </h3>
-                </NuxtLink>
+                </LocaleLink>
 
                 <span>
                     {{ getFormattedPrice(lineItem?.totalPrice) }}

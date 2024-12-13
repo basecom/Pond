@@ -33,12 +33,12 @@ const handlePasswordChange = async (fields: FormkitFields) => {
 <template>
     <template v-if="!hashIsValid">
         <p class="text-center text-status-danger">{{ $t('account.recoverPassword.recover.linkNotValid') }}</p>
-        <NuxtLink
+        <LocaleLink
             to="/account/recover"
             class="m-auto mt-4 flex w-1/2 items-center justify-center rounded bg-brand-primary px-4 py-2 text-white hover:bg-brand-primary-dark"
         >
             {{ $t('account.recoverPassword.recover.requestNewLink') }}
-        </NuxtLink>
+        </LocaleLink>
     </template>
 
     <FormKit

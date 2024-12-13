@@ -19,11 +19,11 @@ defineProps<{
             {{ $t('error.unknown.detail') }}
         </p>
 
-        <NuxtLink
+        <LocaleLink
             class="bg-brand-primary p-4 text-white hover:bg-brand-primary-dark"
             :to="'/'"
         >
             {{ $t('global.homepageLinkLabel') }}
-        </NuxtLink>
+        </LocaleLink>
     </ErrorLayout>
 </template>

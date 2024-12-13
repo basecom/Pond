@@ -98,7 +98,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
 
 <template>
     <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
-        <NuxtLink
+        <LocaleLink
             v-if="!isPromotion"
             :to="getProductRoute(lineItem)"
         >
@@ -113,7 +113,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                     class="h-full w-full object-cover object-center"
                 />
             </template>
-        </NuxtLink>
+        </LocaleLink>
         <div
             v-else-if="isPromotion"
             class="flex h-full w-full items-center justify-center"
@@ -128,11 +128,11 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
     <div class="flex flex-1 flex-col">
         <div>
             <div class="flex flex-col justify-between gap-4 lg:flex-row">
-                <NuxtLink :to="getProductRoute(lineItem)">
+                <LocaleLink :to="getProductRoute(lineItem)">
                     <p>
                         {{ lineItem.label }}
                     </p>
-                </NuxtLink>
+                </LocaleLink>
 
                 <span v-if="itemTotalPrice">
                     {{ getFormattedPrice(itemTotalPrice) }}

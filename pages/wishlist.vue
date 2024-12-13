@@ -173,11 +173,11 @@ onMounted(() => {
 
             <p class="my-4">{{ $t('wishlist.emptyListSubtitle') }}</p>
 
-            <NuxtLink to="/">
+            <LocaleLink to="/">
                 <FormKit type="submit">
                     {{ $t('wishlist.continueShopping') }}
                 </FormKit>
-            </NuxtLink>
+            </LocaleLink>
         </div>
     </div>
 </template>
