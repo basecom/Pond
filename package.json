@@ -2,7 +2,7 @@
   "name": "@basecom-gmbh/pond",
   "type": "module",
   "main": "./nuxt.config.ts",
-  "version": "0.0.17",
+  "version": "0.0.20",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -18,7 +18,6 @@
     "@formkit/auto-animate": "^0.8.2",
     "@formkit/icons": "^1.6.5",
     "@formkit/nuxt": "^1.6.5",
-    "@glidejs/glide": "^3.6.2",
     "@nuxt/eslint": "^0.3.13",
     "@nuxt/fonts": "^0.7.2",
     "@nuxtjs/device": "^3.2.4",

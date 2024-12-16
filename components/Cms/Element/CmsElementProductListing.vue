@@ -17,6 +17,7 @@ productListingCriteriaStore.initializeCriteria(
             children: {},
             manufacturer: {},
             options: {},
+            media: {},
         },
     },
     route.query,

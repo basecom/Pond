@@ -76,6 +76,8 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
 
                         <CheckoutSummary />
 
+                        <CheckoutPromotion />
+
                         <button
                             v-if="customerStore.customer"
                             class="mt-4 flex w-full cursor-pointer items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
