@@ -12,8 +12,8 @@ withDefaults(
     },
 );
 
-// pond-todo: waiting for plugin config -> use the config then
-const shopName = 'pond';
+const configStore = useConfigStore();
+const shopName = configStore.get('core.basicInformation.shopName') ?? 'pond';
 </script>
 
 <template>
