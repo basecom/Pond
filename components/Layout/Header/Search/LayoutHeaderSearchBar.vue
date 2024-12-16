@@ -124,14 +124,14 @@ onMounted(() => {
             v-if="showSuggest"
             class="z-1 container fixed left-0 right-0 rounded-b-md border-t border-gray-medium bg-white p-0 shadow-md"
         >
-            <NuxtLink
+            <LocaleLink
                 v-for="product in getProducts?.slice(0, displayTotal)"
                 :key="product.id"
                 :to="getProductRoute(product)"
                 @click="onClickProduct(product)"
             >
                 <LayoutHeaderSearchSuggestions :product="product" />
-            </NuxtLink>
+            </LocaleLink>
 
             <div class="bg-gray-light text-center text-sm hover:bg-gray-medium">
                 <div
@@ -144,7 +144,7 @@ onMounted(() => {
                 </div>
 
                 <template v-else>
-                    <NuxtLink
+                    <LocaleLink
                         v-if="getTotal > 0"
                         :to="'/search?search=' + typingQuery"
                         class="block w-full py-3"
@@ -157,7 +157,7 @@ onMounted(() => {
                         <template v-else>
                             <span>{{ $t('search.searchBar.oneResultLinkLabel') }}</span>
                         </template>
-                    </NuxtLink>
+                    </LocaleLink>
 
                     <div
                         v-else
