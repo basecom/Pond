@@ -6,7 +6,8 @@
             "emptyCartMessage": "Ihr Warenkorb ist leer."
         },
         "offcanvasCart": {
-            "toCartButtonLabel": "Zum Warenkorb"
+            "toCartButtonLabel": "Zum Warenkorb",
+            "continueShopping": "Weiter einkaufen"
         },
         "confirm": {
             "heading": "Kasse",
