@@ -33,6 +33,32 @@ const breakpoints = {
 };
 
 const slides = computed(() => elementData.getData('products') ?? []);
+const breakPointsConfig = {
+    'sm': 540,
+    'md': 768,
+    'lg': 1024,
+};
+const breakPoints = useBreakpoints(breakPointsConfig);
+const isSm = breakPoints.greater('sm');
+const isMd = breakPoints.greater('md');
+const isLg = breakPoints.greater('lg');
+const currentSlidesPerView = computed(() => {
+    if (isLg.value) {
+        return breakpoints[1024].slidesPerView;
+    }
+
+    if (isMd.value) {
+        return breakpoints[768].slidesPerView;
+    }
+
+    if (isSm.value) {
+        return breakpoints[540].slidesPerView;
+    }
+
+    return slidesPerView;
+});
+const showNavigationArrows = computed(() => navigation && slides.value >= currentSlidesPerView.value);
+const shouldAutoSlide = computed(() => autoSlide && slides.value.length > currentSlidesPerView.value);
 
 const getPromotion = (product: Schemas['Product']): PromotionInfo => {
     return {
@@ -75,8 +101,8 @@ const onProductSelect = (product: Schemas['Product'], index: string | number) =>
                     'cursor-grab': slides.length > 1,
                 }"
                 class="w-full"
-                :auto-slide="autoSlide"
-                :navigation-arrows="navigation"
+                :auto-slide="shouldAutoSlide"
+                :navigation-arrows="showNavigationArrows"
                 :navigation-dots="false"
                 :slides-per-view="slidesPerView"
                 :space-between="spaceBetween"

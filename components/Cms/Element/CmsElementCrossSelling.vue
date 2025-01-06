@@ -28,7 +28,31 @@ const breakpoints = {
 };
 
 const crossSellings = computed(() => elementData.getData('crossSellings') ?? []);
+const breakPointsConfig = {
+    'sm': 540,
+    'md': 768,
+    'lg': 1024,
+};
+const breakPoints = useBreakpoints(breakPointsConfig);
+const isSm = breakPoints.greater('sm');
+const isMd = breakPoints.greater('md');
+const isLg = breakPoints.greater('lg');
+const currentSlidesPerView = computed(() => {
+    if (isLg.value) {
+        return breakpoints[1024].slidesPerView;
+    }
 
+    if (isMd.value) {
+        return breakpoints[768].slidesPerView;
+    }
+
+    if (isSm.value) {
+        return breakpoints[540].slidesPerView;
+    }
+
+    return slidesPerView;
+});
+const showNavigationArrows = computed(() => crossSellings.value >= currentSlidesPerView.value);
 const onSelectProduct = async (product: Schemas['Product']) => {
     trackSelectItem(product, { id: 'cross-selling', name: 'cross-selling' });
 };
@@ -50,6 +74,7 @@ const onSelectProduct = async (product: Schemas['Product']) => {
                 :slides-per-view="slidesPerView"
                 :space-between="spaceBetween"
                 :breakpoints="breakpoints"
+                :navigation-arrows="showNavigationArrows"
             >
                 <LayoutSliderSlide
                     v-for="slide in crossSelling.products"
