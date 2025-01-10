@@ -91,12 +91,15 @@ onMounted(async () => {
                             class="-mx-4 rounded-b-lg"
                         />
 
-                        <button
+                        <FormKit
+                            type="submit"
                             :disabled="!newPaymentMethod"
-                            class="mt-4 flex w-full cursor-pointer items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
+                            :classes="{
+                                outer: 'mt-4',
+                            }"
                         >
                             {{ $t('account.order.edit.buttonLabel') }}
-                        </button>
+                        </FormKit>
                     </div>
                 </div>
             </FormKit>

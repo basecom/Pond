@@ -78,25 +78,38 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
 
                         <CheckoutPromotion />
 
-                        <button
+                        <FormKit
                             v-if="customerStore.customer"
-                            class="mt-4 flex w-full cursor-pointer items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
+                            type="submit"
+                            :classes="{
+                                outer: 'mt-4',
+                            }"
                         >
                             {{ $t('checkout.confirm.order.buttonLabel') }}
-                        </button>
+                        </FormKit>
 
-                        <div
+                        <FormKit
                             v-else
-                            class="mt-4 flex cursor-not-allowed items-center justify-center rounded-md bg-gray-dark px-6 py-3 text-white"
+                            type="submit"
                             disabled="disabled"
+                            :classes="{
+                                outer: 'mt-4',
+                            }"
                         >
                             {{ $t('checkout.confirm.order.buttonLabelNotLoggedIn') }}
-                        </div>
+                        </FormKit>
                     </div>
                 </div>
             </FormKit>
         </template>
 
-        <template v-else> {{ $t('checkout.confirm.emptyCartMessage') }}</template>
+        <template v-else>
+            <UtilityStaticNotification
+                id="empty-cart"
+                type="info"
+                :message="$t('checkout.cart.emptyCartMessage')"
+                class="mt-4"
+            />
+        </template>
     </div>
 </template>
