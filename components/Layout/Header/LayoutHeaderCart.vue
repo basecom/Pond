@@ -53,10 +53,15 @@ const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
             <LocaleLink
                 v-if="!isEmpty"
                 to="/checkout/cart"
-                class="mt-4 flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
                 @click="offcanvasCartController.close()"
             >
-                {{ $t('checkout.offcanvasCart.toCartButtonLabel') }}
+                <FormKit type="submit"
+                    :classes="{
+                        outer: 'mt-4'
+                    }"
+                >
+                    {{ $t('checkout.offcanvasCart.toCartButtonLabel') }}
+                </FormKit>
             </LocaleLink>
             <FormKit
                 v-else
