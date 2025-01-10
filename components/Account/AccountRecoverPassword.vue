@@ -36,13 +36,11 @@ const handlePasswordChange = async (fields: FormkitFields) => {
             {{ $t('account.recoverPassword.recover.linkNotValid') }}
         </p>
 
-        <LocaleLink
-            to="/account/recover"
-        >
+        <LocaleLink to="/account/recover">
             <FormKit
                 type="submit"
                 :classes="{
-                    outer: 'm-auto mt-4 w-1/2'
+                    outer: 'm-auto mt-4 w-1/2',
                 }"
             >
                 {{ $t('account.recoverPassword.recover.requestNewLink') }}

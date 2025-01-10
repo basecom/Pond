@@ -53,13 +53,11 @@ const getEnvironmentStorefrontUrl = (): string => {
             {{ $t('account.recoverPassword.request.successMessage') }}
         </p>
 
-        <LocaleLink
-            to="/account/login"
-        >
+        <LocaleLink to="/account/login">
             <FormKit
                 type="submit"
                 :classes="{
-                    outer: 'mt-4'
+                    outer: 'mt-4',
                 }"
             >
                 {{ $t('account.recoverPassword.request.loginButtonLabel') }}

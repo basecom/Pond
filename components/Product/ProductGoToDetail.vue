@@ -8,12 +8,11 @@ defineProps<{
 </script>
 
 <template>
-    <LocaleLink
-        :to="getProductRoute(product)"
-    >
-        <FormKit type="submit"
+    <LocaleLink :to="getProductRoute(product)">
+        <FormKit
+            type="submit"
             :classes="{
-                input: 'bg-gray hover:bg-gray-dark border-none'
+                input: 'bg-gray hover:bg-gray-dark border-none',
             }"
         >
             {{ $t('product.goToDetail.label') }}

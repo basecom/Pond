@@ -55,9 +55,10 @@ const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
                 to="/checkout/cart"
                 @click="offcanvasCartController.close()"
             >
-                <FormKit type="submit"
+                <FormKit
+                    type="submit"
                     :classes="{
-                        outer: 'mt-4'
+                        outer: 'mt-4',
                     }"
                 >
                     {{ $t('checkout.offcanvasCart.toCartButtonLabel') }}
@@ -68,7 +69,7 @@ const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
                 type="submit"
                 ignore
                 :classes="{
-                    'outer': 'mt-4'
+                    outer: 'mt-4',
                 }"
                 @click="offcanvasCartController.close()"
             >

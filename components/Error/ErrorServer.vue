@@ -19,9 +19,7 @@ defineProps<{
             {{ $t('error.server.detail') }}
         </p>
 
-        <LocaleLink
-            :to="'/'"
-        >
+        <LocaleLink :to="'/'">
             <FormKit type="submit">
                 {{ $t('global.homepageLinkLabel') }}
             </FormKit>

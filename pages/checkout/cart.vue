@@ -35,9 +35,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
 
                 <CheckoutPromotion />
 
-                <LocaleLink
-                    :to="'/checkout/confirm'"
-                >
+                <LocaleLink :to="'/checkout/confirm'">
                     <FormKit type="submit">
                         {{ $t('checkout.cart.checkoutButtonLabel') }}
                     </FormKit>

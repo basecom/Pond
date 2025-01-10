@@ -15,9 +15,7 @@
             {{ $t('error.404.detail') }}
         </p>
 
-        <LocaleLink
-            :to="'/'"
-        >
+        <LocaleLink :to="'/'">
             <FormKit type="submit">
                 {{ $t('global.homepageLinkLabel') }}
             </FormKit>
