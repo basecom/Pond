@@ -57,13 +57,20 @@ const handleSave = async (fields: FormkitFields) => {
 </script>
 
 <template>
-    <h1 class="mb-2 font-bold">{{ $t('account.address.heading') }}</h1>
-    <button
-        class="mb-4 mt-4 rounded bg-brand-primary px-2 py-1 text-white"
+    <h1 class="mb-2 font-bold">
+        {{ $t('account.address.heading') }}
+    </h1>
+
+    <FormKit
+        type="submit"
+        :classes="{
+            outer: 'max-w-fit my-4',
+        }"
         @click="openModal(null)"
     >
         {{ $t('account.address.create') }}
-    </button>
+    </FormKit>
+
     <div
         v-if="customerAddresses.length"
         class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"

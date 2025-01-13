@@ -83,38 +83,54 @@ const addressText = (address: Schemas['CustomerAddress']) => {
 </script>
 
 <template>
-    <h2 class="mb-4 text-lg">{{ $t('checkout.confirm.address.modal.chosenAddress') }}</h2>
+    <h2 class="mb-4 text-lg">
+        {{ $t('checkout.confirm.address.modal.chosenAddress') }}
+    </h2>
+
     <AddressData
         :address="selectedAddress"
         class="mb-4 p-4"
     />
+
     <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <button
-            class="rounded bg-brand-primary px-4 py-1 text-white hover:bg-brand-primary-dark"
-            :class="{ 'bg-brand-primary-dark': isEditMode }"
+        <FormKit
+            type="submit"
+            :classes="{
+                input: isEditMode ? 'bg-brand-primary-dark' : '',
+            }"
             @click="changeMode('edit')"
         >
             {{ $t('checkout.confirm.address.modal.editLabel') }}
-        </button>
-        <button
-            class="rounded bg-brand-primary px-4 py-1 text-white hover:bg-brand-primary-dark"
-            :class="{ 'bg-brand-primary-dark': isCreateMode }"
+        </FormKit>
+
+        <FormKit
+            type="submit"
+            :classes="{
+                input: isCreateMode ? 'bg-brand-primary-dark' : '',
+            }"
             @click="changeMode('new')"
         >
             {{ $t('checkout.confirm.address.modal.createLabel') }}
-        </button>
-        <button
-            class="rounded bg-brand-primary px-4 py-1 text-white hover:bg-brand-primary-dark"
-            :class="{ 'bg-brand-primary-dark': !isEditMode && !isCreateMode }"
+        </FormKit>
+
+        <FormKit
+            type="submit"
+            :classes="{
+                input: !isEditMode && !isCreateMode ? 'bg-brand-primary-dark' : '',
+            }"
             @click="changeMode('select')"
         >
             {{ $t('checkout.confirm.address.modal.selectLabel') }}
-        </button>
+        </FormKit>
     </div>
-    <div class="mb-4 border-b border-gray-light"></div>
+
+    <div class="mb-4 border-b border-gray-light" />
 
     <template v-if="!isEditMode && !isCreateMode">
-        <h2 class="mb-4 text-lg">{{ $t('checkout.confirm.address.modal.selectHeading') }}</h2>
+        <h2 class="mb-4 text-lg">
+            {{ $t('checkout.confirm.address.modal.selectHeading') }}
+        </h2>
+
         <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <button
                 v-for="address in customerAddresses"
@@ -128,8 +144,9 @@ const addressText = (address: Schemas['CustomerAddress']) => {
                 <AddressData :address="address" />
             </button>
         </div>
-        <button
-            class="relative w-full rounded bg-brand-primary py-2 text-white hover:bg-brand-primary-dark disabled:cursor-not-allowed disabled:bg-gray"
+
+        <FormKit
+            type="submit"
             :disabled="isLoading"
             @click="
                 emit('change', {
@@ -141,11 +158,12 @@ const addressText = (address: Schemas['CustomerAddress']) => {
             <span :class="{ 'opacity-0': isLoading }">
                 {{ $t('checkout.confirm.address.modal.selectSubmitLabel') }}
             </span>
+
             <UtilityLoadingSpinner
                 v-if="isLoading"
                 size="small"
             />
-        </button>
+        </FormKit>
     </template>
 
     <template v-if="isEditMode || isCreateMode">
@@ -207,6 +225,7 @@ const addressText = (address: Schemas['CustomerAddress']) => {
                 >
                     {{ $t('checkout.confirm.address.modal.formSubmitLabel') }}
                 </span>
+
                 <UtilityLoadingSpinner
                     v-if="isLoading"
                     size="small"

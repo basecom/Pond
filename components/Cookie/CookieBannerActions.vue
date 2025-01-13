@@ -5,25 +5,38 @@ const { isAcceptAllEnabled } = storeToRefs(cookieBannerStore);
 
 <template>
     <div class="flex gap-2">
-        <button
-            class="cursor-pointer rounded-md bg-brand-primary px-4 py-2 text-white"
+        <FormKit
+            type="button"
+            :classes="{
+                input: 'max-w-fit',
+            }"
             @click="cookieBannerStore.denyAll()"
         >
             {{ $t('cookie.banner.denyAllButton') }}
-        </button>
+        </FormKit>
+
         <CookieBannerModal>
             <template #trigger>
-                <button class="cursor-pointer rounded-md bg-brand-primary px-4 py-2 text-white">
+                <FormKit
+                    type="button"
+                    :classes="{
+                        input: 'max-w-fit',
+                    }"
+                >
                     {{ $t('cookie.banner.configureButton') }}
-                </button>
+                </FormKit>
             </template>
         </CookieBannerModal>
-        <button
+
+        <FormKit
             v-if="isAcceptAllEnabled"
-            class="cursor-pointer rounded-md bg-brand-primary px-4 py-2 text-white"
+            type="submit"
+            :classes="{
+                input: 'max-w-fit',
+            }"
             @click="cookieBannerStore.acceptAll()"
         >
             {{ $t('cookie.banner.allowAllButton') }}
-        </button>
+        </FormKit>
     </div>
 </template>

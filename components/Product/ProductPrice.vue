@@ -28,6 +28,7 @@ const props = withDefaults(
 const product = ref(props.product);
 
 const { getFormattedPrice } = usePrice();
+// TODO: Investigate why the calculatedPrices array of the product is empty -> this prevents the displayFrom/-Variants of the useProductPrice composable from working here to check whether or not "from" should be displayed before the price
 const { price, unitPrice, isListPrice, referencePrice } = useProductPrice(product);
 </script>
 
@@ -38,7 +39,14 @@ const { price, unitPrice, isListPrice, referencePrice } = useProductPrice(produc
                 v-if="unitPrice"
                 :class="[fontSize, fontWeight, { 'text-status-danger': isListPrice }]"
             >
-                {{ getFormattedPrice(unitPrice) }}
+                <template v-if="product.childCount">
+                    {{ $t('global.startingAt') }}
+                    {{ getFormattedPrice(product.calculatedCheapestPrice.unitPrice) }}
+                </template>
+
+                <template v-else>
+                    {{ getFormattedPrice(unitPrice) }}
+                </template>
             </span>
 
             <template v-if="isListPrice">
@@ -55,6 +63,7 @@ const { price, unitPrice, isListPrice, referencePrice } = useProductPrice(produc
                 </span>
             </template>
         </p>
+
         <p
             v-if="referencePrice"
             class="w-full text-xs text-gray"

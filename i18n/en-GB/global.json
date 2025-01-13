@@ -6,6 +6,7 @@
         "change": "Change",
         "cancel": "Cancel",
         "edit": "Edit",
-        "delete": "Delete"
+        "delete": "Delete",
+        "startingAt": "from"
     }
 }

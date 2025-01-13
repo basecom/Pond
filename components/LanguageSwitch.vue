@@ -11,7 +11,7 @@ await getAvailableLanguages();
 const selectedLanguageId = computed(() => getLanguageIdFromCode(locale.value));
 
 const onLanguageChange = async (option: Event) => {
-    const selectedOptionId = (option.target as HTMLSelectElement).value
+    const selectedOptionId = (option.target as HTMLSelectElement).value;
     await changeLanguage(selectedOptionId);
     setLocale(getLanguageCodeFromId(selectedOptionId));
     await refreshSessionContext();

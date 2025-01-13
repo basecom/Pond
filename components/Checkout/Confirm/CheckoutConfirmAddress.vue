@@ -102,12 +102,13 @@ const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas[
                 :address="activeShippingAddress"
                 class="mb-4 sm:mb-0"
             />
-            <button
-                class="rounded bg-brand-primary px-6 py-1 text-white hover:bg-brand-primary-dark"
+
+            <FormKit
+                type="submit"
                 @click="openModal('shippingAddress', activeShippingAddress)"
             >
                 {{ $t('global.change') }}
-            </button>
+            </FormKit>
         </div>
     </CheckoutConfirmCard>
 
@@ -130,13 +131,13 @@ const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas[
                 />
             </div>
 
-            <button
+            <FormKit
                 v-if="!billingAddressIsSameAsShippingAddress"
-                class="rounded bg-brand-primary px-6 py-1 text-white hover:bg-brand-primary-dark"
+                type="submit"
                 @click="openModal('billingAddress', activeBillingAddress)"
             >
                 {{ $t('global.change') }}
-            </button>
+            </FormKit>
         </div>
     </CheckoutConfirmCard>
 
@@ -152,6 +153,7 @@ const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas[
                     : $t('checkout.confirm.address.modal.billingHeading')
             }}
         </template>
+
         <template #content>
             <CheckoutConfirmChangeAddress
                 :address-type="modalAddressType"

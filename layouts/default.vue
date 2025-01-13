@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const customerStore = useCustomerStore();
 const { loading } = storeToRefs(customerStore);
 

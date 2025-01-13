@@ -45,6 +45,7 @@ const updateDefaultBilling = async () => {
                 :style="'success'"
                 size="sm"
             />
+
             <UtilityBadge
                 v-if="address.id === customerStore.customer.defaultShippingAddressId"
                 :content="$t('account.address.defaultShipping')"
@@ -57,7 +58,7 @@ const updateDefaultBilling = async () => {
                     address.id != customerStore.customer.defaultBillingAddressId ||
                     address.id != customerStore.customer.defaultShippingAddressId
                 "
-                class="absolute right-0 top-0"
+                class="absolute right-0 top-0 z-10"
             >
                 <LazySharedPopover>
                     <template #trigger>
@@ -66,19 +67,29 @@ const updateDefaultBilling = async () => {
                             class="h-4 w-4"
                         />
                     </template>
+
                     <template #content>
-                        <button
+                        <FormKit
                             v-if="address.id != customerStore.customer.defaultBillingAddressId"
+                            type="button"
+                            :classes="{
+                                outer: 'max-w-fit my-4',
+                            }"
                             @click="updateDefaultBilling"
                         >
                             {{ $t('account.address.updateBilling') }}
-                        </button>
-                        <button
+                        </FormKit>
+
+                        <FormKit
                             v-if="address.id != customerStore.customer.defaultShippingAddressId"
+                            type="button"
+                            :classes="{
+                                outer: 'max-w-fit my-4',
+                            }"
                             @click="updateDefaultShipping"
                         >
                             {{ $t('account.address.updateShipping') }}
-                        </button>
+                        </FormKit>
                     </template>
                 </LazySharedPopover>
             </div>
@@ -87,22 +98,26 @@ const updateDefaultBilling = async () => {
         <AddressData :address="address" />
 
         <div class="mt-2">
-            <button
-                class="rounded bg-brand-primary px-2 py-1 text-white"
+            <FormKit
+                type="submit"
                 @click="() => $emit('edit', address)"
             >
                 {{ $t('global.edit') }}
-            </button>
-            <button
+            </FormKit>
+
+            <FormKit
                 v-if="
                     address.id != customerStore.customer.defaultBillingAddressId &&
                     address.id != customerStore.customer.defaultShippingAddressId
                 "
-                class="ml-2 rounded bg-status-danger px-2 py-1 text-white"
+                type="button"
+                :classes="{
+                    outer: 'mt-2',
+                }"
                 @click="() => $emit('delete', address.id)"
             >
                 {{ $t('global.delete') }}
-            </button>
+            </FormKit>
         </div>
     </div>
 </template>

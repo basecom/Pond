@@ -26,7 +26,7 @@ const popoverOpen = ref(false);
     <PopoverRoot @update:open="popoverOpen = !popoverOpen">
         <PopoverTrigger
             class="none inline-flex items-center justify-center"
-            :aria-label="$t('shared.popover.triggerAriaLabel')"
+            :aria-label="$t('listing.sidebar.filter.price.title') + ' ' + $t('shared.popover.triggerAriaLabel')"
         >
             <div class="flex items-center gap-2 rounded border border-gray px-4 py-2">
                 {{ $t('listing.sidebar.filter.price.title') }}
