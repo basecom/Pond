@@ -1,7 +1,8 @@
 {
     "navigation": {
         "sidebar": {
-            "backLinkLabel": "Back"
+            "backLinkLabel": "Back",
+            "allItems": "All items"
         }
     }
 }
