@@ -35,6 +35,8 @@ const handleChangeVariant = async () => {
     }
     isLoading.value = false;
 };
+
+const { entityArrayToOptions } = useFormkitHelper();
 </script>
 
 <template>
@@ -47,79 +49,100 @@ const handleChangeVariant = async () => {
             <span class="font-bold">
                 {{ getTranslatedProperty(group, 'name') }}
             </span>
+
             <span>
                 {{ getTranslatedProperty(selectedOption(group), 'name') }}
             </span>
         </div>
+
         <div class="grid grid-cols-8 gap-2">
-            <template
-                v-for="option in group.options"
-                :key="`option-${option.id}`"
-            >
+            <template v-if="group.displayType === 'select'">
                 <FormKit
-                    v-if="option.colorHexCode"
-                    :id="`option-${option.id}`"
-                    type="button"
-                    :label="getTranslatedProperty(option, 'name')"
+                    type="select"
+                    :name="getTranslatedProperty(group, 'name')"
+                    :value="selectedOption(group)?.id"
                     :classes="{
-                        input: {
-                            $reset: true,
-                            'w-full h-full rounded-full text-transparent': true,
+                        outer: {
+                            'w-full sm:w-32': true,
                         },
-                        wrapper: {
-                            'border-2 rounded-full h-10 aspect-square': true,
-                            'border-brand-primary p-1': isSelectedOption(option.id),
-                            'border-gray-light': !isSelectedOption(option.id),
-                        },
-                        outer: 'col-span-1',
                     }"
-                    :style="`background-color: ${option.colorHexCode}`"
-                    :name="`option-${option.id}`"
-                    @click="handleChange(group.name, option.id, handleChangeVariant)"
-                ></FormKit>
-                <FormKit
-                    v-else-if="option.media"
-                    :id="`option-${option.id}`"
-                    type="button"
-                    :label="getTranslatedProperty(option, 'name')"
-                    :classes="{
-                        input: {
-                            $reset: true,
-                            'w-full h-full rounded-full': true,
-                        },
-                        wrapper: {
-                            'border-2 rounded-full h-10 aspect-square': true,
-                            'border-brand-primary p-1': isSelectedOption(option.id),
-                            'border-gray-light': !isSelectedOption(option.id),
-                        },
-                        outer: 'col-span-1',
-                    }"
-                    :style="`background-color: ${option.colorHexCode}`"
-                    :name="`option-${option.id}`"
-                    @click="handleChange(group.name, option.id, handleChangeVariant)"
-                >
-                    <img
-                        :src="option.media.url"
-                        :alt="
-                            getTranslatedProperty(option.media, 'alt') ??
-                            getTranslatedProperty(option.media, 'title') ??
-                            option.media.fileName
-                        "
-                        class="rounded-full"
-                    />
-                </FormKit>
-                <FormKit
-                    v-else
-                    :id="`option-${option.id}`"
-                    type="button"
-                    :label="getTranslatedProperty(option, 'name')"
-                    :classes="{
-                        input: getSelectedOptionClasses(option.id),
-                        outer: 'col-span-2',
-                    }"
-                    :name="`option-${option.id}`"
-                    @click="handleChange(group.name, option.id, handleChangeVariant)"
+                    :options="entityArrayToOptions<Schemas['PropertyGroupOption']>(group.options, 'name', true) ?? []"
+                    @change="handleChange(group.name, $event.target.value, handleChangeVariant)"
                 />
+            </template>
+
+            <template v-else>
+                <template
+                    v-for="option in group.options"
+                    :key="`option-${option.id}`"
+                >
+                    <FormKit
+                        v-if="option.colorHexCode"
+                        :id="`option-${option.id}`"
+                        type="button"
+                        :label="getTranslatedProperty(option, 'name')"
+                        :classes="{
+                            input: {
+                                $reset: true,
+                                'w-full h-full rounded-full text-transparent': true,
+                            },
+                            wrapper: {
+                                'border-2 rounded-full h-10 aspect-square': true,
+                                'border-brand-primary p-1': isSelectedOption(option.id),
+                                'border-gray-light': !isSelectedOption(option.id),
+                            },
+                            outer: 'col-span-1',
+                        }"
+                        :style="`background-color: ${option.colorHexCode}`"
+                        :name="`option-${option.id}`"
+                        @click="handleChange(group.name, option.id, handleChangeVariant)"
+                    />
+
+                    <FormKit
+                        v-else-if="option.media"
+                        :id="`option-${option.id}`"
+                        type="button"
+                        :label="getTranslatedProperty(option, 'name')"
+                        :classes="{
+                            input: {
+                                $reset: true,
+                                'w-full h-full rounded-full': true,
+                            },
+                            wrapper: {
+                                'border-2 rounded-full h-10 aspect-square': true,
+                                'border-brand-primary p-1': isSelectedOption(option.id),
+                                'border-gray-light': !isSelectedOption(option.id),
+                            },
+                            outer: 'col-span-1',
+                        }"
+                        :style="`background-color: ${option.colorHexCode}`"
+                        :name="`option-${option.id}`"
+                        @click="handleChange(group.name, option.id, handleChangeVariant)"
+                    >
+                        <img
+                            :src="option.media.url"
+                            :alt="
+                                getTranslatedProperty(option.media, 'alt') ??
+                                getTranslatedProperty(option.media, 'title') ??
+                                option.media.fileName
+                            "
+                            class="rounded-full"
+                        />
+                    </FormKit>
+
+                    <FormKit
+                        v-else
+                        :id="`option-${option.id}`"
+                        type="button"
+                        :label="getTranslatedProperty(option, 'name')"
+                        :classes="{
+                            input: getSelectedOptionClasses(option.id),
+                            outer: 'col-span-2',
+                        }"
+                        :name="`option-${option.id}`"
+                        @click="handleChange(group.name, option.id, handleChangeVariant)"
+                    />
+                </template>
             </template>
         </div>
     </div>
