@@ -6,7 +6,8 @@ const props = defineProps<{
     product: Schemas['Product'];
 }>();
 
-const { handleChange, getOptionGroups, getSelectedOptions, findVariantForSelectedOptions } = useProductConfigurator();
+const { handleChange, getOptionGroups, getSelectedOptions, findVariantForSelectedOptions, findBestMatchingVariant } =
+    useProductConfigurator();
 const isLoading = ref(false);
 
 const isSelectedOption = (optionId: string) => Object.values(getSelectedOptions.value).includes(optionId);
@@ -21,11 +22,32 @@ const getSelectedOptionClasses = (id: string) => {
     return '';
 };
 
-const handleChangeVariant = async () => {
+const handleChangeVariant = async (switchedGroup, switchedName) => {
     isLoading.value = true;
-    const variantFound = await findVariantForSelectedOptions(getSelectedOptions.value);
 
-    const selectedOptionsVariantPath = getProductRoute(variantFound);
+    // Prepare object with selected options after user input
+    const selectedOptions = getSelectedOptions.value;
+    selectedOptions[switchedName] = switchedGroup;
+
+    // Try to find an exactly matching variant
+    const exactVariantFound = await findVariantForSelectedOptions(selectedOptions);
+
+    let selectedOptionsVariantPath;
+    if (exactVariantFound) {
+        // If an exactly matching variant was found, redirect to it
+        selectedOptionsVariantPath = getProductRoute(exactVariantFound);
+    } else {
+        // If no exactly matching variant was found, try to find the best matching variant based on the option the user switched
+        const switchedOptions = {};
+        switchedOptions[switchedName] = switchedGroup;
+
+        const matchingVariantFound = await findBestMatchingVariant(
+            props.product.parentId ?? props.product.id,
+            switchedOptions,
+        );
+        selectedOptionsVariantPath = getProductRoute(matchingVariantFound);
+    }
+
     if (selectedOptionsVariantPath) {
         try {
             await navigateTo(selectedOptionsVariantPath.path);
@@ -33,6 +55,7 @@ const handleChangeVariant = async () => {
             console.error('could not redirect');
         }
     }
+
     isLoading.value = false;
 };
 
@@ -67,7 +90,13 @@ const { entityArrayToOptions } = useFormkitHelper();
                         },
                     }"
                     :options="entityArrayToOptions<Schemas['PropertyGroupOption']>(group.options, 'name', true) ?? []"
-                    @change="handleChange(group.name, $event.target.value, handleChangeVariant)"
+                    @change="
+                        handleChange(
+                            group.name,
+                            $event.target.value,
+                            handleChangeVariant($event.target.value, group.name),
+                        )
+                    "
                 />
             </template>
 
@@ -95,7 +124,7 @@ const { entityArrayToOptions } = useFormkitHelper();
                         }"
                         :style="`background-color: ${option.colorHexCode}`"
                         :name="`option-${option.id}`"
-                        @click="handleChange(group.name, option.id, handleChangeVariant)"
+                        @click="handleChange(group.name, option.id, handleChangeVariant(option.id, group.name))"
                     />
 
                     <FormKit
@@ -117,7 +146,7 @@ const { entityArrayToOptions } = useFormkitHelper();
                         }"
                         :style="`background-color: ${option.colorHexCode}`"
                         :name="`option-${option.id}`"
-                        @click="handleChange(group.name, option.id, handleChangeVariant)"
+                        @click="handleChange(group.name, option.id, handleChangeVariant(option.id, group.name))"
                     >
                         <img
                             :src="option.media.url"
@@ -140,7 +169,7 @@ const { entityArrayToOptions } = useFormkitHelper();
                             outer: 'col-span-2',
                         }"
                         :name="`option-${option.id}`"
-                        @click="handleChange(group.name, option.id, handleChangeVariant)"
+                        @click="handleChange(group.name, option.id, handleChangeVariant(option.id, group.name))"
                     />
                 </template>
             </template>
