@@ -1,4 +1,16 @@
 <script setup lang="ts">
+
+const { changeLanguage, getLanguageIdFromCode, getAvailableLanguages } = useInternationalization();
+const { locale } = useI18n();
+
+const updateSessionWithLanguage = async () => {
+    const frontendLocale = locale.value;
+    await getAvailableLanguages();
+    await changeLanguage(getLanguageIdFromCode(frontendLocale));
+};
+
+await updateSessionWithLanguage();
+
 const customerStore = useCustomerStore();
 const { loading } = storeToRefs(customerStore);
 

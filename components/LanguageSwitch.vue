@@ -3,18 +3,21 @@ import type { Schemas } from '@shopware/api-client/api-types';
 const { entityArrayToOptions } = useFormkitHelper();
 
 const { locale, setLocale } = useI18n();
-const { languages, getAvailableLanguages, changeLanguage, getLanguageCodeFromId, getLanguageIdFromCode } =
+const { languages, changeLanguage, getLanguageCodeFromId, getLanguageIdFromCode } =
     useInternationalization();
 const { refreshSessionContext } = useSessionContext();
-await getAvailableLanguages();
+const customerStore = useCustomerStore();
+const { loading } = storeToRefs(customerStore);
 
 const selectedLanguageId = computed(() => getLanguageIdFromCode(locale.value));
 
 const onLanguageChange = async (option: Event) => {
-    const selectedOptionId = (option.target as HTMLSelectElement).value;
+    const selectedOptionId = (option.target as HTMLSelectElement).value
+    loading.value = true;
     await changeLanguage(selectedOptionId);
     setLocale(getLanguageCodeFromId(selectedOptionId));
     await refreshSessionContext();
+    loading.value = false;
 };
 
 const languageOptions = computed(() => entityArrayToOptions<Schemas['Language']>(languages.value, 'name', true) ?? []);

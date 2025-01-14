@@ -1,7 +1,10 @@
 <script setup lang="ts">
+const { languageIdChain } = useSessionContext();
 const navigationStore = useNavigationStore();
 const { mainNavigationElements } = storeToRefs(navigationStore);
-await navigationStore.loadMainNavigation(2);
+watch(languageIdChain, async () => {
+    await navigationStore.loadMainNavigation(2);
+}, { immediate: true });
 </script>
 
 <template>
