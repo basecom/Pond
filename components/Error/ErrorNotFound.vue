@@ -15,11 +15,10 @@
             {{ $t('error.404.detail') }}
         </p>
 
-        <LocaleLink
-            class="bg-brand-primary p-4 text-white hover:bg-brand-primary-dark"
-            :to="'/'"
-        >
-            {{ $t('global.homepageLinkLabel') }}
+        <LocaleLink :to="'/'">
+            <FormKit type="submit">
+                {{ $t('global.homepageLinkLabel') }}
+            </FormKit>
         </LocaleLink>
     </ErrorLayout>
 </template>

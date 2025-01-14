@@ -32,12 +32,19 @@ const handlePasswordChange = async (fields: FormkitFields) => {
 
 <template>
     <template v-if="!hashIsValid">
-        <p class="text-center text-status-danger">{{ $t('account.recoverPassword.recover.linkNotValid') }}</p>
-        <LocaleLink
-            to="/account/recover"
-            class="m-auto mt-4 flex w-1/2 items-center justify-center rounded bg-brand-primary px-4 py-2 text-white hover:bg-brand-primary-dark"
-        >
-            {{ $t('account.recoverPassword.recover.requestNewLink') }}
+        <p class="text-center text-status-danger">
+            {{ $t('account.recoverPassword.recover.linkNotValid') }}
+        </p>
+
+        <LocaleLink to="/account/recover">
+            <FormKit
+                type="submit"
+                :classes="{
+                    outer: 'm-auto mt-4 w-1/2',
+                }"
+            >
+                {{ $t('account.recoverPassword.recover.requestNewLink') }}
+            </FormKit>
         </LocaleLink>
     </template>
 
@@ -51,7 +58,10 @@ const handlePasswordChange = async (fields: FormkitFields) => {
         }"
         @submit="handlePasswordChange"
     >
-        <h5>{{ $t('account.recoverPassword.recover.heading') }}</h5>
+        <h5>
+            {{ $t('account.recoverPassword.recover.heading') }}
+        </h5>
+
         <FormKit
             type="password"
             :label="$t('account.recoverPassword.recover.passwordLabel')"

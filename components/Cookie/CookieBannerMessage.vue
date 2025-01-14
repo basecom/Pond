@@ -1,6 +1,9 @@
 <template>
     <div>
-        <span>{{ $t('cookie.banner.message') }}</span>
+        <span>
+            {{ $t('cookie.banner.message') }}
+        </span>
+
         <LazySharedModal
             :with-close-button="true"
             size="sm"
@@ -10,8 +13,14 @@
                     {{ $t('cookie.banner.additionalInformationTriggerButton') }}
                 </button>
             </template>
-            <template #title>{{ $t('cookie.banner.additionalInformationTitle') }}</template>
-            <template #content>{{ $t('cookie.banner.additionalInformationText') }}</template>
+
+            <template #title>
+                {{ $t('cookie.banner.additionalInformationTitle') }}
+            </template>
+
+            <template #content>
+                {{ $t('cookie.banner.additionalInformationText') }}
+            </template>
         </LazySharedModal>
     </div>
 </template>

@@ -9,12 +9,16 @@ const props = withDefaults(
         activeWithExactMatch?: boolean;
         classes?: string | null;
         asLink?: boolean;
+        asAllItemsLink?: boolean;
+        displayIcon?: boolean;
     }>(),
     {
         activeClasses: null,
         activeWithExactMatch: true,
         classes: null,
         asLink: true,
+        asAllItemsLink: false,
+        displayIcon: false,
     },
 );
 
@@ -41,14 +45,31 @@ const { trackNavigation } = useAnalytics();
         :class="[classes, isActive(navigationElement.seoUrls, activeWithExactMatch) ? activeClasses : '']"
         @click="trackNavigation(navigationElement.level - 1 ?? 0, getTranslatedProperty(navigationElement, 'name'))"
     >
-        {{ getTranslatedProperty(navigationElement, 'name') }}
+        <template v-if="asAllItemsLink">
+            {{ $t('navigation.sidebar.allItems') }}
+        </template>
+
+        <template v-else>
+            {{ getTranslatedProperty(navigationElement, 'name') }}
+        </template>
     </LocaleLink>
+
     <div
         v-else
-        :class="[classes, isActive(navigationElement.seoUrls) ? activeClasses : '']"
+        :class="[classes, isActive(navigationElement.seoUrls) ? activeClasses : '', displayIcon ? 'flex' : '']"
     >
         <span>
             {{ getTranslatedProperty(navigationElement, 'name') }}
+        </span>
+
+        <span
+            v-if="displayIcon"
+            class="ml-auto items-center"
+        >
+            <FormKitIcon
+                class="block h-4 w-4"
+                icon="chevron-right"
+            />
         </span>
     </div>
 </template>

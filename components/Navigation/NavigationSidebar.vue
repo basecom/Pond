@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-const { languageIdChain } = useSessionContext();
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
+const { languageIdChain } = useSessionContext();
 const navigationStore = useNavigationStore();
 const { mainNavigationElements } = storeToRefs(navigationStore);
 
@@ -75,16 +76,23 @@ const lastPreviousItem = computed(() =>
 
         <template #content>
             <div class="grid gap-2 md:hidden">
-                <!-- display the category, whose children are currently displayed -->
+                <!-- display the current category -->
+                <div
+                    v-if="lastPreviousItem"
+                    class="pb-1 text-lg font-bold"
+                >
+                    {{ getTranslatedProperty(lastPreviousItem, 'name') }}
+                </div>
+
+                <!-- display a link to the current category with all items snippet -->
                 <NavigationLink
                     v-if="lastPreviousItem"
                     :navigation-element="lastPreviousItem"
                     classes="border-b-2 border-gray-light py-2"
-                    active-classes="font-bold md:border-b-2 md:border-brand-primary"
-                    :active-with-exact-match="true"
+                    :as-all-items-link="true"
                 />
 
-                <!-- displays the categories -->
+                <!-- display the child categories -->
                 <NavigationLink
                     v-for="navigationElement in shownNavigationItems"
                     :key="navigationElement.id"
@@ -92,6 +100,7 @@ const lastPreviousItem = computed(() =>
                     classes="border-b-2 border-gray-light py-2"
                     active-classes="font-bold md:border-b-2 md:border-brand-primary"
                     :as-link="navigationElement.childCount === 0"
+                    :display-icon="navigationElement.childCount > 0"
                     @click="handleClick(navigationElement)"
                 />
             </div>

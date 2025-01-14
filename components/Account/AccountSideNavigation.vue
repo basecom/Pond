@@ -29,7 +29,7 @@ const navItems = ref([
 
 <template>
     <ul>
-        <div
+        <li
             v-if="customerStore.customer && !props.isInHeader"
             class="text-2xl font-bold"
         >
@@ -39,14 +39,15 @@ const navItems = ref([
                     lastname: customerStore.customer.lastName,
                 })
             }}
-        </div>
+        </li>
 
-        <div
+        <li
             v-if="props.isInHeader"
             class="mt-4 pb-4 pl-2 text-2xl font-bold"
         >
             {{ $t('account.dropdownHeading') }}
-        </div>
+        </li>
+
         <li
             v-for="(item, index) in navItems"
             :key="item.path"
@@ -61,6 +62,7 @@ const navItems = ref([
                 {{ item.label }}
             </LocaleLink>
         </li>
+
         <li>
             <FormKit
                 type="submit"

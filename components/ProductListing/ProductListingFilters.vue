@@ -88,6 +88,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
                         <span>
                             {{ $t('listing.sidebar.filter.showLess') }}
                         </span>
+
                         <FormKitIcon
                             icon="minus"
                             class="h-3 w-3"
@@ -97,6 +98,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
                         <span>
                             {{ $t('listing.sidebar.filter.showMore') }}
                         </span>
+
                         <FormKitIcon
                             icon="plus"
                             class="h-3 w-3"
@@ -105,6 +107,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
                 </button>
             </div>
         </div>
+
         <div
             v-if="props.showResetButton"
             class="mx-auto w-full"

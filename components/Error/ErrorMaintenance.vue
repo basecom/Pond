@@ -17,11 +17,11 @@
             {{ $t('error.maintenance.tryAgain') }}
         </p>
 
-        <button
-            class="cursor-pointer bg-brand-primary p-4 text-white"
+        <FormKit
+            type="submit"
             @click="reloadNuxtApp()"
         >
             {{ $t('error.maintenance.refresh') }}
-        </button>
+        </FormKit>
     </main>
 </template>

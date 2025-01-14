@@ -1,7 +1,8 @@
 {
     "navigation": {
         "sidebar": {
-            "backLinkLabel": "Zurück"
+            "backLinkLabel": "Zurück",
+            "allItems": "Alle Produkte"
         }
     }
 }

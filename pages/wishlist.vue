@@ -131,12 +131,14 @@ onMounted(() => {
                 {{ $t('wishlist.titleHeader') }}
             </h1>
 
-            <button
-                class="mb-4 justify-center rounded-md border border-transparent bg-brand-primary px-4 py-2 text-sm font-medium text-white shadow-sm"
+            <FormKit
+                type="submit"
+                :label="$t('wishlist.clearWishlist')"
+                :classes="{
+                    outer: 'max-w-fit mb-4',
+                }"
                 @click="clearWishlistHandler"
-            >
-                {{ $t('wishlist.clearWishlist') }}
-            </button>
+            />
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
                 <ProductCard
