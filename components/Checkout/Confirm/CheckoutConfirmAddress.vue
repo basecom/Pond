@@ -7,6 +7,7 @@ const { handleError } = useFormErrorStore();
 const { pushError } = useNotifications();
 const { t } = useI18n();
 const modalController = useModal();
+const { refreshCart } = useCart();
 const isLoading = ref(false);
 
 const { changeDefaultAddress, saveAddress, syncBillingAddress, loadCustomerAddresses, customerAddresses } =
@@ -33,6 +34,7 @@ const handleSameBillingAddress = async () => {
                 activeBillingAddress.value.id,
             );
             await refreshContext();
+            await refreshCart();
         }
     } catch (error) {
         pushError(t('global.generalError'));
@@ -47,6 +49,7 @@ const handleChange = async (payload: { type: 'shippingAddress' | 'billingAddress
         await changeDefaultAddress(payload.type, payload.id, billingAddressIsSameAsShippingAddress.value);
 
         await refreshContext();
+        await refreshCart();
 
         isLoading.value = false;
         modalController.close();
@@ -77,6 +80,7 @@ const handleSave = async (payload: {
 
         await loadCustomerAddresses();
         await refreshContext();
+        await refreshCart();
 
         isLoading.value = false;
         modalController.close();
