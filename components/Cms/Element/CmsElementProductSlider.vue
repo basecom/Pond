@@ -33,6 +33,7 @@ const breakpoints = {
 };
 
 const slides = computed(() => elementData.getData('products') ?? []);
+const { showNavigationArrows, shouldAutoSlide } = useProductSliderConfig({ slidesPerView, slides, breakpoints, showNavigation: navigation, autoSlide });
 
 const getPromotion = (product: Schemas['Product']): PromotionInfo => {
     return {
@@ -75,8 +76,8 @@ const onProductSelect = (product: Schemas['Product'], index: string | number) =>
                     'cursor-grab': slides.length > 1,
                 }"
                 class="w-full"
-                :auto-slide="autoSlide"
-                :navigation-arrows="navigation"
+                :auto-slide="shouldAutoSlide"
+                :navigation-arrows="showNavigationArrows"
                 :navigation-dots="false"
                 :slides-per-view="slidesPerView"
                 :space-between="spaceBetween"
