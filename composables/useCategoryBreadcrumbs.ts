@@ -26,10 +26,10 @@ export function useCategoryBreadcrumbs() {
         });
     };
 
-    const getBreadcrumbs = async (category: Schemas['Category']): Promise<Breadcrumb[]> => {
+    const getBreadcrumbs = async (category: Schemas['Category'], startIndex = 1): Promise<Breadcrumb[]> => {
         if (!runtimeConfig.public.pond.breadcrumb.enableDynamicLoading) {
             return getCategoryBreadcrumbs(category, {
-                startIndex: 1
+                startIndex
             });
         }
 
@@ -39,7 +39,7 @@ export function useCategoryBreadcrumbs() {
             return _mapBreadcrumbsFromApi(breadcrumbs);
         } catch ( e ) {
             return getCategoryBreadcrumbs(category, {
-                startIndex: 1
+                startIndex
             });
         }
     };
