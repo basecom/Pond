@@ -6,7 +6,7 @@ export type ProductSliderConfig = {
     slidesPerView: number;
 }
 
-export function useProductSliderConfig({ showNavigation, autoSlide, slides, breakpoints, slidesPerView }: ProductSliderConfig) {
+export function useComputeSliderConfig({ showNavigation, autoSlide, slides, breakpoints, slidesPerView }: ProductSliderConfig) {
     const breakPointsConfig = {
         'sm': 540,
         'md': 768,
