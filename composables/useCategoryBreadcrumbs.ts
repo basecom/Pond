@@ -2,6 +2,7 @@ import { getCategoryBreadcrumbs } from '@shopware-pwa/helpers-next';
 
 export function useCategoryBreadcrumbs() {
     const { apiClient } = useShopwareContext();
+    const runtimeConfig = useRuntimeConfig();
 
     const _loadCategoryBreadcrumbsFromApi = async (categoryId: string): Promise<Breadcrumb[]> => {
         const response = await apiClient.invoke('readBreadcrumb get /breadcrumb/{id}', {
@@ -26,6 +27,12 @@ export function useCategoryBreadcrumbs() {
     };
 
     const getBreadcrumbs = async (category: Schemas['Category']): Promise<Breadcrumb[]> => {
+        if (!runtimeConfig.public.pond.breadcrumb.enableDynamicLoading) {
+            return getCategoryBreadcrumbs(category, {
+                startIndex: 1
+            });
+        }
+
         try {
             const breadcrumbs = await _loadCategoryBreadcrumbsFromApi(category.id);
 
@@ -38,6 +45,6 @@ export function useCategoryBreadcrumbs() {
     };
 
     return {
-        getBreadcrumbs,
+        getBreadcrumbs
     };
 }
