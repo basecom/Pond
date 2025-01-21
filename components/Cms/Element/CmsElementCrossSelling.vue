@@ -47,7 +47,7 @@ const onSelectProduct = async (product: Schemas['Product']) => {
 
             <LayoutSlider
                 :classes="[crossSelling.products.length > 1 ? 'cursor-grab' : '']"
-                :navigation-arrows="crossSelling.products.length >= currentSlidesPerView"
+                :navigation-arrows="crossSelling.products?.length >= currentSlidesPerView"
                 :navigation-dots="false"
                 :slides-per-view="slidesPerView"
                 :space-between="spaceBetween"
