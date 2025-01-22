@@ -28,6 +28,7 @@ const breakpoints = {
 };
 
 const crossSellings = computed(() => elementData.getData('crossSellings') ?? []);
+const { currentSlidesPerView } = useComputeSliderConfig({ slidesPerView, slides: crossSellings, breakpoints, showNavigation: true, autoSlide: true });
 
 const onSelectProduct = async (product: Schemas['Product']) => {
     trackSelectItem(product, { id: 'cross-selling', name: 'cross-selling' });
@@ -46,6 +47,7 @@ const onSelectProduct = async (product: Schemas['Product']) => {
 
             <LayoutSlider
                 :classes="[crossSelling.products.length > 1 ? 'cursor-grab' : '']"
+                :navigation-arrows="crossSelling.products?.length >= currentSlidesPerView"
                 :navigation-dots="false"
                 :slides-per-view="slidesPerView"
                 :space-between="spaceBetween"
