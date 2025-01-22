@@ -46,6 +46,10 @@
                 "label": "Terms and Conditions",
                 "help": "I have read and accepted the general terms and conditions."
             },
+            "orderComment": {
+                "heading": "Comments on the order",
+                "label": "Comment"
+            },
             "order": {
                 "successMessage": "Your order has been placed.",
                 "errorMessage": "An error occurred trying finish the order. Please try again.",
@@ -93,7 +97,9 @@
             "billingAddressHeading": "Billing Address",
             "shippingAddressHeading": "Shipping Address",
             "paymentMethodHeading": "Payment Method",
-            "shippingMethodHeading": "Shipping Method"
+            "shippingMethodHeading": "Shipping Method",
+            "customerCommentHeading": "Comments on the order",
+            "customerCommentLabel": "Comment:"
         }
     }
 }
