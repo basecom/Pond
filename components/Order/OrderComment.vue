@@ -1,13 +1,9 @@
 <script setup lang="ts">
-const { t } = useI18n();
+defineProps<{
+  customerComment: string;
+}>();
 
-withDefaults(
-  defineProps<{
-    customerComment: string;
-  }>(), {
-    customerComment: t('order.commentDefaultValue'),
-  }
-);
+const { t } = useI18n();
 </script>
 
 <template>
