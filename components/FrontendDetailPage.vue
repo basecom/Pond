@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { getCategoryBreadcrumbs } from '@shopware-pwa/helpers-next';
 const { getProductRoute } = useProductRoute();
 const { t } = useI18n();
 
@@ -8,6 +7,7 @@ const props = defineProps<{
 }>();
 
 const { search } = useProductSearch();
+const { getBreadcrumbs } = useCategoryBreadcrumbs();
 
 const { data: productResponse } = await useAsyncData('pdp' + props.navigationId, async () => {
     return await search(props.navigationId, {
@@ -32,9 +32,7 @@ if (!productResponse.value) {
 
 const { product } = useProduct(productResponse.value.product, productResponse.value.configurator);
 
-const breadcrumbs = getCategoryBreadcrumbs(productResponse.value.product.seoCategory, {
-    startIndex: 1,
-});
+const breadcrumbs = await getBreadcrumbs(productResponse.value.product.seoCategory);
 
 // add product as last breadcrumb entry on pdp
 breadcrumbs.push({
