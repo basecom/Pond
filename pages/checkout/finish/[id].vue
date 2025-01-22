@@ -119,7 +119,7 @@ onMounted(async () => {
 
                     <div class="pt-4">
                         <div class="mb-2 font-bold">
-                            {{ $t('checkout.finish.order.customerCommentHeading') }}
+                            {{ $t('checkout.finish.customerCommentHeading') }}
                         </div>
                         
                         <OrderComment
