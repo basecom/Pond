@@ -83,13 +83,17 @@ onMounted(async () => {
             <div class="grid gap-6 pt-6 lg:grid-cols-2">
                 <div class="p-4 divide-y rounded-md shadow divide-gray-medium">
                     <div class="pb-4">
-                        <div class="mb-2 font-bold">{{ $t('checkout.finish.billingAddressHeading') }}</div>
+                        <div class="mb-2 font-bold">
+                            {{ $t('checkout.finish.billingAddressHeading') }}
+                        </div>
 
                         <OrderAddressBilling :billing-address="billingAddress" />
                     </div>
 
                     <div class="py-4">
-                        <div class="mb-2 font-bold">{{ $t('checkout.finish.shippingAddressHeading') }}</div>
+                        <div class="mb-2 font-bold">
+                            {{ $t('checkout.finish.shippingAddressHeading') }}
+                        </div>
 
                         <OrderAddressShipping
                             :shipping-address="shippingAddress"
@@ -98,19 +102,25 @@ onMounted(async () => {
                     </div>
 
                     <div class="py-4">
-                        <div class="mb-2 font-bold">{{ $t('checkout.finish.paymentMethodHeading') }}</div>
+                        <div class="mb-2 font-bold">
+                            {{ $t('checkout.finish.paymentMethodHeading') }}
+                        </div>
 
                         <OrderPayment :payment-method="paymentMethod" />
                     </div>
 
                     <div class="pt-4">
-                        <div class="mb-2 font-bold">{{ $t('checkout.finish.shippingMethodHeading') }}</div>
+                        <div class="mb-2 font-bold">
+                            {{ $t('checkout.finish.shippingMethodHeading') }}
+                        </div>
 
                         <OrderShipping :shipping-method="shippingMethod" />
                     </div>
 
                     <div class="pt-4">
-                        <div class="mb-2 font-bold">{{ $t('checkout.finish.order.customerCommentHeading') }}</div>
+                        <div class="mb-2 font-bold">
+                            {{ $t('checkout.finish.order.customerCommentHeading') }}
+                        </div>
                         
                         <OrderComment
                             :customer-comment="order.customerComment"
