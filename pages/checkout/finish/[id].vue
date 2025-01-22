@@ -40,7 +40,7 @@ onMounted(async () => {
 
             <div
                 v-if="order"
-                class="flex justify-center divide-x divide-gray py-4"
+                class="flex justify-center py-4 divide-x divide-gray"
             >
                 <div class="pr-3 text-center">
                     {{ $t('checkout.finish.orderNumberLabel') }}
@@ -74,22 +74,26 @@ onMounted(async () => {
 
             <LocaleLink
                 v-if="customerStore.customer && !customerStore.customer.guest"
-                class="mx-auto flex max-w-80 justify-center text-brand-primary"
+                class="flex justify-center mx-auto max-w-80 text-brand-primary"
                 :to="'/account/orders'"
             >
                 {{ $t('checkout.finish.orderHistoryLinkLabel') }}
             </LocaleLink>
 
             <div class="grid gap-6 pt-6 lg:grid-cols-2">
-                <div class="divide-y divide-gray-medium rounded-md p-4 shadow">
+                <div class="p-4 divide-y rounded-md shadow divide-gray-medium">
                     <div class="pb-4">
-                        <div class="mb-2 font-bold">{{ $t('checkout.finish.billingAddressHeading') }}</div>
+                        <div class="mb-2 font-bold">
+                            {{ $t('checkout.finish.billingAddressHeading') }}
+                        </div>
 
                         <OrderAddressBilling :billing-address="billingAddress" />
                     </div>
 
                     <div class="py-4">
-                        <div class="mb-2 font-bold">{{ $t('checkout.finish.shippingAddressHeading') }}</div>
+                        <div class="mb-2 font-bold">
+                            {{ $t('checkout.finish.shippingAddressHeading') }}
+                        </div>
 
                         <OrderAddressShipping
                             :shipping-address="shippingAddress"
@@ -98,19 +102,33 @@ onMounted(async () => {
                     </div>
 
                     <div class="py-4">
-                        <div class="mb-2 font-bold">{{ $t('checkout.finish.paymentMethodHeading') }}</div>
+                        <div class="mb-2 font-bold">
+                            {{ $t('checkout.finish.paymentMethodHeading') }}
+                        </div>
 
                         <OrderPayment :payment-method="paymentMethod" />
                     </div>
 
                     <div class="pt-4">
-                        <div class="mb-2 font-bold">{{ $t('checkout.finish.shippingMethodHeading') }}</div>
+                        <div class="mb-2 font-bold">
+                            {{ $t('checkout.finish.shippingMethodHeading') }}
+                        </div>
 
                         <OrderShipping :shipping-method="shippingMethod" />
                     </div>
+
+                    <div class="pt-4">
+                        <div class="mb-2 font-bold">
+                            {{ $t('checkout.finish.customerCommentHeading') }}
+                        </div>
+                        
+                        <OrderComment
+                            :customer-comment="order.customerComment"
+                        />
+                    </div>
                 </div>
 
-                <div class="rounded-md p-4 shadow">
+                <div class="p-4 rounded-md shadow">
                     <p class="font-bold">{{ $t('checkout.lineItemsHeading') }}</p>
 
                     <ul class="divide-y divide-gray-medium">

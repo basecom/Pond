@@ -46,6 +46,10 @@
                 "label": "AGB",
                 "help": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen und akzeptiere sie."
             },
+            "orderComment": {
+                "heading": "Anmerkungen zur Bestellung",
+                "label": "Kommentar"
+            },
             "order": {
                 "successMessage": "Ihre Bestellung wurde aufgegeben.",
                 "errorMessage": "Ein Fehler ist bei ihrer Bestellung aufgetreten. Bitte versuche es noch einmal.",
@@ -93,7 +97,9 @@
             "billingAddressHeading": "Rechnungsadresse",
             "shippingAddressHeading": "Lieferadresse",
             "paymentMethodHeading": "Bezahlmethode",
-            "shippingMethodHeading": "Versandmethode"
+            "shippingMethodHeading": "Versandmethode",
+            "customerCommentHeading": "Anmerkungen zur Bestellung",
+            "customerCommentLabel": "Kommentar:"
         }
     }
 }
