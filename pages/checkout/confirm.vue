@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ApiClientError } from '@shopware/api-client';
+import type { OrderForm } from '~/types/checkout/checkout';
 
 const customerStore = useCustomerStore();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 const { push } = useRouter();
+const { throwError } = useThrowError();
 const { refreshCart, isEmpty } = useCart();
 const cartItemsStore = useCartItemsStore();
 const { cartItemsWithProduct } = storeToRefs(cartItemsStore);
@@ -12,13 +13,11 @@ const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
 const { trackPurchase } = useAnalytics({ trackPageView: true, pageType: 'checkout' });
 
-const placeOrder = async (formData: any) => {
+const placeOrder = async (formData: OrderForm) => {
     try {
-        const order = await createOrder(
-            {
-                'customerComment': formData.customerComment ?? '',
-            }
-        );
+        const order = await createOrder({
+            customerComment: formData.customerComment ?? '',
+        });
         await push('/checkout/finish/' + order.id);
         trackPurchase(order);
         await refreshCart();
@@ -26,10 +25,7 @@ const placeOrder = async (formData: any) => {
         pushSuccess(t('checkout.confirm.order.successMessage'));
     } catch (error) {
         pushError(t('checkout.confirm.order.errorMessage'));
-
-        if (error instanceof ApiClientError) {
-            console.log(error.details);
-        }
+        throwError(error);
     } finally {
         // TODO: Instead of logging out handle guest state in account area by toggeling options
         if (customerStore.customer.guest) {
@@ -53,8 +49,8 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                 @submit="placeOrder"
                 @keydown.enter.prevent
             >
-                <div class="grid gap-6 my-6 lg:grid-cols-2">
-                    <div class="p-4 divide-y rounded-md shadow divide-gray-medium">
+                <div class="my-6 grid gap-6 lg:grid-cols-2">
+                    <div class="divide-y divide-gray-medium rounded-md p-4 shadow">
                         <CheckoutConfirmPersonal />
                         <CheckoutConfirmShipping />
                         <CheckoutConfirmPayment />
@@ -63,7 +59,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                         <CheckoutConfirmCustomerComment />
                     </div>
 
-                    <div class="p-4 rounded-md shadow">
+                    <div class="rounded-md p-4 shadow">
                         <div class="font-bold">{{ $t('checkout.lineItemsHeading') }}</div>
 
                         <ul class="divide-y divide-gray-medium">

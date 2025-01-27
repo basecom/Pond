@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const { changeLanguage, getLanguageIdFromCode, getAvailableLanguages } = useInternationalization();
 const { locale } = useI18n();
 
@@ -33,6 +32,14 @@ if (route.path !== '/wishlist' && wishlistEnabled) {
     // If not on wishlist page we fetch for displaying the amount of items in the header
     getWishlistProducts();
 }
+
+const shopName = configStore.get('core.basicInformation.shopName');
+useHead({
+    title: shopName,
+    htmlAttrs: {
+        lang: locale.value,
+    },
+});
 </script>
 
 <template>

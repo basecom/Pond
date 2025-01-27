@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import { ApiClientError } from '@shopware/api-client';
 
 const { getProductRoute } = useProductRoute();
 const { getProductCover } = useMedia();
 const { pushError, pushSuccess } = useNotifications();
+const { throwError } = useThrowError();
 const { t } = useI18n();
 
 const props = defineProps<{
@@ -54,10 +54,7 @@ const updateQuantity = async (quantityInput: number | undefined) => {
         pushSuccess(t('checkout.lineItem.updateQuantity.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
         pushError(t('checkout.lineItem.updateQuantity.errorMessage', { lineItemName: lineItem.value.label }));
-
-        if (error instanceof ApiClientError) {
-            console.log(error.details);
-        }
+        throwError(error);
     }
 
     // Make sure that quantity is the same as it is in the response
@@ -76,10 +73,7 @@ const removeCartItem = async () => {
         pushSuccess(t('checkout.lineItem.remove.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
         pushError(t('checkout.lineItem.remove.errorMessage', { lineItemName: lineItem.value.label }));
-
-        if (error instanceof ApiClientError) {
-            console.log(error.details);
-        }
+        throwError(error);
     }
 
     isLoading.value = false;
