@@ -27,7 +27,7 @@ const popoverOpen = ref(false);
             class="none inline-flex items-center justify-center"
             :aria-label="getTranslatedProperty(filter, 'name') + ' ' + $t('shared.popover.triggerAriaLabel')"
         >
-            <div class="flex items-center gap-2 rounded border border-gray px-4 py-2">
+            <div class="flex items-center gap-2 rounded border border-gray-medium px-4 py-2">
                 {{ getTranslatedProperty(filter, 'name') }}
 
                 <UtilityPill
@@ -43,10 +43,12 @@ const popoverOpen = ref(false);
                 />
             </div>
         </PopoverTrigger>
+
         <PopoverContent
             side="bottom"
             :side-offset="5"
-            class="w-64 rounded border border-gray-light bg-white p-4 shadow-md"
+            align="start"
+            class="w-64 rounded border border-gray-medium bg-white p-4 shadow-lg"
         >
             <ProductListingFilterOptionsProperties
                 :filter="filter"

@@ -108,20 +108,6 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
             </div>
         </div>
 
-        <div
-            v-if="props.showResetButton"
-            class="mx-auto w-full"
-        >
-            <FormKit
-                type="button"
-                suffix-icon="xmark"
-                :ignore="true"
-                @click="emit('reset-filters')"
-            >
-                {{ $t('listing.sidebar.filter.reset') }}
-            </FormKit>
-        </div>
-
         <div class="flex flex-wrap gap-3">
             <template
                 v-for="(filter, key) in selectedFilters"
@@ -134,6 +120,29 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
                     @remove-filter="$event => $emit('remove-filter', $event)"
                 />
             </template>
+
+          <UtilityBadge
+              v-if="props.showResetButton"
+              :content="$t('listing.sidebar.filter.reset')"
+              size="sm"
+              type="danger"
+              :outline="true"
+              suffix-icon="x"
+              class="cursor-pointer"
+              @click="emit('reset-filters')"
+          />
+<!--          <template-->
+<!--              v-if="props.showResetButton"-->
+<!--          >-->
+<!--            <FormKit-->
+<!--                type="button"-->
+<!--                suffix-icon="xmark"-->
+<!--                :ignore="true"-->
+<!--                @click="emit('reset-filters')"-->
+<!--            >-->
+<!--              {{ $t('listing.sidebar.filter.reset') }}-->
+<!--            </FormKit>-->
+<!--          </template>-->
         </div>
     </div>
 

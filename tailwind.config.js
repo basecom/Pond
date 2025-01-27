@@ -26,10 +26,10 @@ export default {
             black: '#000000', // Here for compatibility with shopware cms
             status: {
                 info: '#0099CC',
-                success: '#669933',
-                warning: '#FFCC00',
-                important: '#FF9900',
-                danger: '#CC0000',
+                success: '#693',
+                warning: '#fc0',
+                important: '#f90',
+                danger: '#c00',
             },
         },
         extend: {
@@ -65,6 +65,9 @@ export default {
                 slideDown: 'slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)',
                 slideUp: 'slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)',
             },
+            fontSize: {
+                xxs: '0.625rem'
+            }
         },
         container: {
             center: true,
