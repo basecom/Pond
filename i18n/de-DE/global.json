@@ -6,6 +6,7 @@
         "change": "Ändern",
         "cancel": "Abbrechen",
         "edit": "Bearbeiten",
-        "delete": "Löschen"
+        "delete": "Löschen",
+        "startingAt": "ab"
     }
 }

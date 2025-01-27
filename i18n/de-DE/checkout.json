@@ -6,7 +6,8 @@
             "emptyCartMessage": "Ihr Warenkorb ist leer."
         },
         "offcanvasCart": {
-            "toCartButtonLabel": "Zum Warenkorb"
+            "toCartButtonLabel": "Zum Warenkorb",
+            "continueShopping": "Weiter einkaufen"
         },
         "confirm": {
             "heading": "Kasse",
@@ -44,6 +45,10 @@
                 "cardTitle": "Allgemeine Geschäftsbedingungen",
                 "label": "AGB",
                 "help": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen und akzeptiere sie."
+            },
+            "orderComment": {
+                "heading": "Anmerkungen zur Bestellung",
+                "label": "Kommentar"
             },
             "order": {
                 "successMessage": "Ihre Bestellung wurde aufgegeben.",
@@ -92,7 +97,9 @@
             "billingAddressHeading": "Rechnungsadresse",
             "shippingAddressHeading": "Lieferadresse",
             "paymentMethodHeading": "Bezahlmethode",
-            "shippingMethodHeading": "Versandmethode"
+            "shippingMethodHeading": "Versandmethode",
+            "customerCommentHeading": "Anmerkungen zur Bestellung",
+            "customerCommentLabel": "Kommentar:"
         }
     }
 }

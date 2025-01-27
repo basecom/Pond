@@ -5,7 +5,7 @@
             "closeButtonAriaLabel": "Close"
         },
         "popover": {
-            "triggerAriaLabel": "Account dropdown",
+            "triggerAriaLabel": "open",
             "closeButtonAriaLabel": "Close"
         }
     }

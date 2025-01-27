@@ -3,6 +3,7 @@ const { paymentMethods, getPaymentMethods } = useCheckout();
 
 const { selectedPaymentMethod: paymentMethod, setPaymentMethod } = useSessionContext();
 const { trackAddPaymentInfo } = useAnalytics();
+const { refreshCart } = useCart();
 
 const selectedPaymentMethod = computed({
     get(): string {
@@ -11,6 +12,7 @@ const selectedPaymentMethod = computed({
     async set(paymentMethodId: string) {
         await setPaymentMethod({ id: paymentMethodId });
         trackAddPaymentInfo();
+        await refreshCart();
     },
 });
 

@@ -1,22 +1,15 @@
 <script setup lang="ts">
-// Synchronize the back-end language with the front-end language. This resolves mismatches that can occur, for example,
-// when the language is manually changed in the URL.
-const { changeLanguage, getLanguageCodeFromId, getLanguageIdFromCode } = useInternationalization();
+
+const { changeLanguage, getLanguageIdFromCode, getAvailableLanguages } = useInternationalization();
 const { locale } = useI18n();
-const { languageIdChain, refreshSessionContext } = useSessionContext();
 
-watchEffect(async () => {
-    if (languageIdChain.value) {
-        const frontendLocale = locale.value;
-        const backendLocale = getLanguageCodeFromId(languageIdChain.value);
+const updateSessionWithLanguage = async () => {
+    const frontendLocale = locale.value;
+    await getAvailableLanguages();
+    await changeLanguage(getLanguageIdFromCode(frontendLocale));
+};
 
-        if (frontendLocale !== backendLocale) {
-            await changeLanguage(getLanguageIdFromCode(frontendLocale));
-            await refreshSessionContext();
-            window.location.reload();
-        }
-    }
-});
+await updateSessionWithLanguage();
 
 const customerStore = useCustomerStore();
 const { loading } = storeToRefs(customerStore);

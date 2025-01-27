@@ -47,6 +47,9 @@ export default defineNuxtConfig({
                     id: 'G-XXXX',
                     trackingUrl: 'https://www.googletagmanager.com/',
                 },
+                breadcrumb: {
+                    enableDynamicLoading: false,
+                }
             },
         },
     },
@@ -82,8 +85,6 @@ export default defineNuxtConfig({
             content: [join(currentDir, 'formkit.theme.ts')],
         },
     },
-
-    css: ['~/node_modules/@glidejs/glide/dist/css/glide.core.min.css'],
 
     i18n: {
         vueI18n: './i18n.config.ts',

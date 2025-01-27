@@ -3,6 +3,7 @@ import { getShippingMethodDeliveryTime } from '@shopware-pwa/helpers-next';
 
 const { shippingMethods, getShippingMethods } = useCheckout();
 const { trackAddShippingInfo } = useAnalytics();
+const { refreshCart } = useCart();
 
 const { selectedShippingMethod: shippingMethod, setShippingMethod } = useSessionContext();
 
@@ -13,6 +14,7 @@ const selectedShippingMethod = computed({
     async set(shippingMethodId: string) {
         await setShippingMethod({ id: shippingMethodId });
         trackAddShippingInfo();
+        await refreshCart();
     },
 });
 

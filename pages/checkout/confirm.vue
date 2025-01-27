@@ -12,9 +12,13 @@ const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
 const { trackPurchase } = useAnalytics({ trackPageView: true, pageType: 'checkout' });
 
-const placeOrder = async () => {
+const placeOrder = async (formData: any) => {
     try {
-        const order = await createOrder();
+        const order = await createOrder(
+            {
+                'customerComment': formData.customerComment ?? '',
+            }
+        );
         await push('/checkout/finish/' + order.id);
         trackPurchase(order);
         await refreshCart();
@@ -49,16 +53,17 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                 @submit="placeOrder"
                 @keydown.enter.prevent
             >
-                <div class="my-6 grid gap-6 lg:grid-cols-2">
-                    <div class="divide-y divide-gray-medium rounded-md p-4 shadow">
+                <div class="grid gap-6 my-6 lg:grid-cols-2">
+                    <div class="p-4 divide-y rounded-md shadow divide-gray-medium">
                         <CheckoutConfirmPersonal />
                         <CheckoutConfirmShipping />
                         <CheckoutConfirmPayment />
                         <CheckoutConfirmAddress v-if="customerStore.customer" />
                         <CheckoutConfirmTerms />
+                        <CheckoutConfirmCustomerComment />
                     </div>
 
-                    <div class="rounded-md p-4 shadow">
+                    <div class="p-4 rounded-md shadow">
                         <div class="font-bold">{{ $t('checkout.lineItemsHeading') }}</div>
 
                         <ul class="divide-y divide-gray-medium">
@@ -76,25 +81,40 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
 
                         <CheckoutSummary />
 
-                        <button
+                        <CheckoutPromotion />
+
+                        <FormKit
                             v-if="customerStore.customer"
-                            class="mt-4 flex w-full cursor-pointer items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
+                            type="submit"
+                            :classes="{
+                                outer: 'mt-4',
+                            }"
                         >
                             {{ $t('checkout.confirm.order.buttonLabel') }}
-                        </button>
+                        </FormKit>
 
-                        <div
+                        <FormKit
                             v-else
-                            class="mt-4 flex cursor-not-allowed items-center justify-center rounded-md bg-gray-dark px-6 py-3 text-white"
+                            type="submit"
                             disabled="disabled"
+                            :classes="{
+                                outer: 'mt-4',
+                            }"
                         >
                             {{ $t('checkout.confirm.order.buttonLabelNotLoggedIn') }}
-                        </div>
+                        </FormKit>
                     </div>
                 </div>
             </FormKit>
         </template>
 
-        <template v-else> {{ $t('checkout.confirm.emptyCartMessage') }}</template>
+        <template v-else>
+            <UtilityStaticNotification
+                id="empty-cart"
+                type="info"
+                :message="$t('checkout.cart.emptyCartMessage')"
+                class="mt-4"
+            />
+        </template>
     </div>
 </template>

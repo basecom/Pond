@@ -41,14 +41,40 @@ const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
                 </ul>
                 <CheckoutSummary :reduced-display="true" />
             </div>
+            <template v-else>
+                <UtilityStaticNotification
+                    id="empty-cart"
+                    type="info"
+                    :message="$t('checkout.cart.emptyCartMessage')"
+                    class="mt-4"
+                />
+            </template>
 
             <LocaleLink
+                v-if="!isEmpty"
                 to="/checkout/cart"
-                class="mt-4 flex items-center justify-center rounded-md bg-brand-primary px-6 py-3 text-white"
                 @click="offcanvasCartController.close()"
             >
-                {{ $t('checkout.offcanvasCart.toCartButtonLabel') }}
+                <FormKit
+                    type="submit"
+                    :classes="{
+                        outer: 'mt-4',
+                    }"
+                >
+                    {{ $t('checkout.offcanvasCart.toCartButtonLabel') }}
+                </FormKit>
             </LocaleLink>
+            <FormKit
+                v-else
+                type="submit"
+                ignore
+                :classes="{
+                    outer: 'mt-4',
+                }"
+                @click="offcanvasCartController.close()"
+            >
+                {{ $t('checkout.offcanvasCart.continueShopping') }}
+            </FormKit>
         </template>
     </LazyLayoutSidebar>
 </template>

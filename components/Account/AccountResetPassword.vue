@@ -52,11 +52,16 @@ const getEnvironmentStorefrontUrl = (): string => {
         <p>
             {{ $t('account.recoverPassword.request.successMessage') }}
         </p>
-        <LocaleLink
-            to="/account/login"
-            class="mt-4 flex w-full justify-center rounded bg-brand-primary px-4 py-2 text-white hover:bg-brand-primary-dark"
-        >
-            {{ $t('account.recoverPassword.request.loginButtonLabel') }}
+
+        <LocaleLink to="/account/login">
+            <FormKit
+                type="submit"
+                :classes="{
+                    outer: 'mt-4',
+                }"
+            >
+                {{ $t('account.recoverPassword.request.loginButtonLabel') }}
+            </FormKit>
         </LocaleLink>
     </template>
 </template>
