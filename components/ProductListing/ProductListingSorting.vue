@@ -44,7 +44,7 @@ const handleClick = (option: Schemas['ProductListingResult']['availableSortings'
 
         <DropdownMenuPortal>
             <DropdownMenuContent
-                class="nele min-w-64 rounded border border-gray-medium bg-white p-4 shadow-lg"
+                class="min-w-64 rounded border border-gray-medium bg-white p-4 shadow-lg"
                 :side-offset="5"
                 side="bottom"
                 align="end"

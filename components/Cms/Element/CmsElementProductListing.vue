@@ -51,6 +51,7 @@ productListingCriteriaStore.setSearchResult(getCurrentListing.value, true);
 
             <template
                 v-for="product in getElements"
+                v-else
                 :key="product.id"
             >
                 <ProductCard
