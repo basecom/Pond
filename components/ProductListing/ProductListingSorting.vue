@@ -11,8 +11,10 @@ const emit = defineEmits<{
 
 const toggleState = ref(false);
 const getSortingName = computed(() => {
-  const selectedOptionName = props.options.filter((option: Schemas['ProductListingResult']['availableSortings']) => option.key === props.selectedOption);
-  return selectedOptionName?.[0]?.translated?.label ?? t('listing.sidebar.sorting.text');
+    const selectedOptionName = props.options.filter(
+        (option: Schemas['ProductSorting']) => option.key === props.selectedOption,
+    );
+    return selectedOptionName?.[0]?.translated?.label ?? t('listing.sidebar.sorting.text');
 });
 
 const handleClick = (option: Schemas['ProductListingResult']['availableSortings'][0]) => {
@@ -28,21 +30,21 @@ const handleClick = (option: Schemas['ProductListingResult']['availableSortings'
             :aria-label="$t('listing.sidebar.sorting.ariaLabel')"
         >
             <span class="text-left">
-              {{ getSortingName }}
+                {{ getSortingName }}
             </span>
 
             <FormKitIcon
                 class="block h-3 w-3 text-gray transition-all duration-150"
                 :class="{
-                        'rotate-180': toggleState,
-                    }"
+                    'rotate-180': toggleState,
+                }"
                 icon="chevron-down"
             />
         </DropdownMenuTrigger>
 
         <DropdownMenuPortal>
             <DropdownMenuContent
-                class="min-w-64 rounded border border-gray-medium bg-white p-4 shadow-lg nele"
+                class="nele min-w-64 rounded border border-gray-medium bg-white p-4 shadow-lg"
                 :side-offset="5"
                 side="bottom"
                 align="end"

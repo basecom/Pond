@@ -60,10 +60,10 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
                 'h-full': displayFullPopoverContainer,
             }"
         >
-            <div class="relative z-10 flex flex-row gap-2">
+            <div class="relative z-10 flex flex-col gap-2">
                 <div
                     ref="filterPopoverContainer"
-                    class="flex flex-row flex-wrap gap-4"
+                    class="flex flex-row flex-wrap gap-2"
                 >
                     <template
                         v-for="filter in props.filters"
@@ -121,28 +121,16 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
                 />
             </template>
 
-          <UtilityBadge
-              v-if="props.showResetButton"
-              :content="$t('listing.sidebar.filter.reset')"
-              size="sm"
-              type="danger"
-              :outline="true"
-              suffix-icon="x"
-              class="cursor-pointer"
-              @click="emit('reset-filters')"
-          />
-<!--          <template-->
-<!--              v-if="props.showResetButton"-->
-<!--          >-->
-<!--            <FormKit-->
-<!--                type="button"-->
-<!--                suffix-icon="xmark"-->
-<!--                :ignore="true"-->
-<!--                @click="emit('reset-filters')"-->
-<!--            >-->
-<!--              {{ $t('listing.sidebar.filter.reset') }}-->
-<!--            </FormKit>-->
-<!--          </template>-->
+            <UtilityBadge
+                v-if="props.showResetButton"
+                :content="$t('listing.sidebar.filter.reset')"
+                size="sm"
+                type="danger"
+                :outline="true"
+                suffix-icon="x"
+                class="cursor-pointer"
+                @click="emit('reset-filters')"
+            />
         </div>
     </div>
 

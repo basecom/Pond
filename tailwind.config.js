@@ -66,8 +66,8 @@ export default {
                 slideUp: 'slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)',
             },
             fontSize: {
-                xxs: '0.625rem'
-            }
+                xxs: '0.625rem',
+            },
         },
         container: {
             center: true,

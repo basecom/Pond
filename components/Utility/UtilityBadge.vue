@@ -18,11 +18,11 @@ withDefaults(
     }>(),
     {
         content: null,
-      type: 'info',
+        type: 'info',
         size: 'md',
         prefixIcon: null,
         suffixIcon: null,
-      outline: false
+        outline: false,
     },
 );
 </script>
@@ -36,7 +36,7 @@ withDefaults(
             'bg-status-warning': type === 'warning' && !outline,
             'bg-status-danger': type === 'danger' && !outline,
             'bg-status-success': type === 'success' && !outline,
-            'border py-2 px-4': outline,
+            'border px-4 py-2': outline,
             'text-white': !outline,
             'border-status-info': type === 'info' && outline,
             'border-status-warning': type === 'warning' && outline,
