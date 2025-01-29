@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { preselectShippingMethod } from '~/helpers/preselectShippingMethod';
 
 withDefaults(
     defineProps<{
@@ -9,6 +8,7 @@ withDefaults(
         reducedDisplay: false,
     },
 );
+const { preselectShippingMethod } = useShippingMethod();
 await preselectShippingMethod();
 
 const { totalPrice, shippingTotal, cart } = useCart();
