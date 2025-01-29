@@ -14,7 +14,7 @@ const productCover = getProductCover(props.product.cover, 'xs');
     >
         <div class="rounded-sm border border-gray-medium bg-gray-light p-1">
             <template v-if="productCover.placeholder">
-                <div class="h-10 min-h-10 w-10 min-w-10">
+                <div class="size-10 min-h-10 min-w-10">
                     <SharedImagePlaceholder :size="'xs'" />
                 </div>
             </template>
@@ -23,7 +23,7 @@ const productCover = getProductCover(props.product.cover, 'xs');
                 <img
                     loading="lazy"
                     :src="productCover.url"
-                    class="h-10 min-h-10 w-10 min-w-10 object-cover"
+                    class="size-10 min-h-10 min-w-10 object-cover"
                     :alt="productCover.alt"
                 />
             </template>

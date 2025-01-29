@@ -26,9 +26,9 @@ watch(selection, (newSelection, oldSelection) => {
     emits('filter-changed', { code: 'properties', value: merged });
 });
 
-const updateSelection = (initial, newSelection, oldSelection) => {
-    return [...new Set(initial.filter(id => !oldSelection.includes(id)).concat(newSelection))];
-};
+const updateSelection = (initial, newSelection, oldSelection) => [
+    ...new Set(initial.filter(id => !oldSelection.includes(id)).concat(newSelection)),
+];
 </script>
 
 <template>

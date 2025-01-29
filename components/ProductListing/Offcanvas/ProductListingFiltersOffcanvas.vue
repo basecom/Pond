@@ -34,7 +34,7 @@ const displayedFilter = ref(null);
         <UtilityPill :number="appliedFiltersTotal" />
         <FormKitIcon
             icon="filter"
-            class="h-6 w-6"
+            class="size-6"
         />
     </FormKit>
 
@@ -54,7 +54,7 @@ const displayedFilter = ref(null);
             >
                 <FormKitIcon
                     icon="chevron-left"
-                    class="block h-4 w-4"
+                    class="block size-4"
                 />
                 <template v-if="displayedFilter?.code === 'properties'">
                     {{ getTranslatedProperty(displayedFilter, 'name') }}
@@ -65,14 +65,14 @@ const displayedFilter = ref(null);
             </button>
         </template>
         <template #content>
-            <div class="h-full w-full overflow-hidden">
+            <div class="size-full overflow-hidden">
                 <div
-                    class="flex h-full w-full flex-row transition-transform duration-300"
+                    class="flex size-full flex-row transition-transform duration-300"
                     :class="{
                         '-translate-x-full': displayedFilter,
                     }"
                 >
-                    <div class="flex h-full w-full shrink-0 flex-col">
+                    <div class="flex size-full shrink-0 flex-col">
                         <template
                             v-for="filter in props.filters"
                             :key="filter.code"
@@ -85,7 +85,7 @@ const displayedFilter = ref(null);
                             />
                         </template>
                     </div>
-                    <div class="flex h-full w-full shrink-0 flex-col">
+                    <div class="flex size-full shrink-0 flex-col">
                         <component
                             :is="componentsMappingOffcanvas[displayedFilter?.code]"
                             :filter="displayedFilter"

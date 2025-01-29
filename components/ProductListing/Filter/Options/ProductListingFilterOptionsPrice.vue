@@ -61,7 +61,7 @@ watch(props, () => {
             <SliderRange class="absolute h-full rounded-full bg-brand-primary" />
         </SliderTrack>
 
-        <SliderThumb class="block h-5 w-5 rounded-full bg-brand-primary" />
-        <SliderThumb class="block h-5 w-5 rounded-full bg-brand-primary" />
+        <SliderThumb class="block size-5 rounded-full bg-brand-primary" />
+        <SliderThumb class="block size-5 rounded-full bg-brand-primary" />
     </SliderRoot>
 </template>

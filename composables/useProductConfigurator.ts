@@ -13,11 +13,11 @@ export function useProductConfigurator(): ExtendedUseProductConfiguratorReturn {
     async function findBestMatchingVariant(productId: string, options: string[], switchedGroup: string) {
         const match = await apiClient.invoke('searchProductVariantIds post /product/{productId}/find-variant', {
             pathParams: {
-                productId: productId,
+                productId,
             },
             body: {
-                options: options,
-                switchedGroup: switchedGroup,
+                options,
+                switchedGroup,
             },
         });
 

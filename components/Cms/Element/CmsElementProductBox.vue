@@ -14,14 +14,12 @@ const { product } = productData ? useProduct(productData) : {};
 const { trackPromotionView, trackSelectPromotion, trackSelectItem } = useAnalytics();
 const { isHomePage } = useHomePage();
 
-const getPromotion = (product: Schemas['Product']): PromotionInfo => {
-    return {
-        creative_name: product.cover?.media.fileName ?? '',
-        creative_slot: props.element?.type ?? '',
-        promotion_id: props.element?.blockId ?? '',
-        promotion_name: props.element?.type ?? '',
-    };
-};
+const getPromotion = (product: Schemas['Product']): PromotionInfo => ({
+    creative_name: product.cover?.media.fileName ?? '',
+    creative_slot: props.element?.type ?? '',
+    promotion_id: props.element?.blockId ?? '',
+    promotion_name: props.element?.type ?? '',
+});
 
 const onProductView = () => {
     if (isHomePage.value) {

@@ -17,7 +17,7 @@ const notificationType = ref('');
 
 const route = useRoute();
 const emailHash = route.query.em;
-const hash = route.query.hash;
+const { hash } = route.query;
 
 onMounted(async () => {
     // The store api only offers a way to check the status for logged-in users

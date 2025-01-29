@@ -43,7 +43,7 @@ const icon = computed(() => iconMap[props.notification.type] || 'information');
     >
         <FormKitIcon
             :icon="icon"
-            class="block h-7 w-7 shrink-0 rounded-md p-1.5 text-white"
+            class="block size-7 shrink-0 rounded-md p-1.5 text-white"
             :class="background"
         />
 
@@ -61,7 +61,7 @@ const icon = computed(() => iconMap[props.notification.type] || 'information');
             >
                 <FormKitIcon
                     icon="xmark"
-                    class="block h-4 w-4 text-gray-dark"
+                    class="block size-4 text-gray-dark"
                 />
             </button>
         </template>

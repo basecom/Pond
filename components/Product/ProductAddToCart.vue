@@ -95,7 +95,7 @@ const handleAddToCart = async () => {
         >
             <FormKitIcon
                 icon="info"
-                class="block h-3.5 w-3.5"
+                class="block size-3.5"
             />
             <span>{{ $t('product.addToCart.notAvailable') }}</span>
         </div>

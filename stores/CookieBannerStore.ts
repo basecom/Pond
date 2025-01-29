@@ -39,16 +39,14 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
             .flatMap(group => group.entries)
             .filter(entry => entry.value)
             .map(entry => entry.cookie)
-            .filter(cookie => {
-                return cookie && useCookie(cookie).value;
-            });
+            .filter(cookie => cookie && useCookie(cookie).value);
     };
 
     const updateCookies = (active: CookieEntry['cookie'][], inactive: CookieEntry['cookie'][]) => {
         const allCookies = _cookieGroups.value.flatMap(group => group.entries);
 
         active.forEach(cookie => {
-            const entry = allCookies.find(entry => entry.cookie === cookie);
+            const entry = allCookies.find(cookieEntry => cookieEntry.cookie === cookie);
 
             if (!entry || !entry.value) {
                 return;

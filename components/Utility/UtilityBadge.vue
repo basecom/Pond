@@ -53,8 +53,8 @@ withDefaults(
             :icon="prefixIcon"
             class="block"
             :class="{
-                'h-2.5 w-2.5': size === 'sm',
-                'h-4 w-4': size === 'md' || size === 'lg',
+                'size-2.5': size === 'sm',
+                'size-4': size === 'md' || size === 'lg',
             }"
         />
         <span>
@@ -65,8 +65,8 @@ withDefaults(
             :icon="suffixIcon"
             class="block"
             :class="{
-                'h-2.5 w-2.5': size === 'sm',
-                'h-4 w-4': size === 'md' || size === 'lg',
+                'size-2.5': size === 'sm',
+                'size-4': size === 'md' || size === 'lg',
             }"
         />
     </div>

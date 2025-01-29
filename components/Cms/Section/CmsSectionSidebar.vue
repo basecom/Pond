@@ -22,7 +22,7 @@ const mainBlocks = getPositionContent('main');
             </template>
         </div>
 
-        <div class="md:3/4 w-full md:flex-grow">
+        <div class="md:3/4 w-full md:grow">
             <template
                 v-for="block in mainBlocks"
                 :key="block.id"

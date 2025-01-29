@@ -15,12 +15,12 @@ const videoUrl = computed(() => `https://www.youtube.com/embed/${videoID}`);
 <template>
     <div
         ref="youtubeVideo"
-        class="youtube-player relative mx-auto my-0 h-full w-full"
+        class="youtube-player relative mx-auto my-0 size-full"
     >
         <iframe
             :src="videoUrl"
             frameborder="0"
-            class="absolute left-0 top-0 h-full w-full"
+            class="absolute left-0 top-0 size-full"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
             allowfullscreen
         />

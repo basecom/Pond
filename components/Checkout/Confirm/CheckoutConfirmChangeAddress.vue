@@ -38,7 +38,7 @@ const selectedAddress: Ref<Schemas['CustomerAddress']> = ref(props.initialAddres
 
 const changeSelectedAddress = (newAddressId: string) => {
     const foundAddress = props.customerAddresses.filter(address => address.id === newAddressId);
-    if (foundAddress.length != 1) {
+    if (foundAddress.length !== 1) {
         pushError(t('global.generalError'));
         return;
     }
@@ -63,23 +63,10 @@ const changeMode = (mode: string) => {
     }
 };
 
-const addressText = (address: Schemas['CustomerAddress']) => {
-    return (
-        address.firstName +
-        ' ' +
-        address.lastName +
-        ' ' +
-        (address.company ? address.company : '') +
-        ' ' +
-        address.street +
-        ' ' +
-        address.zipcode +
-        ' ' +
-        address.city +
-        ' ' +
-        address.country?.name
-    );
-};
+const addressText = (address: Schemas['CustomerAddress']) =>
+    `${address.firstName} ${address.lastName} ${address.company ? address.company : ''} ${address.street} ${
+        address.zipcode
+    } ${address.city} ${address.country?.name}`;
 </script>
 
 <template>

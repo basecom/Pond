@@ -63,15 +63,13 @@ watch(typingQuery, (value: string) => {
 });
 
 // Suggest results will only be shown, when the user has typed more than the minimum characters prop in the search field
-const showSuggest = computed(() => {
-    return typingQuery.value.length >= props.minCharacters && !isResultPage.value;
-});
+const showSuggest = computed(() => typingQuery.value.length >= props.minCharacters && !isResultPage.value);
 
 // Redirect to search result page when pressing enter
 const handleEnter = () => {
     if (typingQuery.value.length >= 1) {
         trackSearch();
-        navigateTo('/search?search=' + typingQuery.value);
+        navigateTo(`/search?search=${typingQuery.value}`);
     }
 
     if (isResultPage.value) {
@@ -122,7 +120,7 @@ onMounted(() => {
 
         <div
             v-if="showSuggest"
-            class="z-1 container fixed left-0 right-0 rounded-b-md border-t border-gray-medium bg-white p-0 shadow-md"
+            class="z-1 container fixed inset-x-0 rounded-b-md border-t border-gray-medium bg-white p-0 shadow-md"
         >
             <LocaleLink
                 v-for="product in getProducts?.slice(0, displayTotal)"

@@ -12,7 +12,7 @@ const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
     >
         <FormKitIcon
             icon="cart-shopping"
-            class="block h-6 w-6"
+            class="block size-6"
         />
         <UtilityPill
             :number="cartItemsCount"

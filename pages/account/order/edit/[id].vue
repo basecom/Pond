@@ -23,7 +23,7 @@ const updateOrder = async () => {
         const response: Schemas['SuccessResponse'] = await changePaymentMethod(newPaymentMethod.value);
 
         if (response.success) {
-            navigateTo('/checkout/finish/' + orderId);
+            navigateTo(`/checkout/finish/${orderId}`);
 
             pushSuccess(t('account.order.edit.successMessage'));
         } else {

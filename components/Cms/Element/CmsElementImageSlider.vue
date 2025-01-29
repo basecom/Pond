@@ -25,29 +25,25 @@ if (slides.value.length > 0) {
     useSwiper(sliderRef, {});
 }
 
-const autoplayConfig = computed(() => {
-    return autoSlide
+const autoplayConfig = computed(() =>
+    autoSlide
         ? {
               delay: autoplayTimeout,
               disableOnInteraction: false,
           }
-        : false;
-});
+        : false,
+);
 
-const speedConfig = computed(() => {
-    return autoSlide ? speed : '300';
-});
+const speedConfig = computed(() => (autoSlide ? speed : '300'));
 const slidesRef = ref([]);
 const trackedSlides = ref([]);
 
-const getPromotion = (media: Schemas['Media']): PromotionInfo => {
-    return {
-        creative_name: media.fileName ?? '',
-        creative_slot: props.element?.type ?? '',
-        promotion_id: props.element?.blockId ?? '',
-        promotion_name: props.element?.type ?? '',
-    };
-};
+const getPromotion = (media: Schemas['Media']): PromotionInfo => ({
+    creative_name: media.fileName ?? '',
+    creative_slot: props.element?.type ?? '',
+    promotion_id: props.element?.blockId ?? '',
+    promotion_name: props.element?.type ?? '',
+});
 
 if (isHomePage.value) {
     const { stop } = useIntersectionObserver(slidesRef, events => {
@@ -99,7 +95,7 @@ if (isHomePage.value) {
                         ref="slidesRef"
                         :src="slide.mediaUrl"
                         :alt="$t('cms.element.imageAlt')"
-                        class="h-full w-full object-center"
+                        class="size-full object-center"
                         :class="'object-' + displayMode"
                     />
                 </LayoutSliderSlide>

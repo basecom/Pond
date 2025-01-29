@@ -25,7 +25,7 @@ const subscribeBehavior =
     (customer.value && doubleOptInRegistered) || (!customer.value && doubleOptIn) ? 'subscribe' : 'direct';
 
 const handleNewsletterChange = async (event: Event) => {
-    const checked = (event.target as HTMLInputElement).checked;
+    const { checked } = event.target as HTMLInputElement;
     if (checked) {
         try {
             await newsletterSubscribe({

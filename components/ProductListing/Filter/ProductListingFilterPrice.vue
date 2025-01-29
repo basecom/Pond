@@ -35,7 +35,7 @@ const popoverOpen = ref(false);
                     number="1"
                 />
                 <FormKitIcon
-                    class="block h-3 w-3 text-gray transition-all duration-150"
+                    class="block size-3 text-gray transition-all duration-150"
                     :class="{
                         'rotate-180': popoverOpen,
                     }"

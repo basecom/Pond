@@ -17,7 +17,7 @@ export const useCartItemsStore = defineStore('cart-items', () => {
             .filter((key: string | undefined): key is string => !!key);
 
         return await _search({
-            ids: ids,
+            ids,
             limit: ids.length,
             associations: {
                 manufacturer: {},
@@ -47,9 +47,7 @@ export const useCartItemsStore = defineStore('cart-items', () => {
         });
     });
 
-    const products = computed((): Schemas['Product'][] => {
-        return productSearch.value?.elements || [];
-    });
+    const products = computed((): Schemas['Product'][] => productSearch.value?.elements || []);
 
     const cartItemsWithProduct = computed(() => {
         if (!products.value.length) {
@@ -57,7 +55,7 @@ export const useCartItemsStore = defineStore('cart-items', () => {
         }
 
         return cartItems.value.map(cartItem => {
-            const product = products.value.find(product => product.id === cartItem.referencedId);
+            const product = products.value.find(currentProduct => currentProduct.id === cartItem.referencedId);
 
             return {
                 cartItem,
@@ -66,11 +64,9 @@ export const useCartItemsStore = defineStore('cart-items', () => {
         });
     });
 
-    const cartItemsCount = computed((): number => {
-        return cartItems.value.reduce((acc: number, lineItem: Schemas['LineItem']) => {
-            return acc + lineItem.quantity;
-        }, 0);
-    });
+    const cartItemsCount = computed((): number =>
+        cartItems.value.reduce((acc: number, lineItem: Schemas['LineItem']) => acc + lineItem.quantity, 0),
+    );
 
     watch(cartItems, async (value, oldValue) => {
         const newCartIds = value

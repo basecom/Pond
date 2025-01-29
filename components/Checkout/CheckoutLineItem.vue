@@ -91,7 +91,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
 </script>
 
 <template>
-    <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
+    <div class="mr-4 size-24 shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
         <LocaleLink
             v-if="!isPromotion"
             :to="getProductRoute(lineItem)"
@@ -104,17 +104,17 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                 <img
                     :src="lineItemCover.url"
                     :alt="lineItemCover.alt"
-                    class="h-full w-full object-cover object-center"
+                    class="size-full object-cover object-center"
                 />
             </template>
         </LocaleLink>
         <div
             v-else-if="isPromotion"
-            class="flex h-full w-full items-center justify-center"
+            class="flex size-full items-center justify-center"
         >
             <FormKitIcon
                 icon="percent"
-                class="block h-16 w-16 text-gray"
+                class="block size-16 text-gray"
             />
         </div>
     </div>

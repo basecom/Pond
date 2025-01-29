@@ -39,19 +39,15 @@ export function usePriceFilter(): ListingFilterMapping {
 
     const createCriteria = (
         value: Schemas['ProductListingResult']['currentFilters'],
-    ): Partial<Schemas['ProductListingCriteria']> => {
-        return {
-            'min-price': value.price.min,
-            'max-price': value.price.max,
-        };
-    };
+    ): Partial<Schemas['ProductListingCriteria']> => ({
+        'min-price': value.price.min,
+        'max-price': value.price.max,
+    });
 
     const isSameCriteria = (
         a: Partial<Schemas['ProductListingCriteria']>,
         b: Partial<Schemas['ProductListingCriteria']>,
-    ): boolean => {
-        return a['min-price'] === b['min-price'] && a['max-price'] === b['max-price'];
-    };
+    ): boolean => a['min-price'] === b['min-price'] && a['max-price'] === b['max-price'];
 
     const removeFilter = (currentFilters: ComputedRef<Schemas['ProductListingResult']['currentFilters']>) => {
         currentFilters.value['price'] = {

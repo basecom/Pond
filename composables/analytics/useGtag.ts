@@ -30,8 +30,8 @@ export function useGtags(): UseAnalyticsReturn {
         }
     }
 
-    const _getSessionId = async (tagId: string): Promise<string | undefined> => {
-        return new Promise(resolve => {
+    const _getSessionId = async (tagId: string): Promise<string | undefined> =>
+        new Promise(resolve => {
             const timeout = setTimeout(() => {
                 resolve(undefined);
             }, 500);
@@ -43,7 +43,6 @@ export function useGtags(): UseAnalyticsReturn {
                 });
             }
         });
-    };
 
     const _loadSessionId = async () => {
         if (import.meta.server) {

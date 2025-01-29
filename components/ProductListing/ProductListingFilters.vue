@@ -91,7 +91,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
 
                         <FormKitIcon
                             icon="minus"
-                            class="h-3 w-3"
+                            class="size-3"
                         />
                     </template>
                     <template v-else>
@@ -101,7 +101,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
 
                         <FormKitIcon
                             icon="plus"
-                            class="h-3 w-3"
+                            class="size-3"
                         />
                     </template>
                 </button>

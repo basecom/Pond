@@ -58,7 +58,7 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
                         <img
                             :src="cover.url"
                             :alt="cover.alt"
-                            class="aspect-square h-full w-full object-center group-hover:opacity-75"
+                            class="aspect-square size-full object-center group-hover:opacity-75"
                             :class="displayMode === 'standard' ? 'object-scale-down' : 'object-' + displayMode"
                         />
                     </template>

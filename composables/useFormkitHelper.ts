@@ -25,9 +25,8 @@ export function useFormkitHelper() {
     /**
      * Returns an array with alls error Codes for the given key. Combined with the key it can be used as a snippet key.
      */
-    const errorOfField = (name: string, apiErrors: ResolvedApiError[]): string[] => {
-        return apiErrors?.filter(err => err.key === name).map(err => t(`violation.${err.code}`));
-    };
+    const errorOfField = (name: string, apiErrors: ResolvedApiError[]): string[] =>
+        apiErrors?.filter(err => err.key === name).map(err => t(`violation.${err.code}`));
 
     const togglePasswordVisibility = (node: FormKitNode) => {
         node.props.suffixIcon = node.props.suffixIcon === 'lock' ? 'lock-open' : 'lock';

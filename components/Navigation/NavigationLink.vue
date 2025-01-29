@@ -67,7 +67,7 @@ const { trackNavigation } = useAnalytics();
             class="ml-auto items-center"
         >
             <FormKitIcon
-                class="block h-4 w-4"
+                class="block size-4"
                 icon="chevron-right"
             />
         </span>

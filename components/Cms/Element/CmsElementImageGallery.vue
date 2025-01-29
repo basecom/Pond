@@ -44,7 +44,7 @@ const slides = elementData.getData('sliderItems') ?? [];
                             v-if="slide.media.url"
                             :src="slide.media.url"
                             :alt="slide.translated?.alt ?? $t('cms.element.imageAlt')"
-                            class="h-full w-full object-center"
+                            class="size-full object-center"
                             :class="'object-' + displayMode"
                         />
 

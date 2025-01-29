@@ -70,7 +70,7 @@ export function useCustomerAddress() {
         try {
             const savedAddress = await updateCustomerAddress({
                 ...addressData,
-                id: id,
+                id,
             });
             pushSuccess(t('account.address.editSuccess'));
             return savedAddress;

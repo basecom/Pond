@@ -22,6 +22,6 @@ onMounted(() => {
 
 <template>
     <div ref="vimeoVideo">
-        <div id="vimeo-video"></div>
+        <div id="vimeo-video" />
     </div>
 </template>

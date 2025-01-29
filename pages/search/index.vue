@@ -88,7 +88,7 @@ watch(
 useBreadcrumbs([
     {
         name: t('search.resultPage.breadcrumbName'),
-        path: '/search?search=' + route.query.search,
+        path: `/search?search=${route.query.search}`,
     },
 ]);
 </script>

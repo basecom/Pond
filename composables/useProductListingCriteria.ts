@@ -62,24 +62,20 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
 
     const _filtersToCriteria = (
         filters: Schemas['ProductListingResult']['currentFilters'],
-    ): Partial<ProductListingCriteria> => {
-        return filterCodes.reduce(
-            (acc: Partial<ProductListingCriteria>, key: string): Partial<ProductListingCriteria> => {
-                const urlMapper = filterMapping[key];
+    ): Partial<ProductListingCriteria> =>
+        filterCodes.reduce((acc: Partial<ProductListingCriteria>, key: string): Partial<ProductListingCriteria> => {
+            const urlMapper = filterMapping[key];
 
-                if (!urlMapper) {
-                    return acc;
-                }
+            if (!urlMapper) {
+                return acc;
+            }
 
-                const mapper = urlMapper();
+            const mapper = urlMapper();
 
-                const partialCriteria = mapper.createCriteria(filters);
+            const partialCriteria = mapper.createCriteria(filters);
 
-                return { ...acc, ...partialCriteria };
-            },
-            {} as Partial<ProductListingCriteria>,
-        );
-    };
+            return { ...acc, ...partialCriteria };
+        }, {} as Partial<ProductListingCriteria>);
 
     const _updateFiltersChanged = () => {
         const currentCriteria = _criteria.value;
@@ -102,8 +98,8 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
         });
     };
 
-    const _criteriaToUrl = (filters: Schemas['ProductListingCriteria']): LocationQueryRaw => {
-        return filterCodes.reduce((acc: LocationQueryRaw, key: string): LocationQueryRaw => {
+    const _criteriaToUrl = (filters: Schemas['ProductListingCriteria']): LocationQueryRaw =>
+        filterCodes.reduce((acc: LocationQueryRaw, key: string): LocationQueryRaw => {
             const urlMapper = filterMapping[key];
 
             if (!urlMapper) {
@@ -116,10 +112,9 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
 
             return { ...acc, ...partialQuery };
         }, {} as LocationQueryRaw);
-    };
 
-    const _getFiltersFromQuery = (query: LocationQuery): Partial<Schemas['ProductListingCriteria']> => {
-        return filterCodes.reduce(
+    const _getFiltersFromQuery = (query: LocationQuery): Partial<Schemas['ProductListingCriteria']> =>
+        filterCodes.reduce(
             (
                 acc: Partial<Schemas['ProductListingCriteria']>,
                 key: string,
@@ -138,7 +133,6 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
             },
             {} as Partial<Schemas['ProductListingCriteria']>,
         );
-    };
 
     const initializeCriteria = (defaultCriteria: Partial<ProductListingCriteria>, routeQuery: LocationQuery) => {
         _defaultCriteria.value = defaultCriteria;
@@ -263,17 +257,13 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
         if (_appliedFilters.value.properties.length <= 0) {
             return false;
         }
-        const filter = _propertyFilter.value.find(filter => filter.id == id);
+        const filter = _propertyFilter.value.find(filter => filter.id === id);
 
-        const appliedOptions = filter.options.filter(option => {
-            return _appliedFilters.value.properties.includes(option.id);
-        });
+        const appliedOptions = filter.options.filter(option => _appliedFilters.value.properties.includes(option.id));
         return appliedOptions.length;
     };
 
-    const propertyFilterApplied = (id: Schemas['PropertyGroup']['id']) => {
-        return propertyFilterAppliedTotal(id) > 0;
-    };
+    const propertyFilterApplied = (id: Schemas['PropertyGroup']['id']) => propertyFilterAppliedTotal(id) > 0;
 
     const appliedFiltersTotal = computed(() => {
         _appliedFiltersTotal.value = 0;

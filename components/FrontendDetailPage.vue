@@ -9,22 +9,24 @@ const props = defineProps<{
 const { search } = useProductSearch();
 const { getBreadcrumbs } = useCategoryBreadcrumbs();
 
-const { data: productResponse } = await useAsyncData('pdp' + props.navigationId, async () => {
-    return await search(props.navigationId, {
-        withCmsAssociations: true,
-        criteria: {
-            associations: {
-                options: {},
-                properties: {
-                    associations: {
-                        group: {},
+const { data: productResponse } = await useAsyncData(
+    `pdp${props.navigationId}`,
+    async () =>
+        await search(props.navigationId, {
+            withCmsAssociations: true,
+            criteria: {
+                associations: {
+                    options: {},
+                    properties: {
+                        associations: {
+                            group: {},
+                        },
                     },
+                    manufacturer: {},
                 },
-                manufacturer: {},
             },
-        },
-    });
-});
+        }),
+);
 
 if (!productResponse.value) {
     throw createError({ statusCode: 404, message: t('error.404.detail') });

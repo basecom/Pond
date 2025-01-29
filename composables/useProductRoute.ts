@@ -9,22 +9,20 @@ import type { Schemas } from '@shopware/api-client/api-types';
  * Use it in combination with `<RouterLink>`, `<NuxtLink>` or `<LocaleLink>`.
  */
 export function useProductRoute() {
-    const getProductRoute = (product: Schemas.Product | Schemas.LineItem | Schemas.OrderLineItem) => {
-        return {
-            path: getProductUrl(product),
-            state: {
-                routeName: 'frontend.detail.page',
-                foreignKey: product?.referencedId ?? product?.id,
-            },
-        };
-    };
+    const getProductRoute = (product: Schemas['Product'] | Schemas['LineItem'] | Schemas['OrderLineItem']) => ({
+        path: getProductUrl(product),
+        state: {
+            routeName: 'frontend.detail.page',
+            foreignKey: product?.referencedId ?? product?.id,
+        },
+    });
 
     return { getProductRoute };
 }
 
-function getProductUrl(product: Schemas.Product | Schemas.LineItem | Schemas.OrderLineItem) {
+function getProductUrl(product: Schemas['Product'] | Schemas['LineItem'] | Schemas['OrderLineItem']) {
     let _a, _b;
     if (!product) return '/';
-    const seoUrl = (_b = (_a = product.seoUrls) == null ? void 0 : _a[0]) == null ? void 0 : _b.seoPathInfo;
+    const seoUrl = (_b = (_a = product.seoUrls) === null ? void 0 : _a[0]) === null ? void 0 : _b.seoPathInfo;
     return seoUrl ? `/${seoUrl}` : `/detail/${product.referencedId ?? product.id}`;
 }

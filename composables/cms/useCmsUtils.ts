@@ -2,11 +2,11 @@ import { pascalCase } from 'scule';
 import type { Schemas } from '@shopware/api-client/api-types';
 
 export const useCmsUtils = () => {
-    const getCmsSectionComponentName = (title: string) => (title ? 'CmsSection' + pascalCase(title) : '');
+    const getCmsSectionComponentName = (title: string) => (title ? `CmsSection${pascalCase(title)}` : '');
 
-    const getCmsBlockComponentName = (title: string) => (title ? 'CmsBlock' + pascalCase(title) : '');
+    const getCmsBlockComponentName = (title: string) => (title ? `CmsBlock${pascalCase(title)}` : '');
 
-    const getCmsElementComponentName = (title: string) => (title ? 'CmsElement' + pascalCase(title) : '');
+    const getCmsElementComponentName = (title: string) => (title ? `CmsElement${pascalCase(title)}` : '');
 
     const componentExists = (componentName: string) => resolveComponent(componentName) !== componentName;
 

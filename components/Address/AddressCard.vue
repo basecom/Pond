@@ -64,7 +64,7 @@ const updateDefaultBilling = async () => {
                     <template #trigger>
                         <FormKitIcon
                             icon="ellipsis-vertical"
-                            class="h-4 w-4"
+                            class="size-4"
                         />
                     </template>
 

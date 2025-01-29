@@ -68,13 +68,13 @@ const loadProductsByItemIds = async (itemIds: string[]) => {
 const changePage = async (page: number) => {
     await router.push({
         query: {
-            page: page,
+            page,
             limit: limit.value,
         },
     });
 
     await getWishlistProducts({
-        page: page,
+        page,
         limit: limit.value,
     });
 };
@@ -86,7 +86,7 @@ const onSelectProduct = async (product: Schemas['Product']) => {
 // Watch for changes in wishlist items
 watch(
     items,
-    (items: Array<string>, oldItems: Array<string>) => {
+    (items: string[], oldItems: string[]) => {
         // Remove item from the displayed products if it was removed from the wishlist
         if (items.length !== oldItems?.length) {
             products.value = products.value.filter(({ id }) => items.includes(id));

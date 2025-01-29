@@ -35,7 +35,7 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
     <component
         :is="imageLink.url ? 'a' : 'div'"
         v-if="imageAttrs.src"
-        class="relative h-full w-full"
+        class="relative size-full"
         :style="containerStyle"
         v-bind="imageComputedContainerAttrs"
     >
@@ -43,7 +43,7 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
             v-if="isVideoElement"
             controls
             :class="{
-                'h-full w-full': true,
+                'size-full': true,
                 'object-cover': displayMode === 'cover',
             }"
         >
@@ -58,7 +58,7 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
             ref="imageElement"
             loading="lazy"
             :class="{
-                'h-full w-full': true,
+                'size-full': true,
                 'object-cover': displayMode === 'cover',
             }"
             :style="displayMode === 'cover' ? getMinHeightAsHeight(containerStyle) : ''"

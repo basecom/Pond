@@ -73,7 +73,7 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
             <template v-if="navigationArrows">
                 <div
                     ref="prevSlide"
-                    class="absolute z-10 bg-gray-light bg-opacity-50"
+                    class="absolute z-10 bg-gray-light/50"
                     :class="
                         verticalNavigation
                             ? 'left-1/2 top-0 flex w-full -translate-x-1/2 justify-center py-1 lg:py-2'
@@ -82,13 +82,13 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                 >
                     <FormKitIcon
                         :icon="verticalNavigation ? 'chevron-up' : 'chevron-left'"
-                        class="block h-6 w-6 text-brand-primary"
+                        class="block size-6 text-brand-primary"
                     />
                 </div>
 
                 <div
                     ref="nextSlide"
-                    class="absolute z-10 bg-gray-light bg-opacity-50"
+                    class="absolute z-10 bg-gray-light/50"
                     :class="
                         verticalNavigation
                             ? 'bottom-0 left-1/2 flex w-full -translate-x-1/2 justify-center py-1 lg:py-2'
@@ -97,14 +97,14 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                 >
                     <FormKitIcon
                         :icon="verticalNavigation ? 'chevron-down' : 'chevron-right'"
-                        class="block h-6 w-6 text-brand-primary"
+                        class="block size-6 text-brand-primary"
                     />
                 </div>
             </template>
 
             <swiper-container
                 ref="sliderRef"
-                class="grid h-full w-full"
+                class="grid size-full"
                 :class="thumbRef ? thumbRef : `min-h-[${minHeight}px]`"
                 :autoplay="autoSlide"
                 :speed="speed"
@@ -118,7 +118,7 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                 :breakpoints="breakpoints"
                 :init="init"
             >
-                <slot></slot>
+                <slot />
             </swiper-container>
         </div>
     </ClientOnly>

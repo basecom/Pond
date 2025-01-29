@@ -71,7 +71,7 @@ const lastPreviousItem = computed(() =>
             >
                 <FormKitIcon
                     icon="chevron-left"
-                    class="block h-3 w-3"
+                    class="block size-3"
                 />
                 <span>{{ $t('navigation.sidebar.backLinkLabel') }}</span>
             </div>

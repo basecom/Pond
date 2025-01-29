@@ -33,18 +33,14 @@ export function usePropertiesFilter(): ListingFilterMapping {
 
     const createCriteria = (
         value: Schemas['ProductListingResult']['currentFilters'],
-    ): Partial<Schemas['ProductListingCriteria']> => {
-        return {
-            properties: value.properties.length > 0 ? value.properties.join('|') : null,
-        };
-    };
+    ): Partial<Schemas['ProductListingCriteria']> => ({
+        properties: value.properties.length > 0 ? value.properties.join('|') : null,
+    });
 
     const isSameCriteria = (
         a: Partial<Schemas['ProductListingCriteria']>,
         b: Partial<Schemas['ProductListingCriteria']>,
-    ): boolean => {
-        return a['properties'] === b['properties'];
-    };
+    ): boolean => a['properties'] === b['properties'];
 
     const removeFilter = (
         currentFilters: ComputedRef<Schemas['ProductListingResult']['currentFilters']>,
