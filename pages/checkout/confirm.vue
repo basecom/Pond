@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ApiClientError } from '@shopware/api-client';
+import type { FormkitFields } from '~/types/formkit';
 
 const customerStore = useCustomerStore();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
@@ -12,13 +13,11 @@ const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
 const { trackPurchase } = useAnalytics({ trackPageView: true, pageType: 'checkout' });
 
-const placeOrder = async (formData: any) => {
+const placeOrder = async (formData: FormkitFields[]) => {
     try {
-        const order = await createOrder(
-            {
-                'customerComment': formData.customerComment ?? '',
-            }
-        );
+        const order = await createOrder({
+            customerComment: formData.customerComment ?? '',
+        });
         await push('/checkout/finish/' + order.id);
         trackPurchase(order);
         await refreshCart();
@@ -53,8 +52,8 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                 @submit="placeOrder"
                 @keydown.enter.prevent
             >
-                <div class="grid gap-6 my-6 lg:grid-cols-2">
-                    <div class="p-4 divide-y rounded-md shadow divide-gray-medium">
+                <div class="my-6 grid gap-6 lg:grid-cols-2">
+                    <div class="divide-y divide-gray-medium rounded-md p-4 shadow">
                         <CheckoutConfirmPersonal />
                         <CheckoutConfirmShipping />
                         <CheckoutConfirmPayment />
@@ -63,7 +62,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                         <CheckoutConfirmCustomerComment />
                     </div>
 
-                    <div class="p-4 rounded-md shadow">
+                    <div class="rounded-md p-4 shadow">
                         <div class="font-bold">{{ $t('checkout.lineItemsHeading') }}</div>
 
                         <ul class="divide-y divide-gray-medium">

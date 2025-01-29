@@ -33,7 +33,13 @@ const breakpoints = {
 };
 
 const slides = computed(() => elementData.getData('products') ?? []);
-const { showNavigationArrows, shouldAutoSlide } = useComputeSliderConfig({ slidesPerView, slides, breakpoints, showNavigation: navigation, autoSlide });
+const { showNavigationArrows, shouldAutoSlide } = useComputeSliderConfig({
+    slidesPerView,
+    slides,
+    breakpoints,
+    showNavigation: navigation,
+    autoSlide,
+});
 
 const getPromotion = (product: Schemas['Product']): PromotionInfo => {
     return {
