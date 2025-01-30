@@ -20,6 +20,7 @@ const props = withDefaults(
         init?: boolean;
         verticalNavigation?: boolean;
         thumbRef?: string;
+      initialSlide?: number;
     }>(),
     {
         autoSlide: false,
@@ -40,6 +41,7 @@ const props = withDefaults(
         init: false,
         verticalNavigation: false,
         thumbRef: null,
+      initialSlide: 0,
     },
 );
 
@@ -117,6 +119,9 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                 :thumbs-swiper="thumbsSwiper"
                 :breakpoints="breakpoints"
                 :init="init"
+                :zoom="true"
+                :initialSlide="initialSlide"
+                :allowTouchMove="false"
             >
                 <slot></slot>
             </swiper-container>
