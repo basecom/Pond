@@ -29,7 +29,7 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
                     :src="lineItemCover.url"
                     :alt="lineItemCover.alt"
                     class="size-full object-cover object-center"
-                />
+                >
             </template>
         </LocaleLink>
 

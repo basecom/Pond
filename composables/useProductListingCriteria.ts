@@ -254,7 +254,7 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
     };
 
     const propertyFilterAppliedTotal = (id: Schemas['PropertyGroup']['id']) => {
-        if (_appliedFilters.value.properties.length <= 0) {
+        if (_appliedFilters.value?.properties?.length) {
             return false;
         }
         const filter = _propertyFilter.value.find(filter => filter.id === id);

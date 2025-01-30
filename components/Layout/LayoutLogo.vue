@@ -28,13 +28,13 @@ const shopName = configStore.get('core.basicInformation.shopName') ?? 'pond';
             src="/logo.svg"
             :alt="shopName"
             :class="logoClasses"
-        />
+        >
 
         <img
             v-else
             src="/logo-small.svg"
             :alt="shopName"
             :class="logoClasses"
-        />
+        >
     </LocaleLink>
 </template>

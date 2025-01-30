@@ -25,5 +25,5 @@ defineProps<{
         :src="mediaUrl"
         :alt="`Logo of ${label}`"
         class="ml-auto max-h-6 max-w-full object-contain"
-    />
+    >
 </template>

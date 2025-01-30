@@ -27,6 +27,6 @@ defineProps<{
             loading="lazy"
             :src="mediaUrl"
             :alt="`Logo of ${label}`"
-        />
+        >
     </div>
 </template>

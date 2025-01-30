@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { params } = useRoute();
+const route = useRoute();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
-const orderId = params.id as string;
+const orderId = route.params.id as string;
 const { order, loadOrderDetails, shippingAddress, billingAddress, shippingMethod, paymentMethod, status, total } =
     useOrderDetails(orderId);
 const { getFormattedPrice } = usePrice();
@@ -33,7 +33,7 @@ onMounted(async () => {
 
                 <p class="mb-4">
                     {{ $t('checkout.finish.confirmationMessage') }}
-                    <br />
+                    <br>
                     {{ $t('checkout.finish.emailMessage') }}
                 </p>
             </div>

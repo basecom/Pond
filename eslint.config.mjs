@@ -25,6 +25,7 @@ export default withNuxt({
         ],
         '@typescript-eslint/no-invalid-void-type': 'off',
         '@typescript-eslint/prefer-as-const': 'error',
+        '@typescript-eslint/no-explicit-any': 'error',
         '@typescript-eslint/no-unused-vars': [
             'error',
             {

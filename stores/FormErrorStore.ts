@@ -3,7 +3,7 @@ import { ApiClientError } from '@shopware/api-client';
 
 export const useFormErrorStore = defineStore('formErrors', () => {
     const { resolveApiErrors } = useApiErrorsResolver();
-    const apiErrors = ref<ResolvedApiError[]>([]);
+    const apiErrors: Ref<ResolvedApiError[]> = ref([]);
 
     const formErrors = errors => {
         apiErrors.value = resolveApiErrors(errors);

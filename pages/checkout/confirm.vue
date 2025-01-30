@@ -92,7 +92,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                         <FormKit
                             v-else
                             type="submit"
-                            disabled="disabled"
+                            :disabled="true"
                             :classes="{
                                 outer: 'mt-4',
                             }"

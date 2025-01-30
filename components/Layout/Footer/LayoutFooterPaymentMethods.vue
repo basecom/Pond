@@ -24,7 +24,7 @@ onMounted(async () => {
                     :title="getTranslatedProperty(method, 'name')"
                     class="h-8 w-auto object-contain"
                     loading="eager"
-                />
+                >
             </div>
         </div>
     </div>

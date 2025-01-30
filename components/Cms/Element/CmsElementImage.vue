@@ -50,7 +50,7 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
             <source
                 :src="imageAttrs.src"
                 :type="mimeType"
-            />
+            >
             {{ $t('cms.element.videoTagNotSupported') }}
         </video>
         <img
@@ -65,6 +65,6 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
             :alt="imageAttrs.alt"
             :src="srcPath"
             :srcset="imageAttrs.srcset"
-        />
+        >
     </component>
 </template>

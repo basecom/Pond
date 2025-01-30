@@ -46,7 +46,7 @@ const slides = elementData.getData('sliderItems') ?? [];
                             :alt="slide.translated?.alt ?? $t('cms.element.imageAlt')"
                             class="size-full object-center"
                             :class="'object-' + displayMode"
-                        />
+                        >
 
                         <template v-else>
                             <div class="w-full bg-gray-light">
@@ -80,7 +80,7 @@ const slides = elementData.getData('sliderItems') ?? [];
                             :src="slide.media.url"
                             :alt="slide.translated?.alt ?? $t('cms.element.imageAlt')"
                             class="object-cover object-center opacity-40 group-[.swiper-slide-thumb-active]:border-2 group-[.swiper-slide-thumb-active]:border-brand-primary group-[.swiper-slide-thumb-active]:opacity-100"
-                        />
+                        >
 
                         <template v-else>
                             <div

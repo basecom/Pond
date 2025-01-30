@@ -85,7 +85,7 @@ onMounted(async () => {
                                 <hr
                                     v-if="index !== order.lineItems.length - 1"
                                     class="w-full"
-                                />
+                                >
                             </div>
                         </ul>
 

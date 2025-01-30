@@ -25,7 +25,7 @@ const productCover = getProductCover(props.product.cover, 'xs');
                     :src="productCover.url"
                     class="size-10 min-h-10 min-w-10 object-cover"
                     :alt="productCover.alt"
-                />
+                >
             </template>
         </div>
 

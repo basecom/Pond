@@ -120,7 +120,7 @@ watch(customer, async newCustomer => {
         class="py-2"
     >
         {{ $t('cms.element.form.newsletter.alreadySubscriber') }}
-        <br />
+        <br>
         {{ $t('cms.element.form.newsletter.unsubscribeInfo') }}
     </div>
 

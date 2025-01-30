@@ -93,8 +93,8 @@ export function useEcommerceTrackingHelper() {
         const listItem = list
             ? list
             : _category.value
-              ? { id: _category.value.id, name: _category.value.name }
-              : undefined;
+                ? { id: _category.value.id, name: _category.value.name }
+                : undefined;
         _currentProduct.value = product;
 
         const item = getTrackingItem({

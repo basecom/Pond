@@ -16,10 +16,14 @@ const notificationText = ref('');
 const notificationType = ref('');
 
 const route = useRoute();
-const emailHash = route.query.em;
-const { hash } = route.query;
+const emailHash = route.query.em as string|null;
+const hash = route.query.hash as string|null;
 
 onMounted(async () => {
+    if (!emailHash || !hash) {
+        return;
+    }
+
     // The store api only offers a way to check the status for logged-in users
     if (signedIn.value) {
         await getNewsletterStatus();

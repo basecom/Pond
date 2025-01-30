@@ -28,9 +28,9 @@ if (slides.value.length > 0) {
 const autoplayConfig = computed(() =>
     autoSlide
         ? {
-              delay: autoplayTimeout,
-              disableOnInteraction: false,
-          }
+            delay: autoplayTimeout,
+            disableOnInteraction: false,
+        }
         : false,
 );
 
@@ -97,7 +97,7 @@ if (isHomePage.value) {
                         :alt="$t('cms.element.imageAlt')"
                         class="size-full object-center"
                         :class="'object-' + displayMode"
-                    />
+                    >
                 </LayoutSliderSlide>
             </LayoutSlider>
         </div>

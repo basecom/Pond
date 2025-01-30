@@ -110,4 +110,19 @@ export default defineNuxtConfig({
             link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
         },
     },
+
+    typescript: {
+        typeCheck: true,
+        strict: true,
+        tsConfig: {
+            compilerOptions: {
+                strictNullChecks: true,
+                noImplicitAny: true,
+                noUnusedLocals: true,
+                noUnusedParameters: true,
+                skipLibCheck: true
+            },
+            exclude: ['../node_modules/@shopware-pwa/composables-next/src'],
+        },
+    },
 });

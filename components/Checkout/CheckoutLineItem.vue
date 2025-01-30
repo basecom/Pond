@@ -105,7 +105,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                     :src="lineItemCover.url"
                     :alt="lineItemCover.alt"
                     class="size-full object-cover object-center"
-                />
+                >
             </template>
         </LocaleLink>
         <div

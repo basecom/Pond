@@ -1,10 +1,9 @@
-import type { Schemas } from '#shopware';
+import type { Schemas } from '@shopware/api-client/api-types';
 
 export const useCustomerLatestOrder = () => {
     const { apiClient } = useShopwareContext();
-    const latestOrder = ref<Schemas['Order']>();
 
-    const loadLatestOrder = async (): Promise<void> => {
+    const getLatestOrder = async (): Promise<Schemas['Order']|null> => {
         const fetchedOrder = await apiClient.invoke('readOrder post /order', {
             body: {
                 limit: 1,
@@ -20,13 +19,11 @@ export const useCustomerLatestOrder = () => {
                 ],
             },
         });
-        if (fetchedOrder.data.orders.elements) {
-            latestOrder.value = fetchedOrder.data.orders.elements[0];
-        }
+
+        return fetchedOrder.data.orders.elements.length > 0 ? fetchedOrder.data.orders.elements[0] : null;
     };
 
     return {
-        latestOrder,
-        loadLatestOrder,
+        getLatestOrder,
     };
 };

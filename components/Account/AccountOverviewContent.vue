@@ -6,7 +6,7 @@ const { isNewsletterSubscriber, newsletterSubscribe, newsletterUnsubscribe, getN
 const billingAddress = computed(() => customer.value.defaultBillingAddress);
 const shippingAddress = computed(() => customer.value.defaultShippingAddress);
 const paymentMethod = computed(() => customer.value.defaultPaymentMethod);
-const { latestOrder, loadLatestOrder } = useCustomerLatestOrder();
+const { getLatestOrder } = useCustomerLatestOrder();
 const { pushSuccess, pushError } = useNotifications();
 const { trackNewsletterRegistration } = useAnalytics();
 const { t } = useI18n();
@@ -15,7 +15,7 @@ const props = defineProps<{
     showLatestOrder: boolean;
 }>();
 
-props.showLatestOrder && (await loadLatestOrder());
+const latestOrder = props.showLatestOrder && await getLatestOrder();
 getNewsletterStatus();
 
 const configStore = useConfigStore();
@@ -113,13 +113,13 @@ const handleNewsletterChange = async (event: Event) => {
                 type="checkbox"
                 :checked="isNewsletterSubscriber && !confirmationNeeded"
                 @change="handleNewsletterChange"
-            />
+            >
             {{ $t('account.overview.newsletter.label') }}
         </label>
     </div>
 
     <div
-        v-if="customer && latestOrder"
+        v-if="customer && showLatestOrder && latestOrder"
         class="mt-4 rounded-lg bg-white p-4 shadow-md"
     >
         <h3 class="text-lg font-semibold">{{ $t('account.overview.latestOrderHeading') }}</h3>

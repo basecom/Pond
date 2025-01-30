@@ -56,7 +56,7 @@ const updateDefaultBilling = async () => {
             <div
                 v-if="
                     address.id != customerStore.customer.defaultBillingAddressId ||
-                    address.id != customerStore.customer.defaultShippingAddressId
+                        address.id != customerStore.customer.defaultShippingAddressId
                 "
                 class="absolute right-0 top-0 z-10"
             >
@@ -108,7 +108,7 @@ const updateDefaultBilling = async () => {
             <FormKit
                 v-if="
                     address.id != customerStore.customer.defaultBillingAddressId &&
-                    address.id != customerStore.customer.defaultShippingAddressId
+                        address.id != customerStore.customer.defaultShippingAddressId
                 "
                 type="button"
                 :classes="{

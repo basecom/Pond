@@ -152,11 +152,11 @@ const { entityArrayToOptions } = useFormkitHelper();
                             :src="option.media.url"
                             :alt="
                                 getTranslatedProperty(option.media, 'alt') ??
-                                getTranslatedProperty(option.media, 'title') ??
-                                option.media.fileName
+                                    getTranslatedProperty(option.media, 'title') ??
+                                    option.media.fileName
                             "
                             class="rounded-full"
-                        />
+                        >
                     </FormKit>
 
                     <FormKit

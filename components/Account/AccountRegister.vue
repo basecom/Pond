@@ -30,15 +30,15 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
 
     const userData = fields.alternativeShippingAddress.showAlternativeShippingAddress
         ? {
-              ...fields,
-              shippingAddress: {
-                  ...fields.alternativeShippingAddress,
-                  ...fields.alternativeShippingAddress.shippingAddress,
-              },
-          }
+            ...fields,
+            shippingAddress: {
+                ...fields.alternativeShippingAddress,
+                ...fields.alternativeShippingAddress.shippingAddress,
+            },
+        }
         : {
-              ...fields,
-          };
+            ...fields,
+        };
 
     try {
         await customerStore.register({
