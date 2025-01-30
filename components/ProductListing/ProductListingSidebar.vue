@@ -5,7 +5,6 @@ const props = defineProps<{
     filters: ListingFilter[];
     selectedFilters: Schemas['ProductListingResult']['currentFilters'];
     showResetButton?: boolean;
-    fullWidth?: boolean;
     sortingOptions: Schemas['ProductListingResult']['availableSortings'];
     sorting: Schemas['ProductListingResult']['sorting'];
 }>();
@@ -27,13 +26,8 @@ const emit = defineEmits<{
 <template>
     <div
         class="m-0 mx-auto grid gap-4"
-        :class="{ 'px-5': !fullWidth }"
     >
-        <div class="flex items-baseline justify-between border-b border-gray-light py-6">
-            <div class="text-4xl">
-                {{ $t('listing.sidebar.title') }}
-            </div>
-
+        <div class="flex justify-end border-b border-gray-light pt-2 pb-6">
             <ProductListingSorting
                 :options="props.sortingOptions"
                 :selected-option="props.sorting"

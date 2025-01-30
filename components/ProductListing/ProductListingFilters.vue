@@ -60,7 +60,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
                 'h-full': displayFullPopoverContainer,
             }"
         >
-            <div class="relative z-10 flex flex-row gap-2">
+            <div class="relative z-20 flex flex-row gap-2">
                 <div
                     ref="filterPopoverContainer"
                     class="flex flex-row flex-wrap gap-4"

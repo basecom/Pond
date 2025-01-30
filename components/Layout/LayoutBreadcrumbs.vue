@@ -15,13 +15,13 @@ withDefaults(
 
 <template>
     <nav
-        class="container mx-auto my-8 hidden lg:flex"
+        class="container mx-auto my-8 flex"
         :aria-label="$t('layout.breadcrumb.ariaLabel')"
     >
-        <ol class="inline-flex items-center gap-2">
+        <ol class="inline-flex items-center gap-2 flex-wrap">
             <li
                 v-if="displayRoot"
-                class="inline-flex items-center gap-2"
+                class="inline-flex items-center gap-2 min-w-fit"
             >
                 <LocaleLink
                     :to="'/'"
@@ -45,7 +45,7 @@ withDefaults(
             <li
                 v-for="(breadcrumb, index) in breadcrumbs"
                 :key="breadcrumb.path"
-                class="inline-flex items-center gap-2"
+                class="inline-flex items-center gap-2 min-w-fit"
             >
                 <LocaleLink
                     v-if="breadcrumb.path"

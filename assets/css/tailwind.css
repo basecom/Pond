@@ -2,32 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Typography */
 * {
-    @apply font-main
+    @apply font-main antialiased hyphens-auto [hyphenate-limit-chars:6_3_3] [hyphenate-limit-lines:2] [hyphenate-limit-last:always] [hyphenate-limit-zone:8%];
+}
+
+body {
+    @apply text-base;
+}
+
+h1 {
+    @apply text-2xl lg:text-3xl;
+}
+
+h2 {
+    @apply text-xl lg:text-2xl;
+}
+
+h3 {
+    @apply text-lg lg:text-xl;
+}
+
+h4, h5, h6 {
+    @apply text-lg;
 }
 
 svg {
-    @apply fill-current w-full h-full
+    @apply fill-current w-full h-full;
 }
 
 hr {
     @apply border-gray-light border-t-4 w-2/12 mx-auto my-4;
-}
-
-h1 {
-    @apply text-3xl;
-}
-
-h2 {
-    @apply text-2xl;
-}
-
-h3 {
-    @apply text-xl;
-}
-
-h4, h5 {
-    @apply text-lg;
 }
 
 #__nuxt {
