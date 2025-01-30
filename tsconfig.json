@@ -1,4 +1,13 @@
 {
-  // https://nuxt.com/docs/guide/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json"
+  "extends": "./.nuxt/tsconfig.json", // if using Nuxt
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
+    "noUncheckedIndexedAccess": true, // additional strictness
+    "skipLibCheck": true, // performance optimization for large node_modules set
+    "allowJs": true, // required for importing json
+    "verbatimModuleSyntax": true, // requires explicit 'import type'
+    "erasableSyntaxOnly": true // TS 5.8+
+  }
 }
