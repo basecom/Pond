@@ -32,7 +32,7 @@ const handleClick = (option: Schemas['ProductListingResult']['availableSortings'
 
         <DropdownMenuPortal>
             <DropdownMenuContent
-                class="min-w-56 rounded-md border border-gray bg-white p-2 shadow-md outline-none z-30"
+                class="min-w-56 rounded-md border border-gray bg-white p-2 shadow-md outline-none z-20"
                 :side-offset="5"
             >
                 <DropdownMenuItem
