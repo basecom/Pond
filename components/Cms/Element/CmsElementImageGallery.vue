@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { CmsElementImageGallerySlider } from '../../../types/cms/element/cmsElementImageGallery';
+
 const props = defineProps<{
     element: CmsElementImageGallery;
 }>();
@@ -13,21 +15,25 @@ const minHeight = elementConfig.getConfigValue('minHeight');
 const galleryPosition = elementConfig.getConfigValue('galleryPosition');
 const isLightboxEnabled = elementConfig.getConfigValue('fullScreen');
 const isZoomEnabled = elementConfig.getConfigValue('zoom');
-const lightboxModalController = useModal();
 
 const thumbnailSlidesPerView = 3;
 const spaceBetween = 16;
 
 const slides = elementData.getData('sliderItems') ?? [];
+
+const lightboxModalController = useModal();
 const lightboxSliderIndex = ref(0);
 
 const openLightbox = (slideMediaId: string) => {
-  if(!isLightboxEnabled) {
-    return;
-  }
-  lightboxSliderIndex.value = slides.findIndex((slide: any) => slide.media.id === slideMediaId);
-  lightboxModalController.open();
-}
+    if (!isLightboxEnabled) {
+        return;
+    }
+    // When the lightbox is opened, the clicked image should display
+    lightboxSliderIndex.value = slides.findIndex(
+        (slide: CmsElementImageGallerySlider) => slide.media.id === slideMediaId,
+    );
+    lightboxModalController.open();
+};
 </script>
 
 <template>
@@ -112,13 +118,13 @@ const openLightbox = (slideMediaId: string) => {
                 </div>
             </template>
         </div>
-      <SharedGalleryLightBox
-          :controller="lightboxModalController"
-          :image-classes="'object-' + displayMode"
-          :slides="slides"
-          :is-zoom-enabled="isZoomEnabled"
-          :slider-index="lightboxSliderIndex"
-          :thumbs-swiper="`.thumbnailRef-${element.id}`"
-      />
+        <SharedGalleryLightBox
+            :controller="lightboxModalController"
+            :image-classes="'object-' + displayMode"
+            :slides="slides"
+            :is-zoom-enabled="isZoomEnabled"
+            :slider-index="lightboxSliderIndex"
+            :thumbs-swiper="`.thumbnailRef-${element.id}`"
+        />
     </ClientOnly>
 </template>

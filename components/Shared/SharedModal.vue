@@ -12,7 +12,7 @@ const props = withDefaults(
         withCloseButton: false,
         withActionsButton: false,
         size: 'md',
-      showHeader: true,
+        showHeader: true,
     },
 );
 const { controller } = toRefs(props);
@@ -66,7 +66,10 @@ watch(controller.value.isOpen, () => {
                         'max-w-[min(calc(100%-40px),66.66%)]': size === 'lg',
                     }"
                 >
-                    <DialogTitle v-if="showHeader" class="border-b border-gray-light px-6 pb-4 pt-6 font-bold">
+                    <DialogTitle
+                        v-if="showHeader"
+                        class="border-b border-gray-light px-6 pb-4 pt-6 font-bold"
+                    >
                         <slot name="title"></slot>
                     </DialogTitle>
                     <div class="px-6 py-4">
