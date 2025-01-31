@@ -1,12 +1,18 @@
+import type {PluginConfiguration} from "~/types/pluginConfiguration";
+
 export const useConfigStore = defineStore('config', () => {
     const { fetchConfig } = usePluginConfig();
-    const _configValues = ref([]);
+    const _configValues: Ref<PluginConfiguration|null> = ref(null);
     const loading = ref(false);
 
     const loadConfig = async () => {
         loading.value = true;
-        const { data } = await fetchConfig();
-        _configValues.value = data.value;
+        try {
+            const { data } = await fetchConfig();
+            _configValues.value = data.value;
+        } catch (error: ) {
+
+        }
         loading.value = false;
     };
 
