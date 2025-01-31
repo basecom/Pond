@@ -1,11 +1,11 @@
 import { ApiClientError } from '@shopware/api-client';
 
-export function useThrowError() {
-    const throwError = (error: unknown) => {
+export function useHandleError() {
+    const handleError = (error: unknown) => {
         if (error instanceof ApiClientError && process.env.NODE_ENV === 'development') {
-            console.log(error.details);
+            console.error(error.details);
         }
     };
 
-    return { throwError };
+    return { handleError };
 }

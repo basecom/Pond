@@ -4,7 +4,7 @@ import type { OrderForm } from '~/types/checkout/checkout';
 const customerStore = useCustomerStore();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 const { push } = useRouter();
-const { throwError } = useThrowError();
+const { handleError } = useHandleError();
 const { refreshCart, isEmpty } = useCart();
 const cartItemsStore = useCartItemsStore();
 const { cartItemsWithProduct } = storeToRefs(cartItemsStore);
@@ -25,7 +25,7 @@ const placeOrder = async (formData: OrderForm) => {
         pushSuccess(t('checkout.confirm.order.successMessage'));
     } catch (error) {
         pushError(t('checkout.confirm.order.errorMessage'));
-        throwError(error);
+        handleError(error);
     } finally {
         // TODO: Instead of logging out handle guest state in account area by toggeling options
         if (customerStore.customer.guest) {

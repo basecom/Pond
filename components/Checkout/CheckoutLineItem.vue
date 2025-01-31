@@ -4,7 +4,7 @@ import type { Schemas } from '@shopware/api-client/api-types';
 const { getProductRoute } = useProductRoute();
 const { getProductCover } = useMedia();
 const { pushError, pushSuccess } = useNotifications();
-const { throwError } = useThrowError();
+const { handleError } = useHandleError();
 const { t } = useI18n();
 
 const props = defineProps<{
@@ -54,7 +54,7 @@ const updateQuantity = async (quantityInput: number | undefined) => {
         pushSuccess(t('checkout.lineItem.updateQuantity.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
         pushError(t('checkout.lineItem.updateQuantity.errorMessage', { lineItemName: lineItem.value.label }));
-        throwError(error);
+        handleError(error);
     }
 
     // Make sure that quantity is the same as it is in the response
@@ -73,7 +73,7 @@ const removeCartItem = async () => {
         pushSuccess(t('checkout.lineItem.remove.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
         pushError(t('checkout.lineItem.remove.errorMessage', { lineItemName: lineItem.value.label }));
-        throwError(error);
+        handleError(error);
     }
 
     isLoading.value = false;
