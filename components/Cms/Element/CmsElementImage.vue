@@ -53,6 +53,7 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
             />
             {{ $t('cms.element.videoTagNotSupported') }}
         </video>
+
         <img
             v-else
             ref="imageElement"
@@ -62,7 +63,8 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
                 'object-cover': displayMode === 'cover',
             }"
             :style="displayMode === 'cover' ? getMinHeightAsHeight(containerStyle) : ''"
-            :alt="imageAttrs.alt"
+            :alt="props.element?.data?.media?.translated?.alt"
+            :title="props.element?.data?.media?.translated?.title"
             :src="srcPath"
             :srcset="imageAttrs.srcset"
         />

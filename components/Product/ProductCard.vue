@@ -58,7 +58,8 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
                     <template v-else>
                         <img
                             :src="cover.url"
-                            :alt="cover.alt"
+                            :alt="cover.alt ?? props.product.translated.name"
+                            :title="cover.title ?? props.product.translated.name"
                             class="aspect-square h-full w-full object-center group-hover:opacity-75"
                             :class="displayMode === 'standard' ? 'object-scale-down' : 'object-' + displayMode"
                         />

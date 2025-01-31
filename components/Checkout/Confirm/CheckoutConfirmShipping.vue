@@ -28,7 +28,7 @@ onMounted(async () => {
         value: method.id,
         deliveryTime: getShippingMethodDeliveryTime(method),
         description: method.translated.description,
-        mediaUrl: method.media?.url,
+        media: method.media,
     }));
 
     trackAddShippingInfo();
@@ -51,7 +51,7 @@ onMounted(async () => {
                     :label="option.label"
                     :delivery-time="option.deliveryTime"
                     :description="option.description"
-                    :media-url="option.mediaUrl"
+                    :media="option.media"
                 />
             </template>
         </FormKit>

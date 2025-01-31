@@ -109,11 +109,13 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
             <template v-else>
                 <img
                     :src="lineItemCover.url"
-                    :alt="lineItemCover.alt"
+                    :alt="lineItemCover.alt ?? lineItem?.translated?.name ?? product?.translated?.name"
+                    :title="lineItemCover.title ?? lineItem?.translated?.name ?? product?.translated?.name"
                     class="h-full w-full object-cover object-center"
                 />
             </template>
         </LocaleLink>
+
         <div
             v-else-if="isPromotion"
             class="flex h-full w-full items-center justify-center"
@@ -139,7 +141,9 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                 </span>
             </div>
 
-            <span v-if="isDigital">{{ $t('checkout.lineItem.digitalProduct') }}</span>
+            <span v-if="isDigital">
+                {{ $t('checkout.lineItem.digitalProduct') }}
+            </span>
 
             <p
                 v-if="itemOptions"

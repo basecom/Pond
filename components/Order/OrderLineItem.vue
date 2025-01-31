@@ -27,7 +27,8 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
             <template v-else>
                 <img
                     :src="lineItemCover.url"
-                    :alt="lineItemCover.alt"
+                    :alt="lineItemCover.alt ?? lineItem?.translated?.name"
+                    :title="lineItemCover.title ?? lineItem?.translated?.name"
                     class="h-full w-full object-cover object-center"
                 />
             </template>

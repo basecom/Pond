@@ -24,7 +24,8 @@ const productCover = getProductCover(props.product.cover, 'xs');
                     loading="lazy"
                     :src="productCover.url"
                     class="h-10 min-h-10 w-10 min-w-10 object-cover"
-                    :alt="productCover.alt"
+                    :alt="productCover.alt ?? product?.translated?.name"
+                    :title="productCover.title ?? product?.translated?.name"
                 />
             </template>
         </div>

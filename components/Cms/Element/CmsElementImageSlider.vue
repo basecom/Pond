@@ -18,7 +18,7 @@ const autoplayTimeout = config.getConfigValue('autoplayTimeout');
 const minHeight = config.getConfigValue('minHeight');
 const speed = config.getConfigValue('speed');
 
-const slides = computed(() => config.getConfigValue('sliderItems') ?? []);
+const slides = computed(() => data.getData('sliderItems') ?? []);
 const sliderRef = ref(null);
 
 if (slides.value.length > 0) {
@@ -92,13 +92,14 @@ if (isHomePage.value) {
             >
                 <LayoutSliderSlide
                     v-for="slide in slides"
-                    :key="slide.mediaId"
+                    :key="slide.media.id"
                     :class="`min-h-[${minHeight}]`"
                 >
                     <img
                         ref="slidesRef"
-                        :src="slide.mediaUrl"
-                        :alt="$t('cms.element.imageAlt')"
+                        :src="slide.media.url"
+                        :alt="slide.media?.translated?.alt ?? $t('cms.element.imageAlt')"
+                        :title="slide.media?.translated?.title ?? $t('cms.element.imageAlt')"
                         class="h-full w-full object-center"
                         :class="'object-' + displayMode"
                     />
