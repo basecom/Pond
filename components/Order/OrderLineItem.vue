@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+
 const { getFormattedPrice } = usePrice();
 const { getProductCover } = useMedia();
 const { getLineItemRoute } = useLineItemRoute();
@@ -29,8 +31,8 @@ const lineItemSeoUrl = await getLineItemRoute(lineItem.value);
             <template v-else>
                 <img
                     :src="lineItemCover.url"
-                    :alt="lineItemCover.alt ?? lineItem?.translated?.name"
-                    :title="lineItemCover.title ?? lineItem?.translated?.name"
+                    :alt="lineItemCover.alt ?? (getTranslatedProperty(lineItem, 'name') || lineItem.label)"
+                    :title="lineItemCover.title ?? (getTranslatedProperty(lineItem, 'name') || lineItem.label)"
                     class="h-full w-full object-cover object-center"
                 />
             </template>

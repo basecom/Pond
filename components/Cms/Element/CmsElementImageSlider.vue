@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { PromotionInfo } from '../../../types/analytics/promotion';
 
@@ -98,8 +99,8 @@ if (isHomePage.value) {
                     <img
                         ref="slidesRef"
                         :src="slide.media.url"
-                        :alt="slide.media?.translated?.alt ?? $t('cms.element.imageAlt')"
-                        :title="slide.media?.translated?.title ?? $t('cms.element.imageAlt')"
+                        :alt="getTranslatedProperty(slide.media, 'alt') || $t('cms.element.imageAlt')"
+                        :title="getTranslatedProperty(slide.media, 'title') || $t('cms.element.imageAlt')"
                         class="h-full w-full object-center"
                         :class="'object-' + displayMode"
                     />

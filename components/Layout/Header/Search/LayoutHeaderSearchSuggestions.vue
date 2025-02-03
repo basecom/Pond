@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
 
 const props = defineProps<{ product: Schemas['Product'] }>();
@@ -24,8 +25,8 @@ const productCover = getProductCover(props.product.cover, 'xs');
                     loading="lazy"
                     :src="productCover.url"
                     class="h-10 min-h-10 w-10 min-w-10 object-cover"
-                    :alt="productCover.alt ?? product?.translated?.name"
-                    :title="productCover.title ?? product?.translated?.name"
+                    :alt="productCover.alt ?? getTranslatedProperty(product, 'name')"
+                    :title="productCover.title ?? getTranslatedProperty(product, 'name')"
                 />
             </template>
         </div>

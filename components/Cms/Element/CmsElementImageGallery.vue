@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+
 const props = defineProps<{
     element: CmsElementImageGallery;
 }>();
@@ -43,8 +45,8 @@ const slides = elementData.getData('sliderItems') ?? [];
                         <img
                             v-if="slide.media.url"
                             :src="slide.media.url"
-                            :alt="slide.media.translated?.alt ?? $t('cms.element.imageAlt')"
-                            :title="slide.media.translated?.title ?? $t('cms.element.imageAlt')"
+                            :alt="getTranslatedProperty(slide.media, 'alt') || $t('cms.element.imageAlt')"
+                            :title="getTranslatedProperty(slide.media, 'title') || $t('cms.element.imageAlt')"
                             class="h-full w-full object-center"
                             :class="'object-' + displayMode"
                         />
@@ -79,8 +81,8 @@ const slides = elementData.getData('sliderItems') ?? [];
                         <img
                             v-if="slide.media.url"
                             :src="slide.media.url"
-                            :alt="slide.media.translated?.alt ?? $t('cms.element.imageAlt')"
-                            :title="slide.media.translated?.title ?? $t('cms.element.imageAlt')"
+                            :alt="getTranslatedProperty(slide.media, 'alt') || $t('cms.element.imageAlt')"
+                            :title="getTranslatedProperty(slide.media, 'title') || $t('cms.element.imageAlt')"
                             class="object-cover object-center opacity-40 group-[.swiper-slide-thumb-active]:border-2 group-[.swiper-slide-thumb-active]:border-brand-primary group-[.swiper-slide-thumb-active]:opacity-100"
                         />
 

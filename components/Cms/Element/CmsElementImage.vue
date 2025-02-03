@@ -2,6 +2,7 @@
 import type { CmsElementImage } from '@shopware-pwa/composables-next';
 import { buildUrlPrefix } from '@shopware-pwa/helpers-next';
 import { useElementSize } from '@vueuse/core';
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { CSSProperties } from 'vue';
 
 const props = defineProps<{
@@ -29,6 +30,10 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
     const height = properties.minHeight ?? '100%';
     return `height: ${height}`;
 };
+
+const mediaObject = computed(() => {
+    return props.element.data.media;
+})
 </script>
 
 <template>
@@ -63,8 +68,8 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
                 'object-cover': displayMode === 'cover',
             }"
             :style="displayMode === 'cover' ? getMinHeightAsHeight(containerStyle) : ''"
-            :alt="props.element?.data?.media?.translated?.alt"
-            :title="props.element?.data?.media?.translated?.title"
+            :alt="getTranslatedProperty(mediaObject, 'alt')"
+            :title="getTranslatedProperty(mediaObject, 'title')"
             :src="srcPath"
             :srcset="imageAttrs.srcset"
         />

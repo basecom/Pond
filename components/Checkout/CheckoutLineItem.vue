@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { ApiClientError } from '@shopware/api-client';
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 const { getProductRoute } = useProductRoute();
 const { getLineItemRoute } = useLineItemRoute();
@@ -81,7 +82,7 @@ const removeCartItem = async () => {
     try {
         await removeItem();
 
-        // TODO: fix tracking the remove of a promotion giving an error
+        // TODO: fix tracking giving an error when removing a promotion
         if (!isPromotion) {
             trackRemoveFromCart(product.value, lineItem.value.quantity);
         }
@@ -122,8 +123,8 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
             <template v-else>
                 <img
                     :src="lineItemCover.url"
-                    :alt="lineItemCover.alt ?? lineItem?.translated?.name ?? product?.translated?.name"
-                    :title="lineItemCover.title ?? lineItem?.translated?.name ?? product?.translated?.name"
+                    :alt="lineItemCover.alt ?? (getTranslatedProperty(lineItem, 'name') || getTranslatedProperty(product, 'name'))"
+                    :title="lineItemCover.title ?? (getTranslatedProperty(lineItem, 'name') || getTranslatedProperty(product, 'name'))"
                     class="h-full w-full object-cover object-center"
                 />
             </template>

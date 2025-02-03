@@ -20,8 +20,8 @@ onMounted(async () => {
                 <img
                     v-if="method.media?.url"
                     :src="method.media.url"
-                    :alt="method.media.translated.alt ?? getTranslatedProperty(method, 'name')"
-                    :title="method.media.translated.title ?? getTranslatedProperty(method, 'name')"
+                    :alt="getTranslatedProperty(method.media, 'alt') || getTranslatedProperty(method, 'name')"
+                    :title="getTranslatedProperty(method.media, 'title') || getTranslatedProperty(method, 'name')"
                     class="h-8 w-auto object-contain"
                     loading="lazy"
                 />
