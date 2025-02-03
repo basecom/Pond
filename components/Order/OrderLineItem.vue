@@ -2,7 +2,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 const { getFormattedPrice } = usePrice();
 const { getProductCover } = useMedia();
-const { getProductRoute } = useProductRoute();
+const { getLineItemRoute } = useLineItemRoute();
 
 const props = defineProps<{
     lineItem: Schemas['LineItem'];
@@ -12,13 +12,15 @@ const { lineItem } = toRefs(props);
 const { isPromotion } = useCartItem(lineItem);
 
 const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
+
+const lineItemSeoUrl = await getLineItemRoute(lineItem.value);
 </script>
 
 <template>
     <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
         <LocaleLink
             v-if="!isPromotion"
-            :to="getProductRoute(lineItem)"
+            :to="lineItemSeoUrl"
         >
             <template v-if="lineItemCover.placeholder">
                 <SharedImagePlaceholder :size="'sm'" />
@@ -48,11 +50,15 @@ const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
     <div class="flex flex-1 flex-col">
         <div>
             <div class="flex flex-col justify-between gap-4 lg:flex-row">
-                <LocaleLink :to="getProductRoute(lineItem)">
+                <LocaleLink v-if="!isPromotion" :to="lineItemSeoUrl">
                     <h3 class="text-base">
                         {{ lineItem?.label }}
                     </h3>
                 </LocaleLink>
+
+                <h3 class="text-base" v-else-if="isPromotion">
+                    {{ lineItem.label }}
+                </h3>
 
                 <span>
                     {{ getFormattedPrice(lineItem?.totalPrice) }}

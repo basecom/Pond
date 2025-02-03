@@ -3,6 +3,7 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import { ApiClientError } from '@shopware/api-client';
 
 const { getProductRoute } = useProductRoute();
+const { getLineItemRoute } = useLineItemRoute();
 const { getProductCover } = useMedia();
 const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
@@ -16,6 +17,14 @@ const { lineItem, product } = toRefs(props);
 const isLoading = ref(false);
 
 const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
+
+const lineItemSeoUrl = computed(() => {
+    if (product) {
+        return getProductRoute(product.value);
+    } else {
+        return getLineItemRoute(lineItem.value);
+    }
+});
 
 const { getFormattedPrice } = usePrice();
 const { refreshCart } = useCart();
@@ -70,8 +79,12 @@ const removeCartItem = async () => {
     isLoading.value = true;
 
     try {
-        trackRemoveFromCart(product.value, lineItem.value.quantity);
         await removeItem();
+
+        // TODO: fix tracking the remove of a promotion giving an error
+        if (!isPromotion) {
+            trackRemoveFromCart(product.value, lineItem.value.quantity);
+        }
 
         pushSuccess(t('checkout.lineItem.remove.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
@@ -100,7 +113,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
     <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
         <LocaleLink
             v-if="!isPromotion"
-            :to="getProductRoute(lineItem)"
+            :to="lineItemSeoUrl"
         >
             <template v-if="lineItemCover.placeholder">
                 <SharedImagePlaceholder :size="'sm'" />
@@ -130,11 +143,18 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
     <div class="flex flex-1 flex-col">
         <div>
             <div class="flex flex-col justify-between gap-4 lg:flex-row">
-                <LocaleLink :to="getProductRoute(lineItem)">
+                <LocaleLink
+                    v-if="!isPromotion"
+                    :to="lineItemSeoUrl"
+                >
                     <p>
                         {{ lineItem.label }}
                     </p>
                 </LocaleLink>
+
+                <p v-else-if="isPromotion">
+                    {{ lineItem.label }}
+                </p>
 
                 <span v-if="itemTotalPrice">
                     {{ getFormattedPrice(itemTotalPrice) }}
