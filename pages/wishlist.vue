@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { useRoute, useRouter } from 'vue-router';
+import type { ApiClientError } from '@shopware/api-client';
 
 const { t } = useI18n();
+const { handleError } = useHandleError();
 useBreadcrumbs([
     {
         name: t('wishlist.titleHeader'),
@@ -59,7 +61,7 @@ const loadProductsByItemIds = async (itemIds: string[]) => {
 
         if (data?.elements) products.value = data.elements;
     } catch (error) {
-        console.error('[wishlist][loadProductsByItemIds]', error);
+        handleError(error);
     }
 
     isLoading.value = false;
