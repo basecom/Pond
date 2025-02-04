@@ -21,6 +21,7 @@ const { data: productResponse } = await useAsyncData('pdp' + props.navigationId,
                     },
                 },
                 manufacturer: {},
+                seoUrls: {},
             },
         },
     });
