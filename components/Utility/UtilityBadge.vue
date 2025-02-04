@@ -12,7 +12,6 @@ withDefaults(
         content?: number | string | null;
         type?: 'info' | 'warning' | 'danger' | 'success' | 'primary' | 'secondary' | 'gray';
         size?: 'sm' | 'md' | 'lg';
-        outline?: boolean;
         prefixIcon?: string | null;
         suffixIcon?: string | null;
     }>(),
@@ -22,7 +21,6 @@ withDefaults(
         size: 'md',
         prefixIcon: null,
         suffixIcon: null,
-        outline: false,
     },
 );
 </script>
