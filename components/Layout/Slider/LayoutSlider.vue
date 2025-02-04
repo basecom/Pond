@@ -21,7 +21,7 @@ const props = withDefaults(
         verticalNavigation?: boolean;
         thumbRef?: string;
         initialSlide?: number;
-        allowTouchMove?: boolean;
+        isZoomEnabled?: boolean;
     }>(),
     {
         autoSlide: false,
@@ -43,7 +43,7 @@ const props = withDefaults(
         verticalNavigation: false,
         thumbRef: null,
         initialSlide: 0,
-        allowTouchMove: true,
+        isZoomEnabled: false,
     },
 );
 
@@ -51,6 +51,7 @@ const sliderRef: Swiper = ref();
 const prevSlide = ref(null);
 const nextSlide = ref(null);
 const navigation = props.navigationArrows ? ref(null) : false;
+const computedSliderRef = computed(() => sliderRef?.value?.swiper ?? null);
 
 watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
     if (prevSlideValue && nextSlideValue && props.navigationArrows) {
@@ -74,6 +75,31 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
             class="relative"
             :class="classes"
         >
+            <div
+                v-if="isZoomEnabled"
+                class="flex"
+            >
+                <!-- Zoom in button -->
+                <button
+                    class="mr-2 flex"
+                    @click="computedSliderRef.zoom.in()"
+                >
+                    <FormKitIcon
+                        icon="plus"
+                        class="h-6 w-6"
+                    />
+                </button>
+                <!-- Zoom out button -->
+                <button
+                    class="flex"
+                    @click="computedSliderRef.zoom.out()"
+                >
+                    <FormKitIcon
+                        icon="minus"
+                        class="h-6 w-6"
+                    />
+                </button>
+            </div>
             <template v-if="navigationArrows">
                 <div
                     ref="prevSlide"
@@ -122,7 +148,7 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                 :breakpoints="breakpoints"
                 :init="init"
                 :initial-slide="initialSlide"
-                :allow-touch-move="allowTouchMove"
+                :zoom="isZoomEnabled"
             >
                 <slot></slot>
             </swiper-container>
