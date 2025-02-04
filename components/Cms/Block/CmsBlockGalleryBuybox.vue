@@ -9,6 +9,26 @@ const { getSlotContent } = useCmsBlock(props.block);
 
 const leftContent: Schemas['CmsSlot'] = getSlotContent('left');
 const rightContent: Schemas['CmsSlot'] = getSlotContent('right');
+
+// get product from slots - default: right slot
+// fallback to left slot in case the elements were switched in the layout
+const product = rightContent.data?.product ?? leftContent.data?.product;
+
+// change the canonical tag if the option is enabled to use the same canonical for all variants
+if (product.canonicalProductId && product.canonicalProductId !== product.id) {
+    const runtimeConfig = useRuntimeConfig();
+    const { getProductRouteById } = useProductRoute();
+    const canonicalUrl = await getProductRouteById(product.canonicalProductId);
+
+    useHead(() => ({
+        link: [
+            {
+                rel: 'canonical',
+                href: runtimeConfig.public.pond.shopwareEndpoint + canonicalUrl.path,
+            },
+        ],
+    }))
+}
 </script>
 
 <template>
