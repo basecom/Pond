@@ -33,6 +33,8 @@ if (!productResponse.value) {
 
 const { product } = useProduct(productResponse.value.product, productResponse.value.configurator);
 
+provide('productData', product);
+
 const breadcrumbs = await getBreadcrumbs(productResponse.value.product.seoCategory);
 
 // add product as last breadcrumb entry on pdp

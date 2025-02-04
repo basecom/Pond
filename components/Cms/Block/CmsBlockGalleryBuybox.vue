@@ -10,9 +10,8 @@ const { getSlotContent } = useCmsBlock(props.block);
 const leftContent: Schemas['CmsSlot'] = getSlotContent('left');
 const rightContent: Schemas['CmsSlot'] = getSlotContent('right');
 
-// get product from slots - default: right slot
-// fallback to left slot in case the elements were switched in the layout
-const product = rightContent.data?.product ?? leftContent.data?.product;
+const productData = inject('productData');
+const product = productData.value;
 
 // change the canonical tag if the option is enabled to use the same canonical for all variants
 if (product.canonicalProductId && product.canonicalProductId !== product.id) {
