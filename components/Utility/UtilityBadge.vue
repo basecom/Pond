@@ -30,19 +30,12 @@ withDefaults(
 <template>
     <div
         v-if="content"
-        class="flex w-fit flex-row items-center justify-center gap-2 rounded-full font-light"
+        class="flex w-fit flex-row items-center justify-center gap-2 rounded-full font-light text-white"
         :class="{
-            'bg-status-info': type === 'info' && !outline,
-            'bg-status-warning': type === 'warning' && !outline,
-            'bg-status-danger': type === 'danger' && !outline,
-            'bg-status-success': type === 'success' && !outline,
-            'border px-4 py-2': outline,
-            'text-white': !outline,
-            'border-status-info': type === 'info' && outline,
-            'border-status-warning': type === 'warning' && outline,
-            'border-status-danger text-status-danger': type === 'danger' && outline,
-            'border-status-success': type === 'success' && outline,
-            'border-gray-medium': type === 'gray' && outline,
+            'bg-status-info': style === 'info',
+            'bg-status-warning': style === 'warning',
+            'bg-status-danger': style === 'danger',
+            'bg-status-success': style === 'success',
             'px-1.5 py-0.5 text-xs': size === 'sm',
             'px-4 py-1 text-base': size === 'md',
             'text-md px-6 py-2': size === 'lg',

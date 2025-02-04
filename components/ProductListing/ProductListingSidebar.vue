@@ -25,27 +25,30 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <div class="m-0 mx-auto mb-4 grid gap-4">
+    <div
+        class="m-0 mx-auto grid gap-4"
+        :class="{ 'px-5': !fullWidth }"
+    >
+        <div class="flex items-baseline justify-between border-b border-gray-light py-6">
+            <div class="text-4xl">
+                {{ $t('listing.sidebar.title') }}
+            </div>
+
+            <ProductListingSorting
+                :options="props.sortingOptions"
+                :selected-option="props.sorting"
+                @sorting-changed="emit('sorting-changed', $event)"
+            />
+        </div>
+
         <ProductListingFilters
             :filters="props.filters"
             :selected-filters="props.selectedFilters"
             :show-reset-button="props.showResetButton"
-            @filter-changed="
-                (filters: Schemas['ProductListingResult']['currentFilters']) => $emit('filter-changed', filters)
-            "
+            @filter-changed="$event => $emit('filter-changed', $event)"
             @reset-filters="$emit('reset-filters')"
             @reset-filter="$event => $emit('reset-filter', $event)"
             @remove-filter="$event => $emit('remove-filter', $event)"
         />
-
-        <div class="flex justify-end">
-            <ProductListingSorting
-                :options="props.sortingOptions"
-                :selected-option="props.sorting"
-                @sorting-changed="
-                    (sorting: Schemas['ProductListingResult']['sorting']) => emit('sorting-changed', sorting)
-                "
-            />
-        </div>
     </div>
 </template>

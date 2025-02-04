@@ -52,7 +52,7 @@ useHead({
 
     <main v-show="!loading">
         <LayoutBreadcrumbs />
-        <NuxtPage class="mt-4 lg:mt-0" />
+        <NuxtPage />
     </main>
 
     <LayoutFooter v-show="!loading" />
