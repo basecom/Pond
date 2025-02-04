@@ -28,7 +28,7 @@ const openLightbox = (slideMediaId: string) => {
     if (!isLightboxEnabled) {
         return;
     }
-    // When the lightbox is opened, the clicked image should display
+    // When the lightbox is opened, the clicked image should be display
     lightboxSliderIndex.value = slides.findIndex(
         (slide: CmsElementImageGallerySlider) => slide.media.id === slideMediaId,
     );

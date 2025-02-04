@@ -10,6 +10,7 @@ defineProps<{
     thumbsSwiper: string;
 }>();
 </script>
+
 <template>
     <LazySharedModal
         :controller="controller"
@@ -38,7 +39,6 @@ defineProps<{
                             :alt="slide.translated?.alt ?? $t('cms.element.imageAlt')"
                             class="h-full w-full object-center"
                             :class="imageClasses"
-                            :style="{ transform: `scale(${zoomScale}, ${zoomScale})` }"
                         />
                     </div>
                 </LayoutSliderSlide>
