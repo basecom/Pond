@@ -12,6 +12,6 @@ const slotContent: Schemas['CmsSlot'] = getSlotContent('content');
 <template>
     <CmsLoader
         :content="slotContent"
-        class="relative z-10"
+        class="relative z-20"
     />
 </template>
