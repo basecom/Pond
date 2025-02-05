@@ -7,21 +7,21 @@ export function useCategoryBreadcrumbs() {
     const _loadCategoryBreadcrumbsFromApi = async (categoryId: string): Promise<Breadcrumb[]> => {
         const response = await apiClient.invoke('readBreadcrumb get /breadcrumb/{id}', {
             pathParams: {
-                id: categoryId
+                id: categoryId,
             },
             query: {
-                type: 'category'
-            }
+                type: 'category',
+            },
         });
 
         return response.data.breadcrumbs;
     };
 
     const _mapBreadcrumbsFromApi = (breadcrumbs: Breadcrumb[]): Breadcrumb[] => {
-        return breadcrumbs.map((breadcrumb) => {
+        return breadcrumbs.map(breadcrumb => {
             return {
                 ...breadcrumb,
-                path: `/${ breadcrumb.path }`
+                path: `/${breadcrumb.path}`,
             };
         });
     };
@@ -29,7 +29,7 @@ export function useCategoryBreadcrumbs() {
     const getBreadcrumbs = async (category: Schemas['Category'], startIndex = 1): Promise<Breadcrumb[]> => {
         if (!runtimeConfig.public.pond.breadcrumb.enableDynamicLoading) {
             return getCategoryBreadcrumbs(category, {
-                startIndex
+                startIndex,
             });
         }
 
@@ -37,14 +37,14 @@ export function useCategoryBreadcrumbs() {
             const breadcrumbs = await _loadCategoryBreadcrumbsFromApi(category.id);
 
             return _mapBreadcrumbsFromApi(breadcrumbs);
-        } catch ( e ) {
+        } catch (e) {
             return getCategoryBreadcrumbs(category, {
-                startIndex
+                startIndex,
             });
         }
     };
 
     return {
-        getBreadcrumbs
+        getBreadcrumbs,
     };
 }

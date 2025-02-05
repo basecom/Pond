@@ -49,7 +49,7 @@ export default defineNuxtConfig({
                 },
                 breadcrumb: {
                     enableDynamicLoading: false,
-                }
+                },
             },
         },
     },
