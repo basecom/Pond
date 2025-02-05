@@ -34,7 +34,7 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
 <template>
     <div
         ref="productCard"
-        class="relative w-full rounded-md border border-gray-medium p-4 shadow-md"
+        class="relative w-full border border-gray-medium"
     >
         <div
             v-if="wishlistEnabled"
@@ -42,15 +42,14 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
         >
             <ProductAddToWishlist :product="props.product" />
         </div>
+
         <LocaleLink
             :to="getProductRoute(product)"
             class="group"
             @click="$emit('select-product')"
         >
             <div class="flex flex-col">
-                <div
-                    class="aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7 w-full overflow-hidden rounded-lg bg-gray-light"
-                >
+                <div class="aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7 w-full overflow-hidden bg-gray-light">
                     <template v-if="cover.placeholder">
                         <SharedImagePlaceholder />
                     </template>
@@ -65,15 +64,15 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
                     </template>
                 </div>
 
-                <div class="flex justify-between">
-                    <div class="flex flex-col gap-4 pb-4">
-                        <h3 class="mt-4 line-clamp-2 h-2lh">
+                <div class="flex justify-between p-4">
+                    <div class="flex flex-col gap-2 pb-4">
+                        <h3 class="line-clamp-2 h-2lh">
                             {{ getTranslatedProperty(product, 'name') }}
                         </h3>
 
                         <p
                             v-if="layout === 'standard'"
-                            class="line-clamp-2 h-2lh text-sm"
+                            class="line-clamp-2 h-2lh text-sm text-gray"
                         >
                             {{ getTranslatedProperty(product, 'description') }}
                         </p>

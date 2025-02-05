@@ -28,7 +28,7 @@ const popoverOpen = ref(false);
             class="none inline-flex items-center justify-center"
             :aria-label="$t('listing.sidebar.filter.price.title') + ' ' + $t('shared.popover.triggerAriaLabel')"
         >
-            <div class="flex items-center gap-2 rounded border border-gray px-4 py-2">
+            <div class="flex items-center gap-2 rounded border border-gray-medium px-4 py-2">
                 {{ $t('listing.sidebar.filter.price.title') }}
                 <UtilityPill
                     v-if="filter.code === 'price' && priceFilterApplied()"
@@ -46,7 +46,8 @@ const popoverOpen = ref(false);
         <PopoverContent
             side="bottom"
             :side-offset="5"
-            class="w-64 rounded border border-gray-light bg-white p-4 shadow-md"
+            align="start"
+            class="w-64 rounded border border-gray-medium bg-white p-4 shadow-lg"
         >
             <ProductListingFilterOptionsPrice
                 :filter="filter"

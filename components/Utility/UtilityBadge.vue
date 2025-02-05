@@ -2,7 +2,7 @@
 /**
  * example usage:
  * this will generate a large badge in warning color
- * <UtilityBadge content="example" style="warning" size="lg" />
+ * <UtilityBadge content="example" type="warning" size="lg" />
  *
  * this will result in a medium badge in info color with an icon in front of the content
  * <UtilityBadge content="example" prefix-icon="heart" />
@@ -10,14 +10,14 @@
 withDefaults(
     defineProps<{
         content?: number | string | null;
-        style?: 'info' | 'warning' | 'danger' | 'success' | 'primary' | 'secondary';
+        type?: 'info' | 'warning' | 'danger' | 'success' | 'primary' | 'secondary' | 'gray';
         size?: 'sm' | 'md' | 'lg';
         prefixIcon?: string | null;
         suffixIcon?: string | null;
     }>(),
     {
         content: null,
-        style: 'info',
+        type: 'info',
         size: 'md',
         prefixIcon: null,
         suffixIcon: null,
@@ -40,7 +40,7 @@ withDefaults(
         }"
     >
         <FormKitIcon
-            v-if="prefixxIcon"
+            v-if="prefixIcon"
             :icon="prefixIcon"
             class="block"
             :class="{
