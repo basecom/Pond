@@ -45,7 +45,6 @@ watch(
         v-if="appliedFilters && (total || areFiltersModified)"
         :filters="filters"
         :selected-filters="appliedFilters"
-        :full-width="false"
         :show-reset-button="areFiltersModified"
         :sorting-options="sortingOptions"
         :sorting="currentSorting"

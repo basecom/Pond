@@ -29,9 +29,10 @@ const handleClick = (option: Schemas['ProductListingResult']['availableSortings'
                 class="ml-6 h-4 w-auto"
             />
         </DropdownMenuTrigger>
+
         <DropdownMenuPortal>
             <DropdownMenuContent
-                class="min-w-56 rounded-md border border-gray bg-white p-2 shadow-md outline-none"
+                class="z-20 min-w-56 rounded-md border border-gray bg-white p-2 shadow-md outline-none"
                 :side-offset="5"
             >
                 <DropdownMenuItem

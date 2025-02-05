@@ -107,13 +107,12 @@ useBreadcrumbs([
             </span>
         </h1>
 
-        <div class="flex flex-wrap">
-            <div class="w-full md:w-5/12 lg:w-3/12">
+        <div class="flex flex-wrap gap-4">
+            <div class="w-full">
                 <ProductListingSidebar
                     v-if="appliedFilters && (products?.length || areFiltersModified)"
                     :filters="filters"
                     :selected-filters="appliedFilters"
-                    :full-width="false"
                     :show-reset-button="areFiltersModified"
                     :sorting-options="sortingOptions"
                     :sorting="currentSorting"
@@ -125,7 +124,7 @@ useBreadcrumbs([
 
             <div
                 v-if="!loading"
-                class="grid w-full grid-cols-2 gap-6 md:w-7/12 md:grid-cols-3 lg:w-9/12 lg:grid-cols-4"
+                class="grid w-full grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
             >
                 <template
                     v-for="product in products"
