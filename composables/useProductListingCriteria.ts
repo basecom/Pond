@@ -260,15 +260,16 @@ export function useProductListingCriteria(): UseProductListingCriteriaResult {
     };
 
     const propertyFilterAppliedTotal = (id: Schemas['PropertyGroup']['id']) => {
-        if (_appliedFilters.value.properties.length <= 0) {
+        if (_appliedFilters.value?.properties.length <= 0) {
             return false;
         }
         const filter = _propertyFilter.value.find(filter => filter.id == id);
 
-        const appliedOptions = filter.options.filter(option => {
-            return _appliedFilters.value.properties.includes(option.id);
+        const appliedOptions = filter?.options.filter(option => {
+            return _appliedFilters.value?.properties.includes(option.id);
         });
-        return appliedOptions.length;
+
+        return appliedOptions?.length;
     };
 
     const propertyFilterApplied = (id: Schemas['PropertyGroup']['id']) => {
