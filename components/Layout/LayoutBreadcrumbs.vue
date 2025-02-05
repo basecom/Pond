@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const { breadcrumbs } = useBreadcrumbs();
-
 withDefaults(
     defineProps<{
         displayRoot?: boolean;
@@ -11,6 +9,9 @@ withDefaults(
         rootIcon: '',
     },
 );
+
+const { breadcrumbs } = useBreadcrumbs();
+const route = useRoute();
 </script>
 
 <template>
@@ -20,7 +21,7 @@ withDefaults(
     >
         <ol class="inline-flex items-center gap-2 flex-wrap">
             <li
-                v-if="displayRoot"
+                v-if="displayRoot && route.fullPath !== '/'"
                 class="inline-flex items-center gap-2 min-w-fit"
             >
                 <LocaleLink
@@ -30,14 +31,14 @@ withDefaults(
                     <FormKitIcon
                         v-if="rootIcon"
                         :icon="rootIcon"
-                        class="h-4 w-4"
+                        class="h-2.5 w-2.5"
                     />
                     {{ $t('layout.breadcrumb.homeLinkLabel') }}
                 </LocaleLink>
 
                 <FormKitIcon
                     v-if="breadcrumbs?.length > 0"
-                    class="block h-4 w-4"
+                    class="block h-2.5 w-2.5"
                     icon="chevron-right"
                 />
             </li>
@@ -64,7 +65,7 @@ withDefaults(
 
                 <FormKitIcon
                     v-if="index < breadcrumbs.length - 1"
-                    class="block h-4 w-4"
+                    class="block h-2.5 w-2.5"
                     icon="chevron-right"
                 />
             </li>

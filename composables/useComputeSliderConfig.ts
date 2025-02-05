@@ -4,13 +4,19 @@ export type ProductSliderConfig = {
     slides: ComputedRef<unknown[]>;
     breakpoints: Record<number, { slidesPerView: number }>;
     slidesPerView: number;
-}
+};
 
-export function useComputeSliderConfig({ showNavigation, autoSlide, slides, breakpoints, slidesPerView }: ProductSliderConfig) {
+export function useComputeSliderConfig({
+    showNavigation,
+    autoSlide,
+    slides,
+    breakpoints,
+    slidesPerView,
+}: ProductSliderConfig) {
     const breakPointsConfig = {
-        'sm': 540,
-        'md': 768,
-        'lg': 1024,
+        sm: 540,
+        md: 768,
+        lg: 1024,
     };
     const breakPoints = useBreakpoints(breakPointsConfig);
     const isSm = breakPoints.greater('sm');
@@ -37,6 +43,6 @@ export function useComputeSliderConfig({ showNavigation, autoSlide, slides, brea
     return {
         currentSlidesPerView,
         showNavigationArrows,
-        shouldAutoSlide
+        shouldAutoSlide,
     };
 }
