@@ -1,7 +1,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 
 export function useLineItemRoute() {
-    async function getLineItemRoute(lineItem: Schemas.LineItem | Schemas.OrderLineItem) {
+    const getLineItemRoute = async (lineItem: Schemas.LineItem | Schemas.OrderLineItem) => {
         return {
             path: await getLineItemUrl(lineItem),
             state: {
@@ -14,7 +14,7 @@ export function useLineItemRoute() {
     return { getLineItemRoute };
 }
 
-async function getLineItemUrl(lineItem: Schemas.LineItem | Schemas.OrderLineItem) {
+const getLineItemUrl = async (lineItem: Schemas.LineItem | Schemas.OrderLineItem) => {
     if (!lineItem) return '/';
 
     const { apiClient } = useShopwareContext();
