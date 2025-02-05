@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { Schemas } from '@shopware/api-client/api-types';
+
 defineProps<{
     label: string;
     description?: string;
-    mediaUrl?: string;
+    media?: Schemas['Media'];
 }>();
 </script>
 
@@ -19,11 +21,13 @@ defineProps<{
             {{ description }}
         </span>
     </div>
+
     <img
-        v-if="mediaUrl"
+        v-if="media"
         loading="lazy"
-        :src="mediaUrl"
-        :alt="`Logo of ${label}`"
+        :src="media.url"
+        :alt="media.translated?.alt ?? label"
+        :title="media.translated?.title ?? label"
         class="ml-auto max-h-6 max-w-full object-contain"
     />
 </template>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { PromotionInfo } from '../../../types/analytics/promotion';
 
@@ -18,7 +19,7 @@ const autoplayTimeout = config.getConfigValue('autoplayTimeout');
 const minHeight = config.getConfigValue('minHeight');
 const speed = config.getConfigValue('speed');
 
-const slides = computed(() => config.getConfigValue('sliderItems') ?? []);
+const slides = computed(() => data.getData('sliderItems') ?? []);
 const sliderRef = ref(null);
 
 if (slides.value.length > 0) {
@@ -92,13 +93,14 @@ if (isHomePage.value) {
             >
                 <LayoutSliderSlide
                     v-for="slide in slides"
-                    :key="slide.mediaId"
+                    :key="slide.media.id"
                     :class="`min-h-[${minHeight}]`"
                 >
                     <img
                         ref="slidesRef"
-                        :src="slide.mediaUrl"
-                        :alt="$t('cms.element.imageAlt')"
+                        :src="slide.media.url"
+                        :alt="getTranslatedProperty(slide.media, 'alt') || $t('cms.element.imageAlt')"
+                        :title="getTranslatedProperty(slide.media, 'title') || $t('cms.element.imageAlt')"
                         class="h-full w-full object-center"
                         :class="'object-' + displayMode"
                     />

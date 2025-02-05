@@ -17,7 +17,7 @@ defineProps<{
                 :label="getTranslatedProperty(method, 'name')"
                 :delivery-time="getShippingMethodDeliveryTime(method)"
                 :description="getTranslatedProperty(method, 'description')"
-                :media-url="method.media?.url"
+                :media="method.media"
             />
         </template>
     </CheckoutConfirmCard>
