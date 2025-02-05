@@ -52,8 +52,8 @@ onMounted(async () => {
                 @submit="updateOrder"
                 @keydown.enter.prevent
             >
-                <div class="grid gap-6 my-6 lg:grid-cols-2">
-                    <div class="p-4 divide-y rounded-md shadow divide-gray-medium">
+                <div class="my-6 grid gap-6 lg:grid-cols-2">
+                    <div class="divide-y divide-gray-medium rounded-md p-4 shadow">
                         <AccountOrderConfirmPersonal />
                         <AccountOrderConfirmShipping :method="shippingMethod" />
                         <AccountOrderConfirmPayment
@@ -67,21 +67,19 @@ onMounted(async () => {
                         <AccountOrderConfirmTerms />
 
                         <CheckoutConfirmCard :title="t('checkout.finish.customerCommentLabel')">
-                            <OrderComment
-                                :customer-comment="order.customerComment"
-                            />
+                            <OrderComment :customer-comment="order.customerComment" />
                         </CheckoutConfirmCard>
                     </div>
 
-                    <div class="p-4 rounded-md shadow">
+                    <div class="rounded-md p-4 shadow">
                         <div class="font-bold">{{ $t('checkout.lineItemsHeading') }}</div>
 
-                        <ul class="pb-2 divide-y divide-gray-medium">
+                        <ul class="divide-y divide-gray-medium pb-2">
                             <div
                                 v-for="(product, index) in order.lineItems"
                                 :key="product.id"
                             >
-                                <div class="flex w-full mt-4">
+                                <div class="mt-4 flex w-full">
                                     <OrderLineItem :line-item="product" />
                                 </div>
                                 <hr

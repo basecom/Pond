@@ -16,12 +16,15 @@ const shownNavigationItems = ref(mainNavigationElements.value);
 // used to navigate back and display the link above the children
 const previousNavigationItems = ref<Schemas['Category'][]>([]);
 
-watch(languageIdChain, async () => {
-    await navigationStore.loadMainNavigation(2);
-    shownNavigationItems.value = mainNavigationElements.value;
-    previousNavigationItems.value = [];
-}, { immediate: true });
-
+watch(
+    languageIdChain,
+    async () => {
+        await navigationStore.loadMainNavigation(2);
+        shownNavigationItems.value = mainNavigationElements.value;
+        previousNavigationItems.value = [];
+    },
+    { immediate: true },
+);
 
 const handleClick = navigationElement => {
     if (navigationElement.childCount > 0) {
