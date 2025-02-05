@@ -41,6 +41,7 @@ onMounted(async () => {
             v-if="paymentOptions.length > 0"
             v-model="selectedPaymentMethod"
             type="radio"
+            name="paymentMethod"
             :options="paymentOptions"
             fieldset-class="w-full"
             wrapper-class="w-full !mb-5 !items-start"
