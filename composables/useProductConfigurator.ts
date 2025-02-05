@@ -26,8 +26,8 @@ export function useProductConfigurator(): ExtendedUseProductConfiguratorReturn {
                 ids: [match.data.variantId],
                 limit: 1,
                 associations: {
-                    seoUrls: {}
-                }
+                    seoUrls: {},
+                },
             },
         });
 

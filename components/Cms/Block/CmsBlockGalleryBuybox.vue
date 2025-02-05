@@ -26,7 +26,7 @@ if (product.canonicalProductId && product.canonicalProductId !== product.id) {
                 href: runtimeConfig.public.pond.shopwareEndpoint + canonicalUrl.path,
             },
         ],
-    }))
+    }));
 }
 </script>
 

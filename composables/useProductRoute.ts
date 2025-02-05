@@ -49,9 +49,9 @@ async function getProductUrlById(id: string) {
         body: {
             filter: [
                 {
-                    type: "equals",
-                    field: "pathInfo",
-                    value: "/detail/" + id,
+                    type: 'equals',
+                    field: 'pathInfo',
+                    value: '/detail/' + id,
                 },
             ],
             limit: 1,

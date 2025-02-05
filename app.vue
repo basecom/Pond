@@ -9,7 +9,7 @@ useHead(() => ({
             href: runtimeConfig.public.pond.shopwareEndpoint + route.path,
         },
     ],
-}))
+}));
 </script>
 
 <template>
