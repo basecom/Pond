@@ -30,9 +30,7 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
     return `height: ${height}`;
 };
 
-const mediaObject = computed(() => {
-    return props.element.data.media;
-});
+const mediaObject = props.element.data?.media;
 </script>
 
 <template>

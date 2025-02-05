@@ -26,8 +26,8 @@ defineProps<{
         v-if="media"
         loading="lazy"
         :src="media.url"
-        :alt="media.translated?.alt"
-        :title="media.translated?.title"
+        :alt="media.translated?.alt ?? label"
+        :title="media.translated?.title ?? label"
         class="ml-auto max-h-6 max-w-full object-contain"
     />
 </template>

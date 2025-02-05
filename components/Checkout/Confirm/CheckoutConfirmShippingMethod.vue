@@ -28,8 +28,8 @@ defineProps<{
             v-if="media"
             loading="lazy"
             :src="media.url"
-            :alt="media.translated?.alt"
-            :title="media.translated?.title"
+            :alt="media.translated?.alt ?? label"
+            :title="media.translated?.title ?? label"
         />
     </div>
 </template>
