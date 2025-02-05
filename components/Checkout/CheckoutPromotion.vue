@@ -4,7 +4,7 @@ import type { PromotionCodeForm } from '~/types/checkout/checkout';
 
 const { addPromotionCode, consumeCartErrors } = useCart();
 const { pushError, pushSuccess } = useNotifications();
-const { throwError } = useThrowError();
+const { handleError } = useHandleError();
 const { t } = useI18n();
 
 const cartErrors = ref<Schemas['Cart']['errors']>([]);
@@ -23,7 +23,7 @@ const addPromotion = async (promotionCodeForm: PromotionCodeForm) => {
 
         pushSuccess(t('checkout.promotion.successMessage', { promotionCode: promotionCodeForm.promotionCode }));
     } catch (error) {
-        throwError(error);
+        handleError(error);
         pushError(t('checkout.promotion.errorMessage'));
     }
 };
