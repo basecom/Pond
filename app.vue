@@ -3,9 +3,9 @@ const { locale } = useI18n();
 
 useHead({
     htmlAttrs: {
-        lang: locale
-    }
-})
+        lang: locale,
+    },
+});
 </script>
 
 <template>
