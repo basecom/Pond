@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ApiClientError } from '@shopware/api-client';
-import type { FormkitFields } from '~/types/formkit';
+import type { OrderForm } from '~/types/checkout/checkout';
 
 const customerStore = useCustomerStore();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
 const { push } = useRouter();
+const { handleError } = useHandleError();
 const { refreshCart, isEmpty } = useCart();
 const cartItemsStore = useCartItemsStore();
 const { cartItemsWithProduct } = storeToRefs(cartItemsStore);
@@ -13,7 +13,7 @@ const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
 const { trackPurchase } = useAnalytics({ trackPageView: true, pageType: 'checkout' });
 
-const placeOrder = async (formData: FormkitFields[]) => {
+const placeOrder = async (formData: OrderForm) => {
     try {
         const order = await createOrder({
             customerComment: formData.customerComment ?? '',
@@ -25,10 +25,7 @@ const placeOrder = async (formData: FormkitFields[]) => {
         pushSuccess(t('checkout.confirm.order.successMessage'));
     } catch (error) {
         pushError(t('checkout.confirm.order.errorMessage'));
-
-        if (error instanceof ApiClientError) {
-            console.log(error.details);
-        }
+        handleError(error);
     } finally {
         // TODO: Instead of logging out handle guest state in account area by toggeling options
         if (customerStore.customer.guest) {
