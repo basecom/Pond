@@ -20,7 +20,7 @@ export function useProductRoute() {
         };
     };
 
-    async function getProductRouteById(id: string) {
+    const getProductRouteById = async (id: string) => {
         return {
             path: await getProductUrlById(id),
             state: {
@@ -40,7 +40,7 @@ function getProductUrl(product: Schemas.Product | Schemas.LineItem | Schemas.Ord
     return seoUrl ? `/${seoUrl}` : `/detail/${product.referencedId ?? product.id}`;
 }
 
-async function getProductUrlById(id: string) {
+const getProductUrlById = async (id: string) => {
     if (!id) return '/';
 
     const { apiClient } = useShopwareContext();
