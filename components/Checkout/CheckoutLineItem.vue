@@ -20,11 +20,7 @@ const isLoading = ref(false);
 const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 
 const lineItemSeoUrl = computed(() => {
-    if (product) {
-        return getProductRoute(product.value);
-    } else {
-        return getLineItemRoute(lineItem.value);
-    }
+    return product ? getProductRoute(product.value) : getLineItemRoute(lineItem.value);
 });
 
 const { getFormattedPrice } = usePrice();
