@@ -8,7 +8,7 @@ export function useLineItemRoute() {
                 routeName: 'frontend.detail.page',
                 foreignKey: lineItem?.referencedId,
             },
-        }
+        };
     }
 
     return { getLineItemRoute };
@@ -23,9 +23,9 @@ async function getLineItemUrl(lineItem: Schemas.LineItem | Schemas.OrderLineItem
         body: {
             filter: [
                 {
-                    type: "equals",
-                    field: "pathInfo",
-                    value: "/detail/" + lineItem.referencedId,
+                    type: 'equals',
+                    field: 'pathInfo',
+                    value: '/detail/' + lineItem.referencedId,
                 },
             ],
             limit: 1,

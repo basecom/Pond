@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import { ApiClientError } from '@shopware/api-client';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 const { getProductRoute } = useProductRoute();
@@ -21,7 +20,7 @@ const isLoading = ref(false);
 const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 
 const lineItemSeoUrl = computed(() => {
-    return product ? getProductRoute(product.value) : getLineItemRoute(lineItem.value);
+    return product.value ? getProductRoute(product.value) : getLineItemRoute(lineItem.value);
 });
 
 const { getFormattedPrice } = usePrice();
@@ -114,8 +113,14 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
             <template v-else>
                 <img
                     :src="lineItemCover.url"
-                    :alt="lineItemCover.alt ?? (getTranslatedProperty(lineItem, 'name') || getTranslatedProperty(product, 'name'))"
-                    :title="lineItemCover.title ?? (getTranslatedProperty(lineItem, 'name') || getTranslatedProperty(product, 'name'))"
+                    :alt="
+                        lineItemCover.alt ??
+                        (getTranslatedProperty(lineItem, 'name') || getTranslatedProperty(product, 'name'))
+                    "
+                    :title="
+                        lineItemCover.title ??
+                        (getTranslatedProperty(lineItem, 'name') || getTranslatedProperty(product, 'name'))
+                    "
                     class="h-full w-full object-cover object-center"
                 />
             </template>

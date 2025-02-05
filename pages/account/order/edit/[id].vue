@@ -66,7 +66,10 @@ onMounted(async () => {
                         />
                         <AccountOrderConfirmTerms />
 
-                        <CheckoutConfirmCard v-if="order.customerComment" :title="t('checkout.finish.customerCommentLabel')">
+                        <CheckoutConfirmCard
+                            v-if="order.customerComment"
+                            :title="t('checkout.finish.customerCommentLabel')"
+                        >
                             <OrderComment :customer-comment="order.customerComment" />
                         </CheckoutConfirmCard>
                     </div>

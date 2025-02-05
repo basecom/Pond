@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { CmsElementImage } from '@shopware-pwa/composables-next';
-import { buildUrlPrefix } from '@shopware-pwa/helpers-next';
+import { buildUrlPrefix, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import { useElementSize } from '@vueuse/core';
-import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { CSSProperties } from 'vue';
 
 const props = defineProps<{
@@ -33,7 +32,7 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
 
 const mediaObject = computed(() => {
     return props.element.data.media;
-})
+});
 </script>
 
 <template>

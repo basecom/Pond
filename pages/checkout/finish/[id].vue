@@ -117,7 +117,10 @@ onMounted(async () => {
                         <OrderShipping :shipping-method="shippingMethod" />
                     </div>
 
-                    <div v-if="order.customerComment" class="pt-4">
+                    <div
+                        v-if="order.customerComment"
+                        class="pt-4"
+                    >
                         <div class="mb-2 font-bold">
                             {{ $t('checkout.finish.customerCommentHeading') }}
                         </div>

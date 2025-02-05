@@ -52,13 +52,19 @@ const lineItemSeoUrl = await getLineItemRoute(lineItem.value);
     <div class="flex flex-1 flex-col">
         <div>
             <div class="flex flex-col justify-between gap-4 lg:flex-row">
-                <LocaleLink v-if="!isPromotion" :to="lineItemSeoUrl">
+                <LocaleLink
+                    v-if="!isPromotion"
+                    :to="lineItemSeoUrl"
+                >
                     <h3 class="text-base">
                         {{ lineItem?.label }}
                     </h3>
                 </LocaleLink>
 
-                <h3 class="text-base" v-else-if="isPromotion">
+                <h3
+                    v-else-if="isPromotion"
+                    class="text-base"
+                >
                     {{ lineItem.label }}
                 </h3>
 
