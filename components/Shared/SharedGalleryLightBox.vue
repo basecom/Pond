@@ -1,14 +1,22 @@
 <script setup lang="ts">
 import type { CmsElementImageGallerySlider } from '../../types/cms/element/cmsElementImageGallery';
 
-defineProps<{
-    controller: ReturnType<typeof useModal>;
-    imageClasses: string;
-    slides: CmsElementImageGallerySlider[];
-    isZoomEnabled: boolean;
-    sliderIndex: number;
-    thumbsSwiper: string;
-}>();
+withDefaults(
+    defineProps<{
+        controller: ReturnType<typeof useModal>;
+        slides: CmsElementImageGallerySlider[];
+        imageClasses?: string;
+        isZoomEnabled?: boolean;
+        sliderIndex?: number;
+        thumbsSwiper?: string;
+    }>(),
+    {
+        imageClasses: '',
+        isZoomEnabled: false,
+        sliderIndex: 0,
+        thumbsSwiper: '',
+    },
+);
 </script>
 
 <template>
