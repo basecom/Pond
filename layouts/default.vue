@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const { changeLanguage, getLanguageIdFromCode, getAvailableLanguages } = useInternationalization();
 const { locale } = useI18n();
 
