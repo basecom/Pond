@@ -28,7 +28,7 @@ onMounted(async () => {
         label: method.translated.name,
         value: method.id,
         description: method.translated.description,
-        mediaUrl: method.media?.url,
+        media: method.media,
     }));
 });
 </script>
@@ -48,7 +48,7 @@ onMounted(async () => {
                 <CheckoutConfirmPaymentMethod
                     :label="option.label"
                     :description="option.description"
-                    :media-url="option.mediaUrl"
+                    :media="option.media"
                 />
             </template>
         </FormKit>
