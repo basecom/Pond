@@ -12,7 +12,7 @@ withDefaults(
 <template>
     <span
         v-if="number > 0"
-        class="grid h-3.5 min-w-3.5 items-center justify-center rounded-full bg-brand-primary p-0.5 text-xs leading-none text-white outline outline-1 outline-white"
+        class="grid h-4 min-w-4 items-center justify-center rounded-full bg-brand-primary text-xxs leading-none text-white"
     >
         {{ number }}
     </span>

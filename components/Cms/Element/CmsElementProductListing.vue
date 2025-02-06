@@ -4,7 +4,7 @@ const props = defineProps<{
 }>();
 const route = useRoute();
 const { trackSelectItem } = useAnalytics();
-const { getElements, search, getCurrentListing } = useCategoryListing();
+const { getElements, search, getCurrentListing, loading } = useCategoryListing();
 // TODO create a better ID based on the CmsPage or even better CmsSlot identifier
 const productListingCriteriaStore = useProductListingCriteriaStore('category');
 const { criteria, total, page, limit } = storeToRefs(productListingCriteriaStore);
@@ -42,8 +42,16 @@ productListingCriteriaStore.setSearchResult(getCurrentListing.value, true);
 <template>
     <div v-if="getElements.length > 0">
         <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+            <template v-if="loading">
+                <ProductCardSkeleton
+                    v-for="index in limit"
+                    :key="index"
+                />
+            </template>
+
             <template
                 v-for="product in getElements"
+                v-else
                 :key="product.id"
             >
                 <ProductCard

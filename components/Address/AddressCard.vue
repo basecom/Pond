@@ -42,14 +42,14 @@ const updateDefaultBilling = async () => {
             <UtilityBadge
                 v-if="address.id === customerStore.customer.defaultBillingAddressId"
                 :content="$t('account.address.defaultBilling')"
-                :style="'success'"
+                type="success"
                 size="sm"
             />
 
             <UtilityBadge
                 v-if="address.id === customerStore.customer.defaultShippingAddressId"
                 :content="$t('account.address.defaultShipping')"
-                :style="'success'"
+                type="success"
                 size="sm"
             />
 
