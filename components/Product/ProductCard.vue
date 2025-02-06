@@ -42,6 +42,7 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
         >
             <ProductAddToWishlist :product="props.product" />
         </div>
+
         <LocaleLink
             :to="getProductRoute(product)"
             class="group"

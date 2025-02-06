@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import { getProductRoute } from '@shopware-pwa/helpers-next';
 
-const { getProductRoute } = useProductRoute();
 const { getLineItemRoute } = useLineItemRoute();
 const { getProductCover } = useMedia();
 const { pushError, pushSuccess } = useNotifications();

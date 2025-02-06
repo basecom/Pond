@@ -6,7 +6,7 @@ export function useLineItemRoute() {
             path: await getLineItemUrl(lineItem),
             state: {
                 routeName: 'frontend.detail.page',
-                foreignKey: lineItem?.referencedId,
+                foreignKey: lineItem.referencedId,
             },
         };
     }
