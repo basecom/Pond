@@ -28,7 +28,7 @@ const openLightbox = (slideMediaId: string) => {
     if (!isLightboxEnabled) {
         return;
     }
-    // When the lightbox is opened, the clicked image should be display
+    // When the lightbox is opened, the clicked image should be displayed
     lightboxSliderIndex.value = slides.findIndex(
         (slide: CmsElementImageGallerySlider) => slide.media.id === slideMediaId,
     );
@@ -118,6 +118,7 @@ const openLightbox = (slideMediaId: string) => {
                 </div>
             </template>
         </div>
+
         <SharedGalleryLightBox
             :controller="lightboxModalController"
             :image-classes="'object-' + displayMode"

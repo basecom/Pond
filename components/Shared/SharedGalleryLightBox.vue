@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { CmsElementImageGallerySlider } from '../../types/cms/element/cmsElementImageGallery';
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 withDefaults(
     defineProps<{
@@ -44,7 +45,8 @@ withDefaults(
                         <img
                             v-if="slide.media.url"
                             :src="slide.media.url"
-                            :alt="slide.translated?.alt ?? $t('cms.element.imageAlt')"
+                            :alt="getTranslatedProperty(slide.media, 'alt') || $t('cms.element.imageAlt')"
+                            :title="getTranslatedProperty(slide.media, 'title') || $t('cms.element.imageAlt')"
                             class="h-full w-full object-center"
                             :class="imageClasses"
                         />

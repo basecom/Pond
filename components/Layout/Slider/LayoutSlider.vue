@@ -89,6 +89,7 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                         class="h-6 w-6"
                     />
                 </button>
+
                 <!-- Zoom out button -->
                 <button
                     class="flex"
