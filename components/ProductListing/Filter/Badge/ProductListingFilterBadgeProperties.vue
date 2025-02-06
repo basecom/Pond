@@ -29,6 +29,7 @@ const { propertyOptionForId } = useProductListingCriteriaStore('category');
             :content="getTranslatedProperty(propertyOptionForId(property), 'name')"
             size="sm"
             suffix-icon="x"
+            class="cursor-pointer"
             @click="$emit('remove-filter', { code: 'properties', value: property })"
         />
     </template>
