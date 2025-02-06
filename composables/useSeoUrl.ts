@@ -7,7 +7,7 @@ export function useSeoUrl() {
                 foreignKey: id,
             },
         };
-    }
+    };
 
     return { getUrlByProductId };
 }
@@ -29,11 +29,11 @@ const getSeoUrlByProductId = async (id: string) => {
             limit: 1,
             includes: {
                 seo_url: ['seoPathInfo'],
-            }
+            },
         },
     });
 
     const seoUrl = seoUrls?.elements[0]?.seoPathInfo;
 
     return seoUrl ? `/${seoUrl}` : `/detail/${id}`;
-}
+};

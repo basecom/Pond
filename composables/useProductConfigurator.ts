@@ -30,7 +30,7 @@ export function useProductConfigurator(): ExtendedUseProductConfiguratorReturn {
                 },
                 includes: {
                     seo_url: ['seoPathInfo'],
-                }
+                },
             },
         });
 
