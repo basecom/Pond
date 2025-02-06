@@ -25,6 +25,12 @@ export function useProductConfigurator(): ExtendedUseProductConfiguratorReturn {
             body: {
                 ids: [match.data.variantId],
                 limit: 1,
+                associations: {
+                    seoUrls: {},
+                },
+                includes: {
+                    seo_url: ['seoPathInfo'],
+                },
             },
         });
 

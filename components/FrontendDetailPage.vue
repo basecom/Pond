@@ -21,6 +21,7 @@ const { data: productResponse } = await useAsyncData('pdp' + props.navigationId,
                     },
                 },
                 manufacturer: {},
+                seoUrls: {},
             },
         },
     });
@@ -31,6 +32,8 @@ if (!productResponse.value) {
 }
 
 const { product } = useProduct(productResponse.value.product, productResponse.value.configurator);
+
+provide('productData', product);
 
 const breadcrumbs = await getBreadcrumbs(productResponse.value.product.seoCategory);
 
