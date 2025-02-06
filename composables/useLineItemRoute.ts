@@ -9,7 +9,7 @@ export function useLineItemRoute() {
                 foreignKey: lineItem.referencedId,
             },
         };
-    }
+    };
 
     return { getLineItemRoute };
 }
@@ -35,4 +35,4 @@ const getLineItemUrl = async (lineItem: Schemas.LineItem | Schemas.OrderLineItem
     const seoUrl = seoUrls?.elements[0]?.seoPathInfo;
 
     return seoUrl ? `/${seoUrl}` : `/detail/${lineItem.referencedId}`;
-}
+};
