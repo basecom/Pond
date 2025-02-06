@@ -28,6 +28,9 @@ export function useProductConfigurator(): ExtendedUseProductConfiguratorReturn {
                 associations: {
                     seoUrls: {},
                 },
+                includes: {
+                    seo_url: ['seoPathInfo'],
+                }
             },
         });
 

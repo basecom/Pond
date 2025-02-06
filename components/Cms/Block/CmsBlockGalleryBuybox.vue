@@ -10,14 +10,13 @@ const { getSlotContent } = useCmsBlock(props.block);
 const leftContent: Schemas['CmsSlot'] = getSlotContent('left');
 const rightContent: Schemas['CmsSlot'] = getSlotContent('right');
 
-const productData = inject('productData');
-const product = productData.value;
+const product = inject('productData');
 
 // change the canonical tag if the option is enabled to use the same canonical for all variants
-if (product.canonicalProductId && product.canonicalProductId !== product.id) {
+if (product.value.canonicalProductId && product.value.canonicalProductId !== product.value.id) {
     const runtimeConfig = useRuntimeConfig();
-    const { getProductRouteById } = useProductRoute();
-    const canonicalUrl = await getProductRouteById(product.canonicalProductId);
+    const { getUrlByProductId } = useSeoUrl();
+    const canonicalUrl = await getUrlByProductId(product.value.canonicalProductId);
 
     useHead(() => ({
         link: [
