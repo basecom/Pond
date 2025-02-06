@@ -29,6 +29,9 @@ const getLineItemUrl = async (lineItem: Schemas.LineItem | Schemas.OrderLineItem
                 },
             ],
             limit: 1,
+            includes: {
+                seo_url: ['seoPathInfo'],
+            }
         },
     });
 
