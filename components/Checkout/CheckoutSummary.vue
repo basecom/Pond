@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 withDefaults(
     defineProps<{
         reducedDisplay?: boolean;
@@ -7,6 +8,9 @@ withDefaults(
         reducedDisplay: false,
     },
 );
+const { preselectShippingMethod } = useShippingMethod();
+await preselectShippingMethod();
+
 const { totalPrice, shippingTotal, cart } = useCart();
 
 const netPrice = computed(() => {
