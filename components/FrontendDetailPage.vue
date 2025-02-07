@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { getProductRoute } = useProductRoute();
+import { getProductRoute } from '@shopware-pwa/helpers-next';
 const { t } = useI18n();
 
 const props = defineProps<{

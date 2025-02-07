@@ -127,20 +127,21 @@ onMounted(async () => {
                     </div>
                 </div>
 
-                <div class="mt-5 font-bold">{{ $t('account.orders.lineItemsHeading') }}</div>
-                <div
-                    v-for="(product, index) in order.lineItems"
-                    :key="product.id"
-                >
-                    <div class="mt-4 flex w-full">
-                        <OrderLineItem :line-item="product" />
-                    </div>
-                    <hr
-                        v-if="index !== order.lineItems.length - 1"
-                        class="w-full"
-                    />
+                <div class="mt-5 font-bold">
+                    {{ $t('account.orders.lineItemsHeading') }}
                 </div>
+
+                <ul class="divide-y divide-gray-medium">
+                    <li
+                        v-for="lineItem in order.lineItems"
+                        :key="lineItem.id"
+                        class="flex py-6"
+                    >
+                        <OrderLineItem :line-item="lineItem" />
+                    </li>
+                </ul>
             </div>
+
             <OrderSummary
                 :is-account-order-item="true"
                 :order="order"
