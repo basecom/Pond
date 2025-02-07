@@ -34,6 +34,7 @@ export function useMedia() {
             return {
                 url: '/fallback-product-cover.svg',
                 alt: t('composable.media.noImageMessage'),
+                title: t('composable.media.noImageMessage'),
                 placeholder: true,
             };
         }
@@ -43,13 +44,15 @@ export function useMedia() {
                 url: cover.media.thumbnails?.length
                     ? cover.media.thumbnails[thumbnailSizes[size]]?.url
                     : cover.media.url,
-                alt: cover.media.alt,
+                alt: cover.media.translated.alt,
+                title: cover.media.translated.title,
                 placeholder: false,
             };
         } else {
             return {
                 url: cover.thumbnails?.length ? cover.thumbnails[thumbnailSizes[size]]?.url : cover.url,
-                alt: cover.alt,
+                alt: cover.translated.alt,
+                title: cover.translated.title,
                 placeholder: false,
             };
         }

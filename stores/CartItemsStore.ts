@@ -27,6 +27,7 @@ export const useCartItemsStore = defineStore('cart-items', () => {
             associations: {
                 manufacturer: {},
                 options: {},
+                seoUrls: {},
             },
             includes: {
                 product: [
@@ -44,6 +45,7 @@ export const useCartItemsStore = defineStore('cart-items', () => {
                     'childCount',
                     'manufacturer',
                     'options',
+                    'seoUrls',
                     'categoryTree',
                 ],
                 product_manufacturer: ['name'],
