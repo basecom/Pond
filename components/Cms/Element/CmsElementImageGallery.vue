@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { CmsElementImageGallerySlider } from '../../../types/cms/element/cmsElementImageGallery';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 const props = defineProps<{
@@ -13,11 +14,27 @@ const navigationArrows = elementConfig.getConfigValue('navigationArrows');
 const displayMode = elementConfig.getConfigValue('displayMode');
 const minHeight = elementConfig.getConfigValue('minHeight');
 const galleryPosition = elementConfig.getConfigValue('galleryPosition');
+const isLightboxEnabled = elementConfig.getConfigValue('fullScreen');
+const isZoomEnabled = elementConfig.getConfigValue('zoom');
 
 const thumbnailSlidesPerView = 3;
 const spaceBetween = 16;
 
 const slides = elementData.getData('sliderItems') ?? [];
+
+const lightboxModalController = useModal();
+const lightboxSliderIndex = ref(0);
+
+const openLightbox = (slideMediaId: string) => {
+    if (!isLightboxEnabled) {
+        return;
+    }
+    // When the lightbox is opened, the clicked image should be displayed
+    lightboxSliderIndex.value = slides.findIndex(
+        (slide: CmsElementImageGallerySlider) => slide.media.id === slideMediaId,
+    );
+    lightboxModalController.open();
+};
 </script>
 
 <template>
@@ -41,6 +58,7 @@ const slides = elementData.getData('sliderItems') ?? [];
                         v-for="slide in slides"
                         :key="slide.media.id"
                         :class="`min-h-[${minHeight}]`"
+                        @click="openLightbox(slide.media.id)"
                     >
                         <img
                             v-if="slide.media.url"
@@ -103,5 +121,14 @@ const slides = elementData.getData('sliderItems') ?? [];
                 </div>
             </template>
         </div>
+
+        <SharedGalleryLightBox
+            :controller="lightboxModalController"
+            :image-classes="'object-' + displayMode"
+            :slides="slides"
+            :is-zoom-enabled="isZoomEnabled"
+            :slider-index="lightboxSliderIndex"
+            :thumbs-swiper="`.thumbnailRef-${element.id}`"
+        />
     </ClientOnly>
 </template>

@@ -24,6 +24,7 @@ const { priceFilterApplied } = useProductListingCriteriaStore('category');
         :content="`${filter.min} - ${filter.max}`"
         size="sm"
         suffix-icon="x"
+        class="cursor-pointer"
         @click="$emit('remove-filter', { code: 'price', value: null })"
     />
 </template>
