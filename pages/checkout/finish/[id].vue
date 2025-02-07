@@ -117,7 +117,10 @@ onMounted(async () => {
                         <OrderShipping :shipping-method="shippingMethod" />
                     </div>
 
-                    <div class="pt-4">
+                    <div
+                        v-if="order.customerComment"
+                        class="pt-4"
+                    >
                         <div class="mb-2 font-bold">
                             {{ $t('checkout.finish.customerCommentHeading') }}
                         </div>
@@ -131,11 +134,11 @@ onMounted(async () => {
 
                     <ul class="divide-y divide-gray-medium">
                         <li
-                            v-for="orderItem in order.lineItems"
-                            :key="orderItem.id"
+                            v-for="lineItem in order.lineItems"
+                            :key="lineItem.id"
                             class="flex py-6"
                         >
-                            <OrderLineItem :line-item="orderItem" />
+                            <OrderLineItem :line-item="lineItem" />
                         </li>
                     </ul>
 

@@ -66,7 +66,10 @@ onMounted(async () => {
                         />
                         <AccountOrderConfirmTerms />
 
-                        <CheckoutConfirmCard :title="t('checkout.finish.customerCommentLabel')">
+                        <CheckoutConfirmCard
+                            v-if="order.customerComment"
+                            :title="t('checkout.finish.customerCommentLabel')"
+                        >
                             <OrderComment :customer-comment="order.customerComment" />
                         </CheckoutConfirmCard>
                     </div>
@@ -74,19 +77,14 @@ onMounted(async () => {
                     <div class="rounded-md p-4 shadow">
                         <div class="font-bold">{{ $t('checkout.lineItemsHeading') }}</div>
 
-                        <ul class="divide-y divide-gray-medium pb-2">
-                            <div
-                                v-for="(product, index) in order.lineItems"
-                                :key="product.id"
+                        <ul class="divide-y divide-gray-medium">
+                            <li
+                                v-for="lineItem in order.lineItems"
+                                :key="lineItem.id"
+                                class="flex py-6"
                             >
-                                <div class="mt-4 flex w-full">
-                                    <OrderLineItem :line-item="product" />
-                                </div>
-                                <hr
-                                    v-if="index !== order.lineItems.length - 1"
-                                    class="w-full"
-                                />
-                            </div>
+                                <OrderLineItem :line-item="lineItem" />
+                            </li>
                         </ul>
 
                         <OrderSummary
