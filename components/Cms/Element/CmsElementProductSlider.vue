@@ -7,7 +7,8 @@ const props = defineProps<{
 }>();
 
 const config = useCmsElementConfig(props.element);
-const elementData = useCmsElementData(props.element);
+const { getCmsElementData } = useCmsUtils();
+const products = getCmsElementData(props.element, 'products') ?? [];
 const { trackPromotionView, trackSelectPromotion, trackSelectItem } = useAnalytics();
 const { isHomePage } = useHomePage();
 const border = config.getConfigValue('border');
@@ -32,7 +33,7 @@ const breakpoints = {
     },
 };
 
-const slides = computed(() => elementData.getData('products') ?? []);
+const slides = computed(() => products);
 const { showNavigationArrows, shouldAutoSlide } = useComputeSliderConfig({
     slidesPerView,
     slides,

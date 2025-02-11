@@ -4,7 +4,8 @@ const props = defineProps<{
 }>();
 
 const elementConfig = useCmsElementConfig(props.element);
-const elementData = useCmsElementData(props.element);
+const { getCmsElementData } = useCmsUtils();
+const slides = getCmsElementData(props.element, 'sliderItems')?? [];
 
 const navigationDots = elementConfig.getConfigValue('navigationDots');
 const navigationArrows = elementConfig.getConfigValue('navigationArrows');
@@ -14,8 +15,6 @@ const galleryPosition = elementConfig.getConfigValue('galleryPosition');
 
 const thumbnailSlidesPerView = 3;
 const spaceBetween = 16;
-
-const slides = elementData.getData('sliderItems') ?? [];
 </script>
 
 <template>

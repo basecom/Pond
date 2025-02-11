@@ -6,7 +6,8 @@ const props = defineProps<{
 }>();
 
 const config = useCmsElementConfig(props.element);
-const elementData = useCmsElementData(props.element);
+const { getCmsElementData } = useCmsUtils();
+const crossSellings = getCmsElementData(props.element, 'crossSellings') ?? [];
 const { trackSelectItem } = useAnalytics();
 
 const boxLayout = config.getConfigValue('boxLayout');
@@ -27,7 +28,6 @@ const breakpoints = {
     },
 };
 
-const crossSellings = computed(() => elementData.getData('crossSellings') ?? []);
 const { currentSlidesPerView } = useComputeSliderConfig({
     slidesPerView,
     slides: crossSellings,

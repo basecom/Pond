@@ -8,7 +8,9 @@ const props = defineProps<{
 }>();
 
 const config = useCmsElementConfig(props.element);
-const data = useCmsElementData(props.element);
+const { getCmsElementData } = useCmsUtils();
+const slidesData = getCmsElementData(props.element, 'sliderItems');
+
 const { trackPromotionView } = useAnalytics();
 const { isHomePage } = useHomePage();
 const navigationDots = config.getConfigValue('navigationDots');
@@ -51,7 +53,6 @@ if (isHomePage.value) {
         events.forEach(event => {
             if (event.isIntersecting) {
                 const mediaUrl = (event.target as HTMLImageElement).src;
-                const slidesData = data.getData('sliderItems');
                 const media: Schemas['Media'] = slidesData?.find((slide: CmsImageSliderItem) => slide.media?.url === mediaUrl)?.media;
 
                 if (media?.fileName && !trackedSlides.value.includes(media.fileName)) {

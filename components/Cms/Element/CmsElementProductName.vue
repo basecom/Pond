@@ -5,8 +5,8 @@ const props = defineProps<{
     element: CmsElementProductName;
 }>();
 
-const elementData = useCmsElementData(props.element);
-const content = elementData.getData('content');
+const { getCmsElementData } = useCmsUtils();
+const content = getCmsElementData(props.element, 'content');
 </script>
 
 <template>

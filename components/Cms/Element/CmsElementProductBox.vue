@@ -7,8 +7,8 @@ const props = defineProps<{
     element: CmsElementProductBox;
 }>();
 
-const elementData = useCmsElementData(props.element);
-const productData = elementData.getData('product');
+const { getCmsElementData } = useCmsUtils();
+const productData = getCmsElementData(props.element, 'product');
 
 const { product } = productData ? useProduct(productData) : {};
 const { trackPromotionView, trackSelectPromotion, trackSelectItem } = useAnalytics();
