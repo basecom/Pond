@@ -13,16 +13,20 @@ export function useProductRoute() {
         path: getProductUrl(product),
         state: {
             routeName: 'frontend.detail.page',
-            foreignKey: product?.referencedId ?? product?.id,
+            foreignKey: 'referencedId' in product ? product?.referencedId : product?.id,
         },
     });
 
-    return { getProductRoute };
-}
+    const getProductUrl = (product: Schemas['Product'] | Schemas['LineItem'] | Schemas['OrderLineItem']) => {
+        if (!product) return '/';
 
-function getProductUrl(product: Schemas['Product'] | Schemas['LineItem'] | Schemas['OrderLineItem']) {
-    let _a, _b;
-    if (!product) return '/';
-    const seoUrl = (_b = (_a = product.seoUrls) === null ? void 0 : _a[0]) === null ? void 0 : _b.seoPathInfo;
-    return seoUrl ? `/${seoUrl}` : `/detail/${product.referencedId ?? product.id}`;
+        if ('seoUrls' in product) {
+            return `/${product?.seoUrls?.[0]?.seoPathInfo}`;
+        }
+
+        const productId = 'referencedId' in product ? product?.referencedId : product?.id;
+        return `/detail/${productId}`;
+    };
+
+    return { getProductRoute };
 }

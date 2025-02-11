@@ -28,7 +28,7 @@ export function useMedia() {
     };
 
     const getProductCover = (cover: Schemas['ProductMedia'] | null | undefined, size: 'xs' | 's' | 'm' | 'l' = 's') => {
-        if (!cover) {
+        if (!cover || !cover.media) {
             return {
                 url: '/fallback-product-cover.svg',
                 alt: t('composable.media.noImageMessage'),
@@ -36,18 +36,11 @@ export function useMedia() {
             };
         }
 
-        if (cover.media) {
-            return {
-                url: cover.media.thumbnails?.length
-                    ? cover.media.thumbnails[thumbnailSizes[size]]?.url
-                    : cover.media.url,
-                alt: cover.media.alt,
-                placeholder: false,
-            };
-        }
         return {
-            url: cover.thumbnails?.length ? cover.thumbnails[thumbnailSizes[size]]?.url : cover.url,
-            alt: cover.alt,
+            url: cover.media.thumbnails?.length
+                ? cover.media.thumbnails[thumbnailSizes[size]]?.url
+                : cover.media.url,
+            alt: cover.media.alt,
             placeholder: false,
         };
     };
