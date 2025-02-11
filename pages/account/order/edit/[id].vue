@@ -112,7 +112,7 @@ onMounted(async () => {
 
         <UtilityStaticNotification
             v-else
-            id="no-order-found"
+            :id="Math.floor((Math.random() * 100) + 1)"
             type="info"
             :message="$t('account.order.edit.noOrderFound')"
             class="mt-4"

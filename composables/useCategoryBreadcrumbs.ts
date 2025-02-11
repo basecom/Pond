@@ -1,4 +1,5 @@
 import { getCategoryBreadcrumbs } from '@shopware-pwa/helpers-next';
+import type { Schemas } from '@shopware/api-client/api-types';
 
 export function useCategoryBreadcrumbs() {
     const { apiClient } = useShopwareContext();

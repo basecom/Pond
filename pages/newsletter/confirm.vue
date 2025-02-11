@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { NotificationType } from '~/types/notificationType';
+
 const { getNewsletterStatus, confirmationNeeded, newsletterStatus, newsletterConfirm } = useNewsletter();
 const customerStore = useCustomerStore();
 const { signedIn } = storeToRefs(customerStore);
@@ -12,8 +14,11 @@ breadcrumbs.push({
 useBreadcrumbs(breadcrumbs);
 
 const isLoading = ref(true);
-const notificationText = ref('');
-const notificationType = ref('');
+const notification = ref({
+    type: 'info' as NotificationType,
+    message: '',
+    id: Math.floor((Math.random() * 100) + 1),
+});
 
 const route = useRoute();
 const emailHash = route.query.em as string | null;
@@ -34,22 +39,22 @@ onMounted(async () => {
         try {
             await newsletterConfirm(emailHash, hash);
 
-            notificationText.value = t('cms.element.form.newsletter.successSubscribe');
-            notificationType.value = 'success';
+            notification.value.message = t('cms.element.form.newsletter.successSubscribe');
+            notification.value.type = 'success';
         } catch (error) {
-            notificationText.value = t('cms.element.form.newsletter.errorSubscribe');
-            notificationType.value = 'danger';
+            notification.value.message = t('cms.element.form.newsletter.errorSubscribe');
+            notification.value.type = 'danger';
         }
 
         isLoading.value = false;
     } else if (newsletterStatus.value === 'optOut') {
-        notificationText.value = t('cms.element.form.newsletter.noRegisterData');
-        notificationType.value = 'danger';
+        notification.value.message = t('cms.element.form.newsletter.noRegisterData');
+        notification.value.type = 'danger';
 
         isLoading.value = false;
     } else {
-        notificationText.value = t('cms.element.form.newsletter.alreadySubscriber');
-        notificationType.value = 'info';
+        notification.value.message = t('cms.element.form.newsletter.alreadySubscriber');
+        notification.value.type = 'info';
 
         isLoading.value = false;
     }
@@ -64,9 +69,9 @@ onMounted(async () => {
         class="container"
     >
         <UtilityStaticNotification
-            id="newsletter-confirmation-status"
-            :type="notificationType"
-            :message="notificationText"
+            :id="Math.floor((Math.random() * 100) + 1)"
+            :type="notification.type"
+            :message="notification.message"
         />
     </div>
 </template>

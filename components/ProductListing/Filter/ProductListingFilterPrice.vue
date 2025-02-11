@@ -32,7 +32,7 @@ const popoverOpen = ref(false);
                 {{ $t('listing.sidebar.filter.price.title') }}
                 <UtilityPill
                     v-if="filter.code === 'price' && priceFilterApplied()"
-                    number="1"
+                    :number="1"
                 />
                 <FormKitIcon
                     class="block size-3 text-gray transition-all duration-150"

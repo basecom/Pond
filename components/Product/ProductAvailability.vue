@@ -2,13 +2,56 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 
 const props = defineProps<{
-    product: Schemas['Product, LineItem'];
+    product: Schemas['Product'] | Schemas['LineItem'];
 }>();
 
-const availableStock = props.product.availableStock ?? props.product.deliveryInformation?.stock ?? 0;
-const minPurchase = props.product.minPurchase ?? props.product.quantityInformation?.minPurchase ?? 0;
-const deliveryTime = props.product.deliveryTime ?? props.product.deliveryInformation?.deliveryTime;
-const restockTime = props.product.restockTime ?? props.product.deliveryInformation?.restockTime;
+const availableStock = computed(() => {
+    if ('availableStock' in props.product) {
+        return props.product.availableStock ?? 0;
+    }
+
+    if ('deliveryInformation' in props.product) {
+        return props.product.deliveryInformation.stock ?? 0;
+    }
+
+    return 0;
+});
+
+const minPurchase = computed(() => {
+    if ('minPurchase' in props.product) {
+        return props.product.minPurchase ?? 0;
+    }
+
+    if ('quantityInformation' in props.product) {
+        return props.product.quantityInformation?.minPurchase ?? 0;
+    }
+
+    return 0;
+});
+
+const deliveryTime = computed(() => {
+    if ('deliveryTime' in props.product) {
+        return props.product.deliveryTime;
+    }
+
+    if ('deliveryInformation' in props.product) {
+        return props.product.deliveryInformation?.deliveryTime;
+    }
+
+    return null;
+});
+
+const restockTime = computed(() => {
+    if ('restockTime' in props.product) {
+        return props.product.restockTime;
+    }
+
+    if ('deliveryInformation' in props.product) {
+        return props.product.deliveryInformation?.restockTime;
+    }
+
+    return null;
+});
 </script>
 
 <template>

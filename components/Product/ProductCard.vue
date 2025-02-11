@@ -85,7 +85,7 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
             </div>
         </LocaleLink>
 
-        <template v-if="product.childCount > 0">
+        <template v-if="product.childCount && product.childCount > 0">
             <ProductGoToDetail :product="product" />
         </template>
 

@@ -24,7 +24,7 @@ defineProps<{
         </span>
         <UtilityPill
             v-if="filter.code === 'price' && priceFilterApplied()"
-            number="1"
+            :number="1"
         />
         <UtilityPill
             v-else-if="filter.code === 'properties' && propertyFilterApplied(filter.id)"
