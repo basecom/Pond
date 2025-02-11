@@ -16,8 +16,8 @@ const notificationText = ref('');
 const notificationType = ref('');
 
 const route = useRoute();
-const emailHash = route.query.em as string|null;
-const hash = route.query.hash as string|null;
+const emailHash = route.query.em as string | null;
+const hash = route.query.hash as string | null;
 
 onMounted(async () => {
     if (!emailHash || !hash) {

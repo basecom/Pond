@@ -3,7 +3,7 @@ import type { Schemas } from '@shopware/api-client/api-types';
 export const useCustomerLatestOrder = () => {
     const { apiClient } = useShopwareContext();
 
-    const getLatestOrder = async (): Promise<Schemas['Order']|null> => {
+    const getLatestOrder = async (): Promise<Schemas['Order'] | null> => {
         const fetchedOrder = await apiClient.invoke('readOrder post /order', {
             body: {
                 limit: 1,

@@ -3,13 +3,13 @@ import type { PluginConfiguration } from '~/types/pluginConfiguration';
 export const useConfigStore = defineStore('config', () => {
     const { fetchConfig } = usePluginConfig();
     const { handleError } = useHandleError();
-    const _configValues: Ref<PluginConfiguration|null> = ref(null);
+    const _configValues: Ref<PluginConfiguration | null> = ref(null);
     const loading = ref(false);
 
     const loadConfig = async () => {
         loading.value = true;
         const { data } = await fetchConfig();
-        _configValues.value = data.value as PluginConfiguration|null;
+        _configValues.value = data.value as PluginConfiguration | null;
         loading.value = false;
     };
 

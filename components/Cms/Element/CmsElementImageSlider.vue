@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { PromotionInfo } from '../../../types/analytics/promotion';
+import type { PromotionInfo } from '~/types/analytics/promotion';
+import type { CmsImageSliderItem } from '~/types/cms/cmsImageSliderItem';
 
 const props = defineProps<{
     element: CmsElementImageSlider;
@@ -36,7 +37,7 @@ const autoplayConfig = computed(() =>
 
 const speedConfig = computed(() => (autoSlide ? speed : '300'));
 const slidesRef = ref([]);
-const trackedSlides = ref([]);
+const trackedSlides: Ref<string[]> = ref([]);
 
 const getPromotion = (media: Schemas['Media']): PromotionInfo => ({
     creative_name: media.fileName ?? '',
@@ -51,9 +52,9 @@ if (isHomePage.value) {
             if (event.isIntersecting) {
                 const mediaUrl = (event.target as HTMLImageElement).src;
                 const slidesData = data.getData('sliderItems');
-                const media: Schemas['Media'] = slidesData?.find(slide => slide.media?.url === mediaUrl)?.media;
+                const media: Schemas['Media'] = slidesData?.find((slide: CmsImageSliderItem) => slide.media?.url === mediaUrl)?.media;
 
-                if (media && !trackedSlides.value.includes(media.fileName)) {
+                if (media?.fileName && !trackedSlides.value.includes(media.fileName)) {
                     trackPromotionView(getPromotion(media));
                     trackedSlides.value = [...trackedSlides.value, media.fileName];
                 }

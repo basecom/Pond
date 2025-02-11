@@ -5,10 +5,12 @@ const props = defineProps<{
     options: Schemas['ProductListingResult']['availableSortings'];
     selectedOption: Schemas['ProductListingResult']['sorting'];
 }>();
+
 const emit = defineEmits<{
     'sorting-changed': [key: Schemas['ProductListingResult']['sorting']];
 }>();
 
+const { t } = useI18n();
 const toggleState = ref(false);
 const getSortingName = computed(() => {
     const selectedOptionName = props.options.filter(

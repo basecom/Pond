@@ -13,7 +13,7 @@ withDefaults(
 );
 
 const configStore = useConfigStore();
-const shopName = configStore.get('core.basicInformation.shopName') ?? 'pond';
+const shopName = configStore.get('core.basicInformation.shopName') as string|null ?? 'pond';
 </script>
 
 <template>

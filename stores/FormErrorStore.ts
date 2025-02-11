@@ -11,7 +11,10 @@ export const useFormErrorStore = defineStore('formErrors', () => {
         return apiErrors;
     };
 
-    const handleError = (error: ApiClientError<never>, fallback: ResolvedApiError = { key: 'general', code: 'GENERAL_ERROR' }) => {
+    const handleError = (
+        error: ApiClientError<never>,
+        fallback: ResolvedApiError = { key: 'general', code: 'GENERAL_ERROR' },
+    ) => {
         if (error instanceof ApiClientError) {
             formErrors(error.details);
             return;

@@ -15,7 +15,7 @@ const props = defineProps<{
     showLatestOrder: boolean;
 }>();
 
-const latestOrder = props.showLatestOrder && await getLatestOrder();
+const latestOrder = props.showLatestOrder && (await getLatestOrder());
 getNewsletterStatus();
 
 const configStore = useConfigStore();

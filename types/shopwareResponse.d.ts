@@ -5,6 +5,6 @@ export type ShopwareResponse = {
             detail: string;
             status: string;
             title: string;
-        }
-    }
+        };
+    };
 } & Response;

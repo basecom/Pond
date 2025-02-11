@@ -33,9 +33,9 @@ if (route.path !== '/wishlist' && wishlistEnabled) {
     getWishlistProducts();
 }
 
-const shopName = configStore.get('core.basicInformation.shopName');
+const shopName = configStore.get('core.basicInformation.shopName') as string|null;
 useHead({
-    title: shopName,
+    title: shopName ?? '',
     htmlAttrs: {
         lang: locale.value,
     },

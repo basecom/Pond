@@ -12,7 +12,7 @@ const props = withDefaults(
         minHeight?: string;
         classes?: string;
         loop?: boolean;
-        direction?: string;
+        direction?: 'vertical' | 'horizontal' | undefined;
         spaceBetween?: number;
         slidesPerView?: number;
         thumbsSwiper?: string;
@@ -43,7 +43,7 @@ const props = withDefaults(
     },
 );
 
-const sliderRef: Swiper = ref();
+const sliderRef: Ref<Swiper | null> = ref(null);
 const prevSlide = ref(null);
 const nextSlide = ref(null);
 const navigation = props.navigationArrows ? ref(null) : false;
@@ -60,7 +60,7 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
         Object.assign(sliderRef.value, swiperParams);
     }
 
-    sliderRef.value.initialize();
+    sliderRef.value?.initialize();
 });
 </script>
 
