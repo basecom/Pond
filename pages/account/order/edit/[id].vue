@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { RouteIdParams } from '~/types/routeParams';
 
 await useAuthentication().rerouteIfLoggedOut();
 
-const { params } = useRoute();
-const orderId = params.id as string;
+const route = useRoute();
+const orderId = (route.params as RouteIdParams).id;
 const { order, loadOrderDetails, shippingMethod, paymentMethod, changePaymentMethod, shippingAddress, billingAddress } =
     useOrderDetails(orderId);
 const { pushError, pushSuccess } = useNotifications();

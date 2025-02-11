@@ -37,15 +37,8 @@ onMounted(async () => {
             notificationText.value = t('cms.element.form.newsletter.successSubscribe');
             notificationType.value = 'success';
         } catch (error) {
-            // If an error occurs and the user is not logged in, this is most likely because the email is already registered
-            // TODO: Only keep the actual error handling once we no longer have to always try to confirm guests = once we can check their newsletter status beforehand
-            if (!signedIn.value && error.details?.errors[0].code === 'VIOLATION::NOT_EQUAL_ERROR') {
-                notificationText.value = t('cms.element.form.newsletter.alreadySubscriber');
-                notificationType.value = 'info';
-            } else {
-                notificationText.value = t('cms.element.form.newsletter.errorSubscribe');
-                notificationType.value = 'danger';
-            }
+            notificationText.value = t('cms.element.form.newsletter.errorSubscribe');
+            notificationType.value = 'danger';
         }
 
         isLoading.value = false;

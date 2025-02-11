@@ -69,6 +69,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                                 class="flex py-6"
                             >
                                 <CheckoutLineItem
+                                    v-if="item.product"
                                     :line-item="item.cartItem"
                                     :product="item.product"
                                 />

@@ -26,7 +26,7 @@ const page = ref(route.query.page ? Number(route.query.page) : defaultPage);
 const limit = ref(route.query.limit ? Number(route.query.limit) : defaultLimit);
 
 const { pushSuccess, pushError } = useNotifications();
-const { items, clearWishlist, getWishlistProducts, currentPage, totalPagesCount, canSyncWishlist } = useWishlist();
+const { items: wishlistItems, clearWishlist, getWishlistProducts, currentPage, totalPagesCount, canSyncWishlist } = useWishlist();
 const { apiClient } = useShopwareContext();
 
 const clearWishlistHandler = async () => {
@@ -86,8 +86,8 @@ const onSelectProduct = async (product: Schemas['Product']) => {
 
 // Watch for changes in wishlist items
 watch(
-    items,
-    (items: string[], oldItems: string[]) => {
+    wishlistItems,
+    (items, oldItems) => {
         // Remove item from the displayed products if it was removed from the wishlist
         if (items.length !== oldItems?.length) {
             products.value = products.value.filter(({ id }) => items.includes(id));

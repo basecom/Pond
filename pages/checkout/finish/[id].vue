@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { RouteIdParams } from '~/types/routeParams';
+
 const route = useRoute();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
-const orderId = route.params.id as string;
+const orderId = (route.params as RouteIdParams).id;
 const { order, loadOrderDetails, shippingAddress, billingAddress, shippingMethod, paymentMethod, status, total } =
     useOrderDetails(orderId);
 const { getFormattedPrice } = usePrice();

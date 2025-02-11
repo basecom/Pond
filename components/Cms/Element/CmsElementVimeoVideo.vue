@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import type { CmsElementVimeoVideo } from '@shopware-pwa/composables-next';
+// it's an import, therefore we ignore that it has an any type
+// eslint-disable-next-line  @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import Player from '@vimeo/player';
 
 const props = defineProps<{
     element: CmsElementVimeoVideo;
 }>();
 
-const vimeoVideo = ref(null);
+const vimeoVideo: Ref<HTMLElement | null> = ref(null);
 
 onMounted(() => {
     if (vimeoVideo.value) {
