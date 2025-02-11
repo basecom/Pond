@@ -20,6 +20,8 @@ const props = withDefaults(
         init?: boolean;
         verticalNavigation?: boolean;
         thumbRef?: string;
+        initialSlide?: number;
+        isZoomEnabled?: boolean;
     }>(),
     {
         autoSlide: false,
@@ -40,6 +42,8 @@ const props = withDefaults(
         init: false,
         verticalNavigation: false,
         thumbRef: null,
+        initialSlide: 0,
+        isZoomEnabled: false,
     },
 );
 
@@ -47,6 +51,7 @@ const sliderRef: Ref<Swiper | null> = ref(null);
 const prevSlide = ref(null);
 const nextSlide = ref(null);
 const navigation = props.navigationArrows ? ref(null) : false;
+const computedSliderRef = computed(() => sliderRef?.value?.swiper ?? null);
 
 watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
     if (prevSlideValue && nextSlideValue && props.navigationArrows) {
@@ -70,6 +75,32 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
             class="relative"
             :class="classes"
         >
+            <div
+                v-if="isZoomEnabled"
+                class="flex"
+            >
+                <!-- Zoom in button -->
+                <button
+                    class="mr-2 flex"
+                    @click="computedSliderRef.zoom.in()"
+                >
+                    <FormKitIcon
+                        icon="plus"
+                        class="size-6"
+                    />
+                </button>
+
+                <!-- Zoom out button -->
+                <button
+                    class="flex"
+                    @click="computedSliderRef.zoom.out()"
+                >
+                    <FormKitIcon
+                        icon="minus"
+                        class="size-6"
+                    />
+                </button>
+            </div>
             <template v-if="navigationArrows">
                 <div
                     ref="prevSlide"
@@ -117,6 +148,8 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                 :thumbs-swiper="thumbsSwiper"
                 :breakpoints="breakpoints"
                 :init="init"
+                :initial-slide="initialSlide"
+                :zoom="isZoomEnabled"
             >
                 <slot />
             </swiper-container>

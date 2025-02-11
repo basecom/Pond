@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { getProductRoute } = useProductRoute();
+import { getProductRoute } from '@shopware-pwa/helpers-next';
 const { t } = useI18n();
 
 const props = defineProps<{
@@ -23,6 +23,7 @@ const { data: productResponse } = await useAsyncData(
                         },
                     },
                     manufacturer: {},
+                    seoUrls: {},
                 },
             },
         }),
@@ -33,6 +34,8 @@ if (!productResponse.value) {
 }
 
 const { product } = useProduct(productResponse.value.product, productResponse.value.configurator);
+
+provide('productData', product);
 
 const breadcrumbs = await getBreadcrumbs(productResponse.value.product.seoCategory);
 

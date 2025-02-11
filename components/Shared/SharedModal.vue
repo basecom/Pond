@@ -5,12 +5,14 @@ const props = withDefaults(
         withCloseButton?: boolean;
         withActionsButton?: boolean;
         size?: 'sm' | 'md' | 'lg';
+        showHeader?: boolean;
     }>(),
     {
         controller: useModal,
         withCloseButton: false,
         withActionsButton: false,
         size: 'md',
+        showHeader: true,
     },
 );
 const { controller } = toRefs(props);
@@ -64,7 +66,10 @@ watch(controller.value.isOpen, () => {
                         'max-w-[min(calc(100%-40px),66.66%)]': size === 'lg',
                     }"
                 >
-                    <DialogTitle class="border-b border-gray-light px-6 pb-4 pt-6 font-bold">
+                    <DialogTitle
+                        v-if="showHeader"
+                        class="border-b border-gray-light px-6 pb-4 pt-6 font-bold"
+                    >
                         <slot name="title" />
                     </DialogTitle>
                     <div class="px-6 py-4">

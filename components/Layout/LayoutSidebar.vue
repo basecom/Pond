@@ -22,7 +22,7 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
     <Teleport to="body">
         <div
             ref="sidebarContentElement"
-            class="fixed z-40 overflow-y-auto bg-white transition-transform duration-500"
+            class="fixed z-50 overflow-y-auto bg-white transition-transform duration-500"
             tabindex="-1"
             aria-labelledby="sidebar"
             :class="{
@@ -52,7 +52,7 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
         <!-- body overlay -->
         <div
             v-if="isOpen"
-            class="fixed inset-0 z-30 h-screen w-screen bg-black/50"
+            class="fixed inset-0 z-40 h-screen w-screen bg-black/50"
         />
     </Teleport>
 </template>

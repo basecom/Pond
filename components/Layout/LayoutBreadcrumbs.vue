@@ -16,13 +16,13 @@ const route = useRoute();
 
 <template>
     <nav
-        class="container mx-auto my-8 hidden lg:flex"
+        class="container mx-auto my-8 flex"
         :aria-label="$t('layout.breadcrumb.ariaLabel')"
     >
-        <ol class="inline-flex items-center gap-2">
+        <ol class="inline-flex flex-wrap items-center gap-2">
             <li
                 v-if="displayRoot && route.fullPath !== '/'"
-                class="inline-flex items-center gap-2"
+                class="inline-flex min-w-fit items-center gap-2"
             >
                 <LocaleLink
                     :to="'/'"
@@ -46,7 +46,7 @@ const route = useRoute();
             <li
                 v-for="(breadcrumb, index) in breadcrumbs"
                 :key="breadcrumb.path"
-                class="inline-flex items-center gap-2"
+                class="inline-flex min-w-fit items-center gap-2"
             >
                 <LocaleLink
                     v-if="breadcrumb.path"

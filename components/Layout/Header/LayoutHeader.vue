@@ -6,7 +6,7 @@ const { loading } = storeToRefs(customerStore);
 <template>
     <header
         v-show="!loading"
-        class="sticky top-0 z-20 h-fit bg-gray-light md:bg-white"
+        class="sticky top-0 z-30 h-fit bg-gray-light md:bg-white"
     >
         <div class="container relative z-10 py-3 md:py-6">
             <div class="flex items-center justify-between gap-2">

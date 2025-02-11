@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import type { CmsElementImageGallerySlider } from '../../../types/cms/element/cmsElementImageGallery';
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+
 const props = defineProps<{
     element: CmsElementImageGallery;
 }>();
@@ -12,9 +15,25 @@ const navigationArrows = elementConfig.getConfigValue('navigationArrows');
 const displayMode = elementConfig.getConfigValue('displayMode');
 const minHeight = elementConfig.getConfigValue('minHeight');
 const galleryPosition = elementConfig.getConfigValue('galleryPosition');
+const isLightboxEnabled = elementConfig.getConfigValue('fullScreen');
+const isZoomEnabled = elementConfig.getConfigValue('zoom');
 
 const thumbnailSlidesPerView = 3;
 const spaceBetween = 16;
+
+const lightboxModalController = useModal();
+const lightboxSliderIndex = ref(0);
+
+const openLightbox = (slideMediaId: string) => {
+    if (!isLightboxEnabled) {
+        return;
+    }
+    // When the lightbox is opened, the clicked image should be displayed
+    lightboxSliderIndex.value = slides.findIndex(
+        (slide: CmsElementImageGallerySlider) => slide.media.id === slideMediaId,
+    );
+    lightboxModalController.open();
+};
 </script>
 
 <template>
@@ -38,11 +57,13 @@ const spaceBetween = 16;
                         v-for="slide in slides"
                         :key="slide.media.id"
                         :class="`min-h-[${minHeight}]`"
+                        @click="openLightbox(slide.media.id)"
                     >
                         <img
                             v-if="slide.media.url"
                             :src="slide.media.url"
-                            :alt="slide.translated?.alt ?? $t('cms.element.imageAlt')"
+                            :alt="getTranslatedProperty(slide.media, 'alt') || $t('cms.element.imageAlt')"
+                            :title="getTranslatedProperty(slide.media, 'title') || $t('cms.element.imageAlt')"
                             class="size-full object-center"
                             :class="'object-' + displayMode"
                         >
@@ -77,7 +98,8 @@ const spaceBetween = 16;
                         <img
                             v-if="slide.media.url"
                             :src="slide.media.url"
-                            :alt="slide.translated?.alt ?? $t('cms.element.imageAlt')"
+                            :alt="getTranslatedProperty(slide.media, 'alt') || $t('cms.element.imageAlt')"
+                            :title="getTranslatedProperty(slide.media, 'title') || $t('cms.element.imageAlt')"
                             class="object-cover object-center opacity-40 group-[.swiper-slide-thumb-active]:border-2 group-[.swiper-slide-thumb-active]:border-brand-primary group-[.swiper-slide-thumb-active]:opacity-100"
                         >
 
@@ -98,5 +120,14 @@ const spaceBetween = 16;
                 </div>
             </template>
         </div>
+
+        <SharedGalleryLightBox
+            :controller="lightboxModalController"
+            :image-classes="'object-' + displayMode"
+            :slides="slides"
+            :is-zoom-enabled="isZoomEnabled"
+            :slider-index="lightboxSliderIndex"
+            :thumbs-swiper="`.thumbnailRef-${element.id}`"
+        />
     </ClientOnly>
 </template>

@@ -22,11 +22,15 @@ const shopName = configStore.get('core.basicInformation.shopName') as string|nul
         :title="shopName"
         :to="withLink ? '/' : ''"
     >
-        <span class="sr-only">{{ shopName }}</span>
+        <span class="sr-only">
+            {{ shopName }}
+        </span>
+
         <img
             v-if="!smallLogo"
             src="/logo.svg"
             :alt="shopName"
+            :title="shopName"
             :class="logoClasses"
         >
 
@@ -34,6 +38,7 @@ const shopName = configStore.get('core.basicInformation.shopName') as string|nul
             v-else
             src="/logo-small.svg"
             :alt="shopName"
+            :title="shopName"
             :class="logoClasses"
         >
     </LocaleLink>

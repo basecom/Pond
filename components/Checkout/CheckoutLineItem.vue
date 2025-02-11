@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import { getTranslatedProperty, getProductRoute } from '@shopware-pwa/helpers-next';
 
-const { getProductRoute } = useProductRoute();
+const { getLineItemRoute } = useLineItemRoute();
 const { getProductCover } = useMedia();
 const { pushError, pushSuccess } = useNotifications();
 const { handleError } = useHandleError();
@@ -16,6 +17,8 @@ const { lineItem, product } = toRefs(props);
 const isLoading = ref(false);
 
 const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
+
+const lineItemSeoUrl = product.value ? getProductRoute(product.value) : await getLineItemRoute(lineItem.value);
 
 const { getFormattedPrice } = usePrice();
 const { refreshCart } = useCart();
@@ -67,8 +70,12 @@ const removeCartItem = async () => {
     isLoading.value = true;
 
     try {
-        trackRemoveFromCart(product.value, lineItem.value.quantity);
         await removeItem();
+
+        // TODO: fix tracking giving an error when removing a promotion
+        if (!isPromotion) {
+            trackRemoveFromCart(product.value, lineItem.value.quantity);
+        }
 
         pushSuccess(t('checkout.lineItem.remove.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
@@ -94,7 +101,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
     <div class="mr-4 size-24 shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
         <LocaleLink
             v-if="!isPromotion"
-            :to="getProductRoute(lineItem)"
+            :to="lineItemSeoUrl"
         >
             <template v-if="lineItemCover.placeholder">
                 <SharedImagePlaceholder :size="'sm'" />
@@ -103,11 +110,19 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
             <template v-else>
                 <img
                     :src="lineItemCover.url"
-                    :alt="lineItemCover.alt"
+                    :alt="
+                        lineItemCover.alt ??
+                            (getTranslatedProperty(lineItem, 'name') || getTranslatedProperty(product, 'name'))
+                    "
+                    :title="
+                        lineItemCover.title ??
+                            (getTranslatedProperty(lineItem, 'name') || getTranslatedProperty(product, 'name'))
+                    "
                     class="size-full object-cover object-center"
                 >
             </template>
         </LocaleLink>
+
         <div
             v-else-if="isPromotion"
             class="flex size-full items-center justify-center"
@@ -122,18 +137,27 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
     <div class="flex flex-1 flex-col">
         <div>
             <div class="flex flex-col justify-between gap-4 lg:flex-row">
-                <LocaleLink :to="getProductRoute(lineItem)">
+                <LocaleLink
+                    v-if="!isPromotion"
+                    :to="lineItemSeoUrl"
+                >
                     <p>
                         {{ lineItem.label }}
                     </p>
                 </LocaleLink>
+
+                <p v-else-if="isPromotion">
+                    {{ lineItem.label }}
+                </p>
 
                 <span v-if="itemTotalPrice">
                     {{ getFormattedPrice(itemTotalPrice) }}
                 </span>
             </div>
 
-            <span v-if="isDigital">{{ $t('checkout.lineItem.digitalProduct') }}</span>
+            <span v-if="isDigital">
+                {{ $t('checkout.lineItem.digitalProduct') }}
+            </span>
 
             <p
                 v-if="itemOptions"

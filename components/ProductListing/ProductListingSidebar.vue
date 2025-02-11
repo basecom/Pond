@@ -5,7 +5,6 @@ const props = defineProps<{
     filters: ListingFilter[];
     selectedFilters: Schemas['ProductListingResult']['currentFilters'];
     showResetButton?: boolean;
-    fullWidth?: boolean;
     sortingOptions: Schemas['ProductListingResult']['availableSortings'];
     sorting: Schemas['ProductListingResult']['sorting'];
 }>();
@@ -25,7 +24,15 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <div class="m-0 mx-auto mb-4 grid gap-4">
+    <div class="m-0 mx-auto grid gap-4">
+        <div class="flex justify-end border-b border-gray-light pb-6 pt-2">
+            <ProductListingSorting
+                :options="props.sortingOptions"
+                :selected-option="props.sorting"
+                @sorting-changed="emit('sorting-changed', $event)"
+            />
+        </div>
+
         <ProductListingFilters
             :filters="props.filters"
             :selected-filters="props.selectedFilters"

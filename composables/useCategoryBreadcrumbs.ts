@@ -18,11 +18,10 @@ export function useCategoryBreadcrumbs() {
         return response.data.breadcrumbs;
     };
 
-    const _mapBreadcrumbsFromApi = (breadcrumbs: Breadcrumb[]): Breadcrumb[] =>
-        breadcrumbs.map(breadcrumb => ({
-            ...breadcrumb,
-            path: `/${breadcrumb.path}`,
-        }));
+    const _mapBreadcrumbsFromApi = (breadcrumbs: Breadcrumb[]): Breadcrumb[] => breadcrumbs.map(breadcrumb => ({
+        ...breadcrumb,
+        path: `/${breadcrumb.path}`,
+    }));
 
     const getBreadcrumbs = async (category: Schemas['Category'], startIndex = 1): Promise<Breadcrumb[]> => {
         if (!runtimeConfig.public.pond.breadcrumb.enableDynamicLoading) {

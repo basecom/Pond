@@ -6,12 +6,12 @@ const props = defineProps<{
 }>();
 
 const { getSlotContent } = useCmsBlock(props.block);
-const slotContent = getSlotContent('content') as Schemas['CmsSlot'];
+
+const text: Schemas['CmsSlot'] = getSlotContent('content');
 </script>
 
 <template>
-    <CmsLoader
-        :content="slotContent"
-        class="relative z-20"
-    />
+    <div class="min-h-72 content-center p-10">
+        <CmsLoader :content="text" />
+    </div>
 </template>

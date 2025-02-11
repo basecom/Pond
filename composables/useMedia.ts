@@ -32,6 +32,7 @@ export function useMedia() {
             return {
                 url: '/fallback-product-cover.svg',
                 alt: t('composable.media.noImageMessage'),
+                title: t('composable.media.noImageMessage'),
                 placeholder: true,
             };
         }
@@ -41,6 +42,7 @@ export function useMedia() {
                 ? cover.media.thumbnails[thumbnailSizes[size]]?.url
                 : cover.media.url,
             alt: cover.media.alt,
+            title: cover.media.translated.title,
             placeholder: false,
         };
     };

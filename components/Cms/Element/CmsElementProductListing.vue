@@ -44,7 +44,7 @@ productListingCriteriaStore.setSearchResult(getCurrentListing.value, true);
         <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
             <template v-if="loading">
                 <ProductCardSkeleton
-                    v-for="index in 9"
+                    v-for="index in limit"
                     :key="index"
                 />
             </template>

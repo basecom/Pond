@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { CmsElementImage } from '@shopware-pwa/composables-next';
-import { buildUrlPrefix } from '@shopware-pwa/helpers-next';
+import { buildUrlPrefix, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import { useElementSize } from '@vueuse/core';
 import type { CSSProperties } from 'vue';
 
@@ -29,6 +29,8 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
     const height = properties.minHeight ?? '100%';
     return `height: ${height}`;
 };
+
+const mediaObject = props.element.data?.media;
 </script>
 
 <template>
@@ -53,6 +55,7 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
             >
             {{ $t('cms.element.videoTagNotSupported') }}
         </video>
+
         <img
             v-else
             ref="imageElement"
@@ -62,7 +65,8 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
                 'object-cover': displayMode === 'cover',
             }"
             :style="displayMode === 'cover' ? getMinHeightAsHeight(containerStyle) : ''"
-            :alt="imageAttrs.alt"
+            :alt="getTranslatedProperty(mediaObject, 'alt')"
+            :title="getTranslatedProperty(mediaObject, 'title')"
             :src="srcPath"
             :srcset="imageAttrs.srcset"
         >

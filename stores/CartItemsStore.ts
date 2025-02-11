@@ -16,12 +16,18 @@ export const useCartItemsStore = defineStore('cart-items', () => {
             .map(item => item.referencedId)
             .filter((key: string | undefined): key is string => !!key);
 
+        if (ids.length === 0) {
+            // when there are no ids we should not fetch -> as this causes an error
+            return [];
+        }
+
         return await _search({
             ids,
             limit: ids.length,
             associations: {
                 manufacturer: {},
                 options: {},
+                seoUrls: {},
             },
             includes: {
                 product: [
@@ -39,6 +45,7 @@ export const useCartItemsStore = defineStore('cart-items', () => {
                     'childCount',
                     'manufacturer',
                     'options',
+                    'seoUrls',
                     'categoryTree',
                 ],
                 product_manufacturer: ['name'],
