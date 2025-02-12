@@ -2,12 +2,18 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { FormkitFields } from '~/types/formkit';
 
-const props = defineProps<{
-    addressType: 'billingAddress' | 'shippingAddress';
-    initialAddress: Schemas['CustomerAddress'];
-    customerAddresses: Schemas['CustomerAddress'][];
-    isLoading: Ref<boolean>;
-}>();
+const props = withDefaults(
+    defineProps<{
+      addressType?: 'billingAddress' | 'shippingAddress';
+      initialAddress: Schemas['CustomerAddress'];
+      customerAddresses: Schemas['CustomerAddress'][];
+      isLoading?: boolean;
+    }>(),
+    {
+        addressType: 'billingAddress',
+        isLoading: false,
+    },
+);
 
 const emit = defineEmits<{
     (

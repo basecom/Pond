@@ -6,7 +6,7 @@ const props = defineProps<{ product: Schemas['Product'] }>();
 const { product } = toRefs(props);
 
 const { getProductCover } = useMedia();
-const productCover = getProductCover(props.product.cover, 'xs');
+const productCover = getProductCover(props.product.cover?.media, 'xs');
 </script>
 
 <template>

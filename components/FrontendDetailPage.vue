@@ -42,7 +42,7 @@ const breadcrumbs = await getBreadcrumbs(productResponse.value.product.seoCatego
 // add product as last breadcrumb entry on pdp
 breadcrumbs.push({
     name: product.value.translated.name,
-    path: getProductRoute(product.value),
+    path: getProductRoute(product.value)?.path,
 });
 
 useBreadcrumbs(breadcrumbs);

@@ -15,7 +15,7 @@ const { getCmsSectionComponentName, componentExists, getSectionClasses } = useCm
             v-for="section in cmsPage.sections"
             :key="section.id"
         >
-            <div :style="getCmsLayoutConfiguration(section).layoutStyles">
+            <div>
                 <component
                     :is="getCmsSectionComponentName(section.type)"
                     v-if="componentExists(getCmsSectionComponentName(section.type))"

@@ -19,7 +19,7 @@ const emit = defineEmits(['select-product', 'view-product']);
 const { getProductCover } = useMedia();
 
 const productCard = ref(null);
-const cover = getProductCover(props.product.cover);
+const cover = getProductCover(props.product.cover?.media);
 const configStore = useConfigStore();
 const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
 

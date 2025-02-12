@@ -1,9 +1,5 @@
-import type {Schemas} from "@shopware/api-client/api-types";
+import type { PaymentMethodOption } from '~/types/checkout/paymentMethodOption';
 
 export type ShippingMethodOption = {
-    label: string;
-    value: string;
-    deliveryTime?: string;
     description?: string;
-    media: Schemas['Media']|null;
-};
+} & PaymentMethodOption;

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { PaymentMethodOption } from '~/types/checkout/paymentMethodOption';
+
 const { paymentMethods, getPaymentMethods } = useCheckout();
 
 const { selectedPaymentMethod: paymentMethod, setPaymentMethod } = useSessionContext();
@@ -16,7 +18,7 @@ const selectedPaymentMethod = computed({
     },
 });
 
-const paymentOptions = ref([]);
+const paymentOptions: Ref<PaymentMethodOption[]|null> = ref(null);
 
 onMounted(async () => {
     await getPaymentMethods();
@@ -26,7 +28,7 @@ onMounted(async () => {
         value: method.id,
         description: method.translated.description,
         media: method.media,
-    }));
+    } as PaymentMethodOption));
 
     trackAddPaymentInfo();
 });
@@ -38,7 +40,7 @@ onMounted(async () => {
         :subtitle="$t('checkout.confirm.payment.cardSubtitle')"
     >
         <FormKit
-            v-if="paymentOptions.length > 0"
+            v-if="paymentOptions?.length"
             v-model="selectedPaymentMethod"
             type="radio"
             name="paymentMethod"

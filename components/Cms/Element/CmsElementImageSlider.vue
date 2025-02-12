@@ -10,7 +10,7 @@ const props = defineProps<{
 
 const config = useCmsElementConfig(props.element);
 const { getCmsElementData } = useCmsUtils();
-const slidesData = getCmsElementData(props.element, 'sliderItems');
+const slides = getCmsElementData(props.element, 'sliderItems') ?? [];
 
 const { trackPromotionView } = useAnalytics();
 const { isHomePage } = useHomePage();
@@ -22,7 +22,6 @@ const autoplayTimeout = config.getConfigValue('autoplayTimeout');
 const minHeight = config.getConfigValue('minHeight');
 const speed = config.getConfigValue('speed');
 
-const slides = computed(() => data.getData('sliderItems') ?? []);
 const sliderRef = ref(null);
 
 if (slides.value.length > 0) {

@@ -16,7 +16,7 @@ const props = defineProps<{
 const { lineItem, product } = toRefs(props);
 const isLoading = ref(false);
 
-const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
+const lineItemCover = getProductCover(lineItem.value.cover?.media, 'xs');
 
 const lineItemSeoUrl = product.value ? getProductRoute(product.value) : await getLineItemRoute(lineItem.value);
 
@@ -179,7 +179,10 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
             <SharedQuantityInput
                 v-if="isStackable"
                 v-model="quantity"
-                :line-item="lineItem"
+                :min-purchase="lineItem.quantityInformation?.minPurchase"
+                :max-purchase="lineItem.quantityInformation?.maxPurchase"
+                :steps="lineItem.quantityInformation?.purchaseSteps"
+                :initial-value="lineItem.quantity"
                 :is-loading="isLoading"
                 @on-update="debounceUpdate"
                 @on-enter="updateQuantityOnEnter($event)"

@@ -75,7 +75,9 @@ const handleAddToCart = async () => {
 
             <SharedQuantityInput
                 v-model="quantity"
-                :product="product"
+                :min-purchase="product.minPurchase"
+                :max-purchase="product.maxPurchase"
+                :steps="product.purchaseSteps"
                 @on-enter="handleEnter($event)"
             />
 
