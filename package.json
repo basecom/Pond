@@ -8,7 +8,7 @@
     "dev": "nuxt dev",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint . --fix && vue-tsc --noEmit",
+    "lint": "eslint . --fix && bun run scripts/typecheck.ts",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
@@ -36,6 +36,7 @@
     "vue-router": "^4.4.3"
   },
   "devDependencies": {
+    "@types/bun": "^1.2.2",
     "eslint": "^9.20.0",
     "eslint-plugin-tailwindcss": "^3.18.0",
     "typescript": "^5.7.3",
