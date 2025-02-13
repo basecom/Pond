@@ -1,4 +1,4 @@
-import type { UseAnalyticsReturn } from '../../../types/analytics/analytics';
+import type { UseAnalyticsReturn } from '~/types/analytics/Analytics';
 
 export function useProductListPageTracking(analytics: UseAnalyticsReturn) {
     const { category } = useCategory();

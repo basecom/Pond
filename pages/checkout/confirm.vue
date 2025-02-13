@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { OrderForm } from '~/types/checkout/checkout';
+import type { OrderForm } from '~/types/form/CheckoutForm';
 
 const customerStore = useCustomerStore();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();

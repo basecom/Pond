@@ -1,4 +1,4 @@
-import type { PluginConfiguration } from '~/types/pluginConfiguration';
+import type { PluginConfiguration } from '~/types/PluginConfiguration';
 
 export function usePluginConfig() {
     const { apiClient } = useShopwareContext();

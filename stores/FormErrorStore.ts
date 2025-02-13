@@ -1,7 +1,6 @@
-import type { ResolvedApiError } from '~/types/errors';
+import type { ResolvedApiError } from '~/types/Errors';
 import { ApiClientError, type ApiError } from '@shopware/api-client';
 
-// TODO: was macht das hier?
 export const useFormErrorStore = defineStore('formErrors', () => {
     const { resolveApiErrors } = useApiErrorsResolver();
     const apiErrors: Ref<ResolvedApiError[]> = ref([]);

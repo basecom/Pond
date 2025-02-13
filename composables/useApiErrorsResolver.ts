@@ -1,5 +1,5 @@
 import type { ApiError } from '@shopware/api-client';
-import type { ResolvedApiError, UseApiErrorsResolver } from '~/types/errors';
+import type { ResolvedApiError, UseApiErrorsResolver } from '~/types/Errors';
 
 export function useApiErrorsResolver(): UseApiErrorsResolver {
     const { t } = useI18n();

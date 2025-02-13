@@ -1,4 +1,4 @@
-import type { TrackingPageMetaEvents } from '../../types/analytics/page';
+import type { TrackingPageMetaEvents } from '~/types/analytics/PageMeta';
 
 export function usePageTrackingHelper() {
     const customerStore = useCustomerStore();

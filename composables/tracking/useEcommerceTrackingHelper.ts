@@ -1,6 +1,6 @@
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { TrackingEcommerceEvent } from '../../types/analytics/ecommerce';
-import type { TrackingLineItem } from '../../types/analytics/line-item';
+import type { TrackingEcommerceEvent } from '~/types/analytics/Ecommerce';
+import type { TrackingLineItem } from '~/types/analytics/LineItem';
 
 export function useEcommerceTrackingHelper() {
     const { getTrackingItem } = useItemTracking();

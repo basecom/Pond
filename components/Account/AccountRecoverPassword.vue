@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FormkitFields } from '~/types/formkit';
+import type { RecoverPasswordForm } from '~/types/form/RecoverPasswordForm';
 
 const customerStore = useCustomerStore();
 const { query } = useRoute();
@@ -16,7 +16,7 @@ onMounted(async () => {
     }
 });
 
-const handlePasswordChange = async (fields: FormkitFields) => {
+const handlePasswordChange = async (fields: RecoverPasswordForm) => {
     try {
         await customerStore.recoverPassword({
             hash: query.hash,

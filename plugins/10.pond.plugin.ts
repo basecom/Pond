@@ -1,7 +1,7 @@
 import { createShopwareContext } from '#imports';
 import { createAPIClient } from '@shopware/api-client';
 import { isMaintenanceMode } from '@shopware-pwa/helpers-next';
-import type { ShopwareResponse } from '~/types/shopwareResponse';
+import type { ShopwareResponse } from '~/types/ShopwareResponse';
 
 export class AccessToken {
     public token?: string;

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { FormkitFields } from '~/types/formkit';
+import type { ResetPasswordForm } from '~/types/form/PasswordForm';
 
 const customerStore = useCustomerStore();
 const { getStorefrontUrl } = useInternationalization();
 const formSent = ref(false);
 
-const handleReset = async (fields: FormkitFields) => {
+const handleReset = async (fields: ResetPasswordForm) => {
     try {
         await customerStore.resetPassword({
             ...fields,

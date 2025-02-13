@@ -1,6 +1,6 @@
 import type { LocationQueryRaw } from '#vue-router';
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { ListingFilterMapping } from '../../types/listing/mapping';
+import type { ListingFilterMapping } from '~/types/listing/FilterMapping';
 
 export function usePropertiesFilter(): ListingFilterMapping {
     const encodeUrl = (value: Schemas['ProductListingCriteria']): LocationQueryRaw => {

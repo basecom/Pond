@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CmsElementProductBox } from '@shopware-pwa/composables-next';
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { PromotionInfo } from '../../../types/analytics/promotion';
+import type { PromotionInfo } from '~/types/analytics/Promotion';
 
 const props = defineProps<{
     element: CmsElementProductBox;

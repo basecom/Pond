@@ -1,4 +1,4 @@
-import type { TrackingSearchEvent } from '../../types/analytics/search';
+import type { TrackingSearchEvent } from '~/types/analytics/Search';
 
 export function useSearchTrackingHelper() {
     const { getTotal } = useProductSearchSuggest();

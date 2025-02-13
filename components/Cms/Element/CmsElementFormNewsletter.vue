@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { NewsletterForm } from '~/types/form/NewsletterForm';
 
 const props = defineProps<{
     element: CmsElementForm;
@@ -8,10 +9,11 @@ const props = defineProps<{
 const config = useCmsElementConfig(props.element);
 const title = config.getConfigValue('title');
 
-const elementData = useCmsElementData(props.element);
+const { getCmsElementData } = useCmsUtils();
+const elementData = getCmsElementData(props.element);
 const { entityArrayToOptions } = useFormkitHelper();
 const salutationOptions = computed(
-    () => entityArrayToOptions<Schemas['Salutation']>(elementData.getData(), 'displayName', true) ?? [],
+    () => entityArrayToOptions<Schemas['Salutation']>(elementData, 'displayName', true) ?? [],
 );
 
 const { t } = useI18n();
@@ -46,15 +48,15 @@ const doubleOptInRegistered = configStore.get('core.newsletter.doubleOptInRegist
 const subscribeBehavior =
     (customer.value && doubleOptInRegistered) || (!customer.value && doubleOptIn) ? 'subscribe' : 'direct';
 
-const handleNewsletterSubmit = async formValues => {
+const handleNewsletterSubmit = async (newsletterValues: NewsletterForm) => {
     if (newsletterAction.value === t('cms.element.form.newsletter.subscribe')) {
         try {
             await newsletterSubscribe({
-                email: formValues.email,
+                email: newsletterValues.email,
                 option: subscribeBehavior,
-                salutationId: formValues.salutationId,
-                firstName: formValues.firstName,
-                lastName: formValues.lastName,
+                salutationId: newsletterValues.salutationId,
+                firstName: newsletterValues.firstName,
+                lastName: newsletterValues.lastName,
             });
 
             trackNewsletterRegistration();
@@ -74,7 +76,7 @@ const handleNewsletterSubmit = async formValues => {
         }
     } else if (newsletterAction.value === t('cms.element.form.newsletter.unsubscribe')) {
         try {
-            await newsletterUnsubscribe(formValues.email);
+            await newsletterUnsubscribe(newsletterValues.email);
             isSubscriber.value = false;
             newsletterAction.value = t('cms.element.form.newsletter.subscribe');
 
@@ -135,6 +137,7 @@ watch(customer, async newCustomer => {
         <FormKit
             v-if="!isSubscriber"
             v-model="newsletterAction"
+            name="action"
             type="radio"
             :options="newsletterOptions"
             validation="required"

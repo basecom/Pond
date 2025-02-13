@@ -31,8 +31,8 @@ const isPaymentNeeded = computed(() => {
 
     const lastTransaction: Schemas['OrderTransaction'] = transactions[transactions.length - 1];
     const stateNamesForPaymentNeeded = ['failed', 'reminded', 'unconfirmed', 'cancelled'];
-    const transactionStateName = lastTransaction.stateMachineState.technicalName;
-    const isTransactionStateInNeedOfPayment = stateNamesForPaymentNeeded.includes(transactionStateName);
+    const transactionStateName = lastTransaction.stateMachineState?.technicalName;
+    const isTransactionStateInNeedOfPayment = stateNamesForPaymentNeeded.includes(transactionStateName ?? '');
     const isOrderNotCanceled = order.value.stateMachineState.technicalName !== 'cancelled';
 
     return isTransactionStateInNeedOfPayment && isOrderNotCanceled;

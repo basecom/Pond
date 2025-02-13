@@ -1,6 +1,6 @@
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { UseAnalyticsReturn } from '../../types/analytics/analytics';
-import type { PromotionInfo } from '../../types/analytics/promotion';
+import type { UseAnalyticsReturn } from '~/types/analytics/Analytics';
+import type { PromotionInfo } from '~/types/analytics/promotion';
 import type { TrackingLineItemList } from '../tracking/useItemTracking';
 
 export function useGtm(): UseAnalyticsReturn {

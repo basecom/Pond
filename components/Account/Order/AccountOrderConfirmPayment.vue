@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { PaymentMethodOption } from '~/types/checkout/paymentMethodOption';
 
 const props = defineProps<{
     paymentMethod: Schemas['PaymentMethod'];
@@ -12,14 +13,14 @@ const { paymentMethods, getPaymentMethods } = useCheckout();
 
 const selectedPaymentMethod = computed({
     get(): string {
-        return props.paymentMethod?.id || '';
+        return props.paymentMethod?.id ?? '';
     },
     set(paymentMethodId: string) {
         emit('update-method', paymentMethodId);
     },
 });
 
-const paymentOptions = ref([]);
+const paymentOptions: Ref<PaymentMethodOption[]|null> = ref(null);
 
 onMounted(async () => {
     await getPaymentMethods();
@@ -29,7 +30,7 @@ onMounted(async () => {
         value: method.id,
         description: method.translated.description,
         media: method.media,
-    }));
+    } as PaymentMethodOption));
 });
 </script>
 
@@ -39,7 +40,7 @@ onMounted(async () => {
         :subtitle="$t('checkout.confirm.payment.cardSubtitle')"
     >
         <FormKit
-            v-if="paymentOptions.length > 0"
+            v-if="paymentOptions?.length"
             v-model="selectedPaymentMethod"
             type="radio"
             :options="paymentOptions"

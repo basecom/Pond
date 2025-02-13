@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { RouteIdParams } from '~/types/routeParams';
+import type { RouteIdParams } from '~/types/RouteParams';
 
 await useAuthentication().rerouteIfLoggedOut();
 

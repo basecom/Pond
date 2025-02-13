@@ -41,7 +41,7 @@ syncRefs(itemQuantity, quantity);
 const updateQuantity = async (quantityInput: number | undefined) => {
     if (quantityInput === itemQuantity.value) return;
 
-    const addedProductsNumbers = Number(quantityInput) - itemQuantity.value;
+    const addedProductsNumbers = Number(quantityInput) - (itemQuantity?.value ?? 0);
     isLoading.value = true;
 
     try {

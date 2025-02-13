@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { RouteIdParams } from '~/types/routeParams';
+import type { RouteIdParams } from '~/types/RouteParams';
 
 const route = useRoute();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
