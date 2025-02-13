@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { PaymentMethodOption } from '~/types/checkout/paymentMethodOption';
+import type { PaymentMethodOption } from '~/types/checkout/PaymentMethodOption';
 
 const props = defineProps<{
     paymentMethod: Schemas['PaymentMethod'];

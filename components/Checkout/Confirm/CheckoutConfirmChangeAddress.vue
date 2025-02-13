@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { FormkitFields } from '~/types/formkit';
-import type {AddressTypes} from "~/types/checkout/AddressTypes";
+import type { AddressTypes } from '~/types/checkout/AddressTypes';
 
 const props = withDefaults(
     defineProps<{
@@ -175,7 +175,7 @@ const addressText = (address: Schemas['CustomerAddress']) =>
                 emit('submit', {
                     type: addressType,
                     id: isEditMode ? selectedAddress.id : '',
-                    formFields: form.value.address,
+                    formFields: form?.address,
                 })
             "
         >

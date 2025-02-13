@@ -77,9 +77,7 @@ if (isHomePage.value) {
         >
             <LayoutSlider
                 ref="sliderRef"
-                :class="{
-                    'cursor-grab': slides.length > 1,
-                }"
+                :slides-counter="slides.length"
                 class="w-full"
                 :style="{ minHeight: minHeight }"
                 :autoplay="autoplayConfig"

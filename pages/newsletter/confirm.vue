@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { NotificationType } from '~/types/notificationType';
+import type { NotificationType } from '~/types/NotificationType';
 
 const { getNewsletterStatus, confirmationNeeded, newsletterStatus, newsletterConfirm } = useNewsletter();
 const customerStore = useCustomerStore();

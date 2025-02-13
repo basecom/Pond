@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PaymentMethodOption } from '~/types/checkout/paymentMethodOption';
+import type { PaymentMethodOption } from '~/types/checkout/PaymentMethodOption';
 
 const { paymentMethods, getPaymentMethods } = useCheckout();
 

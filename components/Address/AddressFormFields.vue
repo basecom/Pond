@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type {AddressTypes} from "~/types/checkout/AddressTypes";
+import type { AddressTypes } from '~/types/checkout/AddressTypes';
 
 const props = withDefaults(
     defineProps<{

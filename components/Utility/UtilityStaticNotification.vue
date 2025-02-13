@@ -9,7 +9,7 @@ const props = withDefaults(
       id?: number;
     }>(),
     {
-      id: Math.floor((Math.random() * 100) + 1)
+        id: Math.floor((Math.random() * 100) + 1),
     },
 );
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { FormkitFields } from '~/types/formkit';
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { AddressTypes } from '~/types/checkout/AddressTypes';
+import { type ApiClientError } from '@shopware/api-client';
 
 const { refreshContext, signedIn } = useCustomerStore();
 const { handleError } = useFormErrorStore();
@@ -17,8 +18,8 @@ if (signedIn) {
     await loadCustomerAddresses();
 }
 
-const modalAddress = ref<Schemas['CustomerAddress']>(null);
-const modalAddressType = ref('shippingAddress');
+const modalAddress = ref<Schemas['CustomerAddress']|null>(null);
+const modalAddressType: Ref<AddressTypes> = ref('shippingAddress');
 
 const billingAddressIsSameAsShippingAddress =
     activeBillingAddress.value?.id === activeShippingAddress.value?.id ? ref(true) : ref(false);
@@ -38,11 +39,11 @@ const handleSameBillingAddress = async () => {
         }
     } catch (error) {
         pushError(t('global.generalError'));
-        handleError(error);
+        handleError(error as ApiClientError<never>);
     }
 };
 
-const handleChange = async (payload: { type: 'shippingAddress' | 'billingAddress'; id: string }) => {
+const handleChange = async (payload: { type: AddressTypes; id: string }) => {
     isLoading.value = true;
 
     try {
@@ -56,12 +57,12 @@ const handleChange = async (payload: { type: 'shippingAddress' | 'billingAddress
     } catch (error) {
         isLoading.value = false;
         pushError(t('global.generalError'));
-        handleError(error);
+        handleError(error as ApiClientError<never>);
     }
 };
 
 const handleSave = async (payload: {
-    type: 'shippingAddress' | 'billingAddress';
+    type: AddressTypes;
     id: string;
     formFields: FormkitFields;
 }) => {
@@ -87,11 +88,11 @@ const handleSave = async (payload: {
     } catch (error) {
         isLoading.value = false;
         pushError(t('global.generalError'));
-        handleError(error);
+        handleError(error as ApiClientError<never>);
     }
 };
 
-const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas['CustomerAddress']) => {
+const openModal = (type:AddressTypes, address: Schemas['CustomerAddress']) => {
     modalAddress.value = address;
     modalAddressType.value = type;
     modalController.open();

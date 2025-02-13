@@ -44,11 +44,13 @@ const openLightbox = (slideMediaId: string) => {
         >
             <template v-if="slides.length > 0">
                 <LayoutSlider
-                    :classes="[
-                        slides.length > 1 ? 'cursor-grab' : '',
-                        galleryPosition.value === 'underneath' ? 'w-full' : 'w-auto',
-                        'max-w-[calc(100%-clamp(100px,100%,150px)-16px)]',
+                    :classes="[{
+                                   'w-full': galleryPosition.value === 'underneath',
+                                   'w-auto': galleryPosition.value !== 'underneath',
+                               },
+                               'max-w-[calc(100%-clamp(100px,100%,150px)-16px)]',
                     ]"
+                    :slides-counter="slides.length"
                     :navigation-dots="navigationDots !== 'None' && navigationDots !== 'Keine'"
                     :navigation-arrows="navigationArrows !== 'None' && navigationArrows !== 'Keine'"
                     :thumbs-swiper="`.thumbnailRef-${element.id}`"
@@ -77,10 +79,10 @@ const openLightbox = (slideMediaId: string) => {
                 </LayoutSlider>
 
                 <LayoutSlider
-                    :classes="[
-                        galleryPosition.value === 'underneath' ? 'w-full' : '',
-                        slides.length > 1 ? 'cursor-grab' : '',
-                        'max-w-[clamp(100px,100%,150px)]',
+                    :classes="[{
+                                   'w-full': galleryPosition.value === 'underneath',
+                               },
+                               'max-w-[clamp(100px,100%,150px)]',
                     ]"
                     :navigation-dots="false"
                     :navigation-arrows="slides.length > thumbnailSlidesPerView"

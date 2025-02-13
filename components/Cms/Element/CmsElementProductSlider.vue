@@ -77,9 +77,7 @@ const onProductSelect = (product: Schemas['Product'], index: string | number) =>
             </h3>
 
             <LayoutSlider
-                :class="{
-                    'cursor-grab': slides.length > 1,
-                }"
+                :slides-counter="slides.length"
                 class="w-full"
                 :auto-slide="shouldAutoSlide"
                 :navigation-arrows="showNavigationArrows"

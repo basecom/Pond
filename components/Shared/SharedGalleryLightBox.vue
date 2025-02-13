@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CmsElementImageGallerySlider } from '~/types/cms/element/CmsElementImageGallery';
+import type { CmsElementImageGallerySlider } from '~/types/cms/CmsElementImageGallery';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 withDefaults(

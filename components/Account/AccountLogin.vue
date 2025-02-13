@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ApiClientError } from '@shopware/api-client';
-import type { ResolvedApiError } from '~/types/errors';
+import type { ResolvedApiError } from '~/types/Errors';
 
 type FormkitLoginFields = {
     username: string;

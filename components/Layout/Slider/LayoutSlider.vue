@@ -10,11 +10,12 @@ const props = withDefaults(
         navigationArrows?: boolean;
         displayMode?: string;
         minHeight?: string;
-        classes?: string;
+        classes?: string|string[];
         loop?: boolean;
         direction?: 'vertical' | 'horizontal' | undefined;
         spaceBetween?: number;
         slidesPerView?: number;
+        slidesCounter?: number;
         thumbsSwiper?: string;
         breakpoints?: object;
         init?: boolean;
@@ -31,17 +32,17 @@ const props = withDefaults(
         navigationArrows: true,
         displayMode: 'cover',
         minHeight: '300',
-        classes: null,
+        classes: undefined,
         loop: true,
         direction: 'horizontal',
         spaceBetween: 0,
         slidesPerView: 1,
-        thumbsSwiper: null,
-        // eslint-disable-next-line vue/require-valid-default-prop
-        breakpoints: {},
+        slidesCounter: 1,
+        thumbsSwiper: undefined,
+        breakpoints: undefined,
         init: false,
         verticalNavigation: false,
-        thumbRef: null,
+        thumbRef: undefined,
         initialSlide: 0,
         isZoomEnabled: false,
     },
@@ -73,7 +74,9 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
     <ClientOnly>
         <div
             class="relative"
-            :class="classes"
+            :class="[classes, {
+                'cursor-grab': slidesCounter > 1
+            }]"
         >
             <div
                 v-if="isZoomEnabled"

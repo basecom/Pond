@@ -105,11 +105,11 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                     :src="lineItemCover.url"
                     :alt="
                         lineItemCover.alt ??
-                            (getTranslatedProperty(lineItem, 'name') || getTranslatedProperty(product, 'name'))
+                            (getTranslatedProperty(lineItem, 'label') || getTranslatedProperty(product, 'name'))
                     "
                     :title="
                         lineItemCover.title ??
-                            (getTranslatedProperty(lineItem, 'name') || getTranslatedProperty(product, 'name'))
+                            (getTranslatedProperty(lineItem, 'label') || getTranslatedProperty(product, 'name'))
                     "
                     class="size-full object-cover object-center"
                 >

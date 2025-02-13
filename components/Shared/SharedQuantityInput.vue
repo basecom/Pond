@@ -22,9 +22,9 @@ const emit = defineEmits(['onUpdate', 'onEnter']);
 const quantityInput: Ref<HTMLInputElement|null> = ref(null);
 
 const onEnter = () => {
-  quantityInput?.value?.blur();
-  emit('onEnter');
-}
+    quantityInput?.value?.blur();
+    emit('onEnter');
+};
 </script>
 
 <template>

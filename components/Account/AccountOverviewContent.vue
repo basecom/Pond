@@ -76,7 +76,7 @@ const handleNewsletterChange = async (event: Event) => {
             </p>
         </div>
 
-        <div class="rounded-lg bg-white p-4 shadow-md">
+        <div v-if="paymentMethod" class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">{{ $t('account.overview.paymentMethod.heading') }}</h3>
             <p>
                 <strong>{{ $t('account.overview.paymentMethod.nameLabel') }}</strong> {{ paymentMethod.name }}
@@ -94,12 +94,12 @@ const handleNewsletterChange = async (event: Event) => {
     >
         <div class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">{{ $t('account.overview.billingAddressHeading') }}</h3>
-            <AddressData :address="billingAddress" />
+            <AddressData v-if="billingAddress" :address="billingAddress" />
         </div>
 
         <div class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">{{ $t('account.overview.shippingAddressHeading') }}</h3>
-            <AddressData :address="shippingAddress" />
+            <AddressData v-if="shippingAddress" :address="shippingAddress" />
         </div>
     </div>
 
