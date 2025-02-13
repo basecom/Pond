@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { PromotionInfo } from '../../../types/analytics/Promotion';
+import type { PromotionInfo } from '~/types/analytics/Promotion';
 
 const props = defineProps<{
     element: CmsElementProductSlider;

@@ -53,7 +53,7 @@ if (isHomePage.value) {
         events.forEach(event => {
             if (event.isIntersecting) {
                 const mediaUrl = (event.target as HTMLImageElement).src;
-                const media: Schemas['Media'] = slidesData?.find((slide: CmsImageSliderItem) => slide.media?.url === mediaUrl)?.media;
+                const media: Schemas['Media'] = slides?.find((slide: CmsImageSliderItem) => slide.media?.url === mediaUrl)?.media;
 
                 if (media?.fileName && !trackedSlides.value.includes(media.fileName)) {
                     trackPromotionView(getPromotion(media));

@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import type { Notification } from '@shopware-pwa/composables-next';
-import type { NotificationType } from '~/types/notificationType';
+import type { NotificationType } from '~/types/NotificationType';
 
-const props = defineProps<{
-    type:  NotificationType;
-    message: string;
-    id: number;
-}>();
+const props = withDefaults(
+    defineProps<{
+      type:  NotificationType;
+      message: string;
+      id?: number;
+    }>(),
+    {
+      id: Math.floor((Math.random() * 100) + 1)
+    },
+);
+
 
 const staticNotification: Notification = {
     type: props.type,

@@ -46,7 +46,6 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 0 }));
 
         <template v-else>
             <UtilityStaticNotification
-                :id="Math.floor((Math.random() * 100) + 1)"
                 type="info"
                 :message="$t('checkout.cart.emptyCartMessage')"
                 class="mt-4"

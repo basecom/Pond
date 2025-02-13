@@ -69,7 +69,6 @@ onMounted(async () => {
         class="container"
     >
         <UtilityStaticNotification
-            :id="Math.floor((Math.random() * 100) + 1)"
             :type="notification.type"
             :message="notification.message"
         />

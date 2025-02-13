@@ -23,11 +23,11 @@ const cover = getProductCover(props.product.cover?.media);
 const configStore = useConfigStore();
 const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
 
-const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => {
-    if (isIntersecting) {
-        emit('view-product');
-        stop();
-    }
+const { stop } = useIntersectionObserver(productCard, ([entry]: IntersectionObserverEntry[]) => {
+  if (entry?.isIntersecting) {
+    emit('view-product');
+    stop();
+  }
 });
 </script>
 

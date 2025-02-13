@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { FormkitFields } from '~/types/formkit';
+import type {AddressTypes} from "~/types/checkout/AddressTypes";
 
 const props = withDefaults(
     defineProps<{
-      addressType?: 'billingAddress' | 'shippingAddress';
+      addressType?: AddressTypes;
       initialAddress: Schemas['CustomerAddress'];
       customerAddresses: Schemas['CustomerAddress'][];
       isLoading?: boolean;
@@ -19,14 +20,14 @@ const emit = defineEmits<{
     (
         event: 'change',
         payload: {
-            type: 'billingAddress' | 'shippingAddress';
+            type: AddressTypes;
             id: string;
         },
     ): void;
     (
         event: 'submit',
         payload: {
-            type: 'billingAddress' | 'shippingAddress';
+            type: AddressTypes;
             id: string;
             formFields: FormkitFields;
         },

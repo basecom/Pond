@@ -43,7 +43,6 @@ const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
             </div>
             <template v-else>
                 <UtilityStaticNotification
-                    id="empty-cart"
                     type="info"
                     :message="$t('checkout.cart.emptyCartMessage')"
                     class="mt-4"

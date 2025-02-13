@@ -72,7 +72,6 @@ productListingCriteriaStore.setSearchResult(getCurrentListing.value, true);
 
     <UtilityStaticNotification
         v-else
-        :id="props.element.id + '-no-products-found'"
         type="info"
         :message="$t('cms.element.product.noProductsFound')"
         class="mt-4"

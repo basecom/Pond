@@ -86,13 +86,6 @@ const removeCartItem = async () => {
     isLoading.value = false;
 };
 
-const updateQuantityOnEnter = $event => {
-    if ($event.target !== null) {
-        // remove focus from input to trigger update
-        $event.target.blur();
-    }
-};
-
 // allows the user to change the quantity multiple times before firing a single request
 const debounceUpdate = useDebounceFn(updateQuantity, 600);
 </script>
@@ -185,7 +178,6 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
                 :initial-value="lineItem.quantity"
                 :is-loading="isLoading"
                 @on-update="debounceUpdate"
-                @on-enter="updateQuantityOnEnter($event)"
             />
 
             <button

@@ -18,7 +18,13 @@ withDefaults(
     },
 );
 
-defineEmits(['onUpdate', 'onEnter']);
+const emit = defineEmits(['onUpdate', 'onEnter']);
+const quantityInput: Ref<HTMLInputElement|null> = ref(null);
+
+const onEnter = () => {
+  quantityInput?.value?.blur();
+  emit('onEnter');
+}
 </script>
 
 <template>
@@ -47,11 +53,12 @@ defineEmits(['onUpdate', 'onEnter']);
         </NumberFieldDecrement>
 
         <NumberFieldInput
+            ref="quantityInput"
             class="w-14 text-center focus:outline-none"
             :class="{
                 'cursor-not-allowed bg-transparent': isLoading || isDisabled,
             }"
-            @keyup.enter="$emit('onEnter', $event)"
+            @keyup.enter="onEnter"
         />
 
         <NumberFieldIncrement

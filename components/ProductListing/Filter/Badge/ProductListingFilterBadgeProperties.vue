@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { ValueOf } from '~/types/valueof';
+import type { ValueOf } from '~/types/ValueOf';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 defineProps<{
