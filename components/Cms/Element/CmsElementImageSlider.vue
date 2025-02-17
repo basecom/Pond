@@ -36,7 +36,7 @@ const autoplayConfig = computed(() => {
 });
 
 const speedConfig = computed(() => {
-    return autoSlide ? speed : '300';
+    return autoSlide ? speed : 300;
 });
 const slidesRef = ref([]);
 const trackedSlides = ref([]);
@@ -73,11 +73,11 @@ if (isHomePage.value) {
 </script>
 
 <template>
-    <ClientOnly>
-        <div
-            v-if="slides?.length"
-            :style="{ minHeight: minHeight }"
-        >
+    <div
+        v-if="slides?.length"
+        :style="{ minHeight: minHeight }"
+    >
+        <ClientOnly>
             <LayoutSlider
                 ref="sliderRef"
                 :class="{
@@ -106,12 +106,22 @@ if (isHomePage.value) {
                     />
                 </LayoutSliderSlide>
             </LayoutSlider>
-        </div>
 
-        <template v-else>
-            <div class="w-full bg-gray-light">
-                <SharedImagePlaceholder :size="'lg'" />
-            </div>
-        </template>
-    </ClientOnly>
+            <template #fallback>
+                <img
+                    v-cms-element-lazy-load="{ id: slides[0].media.id, type: 'image' }"
+                    :src="slides[0].mediaUrl"
+                    :alt="$t('cms.element.imageAlt')"
+                    class="h-full w-full object-center"
+                    :class="'object-' + displayMode"
+                />
+            </template>
+        </ClientOnly>
+    </div>
+
+    <template v-else>
+        <div class="w-full bg-gray-light">
+            <SharedImagePlaceholder :size="'lg'" />
+        </div>
+    </template>
 </template>

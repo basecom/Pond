@@ -24,7 +24,7 @@ const { getWishlistProducts } = useWishlist();
 useNotifications();
 useBreadcrumbs();
 
-customerStore.refreshContext();
+await customerStore.refreshContext();
 refreshCart();
 
 const route = useRoute();
