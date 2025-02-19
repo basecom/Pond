@@ -14,7 +14,7 @@ const product = inject('productData');
 
 // change the canonical tag if the option is enabled to use the same canonical for all variants
 if (product.value.canonicalProductId && product.value.canonicalProductId !== product.value.id) {
-    const runtimeConfig = useRuntimeConfig();
+    const url = useRequestURL()
     const { getUrlByProductId } = useSeoUrl();
     const canonicalUrl = await getUrlByProductId(product.value.canonicalProductId);
 
@@ -22,7 +22,7 @@ if (product.value.canonicalProductId && product.value.canonicalProductId !== pro
         link: [
             {
                 rel: 'canonical',
-                href: runtimeConfig.public.pond.shopwareEndpoint + canonicalUrl.path,
+                href: url.origin + canonicalUrl.path,
             },
         ],
     }));
