@@ -14,7 +14,7 @@ const product = inject('productData') as Ref<Schemas['Product']>;
 
 // change the canonical tag if the option is enabled to use the same canonical for all variants
 if (product.value.canonicalProductId && product.value.canonicalProductId !== product.value.id) {
-    const url = useRequestURL()
+    const url = useRequestURL();
     const { getUrlByProductId } = useSeoUrl();
     const canonicalUrl = await getUrlByProductId(product.value.canonicalProductId);
 
