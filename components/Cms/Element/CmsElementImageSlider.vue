@@ -24,7 +24,7 @@ const speed = config.getConfigValue('speed');
 
 const sliderRef = ref(null);
 
-if (slides.value.length > 0) {
+if (slides.value?.length) {
     useSwiper(sliderRef, {});
 }
 

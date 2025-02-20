@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type Swiper from 'swiper';
+import type { SwiperBreakpoints } from '~/types/cms/SwiperBreakpoints';
+import type { Swiper } from 'swiper';
 
 const props = withDefaults(
     defineProps<{
@@ -17,7 +18,7 @@ const props = withDefaults(
         slidesPerView?: number;
         slidesCounter?: number;
         thumbsSwiper?: string;
-        breakpoints?: object;
+        breakpoints?: SwiperBreakpoints;
         init?: boolean;
         verticalNavigation?: boolean;
         thumbRef?: string;
@@ -48,13 +49,20 @@ const props = withDefaults(
     },
 );
 
-const sliderRef: Ref<Swiper | null> = ref(null);
+const swiperContainer: Ref<Swiper|null> = ref(null);
 const prevSlide = ref(null);
 const nextSlide = ref(null);
-const navigation = props.navigationArrows ? ref(null) : false;
-const computedSliderRef = computed(() => sliderRef?.value?.swiper ?? null);
+const navigation = computed(() => props.navigationArrows ? undefined : false);
+// swiperContainer?.value has the type swiper but cant be find here
+// eslint-disable-next-line  @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const computedSwiperContainer = computed(() => swiperContainer?.value?.swiper ?? null);
 
-watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
+watch([prevSlide, nextSlide, swiperContainer], ([prevSlideValue, nextSlideValue]) => {
+    if (!swiperContainer?.value) {
+        return;
+    }
+
     if (prevSlideValue && nextSlideValue && props.navigationArrows) {
         const swiperParams = {
             navigation: {
@@ -63,10 +71,13 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
             },
         };
 
-        Object.assign(sliderRef.value, swiperParams);
+        Object.assign(swiperContainer.value, swiperParams);
     }
 
-    sliderRef.value?.initialize();
+    // swiperContainer?.value has the method initialize
+    // eslint-disable-next-line  @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    swiperContainer.value?.initialize();
 });
 </script>
 
@@ -85,7 +96,7 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                 <!-- Zoom in button -->
                 <button
                     class="mr-2 flex"
-                    @click="computedSliderRef.zoom.in()"
+                    @click="computedSwiperContainer.zoom.in()"
                 >
                     <FormKitIcon
                         icon="plus"
@@ -96,7 +107,7 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                 <!-- Zoom out button -->
                 <button
                     class="flex"
-                    @click="computedSliderRef.zoom.out()"
+                    @click="computedSwiperContainer.zoom.out()"
                 >
                     <FormKitIcon
                         icon="minus"
@@ -137,7 +148,7 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
             </template>
 
             <swiper-container
-                ref="sliderRef"
+                ref="swiperContainer"
                 class="grid size-full"
                 :class="thumbRef ? thumbRef : `min-h-[${minHeight}px]`"
                 :autoplay="autoSlide"
