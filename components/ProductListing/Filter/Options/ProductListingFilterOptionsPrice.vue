@@ -51,7 +51,7 @@ watch(props, () => {
             })
         "
     >
-        <SliderTrack class="relative h-[3px] grow rounded-full bg-gray">
+        <SliderTrack class="relative h-1 grow rounded-full bg-gray">
             <SliderRange class="absolute h-full rounded-full bg-brand-primary" />
         </SliderTrack>
 
