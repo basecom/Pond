@@ -7,6 +7,7 @@ const props = defineProps<{
     showResetButton?: boolean;
     sortingOptions: Schemas['ProductListingResult']['availableSortings'];
     sorting: Schemas['ProductListingResult']['sorting'];
+    containerClass?: string;
 }>();
 
 const emit = defineEmits<{
@@ -24,7 +25,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <div class="m-0 mx-auto grid gap-4">
+    <div class="m-0 mx-auto grid gap-4" :class="containerClass">
         <div class="flex justify-end border-b border-gray-light pb-6 pt-2">
             <ProductListingSorting
                 :options="props.sortingOptions"

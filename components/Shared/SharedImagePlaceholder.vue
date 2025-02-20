@@ -8,6 +8,8 @@ const props = withDefaults(
     },
 );
 
+defineEmits(['load-icon'])
+
 const sizeMap: Record<string, number> = {
     xs: 8,
     sm: 16,
@@ -16,6 +18,10 @@ const sizeMap: Record<string, number> = {
 };
 
 const imageSize = computed(() => sizeMap[props.size]);
+
+onMounted(() => {
+    emit('load-icon');
+});
 </script>
 
 <template>

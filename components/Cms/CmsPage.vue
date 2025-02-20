@@ -2,15 +2,16 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
 
-defineProps<{
+const props = defineProps<{
     cmsPage: Schemas['CmsPage'];
 }>();
 
 const { getCmsSectionComponentName, componentExists, getSectionClasses } = useCmsUtils();
+
 </script>
 
 <template>
-    <div class="cms-page">
+    <div v-cms-page="cmsPage" class="cms-page">
         <template
             v-for="section in cmsPage.sections"
             :key="section.id"

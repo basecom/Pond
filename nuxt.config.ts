@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -50,6 +51,9 @@ export default defineNuxtConfig({
                 breadcrumb: {
                     enableDynamicLoading: false,
                 },
+                cms: {
+                    enableProgressiveLoading: false,
+                }
             },
         },
     },

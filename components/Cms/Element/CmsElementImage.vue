@@ -59,6 +59,7 @@ const mediaObject = props.element.data?.media;
         <img
             v-else
             ref="imageElement"
+            v-cms-element-lazy-load="{ id: mediaObject.id, type: 'image' }"
             loading="lazy"
             :class="{
                 'h-full w-full': true,
