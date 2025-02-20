@@ -5,6 +5,7 @@ import type { PaymentMethodOption } from '~/types/checkout/PaymentMethodOption';
 const props = defineProps<{
     paymentMethod: Schemas['PaymentMethod'];
 }>();
+
 const emit = defineEmits<{
     'update-method': [key: string];
 }>();

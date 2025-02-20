@@ -2,6 +2,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { AddressTypes } from '~/types/checkout/AddressTypes';
 import { type ApiClientError } from '@shopware/api-client';
+import type { BillingAddressForm, ShippingAddressForm } from '~/types/form/AddressForm';
 
 const { refreshContext, signedIn } = useCustomerStore();
 const { handleError } = useFormErrorStore();
@@ -14,6 +15,7 @@ const isLoading = ref(false);
 const { changeDefaultAddress, saveAddress, syncBillingAddress, loadCustomerAddresses, customerAddresses } =
     useCustomerAddress();
 const { activeShippingAddress, activeBillingAddress } = useCustomerAddress();
+const { isShippingAddressForm } = useCheckType();
 if (signedIn) {
     await loadCustomerAddresses();
 }
@@ -61,16 +63,14 @@ const handleChange = async (payload: { type: AddressTypes; id: string }) => {
 
 const handleSave = async (payload: {
     type: AddressTypes;
-    id: string;
-    formFields: FormkitFields;
+    id: string|null;
+  address: ShippingAddressForm|BillingAddressForm;
 }) => {
-    console.log(payload.formFields);
     isLoading.value = true;
 
-    const addressFields =
-        payload.type === 'shippingAddress' ? payload.formFields.shippingAddress : payload.formFields.billingAddress;
+    const addressFields = isShippingAddressForm(payload.address) ? payload.address.shippingAddress : payload.address.billingAddress;
     const addressData = {
-        ...payload.formFields,
+        ...payload.address,
         ...addressFields,
     };
 
@@ -82,12 +82,11 @@ const handleSave = async (payload: {
         await refreshContext();
         await refreshCart();
 
-        isLoading.value = false;
         modalController.close();
     } catch (error) {
-        isLoading.value = false;
-        pushError(t('global.generalError'));
         handleError(error as ApiClientError<never>);
+    } finally {
+        isLoading.value = false;
     }
 };
 
@@ -161,6 +160,7 @@ const openModal = (type:AddressTypes, address: Schemas['CustomerAddress']) => {
 
         <template #content>
             <CheckoutConfirmChangeAddress
+                v-if="modalAddress"
                 :address-type="modalAddressType"
                 :initial-address="modalAddress"
                 :customer-addresses="customerAddresses"

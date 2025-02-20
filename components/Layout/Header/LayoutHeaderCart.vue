@@ -34,6 +34,7 @@ const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
                         class="flex py-6"
                     >
                         <CheckoutLineItem
+                            v-if="item.cartItem"
                             :line-item="item.cartItem"
                             :product="item.product"
                         />

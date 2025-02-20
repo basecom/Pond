@@ -14,7 +14,7 @@ defineEmits<{
 }>();
 
 const { componentsMappingOffcanvas } = useListingFiltersMapping();
-const { isPropertyFilter } = useListingFilters();
+const { isPropertyFilter } = useCheckType();
 const { t } = useI18n();
 const listingStore = useListingStore('category');
 

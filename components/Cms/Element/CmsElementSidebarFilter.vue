@@ -14,7 +14,6 @@ const { getCurrentListing, search } = useCategoryListing();
 const listingStore = useListingStore('category');
 const { listingState } = storeToRefs(listingStore);
 
-// todo nele, wieso nicht direkt aufrufen?
 const onResetFilters = async () => {
     listingStore.resetFilters();
 };

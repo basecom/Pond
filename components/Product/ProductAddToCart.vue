@@ -3,11 +3,17 @@ import { ApiClientError } from '@shopware/api-client';
 import type { ResolvedApiError } from '~/types/Errors';
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const props = defineProps<{
-    product: Schemas['Product'];
-    icon?: boolean;
-    label?: boolean;
-}>();
+const props = withDefaults(
+    defineProps<{
+      product: Schemas['Product'];
+      icon?: boolean;
+      label?: boolean;
+    }>(),
+    {
+        icon: true,
+        label: true,
+    },
+);
 
 const { product } = useProduct(props.product);
 const { addToCart, quantity } = useAddToCart(product);

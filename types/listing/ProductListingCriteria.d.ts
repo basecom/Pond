@@ -14,7 +14,7 @@ export type ListingState = {
     },
     sorting: {
         options: Schemas['ProductListingResult']['availableSortings'];
-        current: Schemas['ProductListingResult']['sorting'] | null;
+        current: Schemas['ProductListingResult']['sorting'];
     },
     pagination: {
         page: Schemas['ProductListingResult']['page'];

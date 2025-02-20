@@ -14,3 +14,8 @@ export type RegisterForm = {
         shippingAddress?: AddressForm;
     }
 } & BillingAddressForm;
+
+export type LoginForm = {
+    username: string;
+    password: string;
+};

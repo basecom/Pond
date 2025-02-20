@@ -23,9 +23,6 @@ const router = useRouter();
 // String the user has typed in the search field
 const typingQuery = ref('');
 
-// Reference to the searchInput to focus it onMount
-const searchInput = ref(null);
-
 // If the user is on the result page, hide suggestions since the listing is automatically updated
 const isResultPage = ref(false);
 const route = useRoute();
@@ -84,12 +81,13 @@ const onClickProduct = (product: Schemas['Product']) => {
 
 onMounted(() => {
     // Get the input from the ref (need querySelector since the ref returns the FormKit wrapper and not the input itself)
-    searchInput.value.$el.querySelector('input').focus();
+    const searchInput = document.querySelector('#searchInput') as null|HTMLInputElement;
+    searchInput?.focus();
 
     // If on result page, set the search input to the last valid search term when opening it
-    if (isResultPage.value) {
-        searchInput.value.$el.querySelector('input').value =
-            searchStore.lastValidSearchTerm !== '' ? searchStore.lastValidSearchTerm : route.query.search ?? '';
+    if (isResultPage.value && searchInput) {
+        const searchValue = route.query.search as null|string;
+        searchInput.textContent = searchStore.lastValidSearchTerm !== '' ? searchStore.lastValidSearchTerm : searchValue ?? '';
     }
 });
 </script>
@@ -98,7 +96,7 @@ onMounted(() => {
     <div class="fixed w-full border-b border-gray-medium bg-white">
         <div class="container flex gap-4 py-4">
             <FormKit
-                ref="searchInput"
+                id="searchInput"
                 v-model="typingQuery"
                 type="text"
                 prefix-icon="search"

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ApiClientError } from '@shopware/api-client';
-import type { RegisterForm } from '~/types/form/RegisterForm';
+import type { RegisterForm } from '~/types/form/AuthenticationForm';
 
 const props = withDefaults(
     defineProps<{

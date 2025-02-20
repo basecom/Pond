@@ -8,10 +8,15 @@ const { pushError, pushSuccess } = useNotifications();
 const { handleError } = useHandleError();
 const { t } = useI18n();
 
-const props = defineProps<{
-    lineItem: Schemas['LineItem'];
-    product: Schemas['Product'];
-}>();
+const props = withDefaults(
+    defineProps<{
+      lineItem: Schemas['LineItem'];
+      product?: Schemas['Product'];
+    }>(),
+    {
+        product: undefined,
+    },
+);
 
 const { lineItem, product } = toRefs(props);
 const isLoading = ref(false);
@@ -46,10 +51,9 @@ const updateQuantity = async (quantityInput: number | undefined) => {
 
     try {
         const response = await changeItemQuantity(Number(quantityInput));
-        if (addedProductsNumbers > 0) {
-            trackAddToCart(product.value, addedProductsNumbers);
-        } else {
-            trackRemoveFromCart(product.value, Math.abs(addedProductsNumbers));
+
+        if (product.value) {
+            addedProductsNumbers > 0 ? trackAddToCart(product.value, addedProductsNumbers) : trackRemoveFromCart(product.value, Math.abs(addedProductsNumbers));
         }
         // Refresh cart after quantity update
         await refreshCart(response);
@@ -73,8 +77,8 @@ const removeCartItem = async () => {
         await removeItem();
 
         // TODO: fix tracking giving an error when removing a promotion
-        if (!isPromotion) {
-            trackRemoveFromCart(product.value, lineItem.value.quantity);
+        if (!isPromotion && product.value) {
+            trackRemoveFromCart(product.value, lineItem.value?.quantity);
         }
 
         pushSuccess(t('checkout.lineItem.remove.successMessage', { lineItemName: lineItem.value.label }));

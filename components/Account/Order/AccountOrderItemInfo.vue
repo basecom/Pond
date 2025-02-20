@@ -1,9 +1,15 @@
 <script setup lang="ts">
-defineProps<{
-    title: string;
-    method?: { name: string } | null | undefined;
-    state?: { name: string } | null | undefined;
-}>();
+withDefaults(
+    defineProps<{
+      title: string;
+      method?: { name: string } | null | undefined;
+      state?: { name: string } | null | undefined;
+    }>(),
+    {
+        method: null,
+        state: null,
+    },
+);
 </script>
 
 <template>

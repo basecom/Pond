@@ -38,7 +38,7 @@ export function useProductListing() {
         },
         sorting: {
             options: [],
-            current: null,
+            current: undefined,
         },
         pagination: {
             page: 1,

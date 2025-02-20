@@ -11,3 +11,10 @@ export type BillingAddressForm = {
     lastName: string;
     billingAddress: AddressForm;
 };
+
+export type ShippingAddressForm = {
+    salutationId: string;
+    firstName: string;
+    lastName: string;
+    shippingAddress: AddressForm;
+};

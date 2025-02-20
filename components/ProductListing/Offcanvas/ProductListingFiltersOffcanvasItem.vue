@@ -16,7 +16,7 @@ const props = withDefaults(
 
 const { t } = useI18n();
 const listingStore = useListingStore('category');
-const { isPropertyFilter } = useListingFilters();
+const { isPropertyFilter } = useCheckType();
 
 
 const name = computed(() => {

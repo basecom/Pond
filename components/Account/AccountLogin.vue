@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { ApiClientError } from '@shopware/api-client';
 import type { ResolvedApiError } from '~/types/Errors';
-
-type FormkitLoginFields = {
-    username: string;
-    password: string;
-};
+import type { LoginForm } from '~/types/form/AuthenticationForm';
 
 const props = withDefaults(
     defineProps<{
@@ -34,7 +30,7 @@ const { mergeWishlistProducts } = useWishlist();
 const { trackLogin } = useAnalytics();
 const { t } = useI18n();
 
-const handleLogin = async (fields: FormkitLoginFields) => {
+const handleLogin = async (fields: LoginForm) => {
     try {
         await customerStore.login({
             ...fields,

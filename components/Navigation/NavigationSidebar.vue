@@ -12,7 +12,7 @@ const sideMenuController = useModal();
 // will be updated with the child categories when a category with children is selected
 const shownNavigationItems = ref(mainNavigationElements.value);
 
-// previousNavigationItems stores the nav items that got selected and whoes children get displayed
+// previousNavigationItems stores the nav items that got selected and who's children get displayed
 // used to navigate back and display the link above the children
 const previousNavigationItems = ref<Schemas['Category'][]>([]);
 
@@ -26,7 +26,7 @@ watch(
     { immediate: true },
 );
 
-const handleClick = navigationElement => {
+const handleClick = (navigationElement: Schemas['Category']) => {
     if (navigationElement.childCount > 0) {
         previousNavigationItems.value.push(navigationElement);
         shownNavigationItems.value = navigationElement.children;

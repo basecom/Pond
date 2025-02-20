@@ -29,6 +29,18 @@ if (isInternalLink) {
     await getInternalRoute();
 }
 
+const categoryLink = computed(() => {
+    if (isExternalLink && externalLink) {
+        return externalLink;
+    }
+
+    if (isInternalLink) {
+        return path.value;
+    }
+
+    return props.navigationElement ? getCategoryRoute(props.navigationElement) : '';
+});
+
 const { isActive } = useActivePath();
 const { trackNavigation } = useAnalytics();
 </script>
@@ -39,11 +51,11 @@ const { trackNavigation } = useAnalytics();
         :target="isExternalLink || linkNewTab ? '_blank' : ''"
         :rel="isExternalLink || linkNewTab ? 'noopener noreferrer nofollow' : ''"
         :aria-label="getTranslatedProperty(navigationElement, 'name')"
-        :to="isExternalLink ? externalLink : isInternalLink ? path : getCategoryRoute(navigationElement)"
+        :to="categoryLink"
         :format="!isExternalLink"
         class="transition-all hover:text-brand-primary"
         :class="[classes, isActive(navigationElement.seoUrls, activeWithExactMatch) ? activeClasses : '']"
-        @click="trackNavigation(navigationElement.level - 1 ?? 0, getTranslatedProperty(navigationElement, 'name'))"
+        @click="trackNavigation(navigationElement.level ? navigationElement.level - 1 : 0, getTranslatedProperty(navigationElement, 'name'))"
     >
         <template v-if="asAllItemsLink">
             {{ $t('navigation.sidebar.allItems') }}

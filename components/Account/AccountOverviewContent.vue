@@ -11,9 +11,14 @@ const { pushSuccess, pushError } = useNotifications();
 const { trackNewsletterRegistration } = useAnalytics();
 const { t } = useI18n();
 
-const props = defineProps<{
-    showLatestOrder: boolean;
-}>();
+const props = withDefaults(
+    defineProps<{
+      showLatestOrder: boolean;
+    }>(),
+    {
+        showLatestOrder: true,
+    },
+);
 
 const latestOrder = props.showLatestOrder && (await getLatestOrder());
 getNewsletterStatus();
