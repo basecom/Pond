@@ -3,7 +3,7 @@ import type { Schemas } from '@shopware/api-client/api-types';
 export const useCartItemsStore = defineStore('cart-items', () => {
     const { apiClient } = useShopwareContext();
     const { cartItems } = useCart();
-    const { data: productSearch, execute } = useLazyAsyncData('checkoutCartItems', async () => {
+    const { data, execute } = useLazyAsyncData('checkoutCartItems', async () => {
         const _search = async (searchCriteria: Schemas['Criteria']): Promise<Schemas['ProductListingResult']> => {
             const { data } = await apiClient.invoke('readProduct post /product', {
                 body: searchCriteria,
@@ -54,7 +54,8 @@ export const useCartItemsStore = defineStore('cart-items', () => {
         });
     });
 
-    const products = computed((): Schemas['Product'][] => productSearch.value?.elements || []);
+    const productSearch = data.value as Schemas['ProductListingResult'];
+    const products = computed((): Schemas['Product'][] => productSearch?.elements || []);
 
     const cartItemsWithProduct = computed(() => {
         if (!products.value.length) {

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import type { ListingFilter } from '~/types/listing/Filter';
+import { useListingStore } from '~/stores/ListingStore';
 
 const props = defineProps<{
     filters: ListingFilter[];
@@ -13,11 +14,24 @@ defineEmits<{
 }>();
 
 const { componentsMappingOffcanvas } = useListingFiltersMapping();
-const productListingCriteriaStore = useProductListingCriteriaStore('category');
-const { appliedFiltersTotal } = storeToRefs(productListingCriteriaStore);
+const { isPropertyFilter } = useListingFilters();
+const { t } = useI18n();
+const listingStore = useListingStore('category');
 
 const sideMenuController = useModal();
-const displayedFilter = ref(null);
+const displayedFilter: Ref<ListingFilter|null> = ref(null);
+
+const name = computed(() => {
+    if (!displayedFilter.value) {
+        return null;
+    }
+
+    if (isPropertyFilter(displayedFilter.value)) {
+        return displayedFilter.value.name;
+    }
+
+    return t(`listing.sidebar.filter.${displayedFilter.value.code}.title`);
+});
 </script>
 
 <template>
@@ -31,7 +45,7 @@ const displayedFilter = ref(null);
         <span>
             {{ $t('listing.sidebar.title') }}
         </span>
-        <UtilityPill :number="appliedFiltersTotal" />
+        <UtilityPill :number="listingStore.appliedFiltersTotal" />
         <FormKitIcon
             icon="filter"
             class="size-6"
@@ -56,12 +70,7 @@ const displayedFilter = ref(null);
                     icon="chevron-left"
                     class="block size-4"
                 />
-                <template v-if="displayedFilter?.code === 'properties'">
-                    {{ getTranslatedProperty(displayedFilter, 'name') }}
-                </template>
-                <template v-else>
-                    {{ $t(`listing.sidebar.filter.${displayedFilter.code}.title`) }}
-                </template>
+                {{ name }}
             </button>
         </template>
         <template #content>
@@ -86,12 +95,14 @@ const displayedFilter = ref(null);
                         </template>
                     </div>
                     <div class="flex size-full shrink-0 flex-col">
-                        <component
-                            :is="componentsMappingOffcanvas[displayedFilter?.code]"
-                            :filter="displayedFilter"
-                            :selected-values="props.selectedFilters"
-                            @filter-changed="$emit('filter-changed', $event)"
-                        />
+                        <template v-if="displayedFilter?.code">
+                            <component
+                                :is="componentsMappingOffcanvas[displayedFilter?.code]"
+                                :filter="displayedFilter"
+                                :selected-values="props.selectedFilters"
+                                @filter-changed="$emit('filter-changed', $event)"
+                            />
+                        </template>
                     </div>
                 </div>
             </div>

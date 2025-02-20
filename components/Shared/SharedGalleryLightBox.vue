@@ -29,7 +29,7 @@ withDefaults(
     >
         <template #content>
             <LayoutSlider
-                classes="w-auto"
+                :classes="{ 'w-auto': true }"
                 :navigation-dots="false"
                 :navigation-arrows="true"
                 :thumbs-swiper="thumbsSwiper"

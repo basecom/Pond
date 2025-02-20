@@ -7,16 +7,14 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-    'sorting-changed': [key: Schemas['ProductListingResult']['sorting']];
+  'sorting-changed': [sortingOption: Schemas['ProductListingResult']['sorting']];
 }>();
 
 const { t } = useI18n();
 const toggleState = ref(false);
 const getSortingName = computed(() => {
-    const selectedOptionName = props.options.filter(
-        (option: Schemas['ProductSorting']) => option.key === props.selectedOption,
-    );
-    return selectedOptionName?.[0]?.translated?.label ?? t('listing.sidebar.sorting.text');
+    const selectedOptionName = props.options.find((option: Schemas['ProductListingResult']['availableSortings'][0]) => option.key === props.selectedOption);
+    return selectedOptionName?.translated?.label ?? t('listing.sidebar.sorting.text');
 });
 
 const handleClick = (option: Schemas['ProductListingResult']['availableSortings'][0]) => {
@@ -52,13 +50,13 @@ const handleClick = (option: Schemas['ProductListingResult']['availableSortings'
                 align="end"
             >
                 <DropdownMenuItem
-                    v-for="option in props.options"
+                    v-for="option in options"
                     :key="option.key"
                     :value="option.key"
                     class="cursor-pointer px-2 pl-4 outline-none data-[disabled]:pointer-events-none data-[highlighted]:text-black"
                     :class="{
-                        'text-black': option.key === props.selectedOption,
-                        'text-gray-dark': option.key !== props.selectedOption,
+                        'text-black': option.key === selectedOption,
+                        'text-gray-dark': option.key !== selectedOption,
                     }"
                     @click="() => handleClick(option)"
                 >

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CmsElementImageGallerySlider } from '~/types/cms/element/CmsElementImageGallery';
+import type { CmsElementImageGallerySlider } from '~/types/cms/CmsElementImageGallery';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 const props = defineProps<{
@@ -44,12 +44,11 @@ const openLightbox = (slideMediaId: string) => {
         >
             <template v-if="slides.length > 0">
                 <LayoutSlider
-                    :classes="[{
-                                   'w-full': galleryPosition.value === 'underneath',
-                                   'w-auto': galleryPosition.value !== 'underneath',
-                               },
-                               'max-w-[calc(100%-clamp(100px,100%,150px)-16px)]',
-                    ]"
+                    :classes="{
+                        'w-full': galleryPosition.value === 'underneath',
+                        'w-auto': galleryPosition.value !== 'underneath',
+                        'max-w-[calc(100%-clamp(100px,100%,150px)-16px)]': true,
+                    }"
                     :slides-counter="slides.length"
                     :navigation-dots="navigationDots !== 'None' && navigationDots !== 'Keine'"
                     :navigation-arrows="navigationArrows !== 'None' && navigationArrows !== 'Keine'"
@@ -79,11 +78,10 @@ const openLightbox = (slideMediaId: string) => {
                 </LayoutSlider>
 
                 <LayoutSlider
-                    :classes="[{
-                                   'w-full': galleryPosition.value === 'underneath',
-                               },
-                               'max-w-[clamp(100px,100%,150px)]',
-                    ]"
+                    :classes="{
+                        'w-full': galleryPosition.value === 'underneath',
+                        'max-w-[clamp(100px,100%,150px)]': true
+                    }"
                     :navigation-dots="false"
                     :navigation-arrows="slides.length > thumbnailSlidesPerView"
                     :vertical-navigation="true"

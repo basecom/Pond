@@ -25,7 +25,7 @@ defineEmits<{
         :default-page="defaultPage"
         :items-per-page="itemsPerPage"
         show-edges
-        @update:page="value => $emit('update-page', value)"
+        @update:page="(value: number) => $emit('update-page', value)"
     >
         <PaginationList
             v-slot="{ items }"

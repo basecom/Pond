@@ -20,9 +20,7 @@ if (signedIn) {
 
 const modalAddress = ref<Schemas['CustomerAddress']|null>(null);
 const modalAddressType: Ref<AddressTypes> = ref('shippingAddress');
-
-const billingAddressIsSameAsShippingAddress =
-    activeBillingAddress.value?.id === activeShippingAddress.value?.id ? ref(true) : ref(false);
+const billingAddressIsSameAsShippingAddress = ref(activeBillingAddress.value?.id === activeShippingAddress.value?.id);
 
 watch(billingAddressIsSameAsShippingAddress, () => handleSameBillingAddress());
 
@@ -66,6 +64,7 @@ const handleSave = async (payload: {
     id: string;
     formFields: FormkitFields;
 }) => {
+    console.log(payload.formFields);
     isLoading.value = true;
 
     const addressFields =

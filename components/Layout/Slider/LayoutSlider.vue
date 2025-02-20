@@ -10,7 +10,7 @@ const props = withDefaults(
         navigationArrows?: boolean;
         displayMode?: string;
         minHeight?: string;
-        classes?: string|string[];
+        classes?: { [key: string]: boolean };
         loop?: boolean;
         direction?: 'vertical' | 'horizontal' | undefined;
         spaceBetween?: number;

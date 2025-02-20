@@ -1,22 +1,20 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import type { ListingPropertyFilter } from '~/types/listing/Filter';
+import { useListingStore } from '~/stores/ListingStore';
+import type { ChangePropertyFilter } from '~/types/listing/FilterEvents';
 
 defineProps<{
-    filter: ListingFilter & Schemas['PropertyGroup'];
+    filter: ListingPropertyFilter;
     selectedValues: Schemas['ProductListingResult']['currentFilters'];
 }>();
 
 defineEmits<{
-    'filter-changed': [
-        event: {
-            code: 'properties';
-            value: ValueOf<Schemas['ProductListingResult']['currentFilters']['properties']>;
-        },
-    ];
+    'filter-changed': [event: ChangePropertyFilter];
 }>();
 
-const { propertyFilterApplied, propertyFilterAppliedTotal } = useProductListingCriteriaStore('category');
+const listingStore = useListingStore('category');
 const popoverOpen = ref(false);
 </script>
 
@@ -31,8 +29,8 @@ const popoverOpen = ref(false);
                 {{ getTranslatedProperty(filter, 'name') }}
 
                 <UtilityPill
-                    v-if="filter.code === 'properties' && propertyFilterApplied(filter.id)"
-                    :number="propertyFilterAppliedTotal(filter.id)"
+                    v-if="filter.code === 'properties' && listingStore.propertyFilterApplied(filter.id)"
+                    :number="listingStore.propertyFilterAppliedTotal(filter.id)"
                 />
                 <FormKitIcon
                     class="block size-3 text-gray transition-all duration-150"
@@ -53,7 +51,7 @@ const popoverOpen = ref(false);
             <ProductListingFilterOptionsProperties
                 :filter="filter"
                 :selected-values="selectedValues"
-                @filter-changed="$emit('filter-changed', $event)"
+                @filter-changed="(event: ChangePropertyFilter) => $emit('filter-changed', event)"
             />
         </PopoverContent>
     </PopoverRoot>

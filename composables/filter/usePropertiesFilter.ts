@@ -3,15 +3,15 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilterMapping } from '~/types/listing/FilterMapping';
 
 export function usePropertiesFilter(): ListingFilterMapping {
-    const encodeUrl = (value: Schemas['ProductListingCriteria']): LocationQueryRaw => {
-        if (!value['properties']) {
+    const encodeUrl = (value: Schemas['ProductListingCriteria']|undefined): LocationQueryRaw => {
+        if (!value?.properties) {
             return {
                 properties: undefined,
             };
         }
 
         return {
-            properties: value['properties'],
+            properties: value.properties,
         };
     };
 
@@ -34,7 +34,7 @@ export function usePropertiesFilter(): ListingFilterMapping {
     const createCriteria = (
         value: Schemas['ProductListingResult']['currentFilters'],
     ): Partial<Schemas['ProductListingCriteria']> => ({
-        properties: value.properties.length > 0 ? value.properties.join('|') : null,
+        properties: value.properties.length > 0 ? value.properties.join('|') : undefined,
     });
 
     const isSameCriteria = (
@@ -42,16 +42,13 @@ export function usePropertiesFilter(): ListingFilterMapping {
         b: Partial<Schemas['ProductListingCriteria']>,
     ): boolean => a['properties'] === b['properties'];
 
-    const removeFilter = (
-        currentFilters: ComputedRef<Schemas['ProductListingResult']['currentFilters']>,
-        toRemove: Schemas['PropertyGroupOption']['id'],
-    ) => {
-        const index = currentFilters.value.properties.indexOf(toRemove);
+    const removeFilter = (currentFilters: Schemas['ProductListingResult']['currentFilters'], toRemove: Schemas['PropertyGroupOption']['id']) => {
+        const index = currentFilters.properties.indexOf(toRemove);
         if (index < 0) {
             return;
         }
 
-        currentFilters.value.properties.splice(index, 1);
+        currentFilters.properties.splice(index, 1);
     };
 
     return {
