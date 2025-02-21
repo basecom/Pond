@@ -10,8 +10,18 @@ const { resolvePath } = useNavigationSearch();
 const route = useRoute();
 const { t } = useI18n();
 
+/**
+ * Replace the locale value from the route path
+ * but only if the locale is not the default locale
+ * and only the first /${locale} will be replaced
+ */
+const { $i18n } = useNuxtApp();
 const { locale } = useI18n();
-const routePath = route.path.replace(`${locale.value}`, '').replace('//', '/');
+const defaultLocale = $i18n.defaultLocale;
+const routePath =
+    locale.value !== defaultLocale
+        ? route.path.replace(/^\/[^\/]+/, '')
+        : route.path;
 
 const { data: seoResult } = await useAsyncData(`seoPath${routePath}`, async () => {
     // For client links if the history state contains seo url information we can omit the api call
