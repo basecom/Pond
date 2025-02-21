@@ -1,4 +1,4 @@
-import type { FormkitFields } from '~/types/formkit';
+import type { BillingAddressForm, ShippingAddressForm } from '~/types/form/AddressForm';
 
 export function useCustomerAddress() {
     const { pushSuccess, pushError } = useNotifications();
@@ -56,36 +56,34 @@ export function useCustomerAddress() {
         }
     };
 
-    const saveAddress = async (newAddressId: string, addressData: FormkitFields) => {
-        if (newAddressId !== '') {
+    const saveAddress = async (newAddressId: string|null, addressData: ShippingAddressForm|BillingAddressForm) => {
+        if (newAddressId) {
             return await updateAddress(addressData, newAddressId);
         }
 
-        if (newAddressId === '') {
-            return await createAddress(addressData);
-        }
+        await createAddress(addressData);
     };
 
-    const updateAddress = async (addressData: FormkitFields, id: string) => {
+    const updateAddress = async (addressData: ShippingAddressForm|BillingAddressForm, id: string) => {
         try {
             const savedAddress = await updateCustomerAddress({
                 ...addressData,
-                id: id,
+                id,
             });
             pushSuccess(t('account.address.editSuccess'));
             return savedAddress;
         } catch (error) {
-            pushSuccess(t('account.address.editError'));
+            pushError(t('account.address.editError'));
         }
     };
 
-    const createAddress = async (addressData: FormkitFields) => {
+    const createAddress = async (addressData: ShippingAddressForm|BillingAddressForm) => {
         try {
             const savedAddress = await createCustomerAddress(addressData);
             pushSuccess(t('account.address.createSuccess'));
             return savedAddress;
         } catch (error) {
-            pushSuccess(t('account.address.createError'));
+            pushError(t('account.address.createError'));
         }
     };
 

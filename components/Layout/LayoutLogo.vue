@@ -13,7 +13,7 @@ withDefaults(
 );
 
 const configStore = useConfigStore();
-const shopName = configStore.get('core.basicInformation.shopName') ?? 'pond';
+const shopName = configStore.get('core.basicInformation.shopName') as string|null ?? 'pond';
 </script>
 
 <template>
@@ -32,7 +32,7 @@ const shopName = configStore.get('core.basicInformation.shopName') ?? 'pond';
             :alt="shopName"
             :title="shopName"
             :class="logoClasses"
-        />
+        >
 
         <img
             v-else
@@ -40,6 +40,6 @@ const shopName = configStore.get('core.basicInformation.shopName') ?? 'pond';
             :alt="shopName"
             :title="shopName"
             :class="logoClasses"
-        />
+        >
     </LocaleLink>
 </template>

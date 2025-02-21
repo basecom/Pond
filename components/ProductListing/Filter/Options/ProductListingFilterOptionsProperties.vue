@@ -1,39 +1,33 @@
 <script setup lang="ts">
-import type { Schemas } from '@shopware/api-client/api-types';
+import type { components, Schemas } from '@shopware/api-client/api-types';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import type { ListingPropertyFilter } from '~/types/listing/Filter';
+import type { ChangePropertyFilter } from '~/types/listing/FilterEvents';
 
 const props = defineProps<{
-    filter: ListingFilter & Schemas['PropertyGroup'];
+    filter: ListingPropertyFilter;
     selectedValues: Schemas['ProductListingResult']['currentFilters'];
 }>();
 
 const emits = defineEmits<{
-    'filter-changed': [
-        event: {
-            code: 'properties';
-            value: ValueOf<Schemas['ProductListingResult']['currentFilters']['properties']>;
-        },
-    ];
+    'filter-changed': [event: ChangePropertyFilter];
 }>();
 
 const { entityArrayToOptions } = useFormkitHelper();
-const selection = ref([]);
-const optionIds = computed(() => props.filter.options.map(option => option.id));
-selection.value = props.selectedValues['properties'].filter(propertyId => optionIds.value.includes(propertyId)) ?? [];
+const selection: Ref<string[]> = ref([]);
+const optionIds = computed(() => props.filter.options?.map((option: components['schemas']['PropertyGroupOption']) => option.id));
+selection.value = props.selectedValues['properties'].filter(propertyId => optionIds.value?.includes(propertyId)) ?? [];
 
 watch(selection, (newSelection, oldSelection) => {
-    const merged = updateSelection(props.selectedValues['properties'], newSelection, oldSelection);
+    const merged = [
+        ...new Set(props.selectedValues['properties'].filter((id: string) => !oldSelection.includes(id)).concat(newSelection)),
+    ];
     emits('filter-changed', { code: 'properties', value: merged });
 });
-
-const updateSelection = (initial, newSelection, oldSelection) => {
-    return [...new Set(initial.filter(id => !oldSelection.includes(id)).concat(newSelection))];
-};
 </script>
 
 <template>
-    <div>
-        <!-- just for debugging end -->
+    <div v-if="filter.options">
         <FormKit
             v-model="selection"
             type="checkbox"

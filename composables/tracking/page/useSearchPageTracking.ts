@@ -1,4 +1,4 @@
-import type { UseAnalyticsReturn } from '../../../types/analytics/analytics';
+import type { UseAnalyticsReturn } from '~/types/analytics/Analytics';
 
 export function useSearchPageTracking(analytics: UseAnalyticsReturn) {
     const { getElements } = useProductSearchListing();

@@ -5,7 +5,7 @@
             :is-in-header="false"
         />
 
-        <div class="flex-grow lg:w-3/4">
+        <div class="grow lg:w-3/4">
             <slot />
         </div>
     </div>

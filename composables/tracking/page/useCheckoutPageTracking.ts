@@ -1,4 +1,4 @@
-import type { UseAnalyticsReturn } from '../../../types/analytics/analytics';
+import type { UseAnalyticsReturn } from '~/types/analytics/Analytics';
 
 export function useCheckoutPageTracking(analytics: UseAnalyticsReturn) {
     const { cart } = useCart();

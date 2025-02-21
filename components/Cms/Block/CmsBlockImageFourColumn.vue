@@ -7,10 +7,10 @@ const props = defineProps<{
 
 const { getSlotContent } = useCmsBlock(props.block);
 
-const leftContent: Schemas['CmsSlot'] = getSlotContent('left');
-const centerLeftContent: Schemas['CmsSlot'] = getSlotContent('center-left');
-const centerRightContent: Schemas['CmsSlot'] = getSlotContent('center-right');
-const rightContent: Schemas['CmsSlot'] = getSlotContent('right');
+const leftContent = getSlotContent('left') as Schemas['CmsSlot'];
+const centerLeftContent = getSlotContent('center-left') as Schemas['CmsSlot'];
+const centerRightContent = getSlotContent('center-right') as Schemas['CmsSlot'];
+const rightContent = getSlotContent('right') as Schemas['CmsSlot'];
 </script>
 
 <template>

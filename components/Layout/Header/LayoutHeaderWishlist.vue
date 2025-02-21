@@ -8,7 +8,7 @@ const { count: wishlistCount } = useWishlist();
         class="relative"
     >
         <FormKitIcon
-            class="block h-6 w-6"
+            class="block size-6"
             icon="heart"
         />
         <UtilityPill

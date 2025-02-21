@@ -11,4 +11,5 @@ export type ListingFilterMapping = {
         a: Partial<Schemas['ProductListingCriteria']>,
         b: Partial<Schemas['ProductListingCriteria']>,
     ) => boolean;
+    removeFilter: (currentFilters: Schemas['ProductListingResult']['currentFilters'], id: string) => void
 };

@@ -16,7 +16,7 @@ const closeModal = () => {
     >
         <template #trigger>
             <FormKitIcon
-                class="block h-6 w-6"
+                class="block size-6"
                 icon="user"
             />
         </template>
@@ -29,7 +29,7 @@ const closeModal = () => {
     <LazySharedPopover v-else>
         <template #trigger>
             <FormKitIcon
-                class="block h-6 w-6"
+                class="block size-6"
                 icon="user"
             />
         </template>

@@ -1,6 +1,6 @@
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { TrackingEcommerceEvent } from '../../types/analytics/ecommerce';
-import type { TrackingLineItem } from '../../types/analytics/line-item';
+import type { TrackingEcommerceEvent } from '~/types/analytics/Ecommerce';
+import type { TrackingLineItem } from '~/types/analytics/LineItem';
 
 export function useEcommerceTrackingHelper() {
     const { getTrackingItem } = useItemTracking();
@@ -93,8 +93,8 @@ export function useEcommerceTrackingHelper() {
         const listItem = list
             ? list
             : _category.value
-              ? { id: _category.value.id, name: _category.value.name }
-              : undefined;
+                ? { id: _category.value.id, name: _category.value.name }
+                : undefined;
         _currentProduct.value = product;
 
         const item = getTrackingItem({

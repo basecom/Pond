@@ -1,29 +1,26 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import { useListingStore } from '~/stores/ListingStore';
+import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
 defineProps<{
-    filter: Schemas['ProductListingResult']['currentFilters'];
+    filter: Schemas['ProductListingResult']['currentFilters']['price'];
 }>();
 
 defineEmits<{
-    'reset-filter': [key: string];
-    'remove-filter': [
-        event: {
-            code: 'price';
-            value: null;
-        },
-    ];
+    'remove-filter': [event: RemoveFilterEvent];
 }>();
 
-const { priceFilterApplied } = useProductListingCriteriaStore('category');
+const listingStore = useListingStore('category');
 </script>
 
 <template>
     <UtilityBadge
-        v-if="priceFilterApplied()"
+        v-if="listingStore.isPriceFilterApplied()"
         :content="`${filter.min} - ${filter.max}`"
         size="sm"
         suffix-icon="x"
+        type="gray"
         class="cursor-pointer"
         @click="$emit('remove-filter', { code: 'price', value: null })"
     />

@@ -6,7 +6,7 @@ const props = defineProps<{
 }>();
 
 const { getSlotContent } = useCmsBlock(props.block);
-const form: Schemas['CmsSlot'] = getSlotContent('content');
+const form = getSlotContent('content') as Schemas['CmsSlot'];
 </script>
 
 <template>

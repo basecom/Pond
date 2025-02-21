@@ -36,6 +36,6 @@ const getLink = computed(() => (props.format ? formatLink(props.to) : props.to))
         v-bind="$attrs"
         :to="getLink"
     >
-        <slot></slot>
+        <slot />
     </NuxtLink>
 </template>

@@ -86,7 +86,7 @@ onMounted(() => {
         :submit-label="$t('cookie.modal.submitLabel')"
         @submit="handleSubmit"
     >
-        <div class="mb-4 border-b border-t py-3">
+        <div class="mb-4 border-y py-3">
             <div
                 v-for="group in cookieGroups"
                 :key="group.id"

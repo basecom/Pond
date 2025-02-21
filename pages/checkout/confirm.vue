@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { OrderForm } from '~/types/checkout/checkout';
+import type { OrderForm } from '~/types/form/CheckoutForm';
 
 const customerStore = useCustomerStore();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
@@ -18,7 +18,7 @@ const placeOrder = async (formData: OrderForm) => {
         const order = await createOrder({
             customerComment: formData.customerComment ?? '',
         });
-        await push('/checkout/finish/' + order.id);
+        await push(`/checkout/finish/${  order.id}`);
         trackPurchase(order);
         await refreshCart();
 
@@ -69,6 +69,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                                 class="flex py-6"
                             >
                                 <CheckoutLineItem
+                                    v-if="item.product"
                                     :line-item="item.cartItem"
                                     :product="item.product"
                                 />
@@ -92,7 +93,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                         <FormKit
                             v-else
                             type="submit"
-                            disabled="disabled"
+                            :disabled="true"
                             :classes="{
                                 outer: 'mt-4',
                             }"
@@ -106,7 +107,6 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
 
         <template v-else>
             <UtilityStaticNotification
-                id="empty-cart"
                 type="info"
                 :message="$t('checkout.cart.emptyCartMessage')"
                 class="mt-4"

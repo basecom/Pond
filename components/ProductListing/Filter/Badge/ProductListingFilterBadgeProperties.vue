@@ -1,22 +1,17 @@
 <script setup lang="ts">
-import type { Schemas } from '@shopware/api-client/api-types';
-import type { ValueOf } from '~/types/valueof';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import { useListingStore } from '~/stores/ListingStore';
+import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
 defineProps<{
     filter: string[];
 }>();
 
 defineEmits<{
-    'remove-filter': [
-        event: {
-            code: 'properties';
-            value: ValueOf<Schemas['PropertyGroupOption']['id']>;
-        },
-    ];
+    'remove-filter': [event: RemoveFilterEvent];
 }>();
 
-const { propertyOptionForId } = useProductListingCriteriaStore('category');
+const listingStore = useListingStore('category');
 </script>
 
 <template>
@@ -25,10 +20,11 @@ const { propertyOptionForId } = useProductListingCriteriaStore('category');
         :key="property"
     >
         <UtilityBadge
-            v-if="propertyOptionForId(property)"
-            :content="getTranslatedProperty(propertyOptionForId(property), 'name')"
+            v-if="listingStore.getPropertyOption(property)"
+            :content="getTranslatedProperty(listingStore.getPropertyOption(property), 'name')"
             size="sm"
             suffix-icon="x"
+            type="gray"
             class="cursor-pointer"
             @click="$emit('remove-filter', { code: 'properties', value: property })"
         />

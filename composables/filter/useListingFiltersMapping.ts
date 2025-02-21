@@ -1,4 +1,4 @@
-import type { ListingFilterMapping } from '../../types/listing/mapping';
+import type { ListingFilterMapping } from '~/types/listing/FilterMapping';
 
 export function useListingFiltersMapping() {
     const filterCodes = ['price', 'properties'];

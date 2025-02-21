@@ -105,33 +105,30 @@ export function useCookieGroupsHelper() {
         },
     ];
 
-    const filterCookieGroups = (cookieGroup: CookieGroup[], config: FilterCookieGroupConfig): CookieGroup[] => {
-        return cookieGroup
-            .map(group => {
-                return {
-                    ...group,
-                    entries: group.entries.filter(entry => {
-                        const isAnalytics = entry.id === 'google-analytics';
-                        if (isAnalytics && !config.isGoogleAnalyticsEnabled) {
-                            return false;
-                        }
+    const filterCookieGroups = (cookieGroup: CookieGroup[], config: FilterCookieGroupConfig): CookieGroup[] =>
+        cookieGroup
+            .map(group => ({
+                ...group,
+                entries: group.entries.filter(entry => {
+                    const isAnalytics = entry.id === 'google-analytics';
+                    if (isAnalytics && !config.isGoogleAnalyticsEnabled) {
+                        return false;
+                    }
 
-                        const isWishlist = entry.id === 'wishlist';
-                        if (isWishlist && !config.isWishlistEnabled) {
-                            return false;
-                        }
+                    const isWishlist = entry.id === 'wishlist';
+                    if (isWishlist && !config.isWishlistEnabled) {
+                        return false;
+                    }
 
-                        const isCaptcha = entry.id === 'captcha';
-                        if (isCaptcha && !config.isCaptchaV2Enabled && !config.isCaptchaV3Enabled) {
-                            return false;
-                        }
+                    const isCaptcha = entry.id === 'captcha';
+                    if (isCaptcha && !config.isCaptchaV2Enabled && !config.isCaptchaV3Enabled) {
+                        return false;
+                    }
 
-                        return true;
-                    }),
-                };
-            })
+                    return true;
+                }),
+            }))
             .filter(group => group.entries.length > 0);
-    };
 
     return {
         defaultCookieGroup,

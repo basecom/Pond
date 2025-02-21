@@ -22,7 +22,7 @@ if (route.path === '/search') {
         @click="searchVisible = !searchVisible"
     >
         <FormKitIcon
-            class="pointer-events-none block h-6 w-6"
+            class="pointer-events-none block size-6"
             icon="search"
         />
     </button>

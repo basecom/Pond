@@ -7,19 +7,18 @@ const { getProductCover } = useMedia();
 const { getLineItemRoute } = useLineItemRoute();
 
 const props = defineProps<{
-    lineItem: Schemas['LineItem'];
+    lineItem: Schemas['OrderLineItem'];
 }>();
 
-const { lineItem } = toRefs(props);
-const { isPromotion } = useCartItem(lineItem);
+const { lineItem: orderLineItem } = toRefs(props);
+const { isPromotion } = useCartItem(orderLineItem);
 
-const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
-
-const lineItemSeoUrl = await getLineItemRoute(lineItem.value);
+const lineItemCover = getProductCover(orderLineItem.value?.cover, 'xs');
+const lineItemSeoUrl = await getLineItemRoute(orderLineItem.value);
 </script>
 
 <template>
-    <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
+    <div class="mr-4 size-24 shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
         <LocaleLink
             v-if="!isPromotion"
             :to="lineItemSeoUrl"
@@ -31,20 +30,20 @@ const lineItemSeoUrl = await getLineItemRoute(lineItem.value);
             <template v-else>
                 <img
                     :src="lineItemCover.url"
-                    :alt="lineItemCover.alt ?? (getTranslatedProperty(lineItem, 'name') || lineItem.label)"
-                    :title="lineItemCover.title ?? (getTranslatedProperty(lineItem, 'name') || lineItem.label)"
-                    class="h-full w-full object-cover object-center"
-                />
+                    :alt="lineItemCover.alt ?? (getTranslatedProperty(lineItem, 'label') || lineItem.label)"
+                    :title="lineItemCover.title ?? (getTranslatedProperty(lineItem, 'label') || lineItem.label)"
+                    class="size-full object-cover object-center"
+                >
             </template>
         </LocaleLink>
 
         <div
             v-else-if="isPromotion"
-            class="flex h-full w-full items-center justify-center"
+            class="flex size-full items-center justify-center"
         >
             <FormKitIcon
                 icon="percent"
-                class="block h-16 w-16 text-gray"
+                class="block size-16 text-gray"
             />
         </div>
     </div>
@@ -79,7 +78,7 @@ const lineItemSeoUrl = await getLineItemRoute(lineItem.value);
             >
                 <span
                     v-for="option in lineItem?.payload?.options"
-                    :key="option.group"
+                    :key="option.id"
                     class="mr-2"
                 >
                     {{ option.group }}: {{ option.option }}
@@ -92,7 +91,7 @@ const lineItemSeoUrl = await getLineItemRoute(lineItem.value);
             class="flex flex-1 items-end justify-between text-sm"
         >
             <SharedQuantityInput
-                :line-item="lineItem"
+                :initial-value="lineItem.quantity"
                 :static="true"
             />
 

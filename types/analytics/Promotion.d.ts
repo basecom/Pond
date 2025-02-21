@@ -1,4 +1,4 @@
-import type { TrackingLineItem } from './line-item';
+import type { TrackingLineItem } from './LineItem';
 
 export type TrackingPromotionEvent = {
     creative_slot: string;

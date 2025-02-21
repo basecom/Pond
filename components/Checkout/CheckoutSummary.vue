@@ -9,15 +9,8 @@ withDefaults(
 );
 const { totalPrice, shippingTotal, cart } = useCart();
 
-const netPrice = computed(() => {
-    const netPrice = cart.value?.price?.netPrice;
-    return netPrice || 0;
-});
-
-const calculatedTaxes = computed(() => {
-    const calculatedTaxes = cart.value?.price?.calculatedTaxes;
-    return calculatedTaxes || [];
-});
+const netPrice = computed(() => cart.value?.price?.netPrice || 0);
+const calculatedTaxes = computed(() => cart.value?.price?.calculatedTaxes || []);
 </script>
 
 <template>

@@ -1,23 +1,25 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { breakpointsTailwind } from '@vueuse/core';
+import type { ListingFilter } from '~/types/listing/Filter';
+import type { FilterTypes } from '~/types/listing/FilterTypes';
+import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
-const props = defineProps<{
-    filters: ListingFilter[];
-    selectedFilters: Schemas['ProductListingResult']['currentFilters'];
-    showResetButton?: boolean;
-}>();
+const props = withDefaults(
+    defineProps<{
+      filters: ListingFilter[];
+      selectedFilters: Schemas['ProductListingResult']['currentFilters']|null;
+      showResetButton?: boolean;
+    }>(),
+    {
+        showResetButton: true,
+    },
+);
 
-const emit = defineEmits<{
+const emits = defineEmits<{
     'filter-changed': [key: Schemas['ProductListingResult']['currentFilters']];
     'reset-filters': [];
-    'reset-filter': [key: string];
-    'remove-filter': [
-        event: {
-            code: 'properties';
-            value: ValueOf<Schemas['PropertyGroupOption']['id'] | null>;
-        },
-    ];
+    'remove-filter': [event: RemoveFilterEvent];
 }>();
 
 const filterPopoverContainer = ref(null);
@@ -27,19 +29,13 @@ const displayFullPopoverContainer = ref(false);
 const { componentsMapping, componentsMappingBadge } = useListingFiltersMapping();
 const breakpoints = useBreakpoints(breakpointsTailwind);
 
-const onFilterChanged = ({
-    code,
-    value,
-}: {
-    code: keyof Schemas['ProductListingResult']['currentFilters'];
-    value: ValueOf<Schemas['ProductListingResult']['currentFilters']>;
-}) => {
+const onFilterChanged = ({ code, value }: { code: FilterTypes; value: string[]; }) => {
     const newFilters = {
         ...props.selectedFilters,
         [code]: value,
-    };
+    } as Schemas['ProductListingResult']['currentFilters'];
 
-    emit('filter-changed', newFilters);
+    emits('filter-changed', newFilters);
 };
 
 const isDesktop = computed(() => breakpoints.greater('md'));
@@ -60,10 +56,10 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
                 'h-full': displayFullPopoverContainer,
             }"
         >
-            <div class="relative z-10 flex flex-row gap-2">
+            <div class="relative z-10 flex flex-col gap-2">
                 <div
                     ref="filterPopoverContainer"
-                    class="flex flex-row flex-wrap gap-4"
+                    class="flex flex-row flex-wrap gap-2"
                 >
                     <template
                         v-for="filter in props.filters"
@@ -91,7 +87,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
 
                         <FormKitIcon
                             icon="minus"
-                            class="h-3 w-3"
+                            class="size-3"
                         />
                     </template>
                     <template v-else>
@@ -101,28 +97,14 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
 
                         <FormKitIcon
                             icon="plus"
-                            class="h-3 w-3"
+                            class="size-3"
                         />
                     </template>
                 </button>
             </div>
         </div>
 
-        <div
-            v-if="props.showResetButton"
-            class="mx-auto w-full"
-        >
-            <FormKit
-                type="button"
-                suffix-icon="xmark"
-                :ignore="true"
-                @click="emit('reset-filters')"
-            >
-                {{ $t('listing.sidebar.filter.reset') }}
-            </FormKit>
-        </div>
-
-        <div class="flex flex-wrap gap-3">
+        <div v-if="selectedFilters" class="flex flex-wrap gap-3">
             <template
                 v-for="(filter, key) in selectedFilters"
                 :key="key"
@@ -130,10 +112,19 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
                 <component
                     :is="componentsMappingBadge[key]"
                     :filter="filter"
-                    @reset-filter="$event => $emit('reset-filter', $event)"
-                    @remove-filter="$event => $emit('remove-filter', $event)"
+                    @remove-filter="(event: RemoveFilterEvent) => $emit('remove-filter', event)"
                 />
             </template>
+
+            <UtilityBadge
+                v-if="props.showResetButton"
+                :content="$t('listing.sidebar.filter.reset')"
+                size="sm"
+                type="danger"
+                suffix-icon="x"
+                class="cursor-pointer"
+                @click="$emit('reset-filters')"
+            />
         </div>
     </div>
 

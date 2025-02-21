@@ -30,7 +30,7 @@ const onDenyAll = () => {
         <template #title>{{ $t('cookie.modal.title') }}</template>
         <template #content>
             <CookieBannerConfiguration
-                :is-accept-all-enabled="isAcceptAllEnabled"
+                :is-accept-all-enabled="isAcceptAllEnabled ?? true"
                 :cookie-groups="cookieGroups"
                 :active-cookies="activatedCookies"
                 @update-cookies="onUpdateCookie"

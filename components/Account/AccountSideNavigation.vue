@@ -1,11 +1,15 @@
 <script setup lang="ts">
-const customerStore = useCustomerStore();
-
-const props = defineProps<{
-    isInHeader: boolean;
-}>();
+const props = withDefaults(
+    defineProps<{
+      isInHeader: boolean;
+    }>(),
+    {
+        isInHeader: false,
+    },
+);
 
 const { t } = useI18n();
+const customerStore = useCustomerStore();
 
 const handleLogout = async () => {
     await customerStore.logout();

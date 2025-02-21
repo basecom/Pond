@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { CmsSlotConfig } from '~/types/cms/CmsSlotConfig';
 
 const props = defineProps<{
     block: Schemas['CmsBlock'];
@@ -7,14 +8,14 @@ const props = defineProps<{
 
 const { getSlotContent } = useCmsBlock(props.block);
 
-const leftImage: Schemas['CmsSlot'] = getSlotContent('left-image');
-const leftText: Schemas['CmsSlot'] = getSlotContent('left-text');
+const leftImage = getSlotContent('left-image') as CmsSlotConfig;
+const leftText = getSlotContent('left-text') as Schemas['CmsSlot'];
 
-const centerImage: Schemas['CmsSlot'] = getSlotContent('center-image');
-const centerText: Schemas['CmsSlot'] = getSlotContent('center-text');
+const centerImage = getSlotContent('center-image') as CmsSlotConfig;
+const centerText = getSlotContent('center-text') as Schemas['CmsSlot'];
 
-const rightImage: Schemas['CmsSlot'] = getSlotContent('right-image');
-const rightText: Schemas['CmsSlot'] = getSlotContent('right-text');
+const rightImage = getSlotContent('right-image') as CmsSlotConfig;
+const rightText = getSlotContent('right-text') as Schemas['CmsSlot'];
 
 const leftImageHeight = leftImage?.config?.minHeight?.value ?? '300px';
 const centerImageHeight = centerImage?.config?.minHeight?.value ?? '300px';

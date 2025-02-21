@@ -30,6 +30,6 @@ defineProps<{
             :src="media.url"
             :alt="media.translated?.alt ?? label"
             :title="media.translated?.title ?? label"
-        />
+        >
     </div>
 </template>

@@ -6,7 +6,7 @@ const props = defineProps<{
 }>();
 
 const { getSlotContent } = useCmsBlock(props.block);
-const productListing: Schemas['CmsSlot'] = getSlotContent('content');
+const productListing = getSlotContent('content') as Schemas['CmsSlot'];
 </script>
 
 <template>

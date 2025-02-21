@@ -11,13 +11,13 @@ const propertyGroups = ref<Schemas['PropertyGroup'][]>();
 
 propertyGroups.value = product.value.properties
     .map((obj: Schemas['PropertyGroupOption']) => obj.group)
-    .filter((obj: Schemas['PropertyGroup'], index: number, arr: Schemas['PropertyGroup'][]) => {
-        return arr.findIndex((item: Schemas['PropertyGroup']) => item.id === obj.id) === index;
-    });
+    .filter(
+        (obj: Schemas['PropertyGroup'], index: number, arr: Schemas['PropertyGroup'][]) =>
+            arr.findIndex((item: Schemas['PropertyGroup']) => item.id === obj.id) === index,
+    );
 
-const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][] => {
-    return product.value.properties.filter((property: Schemas['PropertyGroupOption']) => property.group.id === groupId);
-};
+const getPropertiesOfGroup = (groupId: string): Schemas['PropertyGroupOption'][] =>
+    product.value.properties.filter((property: Schemas['PropertyGroupOption']) => property.group.id === groupId);
 
 const getPropertyNamesOfGroup = (groupId: string) => {
     const properties = getPropertiesOfGroup(groupId);
@@ -33,7 +33,7 @@ const getPropertyNamesOfGroup = (groupId: string) => {
             <!-- v-html is necessary because we need to render html -->
             <!-- eslint-disable vue/no-v-html -->
             <div
-                class="flex-grow"
+                class="grow"
                 v-html="getTranslatedProperty(product, 'description')"
             />
 

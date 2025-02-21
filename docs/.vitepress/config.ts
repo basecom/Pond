@@ -7,13 +7,13 @@ export default defineConfig({
     themeConfig: {
         logo: '/logo.png',
         search: {
-            provider: 'local'
+            provider: 'local',
         },
 
         nav: [
             { text: 'Home', link: '/' },
             { text: 'Getting started', link: '/getting-started' },
-            { text: 'Contribute', link: '/contribute' }
+            { text: 'Contribute', link: '/contribute' },
         ],
 
         sidebar: [
@@ -23,8 +23,8 @@ export default defineConfig({
                     { text: 'Getting started', link: '/getting-started' },
                     { text: 'Installation', link: '/installation' },
                     { text: 'Supported versions', link: '/supported-versions' },
-                    { text: 'Changelog', link: '/changelog' }
-                ]
+                    { text: 'Changelog', link: '/changelog' },
+                ],
             },
             {
                 text: 'Features',
@@ -38,7 +38,7 @@ export default defineConfig({
                     { text: 'Wishlist', link: '/features/wishlist' },
                     { text: 'Maintenance mode', link: '/features/maintenance-mode' },
                     { text: 'CMS', link: '/features/cms' },
-                ]
+                ],
             },
             {
                 text: 'How-Tos',
@@ -49,7 +49,7 @@ export default defineConfig({
                     { text: 'Add custom page', link: '/how-to/add-custom-page' },
                     { text: 'Create custom CMS blocks & elements', link: '/how-to/create-custom-cms' },
                     { text: 'Replace whole CMS', link: '/how-to/replace-whole-cms' },
-                ]
+                ],
             },
             {
                 text: 'Technical',
@@ -59,7 +59,7 @@ export default defineConfig({
                     { text: 'Architecture', link: '/technical/architecture' },
                     { text: 'Composables', link: '/technical/composables' },
                     { text: 'API Routes', link: '/technical/api-routes' },
-                ]
+                ],
             },
             {
                 text: 'Contribute',
@@ -70,24 +70,24 @@ export default defineConfig({
                     { text: 'Code of Conduct', link: '/contribute/code-of-conduct' },
                     { text: 'Code Style', link: '/contribute/code-style' },
                     { text: 'Core Team', link: '/contribute/core-team' },
-                ]
-            }
+                ],
+            },
         ],
 
         socialLinks: [
             { icon: 'github', link: 'https://github.com/basecom/Pond' },
-            { icon: 'npm', link: 'https://www.npmjs.com/package/@basecom-gmbh/pond' }
+            { icon: 'npm', link: 'https://www.npmjs.com/package/@basecom-gmbh/pond' },
         ],
 
         footer: {
             message: 'Released under the MIT License.',
-            copyright: 'Copyright © 2024-present <a href="https://basecom.de">basecom</a>'
+            copyright: 'Copyright © 2024-present <a href="https://basecom.de">basecom</a>',
         },
 
         editLink: {
-            pattern: 'https://github.com/basecom/pond/edit/main/docs/:path'
+            pattern: 'https://github.com/basecom/pond/edit/main/docs/:path',
         },
 
-        lastUpdated: true
-    }
+        lastUpdated: true,
+    },
 });

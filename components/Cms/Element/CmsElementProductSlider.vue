@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { PromotionInfo } from '../../../types/analytics/promotion';
+import type { PromotionInfo } from '~/types/analytics/Promotion';
 
 const props = defineProps<{
     element: CmsElementProductSlider;
 }>();
 
 const config = useCmsElementConfig(props.element);
-const elementData = useCmsElementData(props.element);
+const { getCmsElementData } = useCmsUtils();
+const products = getCmsElementData(props.element, 'products') ?? [];
 const { trackPromotionView, trackSelectPromotion, trackSelectItem } = useAnalytics();
 const { isHomePage } = useHomePage();
 const border = config.getConfigValue('border');
@@ -32,7 +33,7 @@ const breakpoints = {
     },
 };
 
-const slides = computed(() => elementData.getData('products') ?? []);
+const slides = computed(() => products);
 const { showNavigationArrows, shouldAutoSlide } = useComputeSliderConfig({
     slidesPerView,
     slides,
@@ -41,14 +42,12 @@ const { showNavigationArrows, shouldAutoSlide } = useComputeSliderConfig({
     autoSlide,
 });
 
-const getPromotion = (product: Schemas['Product']): PromotionInfo => {
-    return {
-        creative_name: product.cover?.media.fileName ?? '',
-        creative_slot: props.element?.type ?? '',
-        promotion_id: props.element?.blockId ?? '',
-        promotion_name: props.element?.type ?? '',
-    };
-};
+const getPromotion = (product: Schemas['Product']): PromotionInfo => ({
+    creative_name: product.cover?.media.fileName ?? '',
+    creative_slot: props.element?.type ?? '',
+    promotion_id: props.element?.blockId ?? '',
+    promotion_name: props.element?.type ?? '',
+});
 
 const onProductView = (product: Schemas['Product'], index: string | number) => {
     if (isHomePage.value) {
@@ -78,9 +77,7 @@ const onProductSelect = (product: Schemas['Product'], index: string | number) =>
             </h3>
 
             <LayoutSlider
-                :class="{
-                    'cursor-grab': slides.length > 1,
-                }"
+                :slides-counter="slides.length"
                 class="w-full"
                 :auto-slide="shouldAutoSlide"
                 :navigation-arrows="showNavigationArrows"

@@ -6,11 +6,13 @@ const props = defineProps<{
 const { search } = useLandingSearch();
 const { t } = useI18n();
 
-const { data: landingResponse } = await useAsyncData('landing' + props.navigationId, async () => {
-    return await search(props.navigationId, {
-        withCmsAssociations: true,
-    });
-});
+const { data: landingResponse } = await useAsyncData(
+    `landing${props.navigationId}`,
+    async () =>
+        await search(props.navigationId, {
+            withCmsAssociations: true,
+        }),
+);
 
 if (!landingResponse.value) {
     throw createError({ statusCode: 404, message: t('error.404.detail') });

@@ -6,7 +6,7 @@
             <template #trigger>
                 <button class="rounded-full bg-brand-primary p-2">
                     <FormKitIcon
-                        class="block h-4 w-4 cursor-pointer text-white"
+                        class="block size-4 cursor-pointer text-white"
                         icon="cookie"
                     />
                 </button>

@@ -7,21 +7,19 @@ const props = defineProps<{
 
 const dateFormat = 'DD.MM.YYYY';
 
-const earliestDeliveryDate = computed(() => {
-    const earliestDeliveryDate = useDateFormat(props.cart.deliveries[0]?.deliveryDate?.earliest, dateFormat, {
-        locales: (typeof navigator !== 'undefined' && navigator.language) || 'en-US',
-    });
+const earliestDeliveryDate = computed(
+    () =>
+        useDateFormat(props.cart.deliveries?.[0]?.deliveryDate?.earliest, dateFormat, {
+            locales: (typeof navigator !== 'undefined' && navigator.language) || 'en-US',
+        }) || undefined,
+);
 
-    return earliestDeliveryDate || undefined;
-});
-
-const latestDeliveryDate = computed(() => {
-    const latestDeliveryDate = useDateFormat(props.cart.deliveries[0]?.deliveryDate?.latest, dateFormat, {
-        locales: (typeof navigator !== 'undefined' && navigator.language) || 'en-US',
-    });
-
-    return latestDeliveryDate || undefined;
-});
+const latestDeliveryDate = computed(
+    () =>
+        useDateFormat(props.cart.deliveries?.[0]?.deliveryDate?.latest, dateFormat, {
+            locales: (typeof navigator !== 'undefined' && navigator.language) || 'en-US',
+        }) || undefined,
+);
 </script>
 
 <template>

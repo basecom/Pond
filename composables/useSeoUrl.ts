@@ -1,13 +1,11 @@
 export function useSeoUrl() {
-    const getUrlByProductId = async (id: string) => {
-        return {
-            path: await getSeoUrlByProductId(id),
-            state: {
-                routeName: 'frontend.detail.page',
-                foreignKey: id,
-            },
-        };
-    };
+    const getUrlByProductId = async (id: string) => ({
+        path: await getSeoUrlByProductId(id),
+        state: {
+            routeName: 'frontend.detail.page',
+            foreignKey: id,
+        },
+    });
 
     return { getUrlByProductId };
 }
@@ -23,7 +21,7 @@ const getSeoUrlByProductId = async (id: string) => {
                 {
                     type: 'equals',
                     field: 'pathInfo',
-                    value: '/detail/' + id,
+                    value: `/detail/${  id}`,
                 },
             ],
             limit: 1,

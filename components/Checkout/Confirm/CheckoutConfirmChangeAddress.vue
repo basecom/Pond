@@ -1,88 +1,61 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { FormkitFields } from '~/types/formkit';
+import type { AddressTypes } from '~/types/checkout/AddressTypes';
+import type { BillingAddressForm, ShippingAddressForm } from '~/types/form/AddressForm';
 
-const props = defineProps<{
-    addressType: 'billingAddress' | 'shippingAddress';
-    initialAddress: Schemas['CustomerAddress'];
-    customerAddresses: Schemas['CustomerAddress'][];
-    isLoading: Ref<boolean>;
-}>();
+const props = withDefaults(
+    defineProps<{
+      addressType?: AddressTypes;
+      initialAddress: Schemas['CustomerAddress'];
+      customerAddresses: Schemas['CustomerAddress'][];
+      isLoading?: boolean;
+    }>(),
+    {
+        addressType: 'billingAddress',
+        isLoading: false,
+    },
+);
 
 const emit = defineEmits<{
-    (
-        event: 'change',
-        payload: {
-            type: 'billingAddress' | 'shippingAddress';
-            id: string;
-        },
-    ): void;
-    (
-        event: 'submit',
-        payload: {
-            type: 'billingAddress' | 'shippingAddress';
-            id: string;
-            formFields: FormkitFields;
-        },
-    ): void;
+  change: [payload: { type: AddressTypes; id: string; }];
+  submit: [payload: {
+      type: AddressTypes;
+      id: string|null;
+      address: ShippingAddressForm|BillingAddressForm;
+    }];
 }>();
 
-const form = useFormKitContext();
 const formErrorStore = useFormErrorStore();
 const { pushError } = useNotifications();
 const { t } = useI18n();
-const isEditMode = ref(false);
-const isCreateMode = ref(false);
-
+const mode: Ref<'edit-address'|'add-address'|'select-address'> = ref('select-address');
 const selectedAddress: Ref<Schemas['CustomerAddress']> = ref(props.initialAddress);
 
 const changeSelectedAddress = (newAddressId: string) => {
-    const foundAddress = props.customerAddresses.filter(address => address.id === newAddressId);
-    if (foundAddress.length != 1) {
+    const foundAddress = props.customerAddresses.find((address: Schemas['CustomerAddress']) => address.id === newAddressId);
+    if (!foundAddress) {
         pushError(t('global.generalError'));
         return;
     }
-    selectedAddress.value = foundAddress[0];
+    selectedAddress.value = foundAddress;
 };
 
-const changeMode = (mode: string) => {
-    if (mode === 'select') {
-        isEditMode.value = false;
-        isCreateMode.value = false;
-        return;
-    }
-    if (mode === 'edit') {
-        isEditMode.value = true;
-        isCreateMode.value = false;
-        return;
-    }
-    if (mode === 'new') {
-        isEditMode.value = false;
-        isCreateMode.value = true;
-        return;
-    }
-};
+const addressText = (address: Schemas['CustomerAddress']) =>
+    `${address.firstName} ${address.lastName} ${address.company ? address.company : ''} ${address.street} ${
+        address.zipcode
+    } ${address.city} ${address.country?.name}`;
 
-const addressText = (address: Schemas['CustomerAddress']) => {
-    return (
-        address.firstName +
-        ' ' +
-        address.lastName +
-        ' ' +
-        (address.company ? address.company : '') +
-        ' ' +
-        address.street +
-        ' ' +
-        address.zipcode +
-        ' ' +
-        address.city +
-        ' ' +
-        address.country?.name
-    );
+const onSubmitAddress= (fields: ShippingAddressForm|BillingAddressForm) => {
+    emit('submit', {
+        type: props.addressType,
+        id: mode.value === 'edit-address' ? selectedAddress.value.id : null,
+        address: fields,
+    });
 };
 </script>
 
 <template>
+    <!-- selected address -->
     <h2 class="mb-4 text-lg">
         {{ $t('checkout.confirm.address.modal.chosenAddress') }}
     </h2>
@@ -96,9 +69,11 @@ const addressText = (address: Schemas['CustomerAddress']) => {
         <FormKit
             type="submit"
             :classes="{
-                input: isEditMode ? 'bg-brand-primary-dark' : '',
+                input: {
+                    'bg-brand-primary-dark': mode === 'edit-address'
+                },
             }"
-            @click="changeMode('edit')"
+            @click="mode = 'edit-address'"
         >
             {{ $t('checkout.confirm.address.modal.editLabel') }}
         </FormKit>
@@ -106,9 +81,11 @@ const addressText = (address: Schemas['CustomerAddress']) => {
         <FormKit
             type="submit"
             :classes="{
-                input: isCreateMode ? 'bg-brand-primary-dark' : '',
+                input: {
+                    'bg-brand-primary-dark': mode === 'add-address'
+                },
             }"
-            @click="changeMode('new')"
+            @click="mode = 'add-address'"
         >
             {{ $t('checkout.confirm.address.modal.createLabel') }}
         </FormKit>
@@ -116,9 +93,11 @@ const addressText = (address: Schemas['CustomerAddress']) => {
         <FormKit
             type="submit"
             :classes="{
-                input: !isEditMode && !isCreateMode ? 'bg-brand-primary-dark' : '',
+                input: {
+                    'bg-brand-primary-dark': mode === 'select-address'
+                },
             }"
-            @click="changeMode('select')"
+            @click="mode = 'select-address'"
         >
             {{ $t('checkout.confirm.address.modal.selectLabel') }}
         </FormKit>
@@ -126,7 +105,8 @@ const addressText = (address: Schemas['CustomerAddress']) => {
 
     <div class="mb-4 border-b border-gray-light" />
 
-    <template v-if="!isEditMode && !isCreateMode">
+    <!-- select address -->
+    <template v-if="mode === 'select-address'">
         <h2 class="mb-4 text-lg">
             {{ $t('checkout.confirm.address.modal.selectHeading') }}
         </h2>
@@ -166,7 +146,8 @@ const addressText = (address: Schemas['CustomerAddress']) => {
         </FormKit>
     </template>
 
-    <template v-if="isEditMode || isCreateMode">
+    <!-- edit or add address -->
+    <template v-if="mode === 'add-address' || mode === 'edit-address'">
         <FormKit
             type="form"
             name="address"
@@ -177,13 +158,7 @@ const addressText = (address: Schemas['CustomerAddress']) => {
                 validationVisibility: 'dirty',
             }"
             :actions="false"
-            @submit="
-                emit('submit', {
-                    type: addressType,
-                    id: isEditMode ? selectedAddress.id : '',
-                    formFields: form.value.address,
-                })
-            "
+            @submit="onSubmitAddress"
         >
             <ul
                 v-if="formErrorStore.apiErrors.filter(error => error.key === 'register').length"
@@ -198,15 +173,8 @@ const addressText = (address: Schemas['CustomerAddress']) => {
             </ul>
 
             <AddressFormFields
-                v-if="isEditMode"
                 :address-type="addressType"
-                :initial-address="selectedAddress"
-                :error-name-nested="false"
-            />
-
-            <AddressFormFields
-                v-else-if="isCreateMode"
-                :address-type="addressType"
+                :initial-address="mode === 'edit-address' ? selectedAddress : null"
                 :error-name-nested="false"
             />
 

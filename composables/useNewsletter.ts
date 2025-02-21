@@ -14,7 +14,7 @@ export function useNewsletter(): ExtendedUseNewsletterReturn {
         await apiClient.invoke('confirmNewsletter post /newsletter/confirm', {
             body: {
                 em: email,
-                hash: hash,
+                hash,
             },
         });
     }
