@@ -121,7 +121,6 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
                 :content="$t('listing.sidebar.filter.reset')"
                 size="sm"
                 type="danger"
-                :outline="true"
                 suffix-icon="x"
                 class="cursor-pointer"
                 @click="$emit('reset-filters')"

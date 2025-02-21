@@ -21,7 +21,6 @@ const listingStore = useListingStore('category');
         size="sm"
         suffix-icon="x"
         type="gray"
-        :outline="true"
         class="cursor-pointer"
         @click="$emit('remove-filter', { code: 'price', value: null })"
     />
