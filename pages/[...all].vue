@@ -20,7 +20,7 @@ const { locale } = useI18n();
 const defaultLocale = $i18n.defaultLocale;
 const routePath =
     locale.value !== defaultLocale
-        ? route.path.replace(/^\/[^\/]+/, '')
+        ? route.path.replace(/^\/[^/]+/, '')
         : route.path;
 
 const { data: seoResult } = await useAsyncData(`seoPath${routePath}`, async () => {
