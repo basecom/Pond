@@ -140,16 +140,6 @@ onMounted(async () => {
                         <OrderLineItem :line-item="lineItem" />
                     </li>
                 </ul>
-
-                <ul class="divide-y divide-gray-medium">
-                    <li
-                        v-for="lineItem in order.lineItems"
-                        :key="lineItem.id"
-                        class="flex py-6"
-                    >
-                        <OrderLineItem :line-item="lineItem" />
-                    </li>
-                </ul>
             </div>
 
             <OrderSummary
