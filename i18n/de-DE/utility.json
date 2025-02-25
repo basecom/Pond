@@ -1,8 +1,0 @@
-{
-    "utility": {
-        "loadingSpinnerLabel": "Laden...",
-        "toast": {
-            "closeButtonAriaLabel": "Benachrichtigung schließen"
-        }
-    }
-}

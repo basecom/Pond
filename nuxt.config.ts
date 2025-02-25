@@ -1,8 +1,3 @@
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-
-const currentDir = dirname(fileURLToPath(import.meta.url));
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     devtools: { enabled: true },
@@ -12,13 +7,9 @@ export default defineNuxtConfig({
         '@nuxtjs/tailwindcss',
         '@formkit/auto-animate/nuxt',
         '@vueuse/nuxt',
-        'nuxt-swiper',
-        'radix-vue/nuxt',
         '@nuxt/eslint',
         '@nuxt/fonts',
-        '@formkit/nuxt',
         '@nuxtjs/i18n',
-        '@nuxtjs/device',
     ],
 
     experimental: {
@@ -41,32 +32,11 @@ export default defineNuxtConfig({
             pond: {
                 shopwareEndpoint: '',
                 accessToken: '',
-                analytics: {
-                    enabled: false,
-                    type: 'gtag',
-                    id: 'G-XXXX',
-                    trackingUrl: 'https://www.googletagmanager.com/',
-                },
-                breadcrumb: {
-                    enableDynamicLoading: false,
-                },
             },
         },
     },
 
-    routeRules: {
-        '/newsletter-subscribe': { redirect: '/newsletter/confirm' },
-    },
-
     extends: ['@shopware-pwa/composables-next/nuxt-layer'],
-
-    imports: {
-        dirs: [join(currentDir, 'composables/**'), join(currentDir, 'utils')],
-    },
-
-    formkit: {
-        autoImport: true,
-    },
 
     fonts: {
         defaults: {
@@ -76,14 +46,8 @@ export default defineNuxtConfig({
     },
 
     components: {
-        dirs: [join(currentDir, 'components'), join(currentDir, 'components/*'), join(currentDir, 'types/*')],
+        dirs: ['components'],
         global: true,
-    },
-
-    tailwindcss: {
-        config: {
-            content: [join(currentDir, 'formkit.theme.ts')],
-        },
     },
 
     i18n: {
@@ -94,16 +58,16 @@ export default defineNuxtConfig({
         locales: [
             {
                 code: 'de-DE',
-                file: 'i18n/de-DE/de-DE.ts',
+                file: 'de-DE/de-DE.ts',
             },
             {
                 code: 'en-GB',
-                file: 'i18n/en-GB/en-GB.ts',
+                file: 'en-GB/en-GB.ts',
             },
         ],
     },
 
-    compatibilityDate: '2024-10-14',
+    compatibilityDate: '2025-02-24',
 
     app: {
         head: {

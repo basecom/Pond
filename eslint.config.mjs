@@ -9,14 +9,6 @@ export default withNuxt({
     rules: {
         ...tailwindcss.configs.recommended.rules,
         'tailwindcss/no-custom-classname': 'off',
-        '@typescript-eslint/object-curly-spacing': [
-            2,
-            'always',
-            {
-                arraysInObjects: true,
-                objectsInObjects: true,
-            },
-        ],
         '@typescript-eslint/array-type': [
             'error',
             {

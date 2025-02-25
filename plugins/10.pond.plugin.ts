@@ -1,7 +1,7 @@
 import { createShopwareContext } from '#imports';
 import { createAPIClient } from '@shopware/api-client';
 import { isMaintenanceMode } from '@shopware-pwa/helpers-next';
-import type { ShopwareResponse } from '~/types/ShopwareResponse';
+import type { GenericShopwareResponse } from '~/types/framework/GenericShopwareResponse';
 
 export class AccessToken {
     public token?: string;
@@ -33,7 +33,7 @@ export default defineNuxtPlugin(async nuxtApp => {
     });
 
     apiClient.hook('onResponseError', (response: Response) => {
-        const shopwareResponse = response as ShopwareResponse;
+        const shopwareResponse = response as GenericShopwareResponse;
         const maintenance = isMaintenanceMode([{ code: shopwareResponse._data?.errors.code ?? undefined }]);
 
         if (maintenance) {

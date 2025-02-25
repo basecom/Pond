@@ -5,7 +5,7 @@ import Bun from 'bun';
 
 type stringString = string[][]
 
-const proc = Bun.spawn(['bun', 'run', 'vue-tsc', '--noEmit']);
+const proc = Bun.spawn(['bun', 'run', '--silent', 'vue-tsc', '--noEmit']);
 const text = await new Response(proc.stdout).text();
 
 let chunks: stringString = [];
