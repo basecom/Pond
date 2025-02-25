@@ -1,0 +1,25 @@
+name: Conventional Commits
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request-number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  commit-me:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_COLOR: 3
+    steps:
+      - uses: dev-build-deploy/commit-me@v1
+        with:
+          update-labels: false
+          include-commits: false
