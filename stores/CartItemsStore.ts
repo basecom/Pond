@@ -3,7 +3,7 @@ import type { Schemas } from '@shopware/api-client/api-types';
 export const useCartItemsStore = defineStore('cart-items', () => {
     const { apiClient } = useShopwareContext();
     const { cartItems } = useCart();
-    const { data: productSearch, execute } = useLazyAsyncData('checkoutCartItems', async () => {
+    const { data, execute } = useLazyAsyncData('checkoutCartItems', async () => {
         const _search = async (searchCriteria: Schemas['Criteria']): Promise<Schemas['ProductListingResult']> => {
             const { data } = await apiClient.invoke('readProduct post /product', {
                 body: searchCriteria,
@@ -22,7 +22,7 @@ export const useCartItemsStore = defineStore('cart-items', () => {
         }
 
         return await _search({
-            ids: ids,
+            ids,
             limit: ids.length,
             associations: {
                 manufacturer: {},
@@ -54,9 +54,8 @@ export const useCartItemsStore = defineStore('cart-items', () => {
         });
     });
 
-    const products = computed((): Schemas['Product'][] => {
-        return productSearch.value?.elements || [];
-    });
+    const productSearch = data.value as Schemas['ProductListingResult'];
+    const products = computed((): Schemas['Product'][] => productSearch?.elements || []);
 
     const cartItemsWithProduct = computed(() => {
         if (!products.value.length) {
@@ -64,7 +63,7 @@ export const useCartItemsStore = defineStore('cart-items', () => {
         }
 
         return cartItems.value.map(cartItem => {
-            const product = products.value.find(product => product.id === cartItem.referencedId);
+            const product = products.value.find(currentProduct => currentProduct.id === cartItem.referencedId);
 
             return {
                 cartItem,
@@ -73,11 +72,9 @@ export const useCartItemsStore = defineStore('cart-items', () => {
         });
     });
 
-    const cartItemsCount = computed((): number => {
-        return cartItems.value.reduce((acc: number, lineItem: Schemas['LineItem']) => {
-            return acc + lineItem.quantity;
-        }, 0);
-    });
+    const cartItemsCount = computed((): number =>
+        cartItems.value.reduce((acc: number, lineItem: Schemas['LineItem']) => acc + lineItem.quantity, 0),
+    );
 
     watch(cartItems, async (value, oldValue) => {
         const newCartIds = value

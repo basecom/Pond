@@ -1,4 +1,5 @@
 import { type CookieEntry, type CookieGroup, useCookieGroupsHelper } from '../composables/useCookieGroupsHelper';
+import type { CaptchaConfiguration } from '~/types/CaptchaConfiguration';
 
 export const useCookieBannerStore = defineStore('cookie-banner', () => {
     const { defaultCookieGroup, filterCookieGroups } = useCookieGroupsHelper();
@@ -6,9 +7,9 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
     const _activatedCookies = ref<CookieEntry['cookie'][]>([]);
     const { isEnabled } = useAnalyticsConfig();
     const configStore = useConfigStore();
-    const _isWishlistEnabled: boolean | undefined = configStore.get('core.cart.wishlistEnabled');
-    const _isAcceptAllEnabled: boolean | undefined = configStore.get('core.basicInformation.acceptAllCookies');
-    const _captchaConfig = configStore.get('core.basicInformation.activeCaptchasV2');
+    const _isWishlistEnabled = configStore.get('core.cart.wishlistEnabled') as boolean | null;
+    const _isAcceptAllEnabled = configStore.get('core.basicInformation.acceptAllCookies') as boolean | null;
+    const _captchaConfig = configStore.get('core.basicInformation.activeCaptchasV2') as CaptchaConfiguration|null;
     const _isCaptchaV2Enabled: ComputedRef<boolean> = computed(
         () => _captchaConfig?.googleReCaptchaV2?.isActive ?? false,
     );
@@ -39,16 +40,14 @@ export const useCookieBannerStore = defineStore('cookie-banner', () => {
             .flatMap(group => group.entries)
             .filter(entry => entry.value)
             .map(entry => entry.cookie)
-            .filter(cookie => {
-                return cookie && useCookie(cookie).value;
-            });
+            .filter(cookie => cookie && useCookie(cookie).value);
     };
 
     const updateCookies = (active: CookieEntry['cookie'][], inactive: CookieEntry['cookie'][]) => {
         const allCookies = _cookieGroups.value.flatMap(group => group.entries);
 
         active.forEach(cookie => {
-            const entry = allCookies.find(entry => entry.cookie === cookie);
+            const entry = allCookies.find(cookieEntry => cookieEntry.cookie === cookie);
 
             if (!entry || !entry.value) {
                 return;

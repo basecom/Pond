@@ -8,14 +8,16 @@ const { getBreadcrumbs } = useCategoryBreadcrumbs();
 const route = useRoute();
 const { t } = useI18n();
 
-const { data: categoryResponse } = await useAsyncData('navigation' + props.navigationId, async () => {
-    return await search(props.navigationId, {
-        withCmsAssociations: true,
-        query: {
-            ...route.query,
-        },
-    });
-});
+const { data: categoryResponse } = await useAsyncData(
+    `navigation${props.navigationId}`,
+    async () =>
+        await search(props.navigationId, {
+            withCmsAssociations: true,
+            query: {
+                ...route.query,
+            },
+        }),
+);
 
 if (!categoryResponse.value) {
     throw createError({ statusCode: 404, message: t('error.404.detail') });

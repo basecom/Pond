@@ -2,14 +2,16 @@
 import { kebabCase } from 'scule';
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
+import type { StyleValue } from 'vue';
 
-defineProps<{
+const props = defineProps<{
     block: Schemas['CmsBlock'];
 }>();
 
 const { getCmsBlockComponentName, componentExists, getBlockClasses } = useCmsUtils();
 
 const isDevelopment = computed(() => import.meta.dev);
+const componentStyle = computed(() => getCmsLayoutConfiguration(props.block).layoutStyles as StyleValue);
 </script>
 
 <template>
@@ -21,7 +23,7 @@ const isDevelopment = computed(() => import.meta.dev);
             getBlockClasses(block),
             getCmsLayoutConfiguration(block).cssClasses,
         ]"
-        :style="getCmsLayoutConfiguration(block).layoutStyles"
+        :style="componentStyle"
     >
         <component
             :is="getCmsBlockComponentName(block.type)"

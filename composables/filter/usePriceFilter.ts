@@ -1,10 +1,15 @@
 import type { LocationQueryRaw } from '#vue-router';
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { ListingFilterMapping } from '../../types/listing/mapping';
 
-export function usePriceFilter(): ListingFilterMapping {
-    const encodeUrl = (value: Schemas['ProductListingCriteria']): LocationQueryRaw => {
-        if (!value['min-price'] || !value['max-price']) {
+export function usePriceFilter(): {
+    encodeUrl: (value: (Schemas['ProductListingCriteria'] | undefined)) => LocationQueryRaw;
+    decodeUrl: (value: LocationQueryRaw) => Partial<Schemas['ProductListingCriteria']>;
+    createCriteria: (value: Schemas['ProductListingResult']['currentFilters']) => Partial<Schemas['ProductListingCriteria']>;
+    isSameCriteria: (a: Partial<Schemas['ProductListingCriteria']>, b: Partial<Schemas['ProductListingCriteria']>) => boolean;
+    removeFilter: (currentFilters: Schemas['ProductListingResult']['currentFilters'], id: string) => void
+    } {
+    const encodeUrl = (value: Schemas['ProductListingCriteria']|undefined): LocationQueryRaw => {
+        if (!value || !value['min-price'] || !value['max-price']) {
             return {
                 'min-price': undefined,
                 'max-price': undefined,
@@ -39,24 +44,20 @@ export function usePriceFilter(): ListingFilterMapping {
 
     const createCriteria = (
         value: Schemas['ProductListingResult']['currentFilters'],
-    ): Partial<Schemas['ProductListingCriteria']> => {
-        return {
-            'min-price': value.price.min,
-            'max-price': value.price.max,
-        };
-    };
+    ): Partial<Schemas['ProductListingCriteria']> => ({
+        'min-price': value.price.min,
+        'max-price': value.price.max,
+    });
 
     const isSameCriteria = (
         a: Partial<Schemas['ProductListingCriteria']>,
         b: Partial<Schemas['ProductListingCriteria']>,
-    ): boolean => {
-        return a['min-price'] === b['min-price'] && a['max-price'] === b['max-price'];
-    };
+    ): boolean => a['min-price'] === b['min-price'] && a['max-price'] === b['max-price'];
 
-    const removeFilter = (currentFilters: ComputedRef<Schemas['ProductListingResult']['currentFilters']>) => {
-        currentFilters.value['price'] = {
-            max: null,
-            min: null,
+    const removeFilter = (currentFilters: Schemas['ProductListingResult']['currentFilters']) => {
+        currentFilters.price = {
+            max: 0,
+            min: 0,
         };
     };
 

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { Schemas } from '@shopware/api-client/api-types';
-import type { PromotionCodeForm } from '~/types/checkout/checkout';
+import type { PromotionCodeForm } from '~/types/form/CheckoutForm';
+import type { CartErrors } from '~/types/checkout/CartErrors';
 
 const { addPromotionCode, consumeCartErrors } = useCart();
 const { pushError, pushSuccess } = useNotifications();
 const { handleError } = useHandleError();
 const { t } = useI18n();
 
-const cartErrors = ref<Schemas['Cart']['errors']>([]);
+const cartErrors = ref<CartErrors|null>(null);
 
 const addPromotion = async (promotionCodeForm: PromotionCodeForm) => {
     if (!promotionCodeForm.promotionCode) {

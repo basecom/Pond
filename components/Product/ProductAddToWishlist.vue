@@ -43,7 +43,7 @@ const handleWishlistButtonClicked = async () => {
         @click="handleWishlistButtonClicked"
     >
         <FormKitIcon
-            class="block h-6 w-6"
+            class="block size-6"
             :icon="isInWishlist ? 'heart' : 'empty-heart'"
         />
     </div>

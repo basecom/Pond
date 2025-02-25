@@ -17,7 +17,7 @@ export function useStaticBreadcrumbs() {
             },
             {
                 name: t('composable.breadcrumbs.orderName'),
-                path: orderId ? '/checkout/finish/' + orderId : '/checkout/finish',
+                path: orderId ? `/checkout/finish/${orderId}` : '/checkout/finish',
             },
         ];
 

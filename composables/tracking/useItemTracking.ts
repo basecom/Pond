@@ -1,5 +1,5 @@
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { TrackingLineItem } from '../../types/analytics/line-item';
+import type { TrackingLineItem } from '~/types/analytics/LineItem';
 
 export type TrackingLineItemList = {
     id: string;

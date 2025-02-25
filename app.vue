@@ -1,6 +1,6 @@
 <script setup>
 const { locale } = useI18n();
-const url = useRequestURL()
+const url = useRequestURL();
 const route = useRoute();
 
 useHead(() => ({

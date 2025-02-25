@@ -1,23 +1,19 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import { useListingStore } from '~/stores/ListingStore';
+import type { ListingPriceFilter } from '~/types/listing/Filter';
+import type { ChangePriceFilter } from '~/types/listing/FilterEvents';
 
 defineProps<{
-    filter: ListingFilter<{
-        max: string;
-        min: string;
-    }>;
+    filter: ListingPriceFilter;
     selectedValues: Schemas['ProductListingResult']['currentFilters'];
 }>();
 
 defineEmits<{
-    'filter-changed': [
-        event: {
-            code: 'price';
-            value: ValueOf<Schemas['ProductListingResult']['currentFilters']['price']>;
-        },
-    ];
+    'filter-changed': [event: ChangePriceFilter];
 }>();
-const { priceFilterApplied } = useProductListingCriteriaStore('category');
+
+const listingStore = useListingStore('category');
 const popoverOpen = ref(false);
 </script>
 
@@ -31,11 +27,11 @@ const popoverOpen = ref(false);
             <div class="flex items-center gap-2 rounded border border-gray-medium px-4 py-2">
                 {{ $t('listing.sidebar.filter.price.title') }}
                 <UtilityPill
-                    v-if="filter.code === 'price' && priceFilterApplied()"
-                    number="1"
+                    v-if="filter.code === 'price' && listingStore.isPriceFilterApplied()"
+                    :number="1"
                 />
                 <FormKitIcon
-                    class="block h-3 w-3 text-gray transition-all duration-150"
+                    class="block size-3 text-gray transition-all duration-150"
                     :class="{
                         'rotate-180': popoverOpen,
                     }"

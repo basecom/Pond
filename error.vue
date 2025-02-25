@@ -5,17 +5,13 @@ const props = defineProps<{
     error: NuxtError;
 }>();
 
-const pageNotFound = computed(() => {
-    return props.error.statusCode === 404;
-});
+const pageNotFound = computed(() => props.error.statusCode === 404);
 
-const isMaintenanceMode = computed(() => {
-    return props.error.statusCode === 503 && props.error.statusMessage === 'MAINTENANCE_MODE';
-});
+const isMaintenanceMode = computed(
+    () => props.error.statusCode === 503 && props.error.statusMessage === 'MAINTENANCE_MODE',
+);
 
-const genericServerError = computed(() => {
-    return props.error.statusCode >= 500;
-});
+const genericServerError = computed(() => props.error.statusCode >= 500);
 </script>
 
 <template>

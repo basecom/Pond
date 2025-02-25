@@ -15,7 +15,7 @@ const changePage = async (page: number) => {
     await router.push({
         query: {
             ...route.query,
-            page: page,
+            page,
         },
     });
 

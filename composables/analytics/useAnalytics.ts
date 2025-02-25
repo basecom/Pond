@@ -1,4 +1,4 @@
-import type { PondAnalyticsType, UseAnalyticsConfig, UseAnalyticsReturn } from '../../types/analytics/analytics';
+import type { PondAnalyticsType, UseAnalyticsConfig, UseAnalyticsReturn } from '~/types/analytics/Analytics';
 
 export function useAnalytics(config?: UseAnalyticsConfig): UseAnalyticsReturn {
     const analyticsConfig = useAnalyticsConfig();

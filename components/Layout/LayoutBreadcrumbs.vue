@@ -31,14 +31,14 @@ const route = useRoute();
                     <FormKitIcon
                         v-if="rootIcon"
                         :icon="rootIcon"
-                        class="h-2.5 w-2.5"
+                        class="size-2.5"
                     />
                     {{ $t('layout.breadcrumb.homeLinkLabel') }}
                 </LocaleLink>
 
                 <FormKitIcon
                     v-if="breadcrumbs?.length > 0"
-                    class="block h-2.5 w-2.5"
+                    class="block size-2.5"
                     icon="chevron-right"
                 />
             </li>
@@ -65,7 +65,7 @@ const route = useRoute();
 
                 <FormKitIcon
                     v-if="index < breadcrumbs.length - 1"
-                    class="block h-2.5 w-2.5"
+                    class="block size-2.5"
                     icon="chevron-right"
                 />
             </li>

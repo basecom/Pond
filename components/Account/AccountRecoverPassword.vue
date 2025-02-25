@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FormkitFields } from '~/types/formkit';
+import type { RecoverPasswordForm } from '~/types/form/PasswordForm';
 
 const customerStore = useCustomerStore();
 const { query } = useRoute();
@@ -9,17 +9,29 @@ const hashIsValid = ref(true);
 
 onMounted(async () => {
     try {
-        const response = await customerStore.isRecoveryHashValid({ hash: query.hash });
+        const hash = Array.isArray(query.hash) ? query.hash[0] : query.hash;
+        if (!hash) {
+            hashIsValid.value = false;
+            return;
+        }
+
+        const response = await customerStore.isRecoveryHashValid({ hash });
         hashIsValid.value = !response.isExpired;
     } catch (error) {
         hashIsValid.value = false;
     }
 });
 
-const handlePasswordChange = async (fields: FormkitFields) => {
+const handlePasswordChange = async (fields: RecoverPasswordForm) => {
     try {
+        const hash = Array.isArray(query.hash) ? query.hash[0] : query.hash;
+        if (!hash) {
+            pushError(t('account.recoverPassword.recover.errorMessage'));
+            return;
+        }
+
         await customerStore.recoverPassword({
-            hash: query.hash,
+            hash,
             ...fields,
         });
         pushSuccess(t('account.recoverPassword.recover.successMessage'));
