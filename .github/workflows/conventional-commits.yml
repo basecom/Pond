@@ -20,3 +20,4 @@ jobs:
         with:
           update-labels: false
           include-commits: false
+          token: ${{ secrets.GITHUB_TOKEN }}
