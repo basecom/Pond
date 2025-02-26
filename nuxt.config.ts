@@ -11,6 +11,7 @@ export default defineNuxtConfig({
         '@nuxt/fonts',
         '@nuxtjs/i18n',
         '@nuxt/icon',
+        'shadcn-nuxt',
     ],
 
     experimental: {
@@ -80,5 +81,10 @@ export default defineNuxtConfig({
         head: {
             link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
         },
+    },
+
+    shadcn: {
+        prefix: '',
+        componentDir: './components/ui',
     },
 });
