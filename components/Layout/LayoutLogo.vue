@@ -5,9 +5,7 @@ withDefaults(
       withLink?: boolean;
     }>(),
     {
-        logoClasses: {
-          'w-6 h-6': true
-        },
+        logoClasses: undefined,
         withLink: true,
     },
 );

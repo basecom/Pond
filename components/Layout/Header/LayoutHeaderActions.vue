@@ -4,9 +4,8 @@ const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
 </script>
 
 <template>
-  <div class="flex items-center gap-3.5">
+    <div class="flex items-center gap-3.5">
+        <LayoutHeaderWishlist v-if="wishlistEnabled" />
 
-    <LayoutHeaderWishlist v-if="wishlistEnabled" />
-
-  </div>
+    </div>
 </template>

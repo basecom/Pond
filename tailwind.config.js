@@ -31,9 +31,6 @@ export default {
                 xl: '5rem',
                 '2xl': '6rem',
             },
-            screens: {
-                DEFAULT: '1400px',
-            },
         },
     },
     plugins: [],

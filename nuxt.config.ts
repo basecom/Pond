@@ -3,14 +3,14 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
 
     modules: [
-      '@pinia/nuxt',
-      '@nuxtjs/tailwindcss',
-      '@formkit/auto-animate/nuxt',
-      '@vueuse/nuxt',
-      '@nuxt/eslint',
-      '@nuxt/fonts',
-      '@nuxtjs/i18n',
-      '@nuxt/icon',
+        '@pinia/nuxt',
+        '@nuxtjs/tailwindcss',
+        '@formkit/auto-animate/nuxt',
+        '@vueuse/nuxt',
+        '@nuxt/eslint',
+        '@nuxt/fonts',
+        '@nuxtjs/i18n',
+        '@nuxt/icon',
     ],
 
     experimental: {
@@ -47,7 +47,9 @@ export default defineNuxtConfig({
     },
 
     icon: {
-        componentName: 'NuxtIcon',
+        serverBundle: {
+            collections: ['mdi'],
+        },
     },
 
     components: {

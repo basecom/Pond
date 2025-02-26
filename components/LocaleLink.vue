@@ -27,14 +27,13 @@ const props = withDefaults(
 
 const localePath = useLocalePath();
 const { formatLink } = useInternationalization(localePath);
-
-const getLink = computed(() => (props.format ? formatLink(props.to) : props.to));
+const link = computed(() => (props.format ? formatLink(props.to) : props.to));
 </script>
 
 <template>
     <NuxtLink
         v-bind="$attrs"
-        :to="getLink"
+        :to="link"
     >
         <slot />
     </NuxtLink>
