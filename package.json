@@ -17,6 +17,7 @@
     "@formkit/auto-animate": "^0.8.2",
     "@nuxt/eslint": "^1.1.0",
     "@nuxt/fonts": "^0.10.3",
+    "@nuxt/icon": "^1.10.3",
     "@nuxtjs/i18n": "^9.2.1",
     "@nuxtjs/tailwindcss": "^6.13.1",
     "@pinia/nuxt": "^0.10.1",

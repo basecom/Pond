@@ -3,13 +3,14 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
 
     modules: [
-        '@pinia/nuxt',
-        '@nuxtjs/tailwindcss',
-        '@formkit/auto-animate/nuxt',
-        '@vueuse/nuxt',
-        '@nuxt/eslint',
-        '@nuxt/fonts',
-        '@nuxtjs/i18n',
+      '@pinia/nuxt',
+      '@nuxtjs/tailwindcss',
+      '@formkit/auto-animate/nuxt',
+      '@vueuse/nuxt',
+      '@nuxt/eslint',
+      '@nuxt/fonts',
+      '@nuxtjs/i18n',
+      '@nuxt/icon',
     ],
 
     experimental: {
@@ -43,6 +44,10 @@ export default defineNuxtConfig({
             weights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
             styles: ['normal', 'italic'],
         },
+    },
+
+    icon: {
+        componentName: 'NuxtIcon',
     },
 
     components: {
