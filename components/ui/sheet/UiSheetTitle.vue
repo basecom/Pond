@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { cn } from '@/lib/utils';
-import { DialogDescription, type DialogDescriptionProps } from 'reka-ui';
+import { DialogTitle, type DialogTitleProps } from 'reka-ui';
 import { computed, type HTMLAttributes } from 'vue';
 
-const props = defineProps<DialogDescriptionProps & { class?: HTMLAttributes['class'] }>();
+const props = defineProps<DialogTitleProps & { class?: HTMLAttributes['class'] }>();
 
 const delegatedProps = computed(() => {
     const { class: _, ...delegated } = props;
@@ -13,10 +13,10 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-    <DialogDescription
-        :class="cn('text-sm text-zinc-500 dark:text-zinc-400', props.class)"
+    <DialogTitle
+        :class="cn('text-lg font-semibold text-gray-950', props.class)"
         v-bind="delegatedProps"
     >
         <slot />
-    </DialogDescription>
+    </DialogTitle>
 </template>

@@ -10,17 +10,9 @@ export default {
             brand: {
                 primary: '#0099FF',
             },
-            gray: '#A2A2A2', 
             white: '#FFFFFF', // Here for compatibility with shopware cms
             black: '#000000', // Here for compatibility with shopware cms
-            status: {
-                info: '#0099CC',
-                success: '#693',
-                warning: '#fc0',
-                danger: '#c00',
-            },
-            // we need to readd the zinc colors in order to display components correctly
-            zinc: {
+            gray: {
                 50: '#fafafa',
                 100: '#f4f4f5',
                 200: '#e4e4e7',
@@ -32,6 +24,18 @@ export default {
                 800: '#27272a',
                 900: '#18181b',
                 950: '#09090b',
+            },
+            red: {
+                500: '#fb2c36',
+            },
+            yellow: {
+                500: '#f0b100',
+            },
+            green: {
+                500: '#00c950',
+            },
+            blue: {
+                500: '#00a6f4',
             },
         },
         extend: {

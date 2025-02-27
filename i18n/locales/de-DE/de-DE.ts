@@ -1,5 +1,5 @@
-//import global from './global.json';
+import account from './account.json';
 
 export default {
-    //...global,
+    ...account,
 };
