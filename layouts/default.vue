@@ -27,9 +27,6 @@ getWishlistProducts();
     <LayoutHeader />
 
     <main>
-        <!--        <LayoutBreadcrumbs />-->
         <NuxtPage />
     </main>
-
-<!--    <LayoutFooter />-->
 </template>

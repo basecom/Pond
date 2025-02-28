@@ -1,5 +1,14 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
+export { default as UiSheet } from './UiSheet.vue';
+export { default as UiSheetClose } from './UiSheetClose.vue';
+export { default as UiSheetContent } from './UiSheetContent.vue';
+export { default as UiSheetDescription } from './UiSheetDescription.vue';
+export { default as UiSheetFooter } from './UiSheetFooter.vue';
+export { default as UiSheetHeader } from './UiSheetHeader.vue';
+export { default as UiSheetTitle } from './UiSheetTitle.vue';
+export { default as UiSheetTrigger } from './UiSheetTrigger.vue';
+
 export const sheetVariants = cva(
     'fixed z-50 gap-4 bg-white p-6 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out',
     {

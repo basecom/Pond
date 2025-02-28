@@ -11,7 +11,7 @@ import {
     useForwardPropsEmits,
 } from 'reka-ui';
 import { computed, type HTMLAttributes } from 'vue';
-import { type SheetVariants, sheetVariants } from '~/types/ui/Sheet';
+import { type SheetVariants, sheetVariants } from '.';
 
 interface SheetContentProps extends DialogContentProps {
   class?: HTMLAttributes['class']

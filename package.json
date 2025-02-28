@@ -9,6 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint . --fix && bun run scripts/typecheck.ts",
+    "cleanup": "bunx nuxi cleanup",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
@@ -22,8 +23,7 @@
     "@nuxtjs/i18n": "^9.2.1",
     "@nuxtjs/tailwindcss": "^6.13.1",
     "@pinia/nuxt": "^0.10.1",
-    "@shopware-pwa/composables-next": "^1.6.1",
-    "@shopware-pwa/types": "^1.0.6",
+    "@shopware/nuxt-module": "^1.3.1",
     "@vimeo/player": "^2.25.1",
     "@vueuse/core": "^12.7.0",
     "@vueuse/nuxt": "^12.7.0",

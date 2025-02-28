@@ -20,7 +20,7 @@ for(const line of text.split('\n')) {
     chunks[chunkIndex]?.push(line);
 }
 
-chunks = chunks.filter(chunk => !chunk[0]?.includes('shopware-pwa'));
+chunks = chunks.filter(chunk => !chunk[0]?.includes('@shopware'));
 chunks.forEach(chunk => {
     chunk.forEach((line, index) => {
         if(index === 0) {

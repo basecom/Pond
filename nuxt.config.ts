@@ -12,6 +12,7 @@ export default defineNuxtConfig({
         '@nuxtjs/i18n',
         '@nuxt/icon',
         'shadcn-nuxt',
+        '@shopware/nuxt-module',
     ],
 
     experimental: {
@@ -28,17 +29,6 @@ export default defineNuxtConfig({
     future: {
         compatibilityVersion: 4,
     },
-
-    runtimeConfig: {
-        public: {
-            pond: {
-                shopwareEndpoint: '',
-                accessToken: '',
-            },
-        },
-    },
-
-    extends: ['@shopware-pwa/composables-next/nuxt-layer'],
 
     fonts: {
         defaults: {
@@ -83,8 +73,15 @@ export default defineNuxtConfig({
         },
     },
 
+    shopware: {
+        endpoint: 'http://localhost/store-api',
+        accessToken: 'SWSCZHNVCVDZCK5SCDNRBJJ3UW',
+    },
+
+    extends: ['@shopware/composables/nuxt-layer'],
+
     shadcn: {
-        prefix: 'Ui',
+        prefix: '',
         componentDir: './components/ui',
     },
 });

@@ -5,6 +5,10 @@
     "personalProfile": "Personal Profile",
     "addresses": "Addresses",
     "paymentMethods": "Payment Methods",
-    "orders": "Orders"
+    "orders": "Orders",
+    "auth": {
+      "login": "Sign in",
+      "register": "Sign up"
+    }
   }
 }
