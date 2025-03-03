@@ -17,11 +17,9 @@ const { product } = useProduct(props.product);
 const { addToCart, quantity } = useAddToCart(product);
 const { trackAddToCart } = useAnalytics();
 const { t } = useI18n();
-const { resolveApiErrors } = useApiErrorsResolver();
 const { pushError, pushSuccess } = useNotifications();
 
 quantity.value = product.value.minPurchase;
-const apiErrors = ref<ResolvedApiError[]>([]);
 
 const handleAddToCart = async () => {
     try {

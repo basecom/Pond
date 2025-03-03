@@ -31,6 +31,6 @@ defineProps<{
             :src="media.url"
             :alt="getTranslatedProperty(media, 'alt') ?? label"
             :title="getTranslatedProperty(media, 'title') ?? label"
-        />
+        >
     </div>
 </template>
