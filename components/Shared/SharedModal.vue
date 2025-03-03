@@ -37,7 +37,7 @@ watch(controller.value.isOpen, () => {
         @update:open="onUpdatedOpen"
     >
         <DialogTrigger>
-            <slot name="trigger"></slot>
+            <slot name="trigger" />
         </DialogTrigger>
         <DialogPortal>
             <Transition
@@ -70,13 +70,13 @@ watch(controller.value.isOpen, () => {
                         v-if="showHeader"
                         class="border-b border-gray-light px-6 pb-4 pt-6 font-bold"
                     >
-                        <slot name="title"></slot>
+                        <slot name="title" />
                     </DialogTitle>
                     <div class="px-6 py-4">
                         <DialogDescription>
-                            <slot name="description"></slot>
+                            <slot name="description" />
                         </DialogDescription>
-                        <slot name="content"></slot>
+                        <slot name="content" />
                     </div>
                     <div
                         v-if="withActionsButton"
@@ -96,7 +96,7 @@ watch(controller.value.isOpen, () => {
                     </div>
                     <DialogClose
                         v-if="withCloseButton"
-                        class="absolute right-5 top-5 h-5 w-5 items-center justify-center text-gray hover:text-black focus:text-black"
+                        class="absolute right-5 top-5 size-5 items-center justify-center text-gray hover:text-black focus:text-black"
                         :aria-label="$t('shared.modal.closeButtonAriaLabel')"
                     >
                         <FormKitIcon

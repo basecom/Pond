@@ -7,10 +7,10 @@ const props = defineProps<{
 
 const { getSlotContent } = useCmsBlock(props.block);
 
-const leftContent: Schemas['CmsSlot'] = getSlotContent('left');
-const rightContent: Schemas['CmsSlot'] = getSlotContent('right');
+const leftContent = getSlotContent('left') as Schemas['CmsSlot'];
+const rightContent = getSlotContent('right') as Schemas['CmsSlot'];
 
-const product = inject('productData');
+const product = inject('productData') as Ref<Schemas['Product']>;
 
 // change the canonical tag if the option is enabled to use the same canonical for all variants
 if (product.value.canonicalProductId && product.value.canonicalProductId !== product.value.id) {

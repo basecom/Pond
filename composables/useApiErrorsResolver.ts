@@ -1,5 +1,5 @@
 import type { ApiError } from '@shopware/api-client';
-import type { ResolvedApiError, UseApiErrorsResolver } from '~/types/errors';
+import type { ResolvedApiError, UseApiErrorsResolver } from '~/types/Errors';
 
 export function useApiErrorsResolver(): UseApiErrorsResolver {
     const { t } = useI18n();
@@ -7,14 +7,11 @@ export function useApiErrorsResolver(): UseApiErrorsResolver {
     /**
      * This function resolves the api errors into a structure where its clearly visible which field (key) is affected by which error (code)
      */
-    const resolveApiErrors = (errors: ApiError[], context: string | null): ResolvedApiError[] => {
-        return errors.map(({ detail, code, source }) => {
-            return {
-                key: source?.pointer ? formatErrorSourcePointer(source.pointer) : context,
-                code: code ?? detail ?? t('composable.apiErrorsResolver.noDetails'),
-            };
-        });
-    };
+    const resolveApiErrors = (errors: ApiError[], context: string | null): ResolvedApiError[] =>
+        errors.map(({ detail, code, source }) => ({
+            key: source?.pointer ? formatErrorSourcePointer(source.pointer) : context,
+            code: code ?? detail ?? t('composable.apiErrorsResolver.noDetails'),
+        }));
 
     /**
      * The api response might contain the key in form of `/firstName` or `/billingAddress/city`
@@ -34,10 +31,9 @@ export function useApiErrorsResolver(): UseApiErrorsResolver {
         } else if (doubleSlashPattern.test(input)) {
             // `/billingAddress/city` -> `billingAddress[city]`
             return input.replace(doubleSlashPattern, '$1[$2]');
-        } else {
-            // unchanged
-            return input;
         }
+        // unchanged
+        return input;
     };
 
     return {

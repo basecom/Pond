@@ -7,7 +7,7 @@ const props = defineProps<{
 
 const { getSlotContent } = useCmsBlock(props.block);
 
-const image: Schemas['CmsSlot'] = getSlotContent('image');
+const image = getSlotContent('image') as Schemas['CmsSlot'];
 </script>
 
 <template>

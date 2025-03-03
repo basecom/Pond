@@ -1,7 +1,9 @@
 <script setup lang="ts">
-const { params } = useRoute();
+import type { RouteIdParams } from '~/types/RouteParams';
+
+const route = useRoute();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
-const orderId = params.id as string;
+const orderId = (route.params as RouteIdParams).id;
 const { order, loadOrderDetails, shippingAddress, billingAddress, shippingMethod, paymentMethod, status, total } =
     useOrderDetails(orderId);
 const { getFormattedPrice } = usePrice();
@@ -19,7 +21,7 @@ const formattedOrderDate = computed(() => {
     return undefined;
 });
 
-useBreadcrumbs(checkoutBreadcrumbs({ index: 2, orderId: orderId }));
+useBreadcrumbs(checkoutBreadcrumbs({ index: 2, orderId }));
 useAnalytics({ trackPageView: true, pageType: 'finish' });
 
 onMounted(async () => {
@@ -35,7 +37,7 @@ onMounted(async () => {
 
                 <p class="mb-4">
                     {{ $t('checkout.finish.confirmationMessage') }}
-                    <br />
+                    <br>
                     {{ $t('checkout.finish.emailMessage') }}
                 </p>
             </div>

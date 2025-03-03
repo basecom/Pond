@@ -32,6 +32,6 @@ withDefaults(
         :type="type"
         :collapsible="collapsible"
     >
-        <slot></slot>
+        <slot />
     </AccordionRoot>
 </template>

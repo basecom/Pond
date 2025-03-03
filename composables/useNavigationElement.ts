@@ -1,7 +1,8 @@
 import { getTranslatedProperty, getCategoryUrl, getProductUrl } from '@shopware-pwa/helpers-next';
 import { useCategorySearch, useProductSearch, useLandingSearch } from '#imports';
+import type { Schemas } from '@shopware/api-client/api-types';
 
-export function useNavigationElement(navigationElement) {
+export function useNavigationElement(navigationElement: Schemas['Category']) {
     const { search: searchCategory } = useCategorySearch();
     const { search: searchProduct } = useProductSearch();
     const { search: searchLanding } = useLandingSearch();
@@ -35,9 +36,10 @@ export function useNavigationElement(navigationElement) {
             return;
         }
         if (isCategoryLink) {
-            const { data: categoryResponse } = await useAsyncData(internalLink, async () => {
-                return await searchCategory(internalLink);
-            });
+            const { data: categoryResponse } = await useAsyncData(
+                internalLink,
+                async () => await searchCategory(internalLink),
+            );
 
             if (!categoryResponse || !categoryResponse.value) {
                 return;
@@ -45,9 +47,10 @@ export function useNavigationElement(navigationElement) {
 
             path.value = getCategoryUrl(categoryResponse.value);
         } else if (isProductLink) {
-            const { data: productResponse } = await useAsyncData(internalLink, async () => {
-                return await searchProduct(internalLink);
-            });
+            const { data: productResponse } = await useAsyncData(
+                internalLink,
+                async () => await searchProduct(internalLink),
+            );
 
             if (!productResponse || !productResponse.value?.product) {
                 return;
@@ -55,9 +58,9 @@ export function useNavigationElement(navigationElement) {
 
             path.value = getProductUrl(productResponse.value.product);
         } else if (isLandingPageLink) {
-            const { data: landingPageResponse } = await useAsyncData(internalLink, async () => {
-                return searchLanding(internalLink);
-            });
+            const { data: landingPageResponse } = await useAsyncData(internalLink, async () =>
+                searchLanding(internalLink),
+            );
 
             if (!landingPageResponse || !landingPageResponse.value) {
                 return;

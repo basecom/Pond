@@ -6,28 +6,20 @@ const props = defineProps<{
     product: Schemas['Product'];
 }>();
 
+const { handleError } = useHandleError();
+const { entityArrayToOptions } = useFormkitHelper();
 const { handleChange, getOptionGroups, getSelectedOptions, findVariantForSelectedOptions, findBestMatchingVariant } =
     useProductConfigurator();
 const isLoading = ref(false);
 
 const isSelectedOption = (optionId: string) => Object.values(getSelectedOptions.value).includes(optionId);
-
 const selectedOption = (group: Schemas['PropertyGroup']) => group?.options?.find(option => isSelectedOption(option.id));
 
-const getSelectedOptionClasses = (id: string) => {
-    if (props.product.optionIds?.includes(id)) {
-        return 'text-white hover:text-white hover:bg-brand-primary-dark border-brand-primary bg-brand-primary';
-    }
 
-    return '';
-};
-
-const handleChangeVariant = async (switchedGroup, switchedName) => {
-    isLoading.value = true;
-
+const handleChangeVariant = async (groupName: string, optionId: string) => {
     // Prepare object with selected options after user input
     const selectedOptions = getSelectedOptions.value;
-    selectedOptions[switchedName] = switchedGroup;
+    selectedOptions[groupName] = optionId;
 
     // Try to find an exactly matching variant
     const exactVariantFound = await findVariantForSelectedOptions(selectedOptions);
@@ -36,30 +28,38 @@ const handleChangeVariant = async (switchedGroup, switchedName) => {
     if (exactVariantFound) {
         // If an exactly matching variant was found, redirect to it
         selectedOptionsVariantPath = getProductRoute(exactVariantFound);
-    } else {
-        // If no exactly matching variant was found, try to find the best matching variant based on the option the user switched
-        const switchedOptions = {};
-        switchedOptions[switchedName] = switchedGroup;
 
-        const matchingVariantFound = await findBestMatchingVariant(
-            props.product.parentId ?? props.product.id,
-            switchedOptions,
-        );
-        selectedOptionsVariantPath = getProductRoute(matchingVariantFound);
+        try {
+            await navigateTo(selectedOptionsVariantPath.path);
+        } catch (error) {
+            handleError('[Pond][ProductVariantSelection]: could not redirect', true);
+        }
+        return;
     }
+
+    // If no exactly matching variant was found, try to find the best matching variant based on the option the user switched
+    const matchingVariantFound = await findBestMatchingVariant(props.product.parentId ?? props.product.id, [optionId], groupName);
+    if (!matchingVariantFound) {
+        return;
+    }
+
+    selectedOptionsVariantPath = getProductRoute(matchingVariantFound);
 
     if (selectedOptionsVariantPath) {
         try {
             await navigateTo(selectedOptionsVariantPath.path);
         } catch (error) {
-            console.error('could not redirect');
+            handleError('[Pond][ProductVariantSelection]: could not redirect', true);
         }
     }
-
-    isLoading.value = false;
 };
 
-const { entityArrayToOptions } = useFormkitHelper();
+const onVariantChange = async (groupName: string, optionId: string) => {
+    isLoading.value = true;
+    await handleChange(groupName, optionId, () => {});
+    await handleChangeVariant(groupName, optionId);
+    isLoading.value = false;
+};
 </script>
 
 <template>
@@ -90,13 +90,7 @@ const { entityArrayToOptions } = useFormkitHelper();
                         },
                     }"
                     :options="entityArrayToOptions<Schemas['PropertyGroupOption']>(group.options, 'name', true) ?? []"
-                    @change="
-                        handleChange(
-                            group.name,
-                            $event.target.value,
-                            handleChangeVariant($event.target.value, group.name),
-                        )
-                    "
+                    @change="onVariantChange(group.translated.name, ($event.target as HTMLSelectElement)?.value)"
                 />
             </template>
 
@@ -124,7 +118,7 @@ const { entityArrayToOptions } = useFormkitHelper();
                         }"
                         :style="`background-color: ${option.colorHexCode}`"
                         :name="`option-${option.id}`"
-                        @click="handleChange(group.name, option.id, handleChangeVariant(option.id, group.name))"
+                        @click="onVariantChange(group.translated.name, option.id)"
                     />
 
                     <FormKit
@@ -146,14 +140,14 @@ const { entityArrayToOptions } = useFormkitHelper();
                         }"
                         :style="`background-color: ${option.colorHexCode}`"
                         :name="`option-${option.id}`"
-                        @click="handleChange(group.name, option.id, handleChangeVariant(option.id, group.name))"
+                        @click="onVariantChange(group.translated.name, option.id)"
                     >
                         <img
                             :src="option.media.url"
                             :alt="getTranslatedProperty(option.media, 'alt') || option.media.fileName"
                             :title="getTranslatedProperty(option.media, 'title') || option.media.fileName"
                             class="rounded-full"
-                        />
+                        >
                     </FormKit>
 
                     <FormKit
@@ -162,11 +156,13 @@ const { entityArrayToOptions } = useFormkitHelper();
                         type="button"
                         :label="getTranslatedProperty(option, 'name')"
                         :classes="{
-                            input: getSelectedOptionClasses(option.id),
+                            input: {
+                                'text-white hover:text-white hover:bg-brand-primary-dark border-brand-primary bg-brand-primary': product.optionIds?.includes(option.id) ?? false
+                            },
                             outer: 'col-span-2',
                         }"
                         :name="`option-${option.id}`"
-                        @click="handleChange(group.name, option.id, handleChangeVariant(option.id, group.name))"
+                        @click="onVariantChange(group.translated.name, option.id)"
                     />
                 </template>
             </template>

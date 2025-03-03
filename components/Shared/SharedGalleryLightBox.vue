@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CmsElementImageGallerySlider } from '../../types/cms/element/cmsElementImageGallery';
+import type { CmsElementImageGallerySlider } from '~/types/cms/CmsElementImageGallery';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 withDefaults(
@@ -29,7 +29,7 @@ withDefaults(
     >
         <template #content>
             <LayoutSlider
-                classes="w-auto"
+                :classes="{ 'w-auto': true }"
                 :navigation-dots="false"
                 :navigation-arrows="true"
                 :thumbs-swiper="thumbsSwiper"
@@ -47,9 +47,9 @@ withDefaults(
                             :src="slide.media.url"
                             :alt="getTranslatedProperty(slide.media, 'alt') || $t('cms.element.imageAlt')"
                             :title="getTranslatedProperty(slide.media, 'title') || $t('cms.element.imageAlt')"
-                            class="h-full w-full object-center"
+                            class="size-full object-center"
                             :class="imageClasses"
-                        />
+                        >
                     </div>
                 </LayoutSliderSlide>
             </LayoutSlider>

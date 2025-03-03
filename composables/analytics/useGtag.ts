@@ -1,7 +1,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { UseAnalyticsReturn } from '../../types/analytics/analytics';
-import type { PromotionInfo } from '../../types/analytics/promotion';
+import type { UseAnalyticsReturn } from '~/types/analytics/Analytics';
 import type { TrackingLineItemList } from '../tracking/useItemTracking';
+import type { PromotionInfo } from '~/types/analytics/Promotion';
 
 export function useGtags(): UseAnalyticsReturn {
     const _cookieEnabledName = 'google-analytics-enabled';
@@ -30,8 +30,8 @@ export function useGtags(): UseAnalyticsReturn {
         }
     }
 
-    const _getSessionId = async (tagId: string): Promise<string | undefined> => {
-        return new Promise(resolve => {
+    const _getSessionId = async (tagId: string): Promise<string | undefined> =>
+        new Promise(resolve => {
             const timeout = setTimeout(() => {
                 resolve(undefined);
             }, 500);
@@ -43,7 +43,6 @@ export function useGtags(): UseAnalyticsReturn {
                 });
             }
         });
-    };
 
     const _loadSessionId = async () => {
         if (import.meta.server) {

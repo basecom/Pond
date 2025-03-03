@@ -26,6 +26,7 @@ defineProps<{
         </template>
 
         <CheckoutSummaryValues
+            v-if="order.shippingTotal"
             :label="$t('order.summary.shippingCostLabel')"
             :value="order.shippingTotal"
         />

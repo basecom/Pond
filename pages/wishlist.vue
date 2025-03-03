@@ -3,6 +3,7 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import { useRoute, useRouter } from 'vue-router';
 
 const { t } = useI18n();
+const { handleError } = useHandleError();
 useBreadcrumbs([
     {
         name: t('wishlist.titleHeader'),
@@ -25,7 +26,7 @@ const page = ref(route.query.page ? Number(route.query.page) : defaultPage);
 const limit = ref(route.query.limit ? Number(route.query.limit) : defaultLimit);
 
 const { pushSuccess, pushError } = useNotifications();
-const { items, clearWishlist, getWishlistProducts, currentPage, totalPagesCount, canSyncWishlist } = useWishlist();
+const { items: wishlistItems, clearWishlist, getWishlistProducts, currentPage, totalPagesCount, canSyncWishlist } = useWishlist();
 const { apiClient } = useShopwareContext();
 
 const clearWishlistHandler = async () => {
@@ -59,7 +60,7 @@ const loadProductsByItemIds = async (itemIds: string[]) => {
 
         if (data?.elements) products.value = data.elements;
     } catch (error) {
-        console.error('[wishlist][loadProductsByItemIds]', error);
+        handleError(error);
     }
 
     isLoading.value = false;
@@ -68,13 +69,13 @@ const loadProductsByItemIds = async (itemIds: string[]) => {
 const changePage = async (page: number) => {
     await router.push({
         query: {
-            page: page,
+            page,
             limit: limit.value,
         },
     });
 
     await getWishlistProducts({
-        page: page,
+        page,
         limit: limit.value,
     });
 };
@@ -85,8 +86,8 @@ const onSelectProduct = async (product: Schemas['Product']) => {
 
 // Watch for changes in wishlist items
 watch(
-    items,
-    (items: Array<string>, oldItems: Array<string>) => {
+    wishlistItems,
+    (items, oldItems) => {
         // Remove item from the displayed products if it was removed from the wishlist
         if (items.length !== oldItems?.length) {
             products.value = products.value.filter(({ id }) => items.includes(id));

@@ -1,27 +1,27 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const props = defineProps<{
-    product: Schemas['Product'];
-    icon?: boolean;
-    label?: boolean;
-}>();
+const props = withDefaults(
+    defineProps<{
+      product: Schemas['Product'];
+      icon?: boolean;
+      label?: boolean;
+    }>(),
+    {
+        icon: true,
+        label: true,
+    },
+);
 
 const { product } = useProduct(props.product);
 const { addToCart, quantity } = useAddToCart(product);
 const { trackAddToCart } = useAnalytics();
-quantity.value = product.value.minPurchase;
-const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
+const { resolveApiErrors } = useApiErrorsResolver();
+const { pushError, pushSuccess } = useNotifications();
 
-const handleEnter = async $event => {
-    if ($event.target !== null) {
-        // remove focus from input to trigger quantity update
-        $event.target.blur();
-    }
-
-    await handleAddToCart();
-};
+quantity.value = product.value.minPurchase;
+const apiErrors = ref<ResolvedApiError[]>([]);
 
 const handleAddToCart = async () => {
     try {
@@ -52,8 +52,10 @@ const handleAddToCart = async () => {
         >
             <SharedQuantityInput
                 v-model="quantity"
-                :product="product"
-                @on-enter="handleEnter($event)"
+                :min-purchase="product.minPurchase"
+                :max-purchase="product.maxPurchase"
+                :steps="product.purchaseSteps"
+                @on-enter="handleAddToCart"
             />
 
             <FormKit
@@ -72,7 +74,7 @@ const handleAddToCart = async () => {
         >
             <FormKitIcon
                 icon="info"
-                class="block h-3.5 w-3.5"
+                class="block size-3.5"
             />
             <span>{{ $t('product.addToCart.notAvailable') }}</span>
         </div>

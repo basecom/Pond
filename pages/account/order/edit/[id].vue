@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { RouteIdParams } from '~/types/RouteParams';
 
 await useAuthentication().rerouteIfLoggedOut();
 
 const configStore = useConfigStore();
 const showCustomerComment = configStore.get('core.cart.showCustomerComment');
-
-const { params } = useRoute();
-const orderId = params.id as string;
+const route = useRoute();
+const orderId = (route.params as RouteIdParams).id;
 const { order, loadOrderDetails, shippingMethod, paymentMethod, changePaymentMethod, shippingAddress, billingAddress } =
     useOrderDetails(orderId);
 const { pushError, pushSuccess } = useNotifications();
@@ -26,7 +26,7 @@ const updateOrder = async () => {
         const response: Schemas['SuccessResponse'] = await changePaymentMethod(newPaymentMethod.value);
 
         if (response.success) {
-            navigateTo('/checkout/finish/' + orderId);
+            navigateTo(`/checkout/finish/${orderId}`);
 
             pushSuccess(t('account.order.edit.successMessage'));
         } else {
@@ -80,14 +80,19 @@ onMounted(async () => {
                     <div class="rounded-md p-4 shadow">
                         <div class="font-bold">{{ $t('checkout.lineItemsHeading') }}</div>
 
-                        <ul class="divide-y divide-gray-medium">
-                            <li
-                                v-for="lineItem in order.lineItems"
+                        <ul class="divide-y divide-gray-medium pb-2">
+                            <div
+                                v-for="(lineItem, index) in order.lineItems"
                                 :key="lineItem.id"
-                                class="flex py-6"
                             >
-                                <OrderLineItem :line-item="lineItem" />
-                            </li>
+                                <div class="mt-4 flex w-full">
+                                    <OrderLineItem :line-item="lineItem" />
+                                </div>
+                                <hr
+                                    v-if="index !== order.lineItems.length - 1"
+                                    class="w-full"
+                                >
+                            </div>
                         </ul>
 
                         <OrderSummary
@@ -112,7 +117,6 @@ onMounted(async () => {
 
         <UtilityStaticNotification
             v-else
-            id="no-order-found"
             type="info"
             :message="$t('account.order.edit.noOrderFound')"
             class="mt-4"
