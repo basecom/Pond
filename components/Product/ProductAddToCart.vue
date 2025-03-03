@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ApiClientError } from '@shopware/api-client';
-import type { ResolvedApiError } from '~/types/errors';
 import type { Schemas } from '@shopware/api-client/api-types';
 
 const props = defineProps<{
@@ -13,9 +11,7 @@ const { product } = useProduct(props.product);
 const { addToCart, quantity } = useAddToCart(product);
 const { trackAddToCart } = useAnalytics();
 quantity.value = product.value.minPurchase;
-const { resolveApiErrors } = useApiErrorsResolver();
 const { pushError, pushSuccess } = useNotifications();
-const apiErrors = ref<ResolvedApiError[]>([]);
 const { t } = useI18n();
 
 const handleEnter = async $event => {

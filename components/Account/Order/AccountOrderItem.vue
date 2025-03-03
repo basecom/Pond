@@ -145,7 +145,10 @@ onMounted(async () => {
                 </ul>
             </div>
 
-            <div v-if="order.customerComment && showCustomerComment" :class="'py-4'">
+            <div
+                v-if="order.customerComment && showCustomerComment"
+                :class="'py-4'"
+            >
                 <OrderComment :customer-comment="order.customerComment" />
             </div>
 
