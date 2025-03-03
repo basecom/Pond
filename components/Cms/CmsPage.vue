@@ -3,7 +3,7 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import { getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
 import type { StyleValue } from 'vue';
 
-const props = defineProps<{
+defineProps<{
     cmsPage: Schemas['CmsPage'];
 }>();
 

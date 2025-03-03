@@ -8,7 +8,7 @@ const props = withDefaults(
     },
 );
 
-defineEmits(['load-icon'])
+const emit = defineEmits(['load-icon']);
 
 const sizeMap: Record<string, number> = {
     xs: 8,

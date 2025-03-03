@@ -37,10 +37,7 @@ const autoplayConfig = computed(() =>
         : false,
 );
 
-const speedConfig = computed(() => (autoSlide ? speed : '300'));
-const speedConfig = computed(() => {
-    return autoSlide ? speed : 300;
-});
+const speedConfig = computed(() => autoSlide ? speed : 300);
 const slidesRef = ref([]);
 const trackedSlides: Ref<string[]> = ref([]);
 
@@ -107,19 +104,19 @@ if (isHomePage.value) {
 
             <template #fallback>
                 <img
-                    v-cms-element-lazy-load="{ id: slides[0].media.id, type: 'image' }"
-                    :src="slides[0].mediaUrl"
+                    v-cms-element-lazy-load="{ id: slides?.at(0)?.media?.id, type: 'image' }"
+                    :src="slides?.at(0)?.media?.url"
                     :alt="$t('cms.element.imageAlt')"
-                    class="h-full w-full object-center"
+                    class="size-full object-center"
                     :class="'object-' + displayMode"
-                />
+                >
             </template>
         </ClientOnly>
     </div>
 
     <template v-else>
         <div class="w-full bg-gray-light">
-            <SharedImagePlaceholder :size="'lg'" />
+            <SharedImagePlaceholder size="lg" />
         </div>
     </template>
 </template>

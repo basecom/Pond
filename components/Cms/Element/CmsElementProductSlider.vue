@@ -32,6 +32,12 @@ const breakpoints = {
         slidesPerView: 4,
     },
 };
+const breakpointsClasses: Record<number, string> = {
+    0: '',
+    1: 'hidden sm:block',
+    2: 'hidden md:block',
+    3: 'hidden lg:block',
+};
 
 const slides = computed(() => products);
 const { showNavigationArrows, shouldAutoSlide } = useComputeSliderConfig({
@@ -41,6 +47,9 @@ const { showNavigationArrows, shouldAutoSlide } = useComputeSliderConfig({
     showNavigation: navigation,
     autoSlide,
 });
+
+const isSliderLoaded = ref(false);
+const placeholderClasses = computed(() => isSliderLoaded.value ? 'hidden' : '');
 
 const getPromotion = (product: Schemas['Product']): PromotionInfo => ({
     creative_name: product.cover?.media.fileName ?? '',
@@ -64,18 +73,18 @@ const onProductSelect = (product: Schemas['Product'], index: string | number) =>
 </script>
 
 <template>
-    <ClientOnly>
-        <div
-            v-if="slides?.length"
-            :class="border ? 'border border-gray px-4 py-2' : null"
+    <div
+        v-if="slides?.length"
+        :class="border ? 'border border-gray px-4 py-2' : null"
+    >
+        <h3
+            v-if="title"
+            class="font-bold"
         >
-            <h3
-                v-if="title"
-                class="font-bold"
-            >
-                {{ title }}
-            </h3>
+            {{ title }}
+        </h3>
 
+        <ClientOnly>
             <LayoutSlider
                 :slides-counter="slides.length"
                 class="w-full"
@@ -85,6 +94,7 @@ const onProductSelect = (product: Schemas['Product'], index: string | number) =>
                 :slides-per-view="slidesPerView"
                 :space-between="spaceBetween"
                 :breakpoints="breakpoints"
+                @slides-change="isSliderLoaded = true"
             >
                 <LayoutSliderSlide
                     v-for="(slide, index) in slides"
@@ -100,6 +110,17 @@ const onProductSelect = (product: Schemas['Product'], index: string | number) =>
                     />
                 </LayoutSliderSlide>
             </LayoutSlider>
+        </ClientOnly>
+        <div class="flex overflow-hidden" :class="placeholderClasses">
+            <template v-for="(slide, index) in slides" :key="slide.id">
+                <div class="pr-6" :class="breakpointsClasses[index] ?? 'hidden'">
+                    <ProductCard
+                        :product="slide"
+                        :layout="boxLayout"
+                        :display-mode="displayMode"
+                    />
+                </div>
+            </template>
         </div>
-    </ClientOnly>
+    </div>
 </template>

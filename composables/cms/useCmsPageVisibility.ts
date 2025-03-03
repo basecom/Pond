@@ -1,6 +1,17 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { CmsElementConfig, CmsPageConfig } from '../../types/cms/cmsVisibility';
 
+/**
+ * On server:
+ * It adds the cms page to the page config.
+ * It adds the data attributes that will be used on client to get the SSR html.
+ *
+ * On client:
+ * It takes the SSR html and watches the elements to be loaded.
+ * Once an element is loaded it will display the next loaded elements.
+ *
+ * @param pageConfig
+ */
 export function useCmsPageVisibility(pageConfig: Ref<CmsPageConfig | null>) {
     const runtimeConfig = useRuntimeConfig();
     const { setCmsPage } = useCmsVisibilityConfig(pageConfig);
@@ -42,9 +53,9 @@ export function useCmsPageVisibility(pageConfig: Ref<CmsPageConfig | null>) {
         }
 
         const updateElementsVisibility = () => {
-            const firstNotLoaded = config.elements.findIndex(element => !element.loaded);
+            const firstNotLoaded = config.elements.findIndex((element: CmsElementConfig) => !element.loaded);
 
-            config.elements.forEach((element, index) => {
+            config.elements.forEach((element: CmsElementConfig, index) => {
                 if (element.visible) {
                     return;
                 }

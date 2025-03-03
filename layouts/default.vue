@@ -50,7 +50,7 @@ useHead({
     <LayoutHeader v-show="!loading" />
     <UtilityToastNotifications />
 
-    <main v-show="!loading">
+    <main v-show="!loading" class="min-h-[calc(100Vh-140px)]">
         <LayoutBreadcrumbs />
         <NuxtPage class="mt-4 lg:mt-0" />
     </main>

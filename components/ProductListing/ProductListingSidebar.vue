@@ -3,7 +3,7 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilter } from '~/types/listing/Filter';
 import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
-const props = withDefaults(
+withDefaults(
     defineProps<{
       filters: ListingFilter[];
       selectedFilters: Schemas['ProductListingResult']['currentFilters']|null;

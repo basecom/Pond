@@ -6,83 +6,77 @@ import type {
 } from '../../types/cms/cmsVisibility';
 
 export function useCmsVisibilityConfig(pageConfig: Ref<CmsPageConfig | null>) {
-    const visibleElements: ComputedRef<string[]> = computed(() => {
-        return pageConfig.value?.elements
-            .filter((element) => element.visible)
-            .map((element) => element.id) ?? [];
-    });
+    const visibleElements: ComputedRef<string[]> = computed(() => pageConfig.value?.elements
+        .filter((element) => element.visible)
+        .map((element) => element.id) ?? []);
 
     const setCmsPage = (cmsPage: Schemas['CmsPage']) => {
         pageConfig.value = {
             id: cmsPage.id,
-            elements: []
+            elements: [],
         };
     };
 
     const setCmsElement = (cmsElement: Schemas['CmsSlot']) => {
-        const cmsPage = pageConfig.value;
-
-        if (!cmsPage) {
+        if (!pageConfig.value) {
             return;
         }
 
-        const firstLazyLoadResource = cmsPage.elements.findIndex((element) => !!element.lazyLoad.length);
+        const firstLazyLoadResource = pageConfig.value.elements.findIndex((element: CmsElementConfig) => !!element.lazyLoad.length);
 
         pageConfig.value = {
-            ...cmsPage,
+            ...pageConfig.value,
             elements: [
-                ...cmsPage.elements,
+                ...pageConfig.value.elements,
                 {
-                    id: cmsElement.id,
+                    id: cmsElement.id!,
                     visible: firstLazyLoadResource === -1,
                     loaded: false,
                     lazyLoad: [],
-                }
-            ]
+                },
+            ],
         };
     };
 
     const setCmsElementLazyLoad = (cmsElementId: string, lazyLoadConfig: CmsElementLazyLoadConfig) => {
-        const cmsPage = pageConfig.value;
-
-        if (!cmsPage) {
+        if (!pageConfig.value) {
             return;
         }
 
-        const elementIndex = cmsPage.elements.findIndex((element) => element.id === cmsElementId);
+        const elementIndex = pageConfig.value.elements.findIndex((element) => element.id === cmsElementId);
 
         if (elementIndex === -1) {
             return;
         }
 
-        const element = cmsPage.elements[elementIndex] as CmsElementConfig;
-        const elementsBefore = cmsPage.elements.slice(0, elementIndex);
-        const elementsAfter = cmsPage.elements.slice(elementIndex + 1).map((element): CmsElementConfig => ({...element, visible: false }));
+        const element = pageConfig.value.elements[elementIndex] as CmsElementConfig;
+        const elementsBefore = pageConfig.value.elements.slice(0, elementIndex);
+        const elementsAfter = pageConfig.value.elements.slice(elementIndex + 1).map((element: CmsElementConfig): CmsElementConfig => ({ ...element, visible: false }));
         const newElements = [
             ...elementsBefore,
             {
                 ...element,
                 lazyLoad: [
                     ...element.lazyLoad,
-                    lazyLoadConfig
-                ]
+                    lazyLoadConfig,
+                ],
             },
-            ...elementsAfter
+            ...elementsAfter,
         ];
 
         pageConfig.value = {
-            ...cmsPage,
+            ...pageConfig.value,
             elements: newElements,
         };
     };
 
-    const getCmsElementById = (id: string): CmsElementConfig | undefined => pageConfig.value?.elements.find((element) => element.id === id);
+    const getCmsElementById = (id: string): CmsElementConfig | undefined => pageConfig.value?.elements.find((element: CmsElementConfig) => element.id === id);
     const getLazyLoadConfigById = (cmsElementId: string, lazyLoadId: string): CmsElementLazyLoadConfig | undefined =>
         pageConfig.value
             ?.elements
-            .find((element) => element.id === cmsElementId)
+            .find((element: CmsElementConfig) => element.id === cmsElementId)
             ?.lazyLoad
-            .find((lazyLoad) => lazyLoad.id === lazyLoadId);
+            .find((lazyLoad: CmsElementLazyLoadConfig) => lazyLoad.id === lazyLoadId);
 
     return {
         pageConfig,

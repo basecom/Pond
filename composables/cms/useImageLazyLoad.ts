@@ -1,21 +1,19 @@
 import type { UseLazyLoad } from '../../types/cms/cmsVisibility';
 
 export function useImageLazyLoad(): UseLazyLoad<HTMLImageElement> {
-    const isElementLoaded = (element: HTMLImageElement) => {
-        return element.complete && element.naturalWidth !== 0;
-    };
+    const isElementLoaded = (element: HTMLImageElement) => element.complete;
 
-    const watchElementLoaded = (element: HTMLImageElement, cb: () => void) => {
+    const watchElementLoaded = (element: HTMLImageElement, callback: () => void) => {
         if (isElementLoaded(element)) {
-            cb();
+            callback();
             return;
         }
 
         const onImageLoad = () => {
-            cb();
+            callback();
             element.removeEventListener('load', onImageLoad);
             element.removeEventListener('error', onImageLoad);
-        }
+        };
 
         element.addEventListener('load', onImageLoad);
         element.addEventListener('error', onImageLoad);
