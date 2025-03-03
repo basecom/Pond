@@ -12,7 +12,7 @@ const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
     >
         <FormKitIcon
             icon="cart-shopping"
-            class="block h-6 w-6"
+            class="block size-6"
         />
         <UtilityPill
             :number="cartItemsCount"
@@ -34,6 +34,7 @@ const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
                         class="flex py-6"
                     >
                         <CheckoutLineItem
+                            v-if="item.cartItem"
                             :line-item="item.cartItem"
                             :product="item.product"
                         />
@@ -43,7 +44,6 @@ const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
             </div>
             <template v-else>
                 <UtilityStaticNotification
-                    id="empty-cart"
                     type="info"
                     :message="$t('checkout.cart.emptyCartMessage')"
                     class="mt-4"

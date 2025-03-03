@@ -1,12 +1,15 @@
+import type { PluginConfiguration } from '~/types/PluginConfiguration';
+
 export const useConfigStore = defineStore('config', () => {
     const { fetchConfig } = usePluginConfig();
-    const _configValues = ref([]);
+    const { handleError } = useHandleError();
+    const _configValues: Ref<PluginConfiguration | null> = ref(null);
     const loading = ref(false);
 
     const loadConfig = async () => {
         loading.value = true;
         const { data } = await fetchConfig();
-        _configValues.value = data.value;
+        _configValues.value = data.value as PluginConfiguration | null;
         loading.value = false;
     };
 
@@ -14,16 +17,12 @@ export const useConfigStore = defineStore('config', () => {
 
     const get = (key: string) => {
         if (!_configValues.value) {
-            if (import.meta.dev) {
-                console.warn('[Pond]: config values not loaded');
-            }
+            handleError('[Pond]: config values not loaded', false);
             return undefined;
         }
 
         if (!(key in _configValues.value)) {
-            if (import.meta.dev) {
-                console.warn(`[Pond]: The configuration for '${key}' was not found`);
-            }
+            handleError(`[Pond]: The configuration for '${key}' was not found`, false);
             return undefined;
         }
 

@@ -1,26 +1,29 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { ListingFilter } from '~/types/listing/Filter';
+import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
-const props = defineProps<{
-    filters: ListingFilter[];
-    selectedFilters: Schemas['ProductListingResult']['currentFilters'];
-    showResetButton?: boolean;
-    sortingOptions: Schemas['ProductListingResult']['availableSortings'];
-    sorting: Schemas['ProductListingResult']['sorting'];
-    containerClass?: string;
-}>();
+const props = withDefaults(
+    defineProps<{
+      filters: ListingFilter[];
+      selectedFilters: Schemas['ProductListingResult']['currentFilters']|null;
+      showResetButton?: boolean;
+      sortingOptions: Schemas['ProductListingResult']['availableSortings'];
+      selectedSorting: Schemas['ProductListingResult']['sorting'];
+      containerClass?: string;
+    }>(),
+    {
+        showResetButton: true,
+        containerClass: '',
+    },
+);
+
 
 const emit = defineEmits<{
-    'sorting-changed': [key: Schemas['ProductListingResult']['sorting']];
+    'sorting-changed': [sortingOption: Schemas['ProductListingResult']['sorting']];
     'filter-changed': [key: Schemas['ProductListingResult']['currentFilters']];
     'reset-filters': [];
-    'reset-filter': [key: string];
-    'remove-filter': [
-        event: {
-            code: 'properties';
-            value: ValueOf<Schemas['PropertyGroupOption']['id'] | null>;
-        },
-    ];
+    'remove-filter': [event:RemoveFilterEvent];
 }>();
 </script>
 
@@ -28,20 +31,31 @@ const emit = defineEmits<{
     <div class="m-0 mx-auto grid gap-4" :class="containerClass">
         <div class="flex justify-end border-b border-gray-light pb-6 pt-2">
             <ProductListingSorting
-                :options="props.sortingOptions"
-                :selected-option="props.sorting"
-                @sorting-changed="emit('sorting-changed', $event)"
+                :options="sortingOptions"
+                :selected-option="selectedSorting"
+                @sorting-changed="(sortingOption: Schemas['ProductListingResult']['sorting']) => emit('sorting-changed', sortingOption)"
             />
         </div>
 
         <ProductListingFilters
-            :filters="props.filters"
-            :selected-filters="props.selectedFilters"
-            :show-reset-button="props.showResetButton"
-            @filter-changed="$event => $emit('filter-changed', $event)"
+            :filters="filters"
+            :selected-filters="selectedFilters"
+            :show-reset-button="showResetButton"
+            @filter-changed="
+                (filters: Schemas['ProductListingResult']['currentFilters']) => $emit('filter-changed', filters)
+            "
             @reset-filters="$emit('reset-filters')"
-            @reset-filter="$event => $emit('reset-filter', $event)"
-            @remove-filter="$event => $emit('remove-filter', $event)"
+            @remove-filter="(event: RemoveFilterEvent) => $emit('remove-filter', event)"
         />
+
+        <div class="flex justify-end">
+            <ProductListingSorting
+                :options="sortingOptions"
+                :selected-option="selectedSorting"
+                @sorting-changed="
+                    (sorting: Schemas['ProductListingResult']['sorting']) => emit('sorting-changed', sorting)
+                "
+            />
+        </div>
     </div>
 </template>

@@ -1,6 +1,6 @@
 <script setup>
 const { locale } = useI18n();
-const runtimeConfig = useRuntimeConfig();
+const url = useRequestURL();
 const route = useRoute();
 
 useHead(() => ({
@@ -10,7 +10,7 @@ useHead(() => ({
     link: [
         {
             rel: 'canonical',
-            href: runtimeConfig.public.pond.shopwareEndpoint + route.path,
+            href: url.origin + route.path,
         },
     ],
 }));

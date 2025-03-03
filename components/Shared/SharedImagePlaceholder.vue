@@ -25,7 +25,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="flex aspect-square h-full w-full items-center">
+    <div class="flex aspect-square size-full items-center">
         <FormKitIcon
             icon="image"
             class="mx-auto block text-gray-dark"

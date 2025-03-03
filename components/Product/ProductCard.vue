@@ -21,12 +21,12 @@ const emit = defineEmits(['select-product', 'view-product', 'image-loaded']);
 const { getProductCover } = useMedia();
 
 const productCard = ref(null);
-const cover = getProductCover(props.product.cover);
+const cover = getProductCover(props.product.cover?.media);
 const configStore = useConfigStore();
 const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
 
-const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => {
-    if (isIntersecting) {
+const { stop } = useIntersectionObserver(productCard, ([entry]: IntersectionObserverEntry[]) => {
+    if (entry?.isIntersecting) {
         emit('view-product');
         stop();
     }
@@ -62,11 +62,11 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
                             :src="cover.url"
                             :alt="cover.alt ?? getTranslatedProperty(props.product, 'name')"
                             :title="cover.title ?? getTranslatedProperty(props.product, 'name')"
-                            class="aspect-square h-full w-full object-center group-hover:opacity-75"
+                            class="aspect-square size-full object-center group-hover:opacity-75"
                             :class="displayMode === 'standard' ? 'object-scale-down' : 'object-' + displayMode"
                             @load="$emit('image-loaded')"
                             @error="$emit('image-loaded')"
-                        />
+                        >
                     </template>
                 </div>
 
@@ -91,7 +91,7 @@ const { stop } = useIntersectionObserver(productCard, ([{ isIntersecting }]) => 
             </div>
         </LocaleLink>
 
-        <template v-if="product.childCount > 0">
+        <template v-if="product.childCount && product.childCount > 0">
             <ProductGoToDetail :product="product" />
         </template>
 

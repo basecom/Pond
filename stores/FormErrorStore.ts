@@ -1,18 +1,21 @@
-import type { ResolvedApiError } from '~/types/errors';
-import { ApiClientError } from '@shopware/api-client';
+import type { ResolvedApiError } from '~/types/Errors';
+import { ApiClientError, type ApiError } from '@shopware/api-client';
 
 export const useFormErrorStore = defineStore('formErrors', () => {
     const { resolveApiErrors } = useApiErrorsResolver();
-    const apiErrors = ref<ResolvedApiError[]>([]);
+    const apiErrors: Ref<ResolvedApiError[]> = ref([]);
 
-    const formErrors = errors => {
+    const formErrors = (errors: ApiError[]) => {
         apiErrors.value = resolveApiErrors(errors);
         return apiErrors;
     };
 
-    const handleError = (error, fallback: ResolvedApiError = { key: 'general', code: 'GENERAL_ERROR' }) => {
+    const handleError = (
+        error: ApiClientError<never>,
+        fallback: ResolvedApiError = { key: 'general', code: 'GENERAL_ERROR' },
+    ) => {
         if (error instanceof ApiClientError) {
-            formErrors(error.details.errors);
+            formErrors(error.details);
             return;
         }
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ApiClientError } from '@shopware/api-client';
+import type { RegisterForm } from '~/types/form/AuthenticationForm';
 
 const props = withDefaults(
     defineProps<{
@@ -24,21 +25,22 @@ const { trackRegister } = useAnalytics();
 const { t } = useI18n();
 
 const isLoading = ref(false);
+const orderAsGuest = ref(false);
 
-const handleRegisterSubmit = async (fields: FormkitFields) => {
+const handleRegisterSubmit = async (fields: RegisterForm) => {
     isLoading.value = true;
 
     const userData = fields.alternativeShippingAddress.showAlternativeShippingAddress
         ? {
-              ...fields,
-              shippingAddress: {
-                  ...fields.alternativeShippingAddress,
-                  ...fields.alternativeShippingAddress.shippingAddress,
-              },
-          }
+            ...fields,
+            shippingAddress: {
+                ...fields.alternativeShippingAddress,
+                ...fields.alternativeShippingAddress?.shippingAddress,
+            },
+        }
         : {
-              ...fields,
-          };
+            ...fields,
+        };
 
     try {
         await customerStore.register({
@@ -66,14 +68,8 @@ const handleRegisterSubmit = async (fields: FormkitFields) => {
             return;
         }
 
-        formErrorStore.apiErrors.value.push({ key: 'register', code: 'REGISTER_GENERAL_ERROR' });
+        formErrorStore.apiErrors.push({ key: 'register', code: 'REGISTER_GENERAL_ERROR' });
     }
-};
-
-const passwordRequired = ref(true);
-
-const handleGuestChange = (event: MouseEvent) => {
-    passwordRequired.value = !event.target.checked;
 };
 </script>
 
@@ -128,7 +124,7 @@ const handleGuestChange = (event: MouseEvent) => {
 
             <div class="col-span-2 border-b border-gray-light" />
 
-            <template v-if="value.showAlternativeShippingAddress === true">
+            <template v-if="value?.showAlternativeShippingAddress === true">
                 <div class="col-span-2">
                     <span>{{ $t('account.register.shippingAddressHeading') }}</span>
                 </div>
@@ -143,17 +139,16 @@ const handleGuestChange = (event: MouseEvent) => {
 
         <FormKit
             v-if="allowGuest"
+            v-model="orderAsGuest"
             type="checkbox"
             :label="$t('account.register.guest.toggle')"
             name="guest"
-            :value="false"
             decorator-icon="check"
             :classes="{
                 outer: {
                     'col-span-2': true,
                 },
             }"
-            @click="handleGuestChange"
         />
 
         <FormKit
@@ -166,7 +161,7 @@ const handleGuestChange = (event: MouseEvent) => {
         />
 
         <FormKit
-            v-if="passwordRequired"
+            v-if="!orderAsGuest"
             type="password"
             :label="$t('account.register.password.label')"
             name="password"

@@ -9,23 +9,25 @@ const props = defineProps<{
 const { search } = useProductSearch();
 const { getBreadcrumbs } = useCategoryBreadcrumbs();
 
-const { data: productResponse } = await useAsyncData('pdp' + props.navigationId, async () => {
-    return await search(props.navigationId, {
-        withCmsAssociations: true,
-        criteria: {
-            associations: {
-                options: {},
-                properties: {
-                    associations: {
-                        group: {},
+const { data: productResponse } = await useAsyncData(
+    `pdp${props.navigationId}`,
+    async () =>
+        await search(props.navigationId, {
+            withCmsAssociations: true,
+            criteria: {
+                associations: {
+                    options: {},
+                    properties: {
+                        associations: {
+                            group: {},
+                        },
                     },
+                    manufacturer: {},
+                    seoUrls: {},
                 },
-                manufacturer: {},
-                seoUrls: {},
             },
-        },
-    });
-});
+        }),
+);
 
 if (!productResponse.value) {
     throw createError({ statusCode: 404, message: t('error.404.detail') });
@@ -40,7 +42,7 @@ const breadcrumbs = await getBreadcrumbs(productResponse.value.product.seoCatego
 // add product as last breadcrumb entry on pdp
 breadcrumbs.push({
     name: product.value.translated.name,
-    path: getProductRoute(product.value),
+    path: getProductRoute(product.value)?.path,
 });
 
 useBreadcrumbs(breadcrumbs);

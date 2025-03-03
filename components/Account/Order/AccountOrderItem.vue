@@ -31,8 +31,8 @@ const isPaymentNeeded = computed(() => {
 
     const lastTransaction: Schemas['OrderTransaction'] = transactions[transactions.length - 1];
     const stateNamesForPaymentNeeded = ['failed', 'reminded', 'unconfirmed', 'cancelled'];
-    const transactionStateName = lastTransaction.stateMachineState.technicalName;
-    const isTransactionStateInNeedOfPayment = stateNamesForPaymentNeeded.includes(transactionStateName);
+    const transactionStateName = lastTransaction.stateMachineState?.technicalName;
+    const isTransactionStateInNeedOfPayment = stateNamesForPaymentNeeded.includes(transactionStateName ?? '');
     const isOrderNotCanceled = order.value.stateMachineState.technicalName !== 'cancelled';
 
     return isTransactionStateInNeedOfPayment && isOrderNotCanceled;
@@ -81,7 +81,7 @@ onMounted(async () => {
 
                     <LocaleLink
                         v-if="isPaymentNeeded"
-                        class="rounded-md bg-brand-primary px-2 py-2 text-white"
+                        class="rounded-md bg-brand-primary p-2 text-white"
                         :to="`/account/order/edit/${orderId}`"
                     >
                         {{ $t('account.orders.changePaymentMethod') }}

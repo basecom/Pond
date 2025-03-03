@@ -37,7 +37,7 @@ const mediaObject = props.element.data?.media;
     <component
         :is="imageLink.url ? 'a' : 'div'"
         v-if="imageAttrs.src"
-        class="relative h-full w-full"
+        class="relative size-full"
         :style="containerStyle"
         v-bind="imageComputedContainerAttrs"
     >
@@ -45,14 +45,14 @@ const mediaObject = props.element.data?.media;
             v-if="isVideoElement"
             controls
             :class="{
-                'h-full w-full': true,
+                'size-full': true,
                 'object-cover': displayMode === 'cover',
             }"
         >
             <source
                 :src="imageAttrs.src"
                 :type="mimeType"
-            />
+            >
             {{ $t('cms.element.videoTagNotSupported') }}
         </video>
 
@@ -62,7 +62,7 @@ const mediaObject = props.element.data?.media;
             v-cms-element-lazy-load="{ id: mediaObject.id, type: 'image' }"
             loading="lazy"
             :class="{
-                'h-full w-full': true,
+                'size-full': true,
                 'object-cover': displayMode === 'cover',
             }"
             :style="displayMode === 'cover' ? getMinHeightAsHeight(containerStyle) : ''"
@@ -70,6 +70,6 @@ const mediaObject = props.element.data?.media;
             :title="getTranslatedProperty(mediaObject, 'title')"
             :src="srcPath"
             :srcset="imageAttrs.srcset"
-        />
+        >
     </component>
 </template>

@@ -22,7 +22,7 @@ withDefaults(
         >
             <FormKitIcon
                 icon="spinner"
-                class="h-8 w-8 animate-spin fill-status-important text-brand-primary"
+                class="size-8 animate-spin fill-status-important text-brand-primary"
             />
             <span class="sr-only">{{ $t('utility.loadingSpinnerLabel') }}</span>
         </div>
@@ -30,14 +30,14 @@ withDefaults(
     <template v-else>
         <div
             role="status"
-            class="absolute top-0 flex h-full w-full place-content-center items-center"
+            class="absolute top-0 flex size-full place-content-center items-center"
         >
             <FormKitIcon
                 icon="spinner"
                 class="animate-spin fill-status-important text-brand-primary"
                 :class="{
-                    'h-8 w-8': size === 'normal',
-                    'h-5 w-5': size === 'small',
+                    'size-8': size === 'normal',
+                    'size-5': size === 'small',
                 }"
             />
             <span class="sr-only">{{ $t('utility.loadingSpinnerLabel') }}</span>

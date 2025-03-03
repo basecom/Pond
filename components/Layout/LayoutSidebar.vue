@@ -36,15 +36,15 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
             }"
         >
             <div class="flex items-center justify-between bg-gray-light p-3.5">
-                <slot name="header"></slot>
+                <slot name="header" />
                 <FormKitIcon
                     icon="xmark"
-                    class="mb-4 ml-auto block h-4 w-4 cursor-pointer"
+                    class="mb-4 ml-auto block size-4 cursor-pointer"
                     @click="controller.close()"
                 />
             </div>
             <div class="overflow-y-scroll p-4">
-                <slot name="content"></slot>
+                <slot name="content" />
             </div>
             <slot name="footer" />
         </div>

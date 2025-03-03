@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { NotificationType } from '~/types/NotificationType';
+
 const { getNewsletterStatus, confirmationNeeded, newsletterStatus, newsletterConfirm } = useNewsletter();
 const customerStore = useCustomerStore();
 const { signedIn } = storeToRefs(customerStore);
@@ -12,14 +14,21 @@ breadcrumbs.push({
 useBreadcrumbs(breadcrumbs);
 
 const isLoading = ref(true);
-const notificationText = ref('');
-const notificationType = ref('');
+const notification = ref({
+    type: 'info' as NotificationType,
+    message: '',
+    id: Math.floor((Math.random() * 100) + 1),
+});
 
 const route = useRoute();
-const emailHash = route.query.em;
-const hash = route.query.hash;
+const emailHash = route.query.em as string | null;
+const hash = route.query.hash as string | null;
 
 onMounted(async () => {
+    if (!emailHash || !hash) {
+        return;
+    }
+
     // The store api only offers a way to check the status for logged-in users
     if (signedIn.value) {
         await getNewsletterStatus();
@@ -30,29 +39,22 @@ onMounted(async () => {
         try {
             await newsletterConfirm(emailHash, hash);
 
-            notificationText.value = t('cms.element.form.newsletter.successSubscribe');
-            notificationType.value = 'success';
+            notification.value.message = t('cms.element.form.newsletter.successSubscribe');
+            notification.value.type = 'success';
         } catch (error) {
-            // If an error occurs and the user is not logged in, this is most likely because the email is already registered
-            // TODO: Only keep the actual error handling once we no longer have to always try to confirm guests = once we can check their newsletter status beforehand
-            if (!signedIn.value && error.details?.errors[0].code === 'VIOLATION::NOT_EQUAL_ERROR') {
-                notificationText.value = t('cms.element.form.newsletter.alreadySubscriber');
-                notificationType.value = 'info';
-            } else {
-                notificationText.value = t('cms.element.form.newsletter.errorSubscribe');
-                notificationType.value = 'danger';
-            }
+            notification.value.message = t('cms.element.form.newsletter.errorSubscribe');
+            notification.value.type = 'danger';
         }
 
         isLoading.value = false;
     } else if (newsletterStatus.value === 'optOut') {
-        notificationText.value = t('cms.element.form.newsletter.noRegisterData');
-        notificationType.value = 'danger';
+        notification.value.message = t('cms.element.form.newsletter.noRegisterData');
+        notification.value.type = 'danger';
 
         isLoading.value = false;
     } else {
-        notificationText.value = t('cms.element.form.newsletter.alreadySubscriber');
-        notificationType.value = 'info';
+        notification.value.message = t('cms.element.form.newsletter.alreadySubscriber');
+        notification.value.type = 'info';
 
         isLoading.value = false;
     }
@@ -67,9 +69,8 @@ onMounted(async () => {
         class="container"
     >
         <UtilityStaticNotification
-            id="newsletter-confirmation-status"
-            :type="notificationType"
-            :message="notificationText"
+            :type="notification.type"
+            :message="notification.message"
         />
     </div>
 </template>
