@@ -18,6 +18,9 @@ const {
     stateMachineState: {},
 });
 
+const configStore = useConfigStore();
+const showCustomerComment = configStore.get('core.cart.showCustomerComment');
+
 const shippingStatus = computed(() => {
     const stateName = order.value?.deliveries?.[0]?.stateMachineState?.translated?.name;
     return stateName ? { name: stateName } : null;
@@ -140,6 +143,10 @@ onMounted(async () => {
                         <OrderLineItem :line-item="lineItem" />
                     </li>
                 </ul>
+            </div>
+
+            <div v-if="order.customerComment && showCustomerComment" :class="'py-4'">
+                <OrderComment :customer-comment="order.customerComment" />
             </div>
 
             <OrderSummary

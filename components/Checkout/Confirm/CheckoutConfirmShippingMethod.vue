@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 defineProps<{
     label: string;
@@ -28,8 +29,8 @@ defineProps<{
             v-if="media"
             loading="lazy"
             :src="media.url"
-            :alt="media.translated?.alt ?? label"
-            :title="media.translated?.title ?? label"
+            :alt="getTranslatedProperty(media, 'alt') ?? label"
+            :title="getTranslatedProperty(media, 'title') ?? label"
         />
     </div>
 </template>

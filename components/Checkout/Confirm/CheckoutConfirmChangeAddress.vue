@@ -94,7 +94,7 @@ const addressText = (address: Schemas['CustomerAddress']) => {
 
     <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
         <FormKit
-            type="submit"
+            type="button"
             :classes="{
                 input: isEditMode ? 'bg-brand-primary-dark' : '',
             }"
@@ -104,7 +104,7 @@ const addressText = (address: Schemas['CustomerAddress']) => {
         </FormKit>
 
         <FormKit
-            type="submit"
+            type="button"
             :classes="{
                 input: isCreateMode ? 'bg-brand-primary-dark' : '',
             }"
@@ -114,7 +114,7 @@ const addressText = (address: Schemas['CustomerAddress']) => {
         </FormKit>
 
         <FormKit
-            type="submit"
+            type="button"
             :classes="{
                 input: !isEditMode && !isCreateMode ? 'bg-brand-primary-dark' : '',
             }"
@@ -137,8 +137,8 @@ const addressText = (address: Schemas['CustomerAddress']) => {
                 :key="address.id"
                 :aria-label="$t('checkout.confirm.address.modal.ariaLabel')"
                 :aria-description="addressText(address)"
-                class="mb-4 rounded p-4 text-left"
-                :class="[address.id === selectedAddress.id ? 'bg-brand-primary-light' : 'hover:bg-gray-light']"
+                class="mb-4 p-4 text-left"
+                :class="[address.id === selectedAddress.id ? 'bg-gray-light' : 'hover:bg-gray-light']"
                 @click="changeSelectedAddress(address.id)"
             >
                 <AddressData :address="address" />

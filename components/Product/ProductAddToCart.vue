@@ -37,13 +37,6 @@ const handleAddToCart = async () => {
         pushSuccess(t('product.addToCart.successMessage', { productName: product.value.translated.name }));
     } catch (error) {
         pushError(t('product.addToCart.errorMessage', { productName: product.value.translated.name }));
-
-        if (error instanceof ApiClientError) {
-            apiErrors.value = resolveApiErrors(error.details.errors, 'product');
-            return;
-        }
-
-        apiErrors.value.push({ key: 'product', code: 'PRODUCT_ADD_TO_CART_GENERAL_ERROR' });
     }
 };
 </script>
@@ -61,18 +54,6 @@ const handleAddToCart = async () => {
             @keydown.enter.prevent
             @submit="handleAddToCart"
         >
-            <ul
-                v-if="apiErrors.length"
-                class="validation-errors text-status-danger"
-            >
-                <li
-                    v-for="(error, index) in apiErrors"
-                    :key="`product-error-${index}`"
-                >
-                    {{ error.code }}
-                </li>
-            </ul>
-
             <SharedQuantityInput
                 v-model="quantity"
                 :product="product"

@@ -108,7 +108,7 @@ const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas[
             />
 
             <FormKit
-                type="submit"
+                type="button"
                 @click="openModal('shippingAddress', activeShippingAddress)"
             >
                 {{ $t('global.change') }}
@@ -138,7 +138,7 @@ const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas[
 
             <FormKit
                 v-if="!billingAddressIsSameAsShippingAddress"
-                type="submit"
+                type="button"
                 @click="openModal('billingAddress', activeBillingAddress)"
             >
                 {{ $t('global.change') }}

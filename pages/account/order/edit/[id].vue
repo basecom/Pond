@@ -3,6 +3,9 @@ import type { Schemas } from '@shopware/api-client/api-types';
 
 await useAuthentication().rerouteIfLoggedOut();
 
+const configStore = useConfigStore();
+const showCustomerComment = configStore.get('core.cart.showCustomerComment');
+
 const { params } = useRoute();
 const orderId = params.id as string;
 const { order, loadOrderDetails, shippingMethod, paymentMethod, changePaymentMethod, shippingAddress, billingAddress } =
@@ -67,7 +70,7 @@ onMounted(async () => {
                         <AccountOrderConfirmTerms />
 
                         <CheckoutConfirmCard
-                            v-if="order.customerComment"
+                            v-if="order.customerComment && showCustomerComment"
                             :title="t('checkout.finish.customerCommentLabel')"
                         >
                             <OrderComment :customer-comment="order.customerComment" />
