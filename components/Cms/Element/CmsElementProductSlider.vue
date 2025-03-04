@@ -75,7 +75,7 @@ const onProductSelect = (product: Schemas['Product'], index: string | number) =>
 <template>
     <div
         v-if="slides?.length"
-        :class="border ? 'border border-gray px-4 py-2' : null"
+        :class="{'border border-gray px-4 py-2': border}"
     >
         <h3
             v-if="title"
