@@ -31,7 +31,9 @@ const emit = defineEmits<{
             <ProductListingSorting
                 :options="sortingOptions"
                 :selected-option="selectedSorting"
-                @sorting-changed="(sortingOption: Schemas['ProductListingResult']['sorting']) => emit('sorting-changed', sortingOption)"
+                @sorting-changed="
+                    (sorting: Schemas['ProductListingResult']['sorting']) => emit('sorting-changed', sorting)
+                "
             />
         </div>
 
@@ -45,15 +47,5 @@ const emit = defineEmits<{
             @reset-filters="$emit('reset-filters')"
             @remove-filter="(event: RemoveFilterEvent) => $emit('remove-filter', event)"
         />
-
-        <div class="flex justify-end">
-            <ProductListingSorting
-                :options="sortingOptions"
-                :selected-option="selectedSorting"
-                @sorting-changed="
-                    (sorting: Schemas['ProductListingResult']['sorting']) => emit('sorting-changed', sorting)
-                "
-            />
-        </div>
     </div>
 </template>

@@ -48,7 +48,7 @@ export default defineNuxtPlugin(async nuxtApp => {
 
     const shopwareContext = createShopwareContext(nuxtApp.vueApp, {
         enableDevtools: true,
-        devStorefrontUrl: runtimeConfig.public.pond.shopwareEndpoint,
+        devStorefrontUrl: runtimeConfig.public.shopware?.devStorefrontUrl || null,
     });
     nuxtApp.vueApp.provide('shopware', shopwareContext);
 
