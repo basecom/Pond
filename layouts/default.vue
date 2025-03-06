@@ -34,6 +34,13 @@ if (route.path !== '/wishlist' && wishlistEnabled) {
 }
 
 const shopName = configStore.get('core.basicInformation.shopName') as string|null;
+
+onMounted(()=>{
+    if (route.query.affiliateCode){
+        sessionStorage.setItem('affiliateCode',route.query.affiliateCode)
+    }
+})
+
 useHead({
     title: shopName ?? '',
     htmlAttrs: {

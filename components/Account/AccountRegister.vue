@@ -42,6 +42,10 @@ const handleRegisterSubmit = async (fields: RegisterForm) => {
             ...fields,
         };
 
+    if (sessionStorage.getItem('affiliateCode')){
+        userData['affiliateCode'] = sessionStorage.getItem('affiliateCode');
+    }
+
     try {
         await customerStore.register({
             ...userData,
