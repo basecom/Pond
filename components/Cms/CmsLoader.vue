@@ -13,16 +13,16 @@ const isDevelopment = computed(() => import.meta.dev);
 
 <template>
     <div
-        v-if="componentExists(getCmsElementComponentName(content.type))"
-        :class="['cms-element', `cms-element-${kebabCase(content.type)}`]"
+        v-if="componentExists(getCmsElementComponentName(content?.type))"
+        :class="['cms-element', `cms-element-${kebabCase(content?.type)}`]"
     >
         <component
-            :is="getCmsElementComponentName(content.type)"
+            :is="getCmsElementComponentName(content?.type)"
             :element="content"
         />
     </div>
 
     <div v-else-if="isDevelopment">
-        {{ $t('cms.componentNotFound', { componentName: getCmsElementComponentName(content.type) }) }}
+        {{ $t('cms.componentNotFound', { componentName: getCmsElementComponentName(content?.type) }) }}
     </div>
 </template>
