@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ApiClientError } from '@shopware/api-client';
 import type { RegisterForm } from '~/types/form/AuthenticationForm';
+import type { CustomerRegisterParams } from '~/types/CustomerRegisterParams';
 
 const props = withDefaults(
     defineProps<{
@@ -30,7 +31,7 @@ const orderAsGuest = ref(false);
 const handleRegisterSubmit = async (fields: RegisterForm) => {
     isLoading.value = true;
 
-    const userData = fields.alternativeShippingAddress.showAlternativeShippingAddress
+    const userData : CustomerRegisterParams  = fields.alternativeShippingAddress.showAlternativeShippingAddress
         ? {
             ...fields,
             shippingAddress: {
