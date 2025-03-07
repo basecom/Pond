@@ -9,6 +9,7 @@ await refreshSessionContext();
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
 const { t } = useI18n();
+const { setNavigationId, clearNavigationId } = useSeoUrlStore();
 
 /**
  * Replace the locale value from the route path
@@ -20,26 +21,29 @@ const { locale } = useI18n();
 const defaultLocale = $i18n.defaultLocale;
 let routePath =
     locale.value !== defaultLocale
-        ? route.path.replace(/^\/[^\/]+/, '')
+        ? route.path.replace(/^\/[^/]+/, '')
         : route.path;
 
 if (routePath === '') {
     routePath = '/';
 }
 
-const { data: seoResult } = await useAsyncData(`seoPath${routePath}`, async () => {
-    // For client links if the history state contains seo url information we can omit the api call
-    if (import.meta.client) {
-        if (history.state?.routeName) {
-            return {
-                routeName: history.state?.routeName,
-                foreignKey: history.state?.foreignKey,
-            };
+const { data: seoResult } = await useAsyncData(
+    `seoPath/${locale}/${routePath}`,
+    async () => {
+        // For client links if the history state contains seo url information we can omit the api call
+        if (import.meta.client) {
+            if (history.state?.routeName) {
+                return {
+                    routeName: history.state?.routeName,
+                    foreignKey: history.state?.foreignKey,
+                };
+            }
         }
-    }
 
-    return await resolvePath(routePath);
-});
+        return await resolvePath(routePath);
+    },
+);
 
 const { routeName, foreignKey } = useNavigationContext(seoResult);
 const { componentExists } = useCmsUtils();
@@ -48,8 +52,11 @@ if (!routeName.value) {
     throw createError({ statusCode: 404, message: t('error.404.detail') });
 }
 
+setNavigationId(foreignKey.value);
+
 onBeforeRouteLeave(() => {
     clearBreadcrumbs();
+    clearNavigationId();
 });
 </script>
 
