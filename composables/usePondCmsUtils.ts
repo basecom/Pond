@@ -2,6 +2,8 @@ import { pascalCase } from 'scule';
 import type { Schemas } from '@shopware/api-client/api-types';
 
 export const usePondCmsUtils = () => {
+    const config = useRuntimeConfig();
+
     const getCmsSectionComponentName = (title: string) => (title ? `CmsSection${pascalCase(title)}` : '');
 
     const getCmsBlockComponentName = (title: string) => (title ? `CmsBlock${pascalCase(title)}` : '');
@@ -21,13 +23,7 @@ export const usePondCmsUtils = () => {
         return classes;
     };
 
-    const getBlockClasses = (block: Schemas['CmsBlock']) => {
-        let classes = '';
-        if (block.cssClass) {
-            classes += block.cssClass;
-        }
-        return classes;
-    };
+    const getBlockClasses = (block: Schemas['CmsBlock']) => block.cssClass ? block.cssClass  : '';
 
     const getCmsElementData = (element: Schemas['CmsSlot'], key?: string) =>
         // data can contain multiple types. as long a shopware doesn't support it in there default type, we ignore it
@@ -35,6 +31,8 @@ export const usePondCmsUtils = () => {
         // @ts-ignore
         key ? element.data[key] : element.data
     ;
+
+    const isDevelopment = () => config.public.pond.isInDebugMode;
 
     return {
         getCmsSectionComponentName,
@@ -44,5 +42,6 @@ export const usePondCmsUtils = () => {
         componentExists,
         getSectionClasses,
         getBlockClasses,
+        isDevelopment,
     };
 };

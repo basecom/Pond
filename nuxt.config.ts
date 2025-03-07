@@ -79,6 +79,14 @@ export default defineNuxtConfig({
         accessToken: 'SWSCZHNVCVDZCK5SCDNRBJJ3UW',
     },
 
+    runtimeConfig: {
+        public: {
+            pond: {
+                isInDebugMode: process.env.NUXT_PUBLIC_POND_DEBUG,
+            },
+        },
+    },
+
     extends: ['@shopware/composables/nuxt-layer'],
 
     shadcn: {
