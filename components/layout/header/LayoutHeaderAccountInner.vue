@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import LayoutHeaderAccountLogin from '~/components/layout/header/LayoutHeaderAccountLogin.vue';
+
 withDefaults(
     defineProps<{
       signedIn?: boolean;
@@ -72,15 +74,7 @@ withDefaults(
                             </slot>
                         </UiDialogTrigger>
 
-                        <UiDialogContent>
-                            <UiDialogHeader>
-                                <UiDialogTitle>Login</UiDialogTitle>
-                            </UiDialogHeader>
-
-                            <UiDialogFooter>
-                                Login
-                            </UiDialogFooter>
-                        </UiDialogContent>
+                        <LayoutHeaderAccountLogin />
                     </UiDialog>
 
                     <UiDropdownMenuItem>
