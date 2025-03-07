@@ -8,7 +8,7 @@ const { t } = useI18n();
 
 const categoryResponse = await getCategory(props.navigationId);
 if (!categoryResponse?.value) {
-    throw createError({ statusCode: 404, message: t('error.404.detail') });
+    throw createError({ statusCode: 404, message: t('error.404.heading') });
 }
 
 const { category } = useCategory(categoryResponse);
