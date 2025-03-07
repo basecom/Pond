@@ -15,20 +15,9 @@ const shopName = configStore.get('core.basicInformation.shopName') as string|nul
 </script>
 
 <template>
-    <LocaleLink
-        :aria-label="shopName"
-        :title="shopName"
-        :to="withLink ? '/' : ''"
-    >
-        <span class="sr-only">
-            {{ shopName }}
-        </span>
-
-        <img
-            src="/logo.svg"
-            :alt="shopName"
-            :title="shopName"
-            :class="logoClasses"
-        >
-    </LocaleLink>
+    <LayoutLogoInner
+        :shop-name="shopName"
+        :logo-classes="logoClasses"
+        :with-link="withLink"
+    />
 </template>

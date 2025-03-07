@@ -1,15 +1,7 @@
 <script setup lang="ts">
-const { count: wishlistCount } = useWishlist();
+const { count: wishlistItems } = useWishlist();
 </script>
 
 <template>
-    <LocaleLink
-        to="/wishlist"
-        class="relative h-5"
-    >
-        <Icon name="mdi:cards-heart-outline" class="size-5" />
-        <UiBadge v-if="wishlistCount > 0" class="absolute -right-2 -top-1.5 px-1 py-0 text-xs font-normal">
-            {{ wishlistCount }}
-        </UiBadge>
-    </LocaleLink>
+    <LayoutHeaderWishlistInner :wishlist-items="wishlistItems" />
 </template>

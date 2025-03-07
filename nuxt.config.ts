@@ -56,13 +56,14 @@ export default defineNuxtConfig({
         locales: [
             {
                 code: 'de-DE',
-                file: 'de-DE/de-DE.ts',
+                files: ['de-DE/account.json', 'de-DE/error.json'],
             },
             {
                 code: 'en-GB',
-                file: 'en-GB/en-GB.ts',
+                files: ['en-GB/account.json', 'en-GB/error.json'],
             },
         ],
+        lazy: true,
     },
 
     compatibilityDate: '2025-02-24',
