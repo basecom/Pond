@@ -6,7 +6,7 @@ import { computed, type HTMLAttributes } from 'vue';
 const props = defineProps<CalendarHeadingProps & { class?: HTMLAttributes['class'] }>();
 
 defineSlots<{
-  default: (props: { headingValue: string }) => any
+  default: (props: { headingValue: string }) => void
 }>();
 
 const delegatedProps = computed(() => {

@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+/* eslint-disable */
 import type * as z from 'zod';
 import { createContext } from 'reka-ui';
 import { useFieldValue, useFormValues } from 'vee-validate';

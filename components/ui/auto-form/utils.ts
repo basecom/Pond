@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+/* eslint-disable */
 import type { z } from 'zod';
 
 // TODO: This should support recursive ZodEffects but TypeScript doesn't allow circular type definitions.

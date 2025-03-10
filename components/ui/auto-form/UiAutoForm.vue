@@ -4,7 +4,6 @@ import type { z, ZodAny } from 'zod';
 import type { Config, ConfigItem, Dependency, Shape } from './interface';
 import { Form } from '@/components/ui/form';
 import { toTypedSchema } from '@vee-validate/zod';
-import AutoFormField from './UiAutoFormField.vue';
 import { provideDependencies } from './dependencies';
 import { getBaseSchema, getBaseType, getDefaultValueInZodStack, getObjectFormSchema, type ZodObjectOrWrapped } from './utils';
 

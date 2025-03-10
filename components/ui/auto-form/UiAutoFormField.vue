@@ -10,15 +10,32 @@ const props = defineProps<{
   config?: ConfigItem | Config<U>
 }>();
 
-function isValidConfig(config: any): config is ConfigItem {
-    return !!config?.component;
-}
+const { handleError } = usePondHandleError();
+
+const isValidConfig = (config: unknown): config is ConfigItem => (config as ConfigItem)?.component !== undefined;
 
 const delegatedProps = computed(() => {
     if (['ZodObject', 'ZodArray'].includes(props.shape?.type))
         return { schema: props.shape?.schema };
     return undefined;
 });
+
+const getInputComponent = (shapeType: string | undefined) => {
+    if (!shapeType) {
+    // Handle the case where shapeType is undefined or empty
+        handleError('[Pond][UiAutoFormField]: Undefined shapeType');
+        return;
+    }
+
+    const componentKey = DEFAULT_ZOD_HANDLERS[shapeType];
+
+    // Ensure that the componentKey is not undefined
+    if (componentKey && componentKey in INPUT_COMPONENTS) {
+        return INPUT_COMPONENTS[componentKey];
+    }
+
+    handleError(`[Pond][UiAutoFormField]: Invalid key ${componentKey}`);
+};
 
 const { isDisabled, isHidden, isRequired, overrideOptions } = useDependencies(props.fieldName);
 </script>
@@ -29,7 +46,7 @@ const { isDisabled, isHidden, isRequired, overrideOptions } = useDependencies(pr
             ? typeof config.component === 'string'
                 ? INPUT_COMPONENTS[config.component!]
                 : config.component
-            : INPUT_COMPONENTS[DEFAULT_ZOD_HANDLERS[shape.type]] "
+            : getInputComponent(shape?.type)"
         v-if="!isHidden"
         :field-name="fieldName"
         :label="shape.schema?.description"

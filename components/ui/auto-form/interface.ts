@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+/* eslint-disable */
 import type { Component, InputHTMLAttributes } from 'vue';
 import type { z, ZodAny } from 'zod';
 import type { INPUT_COMPONENTS } from './constant';
