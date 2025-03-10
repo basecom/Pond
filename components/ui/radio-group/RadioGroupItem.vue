@@ -27,13 +27,13 @@ const forwardedProps = useForwardProps(delegatedProps);
         v-bind="forwardedProps"
         :class="
             cn(
-                'peer aspect-square h-4 w-4 rounded-full border border-zinc-200 border-zinc-900 text-zinc-900 shadow focus:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-800 dark:border-zinc-50 dark:text-zinc-50 dark:focus-visible:ring-zinc-300',
+                'peer aspect-square h-4 w-4 rounded-full border border-gray-200 border-gray-900 text-gray-900 shadow focus:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:cursor-not-allowed disabled:opacity-50',
                 props.class,
             )
         "
     >
         <RadioGroupIndicator class="flex items-center justify-center">
-            <Check class="text-zinc-900 dark:text-zinc-50 size-3.5" />
+            <Check class="text-gray-900 size-3.5" />
         </RadioGroupIndicator>
     </RadioGroupItem>
 </template>
