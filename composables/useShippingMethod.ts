@@ -13,12 +13,13 @@ export function useShippingMethod() {
             return;
         }
 
-        const cheapestMethod : Schemas['ShippingMethod'] = shippingMethods.value.reduce((lowest: Schemas['ShippingMethod'], current: Schemas['ShippingMethod']) => {
-            const currentGross = current.prices?.[0]?.currencyPrice?.[0]?.gross ?? 0;
-            const lowestGross = lowest.prices?.[0]?.currencyPrice?.[0]?.gross ?? 0;
+        const getGrossPrice = (method: Schemas['ShippingMethod']): number => {
+            const prices = method.prices as { currencyPrice?: { gross?: number }[] }[] | undefined;
+            const currencyPrice = prices?.[0]?.currencyPrice as { gross?: number }[] | undefined;
+            return currencyPrice?.[0]?.gross ?? Infinity; // Default to Infinity for comparison
+        };
 
-            return currentGross < lowestGross ? current : lowest;
-        });
+        const cheapestMethod = shippingMethods.value.reduce((lowest, current) => getGrossPrice(current) < getGrossPrice(lowest) ? current : lowest, shippingMethods.value[0]);
 
         await setShippingMethod({ id: cheapestMethod.id });
         await refreshCart();
