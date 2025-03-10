@@ -51,6 +51,9 @@ export default defineNuxtConfig({
                 breadcrumb: {
                     enableDynamicLoading: false,
                 },
+                cms: {
+                    enableProgressiveLoading: false,
+                },
             },
         },
     },

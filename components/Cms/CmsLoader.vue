@@ -2,18 +2,21 @@
 import { kebabCase } from 'scule';
 import type { Schemas } from '@shopware/api-client/api-types';
 
-defineProps<{
+const props = defineProps<{
     content: Schemas['CmsSlot'];
 }>();
 
 const { getCmsElementComponentName, componentExists } = useCmsUtils();
 
 const isDevelopment = computed(() => import.meta.dev);
+
+provide('cmsElementId', props.content.id);
 </script>
 
 <template>
     <div
         v-if="componentExists(getCmsElementComponentName(content?.type))"
+        v-cms-element="content"
         :class="['cms-element', `cms-element-${kebabCase(content?.type)}`]"
     >
         <component
