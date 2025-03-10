@@ -9,7 +9,7 @@ const props = defineProps<{
 
 const { getCmsElementData } = useCmsUtils();
 const productData = getCmsElementData(props.element, 'product');
-const { product } = useProduct(productData);
+const { product } = productData ? useProduct(productData) : {};
 
 const { trackPromotionView, trackSelectPromotion, trackSelectItem } = useAnalytics();
 const { isHomePage } = useHomePage();
@@ -22,7 +22,7 @@ const getPromotion = (product: Schemas['Product']): PromotionInfo => ({
 });
 
 const onProductView = () => {
-    if (!product.value) {
+    if (!product?.value) {
         return;
     }
 
@@ -31,7 +31,7 @@ const onProductView = () => {
     }
 };
 const onProductSelect = () => {
-    if (!product.value) {
+    if (!product?.value) {
         return;
     }
 
