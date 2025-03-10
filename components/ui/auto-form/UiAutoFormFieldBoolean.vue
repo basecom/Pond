@@ -3,7 +3,6 @@ import type { FieldProps } from './interface';
 import { UiCheckbox } from '@/components/ui/checkbox';
 import { UiSwitch } from '@/components/ui/switch';
 import { computed } from 'vue';
-import AutoFormLabel from './AutoFormLabel.vue';
 import { beautifyObjectName, maybeBooleanishToBoolean } from './utils';
 
 const props = defineProps<FieldProps>();
@@ -26,9 +25,9 @@ const booleanComponent = computed(() => props.config?.component === 'switch' ? U
                         />
                     </slot>
                 </UiFormControl>
-                <AutoFormLabel v-if="!config?.hideLabel" :required="required">
+                <UiAutoFormLabel v-if="!config?.hideLabel" :required="required">
                     {{ config?.label || beautifyObjectName(label ?? fieldName) }}
-                </AutoFormLabel>
+                </UiAutoFormLabel>
             </div>
 
             <UiFormDescription v-if="config?.description">

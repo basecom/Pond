@@ -3,7 +3,6 @@ import type { FieldProps } from './interface';
 import { FormField } from '@/components/ui/form';
 import { UiInput } from '@/components/ui/input';
 import { UiTextarea } from '@/components/ui/textarea';
-import AutoFormLabel from './AutoFormLabel.vue';
 import { beautifyObjectName } from './utils';
 
 const props = defineProps<FieldProps>();
@@ -13,9 +12,9 @@ const inputComponent = computed(() => props.config?.component === 'textarea' ? U
 <template>
     <FormField v-slot="slotProps" :name="fieldName">
         <UiFormItem v-bind="$attrs">
-            <AutoFormLabel v-if="!config?.hideLabel" :required="required">
+            <UiAutoFormLabel v-if="!config?.hideLabel" :required="required">
                 {{ config?.label || beautifyObjectName(label ?? fieldName) }}
-            </AutoFormLabel>
+            </UiAutoFormLabel>
             <UiFormControl>
                 <slot v-bind="slotProps">
                     <component

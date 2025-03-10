@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { FieldProps } from './interface';
 import { FormField } from '@/components/ui/form';
-import AutoFormLabel from './AutoFormLabel.vue';
 import { beautifyObjectName, maybeBooleanishToBoolean } from './utils';
 
 defineProps<FieldProps & {
@@ -12,9 +11,9 @@ defineProps<FieldProps & {
 <template>
     <FormField v-slot="slotProps" :name="fieldName">
         <UiFormItem>
-            <AutoFormLabel v-if="!config?.hideLabel" :required="required">
+            <UiAutoFormLabel v-if="!config?.hideLabel" :required="required">
                 {{ config?.label || beautifyObjectName(label ?? fieldName) }}
-            </AutoFormLabel>
+            </UiAutoFormLabel>
             <UiFormControl>
                 <slot v-bind="slotProps">
                     <UiRadioGroup
@@ -29,17 +28,16 @@ defineProps<FieldProps & {
                         </div>
                     </UiRadioGroup>
 
-                  <!-- todo: nele das hiert sorgt für error -->
-<!--                    <UiSelect v-else :disabled="maybeBooleanishToBoolean(config?.inputProps?.disabled) ?? disabled" v-bind="{ ...slotProps.componentField }">-->
-<!--                        <UiSelectTrigger class="w-full">-->
-<!--                            <UiSelectValue :placeholder="config?.inputProps?.placeholder" />-->
-<!--                        </UiSelectTrigger>-->
-<!--                        <UiSelectContent>-->
-<!--                            <UiSelectItem v-for="option in options" :key="option" :value="option">-->
-<!--                                {{ beautifyObjectName(option) }}-->
-<!--                            </UiSelectItem>-->
-<!--                        </UiSelectContent>-->
-<!--                    </UiSelect>-->
+                    <UiSelect v-else :disabled="maybeBooleanishToBoolean(config?.inputProps?.disabled) ?? disabled" v-bind="{ ...slotProps.componentField }">
+                        <UiSelectTrigger class="w-full">
+                            <UiSelectValue :placeholder="config?.inputProps?.placeholder" />
+                        </UiSelectTrigger>
+                        <UiSelectContent>
+                            <UiSelectItem v-for="option in options" :key="option" :value="option">
+                                {{ beautifyObjectName(option) }}
+                            </UiSelectItem>
+                        </UiSelectContent>
+                    </UiSelect>
                 </slot>
             </UiFormControl>
 

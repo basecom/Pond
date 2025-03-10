@@ -5,7 +5,6 @@ import { FormField } from '@/components/ui/form';
 
 import { DateFormatter, getLocalTimeZone } from '@internationalized/date';
 import { CalendarIcon } from 'lucide-vue-next';
-import AutoFormLabel from './AutoFormLabel.vue';
 import { beautifyObjectName, maybeBooleanishToBoolean } from './utils';
 
 defineProps<FieldProps>();
@@ -18,9 +17,9 @@ const df = new DateFormatter('en-US', {
 <template>
     <FormField v-slot="slotProps" :name="fieldName">
         <UiFormItem>
-            <AutoFormLabel v-if="!config?.hideLabel" :required="required">
+            <UiAutoFormLabel v-if="!config?.hideLabel" :required="required">
                 {{ config?.label || beautifyObjectName(label ?? fieldName) }}
-            </AutoFormLabel>
+            </UiAutoFormLabel>
             <UiFormControl>
                 <slot v-bind="slotProps">
                     <div>

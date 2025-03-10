@@ -2,8 +2,6 @@
 import type { ZodAny, ZodObject, ZodRawShape } from 'zod';
 import type { Config, ConfigItem, Shape } from './interface';
 import { FieldContextKey, useField } from 'vee-validate';
-import AutoFormField from './AutoFormField.vue';
-import AutoFormLabel from './AutoFormLabel.vue';
 import { beautifyObjectName, getBaseSchema, getBaseType, getDefaultValueInZodStack } from './utils';
 
 const props = defineProps<{
@@ -59,13 +57,13 @@ provide(FieldContextKey, fieldContext);
                 <UiFormItem>
                     <UiAccordionItem :value="fieldName" class="border-none">
                         <UiAccordionTrigger>
-                            <AutoFormLabel class="text-base" :required="required">
+                            <UiAutoFormLabel class="text-base" :required="required">
                                 {{ schema?.description || beautifyObjectName(fieldName) }}
-                            </AutoFormLabel>
+                            </UiAutoFormLabel>
                         </UiAccordionTrigger>
                         <UiAccordionContent class="space-y-5 p-1">
                             <template v-for="(shape, key) in shapes" :key="key">
-                                <AutoFormField
+                                <UiAutoFormField
                                     :config="config?.[key as keyof typeof config] as ConfigItem"
                                     :field-name="`${fieldName}.${key.toString()}`"
                                     :label="key.toString()"

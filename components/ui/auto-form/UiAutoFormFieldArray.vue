@@ -3,8 +3,6 @@ import type { Config, ConfigItem } from './interface';
 import { PlusIcon, TrashIcon } from 'lucide-vue-next';
 import { FieldArray, FieldContextKey, useField } from 'vee-validate';
 import * as z from 'zod';
-import AutoFormField from './AutoFormField.vue';
-import AutoFormLabel from './AutoFormLabel.vue';
 import { beautifyObjectName, getBaseType } from './utils';
 
 const props = defineProps<{
@@ -62,15 +60,15 @@ provide(FieldContextKey, fieldContext);
                 <UiFormItem>
                     <UiAccordionItem :value="fieldName" class="border-none">
                         <UiAccordionTrigger>
-                            <AutoFormLabel class="text-base" :required="required">
+                            <UiAutoFormLabel class="text-base" :required="required">
                                 {{ schema?.description || beautifyObjectName(fieldName) }}
-                            </AutoFormLabel>
+                            </UiAutoFormLabel>
                         </UiAccordionTrigger>
 
                         <UiAccordionContent>
                             <template v-for="(field, index) of fields" :key="field.key">
                                 <div class="mb-4 p-1">
-                                    <AutoFormField
+                                    <UiAutoFormField
                                         :field-name="`${fieldName}[${index}]`"
                                         :label="fieldName"
                                         :shape="itemShape!"

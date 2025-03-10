@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ApiClientError } from '@shopware/api-client';
 import * as z from 'zod';
-import {AutoForm} from "~/components/ui/auto-form";
 
 const customerStore = useCustomerStore();
 const { t } = useI18n();
@@ -39,7 +38,7 @@ const login = async (loginData: LoginData) => {
 </script>
 
 <template>
-    <AutoForm
+    <UiAutoForm
         class="space-y-6"
         :schema="schema"
         :field-config="{
@@ -80,5 +79,5 @@ const login = async (loginData: LoginData) => {
                 {{ $t('account.auth.login') }}
             </UiButton>
         </slot>
-    </AutoForm>
+    </UiAutoForm>
 </template>

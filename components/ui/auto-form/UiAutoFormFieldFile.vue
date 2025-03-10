@@ -3,7 +3,6 @@ import type { FieldProps } from './interface';
 import { FormField } from '@/components/ui/form';
 import { Trash } from 'lucide-vue-next';
 import { ref } from 'vue';
-import AutoFormLabel from './AutoFormLabel.vue';
 import { beautifyObjectName } from './utils';
 
 defineProps<FieldProps>();
@@ -28,9 +27,9 @@ async function parseFileAsString(file: File | undefined): Promise<string> {
 <template>
     <FormField v-slot="slotProps" :name="fieldName">
         <UiFormItem v-bind="$attrs">
-            <AutoFormLabel v-if="!config?.hideLabel" :required="required">
+            <UiAutoFormLabel v-if="!config?.hideLabel" :required="required">
                 {{ config?.label || beautifyObjectName(label ?? fieldName) }}
-            </AutoFormLabel>
+            </UiAutoFormLabel>
             <UiFormControl>
                 <slot v-bind="slotProps">
                     <UiInput
