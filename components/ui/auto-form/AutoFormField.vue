@@ -1,7 +1,6 @@
 <script setup lang="ts" generic="U extends ZodAny">
 import type { ZodAny } from 'zod';
 import type { Config, ConfigItem, Shape } from './interface';
-import { computed } from 'vue';
 import { DEFAULT_ZOD_HANDLERS, INPUT_COMPONENTS } from './constant';
 import useDependencies from './dependencies';
 

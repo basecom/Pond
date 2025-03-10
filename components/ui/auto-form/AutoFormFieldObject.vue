@@ -1,10 +1,7 @@
 <script setup lang="ts" generic="T extends ZodRawShape">
 import type { ZodAny, ZodObject, ZodRawShape } from 'zod';
 import type { Config, ConfigItem, Shape } from './interface';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { FormItem } from '@/components/ui/form';
 import { FieldContextKey, useField } from 'vee-validate';
-import { computed, provide } from 'vue';
 import AutoFormField from './AutoFormField.vue';
 import AutoFormLabel from './AutoFormLabel.vue';
 import { beautifyObjectName, getBaseSchema, getBaseType, getDefaultValueInZodStack } from './utils';
@@ -52,21 +49,21 @@ provide(FieldContextKey, fieldContext);
 <template>
     <section>
         <slot v-bind="props">
-            <Accordion
+            <UiAccordion
                 type="single"
                 as-child
                 class="w-full"
                 collapsible
                 :disabled="disabled"
             >
-                <FormItem>
-                    <AccordionItem :value="fieldName" class="border-none">
-                        <AccordionTrigger>
+                <UiFormItem>
+                    <UiAccordionItem :value="fieldName" class="border-none">
+                        <UiAccordionTrigger>
                             <AutoFormLabel class="text-base" :required="required">
                                 {{ schema?.description || beautifyObjectName(fieldName) }}
                             </AutoFormLabel>
-                        </AccordionTrigger>
-                        <AccordionContent class="space-y-5 p-1">
+                        </UiAccordionTrigger>
+                        <UiAccordionContent class="space-y-5 p-1">
                             <template v-for="(shape, key) in shapes" :key="key">
                                 <AutoFormField
                                     :config="config?.[key as keyof typeof config] as ConfigItem"
@@ -75,10 +72,10 @@ provide(FieldContextKey, fieldContext);
                                     :shape="shape"
                                 />
                             </template>
-                        </AccordionContent>
-                    </AccordionItem>
-                </FormItem>
-            </Accordion>
+                        </UiAccordionContent>
+                    </UiAccordionItem>
+                </UiFormItem>
+            </UiAccordion>
         </slot>
     </section>
 </template>

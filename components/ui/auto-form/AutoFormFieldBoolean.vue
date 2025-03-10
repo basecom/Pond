@@ -1,22 +1,21 @@
 <script setup lang="ts">
 import type { FieldProps } from './interface';
-import { Checkbox } from '@/components/ui/checkbox';
-import { FormControl, FormDescription, FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { Switch } from '@/components/ui/switch';
+import { UiCheckbox } from '@/components/ui/checkbox';
+import { UiSwitch } from '@/components/ui/switch';
 import { computed } from 'vue';
 import AutoFormLabel from './AutoFormLabel.vue';
 import { beautifyObjectName, maybeBooleanishToBoolean } from './utils';
 
 const props = defineProps<FieldProps>();
 
-const booleanComponent = computed(() => props.config?.component === 'switch' ? Switch : Checkbox);
+const booleanComponent = computed(() => props.config?.component === 'switch' ? UiSwitch : UiCheckbox);
 </script>
 
 <template>
     <FormField v-slot="slotProps" :name="fieldName">
-        <FormItem>
+        <UiFormItem>
             <div class="mb-3 flex items-center gap-3 space-y-0">
-                <FormControl>
+                <UiFormControl>
                     <slot v-bind="slotProps">
                         <component
                             :is="booleanComponent"
@@ -26,16 +25,16 @@ const booleanComponent = computed(() => props.config?.component === 'switch' ? S
                             @update:model-value="slotProps.componentField['onUpdate:modelValue']"
                         />
                     </slot>
-                </FormControl>
+                </UiFormControl>
                 <AutoFormLabel v-if="!config?.hideLabel" :required="required">
                     {{ config?.label || beautifyObjectName(label ?? fieldName) }}
                 </AutoFormLabel>
             </div>
 
-            <FormDescription v-if="config?.description">
+            <UiFormDescription v-if="config?.description">
                 {{ config.description }}
-            </FormDescription>
-            <FormMessage />
-        </FormItem>
+            </UiFormDescription>
+            <UiFormMessage />
+        </UiFormItem>
     </FormField>
 </template>

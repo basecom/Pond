@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { FieldProps } from './interface';
-import { Button } from '@/components/ui/button';
-import { FormControl, FormDescription, FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { FormField } from '@/components/ui/form';
 import { Trash } from 'lucide-vue-next';
 import { ref } from 'vue';
 import AutoFormLabel from './AutoFormLabel.vue';
@@ -29,13 +27,13 @@ async function parseFileAsString(file: File | undefined): Promise<string> {
 
 <template>
     <FormField v-slot="slotProps" :name="fieldName">
-        <FormItem v-bind="$attrs">
+        <UiFormItem v-bind="$attrs">
             <AutoFormLabel v-if="!config?.hideLabel" :required="required">
                 {{ config?.label || beautifyObjectName(label ?? fieldName) }}
             </AutoFormLabel>
-            <FormControl>
+            <UiFormControl>
                 <slot v-bind="slotProps">
-                    <Input
+                    <UiInput
                         v-if="!inputFile"
                         type="file"
                         v-bind="{ ...config?.inputProps }"
@@ -49,7 +47,7 @@ async function parseFileAsString(file: File | undefined): Promise<string> {
                     />
                     <div v-else class="border-gray-200 flex h-9 w-full items-center justify-between rounded-md border bg-transparent py-1 pl-3 pr-1 text-sm shadow-sm transition-colors">
                         <p>{{ inputFile?.name }}</p>
-                        <Button
+                        <UiButton
                             :size="'icon'"
                             :variant="'ghost'"
                             class="size-[26px]"
@@ -61,14 +59,14 @@ async function parseFileAsString(file: File | undefined): Promise<string> {
                             }"
                         >
                             <Trash />
-                        </Button>
+                        </UiButton>
                     </div>
                 </slot>
-            </FormControl>
-            <FormDescription v-if="config?.description">
+            </UiFormControl>
+            <UiFormDescription v-if="config?.description">
                 {{ config.description }}
-            </FormDescription>
-            <FormMessage />
-        </FormItem>
+            </UiFormDescription>
+            <UiFormMessage />
+        </UiFormItem>
     </FormField>
 </template>

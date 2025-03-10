@@ -33,7 +33,7 @@ const forwardedProps = useForwardProps(delegatedProps);
         "
     >
         <RadioGroupIndicator class="flex items-center justify-center">
-            <Check class="text-gray-900 size-3.5" />
+            <Check class="size-3.5 text-gray-900" />
         </RadioGroupIndicator>
     </RadioGroupItem>
 </template>

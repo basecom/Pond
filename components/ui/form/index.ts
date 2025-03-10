@@ -1,7 +1,7 @@
-export { default as FormControl } from './FormControl.vue';
-export { default as FormDescription } from './FormDescription.vue';
-export { default as FormItem } from './FormItem.vue';
-export { default as FormLabel } from './FormLabel.vue';
-export { default as FormMessage } from './FormMessage.vue';
+export { default as UiFormControl } from './UiFormControl.vue';
+export { default as UiFormDescription } from './UiFormDescription.vue';
+export { default as UiFormItem } from './UiFormItem.vue';
+export { default as UiFormLabel } from './UiFormLabel.vue';
+export { default as UiFormMessage } from './UiFormMessage.vue';
 export { FORM_ITEM_INJECTION_KEY } from './injectionKeys';
 export { Form, Field as FormField, FieldArray as FormFieldArray } from 'vee-validate';

@@ -1,12 +1,7 @@
 <script setup lang="ts" generic="T extends z.ZodAny">
 import type { Config, ConfigItem } from './interface';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
-import { FormItem, FormMessage } from '@/components/ui/form';
-import { Separator } from '@/components/ui/separator';
 import { PlusIcon, TrashIcon } from 'lucide-vue-next';
 import { FieldArray, FieldContextKey, useField } from 'vee-validate';
-import { computed, provide } from 'vue';
 import * as z from 'zod';
 import AutoFormField from './AutoFormField.vue';
 import AutoFormLabel from './AutoFormLabel.vue';
@@ -57,22 +52,22 @@ provide(FieldContextKey, fieldContext);
 <template>
     <FieldArray v-slot="{ fields, remove, push }" as="section" :name="fieldName">
         <slot v-bind="props">
-            <Accordion
+            <UiAccordion
                 type="multiple"
                 class="w-full"
                 collapsible
                 :disabled="disabled"
                 as-child
             >
-                <FormItem>
-                    <AccordionItem :value="fieldName" class="border-none">
-                        <AccordionTrigger>
+                <UiFormItem>
+                    <UiAccordionItem :value="fieldName" class="border-none">
+                        <UiAccordionTrigger>
                             <AutoFormLabel class="text-base" :required="required">
                                 {{ schema?.description || beautifyObjectName(fieldName) }}
                             </AutoFormLabel>
-                        </AccordionTrigger>
+                        </UiAccordionTrigger>
 
-                        <AccordionContent>
+                        <UiAccordionContent>
                             <template v-for="(field, index) of fields" :key="field.key">
                                 <div class="mb-4 p-1">
                                     <AutoFormField
@@ -83,20 +78,20 @@ provide(FieldContextKey, fieldContext);
                                     />
 
                                     <div class="!my-4 flex justify-end">
-                                        <Button
+                                        <UiButton
                                             type="button"
                                             size="icon"
                                             variant="secondary"
                                             @click="remove(index)"
                                         >
                                             <TrashIcon :size="16" />
-                                        </Button>
+                                        </UiButton>
                                     </div>
-                                    <Separator v-if="!field.isLast" />
+                                    <UiSeparator v-if="!field.isLast" />
                                 </div>
                             </template>
 
-                            <Button
+                            <UiButton
                                 type="button"
                                 variant="secondary"
                                 class="mt-4 flex items-center"
@@ -104,13 +99,13 @@ provide(FieldContextKey, fieldContext);
                             >
                                 <PlusIcon class="mr-2" :size="16" />
                                 Add
-                            </Button>
-                        </AccordionContent>
+                            </UiButton>
+                        </UiAccordionContent>
 
-                        <FormMessage />
-                    </AccordionItem>
-                </FormItem>
-            </Accordion>
+                        <UiFormMessage />
+                    </UiAccordionItem>
+                </UiFormItem>
+            </UiAccordion>
         </slot>
     </FieldArray>
 </template>

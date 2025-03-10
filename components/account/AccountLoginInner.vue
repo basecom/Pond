@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { AutoForm } from '@/components/ui/auto-form';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { ApiClientError } from '@shopware/api-client';
 import * as z from 'zod';
+import {AutoForm} from "~/components/ui/auto-form";
 
 const customerStore = useCustomerStore();
 const { t } = useI18n();
@@ -62,24 +61,24 @@ const login = async (loginData: LoginData) => {
         @submit="login"
     >
         <slot name="alert">
-            <Alert v-if="errorMessage" variant="destructive" class="flex gap-4">
+            <UiAlert v-if="errorMessage" variant="destructive" class="flex gap-4">
                 <slot name="alert-icon">
                     <Icon name="mdi:alert-circle-outline" class="size-4 text-red-500" />
                 </slot>
 
                 <div>
-                    <AlertTitle>{{ $t('error.generalHeadline') }}</AlertTitle>
-                    <AlertDescription>
+                    <UiAlertTitle>{{ $t('error.generalHeadline') }}</UiAlertTitle>
+                    <UiAlertDescription>
                         {{ errorMessage }}
-                    </AlertDescription>
+                    </UiAlertDescription>
                 </div>
-            </Alert>
+            </UiAlert>
         </slot>
 
         <slot name="submit-button">
-            <Button type="submit" :is-loading="isLoading">
+            <UiButton type="submit" :is-loading="isLoading">
                 {{ $t('account.auth.login') }}
-            </Button>
+            </UiButton>
         </slot>
     </AutoForm>
 </template>

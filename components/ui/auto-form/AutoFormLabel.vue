@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { FormLabel } from '@/components/ui/form';
-
 defineProps<{
   required?: boolean
 }>();
 </script>
 
 <template>
-    <FormLabel>
+    <UiFormLabel>
         <slot />
         <span v-if="required" class="text-red-500"> *</span>
-    </FormLabel>
+    </UiFormLabel>
 </template>

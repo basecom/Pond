@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import type { FieldProps } from './interface';
-import { FormControl, FormDescription, FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { FormField } from '@/components/ui/form';
 import AutoFormLabel from './AutoFormLabel.vue';
 import { beautifyObjectName, maybeBooleanishToBoolean } from './utils';
 
@@ -14,41 +11,42 @@ defineProps<FieldProps & {
 
 <template>
     <FormField v-slot="slotProps" :name="fieldName">
-        <FormItem>
+        <UiFormItem>
             <AutoFormLabel v-if="!config?.hideLabel" :required="required">
                 {{ config?.label || beautifyObjectName(label ?? fieldName) }}
             </AutoFormLabel>
-            <FormControl>
+            <UiFormControl>
                 <slot v-bind="slotProps">
-                    <RadioGroup
+                    <UiRadioGroup
                         v-if="config?.component === 'radio'"
                         :disabled="maybeBooleanishToBoolean(config?.inputProps?.disabled) ?? disabled"
                         :orientation="'vertical'"
                         v-bind="{ ...slotProps.componentField }"
                     >
                         <div v-for="(option, index) in options" :key="option" class="mb-2 flex items-center gap-3 space-y-0">
-                            <RadioGroupItem :id="`${option}-${index}`" :value="option" />
-                            <Label :for="`${option}-${index}`">{{ beautifyObjectName(option) }}</Label>
+                            <UiRadioGroupItem :id="`${option}-${index}`" :value="option" />
+                            <UiLabel :for="`${option}-${index}`">{{ beautifyObjectName(option) }}</UiLabel>
                         </div>
-                    </RadioGroup>
+                    </UiRadioGroup>
 
-                    <Select v-else :disabled="maybeBooleanishToBoolean(config?.inputProps?.disabled) ?? disabled" v-bind="{ ...slotProps.componentField }">
-                        <SelectTrigger class="w-full">
-                            <SelectValue :placeholder="config?.inputProps?.placeholder" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem v-for="option in options" :key="option" :value="option">
-                                {{ beautifyObjectName(option) }}
-                            </SelectItem>
-                        </SelectContent>
-                    </Select>
+                  <!-- todo: nele das hiert sorgt für error -->
+<!--                    <UiSelect v-else :disabled="maybeBooleanishToBoolean(config?.inputProps?.disabled) ?? disabled" v-bind="{ ...slotProps.componentField }">-->
+<!--                        <UiSelectTrigger class="w-full">-->
+<!--                            <UiSelectValue :placeholder="config?.inputProps?.placeholder" />-->
+<!--                        </UiSelectTrigger>-->
+<!--                        <UiSelectContent>-->
+<!--                            <UiSelectItem v-for="option in options" :key="option" :value="option">-->
+<!--                                {{ beautifyObjectName(option) }}-->
+<!--                            </UiSelectItem>-->
+<!--                        </UiSelectContent>-->
+<!--                    </UiSelect>-->
                 </slot>
-            </FormControl>
+            </UiFormControl>
 
-            <FormDescription v-if="config?.description">
+            <UiFormDescription v-if="config?.description">
                 {{ config.description }}
-            </FormDescription>
-            <FormMessage />
-        </FormItem>
+            </UiFormDescription>
+            <UiFormMessage />
+        </UiFormItem>
     </FormField>
 </template>

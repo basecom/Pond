@@ -1,8 +1,8 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-export { default as Alert } from './Alert.vue';
-export { default as AlertDescription } from './AlertDescription.vue';
-export { default as AlertTitle } from './AlertTitle.vue';
+export { default as UiAlert } from './UiAlert.vue';
+export { default as UiAlertDescription } from './UiAlertDescription.vue';
+export { default as UiAlertTitle } from './UiAlertTitle.vue';
 
 export const alertVariants = cva(
     'relative w-full rounded-lg border border-gray-200 px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-gray-950 [&>svg~*]:pl-7',
