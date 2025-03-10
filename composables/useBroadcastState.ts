@@ -5,7 +5,7 @@ export function useBroadcastState(){
     const { cart, refreshCart } = useCart();
     const justReceivedCart = ref(false);
     const justReceivedSession = ref(false);
-    let cartResetTimeout;
+    let cartResetTimeout : Timer;
 
     const {
         channel: sessionChannel,
