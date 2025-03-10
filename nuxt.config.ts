@@ -41,6 +41,7 @@ export default defineNuxtConfig({
             pond: {
                 shopwareEndpoint: '',
                 accessToken: '',
+                devStorefrontUrl: '',
                 analytics: {
                     enabled: false,
                     type: 'gtag',
@@ -49,6 +50,9 @@ export default defineNuxtConfig({
                 },
                 breadcrumb: {
                     enableDynamicLoading: false,
+                },
+                cms: {
+                    enableProgressiveLoading: false,
                 },
             },
         },
