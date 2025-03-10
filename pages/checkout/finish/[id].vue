@@ -8,6 +8,8 @@ const { order, loadOrderDetails, shippingAddress, billingAddress, shippingMethod
     useOrderDetails(orderId);
 const { getFormattedPrice } = usePrice();
 const customerStore = useCustomerStore();
+const configStore = useConfigStore();
+const showCustomerComment = configStore.get('core.cart.showCustomerComment');
 
 const formattedOrderDate = computed(() => {
     if (order.value?.orderDate) {
@@ -120,14 +122,14 @@ onMounted(async () => {
                     </div>
 
                     <div
-                        v-if="order.customerComment"
+                        v-if="order.customerComment && showCustomerComment"
                         class="pt-4"
                     >
                         <div class="mb-2 font-bold">
                             {{ $t('checkout.finish.customerCommentHeading') }}
                         </div>
 
-                        <OrderComment :customer-comment="order.customerComment" />
+                        {{ order.customerComment }}
                     </div>
                 </div>
 

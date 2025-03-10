@@ -15,17 +15,17 @@ provide('cmsElementId', props.content.id);
 
 <template>
     <div
-        v-if="componentExists(getCmsElementComponentName(content.type))"
+        v-if="componentExists(getCmsElementComponentName(content?.type))"
         v-cms-element="content"
-        :class="['cms-element', `cms-element-${kebabCase(content.type)}`]"
+        :class="['cms-element', `cms-element-${kebabCase(content?.type)}`]"
     >
         <component
-            :is="getCmsElementComponentName(content.type)"
+            :is="getCmsElementComponentName(content?.type)"
             :element="content"
         />
     </div>
 
     <div v-else-if="isDevelopment">
-        {{ $t('cms.componentNotFound', { componentName: getCmsElementComponentName(content.type) }) }}
+        {{ $t('cms.componentNotFound', { componentName: getCmsElementComponentName(content?.type) }) }}
     </div>
 </template>
