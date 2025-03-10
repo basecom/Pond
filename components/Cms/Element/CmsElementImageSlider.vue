@@ -9,8 +9,9 @@ const props = defineProps<{
 }>();
 
 const config = useCmsElementConfig(props.element);
-const { getCmsElementData } = useCmsUtils();
+const { getCmsElementData, shouldPreloadElement } = useCmsUtils();
 const slides = getCmsElementData(props.element, 'sliderItems') ?? [];
+const firstSlide = slides?.at(0);
 
 const { trackPromotionView } = useAnalytics();
 const { isHomePage } = useHomePage();
@@ -21,6 +22,7 @@ const autoSlide = config.getConfigValue('autoSlide');
 const autoplayTimeout = config.getConfigValue('autoplayTimeout');
 const minHeight = config.getConfigValue('minHeight');
 const speed = config.getConfigValue('speed');
+const shouldPreloadImage = shouldPreloadElement(props.element);
 
 const sliderRef = ref(null);
 
@@ -40,6 +42,13 @@ const autoplayConfig = computed(() =>
 const speedConfig = computed(() => autoSlide ? speed : 300);
 const slidesRef = ref([]);
 const trackedSlides: Ref<string[]> = ref([]);
+
+if (firstSlide && shouldPreloadImage) {
+    useImagePreload({
+        src: firstSlide.media.url,
+        alt: getTranslatedProperty(firstSlide.media, 'alt'),
+    });
+}
 
 const getPromotion = (media: Schemas['Media']): PromotionInfo => ({
     creative_name: media.fileName ?? '',
@@ -104,9 +113,11 @@ if (isHomePage.value) {
 
             <template #fallback>
                 <img
-                    v-cms-element-lazy-load="{ id: slides?.at(0)?.media?.id, type: 'image' }"
-                    :src="slides?.at(0)?.media?.url"
-                    :alt="$t('cms.element.imageAlt')"
+                    v-cms-element-lazy-load="{ id: firstSlide?.media?.id, type: 'image' }"
+                    :src="firstSlide?.media?.url"
+                    :loading="shouldPreloadImage ? 'eager' : 'lazy'"
+                    :alt="getTranslatedProperty(firstSlide?.media, 'alt') || $t('cms.element.imageAlt')"
+                    :title="getTranslatedProperty(firstSlide?.media, 'title') || $t('cms.element.imageAlt')"
                     class="size-full object-center"
                     :class="'object-' + displayMode"
                 >
