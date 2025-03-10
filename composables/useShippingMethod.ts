@@ -1,9 +1,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
-import { useCart, useCheckout } from "#build/imports";
 
 export function useShippingMethod() {
-
-    const preselectShippingMethod = async () => {
+    const preselectShippingMethodFallback = async () => {
         const { getShippingMethods, setShippingMethod, selectedShippingMethod } = useCheckout();
         const { refreshCart } = useCart();
 
@@ -19,9 +17,9 @@ export function useShippingMethod() {
             return current.prices?.[0].currencyPrice?.[0].gross < lowest.prices?.[0].currencyPrice?.[0].gross ? current : lowest;
         });
 
-        await setShippingMethod({id: cheapestMethod.id});
+        await setShippingMethod({ id: cheapestMethod.id });
         await refreshCart();
-    }
+    };
 
-    return { preselectShippingMethod };
+    return { preselectShippingMethodFallback };
 }

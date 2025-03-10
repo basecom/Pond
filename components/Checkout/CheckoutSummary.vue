@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 withDefaults(
     defineProps<{
         reducedDisplay?: boolean;
@@ -8,8 +7,9 @@ withDefaults(
         reducedDisplay: false,
     },
 );
-const { preselectShippingMethod } = useShippingMethod();
-await preselectShippingMethod();
+
+const { preselectShippingMethodFallback } = useShippingMethod();
+await preselectShippingMethodFallback();
 
 const { totalPrice, shippingTotal, cart } = useCart();
 
