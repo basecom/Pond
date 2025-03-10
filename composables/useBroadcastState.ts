@@ -1,11 +1,13 @@
 import { useBroadcastChannel } from '@vueuse/core';
+import { nanoid } from 'nanoid';
 
 export function useBroadcastState(){
     const { sessionContext, refreshSessionContext } = useSessionContext();
     const { cart, refreshCart } = useCart();
-    const justReceivedCart = ref(false);
-    const justReceivedSession = ref(false);
-    let cartResetTimeout : Timer;
+
+    const tabId = ref(nanoid());
+    const refreshingCart = ref(false);
+    const refreshingSession = ref(false);
 
     const {
         channel: sessionChannel,
@@ -18,43 +20,41 @@ export function useBroadcastState(){
     } = useBroadcastChannel({ name: 'cart-store-channel' });
 
 
-    watch(cart,  () => {
-        if (isSupported.value){
-            if (!justReceivedCart.value) {
-                postCart('cart');
-            } else {
-                clearTimeout(cartResetTimeout);
-                cartResetTimeout = setTimeout(() => {
-                    justReceivedCart.value = false;
-                }, 2000);
-            }
+    watch(cart, () => {
+        if (isSupported.value && !refreshingCart.value) {
+            postCart({ tabId: tabId.value });
         }
     });
 
     watch(cartChannel, () => {
         if (cartChannel.value){
-            cartChannel.value.addEventListener('message', async()=> {
-                justReceivedCart.value = true;
-                await refreshCart();
+
+            cartChannel.value.addEventListener('message', async(event)=> {
+                if (event.data?.tabId !== tabId.value){
+                    refreshingCart.value = true;
+                    await refreshCart();
+                    refreshingCart.value = false;
+                }
             });
         }
     });
 
     watch(sessionContext,  () => {
-        if (isSupported.value && !justReceivedSession.value && !justReceivedCart.value) {
-            post('session');
+        if (isSupported.value && !refreshingSession.value) {
+            post({ tabId: tabId.value });
         }
-        if (justReceivedSession.value){
-            justReceivedSession.value = false;
-        }
+
 
     });
 
     watch(sessionChannel, () => {
         if (sessionChannel.value){
-            sessionChannel.value.addEventListener('message', async()=>{
-                justReceivedSession.value = true;
-                await refreshSessionContext();
+            sessionChannel.value.addEventListener('message', async(event)=>{
+                if (event.data?.tabId !== tabId.value){
+                    refreshingSession.value = true;
+                    await refreshSessionContext();
+                    refreshingSession.value = false;
+                }
             });
         }
     });

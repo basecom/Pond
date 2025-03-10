@@ -14,6 +14,9 @@ const selectedShippingMethod = computed({
         return shippingMethod.value?.id || '';
     },
     async set(shippingMethodId: string) {
+        if (shippingMethodId === shippingMethod.value?.id) {
+            return;
+        }
         await setShippingMethod({ id: shippingMethodId });
         trackAddShippingInfo();
         await refreshCart();
