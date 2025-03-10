@@ -13,8 +13,11 @@ export function useShippingMethod() {
             return;
         }
 
-        const cheapestMethod = shippingMethods.value.reduce((lowest : Schemas['ShippingMethod'], current: Schemas['ShippingMethod']) => {
-            return current.prices?.[0].currencyPrice?.[0].gross < lowest.prices?.[0].currencyPrice?.[0].gross ? current : lowest;
+        const cheapestMethod : Schemas['ShippingMethod'] = shippingMethods.value.reduce((lowest: Schemas['ShippingMethod'], current: Schemas['ShippingMethod']) => {
+            const currentGross = current.prices?.[0]?.currencyPrice?.[0]?.gross ?? 0;
+            const lowestGross = lowest.prices?.[0]?.currencyPrice?.[0]?.gross ?? 0;
+
+            return currentGross < lowestGross ? current : lowest;
         });
 
         await setShippingMethod({ id: cheapestMethod.id });
