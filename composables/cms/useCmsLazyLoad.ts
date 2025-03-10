@@ -43,7 +43,7 @@ export function useCmsLazyLoad(pageConfig: Ref<CmsPageConfig | null>) {
         setCmsElementLazyLoad(cmsElementId, lazyLoadConfig);
     };
 
-    const watchCsrElementsLoaded = (cmsElementId: string, lazyLoadId: string, cb: () => void) => {
+    const watchCsrElementsLoaded = (cmsElementId: string, lazyLoadId: string, callback: () => void) => {
         if (!isProgressiveLoadingEnabled || import.meta.server) {
             return;
         }
@@ -62,7 +62,7 @@ export function useCmsLazyLoad(pageConfig: Ref<CmsPageConfig | null>) {
         watchElementLoaded(element, () => {
             config.loaded = true;
 
-            cb();
+            callback();
         });
     };
 

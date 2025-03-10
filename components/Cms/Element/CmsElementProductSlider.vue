@@ -111,6 +111,7 @@ const onProductSelect = (product: Schemas['Product'], index: string | number) =>
                 </LayoutSliderSlide>
             </LayoutSlider>
         </ClientOnly>
+
         <div class="flex overflow-hidden" :class="placeholderClasses">
             <template v-for="(slide, index) in slides" :key="slide.id">
                 <div class="pr-6" :class="breakpointsClasses[index] ?? 'hidden'">

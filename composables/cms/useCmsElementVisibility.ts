@@ -58,7 +58,7 @@ export function useCmsElementVisibility(pageConfig: Ref<CmsPageConfig | null>) {
         element.style.display = 'block';
     };
 
-    const watchCsrElementVisibility = (cmsElementId: string, cb: () => void) => {
+    const watchCsrElementVisibility = (cmsElementId: string, callback: () => void) => {
         if (!isProgressiveLoadingEnabled || import.meta.server) {
             return;
         }
@@ -71,7 +71,7 @@ export function useCmsElementVisibility(pageConfig: Ref<CmsPageConfig | null>) {
         }
 
         if (!elementConfig.lazyLoad.length) {
-            cb();
+            callback();
         }
 
         const loadedElements = [];
@@ -82,7 +82,7 @@ export function useCmsElementVisibility(pageConfig: Ref<CmsPageConfig | null>) {
 
                 if (loadedElements.length === elementConfig.lazyLoad.length) {
                     elementConfig.loaded = true;
-                    cb();
+                    callback();
                 }
             });
         });
