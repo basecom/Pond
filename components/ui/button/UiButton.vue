@@ -19,6 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
     <Primitive
+        v-auto-animate
         :as="as"
         :as-child="asChild"
         :class="cn(buttonVariants({ variant, size }), props.class)"
