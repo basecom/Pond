@@ -16,7 +16,7 @@ export function useShippingMethod() {
         const getGrossPrice = (method: Schemas['ShippingMethod']): number => {
             const prices = method.prices as { currencyPrice?: { gross?: number }[] }[] | undefined;
             const currencyPrice = prices?.[0]?.currencyPrice as { gross?: number }[] | undefined;
-            return currencyPrice?.[0]?.gross ?? Infinity;
+            return currencyPrice?.[0]?.gross ?? 0;
         };
 
         const cheapestMethod = shippingMethods.value.reduce((lowest, current) => getGrossPrice(current) < getGrossPrice(lowest) ? current : lowest, shippingMethods.value[0]);
