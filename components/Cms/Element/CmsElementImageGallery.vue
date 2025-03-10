@@ -9,6 +9,7 @@ const props = defineProps<{
 const elementConfig = useCmsElementConfig(props.element);
 const { getCmsElementData } = useCmsUtils();
 const slides = getCmsElementData(props.element, 'sliderItems')?? [];
+const firstSlide = slides.at(0);
 
 const navigationDots = elementConfig.getConfigValue('navigationDots');
 const navigationArrows = elementConfig.getConfigValue('navigationArrows');
@@ -24,6 +25,15 @@ const spaceBetween = 16;
 const lightboxModalController = useModal();
 const lightboxSliderIndex = ref(0);
 
+const staticThumbnails = computed(() => slides.slice(0, thumbnailSlidesPerView));
+
+if (firstSlide) {
+    useImagePreload({
+        src: firstSlide.media.url,
+        alt: getTranslatedProperty(firstSlide.media, 'alt'),
+    });
+}
+
 const openLightbox = (slideMediaId: string) => {
     if (!isLightboxEnabled) {
         return;
@@ -37,12 +47,12 @@ const openLightbox = (slideMediaId: string) => {
 </script>
 
 <template>
-    <ClientOnly>
-        <div
-            class="flex max-h-[640px] gap-4"
-            :class="galleryPosition.value === 'underneath' ? 'max-h-full flex-col flex-wrap' : 'flex-row-reverse'"
-        >
-            <template v-if="slides.length > 0">
+    <div
+        class="flex max-h-[640px] gap-4"
+        :class="galleryPosition.value === 'underneath' ? 'max-h-full flex-col flex-wrap' : 'flex-row-reverse'"
+    >
+        <template v-if="slides.length > 0">
+            <ClientOnly>
                 <LayoutSlider
                     :classes="{
                         'w-full': galleryPosition.value === 'underneath',
@@ -76,7 +86,6 @@ const openLightbox = (slideMediaId: string) => {
                         </template>
                     </LayoutSliderSlide>
                 </LayoutSlider>
-
                 <LayoutSlider
                     :classes="{
                         'w-full': galleryPosition.value === 'underneath',
@@ -112,22 +121,78 @@ const openLightbox = (slideMediaId: string) => {
                         </template>
                     </LayoutSliderSlide>
                 </LayoutSlider>
-            </template>
 
-            <template v-else>
-                <div class="w-full bg-gray-light">
-                    <SharedImagePlaceholder :size="'lg'" />
-                </div>
-            </template>
-        </div>
+                <template #fallback>
+                    <div
+                        class="grid size-full min-h-[430px] max-w-[calc(100%-clamp(100px,100%,150px)-16px)]"
+                        :class="[
+                            slides.length > 1 ? 'cursor-grab' : '',
+                            galleryPosition === 'underneath' ? 'w-full' : 'w-auto',
+                            'w-full md:max-w-[675px]',
+                        ]"
+                    >
+                        <img
+                            v-if="slides.at(0)?.media.url"
+                            :src="slides.at(0)?.media.url"
+                            :alt="getTranslatedProperty(slides.at(0)?.media, 'alt') || $t('cms.element.imageAlt')"
+                            :title="getTranslatedProperty(slides.at(0)?.media, 'title') || $t('cms.element.imageAlt')"
+                            class="size-full object-center"
+                            :class="'object-' + displayMode"
+                            loading="eager"
+                        >
 
-        <SharedGalleryLightBox
-            :controller="lightboxModalController"
-            :image-classes="'object-' + displayMode"
-            :slides="slides"
-            :is-zoom-enabled="isZoomEnabled"
-            :slider-index="lightboxSliderIndex"
-            :thumbs-swiper="`.thumbnailRef-${element.id}`"
-        />
-    </ClientOnly>
+                        <template v-else>
+                            <div class="w-full bg-gray-light">
+                                <SharedImagePlaceholder :size="'lg'" />
+                            </div>
+                        </template>
+                    </div>
+                    <div
+                        :class="{
+                            'w-full': galleryPosition.value === 'underneath',
+                            'max-w-[clamp(100px,100%,150px)]': true
+                        }"
+                    >
+                        <div
+                            v-for="(slide, index) in staticThumbnails"
+                            :key="slide.media.id"
+                            class="group mb-4 flex h-[122.2px] last:mb-0"
+                            :class="index === 0 ? 'swiper-slide-thumb-active' : ''"
+                        >
+                            <img
+                                v-if="slide.media.url"
+                                :src="slide.media.url"
+                                :alt="getTranslatedProperty(slide.media, 'alt') || $t('cms.element.imageAlt')"
+                                :title="getTranslatedProperty(slide.media, 'title') || $t('cms.element.imageAlt')"
+                                class="object-cover object-center opacity-40 group-[.swiper-slide-thumb-active]:border-2 group-[.swiper-slide-thumb-active]:border-brand-primary group-[.swiper-slide-thumb-active]:opacity-100"
+                            >
+
+                            <template v-else>
+                                <div
+                                    class="w-full bg-gray-light opacity-40 group-[.swiper-slide-thumb-active]:border-2 group-[.swiper-slide-thumb-active]:border-brand-primary group-[.swiper-slide-thumb-active]:opacity-100"
+                                >
+                                    <SharedImagePlaceholder :size="'sm'" />
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </ClientOnly>
+        </template>
+
+        <template v-else>
+            <div class="w-full bg-gray-light">
+                <SharedImagePlaceholder :size="'lg'" />
+            </div>
+        </template>
+    </div>
+
+    <SharedGalleryLightBox
+        :controller="lightboxModalController"
+        :image-classes="'object-' + displayMode"
+        :slides="slides"
+        :is-zoom-enabled="isZoomEnabled"
+        :slider-index="lightboxSliderIndex"
+        :thumbs-swiper="`.thumbnailRef-${element.id}`"
+    />
 </template>

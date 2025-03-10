@@ -1,8 +1,8 @@
 import type { TrackingPageMetaEvents } from '~/types/analytics/PageMeta';
 
 export function usePageTrackingHelper() {
-    const customerStore = useCustomerStore();
-    const { customer, loading } = storeToRefs(customerStore);
+    const { customer } = storeToRefs(useCustomerStore());
+    const { loading } = storeToRefs(useContextStore());
     const { path } = useRoute();
     const { sessionContext, languageId } = useSessionContext();
     const { getLanguageCodeFromId, languages } = useInternationalization();

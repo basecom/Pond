@@ -5,9 +5,9 @@ const { mainNavigationElements } = storeToRefs(navigationStore);
 watch(
     languageIdChain,
     async () => {
-        await navigationStore.loadMainNavigation(2);
+        await navigationStore.loadMainNavigation(2, true);
     },
-    { immediate: true },
+    { immediate: false },
 );
 </script>
 

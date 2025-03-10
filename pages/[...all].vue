@@ -2,10 +2,6 @@
 import { pascalCase } from 'scule';
 
 const { clearBreadcrumbs } = useBreadcrumbs();
-
-const { refreshSessionContext } = useSessionContext();
-await refreshSessionContext();
-
 const { resolvePath } = useNavigationSearch();
 const route = useRoute();
 const { t } = useI18n();
@@ -18,10 +14,14 @@ const { t } = useI18n();
 const { $i18n } = useNuxtApp();
 const { locale } = useI18n();
 const defaultLocale = $i18n.defaultLocale;
-const routePath =
+let routePath =
     locale.value !== defaultLocale
-        ? route.path.replace(/^\/[^/]+/, '')
+        ? route.path.replace(/^\/[^\\/]+/, '')
         : route.path;
+
+if (routePath === '') {
+    routePath = '/';
+}
 
 const { data: seoResult } = await useAsyncData(`seoPath${routePath}`, async () => {
     // For client links if the history state contains seo url information we can omit the api call

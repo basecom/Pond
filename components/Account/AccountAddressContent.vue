@@ -8,7 +8,7 @@ const { handleError } = useFormErrorStore();
 
 const { customerAddresses, loadCustomerAddresses, saveAddress, deleteAddress } = useCustomerAddress();
 
-const { refreshContext } = useCustomerStore();
+const { refreshSessionContext } = useContextStore();
 const { pushError } = useNotifications();
 const { t } = useI18n();
 const formErrorStore = useFormErrorStore();
@@ -46,7 +46,7 @@ const handleSave = async (fields: BillingAddressForm) => {
         await saveAddress(isEditMode.value ? selectedAddress.value?.id ?? '' : '', addressData);
 
         await loadCustomerAddresses();
-        await refreshContext();
+        await refreshSessionContext();
 
         modalController.close();
         isLoading.value = false;

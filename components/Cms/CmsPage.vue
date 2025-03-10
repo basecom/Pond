@@ -3,12 +3,13 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import { getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
 import type { StyleValue } from 'vue';
 
-defineProps<{
+const props = defineProps<{
     cmsPage: Schemas['CmsPage'];
 }>();
 
 const { getCmsSectionComponentName, componentExists, getSectionClasses } = useCmsUtils();
 const getComponentStyle = (section: Schemas['CmsSection']) => getCmsLayoutConfiguration(section).layoutStyles as StyleValue;
+provide('cmsPage', props.cmsPage);
 </script>
 
 <template>

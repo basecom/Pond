@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const customerStore = useCustomerStore();
-const { loading } = storeToRefs(customerStore);
+const contextStore = useContextStore();
+const { loading } = storeToRefs(contextStore);
 
 const { refreshCart } = useCart();
 const { getWishlistProducts } = useWishlist();
 
-customerStore.refreshContext();
+contextStore.refreshSessionContext();
 refreshCart();
 
 getWishlistProducts();

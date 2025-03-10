@@ -3,7 +3,7 @@ import type { PluginConfiguration } from '~/types/PluginConfiguration';
 export const useConfigStore = defineStore('config', () => {
     const { fetchConfig } = usePluginConfig();
     const { handleError } = useHandleError();
-    const _configValues: Ref<PluginConfiguration | null> = ref(null);
+    const _configValues: Ref<PluginConfiguration | null> = useState('config', () => null);
     const loading = ref(false);
 
     const loadConfig = async () => {

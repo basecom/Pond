@@ -9,7 +9,7 @@ const props = defineProps<{
 }>();
 
 const config = useCmsElementConfig(props.element);
-const { getCmsElementData } = useCmsUtils();
+const { getCmsElementData, shouldPreloadElement } = useCmsUtils();
 const slides = getCmsElementData(props.element, 'sliderItems') ?? [];
 
 const { trackPromotionView } = useAnalytics();
@@ -21,6 +21,7 @@ const autoSlide = config.getConfigValue('autoSlide');
 const autoplayTimeout = config.getConfigValue('autoplayTimeout');
 const minHeight = config.getConfigValue('minHeight');
 const speed = config.getConfigValue('speed');
+const shouldPreloadImage = shouldPreloadElement(props.element);
 
 const sliderRef = ref(null);
 
@@ -67,6 +68,14 @@ if (isHomePage.value) {
         });
     });
 }
+const firstSlide = slides?.at(0);
+
+if (firstSlide && shouldPreloadImage) {
+    useImagePreload({
+        src: firstSlide.media.url,
+        alt: getTranslatedProperty(firstSlide.media, 'alt'),
+    });
+}
 </script>
 
 <template>
@@ -106,6 +115,19 @@ if (isHomePage.value) {
         <template v-else>
             <div class="w-full bg-gray-light">
                 <SharedImagePlaceholder :size="'lg'" />
+            </div>
+        </template>
+
+        <template #fallback>
+            <div v-if="slides.length > 0">
+                <img
+                    :src="slides?.at(0)?.media.url"
+                    :loading="shouldPreloadImage ? 'eager' : 'lazy'"
+                    :alt="getTranslatedProperty(slides?.at(0)?.media, 'alt') || $t('cms.element.imageAlt')"
+                    :title="getTranslatedProperty(slides?.at(0)?.media, 'title') || $t('cms.element.imageAlt')"
+                    class="size-full object-center"
+                    :class="'object-' + displayMode"
+                >
             </div>
         </template>
     </ClientOnly>

@@ -7,6 +7,7 @@ const { search } = useCategorySearch();
 const { getBreadcrumbs } = useCategoryBreadcrumbs();
 const route = useRoute();
 const { t } = useI18n();
+const { isHomePage } = useHomePage();
 
 const { data: categoryResponse } = await useAsyncData(
     `navigation${props.navigationId}`,
@@ -25,7 +26,7 @@ if (!categoryResponse.value) {
 
 const { category } = useCategory(categoryResponse);
 
-const breadcrumbs = await getBreadcrumbs(category.value);
+const breadcrumbs = !isHomePage.value ? await getBreadcrumbs(category.value) : [];
 
 createCategoryListingContext();
 useBreadcrumbs(breadcrumbs);

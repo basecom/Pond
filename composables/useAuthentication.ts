@@ -1,5 +1,6 @@
 export function useAuthentication() {
-    const { signedIn, loading } = storeToRefs(useCustomerStore());
+    const { signedIn } = storeToRefs(useCustomerStore());
+    const { loading } = storeToRefs(useContextStore());
 
     const rerouteIfLoggedOut = async (targetRoute: string = '/account/login') => {
         await sessionContextLoaded();

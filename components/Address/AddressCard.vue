@@ -6,6 +6,7 @@ const props = defineProps<{
 }>();
 
 const customerStore = useCustomerStore();
+const contextStore = useContextStore();
 const { setDefaultCustomerBillingAddress, setDefaultCustomerShippingAddress } = useAddress();
 const { pushSuccess, pushError } = useNotifications();
 const { t } = useI18n();
@@ -18,7 +19,7 @@ defineEmits<{
 const updateDefaultShipping = async () => {
     try {
         await setDefaultCustomerShippingAddress(props.address.id);
-        customerStore.refreshContext();
+        await contextStore.refreshSessionContext();
         pushSuccess(t('account.address.updateShippingSuccess'));
     } catch (e) {
         pushError(t('account.address.updateShippingError'));
@@ -28,7 +29,7 @@ const updateDefaultShipping = async () => {
 const updateDefaultBilling = async () => {
     try {
         await setDefaultCustomerBillingAddress(props.address.id);
-        customerStore.refreshContext();
+        await contextStore.refreshSessionContext();
         pushSuccess(t('account.address.updateBillingSuccess'));
     } catch (e) {
         pushError(t('account.address.updateBillingError'));

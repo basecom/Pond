@@ -4,7 +4,8 @@ import type { AddressTypes } from '~/types/checkout/AddressTypes';
 import { type ApiClientError } from '@shopware/api-client';
 import type { BillingAddressForm, ShippingAddressForm } from '~/types/form/AddressForm';
 
-const { refreshContext, signedIn } = useCustomerStore();
+const { signedIn } = useCustomerStore();
+const { refreshSessionContext } = useContextStore();
 const { handleError } = useFormErrorStore();
 const { pushError } = useNotifications();
 const { t } = useI18n();
@@ -34,7 +35,7 @@ const handleSameBillingAddress = async () => {
                 activeShippingAddress.value.id,
                 activeBillingAddress.value.id,
             );
-            await refreshContext();
+            await refreshSessionContext();
             await refreshCart();
         }
     } catch (error) {
@@ -49,7 +50,7 @@ const handleChange = async (payload: { type: AddressTypes; id: string }) => {
     try {
         await changeDefaultAddress(payload.type, payload.id, billingAddressIsSameAsShippingAddress.value);
 
-        await refreshContext();
+        await refreshSessionContext();
         await refreshCart();
 
         isLoading.value = false;
@@ -79,7 +80,7 @@ const handleSave = async (payload: {
         await changeDefaultAddress(payload.type, savedAddress.id, billingAddressIsSameAsShippingAddress.value);
 
         await loadCustomerAddresses();
-        await refreshContext();
+        await refreshSessionContext();
         await refreshCart();
 
         modalController.close();

@@ -1,15 +1,27 @@
 <script setup lang="ts">
 import { getTranslatedProperty, getCategoryRoute } from '@shopware-pwa/helpers-next';
 
-const { navigationElements, loadNavigationElements } = useNavigation({ type: 'footer-navigation' });
-const { navigationElements: serviceNavigationElements, loadNavigationElements: loadServiceElements } = useNavigation({
-    type: 'service-navigation',
-});
+const { languageIdChain } = useSessionContext();
+const navigationStore = useNavigationStore();
+const { footerNavigationElements, serviceNavigationElements } = storeToRefs(navigationStore);
 
-onMounted(async () => {
-    await loadNavigationElements({ depth: 1 });
-    await loadServiceElements({ depth: 1 });
-});
+if (import.meta.server) {
+    await Promise.all([
+        await navigationStore.loadFooterNavigation(1),
+        await navigationStore.loadServiceNavigation(1),
+    ]);
+}
+
+watch(
+    languageIdChain,
+    async () => {
+        await Promise.all([
+            await navigationStore.loadFooterNavigation(1),
+            await navigationStore.loadServiceNavigation(1),
+        ]);
+    },
+    { immediate: false },
+);
 </script>
 
 <template>
@@ -19,7 +31,7 @@ onMounted(async () => {
                 <!-- footer navigation -->
                 <div class="grid gap-5 md:flex md:justify-between lg:justify-normal lg:gap-28">
                     <template
-                        v-for="navigationElement in navigationElements"
+                        v-for="navigationElement in footerNavigationElements"
                         :key="navigationElement.id"
                     >
                         <ul class="list-none">

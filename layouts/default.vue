@@ -1,39 +1,43 @@
 <script setup lang="ts">
-const { changeLanguage, getLanguageIdFromCode, getAvailableLanguages } = useInternationalization();
+
+const { changeLanguage, getLanguageIdFromCode } = useInternationalization();
 const { locale } = useI18n();
-
-const updateSessionWithLanguage = async () => {
-    const frontendLocale = locale.value;
-    await getAvailableLanguages();
-    await changeLanguage(getLanguageIdFromCode(frontendLocale));
-};
-
-await updateSessionWithLanguage();
-
-const customerStore = useCustomerStore();
-const { loading } = storeToRefs(customerStore);
-
 const configStore = useConfigStore();
-await configStore.loadConfig();
-
-const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
-
-const { refreshCart } = useCart();
+const contextStore = useContextStore();
+const cartStore = useCartStore();
+const navigationStore = useNavigationStore();
+const { loading } = storeToRefs(contextStore);
 const { getWishlistProducts } = useWishlist();
-
-useNotifications();
-useBreadcrumbs();
-
-customerStore.refreshContext();
-refreshCart();
-
 const route = useRoute();
-if (route.path !== '/wishlist' && wishlistEnabled) {
+const frontendLocale = locale.value;
+
+if (import.meta.server) {
+    await contextStore.getAllLanguages();
+    const localLanguageId = getLanguageIdFromCode(frontendLocale);
+    await changeLanguage(localLanguageId);
+    await contextStore.refreshSessionContext();
+    await Promise.all([
+        configStore.loadConfig(),
+        navigationStore.loadMainNavigation(2),
+    ]);
+    cartStore.refreshCart();
+} else {
+    contextStore.reloadSessionContextFromSsr();
+    contextStore.reloadLanguagesFromSsr();
+    cartStore.reloadCartFromSsr();
+}
+
+const isWishlistPage = route.path === '/wishlist';
+const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
+const shopName = configStore.get('core.basicInformation.shopName') as string|null;
+
+if (!isWishlistPage && wishlistEnabled) {
     // If not on wishlist page we fetch for displaying the amount of items in the header
     getWishlistProducts();
 }
 
-const shopName = configStore.get('core.basicInformation.shopName') as string|null;
+useNotifications();
+useBreadcrumbs();
 useHead({
     title: shopName ?? '',
     htmlAttrs: {

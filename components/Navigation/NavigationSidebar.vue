@@ -19,11 +19,11 @@ const previousNavigationItems = ref<Schemas['Category'][]>([]);
 watch(
     languageIdChain,
     async () => {
-        await navigationStore.loadMainNavigation(2);
+        await navigationStore.loadMainNavigation(2, true);
         shownNavigationItems.value = mainNavigationElements.value;
         previousNavigationItems.value = [];
     },
-    { immediate: true },
+    { immediate: false },
 );
 
 const handleClick = (navigationElement: Schemas['Category']) => {

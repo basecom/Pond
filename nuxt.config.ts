@@ -50,6 +50,10 @@ export default defineNuxtConfig({
                 breadcrumb: {
                     enableDynamicLoading: false,
                 },
+                preloading: {
+                    enabled: false,
+                    imagePreloadingClass: 'cms-lcp-block',
+                },
             },
         },
     },

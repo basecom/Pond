@@ -17,23 +17,25 @@ if (route.path === '/search') {
 </script>
 
 <template>
-    <button
-        ref="toggleSearch"
-        @click="searchVisible = !searchVisible"
-    >
-        <FormKitIcon
-            class="pointer-events-none block size-6"
-            icon="search"
-        />
-    </button>
-
-    <ClientOnly>
-        <teleport to="#flyouts">
-            <LayoutHeaderSearchBar
-                v-if="searchVisible"
-                ref="searchComponent"
-                @close-search="searchVisible = false"
+    <div class="flex items-center">
+        <button
+            ref="toggleSearch"
+            @click="searchVisible = !searchVisible"
+        >
+            <FormKitIcon
+                class="pointer-events-none block size-6"
+                icon="search"
             />
-        </teleport>
-    </ClientOnly>
+        </button>
+
+        <ClientOnly>
+            <teleport to="#flyouts">
+                <LayoutHeaderSearchBar
+                    v-if="searchVisible"
+                    ref="searchComponent"
+                    @close-search="searchVisible = false"
+                />
+            </teleport>
+        </ClientOnly>
+    </div>
 </template>
