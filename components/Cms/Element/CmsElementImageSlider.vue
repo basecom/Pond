@@ -1,13 +1,17 @@
 <script setup lang="ts">
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { PromotionInfo } from '../../../types/analytics/promotion';
+import type { PromotionInfo } from '~/types/analytics/Promotion';
+import type { CmsImageSliderItem } from '~/types/cms/CmsImageSliderItem';
 
 const props = defineProps<{
     element: CmsElementImageSlider;
 }>();
 
 const config = useCmsElementConfig(props.element);
-const data = useCmsElementData(props.element);
+const { getCmsElementData } = useCmsUtils();
+const slides = getCmsElementData(props.element, 'sliderItems') ?? [];
+
 const { trackPromotionView } = useAnalytics();
 const { isHomePage } = useHomePage();
 const navigationDots = config.getConfigValue('navigationDots');
@@ -18,46 +22,40 @@ const autoplayTimeout = config.getConfigValue('autoplayTimeout');
 const minHeight = config.getConfigValue('minHeight');
 const speed = config.getConfigValue('speed');
 
-const slides = computed(() => config.getConfigValue('sliderItems') ?? []);
 const sliderRef = ref(null);
 
-if (slides.value.length > 0) {
+if (slides.value?.length) {
     useSwiper(sliderRef, {});
 }
 
-const autoplayConfig = computed(() => {
-    return autoSlide
+const autoplayConfig = computed(() =>
+    autoSlide
         ? {
-              delay: autoplayTimeout,
-              disableOnInteraction: false,
-          }
-        : false;
-});
+            delay: autoplayTimeout,
+            disableOnInteraction: false,
+        }
+        : false,
+);
 
-const speedConfig = computed(() => {
-    return autoSlide ? speed : '300';
-});
+const speedConfig = computed(() => autoSlide ? speed : 300);
 const slidesRef = ref([]);
-const trackedSlides = ref([]);
+const trackedSlides: Ref<string[]> = ref([]);
 
-const getPromotion = (media: Schemas['Media']): PromotionInfo => {
-    return {
-        creative_name: media.fileName ?? '',
-        creative_slot: props.element?.type ?? '',
-        promotion_id: props.element?.blockId ?? '',
-        promotion_name: props.element?.type ?? '',
-    };
-};
+const getPromotion = (media: Schemas['Media']): PromotionInfo => ({
+    creative_name: media.fileName ?? '',
+    creative_slot: props.element?.type ?? '',
+    promotion_id: props.element?.blockId ?? '',
+    promotion_name: props.element?.type ?? '',
+});
 
 if (isHomePage.value) {
     const { stop } = useIntersectionObserver(slidesRef, events => {
         events.forEach(event => {
             if (event.isIntersecting) {
                 const mediaUrl = (event.target as HTMLImageElement).src;
-                const slidesData = data.getData('sliderItems');
-                const media: Schemas['Media'] = slidesData?.find(slide => slide.media?.url === mediaUrl)?.media;
+                const media: Schemas['Media'] = slides?.find((slide: CmsImageSliderItem) => slide.media?.url === mediaUrl)?.media;
 
-                if (media && !trackedSlides.value.includes(media.fileName)) {
+                if (media?.fileName && !trackedSlides.value.includes(media.fileName)) {
                     trackPromotionView(getPromotion(media));
                     trackedSlides.value = [...trackedSlides.value, media.fileName];
                 }
@@ -72,16 +70,14 @@ if (isHomePage.value) {
 </script>
 
 <template>
-    <ClientOnly>
-        <div
-            v-if="slides?.length"
-            :style="{ minHeight: minHeight }"
-        >
+    <div
+        v-if="slides?.length"
+        :style="{ minHeight: minHeight }"
+    >
+        <ClientOnly>
             <LayoutSlider
                 ref="sliderRef"
-                :class="{
-                    'cursor-grab': slides.length > 1,
-                }"
+                :slides-counter="slides.length"
                 class="w-full"
                 :style="{ minHeight: minHeight }"
                 :autoplay="autoplayConfig"
@@ -92,24 +88,35 @@ if (isHomePage.value) {
             >
                 <LayoutSliderSlide
                     v-for="slide in slides"
-                    :key="slide.mediaId"
+                    :key="slide.media.id"
                     :class="`min-h-[${minHeight}]`"
                 >
                     <img
                         ref="slidesRef"
-                        :src="slide.mediaUrl"
-                        :alt="$t('cms.element.imageAlt')"
-                        class="h-full w-full object-center"
+                        :src="slide.media.url"
+                        :alt="getTranslatedProperty(slide.media, 'alt') || $t('cms.element.imageAlt')"
+                        :title="getTranslatedProperty(slide.media, 'title') || $t('cms.element.imageAlt')"
+                        class="size-full object-center"
                         :class="'object-' + displayMode"
-                    />
+                    >
                 </LayoutSliderSlide>
             </LayoutSlider>
-        </div>
 
-        <template v-else>
-            <div class="w-full bg-gray-light">
-                <SharedImagePlaceholder :size="'lg'" />
-            </div>
-        </template>
-    </ClientOnly>
+            <template #fallback>
+                <img
+                    v-cms-element-lazy-load="{ id: slides?.at(0)?.media?.id, type: 'image' }"
+                    :src="slides?.at(0)?.media?.url"
+                    :alt="$t('cms.element.imageAlt')"
+                    class="size-full object-center"
+                    :class="'object-' + displayMode"
+                >
+            </template>
+        </ClientOnly>
+    </div>
+
+    <template v-else>
+        <div class="w-full bg-gray-light">
+            <SharedImagePlaceholder size="lg" />
+        </div>
+    </template>
 </template>

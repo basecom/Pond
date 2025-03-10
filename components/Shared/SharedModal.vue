@@ -5,12 +5,14 @@ const props = withDefaults(
         withCloseButton?: boolean;
         withActionsButton?: boolean;
         size?: 'sm' | 'md' | 'lg';
+        showHeader?: boolean;
     }>(),
     {
         controller: useModal,
         withCloseButton: false,
         withActionsButton: false,
         size: 'md',
+        showHeader: true,
     },
 );
 const { controller } = toRefs(props);
@@ -35,7 +37,7 @@ watch(controller.value.isOpen, () => {
         @update:open="onUpdatedOpen"
     >
         <DialogTrigger>
-            <slot name="trigger"></slot>
+            <slot name="trigger" />
         </DialogTrigger>
         <DialogPortal>
             <Transition
@@ -64,14 +66,17 @@ watch(controller.value.isOpen, () => {
                         'max-w-[min(calc(100%-40px),66.66%)]': size === 'lg',
                     }"
                 >
-                    <DialogTitle class="border-b border-gray-light px-6 pb-4 pt-6 font-bold">
-                        <slot name="title"></slot>
+                    <DialogTitle
+                        v-if="showHeader"
+                        class="border-b border-gray-light px-6 pb-4 pt-6 font-bold"
+                    >
+                        <slot name="title" />
                     </DialogTitle>
                     <div class="px-6 py-4">
                         <DialogDescription>
-                            <slot name="description"></slot>
+                            <slot name="description" />
                         </DialogDescription>
-                        <slot name="content"></slot>
+                        <slot name="content" />
                     </div>
                     <div
                         v-if="withActionsButton"
@@ -91,7 +96,7 @@ watch(controller.value.isOpen, () => {
                     </div>
                     <DialogClose
                         v-if="withCloseButton"
-                        class="absolute right-5 top-5 h-5 w-5 items-center justify-center text-gray hover:text-black focus:text-black"
+                        class="absolute right-5 top-5 size-5 items-center justify-center text-gray hover:text-black focus:text-black"
                         :aria-label="$t('shared.modal.closeButtonAriaLabel')"
                     >
                         <FormKitIcon

@@ -1,15 +1,18 @@
 <script setup lang="ts">
+import { useListingStore } from '~/stores/ListingStore';
+
 const props = defineProps<{
     element: CmsElementProductListing;
 }>();
+
 const route = useRoute();
 const { trackSelectItem } = useAnalytics();
-const { getElements, search, getCurrentListing } = useCategoryListing();
-// TODO create a better ID based on the CmsPage or even better CmsSlot identifier
-const productListingCriteriaStore = useProductListingCriteriaStore('category');
-const { criteria, total, page, limit } = storeToRefs(productListingCriteriaStore);
+const { getElements, search, getCurrentListing, loading } = useCategoryListing();
 
-productListingCriteriaStore.initializeCriteria(
+const listingStore = useListingStore('category');
+const { listingState } = storeToRefs(listingStore);
+
+listingStore.initializeCriteria(
     {
         limit: props.element.data.listing.limit,
         p: props.element.data.listing.page,
@@ -27,23 +30,43 @@ const { y: windowYPosition } = useScroll(window, { behavior: 'smooth' });
 
 const changePage = async (page: number) => {
     windowYPosition.value = 0;
-    productListingCriteriaStore.setPage(page);
+    listingStore.setPage(page);
 
-    await search(criteria.value);
-    productListingCriteriaStore.setSearchResult(getCurrentListing.value);
+    await search(listingState.value.criteria);
+    listingStore.setSearchResult(getCurrentListing.value);
 };
+
+const cardSkeletons = computed(() => {
+    if (!listingState.value.pagination.total || !listingState.value.pagination.limit) {
+        return 24;
+    }
+
+    if (listingState.value.pagination.total < listingState.value.pagination.limit) {
+        return listingState.value.pagination.total;
+    }
+
+    return listingState.value.pagination.limit;
+});
 
 const config = useCmsElementConfig(props.element);
 const boxLayout = config.getConfigValue('boxLayout');
-await search(criteria.value);
-productListingCriteriaStore.setSearchResult(getCurrentListing.value, true);
+await search(listingState.value.criteria);
+listingStore.setSearchResult(getCurrentListing.value, true);
 </script>
 
 <template>
     <div v-if="getElements.length > 0">
         <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+            <template v-if="loading">
+                <ProductCardSkeleton
+                    v-for="index in cardSkeletons"
+                    :key="index"
+                />
+            </template>
+
             <template
                 v-for="product in getElements"
+                v-else
                 :key="product.id"
             >
                 <ProductCard
@@ -55,16 +78,15 @@ productListingCriteriaStore.setSearchResult(getCurrentListing.value, true);
         </div>
 
         <LayoutPagination
-            :total="total ?? 0"
-            :items-per-page="limit"
-            :default-page="page"
-            @update-page="currentPage => changePage(currentPage)"
+            :total="listingState.pagination.total ?? 0"
+            :items-per-page="listingState.pagination.limit"
+            :default-page="listingState.pagination.page"
+            @update-page="(currentPage: number) => changePage(currentPage)"
         />
     </div>
 
     <UtilityStaticNotification
         v-else
-        :id="props.element.id + '-no-products-found'"
         type="info"
         :message="$t('cms.element.product.noProductsFound')"
         class="mt-4"

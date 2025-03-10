@@ -8,6 +8,8 @@ const props = withDefaults(
     },
 );
 
+const emit = defineEmits(['load-icon']);
+
 const sizeMap: Record<string, number> = {
     xs: 8,
     sm: 16,
@@ -16,10 +18,14 @@ const sizeMap: Record<string, number> = {
 };
 
 const imageSize = computed(() => sizeMap[props.size]);
+
+onMounted(() => {
+    emit('load-icon');
+});
 </script>
 
 <template>
-    <div class="flex aspect-square h-full w-full items-center">
+    <div class="flex aspect-square size-full items-center">
         <FormKitIcon
             icon="image"
             class="mx-auto block text-gray-dark"

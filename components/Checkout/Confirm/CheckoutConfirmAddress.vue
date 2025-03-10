@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import type { FormkitFields } from '~/types/formkit';
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { AddressTypes } from '~/types/checkout/AddressTypes';
+import { type ApiClientError } from '@shopware/api-client';
+import type { BillingAddressForm, ShippingAddressForm } from '~/types/form/AddressForm';
 
 const { refreshContext, signedIn } = useCustomerStore();
 const { handleError } = useFormErrorStore();
@@ -13,15 +15,14 @@ const isLoading = ref(false);
 const { changeDefaultAddress, saveAddress, syncBillingAddress, loadCustomerAddresses, customerAddresses } =
     useCustomerAddress();
 const { activeShippingAddress, activeBillingAddress } = useCustomerAddress();
+const { isShippingAddressForm } = useCheckType();
 if (signedIn) {
     await loadCustomerAddresses();
 }
 
-const modalAddress = ref<Schemas['CustomerAddress']>(null);
-const modalAddressType = ref('shippingAddress');
-
-const billingAddressIsSameAsShippingAddress =
-    activeBillingAddress.value?.id === activeShippingAddress.value?.id ? ref(true) : ref(false);
+const modalAddress = ref<Schemas['CustomerAddress']|null>(null);
+const modalAddressType: Ref<AddressTypes> = ref('shippingAddress');
+const billingAddressIsSameAsShippingAddress = ref(activeBillingAddress.value?.id === activeShippingAddress.value?.id);
 
 watch(billingAddressIsSameAsShippingAddress, () => handleSameBillingAddress());
 
@@ -38,11 +39,11 @@ const handleSameBillingAddress = async () => {
         }
     } catch (error) {
         pushError(t('global.generalError'));
-        handleError(error);
+        handleError(error as ApiClientError<never>);
     }
 };
 
-const handleChange = async (payload: { type: 'shippingAddress' | 'billingAddress'; id: string }) => {
+const handleChange = async (payload: { type: AddressTypes; id: string }) => {
     isLoading.value = true;
 
     try {
@@ -56,21 +57,20 @@ const handleChange = async (payload: { type: 'shippingAddress' | 'billingAddress
     } catch (error) {
         isLoading.value = false;
         pushError(t('global.generalError'));
-        handleError(error);
+        handleError(error as ApiClientError<never>);
     }
 };
 
 const handleSave = async (payload: {
-    type: 'shippingAddress' | 'billingAddress';
-    id: string;
-    formFields: FormkitFields;
+    type: AddressTypes;
+    id: string|null;
+  address: ShippingAddressForm|BillingAddressForm;
 }) => {
     isLoading.value = true;
 
-    const addressFields =
-        payload.type === 'shippingAddress' ? payload.formFields.shippingAddress : payload.formFields.billingAddress;
+    const addressFields = isShippingAddressForm(payload.address) ? payload.address.shippingAddress : payload.address.billingAddress;
     const addressData = {
-        ...payload.formFields,
+        ...payload.address,
         ...addressFields,
     };
 
@@ -82,16 +82,15 @@ const handleSave = async (payload: {
         await refreshContext();
         await refreshCart();
 
-        isLoading.value = false;
         modalController.close();
     } catch (error) {
+        handleError(error as ApiClientError<never>);
+    } finally {
         isLoading.value = false;
-        pushError(t('global.generalError'));
-        handleError(error);
     }
 };
 
-const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas['CustomerAddress']) => {
+const openModal = (type:AddressTypes, address: Schemas['CustomerAddress']) => {
     modalAddress.value = address;
     modalAddressType.value = type;
     modalController.open();
@@ -122,6 +121,7 @@ const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas[
                 <FormKit
                     v-model="billingAddressIsSameAsShippingAddress"
                     type="checkbox"
+                    name="billingAddressSameAsShippingAddress"
                     :label="$t('checkout.confirm.address.sameAsShippingAddress')"
                     :classes="{
                         outer: 'mb-4',
@@ -160,6 +160,7 @@ const openModal = (type: 'shippingAddress' | 'billingAddress', address: Schemas[
 
         <template #content>
             <CheckoutConfirmChangeAddress
+                v-if="modalAddress"
                 :address-type="modalAddressType"
                 :initial-address="modalAddress"
                 :customer-addresses="customerAddresses"

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { getShippingMethodDeliveryTime } from '@shopware-pwa/helpers-next';
+import type { Schemas } from '@shopware/api-client/api-types';
+import type { ShippingMethodOption } from '~/types/checkout/ShippingMethodOption';
 
 const { shippingMethods, getShippingMethods } = useCheckout();
 const { trackAddShippingInfo } = useAnalytics();
@@ -18,18 +20,18 @@ const selectedShippingMethod = computed({
     },
 });
 
-const shippingOptions = ref([]);
+const shippingOptions: Ref<ShippingMethodOption[]|null> = ref(null);
 
 onMounted(async () => {
     await getShippingMethods();
 
-    shippingOptions.value = shippingMethods.value.map(method => ({
+    shippingOptions.value = shippingMethods.value.map((method: Schemas['ShippingMethod']) => ({
         label: method.translated.name,
         value: method.id,
         deliveryTime: getShippingMethodDeliveryTime(method),
         description: method.translated.description,
-        mediaUrl: method.media?.url,
-    }));
+        media: method.media,
+    } as ShippingMethodOption));
 
     trackAddShippingInfo();
 });
@@ -41,9 +43,10 @@ onMounted(async () => {
         :subtitle="$t('checkout.confirm.shipping.cardSubtitle')"
     >
         <FormKit
-            v-if="shippingOptions.length > 0"
+            v-if="shippingOptions?.length"
             v-model="selectedShippingMethod"
             type="radio"
+            name="shippingMethod"
             :options="shippingOptions"
         >
             <template #label="{ option }">
@@ -51,7 +54,7 @@ onMounted(async () => {
                     :label="option.label"
                     :delivery-time="option.deliveryTime"
                     :description="option.description"
-                    :media-url="option.mediaUrl"
+                    :media="option.media"
                 />
             </template>
         </FormKit>

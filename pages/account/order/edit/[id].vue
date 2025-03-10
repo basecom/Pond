@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { RouteIdParams } from '~/types/RouteParams';
 
 await useAuthentication().rerouteIfLoggedOut();
 
-const { params } = useRoute();
-const orderId = params.id as string;
+const route = useRoute();
+const orderId = (route.params as RouteIdParams).id;
 const { order, loadOrderDetails, shippingMethod, paymentMethod, changePaymentMethod, shippingAddress, billingAddress } =
     useOrderDetails(orderId);
 const { pushError, pushSuccess } = useNotifications();
@@ -23,7 +24,7 @@ const updateOrder = async () => {
         const response: Schemas['SuccessResponse'] = await changePaymentMethod(newPaymentMethod.value);
 
         if (response.success) {
-            navigateTo('/checkout/finish/' + orderId);
+            navigateTo(`/checkout/finish/${orderId}`);
 
             pushSuccess(t('account.order.edit.successMessage'));
         } else {
@@ -52,8 +53,8 @@ onMounted(async () => {
                 @submit="updateOrder"
                 @keydown.enter.prevent
             >
-                <div class="grid gap-6 my-6 lg:grid-cols-2">
-                    <div class="p-4 divide-y rounded-md shadow divide-gray-medium">
+                <div class="my-6 grid gap-6 lg:grid-cols-2">
+                    <div class="divide-y divide-gray-medium rounded-md p-4 shadow">
                         <AccountOrderConfirmPersonal />
                         <AccountOrderConfirmShipping :method="shippingMethod" />
                         <AccountOrderConfirmPayment
@@ -66,28 +67,26 @@ onMounted(async () => {
                         />
                         <AccountOrderConfirmTerms />
 
-                        <CheckoutConfirmCard :title="t('checkout.finish.customerCommentLabel')">
-                            <OrderComment
-                                :customer-comment="order.customerComment"
-                            />
+                        <CheckoutConfirmCard v-if="order.customerComment" :title="t('checkout.finish.customerCommentLabel')">
+                            <OrderComment :customer-comment="order.customerComment" />
                         </CheckoutConfirmCard>
                     </div>
 
-                    <div class="p-4 rounded-md shadow">
+                    <div class="rounded-md p-4 shadow">
                         <div class="font-bold">{{ $t('checkout.lineItemsHeading') }}</div>
 
-                        <ul class="pb-2 divide-y divide-gray-medium">
+                        <ul class="divide-y divide-gray-medium pb-2">
                             <div
-                                v-for="(product, index) in order.lineItems"
-                                :key="product.id"
+                                v-for="(lineItem, index) in order.lineItems"
+                                :key="lineItem.id"
                             >
-                                <div class="flex w-full mt-4">
-                                    <OrderLineItem :line-item="product" />
+                                <div class="mt-4 flex w-full">
+                                    <OrderLineItem :line-item="lineItem" />
                                 </div>
                                 <hr
                                     v-if="index !== order.lineItems.length - 1"
                                     class="w-full"
-                                />
+                                >
                             </div>
                         </ul>
 
@@ -113,7 +112,6 @@ onMounted(async () => {
 
         <UtilityStaticNotification
             v-else
-            id="no-order-found"
             type="info"
             :message="$t('account.order.edit.noOrderFound')"
             class="mt-4"

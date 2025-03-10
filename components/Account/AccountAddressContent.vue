@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { FormkitFields } from '~/types/formkit';
 import type { Schemas } from '@shopware/api-client/api-types';
+import { type ApiClientError } from '@shopware/api-client';
+import type { BillingAddressForm } from '~/types/form/AddressForm';
 
 const modalController = useModal();
 const { handleError } = useFormErrorStore();
@@ -13,7 +14,7 @@ const { t } = useI18n();
 const formErrorStore = useFormErrorStore();
 
 const loading = ref(true);
-const selectedAddress = ref<Schemas['CustomerAddress']>(null);
+const selectedAddress = ref<Schemas['CustomerAddress']|null>(null);
 const isEditMode = ref(false);
 const isLoading = ref(false);
 
@@ -24,14 +25,16 @@ const openModal = (address: Schemas['CustomerAddress'] | null) => {
     if (address) {
         selectedAddress.value = address;
         isEditMode.value = true;
-    } else {
-        selectedAddress.value = null;
-        isEditMode.value = false;
+        modalController.open();
+        return;
     }
+
+    selectedAddress.value = null;
+    isEditMode.value = false;
     modalController.open();
 };
 
-const handleSave = async (fields: FormkitFields) => {
+const handleSave = async (fields: BillingAddressForm) => {
     isLoading.value = true;
 
     try {
@@ -40,7 +43,7 @@ const handleSave = async (fields: FormkitFields) => {
             ...fields.billingAddress,
         };
 
-        await saveAddress(isEditMode.value ? selectedAddress.value.id : '', addressData);
+        await saveAddress(isEditMode.value ? selectedAddress.value?.id ?? '' : '', addressData);
 
         await loadCustomerAddresses();
         await refreshContext();
@@ -51,7 +54,7 @@ const handleSave = async (fields: FormkitFields) => {
         isLoading.value = false;
 
         pushError(t('global.generalError'));
-        handleError(error);
+        handleError(error as ApiClientError<never>);
     }
 };
 </script>

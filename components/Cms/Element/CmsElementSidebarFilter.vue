@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { CmsElementSidebarFilter } from '@shopware-pwa/composables-next';
 import type { Schemas } from '@shopware/api-client/api-types';
+import { useListingStore } from '~/stores/ListingStore';
+import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
 defineProps<{
     element: CmsElementSidebarFilter;
@@ -8,50 +10,40 @@ defineProps<{
 
 const route = useRoute();
 const { getCurrentListing, search } = useCategoryListing();
-// TODO create a better ID based on the CmsPage or even better CmsSlot identifier
-const productListingCriteriaStore = useProductListingCriteriaStore('category');
 
-const { criteria, sortingOptions, currentSorting, appliedFilters, areFiltersModified, filters, total } =
-    storeToRefs(productListingCriteriaStore);
-
-const onSortChange = async (sorting: Schemas['ProductListingResult']['sorting']) => {
-    productListingCriteriaStore.setSorting(sorting);
-};
-
-const onFilterChange = async (filters: Schemas['ProductListingResult']['currentFilters']) => {
-    productListingCriteriaStore.setFilters(filters);
-};
+const listingStore = useListingStore('category');
+const { listingState } = storeToRefs(listingStore);
 
 const onResetFilters = async () => {
-    productListingCriteriaStore.resetFilters();
+    listingStore.resetFilters();
 };
 
-const onRemoveFilter = async (filter: Schemas['PropertyGroupOption']['id']) => {
-    productListingCriteriaStore.removeFilter(filter);
+const onRemoveFilter = async (removeFilterEvent: RemoveFilterEvent) => {
+    listingStore.removeFilter(removeFilterEvent);
 };
 
 watch(
     () => route.query,
     async () => {
-        productListingCriteriaStore.updateCriteria(route.query);
-        await search(criteria.value);
-        productListingCriteriaStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
+        listingStore.updateCriteria(route.query);
+        await search(listingState.value.criteria);
+        listingStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
     },
 );
+
 </script>
 
 <template>
     <ProductListingSidebar
-        v-if="appliedFilters && (total || areFiltersModified)"
-        :filters="filters"
-        :selected-filters="appliedFilters"
-        :full-width="false"
-        :show-reset-button="areFiltersModified"
-        :sorting-options="sortingOptions"
-        :sorting="currentSorting"
-        @sorting-changed="onSortChange"
-        @filter-changed="onFilterChange"
+        v-if="listingState.filters.all"
+        :filters="listingState.filters.all"
+        :selected-filters="listingState.filters.applied"
+        :show-reset-button="listingState.filters.modified"
+        :sorting-options="listingState.sorting.options"
+        :selected-sorting="listingState.sorting.current"
+        @sorting-changed="(sortingOption: Schemas['ProductListingResult']['sorting']) => listingStore.setSorting(sortingOption)"
+        @filter-changed="(filters: Schemas['ProductListingResult']['currentFilters']) => listingStore.setFilters(filters)"
         @reset-filters="onResetFilters"
-        @remove-filter="onRemoveFilter"
+        @remove-filter="(event: RemoveFilterEvent) => onRemoveFilter(event)"
     />
 </template>

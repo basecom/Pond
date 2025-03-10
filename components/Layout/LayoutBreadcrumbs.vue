@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const { breadcrumbs } = useBreadcrumbs();
-
 withDefaults(
     defineProps<{
         displayRoot?: boolean;
@@ -11,17 +9,20 @@ withDefaults(
         rootIcon: '',
     },
 );
+
+const { breadcrumbs } = useBreadcrumbs();
+const route = useRoute();
 </script>
 
 <template>
     <nav
-        class="container mx-auto my-8 hidden lg:flex"
+        class="container mx-auto my-8 flex"
         :aria-label="$t('layout.breadcrumb.ariaLabel')"
     >
-        <ol class="inline-flex items-center gap-2">
+        <ol class="inline-flex flex-wrap items-center gap-2">
             <li
-                v-if="displayRoot"
-                class="inline-flex items-center gap-2"
+                v-if="displayRoot && route.fullPath !== '/'"
+                class="inline-flex min-w-fit items-center gap-2"
             >
                 <LocaleLink
                     :to="'/'"
@@ -30,14 +31,14 @@ withDefaults(
                     <FormKitIcon
                         v-if="rootIcon"
                         :icon="rootIcon"
-                        class="h-4 w-4"
+                        class="size-2.5"
                     />
                     {{ $t('layout.breadcrumb.homeLinkLabel') }}
                 </LocaleLink>
 
                 <FormKitIcon
                     v-if="breadcrumbs?.length > 0"
-                    class="block h-4 w-4"
+                    class="block size-2.5"
                     icon="chevron-right"
                 />
             </li>
@@ -45,7 +46,7 @@ withDefaults(
             <li
                 v-for="(breadcrumb, index) in breadcrumbs"
                 :key="breadcrumb.path"
-                class="inline-flex items-center gap-2"
+                class="inline-flex min-w-fit items-center gap-2"
             >
                 <LocaleLink
                     v-if="breadcrumb.path"
@@ -64,7 +65,7 @@ withDefaults(
 
                 <FormKitIcon
                     v-if="index < breadcrumbs.length - 1"
-                    class="block h-4 w-4"
+                    class="block size-2.5"
                     icon="chevron-right"
                 />
             </li>

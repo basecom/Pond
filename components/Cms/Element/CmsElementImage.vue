@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { CmsElementImage } from '@shopware-pwa/composables-next';
-import { buildUrlPrefix } from '@shopware-pwa/helpers-next';
+import { buildUrlPrefix, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import { useElementSize } from '@vueuse/core';
 import type { CSSProperties } from 'vue';
 
@@ -29,13 +29,15 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
     const height = properties.minHeight ?? '100%';
     return `height: ${height}`;
 };
+
+const mediaObject = props.element.data?.media;
 </script>
 
 <template>
     <component
         :is="imageLink.url ? 'a' : 'div'"
         v-if="imageAttrs.src"
-        class="relative h-full w-full"
+        class="relative size-full"
         :style="containerStyle"
         v-bind="imageComputedContainerAttrs"
     >
@@ -43,28 +45,31 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
             v-if="isVideoElement"
             controls
             :class="{
-                'h-full w-full': true,
+                'size-full': true,
                 'object-cover': displayMode === 'cover',
             }"
         >
             <source
                 :src="imageAttrs.src"
                 :type="mimeType"
-            />
+            >
             {{ $t('cms.element.videoTagNotSupported') }}
         </video>
+
         <img
             v-else
             ref="imageElement"
+            v-cms-element-lazy-load="{ id: mediaObject.id, type: 'image' }"
             loading="lazy"
             :class="{
-                'h-full w-full': true,
+                'size-full': true,
                 'object-cover': displayMode === 'cover',
             }"
             :style="displayMode === 'cover' ? getMinHeightAsHeight(containerStyle) : ''"
-            :alt="imageAttrs.alt"
+            :alt="getTranslatedProperty(mediaObject, 'alt')"
+            :title="getTranslatedProperty(mediaObject, 'title')"
             :src="srcPath"
             :srcset="imageAttrs.srcset"
-        />
+        >
     </component>
 </template>

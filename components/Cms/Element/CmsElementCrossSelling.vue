@@ -6,7 +6,8 @@ const props = defineProps<{
 }>();
 
 const config = useCmsElementConfig(props.element);
-const elementData = useCmsElementData(props.element);
+const { getCmsElementData } = useCmsUtils();
+const crossSellings = getCmsElementData(props.element, 'crossSellings') ?? [];
 const { trackSelectItem } = useAnalytics();
 
 const boxLayout = config.getConfigValue('boxLayout');
@@ -27,8 +28,13 @@ const breakpoints = {
     },
 };
 
-const crossSellings = computed(() => elementData.getData('crossSellings') ?? []);
-const { currentSlidesPerView } = useComputeSliderConfig({ slidesPerView, slides: crossSellings, breakpoints, showNavigation: true, autoSlide: true });
+const { currentSlidesPerView } = useComputeSliderConfig({
+    slidesPerView,
+    slides: crossSellings,
+    breakpoints,
+    showNavigation: true,
+    autoSlide: true,
+});
 
 const onSelectProduct = async (product: Schemas['Product']) => {
     trackSelectItem(product, { id: 'cross-selling', name: 'cross-selling' });
@@ -46,7 +52,7 @@ const onSelectProduct = async (product: Schemas['Product']) => {
             </h3>
 
             <LayoutSlider
-                :classes="[crossSelling.products.length > 1 ? 'cursor-grab' : '']"
+                :slides-counter="crossSelling.products.length"
                 :navigation-arrows="crossSelling.products?.length >= currentSlidesPerView"
                 :navigation-dots="false"
                 :slides-per-view="slidesPerView"

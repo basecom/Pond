@@ -39,9 +39,9 @@ const { price, unitPrice, isListPrice, referencePrice } = useProductPrice(produc
                 v-if="unitPrice"
                 :class="[fontSize, fontWeight, { 'text-status-danger': isListPrice }]"
             >
-                <template v-if="product.childCount">
+                <template v-if="product.childCount && product.calculatedCheapestPrice?.unitPrice">
                     {{ $t('global.startingAt') }}
-                    {{ getFormattedPrice(product.calculatedCheapestPrice.unitPrice) }}
+                    {{ getFormattedPrice(product.calculatedCheapestPrice?.unitPrice) }}
                 </template>
 
                 <template v-else>

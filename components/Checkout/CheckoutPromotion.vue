@@ -1,28 +1,29 @@
 <script setup lang="ts">
-import type { Schemas } from '@shopware/api-client/api-types';
-
-type FormkitPromotionFields = {
-    promotionCode: string;
-};
+import type { PromotionCodeForm } from '~/types/form/CheckoutForm';
+import type { CartErrors } from '~/types/checkout/CartErrors';
 
 const { addPromotionCode, consumeCartErrors } = useCart();
 const { pushError, pushSuccess } = useNotifications();
+const { handleError } = useHandleError();
 const { t } = useI18n();
 
-const cartErrors = ref<Schemas['Cart']['errors']>([]);
+const cartErrors = ref<CartErrors|null>(null);
 
-const addPromotion = async (fields: FormkitPromotionFields) => {
+const addPromotion = async (promotionCodeForm: PromotionCodeForm) => {
+    if (!promotionCodeForm.promotionCode) {
+        return;
+    }
+
     try {
-        const response = await addPromotionCode(fields['promotionCode']);
+        const response = await addPromotionCode(promotionCodeForm.promotionCode);
         if (response.errors) {
             cartErrors.value = consumeCartErrors();
             return;
         }
 
-        pushSuccess(t('checkout.promotion.successMessage', { promotionCode: fields['promotionCode'] }));
-    } catch (e) {
-        console.error(e);
-
+        pushSuccess(t('checkout.promotion.successMessage', { promotionCode: promotionCodeForm.promotionCode }));
+    } catch (error) {
+        handleError(error);
         pushError(t('checkout.promotion.errorMessage'));
     }
 };
@@ -43,6 +44,7 @@ const addPromotion = async (fields: FormkitPromotionFields) => {
         :classes="{
             form: 'w-full flex flex-row gap-4',
         }"
+        name="promotion"
         @submit="addPromotion"
     >
         <FormKit

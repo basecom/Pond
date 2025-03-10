@@ -1,5 +1,5 @@
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { PromotionInfo, TrackingPromotionEvent } from '../../types/analytics/promotion';
+import type { PromotionInfo, TrackingPromotionEvent } from '~/types/analytics/Promotion';
 
 export function usePromotionTracking() {
     const { getTrackingItem } = useItemTracking();

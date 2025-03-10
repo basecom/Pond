@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const { changeLanguage, getLanguageIdFromCode, getAvailableLanguages } = useInternationalization();
 const { locale } = useI18n();
 
@@ -25,7 +24,7 @@ const { getWishlistProducts } = useWishlist();
 useNotifications();
 useBreadcrumbs();
 
-customerStore.refreshContext();
+await customerStore.refreshContext();
 refreshCart();
 
 const route = useRoute();
@@ -33,6 +32,14 @@ if (route.path !== '/wishlist' && wishlistEnabled) {
     // If not on wishlist page we fetch for displaying the amount of items in the header
     getWishlistProducts();
 }
+
+const shopName = configStore.get('core.basicInformation.shopName') as string|null;
+useHead({
+    title: shopName ?? '',
+    htmlAttrs: {
+        lang: locale.value,
+    },
+});
 </script>
 
 <template>
@@ -43,9 +50,9 @@ if (route.path !== '/wishlist' && wishlistEnabled) {
     <LayoutHeader v-show="!loading" />
     <UtilityToastNotifications />
 
-    <main v-show="!loading">
+    <main v-show="!loading" class="min-h-[calc(100Vh-140px)]">
         <LayoutBreadcrumbs />
-        <NuxtPage />
+        <NuxtPage class="mt-4 lg:mt-0" />
     </main>
 
     <LayoutFooter v-show="!loading" />

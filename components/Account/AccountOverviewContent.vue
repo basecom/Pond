@@ -6,16 +6,21 @@ const { isNewsletterSubscriber, newsletterSubscribe, newsletterUnsubscribe, getN
 const billingAddress = computed(() => customer.value.defaultBillingAddress);
 const shippingAddress = computed(() => customer.value.defaultShippingAddress);
 const paymentMethod = computed(() => customer.value.defaultPaymentMethod);
-const { latestOrder, loadLatestOrder } = useCustomerLatestOrder();
+const { getLatestOrder } = useCustomerLatestOrder();
 const { pushSuccess, pushError } = useNotifications();
 const { trackNewsletterRegistration } = useAnalytics();
 const { t } = useI18n();
 
-const props = defineProps<{
-    showLatestOrder: boolean;
-}>();
+const props = withDefaults(
+    defineProps<{
+      showLatestOrder: boolean;
+    }>(),
+    {
+        showLatestOrder: true,
+    },
+);
 
-props.showLatestOrder && (await loadLatestOrder());
+const latestOrder = props.showLatestOrder && (await getLatestOrder());
 getNewsletterStatus();
 
 const configStore = useConfigStore();
@@ -25,7 +30,7 @@ const subscribeBehavior =
     (customer.value && doubleOptInRegistered) || (!customer.value && doubleOptIn) ? 'subscribe' : 'direct';
 
 const handleNewsletterChange = async (event: Event) => {
-    const checked = (event.target as HTMLInputElement).checked;
+    const { checked } = event.target as HTMLInputElement;
     if (checked) {
         try {
             await newsletterSubscribe({
@@ -76,7 +81,7 @@ const handleNewsletterChange = async (event: Event) => {
             </p>
         </div>
 
-        <div class="rounded-lg bg-white p-4 shadow-md">
+        <div v-if="paymentMethod" class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">{{ $t('account.overview.paymentMethod.heading') }}</h3>
             <p>
                 <strong>{{ $t('account.overview.paymentMethod.nameLabel') }}</strong> {{ paymentMethod.name }}
@@ -94,12 +99,12 @@ const handleNewsletterChange = async (event: Event) => {
     >
         <div class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">{{ $t('account.overview.billingAddressHeading') }}</h3>
-            <AddressData :address="billingAddress" />
+            <AddressData v-if="billingAddress" :address="billingAddress" />
         </div>
 
         <div class="rounded-lg bg-white p-4 shadow-md">
             <h3 class="mb-2 text-lg font-semibold">{{ $t('account.overview.shippingAddressHeading') }}</h3>
-            <AddressData :address="shippingAddress" />
+            <AddressData v-if="shippingAddress" :address="shippingAddress" />
         </div>
     </div>
 
@@ -113,13 +118,13 @@ const handleNewsletterChange = async (event: Event) => {
                 type="checkbox"
                 :checked="isNewsletterSubscriber && !confirmationNeeded"
                 @change="handleNewsletterChange"
-            />
+            >
             {{ $t('account.overview.newsletter.label') }}
         </label>
     </div>
 
     <div
-        v-if="customer && latestOrder"
+        v-if="customer && showLatestOrder && latestOrder"
         class="mt-4 rounded-lg bg-white p-4 shadow-md"
     >
         <h3 class="text-lg font-semibold">{{ $t('account.overview.latestOrderHeading') }}</h3>

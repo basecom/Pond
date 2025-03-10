@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import type { Schemas } from '@shopware/api-client/api-types';
 
 const props = defineProps<{ product: Schemas['Product'] }>();
 const { product } = toRefs(props);
 
 const { getProductCover } = useMedia();
-const productCover = getProductCover(props.product.cover, 'xs');
+const productCover = getProductCover(props.product.cover?.media, 'xs');
 </script>
 
 <template>
@@ -14,7 +15,7 @@ const productCover = getProductCover(props.product.cover, 'xs');
     >
         <div class="rounded-sm border border-gray-medium bg-gray-light p-1">
             <template v-if="productCover.placeholder">
-                <div class="h-10 min-h-10 w-10 min-w-10">
+                <div class="size-10 min-h-10 min-w-10">
                     <SharedImagePlaceholder :size="'xs'" />
                 </div>
             </template>
@@ -23,9 +24,10 @@ const productCover = getProductCover(props.product.cover, 'xs');
                 <img
                     loading="lazy"
                     :src="productCover.url"
-                    class="h-10 min-h-10 w-10 min-w-10 object-cover"
-                    :alt="productCover.alt"
-                />
+                    class="size-10 min-h-10 min-w-10 object-cover"
+                    :alt="productCover.alt ?? getTranslatedProperty(product, 'name')"
+                    :title="productCover.title ?? getTranslatedProperty(product, 'name')"
+                >
             </template>
         </div>
 

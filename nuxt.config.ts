@@ -49,7 +49,10 @@ export default defineNuxtConfig({
                 },
                 breadcrumb: {
                     enableDynamicLoading: false,
-                }
+                },
+                cms: {
+                    enableProgressiveLoading: false,
+                },
             },
         },
     },
@@ -104,4 +107,10 @@ export default defineNuxtConfig({
     },
 
     compatibilityDate: '2024-10-14',
+
+    app: {
+        head: {
+            link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+        },
+    },
 });

@@ -14,9 +14,7 @@ export function useMedia() {
     const getCmsMedia = (width: Ref<number>, height: Ref<number>, imageAttrs: ComputedRef<ImgHTMLAttributes>) => {
         const DEFAULT_THUMBNAIL_SIZE = 10;
 
-        const roundUp = (num: number) => {
-            return num ? Math.ceil(num / 100) * 100 : DEFAULT_THUMBNAIL_SIZE;
-        };
+        const roundUp = (num: number) => (num ? Math.ceil(num / 100) * 100 : DEFAULT_THUMBNAIL_SIZE);
 
         const srcPath = computed(() => {
             const biggestParam =
@@ -29,30 +27,24 @@ export function useMedia() {
         };
     };
 
-    const getProductCover = (cover: Schemas['ProductMedia'] | null | undefined, size: 'xs' | 's' | 'm' | 'l' = 's') => {
+    const getProductCover = (cover: Schemas['Media'] | null | undefined, size: 'xs' | 's' | 'm' | 'l' = 's') => {
         if (!cover) {
             return {
                 url: '/fallback-product-cover.svg',
                 alt: t('composable.media.noImageMessage'),
+                title: t('composable.media.noImageMessage'),
                 placeholder: true,
             };
         }
 
-        if (cover.media) {
-            return {
-                url: cover.media.thumbnails?.length
-                    ? cover.media.thumbnails[thumbnailSizes[size]]?.url
-                    : cover.media.url,
-                alt: cover.media.alt,
-                placeholder: false,
-            };
-        } else {
-            return {
-                url: cover.thumbnails?.length ? cover.thumbnails[thumbnailSizes[size]]?.url : cover.url,
-                alt: cover.alt,
-                placeholder: false,
-            };
-        }
+        return {
+            url: cover.thumbnails?.length
+                ? cover.thumbnails[thumbnailSizes[size]]?.url
+                : cover.url,
+            alt: cover.alt,
+            title: cover.translated.title,
+            placeholder: false,
+        };
     };
 
     return { getCmsMedia, getProductCover };

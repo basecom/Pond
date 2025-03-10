@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import { useListingStore } from '~/stores/ListingStore';
 
 const route = useRoute();
 const { t } = useI18n();
 
 const { getCurrentListing, getElements: products, loading, search, setInitialListing } = useProductSearchListing();
-const productListingCriteriaStore = useProductListingCriteriaStore('search');
-const { criteria, sortingOptions, currentSorting, appliedFilters, areFiltersModified, total, limit, filters, page } =
-    storeToRefs(productListingCriteriaStore);
+const listingStore = useListingStore('search');
+const { listingState } = storeToRefs(listingStore);
 
-const cacheKey = computed(() => `productSearch-${JSON.stringify(criteria.value)}`);
+const cacheKey = computed(() => `productSearch-${JSON.stringify(listingState.value.criteria)}`);
 
 const { trackSelectItem } = useAnalytics({ trackPageView: true, pageType: 'search' });
 const searchStore = useSearchStore();
@@ -23,8 +23,8 @@ const searchTerm = computed(() => {
 
 const loadProducts = async (cacheKey: string) => {
     const { data: productSearch } = await useAsyncData(cacheKey, async () => {
-        await search(criteria.value);
-        productListingCriteriaStore.setSearchResult(getCurrentListing.value);
+        await search(listingState.value.criteria);
+        listingStore.setSearchResult(getCurrentListing.value);
 
         return getCurrentListing.value;
     });
@@ -33,26 +33,26 @@ const loadProducts = async (cacheKey: string) => {
 };
 
 const changePage = async (page: number) => {
-    productListingCriteriaStore.setPage(page);
+    listingStore.setPage(page);
 };
 
 const onSortChange = async (sorting: Schemas['ProductListingResult']['sorting']) => {
-    productListingCriteriaStore.setSorting(sorting);
+    listingStore.setSorting(sorting);
 };
 
 const onFilterChange = async (filters: Schemas['ProductListingResult']['currentFilters']) => {
-    productListingCriteriaStore.setFilters(filters);
+    listingStore.setFilters(filters);
 };
 
 const onResetFilters = async () => {
-    productListingCriteriaStore.resetFilters();
+    listingStore.resetFilters();
 };
 
 const onSelectProduct = async (product: Schemas['Product']) => {
     trackSelectItem(product, { id: 'search', name: 'search' });
 };
 
-productListingCriteriaStore.initializeCriteria(
+listingStore.initializeCriteria(
     {
         search: route.query.search as string,
         associations: {
@@ -67,7 +67,7 @@ productListingCriteriaStore.initializeCriteria(
 
 const productSearch = await loadProducts(cacheKey.value);
 setInitialListing(productSearch.value as Schemas['ProductListingResult']);
-productListingCriteriaStore.setSearchResult(productSearch.value as Schemas['ProductListingResult'], true);
+listingStore.setSearchResult(productSearch.value as Schemas['ProductListingResult'], true);
 
 watch(
     cacheKey,
@@ -81,14 +81,14 @@ watch(
 watch(
     () => route.query,
     () => {
-        productListingCriteriaStore.updateCriteria(route.query);
+        listingStore.updateCriteria(route.query);
     },
 );
 
 useBreadcrumbs([
     {
         name: t('search.resultPage.breadcrumbName'),
-        path: '/search?search=' + route.query.search,
+        path: `/search?search=${route.query.search}`,
     },
 ]);
 </script>
@@ -107,16 +107,15 @@ useBreadcrumbs([
             </span>
         </h1>
 
-        <div class="flex flex-wrap">
-            <div class="w-full md:w-5/12 lg:w-3/12">
+        <div class="flex flex-wrap gap-4">
+            <div class="w-full">
                 <ProductListingSidebar
-                    v-if="appliedFilters && (products?.length || areFiltersModified)"
-                    :filters="filters"
-                    :selected-filters="appliedFilters"
-                    :full-width="false"
-                    :show-reset-button="areFiltersModified"
-                    :sorting-options="sortingOptions"
-                    :sorting="currentSorting"
+                    v-if="listingState.filters.all"
+                    :filters="listingState.filters.all"
+                    :selected-filters="listingState.filters.applied"
+                    :show-reset-button="listingState.filters.modified"
+                    :sorting-options="listingState.sorting.options"
+                    :selected-sorting="listingState.sorting.current ?? 'name-asc'"
                     @sorting-changed="onSortChange"
                     @filter-changed="onFilterChange"
                     @reset-filters="onResetFilters"
@@ -125,7 +124,7 @@ useBreadcrumbs([
 
             <div
                 v-if="!loading"
-                class="grid w-full grid-cols-2 gap-6 md:w-7/12 md:grid-cols-3 lg:w-9/12 lg:grid-cols-4"
+                class="grid w-full grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
             >
                 <template
                     v-for="product in products"
@@ -140,11 +139,10 @@ useBreadcrumbs([
         </div>
 
         <LayoutPagination
-            v-if="products?.length"
-            :total="total ?? 0"
-            :items-per-page="limit"
-            :default-page="page"
-            @update-page="currentPage => changePage(currentPage)"
+            :total="listingState.pagination.total ?? 0"
+            :items-per-page="listingState.pagination.limit ?? 24"
+            :default-page="listingState.pagination.page ?? 1"
+            @update-page="(currentPage: number) => changePage(currentPage)"
         />
     </div>
 </template>

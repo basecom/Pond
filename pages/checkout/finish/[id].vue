@@ -1,7 +1,9 @@
 <script setup lang="ts">
-const { params } = useRoute();
+import type { RouteIdParams } from '~/types/RouteParams';
+
+const route = useRoute();
 const { checkoutBreadcrumbs } = useStaticBreadcrumbs();
-const orderId = params.id as string;
+const orderId = (route.params as RouteIdParams).id;
 const { order, loadOrderDetails, shippingAddress, billingAddress, shippingMethod, paymentMethod, status, total } =
     useOrderDetails(orderId);
 const { getFormattedPrice } = usePrice();
@@ -17,7 +19,7 @@ const formattedOrderDate = computed(() => {
     return undefined;
 });
 
-useBreadcrumbs(checkoutBreadcrumbs({ index: 2, orderId: orderId }));
+useBreadcrumbs(checkoutBreadcrumbs({ index: 2, orderId }));
 useAnalytics({ trackPageView: true, pageType: 'finish' });
 
 onMounted(async () => {
@@ -33,14 +35,14 @@ onMounted(async () => {
 
                 <p class="mb-4">
                     {{ $t('checkout.finish.confirmationMessage') }}
-                    <br />
+                    <br>
                     {{ $t('checkout.finish.emailMessage') }}
                 </p>
             </div>
 
             <div
                 v-if="order"
-                class="flex justify-center py-4 divide-x divide-gray"
+                class="flex justify-center divide-x divide-gray py-4"
             >
                 <div class="pr-3 text-center">
                     {{ $t('checkout.finish.orderNumberLabel') }}
@@ -74,14 +76,14 @@ onMounted(async () => {
 
             <LocaleLink
                 v-if="customerStore.customer && !customerStore.customer.guest"
-                class="flex justify-center mx-auto max-w-80 text-brand-primary"
+                class="mx-auto flex max-w-80 justify-center text-brand-primary"
                 :to="'/account/orders'"
             >
                 {{ $t('checkout.finish.orderHistoryLinkLabel') }}
             </LocaleLink>
 
             <div class="grid gap-6 pt-6 lg:grid-cols-2">
-                <div class="p-4 divide-y rounded-md shadow divide-gray-medium">
+                <div class="divide-y divide-gray-medium rounded-md p-4 shadow">
                     <div class="pb-4">
                         <div class="mb-2 font-bold">
                             {{ $t('checkout.finish.billingAddressHeading') }}
@@ -117,27 +119,28 @@ onMounted(async () => {
                         <OrderShipping :shipping-method="shippingMethod" />
                     </div>
 
-                    <div class="pt-4">
+                    <div
+                        v-if="order.customerComment"
+                        class="pt-4"
+                    >
                         <div class="mb-2 font-bold">
                             {{ $t('checkout.finish.customerCommentHeading') }}
                         </div>
-                        
-                        <OrderComment
-                            :customer-comment="order.customerComment"
-                        />
+
+                        <OrderComment :customer-comment="order.customerComment" />
                     </div>
                 </div>
 
-                <div class="p-4 rounded-md shadow">
+                <div class="rounded-md p-4 shadow">
                     <p class="font-bold">{{ $t('checkout.lineItemsHeading') }}</p>
 
                     <ul class="divide-y divide-gray-medium">
                         <li
-                            v-for="orderItem in order.lineItems"
-                            :key="orderItem.id"
+                            v-for="lineItem in order.lineItems"
+                            :key="lineItem.id"
                             class="flex py-6"
                         >
-                            <OrderLineItem :line-item="orderItem" />
+                            <OrderLineItem :line-item="lineItem" />
                         </li>
                     </ul>
 

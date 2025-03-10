@@ -1,22 +1,20 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import type { ListingPropertyFilter } from '~/types/listing/Filter';
+import { useListingStore } from '~/stores/ListingStore';
+import type { ChangePropertyFilter } from '~/types/listing/FilterEvents';
 
 defineProps<{
-    filter: ListingFilter & Schemas['PropertyGroup'];
+    filter: ListingPropertyFilter;
     selectedValues: Schemas['ProductListingResult']['currentFilters'];
 }>();
 
 defineEmits<{
-    'filter-changed': [
-        event: {
-            code: 'properties';
-            value: ValueOf<Schemas['ProductListingResult']['currentFilters']['properties']>;
-        },
-    ];
+    'filter-changed': [event: ChangePropertyFilter];
 }>();
 
-const { propertyFilterApplied, propertyFilterAppliedTotal } = useProductListingCriteriaStore('category');
+const listingStore = useListingStore('category');
 const popoverOpen = ref(false);
 </script>
 
@@ -27,15 +25,15 @@ const popoverOpen = ref(false);
             class="none inline-flex items-center justify-center"
             :aria-label="getTranslatedProperty(filter, 'name') + ' ' + $t('shared.popover.triggerAriaLabel')"
         >
-            <div class="flex items-center gap-2 rounded border border-gray px-4 py-2">
+            <div class="flex items-center gap-2 rounded border border-gray-medium px-4 py-2">
                 {{ getTranslatedProperty(filter, 'name') }}
 
                 <UtilityPill
-                    v-if="filter.code === 'properties' && propertyFilterApplied(filter.id)"
-                    :number="propertyFilterAppliedTotal(filter.id)"
+                    v-if="filter.code === 'properties' && listingStore.propertyFilterApplied(filter.id)"
+                    :number="listingStore.propertyFilterAppliedTotal(filter.id)"
                 />
                 <FormKitIcon
-                    class="block h-3 w-3 text-gray transition-all duration-150"
+                    class="block size-3 text-gray transition-all duration-150"
                     icon="chevron-down"
                     :class="{
                         'rotate-180': popoverOpen,
@@ -43,15 +41,17 @@ const popoverOpen = ref(false);
                 />
             </div>
         </PopoverTrigger>
+
         <PopoverContent
             side="bottom"
             :side-offset="5"
-            class="w-64 rounded border border-gray-light bg-white p-4 shadow-md"
+            align="start"
+            class="w-64 rounded border border-gray-medium bg-white p-4 shadow-lg"
         >
             <ProductListingFilterOptionsProperties
                 :filter="filter"
                 :selected-values="selectedValues"
-                @filter-changed="$emit('filter-changed', $event)"
+                @filter-changed="(event: ChangePropertyFilter) => $emit('filter-changed', event)"
             />
         </PopoverContent>
     </PopoverRoot>

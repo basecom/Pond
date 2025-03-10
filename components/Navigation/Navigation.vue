@@ -2,9 +2,16 @@
 const { languageIdChain } = useSessionContext();
 const navigationStore = useNavigationStore();
 const { mainNavigationElements } = storeToRefs(navigationStore);
-watch(languageIdChain, async () => {
-    await navigationStore.loadMainNavigation(2);
-}, { immediate: true });
+
+await navigationStore.loadMainNavigation(2);
+
+watch(
+    languageIdChain,
+    async () => {
+        await navigationStore.loadMainNavigation(2);
+    },
+    { immediate: false },
+);
 </script>
 
 <template>

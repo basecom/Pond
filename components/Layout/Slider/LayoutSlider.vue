@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type Swiper from 'swiper';
+import type { SwiperBreakpoints } from '~/types/cms/SwiperBreakpoints';
+import type { Swiper } from 'swiper';
 
 const props = withDefaults(
     defineProps<{
@@ -10,16 +11,19 @@ const props = withDefaults(
         navigationArrows?: boolean;
         displayMode?: string;
         minHeight?: string;
-        classes?: string;
+        classes?: { [key: string]: boolean };
         loop?: boolean;
-        direction?: string;
+        direction?: 'vertical' | 'horizontal' | undefined;
         spaceBetween?: number;
         slidesPerView?: number;
+        slidesCounter?: number;
         thumbsSwiper?: string;
-        breakpoints?: object;
+        breakpoints?: SwiperBreakpoints;
         init?: boolean;
         verticalNavigation?: boolean;
         thumbRef?: string;
+        initialSlide?: number;
+        isZoomEnabled?: boolean;
     }>(),
     {
         autoSlide: false,
@@ -29,26 +33,38 @@ const props = withDefaults(
         navigationArrows: true,
         displayMode: 'cover',
         minHeight: '300',
-        classes: null,
+        classes: undefined,
         loop: true,
         direction: 'horizontal',
         spaceBetween: 0,
         slidesPerView: 1,
-        thumbsSwiper: null,
-        // eslint-disable-next-line vue/require-valid-default-prop
-        breakpoints: {},
+        slidesCounter: 1,
+        thumbsSwiper: undefined,
+        breakpoints: undefined,
         init: false,
         verticalNavigation: false,
-        thumbRef: null,
+        thumbRef: undefined,
+        initialSlide: 0,
+        isZoomEnabled: false,
     },
 );
 
-const sliderRef: Swiper = ref();
+defineEmits(['slides-change']);
+
+const swiperContainer: Ref<Swiper|null> = ref(null);
 const prevSlide = ref(null);
 const nextSlide = ref(null);
-const navigation = props.navigationArrows ? ref(null) : false;
+const navigation = computed(() => props.navigationArrows ? undefined : false);
+// swiperContainer?.value has the type swiper but cant be find here
+// eslint-disable-next-line  @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const computedSwiperContainer = computed(() => swiperContainer?.value?.swiper ?? null);
 
-watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
+watch([prevSlide, nextSlide, swiperContainer], ([prevSlideValue, nextSlideValue]) => {
+    if (!swiperContainer?.value) {
+        return;
+    }
+
     if (prevSlideValue && nextSlideValue && props.navigationArrows) {
         const swiperParams = {
             navigation: {
@@ -57,10 +73,13 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
             },
         };
 
-        Object.assign(sliderRef.value, swiperParams);
+        Object.assign(swiperContainer.value, swiperParams);
     }
 
-    sliderRef.value.initialize();
+    // swiperContainer?.value has the method initialize
+    // eslint-disable-next-line  @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    swiperContainer.value?.initialize();
 });
 </script>
 
@@ -68,12 +87,40 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
     <ClientOnly>
         <div
             class="relative"
-            :class="classes"
+            :class="[classes, {
+                'cursor-grab': slidesCounter > 1
+            }]"
         >
+            <div
+                v-if="isZoomEnabled"
+                class="flex"
+            >
+                <!-- Zoom in button -->
+                <button
+                    class="mr-2 flex"
+                    @click="computedSwiperContainer.zoom.in()"
+                >
+                    <FormKitIcon
+                        icon="plus"
+                        class="size-6"
+                    />
+                </button>
+
+                <!-- Zoom out button -->
+                <button
+                    class="flex"
+                    @click="computedSwiperContainer.zoom.out()"
+                >
+                    <FormKitIcon
+                        icon="minus"
+                        class="size-6"
+                    />
+                </button>
+            </div>
             <template v-if="navigationArrows">
                 <div
                     ref="prevSlide"
-                    class="absolute z-10 bg-gray-light bg-opacity-50"
+                    class="absolute z-10 bg-gray-light/50"
                     :class="
                         verticalNavigation
                             ? 'left-1/2 top-0 flex w-full -translate-x-1/2 justify-center py-1 lg:py-2'
@@ -82,13 +129,13 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                 >
                     <FormKitIcon
                         :icon="verticalNavigation ? 'chevron-up' : 'chevron-left'"
-                        class="block h-6 w-6 text-brand-primary"
+                        class="block size-6 text-brand-primary"
                     />
                 </div>
 
                 <div
                     ref="nextSlide"
-                    class="absolute z-10 bg-gray-light bg-opacity-50"
+                    class="absolute z-10 bg-gray-light/50"
                     :class="
                         verticalNavigation
                             ? 'bottom-0 left-1/2 flex w-full -translate-x-1/2 justify-center py-1 lg:py-2'
@@ -97,14 +144,14 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                 >
                     <FormKitIcon
                         :icon="verticalNavigation ? 'chevron-down' : 'chevron-right'"
-                        class="block h-6 w-6 text-brand-primary"
+                        class="block size-6 text-brand-primary"
                     />
                 </div>
             </template>
 
             <swiper-container
-                ref="sliderRef"
-                class="grid h-full w-full"
+                ref="swiperContainer"
+                class="grid size-full"
                 :class="thumbRef ? thumbRef : `min-h-[${minHeight}px]`"
                 :autoplay="autoSlide"
                 :speed="speed"
@@ -117,8 +164,11 @@ watch([prevSlide, nextSlide, sliderRef], ([prevSlideValue, nextSlideValue]) => {
                 :thumbs-swiper="thumbsSwiper"
                 :breakpoints="breakpoints"
                 :init="init"
+                :initial-slide="initialSlide"
+                :zoom="isZoomEnabled"
+                @swiperslideslengthchange="$emit('slides-change')"
             >
-                <slot></slot>
+                <slot />
             </swiper-container>
         </div>
     </ClientOnly>

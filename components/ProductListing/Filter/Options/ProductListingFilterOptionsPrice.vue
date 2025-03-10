@@ -1,26 +1,20 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { ListingPriceFilter } from '~/types/listing/Filter';
+import type { ChangePriceFilter } from '~/types/listing/FilterEvents';
 
 const props = defineProps<{
-    filter: ListingFilter<{
-        max: string;
-        min: string;
-    }>;
+    filter: ListingPriceFilter;
     selectedValues: Schemas['ProductListingResult']['currentFilters'];
 }>();
 
 defineEmits<{
-    'filter-changed': [
-        event: {
-            code: 'price';
-            value: ValueOf<Schemas['ProductListingResult']['currentFilters']['price']>;
-        },
-    ];
+    'filter-changed': [event: ChangePriceFilter];
 }>();
 
 const { currency } = useSessionContext();
-const filterMax = computed(() => Math.ceil(parseFloat(props.filter.max)) || 0);
-const filterMin = computed(() => Math.floor(parseFloat(props.filter.min)) || 0);
+const filterMax = computed(() => Math.ceil(props.filter.max) || 0);
+const filterMin = computed(() => Math.floor(props.filter.min) || 0);
 const currentValue = ref([
     props.selectedValues.price.min || filterMin.value || 0,
     props.selectedValues.price.max || filterMax.value || 0,
@@ -51,17 +45,17 @@ watch(props, () => {
             $emit('filter-changed', {
                 code: 'price',
                 value: {
-                    min: $event[0],
-                    max: $event[1],
+                    min: $event[0] ?? 0,
+                    max: $event[1] ?? 0,
                 },
             })
         "
     >
-        <SliderTrack class="relative h-[3px] grow rounded-full bg-gray">
+        <SliderTrack class="relative h-1 grow rounded-full bg-gray">
             <SliderRange class="absolute h-full rounded-full bg-brand-primary" />
         </SliderTrack>
 
-        <SliderThumb class="block h-5 w-5 rounded-full bg-brand-primary" />
-        <SliderThumb class="block h-5 w-5 rounded-full bg-brand-primary" />
+        <SliderThumb class="block size-5 rounded-full bg-brand-primary" />
+        <SliderThumb class="block size-5 rounded-full bg-brand-primary" />
     </SliderRoot>
 </template>

@@ -31,8 +31,8 @@ const isPaymentNeeded = computed(() => {
 
     const lastTransaction: Schemas['OrderTransaction'] = transactions[transactions.length - 1];
     const stateNamesForPaymentNeeded = ['failed', 'reminded', 'unconfirmed', 'cancelled'];
-    const transactionStateName = lastTransaction.stateMachineState.technicalName;
-    const isTransactionStateInNeedOfPayment = stateNamesForPaymentNeeded.includes(transactionStateName);
+    const transactionStateName = lastTransaction.stateMachineState?.technicalName;
+    const isTransactionStateInNeedOfPayment = stateNamesForPaymentNeeded.includes(transactionStateName ?? '');
     const isOrderNotCanceled = order.value.stateMachineState.technicalName !== 'cancelled';
 
     return isTransactionStateInNeedOfPayment && isOrderNotCanceled;
@@ -81,7 +81,7 @@ onMounted(async () => {
 
                     <LocaleLink
                         v-if="isPaymentNeeded"
-                        class="rounded-md bg-brand-primary px-2 py-2 text-white"
+                        class="rounded-md bg-brand-primary p-2 text-white"
                         :to="`/account/order/edit/${orderId}`"
                     >
                         {{ $t('account.orders.changePaymentMethod') }}
@@ -127,20 +127,21 @@ onMounted(async () => {
                     </div>
                 </div>
 
-                <div class="mt-5 font-bold">{{ $t('account.orders.lineItemsHeading') }}</div>
-                <div
-                    v-for="(product, index) in order.lineItems"
-                    :key="product.id"
-                >
-                    <div class="mt-4 flex w-full">
-                        <OrderLineItem :line-item="product" />
-                    </div>
-                    <hr
-                        v-if="index !== order.lineItems.length - 1"
-                        class="w-full"
-                    />
+                <div class="mt-5 font-bold">
+                    {{ $t('account.orders.lineItemsHeading') }}
                 </div>
+
+                <ul class="divide-y divide-gray-medium">
+                    <li
+                        v-for="lineItem in order.lineItems"
+                        :key="lineItem.id"
+                        class="flex py-6"
+                    >
+                        <OrderLineItem :line-item="lineItem" />
+                    </li>
+                </ul>
             </div>
+
             <OrderSummary
                 :is-account-order-item="true"
                 :order="order"

@@ -1,31 +1,29 @@
 <script setup lang="ts">
 import { ApiClientError } from '@shopware/api-client';
-import type { ResolvedApiError } from '~/types/errors';
+import type { ResolvedApiError } from '~/types/Errors';
 import type { Schemas } from '@shopware/api-client/api-types';
 
-const props = defineProps<{
-    product: Schemas['Product'];
-    icon?: boolean;
-    label?: boolean;
-}>();
+const props = withDefaults(
+    defineProps<{
+      product: Schemas['Product'];
+      icon?: boolean;
+      label?: boolean;
+    }>(),
+    {
+        icon: true,
+        label: true,
+    },
+);
 
 const { product } = useProduct(props.product);
 const { addToCart, quantity } = useAddToCart(product);
 const { trackAddToCart } = useAnalytics();
-quantity.value = product.value.minPurchase;
+const { t } = useI18n();
 const { resolveApiErrors } = useApiErrorsResolver();
 const { pushError, pushSuccess } = useNotifications();
+
+quantity.value = product.value.minPurchase;
 const apiErrors = ref<ResolvedApiError[]>([]);
-const { t } = useI18n();
-
-const handleEnter = async $event => {
-    if ($event.target !== null) {
-        // remove focus from input to trigger quantity update
-        $event.target.blur();
-    }
-
-    await handleAddToCart();
-};
 
 const handleAddToCart = async () => {
     try {
@@ -49,53 +47,57 @@ const handleAddToCart = async () => {
 </script>
 
 <template>
-    <FormKit
-        v-if="product.availableStock > 0"
-        type="form"
-        :actions="false"
-        :classes="{
-            form: 'w-full flex gap-4',
-            outer: 'w-20',
-        }"
-        @keydown.enter.prevent
-        @submit="handleAddToCart"
-    >
-        <ul
-            v-if="apiErrors.length"
-            class="validation-errors text-status-danger"
-        >
-            <li
-                v-for="(error, index) in apiErrors"
-                :key="`product-error-${index}`"
-            >
-                {{ error.code }}
-            </li>
-        </ul>
-
-        <SharedQuantityInput
-            v-model="quantity"
-            :product="product"
-            @on-enter="handleEnter($event)"
-        />
-
+    <div class="p-4 pt-0">
         <FormKit
-            type="submit"
+            v-if="product.availableStock > 0"
+            type="form"
+            :actions="false"
             :classes="{
-                outer: 'w-full',
+                form: 'w-full flex gap-4',
+                outer: 'w-20',
             }"
-            :label="props.label ? $t('product.addToCart.submitLabel') : ' '"
-            :prefix-icon="props.icon ? 'cart-shopping' : ''"
-        />
-    </FormKit>
+            @keydown.enter.prevent
+            @submit="handleAddToCart"
+        >
+            <ul
+                v-if="apiErrors.length"
+                class="validation-errors text-status-danger"
+            >
+                <li
+                    v-for="(error, index) in apiErrors"
+                    :key="`product-error-${index}`"
+                >
+                    {{ error.code }}
+                </li>
+            </ul>
 
-    <div
-        v-else
-        class="flex w-full gap-1 rounded bg-gray-light px-4 py-2 text-sm text-gray"
-    >
-        <FormKitIcon
-            icon="info"
-            class="block h-5 w-5"
-        />
-        <span>{{ $t('product.addToCart.notAvailable') }}</span>
+            <SharedQuantityInput
+                v-model="quantity"
+                :min-purchase="product.minPurchase"
+                :max-purchase="product.maxPurchase"
+                :steps="product.purchaseSteps"
+                @on-enter="handleAddToCart"
+            />
+
+            <FormKit
+                type="submit"
+                :classes="{
+                    outer: 'w-full',
+                }"
+                :label="props.label ? $t('product.addToCart.submitLabel') : ' '"
+                :prefix-icon="props.icon ? 'cart-shopping' : ''"
+            />
+        </FormKit>
+
+        <div
+            v-else
+            class="flex w-full items-center gap-1 rounded bg-gray-light px-4 py-2 text-sm text-gray"
+        >
+            <FormKitIcon
+                icon="info"
+                class="block size-3.5"
+            />
+            <span>{{ $t('product.addToCart.notAvailable') }}</span>
+        </div>
     </div>
 </template>

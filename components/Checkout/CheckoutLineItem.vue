@@ -1,21 +1,29 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import { ApiClientError } from '@shopware/api-client';
+import { getTranslatedProperty, getProductRoute } from '@shopware-pwa/helpers-next';
 
-const { getProductRoute } = useProductRoute();
+const { getLineItemRoute } = useLineItemRoute();
 const { getProductCover } = useMedia();
 const { pushError, pushSuccess } = useNotifications();
+const { handleError } = useHandleError();
 const { t } = useI18n();
 
-const props = defineProps<{
-    lineItem: Schemas['LineItem'];
-    product: Schemas['Product'];
-}>();
+const props = withDefaults(
+    defineProps<{
+      lineItem: Schemas['LineItem'];
+      product?: Schemas['Product'];
+    }>(),
+    {
+        product: undefined,
+    },
+);
 
 const { lineItem, product } = toRefs(props);
 const isLoading = ref(false);
 
-const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
+const lineItemCover = getProductCover(lineItem.value.cover?.media, 'xs');
+
+const lineItemSeoUrl = product.value ? getProductRoute(product.value) : await getLineItemRoute(lineItem.value);
 
 const { getFormattedPrice } = usePrice();
 const { refreshCart } = useCart();
@@ -38,15 +46,14 @@ syncRefs(itemQuantity, quantity);
 const updateQuantity = async (quantityInput: number | undefined) => {
     if (quantityInput === itemQuantity.value) return;
 
-    const addedProductsNumbers = Number(quantityInput) - itemQuantity.value;
+    const addedProductsNumbers = Number(quantityInput) - (itemQuantity?.value ?? 0);
     isLoading.value = true;
 
     try {
         const response = await changeItemQuantity(Number(quantityInput));
-        if (addedProductsNumbers > 0) {
-            trackAddToCart(product.value, addedProductsNumbers);
-        } else {
-            trackRemoveFromCart(product.value, Math.abs(addedProductsNumbers));
+
+        if (product.value) {
+            addedProductsNumbers > 0 ? trackAddToCart(product.value, addedProductsNumbers) : trackRemoveFromCart(product.value, Math.abs(addedProductsNumbers));
         }
         // Refresh cart after quantity update
         await refreshCart(response);
@@ -54,10 +61,7 @@ const updateQuantity = async (quantityInput: number | undefined) => {
         pushSuccess(t('checkout.lineItem.updateQuantity.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
         pushError(t('checkout.lineItem.updateQuantity.errorMessage', { lineItemName: lineItem.value.label }));
-
-        if (error instanceof ApiClientError) {
-            console.log(error.details);
-        }
+        handleError(error);
     }
 
     // Make sure that quantity is the same as it is in the response
@@ -70,26 +74,20 @@ const removeCartItem = async () => {
     isLoading.value = true;
 
     try {
-        trackRemoveFromCart(product.value, lineItem.value.quantity);
         await removeItem();
+
+        // TODO: fix tracking giving an error when removing a promotion
+        if (!isPromotion && product.value) {
+            trackRemoveFromCart(product.value, lineItem.value?.quantity);
+        }
 
         pushSuccess(t('checkout.lineItem.remove.successMessage', { lineItemName: lineItem.value.label }));
     } catch (error) {
         pushError(t('checkout.lineItem.remove.errorMessage', { lineItemName: lineItem.value.label }));
-
-        if (error instanceof ApiClientError) {
-            console.log(error.details);
-        }
+        handleError(error);
     }
 
     isLoading.value = false;
-};
-
-const updateQuantityOnEnter = $event => {
-    if ($event.target !== null) {
-        // remove focus from input to trigger update
-        $event.target.blur();
-    }
 };
 
 // allows the user to change the quantity multiple times before firing a single request
@@ -97,10 +95,10 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
 </script>
 
 <template>
-    <div class="mr-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
+    <div class="mr-4 size-24 shrink-0 overflow-hidden rounded-md border border-gray-medium bg-gray-light">
         <LocaleLink
             v-if="!isPromotion"
-            :to="getProductRoute(lineItem)"
+            :to="lineItemSeoUrl"
         >
             <template v-if="lineItemCover.placeholder">
                 <SharedImagePlaceholder :size="'sm'" />
@@ -109,18 +107,26 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
             <template v-else>
                 <img
                     :src="lineItemCover.url"
-                    :alt="lineItemCover.alt"
-                    class="h-full w-full object-cover object-center"
-                />
+                    :alt="
+                        lineItemCover.alt ??
+                            (getTranslatedProperty(lineItem, 'label') || getTranslatedProperty(product, 'name'))
+                    "
+                    :title="
+                        lineItemCover.title ??
+                            (getTranslatedProperty(lineItem, 'label') || getTranslatedProperty(product, 'name'))
+                    "
+                    class="size-full object-cover object-center"
+                >
             </template>
         </LocaleLink>
+
         <div
             v-else-if="isPromotion"
-            class="flex h-full w-full items-center justify-center"
+            class="flex size-full items-center justify-center"
         >
             <FormKitIcon
                 icon="percent"
-                class="block h-16 w-16 text-gray"
+                class="block size-16 text-gray"
             />
         </div>
     </div>
@@ -128,18 +134,27 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
     <div class="flex flex-1 flex-col">
         <div>
             <div class="flex flex-col justify-between gap-4 lg:flex-row">
-                <LocaleLink :to="getProductRoute(lineItem)">
+                <LocaleLink
+                    v-if="!isPromotion"
+                    :to="lineItemSeoUrl"
+                >
                     <p>
                         {{ lineItem.label }}
                     </p>
                 </LocaleLink>
+
+                <p v-else-if="isPromotion">
+                    {{ lineItem.label }}
+                </p>
 
                 <span v-if="itemTotalPrice">
                     {{ getFormattedPrice(itemTotalPrice) }}
                 </span>
             </div>
 
-            <span v-if="isDigital">{{ $t('checkout.lineItem.digitalProduct') }}</span>
+            <span v-if="isDigital">
+                {{ $t('checkout.lineItem.digitalProduct') }}
+            </span>
 
             <p
                 v-if="itemOptions"
@@ -161,10 +176,12 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
             <SharedQuantityInput
                 v-if="isStackable"
                 v-model="quantity"
-                :line-item="lineItem"
+                :min-purchase="lineItem.quantityInformation?.minPurchase"
+                :max-purchase="lineItem.quantityInformation?.maxPurchase"
+                :steps="lineItem.quantityInformation?.purchaseSteps"
+                :initial-value="lineItem.quantity"
                 :is-loading="isLoading"
                 @on-update="debounceUpdate"
-                @on-enter="updateQuantityOnEnter($event)"
             />
 
             <button

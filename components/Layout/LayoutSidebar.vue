@@ -22,7 +22,7 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
     <Teleport to="body">
         <div
             ref="sidebarContentElement"
-            class="fixed z-40 overflow-y-auto bg-white transition-transform duration-500"
+            class="fixed z-50 overflow-y-auto bg-white transition-transform duration-500"
             tabindex="-1"
             aria-labelledby="sidebar"
             :class="{
@@ -36,15 +36,15 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
             }"
         >
             <div class="flex items-center justify-between bg-gray-light p-3.5">
-                <slot name="header"></slot>
+                <slot name="header" />
                 <FormKitIcon
                     icon="xmark"
-                    class="mb-4 ml-auto block h-4 w-4 cursor-pointer"
+                    class="mb-4 ml-auto block size-4 cursor-pointer"
                     @click="controller.close()"
                 />
             </div>
             <div class="overflow-y-scroll p-4">
-                <slot name="content"></slot>
+                <slot name="content" />
             </div>
             <slot name="footer" />
         </div>
@@ -52,7 +52,7 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
         <!-- body overlay -->
         <div
             v-if="isOpen"
-            class="fixed inset-0 z-30 h-screen w-screen bg-black/50"
+            class="fixed inset-0 z-40 h-screen w-screen bg-black/50"
         />
     </Teleport>
 </template>
