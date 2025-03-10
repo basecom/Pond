@@ -12,7 +12,7 @@ export const buttonVariants = cva(
                 outline: 'border border-gray-200 bg-white shadow-sm hover:bg-gray-100 hover:text-gray-900',
                 secondary: 'bg-gray-100 text-gray-900 shadow-sm hover:bg-gray-100/80',
                 ghost: 'hover:bg-gray-100 hover:text-gray-900',
-                link: 'text-gray-900 underline-offset-4 hover:underline',
+                link: 'text-gray-900 underline underline-offset-4',
             },
             size: {
                 default: 'h-9 px-4 py-2',

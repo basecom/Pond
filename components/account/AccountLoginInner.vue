@@ -59,25 +59,33 @@ const login = async (loginData: LoginData) => {
         }"
         @submit="login"
     >
-        <slot name="alert">
-            <UiAlert v-if="errorMessage" variant="destructive" class="flex gap-4">
-                <slot name="alert-icon">
-                    <Icon name="mdi:alert-circle-outline" class="size-4 text-red-500" />
-                </slot>
+        <div class="!mt-0 grid">
+            <slot name="passwort-forgotten">
+                <UiButton variant="link" class="mb-6 justify-self-start px-0">
+                    {{ $t('account.login.password.forgotten') }}
+                </UiButton>
+            </slot>
 
-                <div>
-                    <UiAlertTitle>{{ $t('error.generalHeadline') }}</UiAlertTitle>
-                    <UiAlertDescription>
-                        {{ errorMessage }}
-                    </UiAlertDescription>
-                </div>
-            </UiAlert>
-        </slot>
+            <slot name="alert">
+                <UiAlert v-if="errorMessage" variant="destructive" class="flex gap-4">
+                    <slot name="alert-icon">
+                        <Icon name="mdi:alert-circle-outline" class="size-4 text-red-500" />
+                    </slot>
 
-        <slot name="submit-button">
-            <UiButton type="submit" :is-loading="isLoading">
-                {{ $t('account.auth.login') }}
-            </UiButton>
-        </slot>
+                    <div>
+                        <UiAlertTitle>{{ $t('error.generalHeadline') }}</UiAlertTitle>
+                        <UiAlertDescription>
+                            {{ errorMessage }}
+                        </UiAlertDescription>
+                    </div>
+                </UiAlert>
+            </slot>
+
+            <slot name="submit-button">
+                <UiButton type="submit" :is-loading="isLoading">
+                    {{ $t('account.auth.login') }}
+                </UiButton>
+            </slot>
+        </div>
     </UiAutoForm>
 </template>

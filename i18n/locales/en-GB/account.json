@@ -20,6 +20,7 @@
       "password": {
         "label": "Your Password",
         "placeholder": "••••••••",
+        "forgotten": "Password forgotten",
         "errorGeneral": "Please enter a password",
         "errorLength": "Your password must be at least {length} characters long"
       }
