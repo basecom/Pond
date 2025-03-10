@@ -11,7 +11,7 @@ export function useBroadcastState(){
 
     const {
         channel: sessionChannel,
-        post,
+        post: postSession,
     } = useBroadcastChannel({ name: 'session-store-channel' });
     const {
         channel: cartChannel,
@@ -28,7 +28,6 @@ export function useBroadcastState(){
 
     watch(cartChannel, () => {
         if (cartChannel.value){
-
             cartChannel.value.addEventListener('message', async(event)=> {
                 if (event.data?.tabId !== tabId.value){
                     refreshingCart.value = true;
@@ -41,10 +40,8 @@ export function useBroadcastState(){
 
     watch(sessionContext,  () => {
         if (isSupported.value && !refreshingSession.value) {
-            post({ tabId: tabId.value });
+            postSession({ tabId: tabId.value });
         }
-
-
     });
 
     watch(sessionChannel, () => {
