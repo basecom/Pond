@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const customerStore = useCustomerStore();
-const { loading } = storeToRefs(customerStore);
+const contextStore = useContextStore();
+const { loading } = storeToRefs(contextStore);
 </script>
 
 <template>
