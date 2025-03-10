@@ -49,6 +49,8 @@ const props = withDefaults(
     },
 );
 
+defineEmits(['slides-change']);
+
 const swiperContainer: Ref<Swiper|null> = ref(null);
 const prevSlide = ref(null);
 const nextSlide = ref(null);
@@ -164,6 +166,7 @@ watch([prevSlide, nextSlide, swiperContainer], ([prevSlideValue, nextSlideValue]
                 :init="init"
                 :initial-slide="initialSlide"
                 :zoom="isZoomEnabled"
+                @swiperslideslengthchange="$emit('slides-change')"
             >
                 <slot />
             </swiper-container>

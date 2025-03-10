@@ -12,7 +12,7 @@ const getComponentStyle = (section: Schemas['CmsSection']) => getCmsLayoutConfig
 </script>
 
 <template>
-    <div class="cms-page">
+    <div v-cms-page="cmsPage" class="cms-page">
         <template
             v-for="section in cmsPage.sections"
             :key="section.id"
