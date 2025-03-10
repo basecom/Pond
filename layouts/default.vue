@@ -37,9 +37,9 @@ const shopName = configStore.get('core.basicInformation.shopName') as string|nul
 
 onMounted(()=>{
     if (route.query.affiliateCode){
-        sessionStorage.setItem('affiliateCode', route.query.affiliateCode)
+        useSessionStorage('affiliateCode', route.query.affiliateCode);
     }
-})
+});
 
 useHead({
     title: shopName ?? '',
