@@ -8,7 +8,7 @@ const props = defineProps<{
 
 const elementConfig = useCmsElementConfig(props.element);
 const { getCmsElementData } = useCmsUtils();
-const slides = getCmsElementData(props.element, 'sliderItems')?? [];
+const slides = getCmsElementData(props.element, 'sliderItems') ?? [];
 
 const navigationDots = elementConfig.getConfigValue('navigationDots');
 const navigationArrows = elementConfig.getConfigValue('navigationArrows');

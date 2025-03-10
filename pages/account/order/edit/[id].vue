@@ -4,6 +4,8 @@ import type { RouteIdParams } from '~/types/RouteParams';
 
 await useAuthentication().rerouteIfLoggedOut();
 
+const configStore = useConfigStore();
+const showCustomerComment = configStore.get('core.cart.showCustomerComment');
 const route = useRoute();
 const orderId = (route.params as RouteIdParams).id;
 const { order, loadOrderDetails, shippingMethod, paymentMethod, changePaymentMethod, shippingAddress, billingAddress } =
@@ -67,7 +69,10 @@ onMounted(async () => {
                         />
                         <AccountOrderConfirmTerms />
 
-                        <CheckoutConfirmCard v-if="order.customerComment" :title="t('checkout.finish.customerCommentLabel')">
+                        <CheckoutConfirmCard
+                            v-if="order.customerComment && showCustomerComment"
+                            :title="t('checkout.finish.customerCommentLabel')"
+                        >
                             <OrderComment :customer-comment="order.customerComment" />
                         </CheckoutConfirmCard>
                     </div>

@@ -10,9 +10,11 @@ withDefaults(
       showResetButton?: boolean;
       sortingOptions: Schemas['ProductListingResult']['availableSortings'];
       selectedSorting: Schemas['ProductListingResult']['sorting'];
+      containerClass?: string;
     }>(),
     {
         showResetButton: true,
+        containerClass: '',
     },
 );
 
@@ -26,12 +28,14 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <div class="m-0 mx-auto grid gap-4">
+    <div class="m-0 mx-auto grid gap-4" :class="containerClass">
         <div class="flex justify-end border-b border-gray-light pb-6 pt-2">
             <ProductListingSorting
                 :options="sortingOptions"
                 :selected-option="selectedSorting"
-                @sorting-changed="(sortingOption: Schemas['ProductListingResult']['sorting']) => emit('sorting-changed', sortingOption)"
+                @sorting-changed="
+                    (sorting: Schemas['ProductListingResult']['sorting']) => emit('sorting-changed', sorting)
+                "
             />
         </div>
 
@@ -45,15 +49,5 @@ const emit = defineEmits<{
             @reset-filters="$emit('reset-filters')"
             @remove-filter="(event: RemoveFilterEvent) => $emit('remove-filter', event)"
         />
-
-        <div class="flex justify-end">
-            <ProductListingSorting
-                :options="sortingOptions"
-                :selected-option="selectedSorting"
-                @sorting-changed="
-                    (sorting: Schemas['ProductListingResult']['sorting']) => emit('sorting-changed', sorting)
-                "
-            />
-        </div>
     </div>
 </template>

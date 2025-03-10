@@ -7,14 +7,16 @@ const props = withDefaults(
         product: Schemas['Product'];
         layout?: 'standard' | 'minimal' | 'image';
         displayMode?: 'standard' | 'cover' | 'contain';
+        containerClass?: string;
     }>(),
     {
         layout: 'standard',
         displayMode: 'cover',
+        containerClass: '',
     },
 );
 
-const emit = defineEmits(['select-product', 'view-product']);
+const emit = defineEmits(['select-product', 'view-product', 'image-loaded']);
 
 const { getProductCover } = useMedia();
 
@@ -35,6 +37,7 @@ const { stop } = useIntersectionObserver(productCard, ([entry]: IntersectionObse
     <div
         ref="productCard"
         class="relative w-full border border-gray-medium"
+        :class="containerClass"
     >
         <div
             v-if="wishlistEnabled"
@@ -51,7 +54,7 @@ const { stop } = useIntersectionObserver(productCard, ([entry]: IntersectionObse
             <div class="flex flex-col">
                 <div class="aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7 w-full overflow-hidden bg-gray-light">
                     <template v-if="cover.placeholder">
-                        <SharedImagePlaceholder />
+                        <SharedImagePlaceholder @load-icon="$emit('image-loaded')" />
                     </template>
 
                     <template v-else>
@@ -61,6 +64,8 @@ const { stop } = useIntersectionObserver(productCard, ([entry]: IntersectionObse
                             :title="cover.title ?? getTranslatedProperty(props.product, 'name')"
                             class="aspect-square size-full object-center group-hover:opacity-75"
                             :class="displayMode === 'standard' ? 'object-scale-down' : 'object-' + displayMode"
+                            @load="$emit('image-loaded')"
+                            @error="$emit('image-loaded')"
                         >
                     </template>
                 </div>

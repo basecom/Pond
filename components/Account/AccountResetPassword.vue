@@ -9,7 +9,7 @@ const handleReset = async (fields: ResetPasswordForm) => {
     try {
         await customerStore.resetPassword({
             ...fields,
-            storefrontUrl: getEnvironmentStorefrontUrl(),
+            storefrontUrl: getStorefrontUrl(),
         });
     } catch (error) {
         // we won't do anything here because we don't want the user to know if the email is registered
@@ -17,17 +17,13 @@ const handleReset = async (fields: ResetPasswordForm) => {
         formSent.value = true;
     }
 };
-
-// helper method to get a correct url for testing in dev mode
-// TODO: maybe change for prod env?
-const getEnvironmentStorefrontUrl = (): string => {
-    const storefrontUrl = getStorefrontUrl();
-    return import.meta.dev ? `${storefrontUrl}:3000` : storefrontUrl;
-};
 </script>
 
 <template>
-    <h3 class="mb-4">{{ $t('account.recoverPassword.request.heading') }}</h3>
+    <h3 class="mb-4">
+        {{ $t('account.recoverPassword.request.heading') }}
+    </h3>
+
     <FormKit
         v-if="!formSent"
         type="form"
@@ -38,7 +34,10 @@ const getEnvironmentStorefrontUrl = (): string => {
         }"
         @submit="handleReset"
     >
-        <p class="text-sm">{{ $t('account.recoverPassword.request.subHeading') }}</p>
+        <p class="text-sm">
+            {{ $t('account.recoverPassword.request.subHeading') }}
+        </p>
+
         <FormKit
             type="email"
             :label="$t('account.login.email.label')"

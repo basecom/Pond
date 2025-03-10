@@ -12,6 +12,8 @@ const { createOrderWrapper } = useOrderHelper();
 const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
 const { trackPurchase } = useAnalytics({ trackPageView: true, pageType: 'checkout' });
+const configStore = useConfigStore();
+const showCustomerComment = configStore.get('core.cart.showCustomerComment');
 
 const placeOrder = async (formData: OrderForm) => {
     try {
@@ -56,7 +58,7 @@ useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
                         <CheckoutConfirmPayment />
                         <CheckoutConfirmAddress v-if="customerStore.customer" />
                         <CheckoutConfirmTerms />
-                        <CheckoutConfirmCustomerComment />
+                        <CheckoutConfirmCustomerComment v-if="showCustomerComment" />
                     </div>
 
                     <div class="rounded-md p-4 shadow">
