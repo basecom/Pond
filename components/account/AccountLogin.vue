@@ -1,11 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-
+    <AccountLoginInner />
 </template>
-
-<style scoped>
-
-</style>

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import LayoutHeaderAccountLogin from '~/components/layout/header/LayoutHeaderAccountLogin.vue';
-
 withDefaults(
     defineProps<{
       signedIn?: boolean;
@@ -9,6 +7,10 @@ withDefaults(
         signedIn: false,
     },
 );
+
+defineEmits<{
+  logout: [];
+}>();
 </script>
 
 <template>
@@ -57,6 +59,13 @@ withDefaults(
                             {{ $t('account.orders') }}
                         </slot>
                     </UiDropdownMenuItem>
+
+                    <UiDropdownMenuSeparator />
+                    <UiDropdownMenuItem class="cursor-pointer" @click="$emit('logout')">
+                        <slot name="logout">
+                            {{ $t('account.auth.logout') }}
+                        </slot>
+                    </UiDropdownMenuItem>
                 </slot>
             </template>
 
@@ -74,7 +83,15 @@ withDefaults(
                             </slot>
                         </UiDialogTrigger>
 
-                        <LayoutHeaderAccountLogin />
+                        <UiDialogContent>
+                            <UiDialogHeader>
+                                <UiDialogTitle>
+                                    {{ $t('account.auth.login') }}
+                                </UiDialogTitle>
+                            </UiDialogHeader>
+
+                            <AccountLogin />
+                        </UiDialogContent>
                     </UiDialog>
 
                     <UiDropdownMenuItem>
