@@ -7,6 +7,10 @@ withDefaults(
         reducedDisplay: false,
     },
 );
+
+const { preselectShippingMethodFallback } = useShippingMethod();
+await preselectShippingMethodFallback();
+
 const { totalPrice, shippingTotal, cart } = useCart();
 
 const netPrice = computed(() => cart.value?.price?.netPrice || 0);
