@@ -34,6 +34,10 @@ if (route.path !== '/wishlist' && wishlistEnabled) {
 }
 
 const shopName = configStore.get('core.basicInformation.shopName') as string|null;
+
+const { setAffiliateCode } = useAffiliateMarketing();
+setAffiliateCode('affiliateCode');
+
 useHead({
     title: shopName ?? '',
     htmlAttrs: {
