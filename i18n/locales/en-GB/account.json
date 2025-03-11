@@ -8,7 +8,22 @@
     "orders": "Orders",
     "auth": {
       "login": "Sign in",
-      "register": "Sign up"
+      "register": "Sign up",
+      "logout": "Logout"
+    },
+    "login": {
+      "email": {
+        "label": "Your Email Address",
+        "placeholder": "Email address",
+        "error": "Please enter a valid email address"
+      },
+      "password": {
+        "label": "Your Password",
+        "placeholder": "••••••••",
+        "forgotten": "Password forgotten",
+        "errorGeneral": "Please enter a password",
+        "errorLength": "Your password must be at least {length} characters long"
+      }
     }
   }
 }
