@@ -6,4 +6,9 @@
 * {
     @apply font-main antialiased hyphens-auto [hyphenate-limit-chars:6_3_3] [hyphenate-limit-lines:2] [hyphenate-limit-last:always] [hyphenate-limit-zone:8%];
 }
+@layer base {
+  :root {
+        --radius: 0.5rem
+    }
+}
 
