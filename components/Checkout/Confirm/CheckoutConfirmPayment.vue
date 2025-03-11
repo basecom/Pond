@@ -12,6 +12,9 @@ const selectedPaymentMethod = computed({
         return paymentMethod.value?.id || '';
     },
     async set(paymentMethodId: string) {
+        if (paymentMethodId === paymentMethod.value?.id) {
+            return;
+        }
         await setPaymentMethod({ id: paymentMethodId });
         trackAddPaymentInfo();
         await refreshCart();
