@@ -18,7 +18,6 @@ export default defineNuxtConfig({
     experimental: {
         asyncContext: true,
         sharedPrerenderData: true,
-        typedPages: true,
         viewTransition: true,
     },
 
