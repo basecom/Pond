@@ -9,12 +9,12 @@ const props = defineProps<{
 }>();
 
 const { getUrlPrefix } = useUrlResolver();
+const { shouldPreloadElement } = useCmsElementPreload();
 const imageElement = ref(null);
 const { width, height } = useElementSize(imageElement);
 const { getCmsMedia } = useMedia();
 const { containerStyle, displayMode, imageContainerAttrs, imageAttrs, imageLink, isVideoElement, mimeType } =
     useCmsElementImage(props.element);
-const { shouldPreloadElement } = useCmsUtils();
 
 const { srcPath } = getCmsMedia(width, height, imageAttrs);
 

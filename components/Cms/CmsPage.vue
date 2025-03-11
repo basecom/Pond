@@ -10,7 +10,7 @@ const props = defineProps<{
 const { getCmsSectionComponentName, componentExists, getSectionClasses } = useCmsUtils();
 const getComponentStyle = (section: Schemas['CmsSection']) => getCmsLayoutConfiguration(section).layoutStyles as StyleValue;
 
-provide('cmsPage', props.cmsPage);
+useCmsElementPreload(props.cmsPage);
 </script>
 
 <template>

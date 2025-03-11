@@ -9,7 +9,8 @@ const props = defineProps<{
 }>();
 
 const config = useCmsElementConfig(props.element);
-const { getCmsElementData, shouldPreloadElement } = useCmsUtils();
+const { getCmsElementData } = useCmsUtils();
+const { shouldPreloadElement } = useCmsElementPreload();
 const slides = getCmsElementData(props.element, 'sliderItems') ?? [];
 const firstSlide = slides?.at(0);
 
