@@ -22,9 +22,16 @@ const props = withDefaults(
     defineProps<{
         to: string | RouteObject;
         format?: boolean;
+        prefetch?: boolean;
+        prefetchOn?: 'visibility' | 'interaction' | Partial<{
+            visibility: boolean;
+            interaction: boolean;
+        }>;
     }>(),
     {
         format: true,
+        prefetch: false,
+        prefetchOn: undefined,
     },
 );
 
@@ -35,6 +42,8 @@ const getLink = computed(() => (props.format ? formatLink(props.to) : props.to))
     <NuxtLink
         v-bind="$attrs"
         :to="getLink"
+        :prefetch="prefetch"
+        :prefetch-on="prefetchOn"
     >
         <slot />
     </NuxtLink>
