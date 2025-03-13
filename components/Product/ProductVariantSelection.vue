@@ -89,14 +89,14 @@ const onVariantChange = async (groupName: string, optionId: string) => {
                             'w-full sm:w-32': true,
                         },
                     }"
-                    :options="entityArrayToOptions<Schemas['PropertyGroupOption']>(group.options, 'name', true) ?? []"
+                    :options="entityArrayToOptions<Schemas['PropertyGroupOption']>(group.options.sort((a: Schemas['PropertyGroupOption'], b: Schemas['PropertyGroupOption']) => (a.position ?? 999) - (b.position ?? 999)), 'name', false) ?? []"
                     @change="onVariantChange(group.translated.name, ($event.target as HTMLSelectElement)?.value)"
                 />
             </template>
 
             <template v-else>
                 <template
-                    v-for="option in group.options"
+                    v-for="option in group.options.sort((a: Schemas['PropertyGroupOption'], b: Schemas['PropertyGroupOption']) => (a.position ?? 999) - (b.position ?? 999))"
                     :key="`option-${option.id}`"
                 >
                     <FormKit
@@ -168,6 +168,7 @@ const onVariantChange = async (groupName: string, optionId: string) => {
             </template>
         </div>
     </div>
+
     <UtilityLoadingSpinner
         v-if="isLoading"
         class="bg-white opacity-50"
