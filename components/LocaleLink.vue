@@ -31,7 +31,7 @@ const props = withDefaults(
     {
         format: true,
         prefetch: false,
-        prefetchOn: 'interaction',
+        prefetchOn: undefined,
     },
 );
 
