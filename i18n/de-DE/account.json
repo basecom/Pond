@@ -87,6 +87,15 @@
             "recoverPasswordLink": "Passwort vergessen?"
         },
         "register": {
+            "accountType": {
+                "label": "Kontotyp",
+                "private": "Privatkunde",
+                "company": "Gewerblich"
+            },
+            "company": {
+                "label": "Firma",
+                "placeholder": "Ihre Firma"
+            },
             "submitLabel": "Registrieren",
             "dataHeading": "Ihre Daten:",
             "salutation": {

@@ -20,6 +20,9 @@ const { getCountries } = useCountries();
 const { getSalutations } = useSalutations();
 const { errorOfField, entityArrayToOptions } = useFormkitHelper();
 const formErrorStore = useFormErrorStore();
+const configStore = useConfigStore();
+const showAccountTypeSelection = configStore.get('core.loginRegistration.showAccountTypeSelection');
+const accountTypeValue = ref(props.initialAddress?.company ? 'business' : 'private');
 
 const countryOptions = computed(() => entityArrayToOptions<Schemas['Country']>(getCountries.value, 'name', true) ?? []);
 
@@ -38,6 +41,25 @@ onUnmounted(() => formErrorStore.$reset);
     <div class="col-span-2">
         <span>{{ $t('account.register.addressHeading') }}</span>
     </div>
+
+    <FormKit
+        v-if="showAccountTypeSelection"
+        v-model="accountTypeValue"
+        type="select"
+        :label="$t('account.register.accountType.label')"
+        name="accountType"
+        :errors="errorOfField('accountType', formErrorStore.apiErrors)"
+        validation="required"
+        :classes="{
+            outer: {
+                'col-span-1 col-1': true,
+            },
+        }"
+        :options="[
+            { label: $t('account.register.accountType.private'), value: 'private' },
+            { label: $t('account.register.accountType.company'), value: 'business' },
+        ]"
+    />
 
     <FormKit
         type="select"
@@ -86,6 +108,22 @@ onUnmounted(() => formErrorStore.$reset);
         :name="addressType"
     >
         <FormKit
+            v-if="accountTypeValue === 'business'"
+            type="text"
+            :label="$t('account.register.company.label')"
+            name="company"
+            :value="initialAddress?.company"
+            :placeholder="$t('account.register.company.placeholder')"
+            :errors="errorOfField('company', formErrorStore.apiErrors)"
+            validation="required"
+            :classes="{
+                outer: {
+                    'col-start-1 col-1 col-span-2': true,
+                },
+            }"
+        />
+
+        <FormKit
             type="text"
             :label="$t('account.register.street.label')"
             autocomplete="street-address"
@@ -100,6 +138,7 @@ onUnmounted(() => formErrorStore.$reset);
                 },
             }"
         />
+
         <FormKit
             type="text"
             :label="$t('account.register.zipCode.label')"
@@ -109,6 +148,7 @@ onUnmounted(() => formErrorStore.$reset);
             :errors="errorOfField(errorNameNested ? `${addressType}[zipcode]` : 'zipcode', formErrorStore.apiErrors)"
             validation="required"
         />
+
         <FormKit
             type="text"
             :label="$t('account.register.city.label')"
@@ -118,6 +158,7 @@ onUnmounted(() => formErrorStore.$reset);
             :errors="errorOfField(errorNameNested ? `${addressType}[city]` : 'city', formErrorStore.apiErrors)"
             validation="required"
         />
+
         <FormKit
             v-if="currentCountry"
             type="select"

@@ -122,19 +122,25 @@ const handleRegisterSubmit = async (fields: RegisterForm) => {
                 }"
             />
 
-            <div class="col-span-2 border-b border-gray-light" />
+            <hr class="col-span-2 w-full">
 
             <template v-if="value?.showAlternativeShippingAddress === true">
                 <div class="col-span-2">
-                    <span>{{ $t('account.register.shippingAddressHeading') }}</span>
+                    <span>
+                        {{ $t('account.register.shippingAddressHeading') }}
+                    </span>
                 </div>
+
                 <AddressFormFields address-type="shippingAddress" />
-                <div class="col-span-2 border-b border-gray-light" />
+
+                <hr class="col-span-2 w-full">
             </template>
         </FormKit>
 
         <div class="col-span-2">
-            <span>{{ $t('account.register.accountDataHeading') }}</span>
+            <span>
+                {{ $t('account.register.accountDataHeading') }}
+            </span>
         </div>
 
         <FormKit
