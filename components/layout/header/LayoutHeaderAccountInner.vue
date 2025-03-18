@@ -11,7 +11,7 @@ withDefaults(
 
 <template>
     <UiDropdownMenu>
-        <slot name="icon-trigger">
+        <slot name="action-login-menu">
             <UiDropdownMenuTrigger class="size-5">
                 <slot name="icon">
                     <Icon name="mdi:account-outline" class="size-5" />
@@ -63,7 +63,7 @@ withDefaults(
                 <slot name="guest">
                     <UiDialog>
                         <UiDialogTrigger class="w-full">
-                            <slot name="login-trigger">
+                            <slot name="action-login">
                                 <UiDropdownMenuItem class="cursor-pointer" @select.prevent="">
                                     <slot name="login">
                                         {{ $t('account.auth.login') }}
@@ -84,7 +84,7 @@ withDefaults(
                     </UiDialog>
 
                     <UiDropdownMenuItem>
-                        <slot name="register-trigger">
+                        <slot name="action-register">
                             <NuxtLinkLocale to="/account/register">
                                 <slot name="register">
                                     {{ $t('account.auth.register') }}

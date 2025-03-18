@@ -73,9 +73,13 @@ export default defineNuxtConfig({
         },
     },
 
-    shopware: {
-        endpoint: 'http://localhost/store-api',
-        accessToken: 'SWSCZHNVCVDZCK5SCDNRBJJ3UW',
+    runtimeConfig: {
+        public: {
+            shopware: {
+                endpoint: '',
+                accessToken: '',
+            },
+        },
     },
 
     extends: ['@shopware/composables/nuxt-layer'],
