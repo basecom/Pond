@@ -3,5 +3,5 @@ const { cartItems } = useCart();
 </script>
 
 <template>
-    <LayoutHeaderCartInner :cart-items="cartItems.length" />
+    <LayoutHeaderCartInner :cart-items="cartItems" />
 </template>
