@@ -24,6 +24,7 @@ const { pushError, pushSuccess } = useNotifications();
 const formErrorStore = useFormErrorStore();
 const { trackRegister } = useAnalytics();
 const { t } = useI18n();
+const { affiliateCode } = useAffiliateMarketing();
 
 const isLoading = ref(false);
 const orderAsGuest = ref(false);
@@ -43,8 +44,8 @@ const handleRegisterSubmit = async (fields: RegisterForm) => {
             ...fields,
         };
 
-    if (sessionStorage.getItem('affiliateCode')){
-        userData['affiliateCode'] = sessionStorage.getItem('affiliateCode');
+    if (affiliateCode.value) {
+        userData['affiliateCode'] = `${affiliateCode.value}`;
     }
 
     try {

@@ -20,6 +20,7 @@ const placeOrder = async (formData: OrderForm) => {
         const order = await createOrderWrapper({
             customerComment: formData.customerComment ?? '',
         });
+
         await push(`/checkout/finish/${  order.id}`);
         trackPurchase(order);
         await refreshCart();

@@ -5,13 +5,12 @@ export function useOrderHelper(){
         const { affiliateCode } = useAffiliateMarketing();
 
         if (affiliateCode.value) {
-            return await createOrder({ ...params, affiliateCode: affiliateCode.value });
-        } 
+            return await createOrder({ ...params, affiliateCode: `${affiliateCode.value}` });
+        }
         return await createOrder({ ...params });
-        
     };
 
     return {
         createOrderWrapper,
-    };
+    }
 }
