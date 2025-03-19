@@ -32,7 +32,7 @@ export const usePondCmsUtils = () => {
         key ? element.data[key] : element.data
     ;
 
-    const isDevelopment = () => config.public.pond.isInDebugMode;
+    const isDevelopment = () => config.public.pond.debug;
 
     return {
         getCmsSectionComponentName,

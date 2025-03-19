@@ -79,13 +79,8 @@ export default defineNuxtConfig({
                 endpoint: '',
                 accessToken: '',
             },
-        },
-    },
-
-    runtimeConfig: {
-        public: {
             pond: {
-                isInDebugMode: process.env.NUXT_PUBLIC_POND_DEBUG,
+                debug: '',
             },
         },
     },
