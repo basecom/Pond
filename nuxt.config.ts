@@ -54,6 +54,10 @@ export default defineNuxtConfig({
                 cms: {
                     enableProgressiveLoading: false,
                 },
+                preloading: {
+                    enabled: false,
+                    imagePreloadingClass: 'cms-lcp-block',
+                },
             },
         },
     },
