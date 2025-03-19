@@ -1,0 +1,8 @@
+{
+    "error": {
+        "404": {
+            "heading": "Page not found",
+            "detail": "The requested page could not be found."
+        }
+    }
+}
