@@ -37,4 +37,9 @@ bun run preview
 bun run lint
 ```
 
+## Cleanup
+```bash
+bun run cleanup
+```
+
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

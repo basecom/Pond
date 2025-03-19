@@ -10,9 +10,12 @@ const props = defineProps({
 const { locale } = useI18n();
 const url = useRequestURL();
 const route = useRoute();
+const configStore = useConfigStore();
+await configStore.loadConfig();
+const shopName = configStore.get('core.basicInformation.shopName') as string|null ?? 'pond';
 
 useHead(() => ({
-    title: props.error?.message,
+    title: `${shopName  } - ${ props.error?.statusCode}`,
     htmlAttrs: {
         lang: locale.value,
     },
@@ -27,8 +30,8 @@ useHead(() => ({
 
 <template>
     <NuxtLoadingIndicator />
-
     <LayoutHeader />
+
     <main class="container">
         <h1>{{ error?.statusCode }}</h1>
         <p>{{ error?.message }}</p>

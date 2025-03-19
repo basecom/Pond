@@ -23,7 +23,7 @@ const routePath =
         ? route.path.replace(/^\/[^/]+/, '')
         : route.path;
 
-const { data: seoResult } = await useAsyncData(`seoPath${routePath}`, async () => {
+const { data: seoResult } = await usePondCacheAsyncData(`seoPath-${routePath}`, async () => {
     // For client links if the history state contains seo url information we can omit the api call
     if (import.meta.client) {
         if (history.state?.routeName) {

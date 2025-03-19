@@ -3,21 +3,19 @@ const props = defineProps<{
   navigationId: string;
 }>();
 
-const { getCategory } = usePondGetEntities();
 const { t } = useI18n();
+const { search } = useCategorySearch();
 
-const categoryResponse = await getCategory(props.navigationId);
-if (!categoryResponse?.value) {
-    throw createError({ statusCode: 404, message: t('error.404.heading') });
+const categoryResponse = await search(props.navigationId, {
+    withCmsAssociations: true,
+});
+if (!categoryResponse) {
+    throw createError({statusCode: 404, message: t('error.404.heading')});
 }
 
 const { category } = useCategory(categoryResponse);
-createCategoryListingContext();
 </script>
 
 <template>
-    <CmsPage
-        v-if="category?.cmsPage"
-        :cms-page="category.cmsPage"
-    />
+    <CmsPage v-if="category.cmsPage" :content="category.cmsPage" />
 </template>

@@ -3,18 +3,17 @@ const props = defineProps<{
   navigationId: string;
 }>();
 
-const { getLandingPage } = usePondGetEntities();
 const { t } = useI18n();
+const { search } = useLandingSearch();
 
-const landingPage = await getLandingPage(props.navigationId);
-if (!landingPage?.value) {
-    throw createError({ statusCode: 404, message: t('error.404.heading') });
+const landingPage = await search(props.navigationId, {
+    withCmsAssociations: true,
+});
+if (!landingPage) {
+    throw createError({statusCode: 404, message: t('error.404.heading')});
 }
 </script>
 
 <template>
-    <CmsPage
-        v-if="landingPage?.cmsPage"
-        :cms-page="landingPage.cmsPage"
-    />
+    <CmsPage v-if="landingPage.cmsPage" :content="landingPage.cmsPage" />
 </template>
