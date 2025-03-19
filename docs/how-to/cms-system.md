@@ -7,6 +7,8 @@ After creating the custom CMS block/element in the Shopware admin (documentation
 ### Add block component
 Go to `components/cms/block` and create a component. If the given name in the admin, for example, was `my-custom-component`, we will now create a component with the name `CmsBlockMyCustomComponent.vue`.
 
+:::info If you are unsure about the name of your element, check the console. An error will be thrown that a certain element couldn't be found :::
+
 ````vue
 <!-- components/cms/block/CmsBlockMyCustomComponent.vue -->
 <script setup lang="ts">
@@ -34,6 +36,8 @@ Remember that the parameter of the `getSlotContent` method must be the name of y
 
 ### Add element component
 Go to `components/cms/element` and create a component. If the given name in the admin, for example, was `my-custom-component-element`, we will now create a component with the name `CmsElementMyCustomComponentElement.vue`.
+
+:::info If you are unsure about the name of your element, check the console. An error will be thrown that a certain element couldn't be found :::
 
 ````vue
 <!-- components/cms/element/CmsElementMyCustomComponentElement.vue -->
