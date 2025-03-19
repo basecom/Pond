@@ -30,7 +30,7 @@ export const usePondCmsUtils = () => {
     };
 
     const getCmsElementData = (element: Schemas['CmsSlot'], key?: string) =>
-        // data can contain multiple types. as long a shopware doesn't support it in there default type, we ignore it
+        // data can contain multiple types. as long a shopware doesn't support it in their default type, we ignore it
         // eslint-disable-next-line  @typescript-eslint/ban-ts-comment
         // @ts-ignore
         key ? element.data[key] : element.data
