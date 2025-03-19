@@ -65,13 +65,14 @@ listingStore.setSearchResult(getCurrentListing.value, true);
             </template>
 
             <template
-                v-for="product in getElements"
+                v-for="(product, index) in getElements"
                 v-else
                 :key="product.id"
             >
                 <ProductCard
                     :product="product"
                     :layout="boxLayout"
+                    :should-preload-image="index === 0"
                     @select-product="trackSelectItem(product)"
                 />
             </template>
