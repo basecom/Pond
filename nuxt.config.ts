@@ -79,9 +79,6 @@ export default defineNuxtConfig({
                 endpoint: '',
                 accessToken: '',
             },
-            pond: {
-                debug: '',
-            },
         },
     },
 
