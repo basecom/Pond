@@ -1,8 +1,8 @@
 {
-  "error": {
-    "404": {
-      "heading": "Seite nicht gefunden",
-      "detail": "Die angeforderte Seite konnte nicht gefunden werden."
-    },
-  }
+    "error": {
+        "404": {
+            "heading": "Seite nicht gefunden",
+            "detail": "Die angeforderte Seite konnte nicht gefunden werden."
+        }
+    }
 }

@@ -25,6 +25,7 @@ withDefaults(
                     {{ $t('account.myAccount') }}
                 </slot>
             </UiDropdownMenuLabel>
+
             <UiDropdownMenuSeparator />
 
             <!-- user view -->
