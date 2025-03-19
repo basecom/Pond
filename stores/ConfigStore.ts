@@ -1,10 +1,20 @@
 import type { PluginConfiguration } from '~/types/PluginConfiguration';
 
 export const useConfigStore = defineStore('config', () => {
-    const { fetchConfig } = usePondPluginConfig();
+    const { apiClient } = useShopwareContext();
     const { handleError } = usePondHandleError();
     const configValues: Ref<PluginConfiguration | null> = ref(null);
     const loading = ref(false);
+
+    const fetchConfig = async () =>
+        usePondCacheAsyncData('pluginConfiguration', async () => {
+            try {
+                return (await apiClient.invoke('loadConfig get /pond/config')).data as PluginConfiguration;
+            } catch (error) {
+                handleError(error);
+                return null;
+            }
+        });
 
     const loadConfig = async () => {
         loading.value = true;

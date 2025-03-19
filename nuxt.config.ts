@@ -18,7 +18,6 @@ export default defineNuxtConfig({
     experimental: {
         asyncContext: true,
         sharedPrerenderData: true,
-        typedPages: true,
         viewTransition: true,
     },
 
@@ -56,11 +55,11 @@ export default defineNuxtConfig({
         locales: [
             {
                 code: 'de-DE',
-                files: ['de-DE/account.json', 'de-DE/error.json'],
+                files: ['de-DE/account.json', 'de-DE/error.json', 'de-DE/general.json'],
             },
             {
                 code: 'en-GB',
-                files: ['en-GB/account.json', 'en-GB/error.json'],
+                files: ['en-GB/account.json', 'en-GB/error.json', 'en-GB/general.json'],
             },
         ],
         lazy: true,
@@ -74,9 +73,13 @@ export default defineNuxtConfig({
         },
     },
 
-    shopware: {
-        endpoint: 'http://localhost/store-api',
-        accessToken: 'SWSCZHNVCVDZCK5SCDNRBJJ3UW',
+    runtimeConfig: {
+        public: {
+            shopware: {
+                endpoint: '',
+                accessToken: '',
+            },
+        },
     },
 
     runtimeConfig: {

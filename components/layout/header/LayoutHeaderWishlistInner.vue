@@ -1,10 +1,10 @@
 <script setup lang="ts">
 withDefaults(
     defineProps<{
-      wishlistItems?: number;
+      wishlistItemsCount?: number;
     }>(),
     {
-        wishlistItems: 0,
+        wishlistItemsCount: 0,
     },
 );
 </script>
@@ -20,8 +20,8 @@ withDefaults(
             </slot>
 
             <slot name="wishlist-badge">
-                <UiBadge v-if="wishlistItems > 0" class="absolute -right-2 -top-1.5 px-1 py-0 text-xs font-normal">
-                    {{ wishlistItems }}
+                <UiBadge v-if="wishlistItemsCount > 0" class="absolute -right-2 -top-1.5 px-1 py-0 text-xs font-normal">
+                    {{ wishlistItemsCount }}
                 </UiBadge>
             </slot>
         </NuxtLinkLocale>
