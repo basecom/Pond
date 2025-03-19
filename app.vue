@@ -24,9 +24,3 @@ useHead(() => ({
 <template>
     <NuxtLayout />
 </template>
-
-<style>
-.max-w-screen-2xl {
-  @apply container;
-}
-</style>
