@@ -24,7 +24,8 @@ export function useGtags(): UseAnalyticsReturn {
     const { getTrackingPromotionEvent } = usePromotionTracking();
     const sessionId = useState<string | undefined>('pondSessionId');
 
-    function _trackEvent() {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    function _trackEvent(...args: unknown[]) {
         if (import.meta.client) {
             window.dataLayer = window.dataLayer || [];
             // eslint-disable-next-line prefer-rest-params
