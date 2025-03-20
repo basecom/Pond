@@ -24,9 +24,11 @@ export function useGtags(): UseAnalyticsReturn {
     const { getTrackingPromotionEvent } = usePromotionTracking();
     const sessionId = useState<string | undefined>('pondSessionId');
 
-    function _trackEvent(...args: unknown[]) {
+    function _trackEvent() {
         if (import.meta.client) {
-            window.dataLayer?.push(args);
+            window.dataLayer = window.dataLayer || [];
+            // eslint-disable-next-line prefer-rest-params
+            window.dataLayer?.push(arguments);
         }
     }
 
@@ -56,13 +58,24 @@ export function useGtags(): UseAnalyticsReturn {
         useHead({
             script: [
                 {
+                    innerHTML: `
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('consent', 'default', {
+                            'ad_storage': 'denied',
+                            'ad_user_data': 'denied',
+                            'ad_personalization': 'denied',
+                            'analytics_storage': 'denied'
+                        });
+                    `,
+                    tagPosition: 'head',
+                },
+                {
                     src: `https://www.googletagmanager.com/gtag/js?id=${id.value}`,
                     tagPosition: 'head',
                 },
                 {
                     innerHTML: `
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
                         gtag('js', new Date());
                         gtag('config', '${id.value}');
                     `,
