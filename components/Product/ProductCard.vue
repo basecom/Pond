@@ -8,11 +8,13 @@ const props = withDefaults(
         layout?: 'standard' | 'minimal' | 'image';
         displayMode?: 'standard' | 'cover' | 'contain';
         containerClass?: string;
+        shouldPreloadImage?: boolean;
     }>(),
     {
         layout: 'standard',
         displayMode: 'cover',
         containerClass: '',
+        shouldPreloadImage: false,
     },
 );
 
@@ -24,6 +26,13 @@ const productCard = ref(null);
 const cover = getProductCover(props.product.cover?.media);
 const configStore = useConfigStore();
 const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
+
+if (props.shouldPreloadImage && cover.url) {
+    useImagePreload({
+        src: cover.url,
+        alt: cover.alt ?? getTranslatedProperty(props.product, 'name'),
+    });
+}
 
 const { stop } = useIntersectionObserver(productCard, ([entry]: IntersectionObserverEntry[]) => {
     if (entry?.isIntersecting) {
@@ -64,6 +73,7 @@ const { stop } = useIntersectionObserver(productCard, ([entry]: IntersectionObse
                             :title="cover.title ?? getTranslatedProperty(props.product, 'name')"
                             class="aspect-square size-full object-center group-hover:opacity-75"
                             :class="displayMode === 'standard' ? 'object-scale-down' : 'object-' + displayMode"
+                            :loading="shouldPreloadImage ? 'eager' : 'lazy'"
                             @load="$emit('image-loaded')"
                             @error="$emit('image-loaded')"
                         >

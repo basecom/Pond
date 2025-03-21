@@ -9,6 +9,7 @@ const props = defineProps<{
 }>();
 
 const { getUrlPrefix } = useUrlResolver();
+const { shouldPreloadElement } = useCmsElementPreload();
 const imageElement = ref(null);
 const { width, height } = useElementSize(imageElement);
 const { getCmsMedia } = useMedia();
@@ -31,6 +32,14 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
 };
 
 const mediaObject = props.element.data?.media;
+const shouldPreloadImage = shouldPreloadElement(props.element);
+if (shouldPreloadImage && !isVideoElement.value) {
+    useImagePreload({
+        src: srcPath.value,
+        srcset: imageAttrs.value.srcset,
+        alt: getTranslatedProperty(mediaObject, 'alt'),
+    });
+}
 </script>
 
 <template>
@@ -60,7 +69,7 @@ const mediaObject = props.element.data?.media;
             v-else
             ref="imageElement"
             v-cms-element-lazy-load="{ id: mediaObject.id, type: 'image' }"
-            loading="lazy"
+            :loading="shouldPreloadImage ? 'eager' :  'lazy'"
             :class="{
                 'size-full': true,
                 'object-cover': displayMode === 'cover',
