@@ -24,11 +24,13 @@ export function useGtm(): UseAnalyticsReturn {
     const { getTrackingPromotionEvent } = usePromotionTracking();
     const sessionId = useState<string | undefined>('pondSessionId');
 
-    const _trackEvent = (args: unknown) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    function _trackEvent(...args: unknown[]) {
         if (import.meta.client) {
-            window.dataLayer?.push(args);
+            // eslint-disable-next-line prefer-rest-params
+            window.dataLayer?.push(arguments);
         }
-    };
+    }
 
     const _getSessionId = async (tagId: string): Promise<string | undefined> =>
         new Promise(resolve => {
@@ -78,6 +80,19 @@ export function useGtm(): UseAnalyticsReturn {
             script: [
                 {
                     innerHTML: `
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('consent', 'default', {
+                            'ad_storage': 'denied',
+                            'ad_user_data': 'denied',
+                            'ad_personalization': 'denied',
+                            'analytics_storage': 'denied'
+                        });
+                    `,
+                    tagPosition: 'head',
+                },
+                {
+                    innerHTML: `
                         <!-- Google Tag Manager -->
                         (function(w,d,s,l,i,u){w[l]=w[l]||[];w[l].push({'gtm.start':
                         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -85,13 +100,6 @@ export function useGtm(): UseAnalyticsReturn {
                         u+'gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                         })(window,document,'script','dataLayer','${id.value}', '${trackingUrlHref}');
                         <!-- End Google Tag Manager -->
-                    `,
-                    tagPosition: 'head',
-                },
-                {
-                    innerHTML: `
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
                     `,
                     tagPosition: 'head',
                 },
@@ -118,7 +126,7 @@ export function useGtm(): UseAnalyticsReturn {
         }
 
         _loadSessionId();
-        _trackEvent([
+        _trackEvent(
             'consent',
             'update',
             {
@@ -127,7 +135,7 @@ export function useGtm(): UseAnalyticsReturn {
                 ad_storage: activeCookies.includes(_cookieAdsEnabledName) ? 'granted' : 'denied',
                 analytics_storage: activeCookies.includes(_cookieEnabledName) ? 'granted' : 'denied',
             },
-        ]);
+        );
     };
 
     const trackAddToCart = (product: Schemas['Product'], quantity?: number) => {
