@@ -14,7 +14,7 @@ export function useShippingMethod() {
         }
 
         if (shippingMethods.value.length === 0) {
-            return
+            return;
         }
 
         const getGrossPrice = (method: Schemas['ShippingMethod']): number => {
