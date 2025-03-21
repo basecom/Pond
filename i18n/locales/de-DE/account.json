@@ -22,7 +22,39 @@
         "placeholder": "••••••••",
         "forgotten": "Passwort vergessen",
         "errorGeneral": "Bitte geben Sie ein Password ein",
-        "errorLength": "Ihr Passwort muss mind. {length} Zeichen lang sein",
+        "errorLength": "Ihr Passwort muss mind. {length} Zeichen lang sein"
+      }
+    },
+    "register": {
+      "header": {
+        "main": "Registrierung",
+        "generalFields": "Allgemein"
+      },
+      "accountTypes": {
+        "label": "Kontotyp*",
+        "placeholder": "Auswählen...",
+        "private": "Privat",
+        "business": "Gewerblich",
+        "errorGeneral": "Bitte geben Sie einen Kontotyp an."
+      },
+      "salutations": {
+        "label": "Anrede*",
+        "placeholder": "Auswählen...",
+        "errorGeneral": "Bitte geben Sie eine Anrede an."
+      },
+      "title": {
+        "label":"Titel",
+        "placeholder": "Titel eingeben..."
+      },
+      "firstName": {
+        "label": "Vorname*",
+        "placeholder": "Vornamen eingeben...",
+        "errorGeneral": "Bitte geben Sie ihren Vornamen an."
+      },
+      "secondName": {
+        "label": "Nachname*",
+        "placeholder": "Nachname eingeben...",
+        "errorGeneral": "Bitte geben Sie ihren Nachnamen an."
       }
     }
   }

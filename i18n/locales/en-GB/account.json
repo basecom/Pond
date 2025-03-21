@@ -24,6 +24,38 @@
         "errorGeneral": "Please enter a password",
         "errorLength": "Your password must be at least {length} characters long"
       }
+    },
+    "register": {
+      "header": {
+        "main": "register",
+        "generalFields": "General Fields"
+      },
+      "accountTypes": {
+        "label": "Account Type*",
+        "placeholder": "Select...",
+        "private": "Private",
+        "business": "Commercial",
+        "errorGeneral": "Please select an account type."
+      },
+      "salutations": {
+        "label": "Salutation*",
+        "placeholder": "Select...",
+        "errorGeneral": "Please select a salutation"
+      },
+      "title": {
+        "label":"Title",
+        "placeholder": "Enter title..."
+      },
+      "firstName": {
+        "label": "First name*",
+        "placeholder": "Enter first name...",
+        "errorGeneral": "Please enter your first name."
+      },
+      "secondName": {
+        "label": "Second name*",
+        "placeholder": "Enter second name...",
+        "errorGeneral": "Please enter your second name."
+      }
     }
   }
 }
