@@ -51,10 +51,20 @@
         "placeholder": "Enter first name...",
         "errorGeneral": "Please enter your first name."
       },
-      "secondName": {
+      "lastName": {
         "label": "Second name*",
         "placeholder": "Enter second name...",
         "errorGeneral": "Please enter your second name."
+      },
+      "email": {
+        "label": "Email address*",
+        "placeholder": "Enter email address...",
+        "errorGeneral": "Please enter a valid email address",
+        "confirm": {
+          "label": "Email address confirmation*",
+          "placeholder": "Enter email address again...",
+          "errorGeneral": "The input doesnt match your email address."
+        }
       }
     }
   }

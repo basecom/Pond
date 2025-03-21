@@ -51,10 +51,20 @@
         "placeholder": "Vornamen eingeben...",
         "errorGeneral": "Bitte geben Sie ihren Vornamen an."
       },
-      "secondName": {
+      "lastName": {
         "label": "Nachname*",
         "placeholder": "Nachname eingeben...",
         "errorGeneral": "Bitte geben Sie ihren Nachnamen an."
+      },
+      "email": {
+        "label": "E-Mail Adresse*",
+        "placeholder": "E-Mail Adresse eingeben...",
+        "errorGeneral": "Bitte geben sie eine valide E-Mail-Adresse ein.",
+        "confirm": {
+          "label": "E-Mail Adresse bestätigen*",
+          "placeholder": "Email Adresse erneut eingeben...",
+          "errorGeneral": "Die Angabe stimmt nicht mit der Email Adresse überein."
+        }
       }
     }
   }

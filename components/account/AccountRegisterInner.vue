@@ -13,111 +13,118 @@ const accountTypes = [
 ] as const;
 const salutations = ref([]);
 
-const registerSchema = toTypedSchema(z.object({
-    accountType: z
-        .string({
-            required_error: t('account.register.accountTypes.errorGeneral'),
-        }),
-    salutation: z
-        .string({
-            required_error:  t('account.register.salutations.errorGeneral'),
-        }),
-    title: z
-        .string().optional(),
-    firstName: z
-        .string({
-            required_error: t('account.register.firstName.errorGeneral'),
-        }),
-    lastName: z
-        .string({
-            required_error: t('account.login.password.errorGeneral'),
-        }),
-    email: z
-        .string({
-            required_error: t('account.login.email.error'),
-        })
-        .email(),
-    confirmMail: z
-        .string({
-            required_error: t('account.login.email.error'),
-        })
-        .email(),
-    birthdate: z
-        .date({
-            required_error: 'No',
-        }),
-    company: z
-        .string({
-            required_error: 'No',
-        }),
-    department: z
-        .string({
-            required_error: 'No',
-        }),
-    vatNumber: z.string(),
-    password: z
-        .string({
-            required_error: 'No',
-        }),
-    confirmPassword: z
-        .string({
-            required_error: 'No',
-        }),
-    // address: {
-    //     label: 'Street and House number',
-    //     inputProps: {
-    //         type: 'text',
-    //         placeholder: 'Provide the account type',
-    //     },
-    // },
-    // postalCode: {
-    //     label: 'Post Code',
-    //     inputProps: {
-    //         type: 'text',
-    //         placeholder: 'Provide postal code',
-    //     },
-    // },
-    // city: {
-    //     label: 'City',
-    //     inputProps: {
-    //         type: 'text',
-    //         placeholder: 'Provide your city',
-    //     },
-    // },
-    // additionalAddressLine1: {
-    //     label: 'Additional Address line 1',
-    //     inputProps: {
-    //         type: 'text',
-    //     },
-    // },
-    // additionalAddressLine2: {
-    //     label: 'Additional Address line 2',
-    //     inputProps: {
-    //         type: 'text',
-    //     },
-    // },
-    // country: {
-    //     label: 'City',
-    //     inputProps: {
-    //         type: 'text',
-    //         placeholder: 'Provide your city',
-    //     },
-    // },
-    // state: {
-    //     label: 'State',
-    //     inputProps: {
-    //         type: 'text',
-    //         placeholder: 'Provide your state',
-    //     },
-    // },
-    // phone: {
-    //     label: 'Phone number',
-    //     inputProps: {
-    //         type: 'number',
-    //         placeholder: 'Provide your phone number',
-    //     },
-    // },
-}));
+const registerSchema = toTypedSchema(
+    z.object({
+        accountType: z
+            .string({
+                required_error: t('account.register.accountTypes.errorGeneral'),
+            })
+            .nonempty(),
+        salutation: z
+            .string({
+                required_error:  t('account.register.salutations.errorGeneral'),
+            }),
+        title: z
+            .string().optional(),
+        firstName: z
+            .string({
+                required_error: t('account.register.firstName.errorGeneral'),
+            }),
+        lastName: z
+            .string({
+                required_error: t('account.register.lastName.errorGeneral'),
+            }),
+        email: z
+            .string({
+                required_error: t('account.register.email.errorGeneral'),
+            })
+            .email(t('account.register.email.errorGeneral')),
+        confirmMail: z
+            .string({
+                required_error: t('account.register.email.errorGeneral'),
+            })
+            .email(t('account.register.email.errorGeneral')),
+        birthdate: z
+            .date({
+                required_error: 'No',
+            }),
+        company: z
+            .string({
+                required_error: 'No',
+            }),
+        department: z
+            .string({
+                required_error: 'No',
+            }),
+        vatNumber: z.string(),
+        password: z
+            .string({
+                required_error: 'No',
+            })
+            .min(configStore.get('core.loginRegistration.passwordMinLength') ?? 0),
+        confirmPassword: z
+            .string({
+                required_error: 'No',
+            }),
+        // address: {
+        //     label: 'Street and House number',
+        //     inputProps: {
+        //         type: 'text',
+        //         placeholder: 'Provide the account type',
+        //     },
+        // },
+        // postalCode: {
+        //     label: 'Post Code',
+        //     inputProps: {
+        //         type: 'text',
+        //         placeholder: 'Provide postal code',
+        //     },
+        // },
+        // city: {
+        //     label: 'City',
+        //     inputProps: {
+        //         type: 'text',
+        //         placeholder: 'Provide your city',
+        //     },
+        // },
+        // additionalAddressLine1: {
+        //     label: 'Additional Address line 1',
+        //     inputProps: {
+        //         type: 'text',
+        //     },
+        // },
+        // additionalAddressLine2: {
+        //     label: 'Additional Address line 2',
+        //     inputProps: {
+        //         type: 'text',
+        //     },
+        // },
+        // country: {
+        //     label: 'City',
+        //     inputProps: {
+        //         type: 'text',
+        //         placeholder: 'Provide your city',
+        //     },
+        // },
+        // state: {
+        //     label: 'State',
+        //     inputProps: {
+        //         type: 'text',
+        //         placeholder: 'Provide your state',
+        //     },
+        // },
+        // phone: {
+        //     label: 'Phone number',
+        //     inputProps: {
+        //         type: 'number',
+        //         placeholder: 'Provide your phone number',
+        //     },
+        // },
+    }).refine(data => data.email === data.confirmMail, {
+        message: t('account.register.email.confirm.errorGeneral'),
+        path: ['confirmMail'],
+    }),
+);
 const form = useForm({
     validationSchema: registerSchema,
 });
@@ -166,6 +173,7 @@ onBeforeMount(async () => {
                                         </UiSelectGroup>
                                     </UiSelectContent>
                                 </UiSelect>
+                                <UiFormMessage />
                             </UiFormItem>
                         </FormField>
                         <FormField v-slot="{ componentField }" name="salutation">
@@ -189,6 +197,7 @@ onBeforeMount(async () => {
                                         </UiSelectGroup>
                                     </UiSelectContent>
                                 </UiSelect>
+                                <UiFormMessage />
                             </UiFormItem>
                         </FormField>
                         <FormField v-if="configStore.get('core.loginRegistration.showTitleField')" v-slot="{ componentField }" name="title">
@@ -202,6 +211,7 @@ onBeforeMount(async () => {
                                         :aria-placeholder="$t('account.register.title.placeholder')"
                                     />
                                 </UiFormControl>
+                                <UiFormMessage />
                             </UiFormItem>
                         </FormField>
                         <FormField v-slot="{ componentField }" name="firstName">
@@ -215,23 +225,56 @@ onBeforeMount(async () => {
                                         :aria-placeholder="$t('account.register.firstName.placeholder')"
                                     />
                                 </UiFormControl>
+                                <UiFormMessage />
                             </UiFormItem>
                         </FormField>
                         <FormField v-slot="{ componentField }" name="lastName">
                             <UiFormItem>
-                                <UiFormLabel>{{ $t('account.register.secondName.label') }}</UiFormLabel>
+                                <UiFormLabel>{{ $t('account.register.lastName.label') }}</UiFormLabel>
                                 <UiFormControl>
                                     <UiInput
                                         type="text"
                                         v-bind="componentField"
-                                        :placeholder="$t('account.register.secondName.placeholder')"
-                                        :aria-placeholder="$t('account.register.secondName.placeholder')"
+                                        :placeholder="$t('account.register.lastName.placeholder')"
+                                        :aria-placeholder="$t('account.register.lastName.placeholder')"
                                     />
                                 </UiFormControl>
+                                <UiFormMessage />
+                            </UiFormItem>
+                        </FormField>
+                        <FormField v-slot="{ componentField }" name="email">
+                            <UiFormItem>
+                                <UiFormLabel>{{ $t('account.register.email.label') }}</UiFormLabel>
+                                <UiFormControl>
+                                    <UiInput
+                                        type="email"
+                                        v-bind="componentField"
+                                        :placeholder="$t('account.register.email.placeholder')"
+                                        :aria-placeholder="$t('account.register.email.placeholder')"
+                                    />
+                                </UiFormControl>
+                                <UiFormMessage />
+                            </UiFormItem>
+                        </FormField>
+                        <FormField v-if="configStore.get('core.loginRegistration.requireEmailConfirmation')" v-slot="{ componentField }" name="confirmMail">
+                            <UiFormItem>
+                                <UiFormLabel>{{ $t('account.register.email.confirm.label') }}</UiFormLabel>
+                                <UiFormControl>
+                                    <UiInput
+                                        type="email"
+                                        v-bind="componentField"
+                                        :placeholder="$t('account.register.email.confirm.placeholder')"
+                                        :aria-placeholder="$t('account.register.email.confirm.placeholder')"
+                                    />
+                                </UiFormControl>
+                                <UiFormMessage />
                             </UiFormItem>
                         </FormField>
                     </slot>
                 </div>
+            </slot>
+            <slot name="submitAction">
+                <UiButton type="submit">Submit</UiButton>
             </slot>
         </form>
     </slot>
