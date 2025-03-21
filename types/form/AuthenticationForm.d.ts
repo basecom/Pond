@@ -1,6 +1,7 @@
 import type { AddressForm, BillingAddressForm } from '~/types/form/AddressForm';
 
 export type RegisterForm = {
+    accountType: string;
     showAlternativeShippingAddress: boolean;
     guest?: boolean;
     email: string;
