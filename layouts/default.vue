@@ -20,6 +20,7 @@ const wishlistEnabled = configStore.get('core.cart.wishlistEnabled');
 
 const { refreshCart } = useCart();
 const { getWishlistProducts } = useWishlist();
+const { setAffiliateCode } = useAffiliateMarketing();
 
 useNotifications();
 useBreadcrumbs();
@@ -36,6 +37,9 @@ if (route.path !== '/wishlist' && wishlistEnabled) {
 }
 
 const shopName = configStore.get('core.basicInformation.shopName') as string|null;
+
+setAffiliateCode('affiliateCode');
+
 useHead({
     title: shopName ?? '',
     htmlAttrs: {
