@@ -1,14 +1,14 @@
-<script setup>
+<script setup lang="ts">
 const { locale } = useI18n();
 const url = useRequestURL();
 const route = useRoute();
 
 const configStore = useConfigStore();
 await configStore.loadConfig();
-const shopName = configStore.get('core.basicInformation.shopName');
+const shopName = configStore.get('core.basicInformation.shopName') as string|null ?? 'pond';
 
 useHead(() => ({
-    title: shopName ?? '',
+    title: shopName,
     htmlAttrs: {
         lang: locale.value,
     },
