@@ -13,6 +13,10 @@ export function useShippingMethod() {
             return;
         }
 
+        if (shippingMethods.value.length === 0) {
+            return
+        }
+
         const getGrossPrice = (method: Schemas['ShippingMethod']): number => {
             const prices = method.prices as { currencyPrice?: { gross?: number }[] }[] | undefined;
             const currencyPrice = prices?.[0]?.currencyPrice as { gross?: number }[] | undefined;
