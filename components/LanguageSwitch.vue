@@ -7,6 +7,9 @@ const { languages, changeLanguage, getLanguageCodeFromId, getLanguageIdFromCode 
 const { refreshSessionContext } = useSessionContext();
 const customerStore = useCustomerStore();
 const { loading } = storeToRefs(customerStore);
+const { getSeoUrlByNavigationId, isCustomRoute } = useSeoUrl();
+const { getLocalePathPrefix } = useLocale();
+const router = useRouter();
 
 const selectedLanguageId = computed(() => getLanguageIdFromCode(locale.value));
 
@@ -14,7 +17,15 @@ const onLanguageChange = async (option: Event) => {
     const selectedOptionId = (option.target as HTMLSelectElement).value;
     loading.value = true;
     await changeLanguage(selectedOptionId);
-    setLocale(getLanguageCodeFromId(selectedOptionId));
+    const languageCode = getLanguageCodeFromId(selectedOptionId);
+    if(isCustomRoute.value) {
+        const seoUrl = await getSeoUrlByNavigationId();
+        await router.replace(
+            `${getLocalePathPrefix(languageCode)}/${seoUrl}`,
+        );
+    } else {
+        await setLocale(languageCode);
+    }
     await refreshSessionContext();
     loading.value = false;
 };
