@@ -39,6 +39,7 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
                 <slot name="header" />
                 <FormKitIcon
                     icon="xmark"
+                    title="Close"
                     class="mb-4 ml-auto block size-4 cursor-pointer"
                     @click="controller.close()"
                 />

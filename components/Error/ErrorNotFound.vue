@@ -4,6 +4,7 @@
 
         <FormKitIcon
             icon="magnifying-glass"
+            title="Magnifying glass"
             class="block size-20 text-gray-dark"
         />
 

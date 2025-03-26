@@ -10,6 +10,7 @@ defineProps<{
     <main class="container flex min-h-screen flex-col items-center justify-center p-8">
         <FormKitIcon
             icon="server"
+            title="Server"
             class="block size-20 text-gray-dark"
         />
 

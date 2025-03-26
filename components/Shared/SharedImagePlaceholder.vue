@@ -28,6 +28,7 @@ onMounted(() => {
     <div class="flex aspect-square size-full items-center">
         <FormKitIcon
             icon="image"
+            title="Blank image"
             class="mx-auto block text-gray-dark"
             :class="`h-${imageSize} w-${imageSize}`"
         />

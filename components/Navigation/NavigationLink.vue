@@ -81,6 +81,7 @@ const { trackNavigation } = useAnalytics();
             <FormKitIcon
                 class="block size-4"
                 icon="chevron-right"
+                title="Open cateogry"
             />
         </span>
     </div>

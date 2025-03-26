@@ -35,6 +35,7 @@ const popoverOpen = ref(false);
                 <FormKitIcon
                     class="block size-3 text-gray transition-all duration-150"
                     icon="chevron-down"
+                    title="Filter"
                     :class="{
                         'rotate-180': popoverOpen,
                     }"

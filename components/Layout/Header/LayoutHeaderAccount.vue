@@ -17,6 +17,7 @@ const closeModal = () => {
         <template #trigger>
             <FormKitIcon
                 class="block size-6"
+                title="Account"
                 icon="user"
             />
         </template>
@@ -31,6 +32,7 @@ const closeModal = () => {
             <FormKitIcon
                 class="block size-6"
                 icon="user"
+                title="Account"
             />
         </template>
         <template #content>

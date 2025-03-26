@@ -32,6 +32,7 @@ const route = useRoute();
                         v-if="rootIcon"
                         :icon="rootIcon"
                         class="size-2.5"
+                        :title="rootIcon"
                     />
                     {{ $t('layout.breadcrumb.homeLinkLabel') }}
                 </LocaleLink>
@@ -40,6 +41,7 @@ const route = useRoute();
                     v-if="breadcrumbs?.length > 0"
                     class="block size-2.5"
                     icon="chevron-right"
+                    title="Chevron Right"
                 />
             </li>
 
@@ -67,6 +69,7 @@ const route = useRoute();
                     v-if="index < breadcrumbs.length - 1"
                     class="block size-2.5"
                     icon="chevron-right"
+                    title="Chevron Right"
                 />
             </li>
         </ol>

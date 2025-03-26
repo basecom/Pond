@@ -40,6 +40,7 @@ withDefaults(
                 <FormKitIcon
                     class="block size-5 text-gray"
                     icon="xmark"
+                    title="Close"
                 />
             </PopoverClose>
 

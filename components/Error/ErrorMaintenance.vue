@@ -4,6 +4,7 @@
 
         <FormKitIcon
             icon="screwdriver-wrench"
+            title="Screwdriver Wrench"
             class="block size-20 text-gray-dark"
         />
 

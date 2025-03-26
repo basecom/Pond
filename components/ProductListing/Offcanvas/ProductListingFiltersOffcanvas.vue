@@ -48,6 +48,7 @@ const name = computed(() => {
         <UtilityPill :number="listingStore.appliedFiltersTotal" />
         <FormKitIcon
             icon="filter"
+            title="Filter"
             class="size-6"
         />
     </FormKit>
@@ -68,6 +69,7 @@ const name = computed(() => {
             >
                 <FormKitIcon
                     icon="chevron-left"
+                    title="chevron-left"
                     class="block size-4"
                 />
                 {{ name }}

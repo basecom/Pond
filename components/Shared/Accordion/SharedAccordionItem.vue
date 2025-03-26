@@ -26,6 +26,7 @@ withDefaults(
                 <slot name="trigger">
                     <FormKitIcon
                         icon="chevron-down"
+                        title="Open"
                         :class="triggerClasses"
                         class="block transition-transform duration-300 group-data-[state=open]:rotate-180"
                     />

@@ -56,6 +56,7 @@ const lastPreviousItem = computed(() =>
 <template>
     <FormKitIcon
         icon="bars"
+        title="Open side bar"
         class="w-4 cursor-pointer md:hidden"
         @click="sideMenuController.open()"
     />
@@ -71,6 +72,7 @@ const lastPreviousItem = computed(() =>
             >
                 <FormKitIcon
                     icon="chevron-left"
+                    title="Back to category"
                     class="block size-3"
                 />
                 <span>{{ $t('navigation.sidebar.backLinkLabel') }}</span>

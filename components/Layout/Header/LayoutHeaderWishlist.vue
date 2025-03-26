@@ -10,6 +10,7 @@ const { count: wishlistCount } = useWishlist();
         <FormKitIcon
             class="block size-6"
             icon="heart"
+            title="Wishlist"
         />
         <UtilityPill
             :number="wishlistCount"

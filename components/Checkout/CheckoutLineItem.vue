@@ -126,6 +126,7 @@ const debounceUpdate = useDebounceFn(updateQuantity, 600);
         >
             <FormKitIcon
                 icon="percent"
+                title="Percent"
                 class="block size-16 text-gray"
             />
         </div>

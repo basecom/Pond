@@ -8,6 +8,7 @@
                     <FormKitIcon
                         class="block size-4 cursor-pointer text-white"
                         icon="cookie"
+                        title="Cookie"
                     />
                 </button>
             </template>

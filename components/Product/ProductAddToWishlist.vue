@@ -45,6 +45,7 @@ const handleWishlistButtonClicked = async () => {
         <FormKitIcon
             class="block size-6"
             :icon="isInWishlist ? 'heart' : 'empty-heart'"
+            :title="isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'"
         />
     </div>
 </template>

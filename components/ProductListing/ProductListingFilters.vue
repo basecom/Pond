@@ -87,6 +87,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
 
                         <FormKitIcon
                             icon="minus"
+                            title="Show less"
                             class="size-3"
                         />
                     </template>
@@ -97,6 +98,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
 
                         <FormKitIcon
                             icon="plus"
+                            title="Show more"
                             class="size-3"
                         />
                     </template>

@@ -102,6 +102,7 @@ watch([prevSlide, nextSlide, swiperContainer], ([prevSlideValue, nextSlideValue]
                 >
                     <FormKitIcon
                         icon="plus"
+                        title="Zoom in"
                         class="size-6"
                     />
                 </button>
@@ -113,6 +114,7 @@ watch([prevSlide, nextSlide, swiperContainer], ([prevSlideValue, nextSlideValue]
                 >
                     <FormKitIcon
                         icon="minus"
+                        title="Zoom out"
                         class="size-6"
                     />
                 </button>
@@ -129,6 +131,7 @@ watch([prevSlide, nextSlide, swiperContainer], ([prevSlideValue, nextSlideValue]
                 >
                     <FormKitIcon
                         :icon="verticalNavigation ? 'chevron-up' : 'chevron-left'"
+                        :title="verticalNavigation ? 'Slide up' : 'Slide left'"
                         class="block size-6 text-brand-primary"
                     />
                 </div>
@@ -144,6 +147,7 @@ watch([prevSlide, nextSlide, swiperContainer], ([prevSlideValue, nextSlideValue]
                 >
                     <FormKitIcon
                         :icon="verticalNavigation ? 'chevron-down' : 'chevron-right'"
+                        :title="verticalNavigation ? 'Slide down' : 'Slide right'"
                         class="block size-6 text-brand-primary"
                     />
                 </div>

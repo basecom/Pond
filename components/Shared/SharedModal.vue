@@ -102,6 +102,7 @@ watch(controller.value.isOpen, () => {
                         <FormKitIcon
                             class="block"
                             icon="xmark"
+                            title="Close"
                         />
                     </DialogClose>
                 </DialogContent>

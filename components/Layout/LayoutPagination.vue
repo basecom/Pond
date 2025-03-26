@@ -36,6 +36,7 @@ defineEmits<{
             >
                 <FormKitIcon
                     icon="angles-left"
+                    title="First page"
                     class="size-4"
                 />
             </PaginationFirst>
@@ -45,6 +46,7 @@ defineEmits<{
             >
                 <FormKitIcon
                     icon="chevron-left"
+                    title="Previous page"
                     class="size-4"
                 />
             </PaginationPrev>
@@ -74,6 +76,7 @@ defineEmits<{
             >
                 <FormKitIcon
                     icon="chevron-right"
+                    title="Next page"
                     class="size-4"
                 />
             </PaginationNext>
@@ -83,6 +86,7 @@ defineEmits<{
             >
                 <FormKitIcon
                     icon="angles-right"
+                    title="Last Page"
                     class="size-4"
                 />
             </PaginationLast>

@@ -48,6 +48,7 @@ const onEnter = () => {
         >
             <FormKitIcon
                 icon="minus"
+                title="Decrement"
                 class="block w-3"
             />
         </NumberFieldDecrement>
@@ -67,6 +68,7 @@ const onEnter = () => {
         >
             <FormKitIcon
                 icon="plus"
+                title="Increment"
                 class="block w-3"
             />
         </NumberFieldIncrement>

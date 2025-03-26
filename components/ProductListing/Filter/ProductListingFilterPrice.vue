@@ -36,6 +36,7 @@ const popoverOpen = ref(false);
                         'rotate-180': popoverOpen,
                     }"
                     icon="chevron-down"
+                    title="Filter"
                 />
             </div>
         </PopoverTrigger>

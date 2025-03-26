@@ -22,6 +22,7 @@ withDefaults(
         >
             <FormKitIcon
                 icon="spinner"
+                title="Loading"
                 class="size-8 animate-spin fill-status-important text-brand-primary"
             />
             <span class="sr-only">{{ $t('utility.loadingSpinnerLabel') }}</span>
@@ -34,6 +35,7 @@ withDefaults(
         >
             <FormKitIcon
                 icon="spinner"
+                title="Loading"
                 class="animate-spin fill-status-important text-brand-primary"
                 :class="{
                     'size-8': size === 'normal',

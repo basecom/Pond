@@ -10,6 +10,7 @@ defineProps<{
     <ErrorLayout>
         <FormKitIcon
             icon="question"
+            title="Question"
             class="block size-20 text-gray-dark"
         />
 

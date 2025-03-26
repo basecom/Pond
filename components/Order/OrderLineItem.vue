@@ -43,6 +43,7 @@ const lineItemSeoUrl = await getLineItemRoute(orderLineItem.value);
         >
             <FormKitIcon
                 icon="percent"
+                title="percent"
                 class="block size-16 text-gray"
             />
         </div>
