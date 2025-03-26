@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ApiClientError } from '@shopware/api-client';
 import type { RegisterForm } from '~/types/form/AuthenticationForm';
+import type { CustomerRegisterParams } from '~/types/CustomerRegisterParams';
 
 const props = withDefaults(
     defineProps<{
@@ -23,6 +24,7 @@ const { pushError, pushSuccess } = useNotifications();
 const formErrorStore = useFormErrorStore();
 const { trackRegister } = useAnalytics();
 const { t } = useI18n();
+const { affiliateCode } = useAffiliateMarketing();
 
 const isLoading = ref(false);
 const orderAsGuest = ref(false);
@@ -30,7 +32,7 @@ const orderAsGuest = ref(false);
 const handleRegisterSubmit = async (fields: RegisterForm) => {
     isLoading.value = true;
 
-    const userData = fields.alternativeShippingAddress.showAlternativeShippingAddress
+    const userData : CustomerRegisterParams  = fields.alternativeShippingAddress.showAlternativeShippingAddress
         ? {
             ...fields,
             shippingAddress: {
@@ -41,6 +43,10 @@ const handleRegisterSubmit = async (fields: RegisterForm) => {
         : {
             ...fields,
         };
+
+    if (affiliateCode.value) {
+        userData['affiliateCode'] = `${affiliateCode.value}`;
+    }
 
     try {
         await customerStore.register({
@@ -122,19 +128,25 @@ const handleRegisterSubmit = async (fields: RegisterForm) => {
                 }"
             />
 
-            <div class="col-span-2 border-b border-gray-light" />
+            <hr class="col-span-2 w-full">
 
             <template v-if="value?.showAlternativeShippingAddress === true">
                 <div class="col-span-2">
-                    <span>{{ $t('account.register.shippingAddressHeading') }}</span>
+                    <span>
+                        {{ $t('account.register.shippingAddressHeading') }}
+                    </span>
                 </div>
+
                 <AddressFormFields address-type="shippingAddress" />
-                <div class="col-span-2 border-b border-gray-light" />
+
+                <hr class="col-span-2 w-full">
             </template>
         </FormKit>
 
         <div class="col-span-2">
-            <span>{{ $t('account.register.accountDataHeading') }}</span>
+            <span>
+                {{ $t('account.register.accountDataHeading') }}
+            </span>
         </div>
 
         <FormKit

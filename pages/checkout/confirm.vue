@@ -8,7 +8,7 @@ const { handleError } = useHandleError();
 const { refreshCart, isEmpty } = useCart();
 const cartItemsStore = useCartItemsStore();
 const { cartItemsWithProduct } = storeToRefs(cartItemsStore);
-const { createOrder } = useCheckout();
+const { createOrderWrapper } = useOrderHelper();
 const { pushError, pushSuccess } = useNotifications();
 const { t } = useI18n();
 const { trackPurchase } = useAnalytics({ trackPageView: true, pageType: 'checkout' });
@@ -17,9 +17,10 @@ const showCustomerComment = configStore.get('core.cart.showCustomerComment');
 
 const placeOrder = async (formData: OrderForm) => {
     try {
-        const order = await createOrder({
+        const order = await createOrderWrapper({
             customerComment: formData.customerComment ?? '',
         });
+
         await push(`/checkout/finish/${  order.id}`);
         trackPurchase(order);
         await refreshCart();

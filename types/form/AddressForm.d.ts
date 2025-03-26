@@ -3,6 +3,7 @@ export type AddressForm = {
     zipcode: string;
     city: string;
     countryId: string;
+    company?: string;
 };
 
 export type BillingAddressForm = {

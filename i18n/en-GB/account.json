@@ -87,6 +87,15 @@
             "recoverPasswordLink": "Forgot password?"
         },
         "register": {
+            "accountType": {
+                "label": "Account type",
+                "private": "Private",
+                "company": "Commercial"
+            },
+            "company": {
+                "label": "Company",
+                "placeholder": "Your company"
+            },
             "submitLabel": "Register",
             "dataHeading": "Your data:",
             "salutation": {
