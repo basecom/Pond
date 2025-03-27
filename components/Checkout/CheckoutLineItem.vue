@@ -21,7 +21,10 @@ const props = withDefaults(
 const { lineItem, product } = toRefs(props);
 const isLoading = ref(false);
 
-const lineItemCover = getProductCover(lineItem.value.cover?.media, 'xs');
+// Shopware's typing is wrong here. The cover of a LineItem is of type "Media" and not "ProductMedia"
+// eslint-disable-next-line
+// @ts-ignore
+const lineItemCover = getProductCover(lineItem.value.cover, 'xs');
 
 const lineItemSeoUrl = product.value ? getProductRoute(product.value) : await getLineItemRoute(lineItem.value);
 

@@ -41,7 +41,7 @@ export function useMedia() {
             url: cover.thumbnails?.length
                 ? cover.thumbnails[thumbnailSizes[size]]?.url
                 : cover.url,
-            alt: cover.alt,
+            alt: cover.translated.alt,
             title: cover.translated.title,
             placeholder: false,
         };
