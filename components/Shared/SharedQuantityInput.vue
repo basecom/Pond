@@ -1,12 +1,12 @@
 <script setup lang="ts">
 withDefaults(
     defineProps<{
-      minPurchase?: number;
-      maxPurchase?: number;
-      steps?: number;
-      initialValue?: number;
-      isLoading?: boolean;
-      isDisabled?: boolean;
+      minPurchase: number;
+      maxPurchase: number;
+      steps: number;
+      initialValue: number;
+      isLoading: boolean;
+      isDisabled: boolean;
     }>(),
     {
         minPurchase: 1,
@@ -22,7 +22,7 @@ const emit = defineEmits(['onUpdate', 'onEnter']);
 const quantityInput: Ref<HTMLInputElement|null> = ref(null);
 
 const onEnter = () => {
-    quantityInput?.value?.blur();
+    quantityInput?.value?.$el?.blur();
     emit('onEnter');
 };
 </script>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { ResolvedApiError } from '~/types/Errors';
 
 const props = withDefaults(
     defineProps<{
@@ -18,6 +19,7 @@ const { addToCart, quantity } = useAddToCart(product);
 const { trackAddToCart } = useAnalytics();
 const { t } = useI18n();
 const { pushError, pushSuccess } = useNotifications();
+const apiErrors = ref<ResolvedApiError[]>([]);
 
 quantity.value = product.value.minPurchase;
 
@@ -31,6 +33,7 @@ const handleAddToCart = async () => {
         pushSuccess(t('product.addToCart.successMessage', { productName: product.value.translated.name }));
     } catch (error) {
         pushError(t('product.addToCart.errorMessage', { productName: product.value.translated.name }));
+        apiErrors.value.push({ key: 'product', code: 'PRODUCT_ADD_TO_CART_GENERAL_ERROR' });
     }
 };
 </script>
@@ -51,8 +54,9 @@ const handleAddToCart = async () => {
             <SharedQuantityInput
                 v-model="quantity"
                 :min-purchase="product.minPurchase"
-                :max-purchase="product.maxPurchase"
+                :max-purchase="product.maxPurchase ?? product.availableStock"
                 :steps="product.purchaseSteps"
+                :initial-value="product.minPurchase"
                 @on-enter="handleAddToCart"
             />
 
