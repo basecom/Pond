@@ -24,6 +24,8 @@ const isLoading = ref(false);
 
 const login = async (loginData: LoginData) => {
     isLoading.value = true;
+  errorMessage.value = null;
+
     try {
         await customerStore.login(loginData);
     } catch (error) {
@@ -60,14 +62,14 @@ const login = async (loginData: LoginData) => {
         @submit="login"
     >
         <div class="!mt-0 grid">
-            <slot name="passwort-forgotten">
+            <slot name="password-forgotten">
                 <UiButton variant="link" class="mb-6 justify-self-start px-0">
                     {{ $t('account.login.password.forgotten') }}
                 </UiButton>
             </slot>
 
             <slot name="alert">
-                <UiAlert v-if="errorMessage" variant="destructive" class="flex gap-4">
+                <UiAlert v-if="errorMessage" variant="destructive" class="flex gap-4 mb-4">
                     <slot name="alert-icon">
                         <Icon name="mdi:alert-circle-outline" class="size-4 text-red-500" />
                     </slot>
