@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { NumberFieldInput } from 'radix-vue';
+
 withDefaults(
     defineProps<{
       minPurchase: number;
@@ -19,7 +21,7 @@ withDefaults(
 );
 
 const emit = defineEmits(['onUpdate', 'onEnter']);
-const quantityInput: Ref<HTMLInputElement|null> = ref(null);
+const quantityInput: Ref<ComponentPublicInstance<typeof NumberFieldInput> | null> = ref(null);
 
 const onEnter = () => {
     quantityInput?.value?.$el?.blur();

@@ -3,8 +3,12 @@ export function useAffiliateMarketing(){
     const affiliateCode = useCookie('affiliateCode');
 
     const setAffiliateCode = async (queryParamKey: string) => {
-        if (route.query[queryParamKey]) {
-            affiliateCode.value = route.query[queryParamKey];
+        const queryParamValue = route.query[queryParamKey];
+
+        if (Array.isArray(queryParamValue)) {
+            affiliateCode.value = queryParamValue[0];
+        } else {
+            affiliateCode.value = queryParamValue;
         }
     };
 
