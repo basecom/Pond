@@ -9,6 +9,7 @@ const { search } = useCategorySearch();
 const categoryResponse = await search(props.navigationId, {
     withCmsAssociations: true,
 });
+
 if (!categoryResponse) {
     throw createError({statusCode: 404, message: t('error.404.heading')});
 }

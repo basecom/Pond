@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Overrides node_modules/@shopware/cms-base-layer/components/public/cms/CmsPage.vue
-import {getBackgroundImageUrl, getCmsLayoutConfiguration} from '@shopware-pwa/helpers-next';
+import { getBackgroundImageUrl, getCmsLayoutConfiguration } from '@shopware-pwa/helpers-next';
 import { pascalCase } from 'scule';
 import { computed, h, resolveComponent } from 'vue';
 import { createCategoryListingContext, useNavigationContext } from '#imports';

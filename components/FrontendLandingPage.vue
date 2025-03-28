@@ -9,6 +9,7 @@ const { search } = useLandingSearch();
 const landingPage = await search(props.navigationId, {
     withCmsAssociations: true,
 });
+
 if (!landingPage) {
     throw createError({statusCode: 404, message: t('error.404.heading')});
 }
