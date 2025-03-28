@@ -23,7 +23,16 @@ onMounted(async () => {
                         :key="navigationElement.id"
                     >
                         <ul class="list-none">
-                            <li class="mb-1 max-w-max font-bold hover:text-brand-primary hover:underline">
+                            <li
+                                v-if="navigationElement.type === 'folder'"
+                                class="mb-1 max-w-max font-bold"
+                            >
+                                {{ getTranslatedProperty(navigationElement, 'name') }}
+                            </li>
+                            <li
+                                v-else
+                                class="mb-1 max-w-max font-bold hover:text-brand-primary hover:underline"
+                            >
                                 <LocaleLink
                                     :target="
                                         navigationElement.externalLink || navigationElement.linkNewTab ? '_blank' : ''
