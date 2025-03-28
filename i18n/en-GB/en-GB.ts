@@ -5,6 +5,7 @@ import cms from './cms.json';
 import composable from './composable.json';
 import cookie from './cookie.json';
 import error from './error.json';
+import icons from 'icons.json';
 import layout from './layout.json';
 import listing from './listing.json';
 import navigation from './navigation.json';
@@ -24,6 +25,7 @@ export default {
     ...composable,
     ...cookie,
     ...error,
+    ...icons,
     ...layout,
     ...listing,
     ...navigation,

@@ -14,6 +14,8 @@ withDefaults(
         withCloseButton: true,
     },
 );
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -40,7 +42,7 @@ withDefaults(
                 <FormKitIcon
                     class="block size-5 text-gray"
                     icon="xmark"
-                    title="Close"
+                    :title="t('icon.close')"
                 />
             </PopoverClose>
 

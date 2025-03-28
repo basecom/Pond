@@ -55,6 +55,8 @@ const swiperContainer: Ref<Swiper|null> = ref(null);
 const prevSlide = ref(null);
 const nextSlide = ref(null);
 const navigation = computed(() => props.navigationArrows ? undefined : false);
+const { t } = useI18n();
+
 // swiperContainer?.value has the type swiper but cant be find here
 // eslint-disable-next-line  @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -102,7 +104,7 @@ watch([prevSlide, nextSlide, swiperContainer], ([prevSlideValue, nextSlideValue]
                 >
                     <FormKitIcon
                         icon="plus"
-                        title="Zoom in"
+                        :title="t('icon.zoomIn')"
                         class="size-6"
                     />
                 </button>
@@ -114,7 +116,7 @@ watch([prevSlide, nextSlide, swiperContainer], ([prevSlideValue, nextSlideValue]
                 >
                     <FormKitIcon
                         icon="minus"
-                        title="Zoom out"
+                        :title="t('icon.zoomOut')"
                         class="size-6"
                     />
                 </button>
@@ -131,7 +133,7 @@ watch([prevSlide, nextSlide, swiperContainer], ([prevSlideValue, nextSlideValue]
                 >
                     <FormKitIcon
                         :icon="verticalNavigation ? 'chevron-up' : 'chevron-left'"
-                        :title="verticalNavigation ? 'Slide up' : 'Slide left'"
+                        :title="verticalNavigation ? t('icon.slideUp') : t('icon.slideLeft')"
                         class="block size-6 text-brand-primary"
                     />
                 </div>
@@ -147,7 +149,7 @@ watch([prevSlide, nextSlide, swiperContainer], ([prevSlideValue, nextSlideValue]
                 >
                     <FormKitIcon
                         :icon="verticalNavigation ? 'chevron-down' : 'chevron-right'"
-                        :title="verticalNavigation ? 'Slide down' : 'Slide right'"
+                        :title="verticalNavigation ? t('icon.slideDown') : t('icon.slideRight')"
                         class="block size-6 text-brand-primary"
                     />
                 </div>

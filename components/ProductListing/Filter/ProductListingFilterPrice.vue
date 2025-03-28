@@ -15,6 +15,7 @@ defineEmits<{
 
 const listingStore = useListingStore('category');
 const popoverOpen = ref(false);
+const { t } = useI18n();
 </script>
 
 <template>
@@ -36,7 +37,7 @@ const popoverOpen = ref(false);
                         'rotate-180': popoverOpen,
                     }"
                     icon="chevron-down"
-                    title="Filter"
+                    :title="t('icon.priceFilter')"
                 />
             </div>
         </PopoverTrigger>

@@ -16,6 +16,8 @@ withDefaults(
 defineEmits<{
     'update-page': [page: number];
 }>();
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -36,7 +38,7 @@ defineEmits<{
             >
                 <FormKitIcon
                     icon="angles-left"
-                    title="First page"
+                    :title="t('icon.firstPage')"
                     class="size-4"
                 />
             </PaginationFirst>
@@ -46,7 +48,7 @@ defineEmits<{
             >
                 <FormKitIcon
                     icon="chevron-left"
-                    title="Previous page"
+                    :title="t('icon.previousPage')"
                     class="size-4"
                 />
             </PaginationPrev>
@@ -76,7 +78,7 @@ defineEmits<{
             >
                 <FormKitIcon
                     icon="chevron-right"
-                    title="Next page"
+                    :title="t('icon.nextPage')"
                     class="size-4"
                 />
             </PaginationNext>
@@ -86,7 +88,7 @@ defineEmits<{
             >
                 <FormKitIcon
                     icon="angles-right"
-                    title="Last Page"
+                    :title="t('icon.lastPage')"
                     class="size-4"
                 />
             </PaginationLast>

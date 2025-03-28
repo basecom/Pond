@@ -20,6 +20,7 @@ withDefaults(
 
 const emit = defineEmits(['onUpdate', 'onEnter']);
 const quantityInput: Ref<HTMLInputElement|null> = ref(null);
+const { t } = useI18n();
 
 const onEnter = () => {
     quantityInput?.value?.blur();
@@ -48,7 +49,7 @@ const onEnter = () => {
         >
             <FormKitIcon
                 icon="minus"
-                title="Decrement"
+                :title="t('icon.decrement')"
                 class="block w-3"
             />
         </NumberFieldDecrement>
@@ -68,7 +69,7 @@ const onEnter = () => {
         >
             <FormKitIcon
                 icon="plus"
-                title="Increment"
+                :title="t('icon.increment')"
                 class="block w-3"
             />
         </NumberFieldIncrement>

@@ -43,6 +43,7 @@ const categoryLink = computed(() => {
 
 const { isActive } = useActivePath();
 const { trackNavigation } = useAnalytics();
+const { t } = useI18n();
 </script>
 
 <template>
@@ -81,7 +82,7 @@ const { trackNavigation } = useAnalytics();
             <FormKitIcon
                 class="block size-4"
                 icon="chevron-right"
-                title="Open cateogry"
+                :title="t('icon.openCategory')"
             />
         </span>
     </div>

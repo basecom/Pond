@@ -16,6 +16,7 @@ const props = withDefaults(
     },
 );
 const { controller } = toRefs(props);
+const { t } = useI18n();
 
 const onUpdatedOpen = (value: boolean) => {
     if (value) {
@@ -102,7 +103,7 @@ watch(controller.value.isOpen, () => {
                         <FormKitIcon
                             class="block"
                             icon="xmark"
-                            title="Close"
+                            :title="t('icon.close')"
                         />
                     </DialogClose>
                 </DialogContent>

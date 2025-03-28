@@ -18,6 +18,7 @@ const sizeMap: Record<string, number> = {
 };
 
 const imageSize = computed(() => sizeMap[props.size]);
+const { t } = useI18n();
 
 onMounted(() => {
     emit('load-icon');
@@ -28,7 +29,7 @@ onMounted(() => {
     <div class="flex aspect-square size-full items-center">
         <FormKitIcon
             icon="image"
-            title="Blank image"
+            :title="t('icon.blankImage')"
             class="mx-auto block text-gray-dark"
             :class="`h-${imageSize} w-${imageSize}`"
         />

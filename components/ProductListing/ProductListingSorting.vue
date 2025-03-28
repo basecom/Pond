@@ -39,7 +39,7 @@ const handleClick = (option: Schemas['ProductListingResult']['availableSortings'
                     'rotate-180': toggleState,
                 }"
                 icon="chevron-down"
-                title="Filter"
+                :title="t('icon.sortingFilter')"
             />
         </DropdownMenuTrigger>
 

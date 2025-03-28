@@ -5,6 +5,7 @@ import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 const { getFormattedPrice } = usePrice();
 const { getProductCover } = useMedia();
 const { getLineItemRoute } = useLineItemRoute();
+const { t } = useI18n();
 
 const props = defineProps<{
     lineItem: Schemas['OrderLineItem'];
@@ -43,7 +44,7 @@ const lineItemSeoUrl = await getLineItemRoute(orderLineItem.value);
         >
             <FormKitIcon
                 icon="percent"
-                title="percent"
+                :title="t('icon.percent')"
                 class="block size-16 text-gray"
             />
         </div>

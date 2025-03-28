@@ -12,6 +12,7 @@ withDefaults(
 
 const { breadcrumbs } = useBreadcrumbs();
 const route = useRoute();
+const { t } = useI18n();
 </script>
 
 <template>
@@ -41,7 +42,7 @@ const route = useRoute();
                     v-if="breadcrumbs?.length > 0"
                     class="block size-2.5"
                     icon="chevron-right"
-                    title="Chevron Right"
+                    :title="t('icon.rightArrow')"
                 />
             </li>
 
@@ -69,7 +70,7 @@ const route = useRoute();
                     v-if="index < breadcrumbs.length - 1"
                     class="block size-2.5"
                     icon="chevron-right"
-                    title="Chevron Right"
+                    :title="t('icon.rightArrow')"
                 />
             </li>
         </ol>

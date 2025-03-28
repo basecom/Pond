@@ -12,6 +12,7 @@ const props = withDefaults(
 );
 
 const { removeOne } = useNotifications();
+const { t } = useI18n();
 
 const iconMap = {
     info: 'info',
@@ -38,7 +39,7 @@ const icon = computed(() => iconMap[props.notification.type] || 'information');
     >
         <FormKitIcon
             :icon="icon"
-            :title="icon"
+            :title="t(`icon.${icon}`)"
             class="block size-7 shrink-0 rounded-md p-1.5 text-white"
             :class="{
                 'bg-status-info': notification.type === 'info',
@@ -62,7 +63,7 @@ const icon = computed(() => iconMap[props.notification.type] || 'information');
             >
                 <FormKitIcon
                     icon="xmark"
-                    title="Close"
+                    :title="t('icon.close')"
                     class="block size-4 text-gray-dark"
                 />
             </button>

@@ -9,6 +9,8 @@ withDefaults(
         size: 'normal',
     },
 );
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -22,7 +24,7 @@ withDefaults(
         >
             <FormKitIcon
                 icon="spinner"
-                title="Loading"
+                :title="t('icon.loading')"
                 class="size-8 animate-spin fill-status-important text-brand-primary"
             />
             <span class="sr-only">{{ $t('utility.loadingSpinnerLabel') }}</span>
@@ -35,7 +37,7 @@ withDefaults(
         >
             <FormKitIcon
                 icon="spinner"
-                title="Loading"
+                :title="t('icon.loading')"
                 class="animate-spin fill-status-important text-brand-primary"
                 :class="{
                     'size-8': size === 'normal',
