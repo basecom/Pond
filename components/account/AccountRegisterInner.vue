@@ -11,7 +11,8 @@ const accountTypes = [
     {label: t('account.register.accountTypes.private'), value: 'private'},
     {label: t('account.register.accountTypes.business'), value: 'business'},
 ] as const;
-const salutations = ref<String[]>([]);
+const salutations = ref<string[]>([]);
+const businessType = ref<boolean>(false);
 
 const registerSchema = toTypedSchema(
     z.object({
@@ -51,7 +52,7 @@ const registerSchema = toTypedSchema(
             : z.date().optional(),
         company: z
             .string({
-                required_error: 'No',
+                required_error: t('account.register.company.errorGeneral'),
             }),
         department: z
             .string({
@@ -130,8 +131,26 @@ const form = useForm({
     validationSchema: registerSchema,
 });
 
+const accountTypeChange = (value: string) => {
+    if (value ===  'business') {
+        businessType.value = true;
+        return;
+    }
+
+    businessType.value = false;
+};
+
 const onSubmit = form.handleSubmit(() => {
     console.log('submitting all');
+});
+
+// If accountType is business, the company field will be rendered
+watch(form.values, (values) => {
+    if (values.accountType === 'business') {
+        businessType.value = true;
+        return;
+    }
+    businessType.value = false;
 });
 
 onBeforeMount(async () => {
@@ -154,15 +173,20 @@ onBeforeMount(async () => {
                         <h3 class="text-xl">{{ $t('account.register.header.generalFields') }}</h3>
                     </slot>
                     <slot name="generalFieldsFormFields">
-                        <FormField v-if="configStore.get('core.loginRegistration.showAccountTypeSelection')"
-                                   v-slot="{ componentField }" name="accountType">
+                        <FormField
+                            v-if="configStore.get('core.loginRegistration.showAccountTypeSelection')"
+                            v-slot="{ componentField }"
+                            name="accountType"
+                            @change="console.log('los gehts')"
+                        >
                             <UiFormItem>
                                 <UiFormLabel>{{ $t('account.register.accountTypes.label') }}</UiFormLabel>
                                 <UiSelect v-bind="componentField">
                                     <UiFormControl>
                                         <UiSelectTrigger>
                                             <UiSelectValue
-                                                :placeholder="$t('account.register.accountTypes.placeholder')"/>
+                                                :placeholder="$t('account.register.accountTypes.placeholder')"
+                                            />
                                         </UiSelectTrigger>
                                     </UiFormControl>
                                     <UiSelectContent>
@@ -171,13 +195,14 @@ onBeforeMount(async () => {
                                                 v-for="accountType in accountTypes"
                                                 :key="accountType.value"
                                                 :value="accountType.value"
+                                                @click="accountTypeChange(accountType.value)"
                                             >
                                                 {{ accountType.label }}
                                             </UiSelectItem>
                                         </UiSelectGroup>
                                     </UiSelectContent>
                                 </UiSelect>
-                                <UiFormMessage/>
+                                <UiFormMessage />
                             </UiFormItem>
                         </FormField>
                         <FormField v-slot="{ componentField }" name="salutation">
@@ -187,7 +212,8 @@ onBeforeMount(async () => {
                                     <UiFormControl>
                                         <UiSelectTrigger>
                                             <UiSelectValue
-                                                :placeholder="$t('account.register.salutations.placeholder')"/>
+                                                :placeholder="$t('account.register.salutations.placeholder')"
+                                            />
                                         </UiSelectTrigger>
                                     </UiFormControl>
                                     <UiSelectContent>
@@ -202,12 +228,13 @@ onBeforeMount(async () => {
                                         </UiSelectGroup>
                                     </UiSelectContent>
                                 </UiSelect>
-                                <UiFormMessage/>
+                                <UiFormMessage />
                             </UiFormItem>
                         </FormField>
-                        <FormField v-if="configStore.get('core.loginRegistration.showTitleField')"
-                                   v-slot="{ componentField }"
-                                   name="title"
+                        <FormField
+                            v-if="configStore.get('core.loginRegistration.showTitleField')"
+                            v-slot="{ componentField }"
+                            name="title"
                         >
                             <UiFormItem>
                                 <UiFormLabel>{{ $t('account.register.title.label') }}</UiFormLabel>
@@ -219,7 +246,7 @@ onBeforeMount(async () => {
                                         :aria-placeholder="$t('account.register.title.placeholder')"
                                     />
                                 </UiFormControl>
-                                <UiFormMessage/>
+                                <UiFormMessage />
                             </UiFormItem>
                         </FormField>
                         <FormField v-slot="{ componentField }" name="firstName">
@@ -233,7 +260,7 @@ onBeforeMount(async () => {
                                         :aria-placeholder="$t('account.register.firstName.placeholder')"
                                     />
                                 </UiFormControl>
-                                <UiFormMessage/>
+                                <UiFormMessage />
                             </UiFormItem>
                         </FormField>
                         <FormField v-slot="{ componentField }" name="lastName">
@@ -247,7 +274,7 @@ onBeforeMount(async () => {
                                         :aria-placeholder="$t('account.register.lastName.placeholder')"
                                     />
                                 </UiFormControl>
-                                <UiFormMessage/>
+                                <UiFormMessage />
                             </UiFormItem>
                         </FormField>
                         <FormField v-slot="{ componentField }" name="email">
@@ -261,12 +288,13 @@ onBeforeMount(async () => {
                                         :aria-placeholder="$t('account.register.email.placeholder')"
                                     />
                                 </UiFormControl>
-                                <UiFormMessage/>
+                                <UiFormMessage />
                             </UiFormItem>
                         </FormField>
-                        <FormField v-if="configStore.get('core.loginRegistration.requireEmailConfirmation')"
-                                   v-slot="{ componentField }"
-                                   name="confirmMail"
+                        <FormField
+                            v-if="configStore.get('core.loginRegistration.requireEmailConfirmation')"
+                            v-slot="{ componentField }"
+                            name="confirmMail"
                         >
                             <UiFormItem>
                                 <UiFormLabel>{{ $t('account.register.email.confirm.label') }}</UiFormLabel>
@@ -278,22 +306,41 @@ onBeforeMount(async () => {
                                         :aria-placeholder="$t('account.register.email.confirm.placeholder')"
                                     />
                                 </UiFormControl>
-                                <UiFormMessage/>
+                                <UiFormMessage />
                             </UiFormItem>
                         </FormField>
-                        <FormField v-if="configStore.get('core.loginRegistration.showBirthdayField')"
-                                   v-slot="{ componentField }"
-                                   name="birthdate"
+                        <FormField
+                            v-if="configStore.get('core.loginRegistration.showBirthdayField')"
+                            v-slot="{ componentField }"
+                            name="birthdate"
                         >
                             <UiFormItem>
-                                <UiFormLabel>{{ $t('account.register.birthdate.label') }}</UiFormLabel>
+                                <UiFormLabel v-if="configStore.get('core.loginRegistration.birthdayFieldRequired')">{{ $t('account.register.birthdate.labelRequired') }}</UiFormLabel>
+                                <UiFormLabel v-else>{{ $t('account.register.birthdate.label') }}</UiFormLabel>
                                 <UiFormControl>
                                     <UiInput
                                         type="date"
                                         v-bind="componentField"
                                     />
                                 </UiFormControl>
-                                <UiFormMessage/>
+                                <UiFormMessage />
+                            </UiFormItem>
+                        </FormField>
+                        <FormField
+                            v-if="businessType"
+                            v-slot="{ componentField }"
+                            name="company"
+                        >
+                            <UiFormItem>
+                                <UiFormLabel>{{ $t('account.register.company.label') }}</UiFormLabel>
+                                <UiFormControl>
+                                    <UiInput
+                                        type="text"
+                                        v-bind="componentField"
+                                        :placeholder="$t('account.register.company.placeholder')"
+                                        :aria-placeholder="$t('account.register.company.placeholder')"
+                                    />
+                                </UiFormControl>
                             </UiFormItem>
                         </FormField>
                     </slot>

@@ -59,7 +59,7 @@
             "email": {
                 "label": "E-Mail Adresse*",
                 "placeholder": "E-Mail Adresse eingeben...",
-                "errorGeneral": "Bitte geben sie eine valide E-Mail-Adresse ein.",
+                "errorGeneral": "Bitte geben Sie eine valide E-Mail-Adresse ein.",
                 "confirm": {
                     "label": "E-Mail Adresse bestätigen*",
                     "placeholder": "Email Adresse erneut eingeben...",
@@ -68,7 +68,13 @@
             },
             "birthdate": {
                 "label": "Geburtsdatum",
-                "errorGeneral": "Bitte wähle ein Geburtsdatum"
+                "labelRequired": "Geburtsdatum*",
+                "errorGeneral": "Bitte wähle Sie ihr Geburtsdatum"
+            },
+            "company": {
+                "label": "Firma*",
+                "placeholder": "Firma eingeben...",
+                "errorGeneral": "Bitte geben Sie ihren Firmennamen an"
             }
         }
     }

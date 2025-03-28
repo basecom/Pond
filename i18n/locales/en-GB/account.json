@@ -68,7 +68,13 @@
             },
             "birthdate": {
                 "label": "Birthdate",
+                "labelRequired": "Birthdate*",
                 "errorGeneral": "Please select your birthdate"
+            },
+            "company": {
+                "label": "Company*",
+                "placeholder": "Enter company...",
+                "errorGeneral": "Please enter your company name"
             }
         }
     }
