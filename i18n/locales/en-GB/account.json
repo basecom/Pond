@@ -75,6 +75,29 @@
                 "label": "Company*",
                 "placeholder": "Enter company...",
                 "errorGeneral": "Please enter your company name"
+            },
+            "department": {
+                "label": "Department",
+                "placeholder": "Enter department...",
+                "errorGeneral": "Please provide your department"
+            },
+            "vatNumber": {
+                "label": "VAT Reg.No.",
+                "placeholder": "Enter VAT Reg.No....",
+                "errorGeneral": "Please provide a valid VAT Reg.No."
+            },
+            "password": {
+                "label": "Password*",
+                "placeholder": "Enter password...",
+                "errorGeneral": "Please enter a valid password.",
+                "requirements": {
+                    "length": "It must be long :o"
+                },
+                "confirm": {
+                    "label": "Password confirmation*",
+                    "placeholder": "Enter password again...",
+                    "errorGeneral": "The input doesnt match your password."
+                }
             }
         }
     }

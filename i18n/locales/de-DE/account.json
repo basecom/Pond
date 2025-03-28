@@ -75,6 +75,29 @@
                 "label": "Firma*",
                 "placeholder": "Firma eingeben...",
                 "errorGeneral": "Bitte geben Sie ihren Firmennamen an"
+            },
+            "department": {
+                "label": "Abteilung",
+                "placeholder": "Abteilung eingeben...",
+                "errorGeneral": "Bitte geben Sie ihre Abteilung an"
+            },
+            "vatNumber": {
+                "label": "Umsatzsteuer-ID",
+                "placeholder": "Umsatzsteuer-ID eingeben...",
+                "errorGeneral": "Bitte geben Sie eine gültige Umsatzsteuer-ID an"
+            },
+            "password": {
+                "label": "Passwort*",
+                "placeholder": "Passwort eingeben...",
+                "errorGeneral": "Bitte geben Sie ein valides Passwort ein.",
+                "requirements": {
+                    "length": "Es muss lang sein :o"
+                },
+                "confirm": {
+                    "label": "Passwort bestätigen*",
+                    "placeholder": "Passwort erneut eingeben...",
+                    "errorGeneral": "Die Angabe stimmt nicht mit dem Passwort überein."
+                }
             }
         }
     }
