@@ -64,6 +64,7 @@ const updateDefaultBilling = async () => {
                     <template #trigger>
                         <FormKitIcon
                             icon="ellipsis-vertical"
+                            :title="t('icon.moreActions')"
                             class="size-4"
                         />
                     </template>

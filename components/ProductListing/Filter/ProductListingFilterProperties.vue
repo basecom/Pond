@@ -16,6 +16,7 @@ defineEmits<{
 
 const listingStore = useListingStore('category');
 const popoverOpen = ref(false);
+const { t } = useI18n();
 </script>
 
 <template>
@@ -35,6 +36,7 @@ const popoverOpen = ref(false);
                 <FormKitIcon
                     class="block size-3 text-gray transition-all duration-150"
                     icon="chevron-down"
+                    :title="t('icon.propertiesFilter')"
                     :class="{
                         'rotate-180': popoverOpen,
                     }"

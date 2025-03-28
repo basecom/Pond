@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { count: wishlistCount } = useWishlist();
+const { t } = useI18n();
 </script>
 
 <template>
@@ -10,6 +11,7 @@ const { count: wishlistCount } = useWishlist();
         <FormKitIcon
             class="block size-6"
             icon="heart"
+            :title="t('icon.wishlist')"
         />
         <UtilityPill
             :number="wishlistCount"

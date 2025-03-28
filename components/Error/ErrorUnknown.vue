@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app';
 
+const { t } = useI18n();
+
 defineProps<{
     error: NuxtError;
 }>();
@@ -10,6 +12,7 @@ defineProps<{
     <ErrorLayout>
         <FormKitIcon
             icon="question"
+            :title="t('icon.question')"
             class="block size-20 text-gray-dark"
         />
 

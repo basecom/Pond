@@ -3,6 +3,7 @@ const offcanvasCartController = useModal();
 const { isEmpty } = useCart();
 const cartItemsStore = useCartItemsStore();
 const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
+const { t } = useI18n();
 </script>
 
 <template>
@@ -12,6 +13,7 @@ const { cartItemsWithProduct, cartItemsCount } = storeToRefs(cartItemsStore);
     >
         <FormKitIcon
             icon="cart-shopping"
+            :title="t('icon.cart')"
             class="block size-6"
         />
         <UtilityPill
