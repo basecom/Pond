@@ -5,53 +5,10 @@ const props = defineProps<{
     product: Schemas['Product'] | Schemas['LineItem'];
 }>();
 
-const availableStock = computed(() => {
-    if ('availableStock' in props.product) {
-        return props.product.availableStock ?? 0;
-    }
-
-    if ('deliveryInformation' in props.product) {
-        return props.product.deliveryInformation.stock ?? 0;
-    }
-
-    return 0;
-});
-
-const minPurchase = computed(() => {
-    if ('minPurchase' in props.product) {
-        return props.product.minPurchase ?? 0;
-    }
-
-    if ('quantityInformation' in props.product) {
-        return props.product.quantityInformation?.minPurchase ?? 0;
-    }
-
-    return 0;
-});
-
-const deliveryTime = computed(() => {
-    if ('deliveryTime' in props.product) {
-        return props.product.deliveryTime;
-    }
-
-    if ('deliveryInformation' in props.product) {
-        return props.product.deliveryInformation?.deliveryTime;
-    }
-
-    return null;
-});
-
-const restockTime = computed(() => {
-    if ('restockTime' in props.product) {
-        return props.product.restockTime;
-    }
-
-    if ('deliveryInformation' in props.product) {
-        return props.product.deliveryInformation?.restockTime;
-    }
-
-    return null;
-});
+const availableStock = computed(() => (props.product as Schemas['Product'])?.availableStock ?? (props.product as Schemas['LineItem'])?.deliveryInformation?.stock ?? 0);
+const minPurchase = computed(() => (props.product as Schemas['Product'])?.minPurchase ?? (props.product as Schemas['LineItem'])?.quantityInformation?.minPurchase ?? 0);
+const restockTime = computed(() => (props.product as Schemas['Product'])?.restockTime ?? (props.product as Schemas['LineItem'])?.deliveryInformation?.restockTime ?? null);
+const deliveryTime = computed(() => (props.product as Schemas['Product'])?.deliveryTime ?? (props.product as Schemas['LineItem'])?.deliveryInformation?.deliveryTime ?? null);
 </script>
 
 <template>

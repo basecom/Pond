@@ -12,5 +12,5 @@ export function useOrderHelper(){
 
     return {
         createOrderWrapper,
-    }
+    };
 }
