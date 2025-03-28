@@ -1,71 +1,75 @@
 {
-  "account": {
-    "myAccount": "My Account",
-    "overview": "Overview",
-    "personalProfile": "Personal Profile",
-    "addresses": "Addresses",
-    "paymentMethods": "Payment Methods",
-    "orders": "Orders",
-    "auth": {
-      "login": "Sign in",
-      "register": "Sign up",
-      "logout": "Logout"
-    },
-    "login": {
-      "email": {
-        "label": "Your Email Address",
-        "placeholder": "Email address",
-        "error": "Please enter a valid email address"
-      },
-      "password": {
-        "label": "Your Password",
-        "placeholder": "••••••••",
-        "forgotten": "Password forgotten",
-        "errorGeneral": "Please enter a password",
-        "errorLength": "Your password must be at least {length} characters long"
-      }
-    },
-    "register": {
-      "header": {
-        "main": "register",
-        "generalFields": "General Fields"
-      },
-      "accountTypes": {
-        "label": "Account Type*",
-        "placeholder": "Select...",
-        "private": "Private",
-        "business": "Commercial",
-        "errorGeneral": "Please select an account type."
-      },
-      "salutations": {
-        "label": "Salutation*",
-        "placeholder": "Select...",
-        "errorGeneral": "Please select a salutation"
-      },
-      "title": {
-        "label":"Title",
-        "placeholder": "Enter title..."
-      },
-      "firstName": {
-        "label": "First name*",
-        "placeholder": "Enter first name...",
-        "errorGeneral": "Please enter your first name."
-      },
-      "lastName": {
-        "label": "Second name*",
-        "placeholder": "Enter second name...",
-        "errorGeneral": "Please enter your second name."
-      },
-      "email": {
-        "label": "Email address*",
-        "placeholder": "Enter email address...",
-        "errorGeneral": "Please enter a valid email address",
-        "confirm": {
-          "label": "Email address confirmation*",
-          "placeholder": "Enter email address again...",
-          "errorGeneral": "The input doesnt match your email address."
+    "account": {
+        "myAccount": "My Account",
+        "overview": "Overview",
+        "personalProfile": "Personal Profile",
+        "addresses": "Addresses",
+        "paymentMethods": "Payment Methods",
+        "orders": "Orders",
+        "auth": {
+            "login": "Sign in",
+            "register": "Sign up",
+            "logout": "Logout"
+        },
+        "login": {
+            "email": {
+                "label": "Your Email Address",
+                "placeholder": "Email address",
+                "error": "Please enter a valid email address"
+            },
+            "password": {
+                "label": "Your Password",
+                "placeholder": "••••••••",
+                "forgotten": "Password forgotten",
+                "errorGeneral": "Please enter a password",
+                "errorLength": "Your password must be at least {length} characters long"
+            }
+        },
+        "register": {
+            "header": {
+                "main": "register",
+                "generalFields": "General Fields"
+            },
+            "accountTypes": {
+                "label": "Account Type*",
+                "placeholder": "Select...",
+                "private": "Private",
+                "business": "Commercial",
+                "errorGeneral": "Please select an account type."
+            },
+            "salutations": {
+                "label": "Salutation*",
+                "placeholder": "Select...",
+                "errorGeneral": "Please select a salutation"
+            },
+            "title": {
+                "label": "Title",
+                "placeholder": "Enter title..."
+            },
+            "firstName": {
+                "label": "First name*",
+                "placeholder": "Enter first name...",
+                "errorGeneral": "Please enter your first name."
+            },
+            "lastName": {
+                "label": "Second name*",
+                "placeholder": "Enter second name...",
+                "errorGeneral": "Please enter your second name."
+            },
+            "email": {
+                "label": "Email address*",
+                "placeholder": "Enter email address...",
+                "errorGeneral": "Please enter a valid email address",
+                "confirm": {
+                    "label": "Email address confirmation*",
+                    "placeholder": "Enter email address again...",
+                    "errorGeneral": "The input doesnt match your email address."
+                }
+            },
+            "birthdate": {
+                "label": "Birthdate",
+                "errorGeneral": "Please select your birthdate"
+            }
         }
-      }
     }
-  }
 }

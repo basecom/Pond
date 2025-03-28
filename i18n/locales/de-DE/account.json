@@ -1,71 +1,75 @@
 {
-  "account": {
-    "myAccount": "Mein Konto",
-    "overview": "Überblick",
-    "personalProfile": "Persönliches Profil",
-    "addresses": "Adressen",
-    "paymentMethods": "Zahlungsarten",
-    "orders": "Bestellungen",
-    "auth": {
-      "login": "Anmelden",
-      "register": "Registrieren",
-      "logout": "Abmelden"
-    },
-    "login": {
-      "email": {
-        "label": "Ihre E-Mail-Adresse",
-        "placeholder": "E-Mail-Adresse",
-        "error": "Bitte geben Sie eine valide E-Mail-Adresse ein"
-      },
-      "password": {
-        "label": "Ihr Passwort",
-        "placeholder": "••••••••",
-        "forgotten": "Passwort vergessen",
-        "errorGeneral": "Bitte geben Sie ein Password ein",
-        "errorLength": "Ihr Passwort muss mind. {length} Zeichen lang sein"
-      }
-    },
-    "register": {
-      "header": {
-        "main": "Registrierung",
-        "generalFields": "Allgemein"
-      },
-      "accountTypes": {
-        "label": "Kontotyp*",
-        "placeholder": "Auswählen...",
-        "private": "Privat",
-        "business": "Gewerblich",
-        "errorGeneral": "Bitte geben Sie einen Kontotyp an."
-      },
-      "salutations": {
-        "label": "Anrede*",
-        "placeholder": "Auswählen...",
-        "errorGeneral": "Bitte geben Sie eine Anrede an."
-      },
-      "title": {
-        "label":"Titel",
-        "placeholder": "Titel eingeben..."
-      },
-      "firstName": {
-        "label": "Vorname*",
-        "placeholder": "Vornamen eingeben...",
-        "errorGeneral": "Bitte geben Sie ihren Vornamen an."
-      },
-      "lastName": {
-        "label": "Nachname*",
-        "placeholder": "Nachname eingeben...",
-        "errorGeneral": "Bitte geben Sie ihren Nachnamen an."
-      },
-      "email": {
-        "label": "E-Mail Adresse*",
-        "placeholder": "E-Mail Adresse eingeben...",
-        "errorGeneral": "Bitte geben sie eine valide E-Mail-Adresse ein.",
-        "confirm": {
-          "label": "E-Mail Adresse bestätigen*",
-          "placeholder": "Email Adresse erneut eingeben...",
-          "errorGeneral": "Die Angabe stimmt nicht mit der Email Adresse überein."
+    "account": {
+        "myAccount": "Mein Konto",
+        "overview": "Überblick",
+        "personalProfile": "Persönliches Profil",
+        "addresses": "Adressen",
+        "paymentMethods": "Zahlungsarten",
+        "orders": "Bestellungen",
+        "auth": {
+            "login": "Anmelden",
+            "register": "Registrieren",
+            "logout": "Abmelden"
+        },
+        "login": {
+            "email": {
+                "label": "Ihre E-Mail-Adresse",
+                "placeholder": "E-Mail-Adresse",
+                "error": "Bitte geben Sie eine valide E-Mail-Adresse ein"
+            },
+            "password": {
+                "label": "Ihr Passwort",
+                "placeholder": "••••••••",
+                "forgotten": "Passwort vergessen",
+                "errorGeneral": "Bitte geben Sie ein Password ein",
+                "errorLength": "Ihr Passwort muss mind. {length} Zeichen lang sein"
+            }
+        },
+        "register": {
+            "header": {
+                "main": "Registrierung",
+                "generalFields": "Allgemein"
+            },
+            "accountTypes": {
+                "label": "Kontotyp*",
+                "placeholder": "Auswählen...",
+                "private": "Privat",
+                "business": "Gewerblich",
+                "errorGeneral": "Bitte geben Sie einen Kontotyp an."
+            },
+            "salutations": {
+                "label": "Anrede*",
+                "placeholder": "Auswählen...",
+                "errorGeneral": "Bitte geben Sie eine Anrede an."
+            },
+            "title": {
+                "label": "Titel",
+                "placeholder": "Titel eingeben..."
+            },
+            "firstName": {
+                "label": "Vorname*",
+                "placeholder": "Vornamen eingeben...",
+                "errorGeneral": "Bitte geben Sie ihren Vornamen an."
+            },
+            "lastName": {
+                "label": "Nachname*",
+                "placeholder": "Nachname eingeben...",
+                "errorGeneral": "Bitte geben Sie ihren Nachnamen an."
+            },
+            "email": {
+                "label": "E-Mail Adresse*",
+                "placeholder": "E-Mail Adresse eingeben...",
+                "errorGeneral": "Bitte geben sie eine valide E-Mail-Adresse ein.",
+                "confirm": {
+                    "label": "E-Mail Adresse bestätigen*",
+                    "placeholder": "Email Adresse erneut eingeben...",
+                    "errorGeneral": "Die Angabe stimmt nicht mit der Email Adresse überein."
+                }
+            },
+            "birthdate": {
+                "label": "Geburtsdatum",
+                "errorGeneral": "Bitte wähle ein Geburtsdatum"
+            }
         }
-      }
     }
-  }
 }
