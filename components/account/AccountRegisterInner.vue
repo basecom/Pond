@@ -6,6 +6,7 @@ import * as z from 'zod';
 
 // Composables
 const {getSalutations, fetchSalutations} = useSalutations();
+const {getCountries, fetchCountries, getStatesForCountry} = useCountries();
 const {t} = useI18n();
 const configStore = useConfigStore();
 
@@ -14,8 +15,9 @@ const accountTypes = [
     {label: t('account.register.accountTypes.private'), value: 'private'},
     {label: t('account.register.accountTypes.business'), value: 'business'},
 ] as const;
-const salutations = ref<Array<Schemas['Salutation']>>();
-const businessType = ref<boolean>(false);
+const salutations = ref<Array<Schemas['Salutation']> | null>();
+const countries = ref<Array<Schemas['Country']> | null>();
+const states = ref<Array<Schemas['CountryState']> | null>();
 const deliveryAddressVaries = ref<boolean>(false);
 // Calculate if passwordMinLength was set in admin config and convert result into processable zod.min type
 const passwordMinLength = computed<number>(() => {
@@ -57,10 +59,13 @@ const registerSchema = toTypedSchema(
             })
             .email(t('account.register.email.errorGeneral')),
         birthdate: configStore.get('core.loginRegistration.birthdayFieldRequired')
-            ? z.string({
-                required_error: t('account.register.birthdate.errorGeneral'),
-            })
-            : z.string().optional(),
+            ? z
+                .string({
+                    required_error: t('account.register.birthdate.errorGeneral'),
+                })
+            : z
+                .string()
+                .optional(),
         company: z
             .string({
                 required_error: t('account.register.company.errorGeneral'),
@@ -111,27 +116,27 @@ const registerSchema = toTypedSchema(
                 required_error: t('account.register.additionalAddressLine2.error.required'),
             })
             : z.string().optional(),
-        // country: {
-        //     label: 'City',
-        //     inputProps: {
-        //         type: 'text',
-        //         placeholder: 'Provide your city',
-        //     },
-        // },
-        // state: {
-        //     label: 'State',
-        //     inputProps: {
-        //         type: 'text',
-        //         placeholder: 'Provide your state',
-        //     },
-        // },
-        // phone: {
-        //     label: 'Phone number',
-        //     inputProps: {
-        //         type: 'number',
-        //         placeholder: 'Provide your phone number',
-        //     },
-        // },
+        country: z
+            .string({
+                required_error: t('account.register.country.error.required'),
+            }),
+        state: z.string(),
+        phone: configStore.get('core.loginRegistration.phoneNumberFieldRequired')
+            ? z
+                .string({
+                    required_error: t('account.register.phone.error.required')
+                })
+                .regex(
+                    /^\+?\d{1,4}[-.\s]?\(?\d{1,5}\)?[-.\s]?\d{1,9}([-.\s]?\d{1,9})?$/,
+                    t('account.register.phone.error.general')
+                )
+            : z
+                .string()
+                .regex(
+                    /^\+?\d{1,4}[-.\s]?\(?\d{1,5}\)?[-.\s]?\d{1,9}([-.\s]?\d{1,9})?$/,
+                    t('account.register.phone.error.general')
+                )
+                .optional()
     }).refine(data => data.email === data.confirmMail, {
         message: t('account.register.email.confirm.errorGeneral'),
         path: ['confirmMail'],
@@ -152,21 +157,21 @@ const onSubmit = form.handleSubmit(() => {
     console.log(form.values);
 });
 
-// If accountType is business, the company field will be rendered
+// Updates current states if selected country has any
 watch(form.values, (values) => {
-    if (values.accountType === 'business') {
-        businessType.value = true;
+    if (!values.country) {
         return;
     }
-    businessType.value = false;
+    states.value = getStatesForCountry(values.country);
 });
 
 // Set up fresh admin config variables and get salutations from admin
 onBeforeMount(async () => {
-    // Get fresh generated salutations
     await configStore.loadConfig();
     await fetchSalutations();
     salutations.value = getSalutations.value;
+    await fetchCountries();
+    countries.value = getCountries.value;
 });
 </script>
 
@@ -350,7 +355,7 @@ onBeforeMount(async () => {
                             </UiFormItem>
                         </FormField>
                         <FormField
-                            v-if="businessType"
+                            v-if="form.values.accountType === 'business'"
                             v-slot="{ componentField }"
                             name="company"
                         >
@@ -367,7 +372,7 @@ onBeforeMount(async () => {
                             </UiFormItem>
                         </FormField>
                         <div
-                            v-if="businessType"
+                            v-if="form.values.accountType === 'business'"
                             class="flex w-full gap-x-3"
                         >
                             <FormField
@@ -538,8 +543,93 @@ onBeforeMount(async () => {
                                 </UiFormItem>
                             </FormField>
                         </div>
+                        <FormField
+                            v-slot="{ componentField }"
+                            name="country"
+                        >
+                            <UiFormItem>
+                                <UiFormLabel>{{ $t('account.register.country.label') }}</UiFormLabel>
+                                <UiSelect v-bind="componentField">
+                                    <UiFormControl>
+                                        <UiSelectTrigger>
+                                            <UiSelectValue
+                                                :placeholder="$t('account.register.country.placeholder')"
+                                            />
+                                        </UiSelectTrigger>
+                                    </UiFormControl>
+                                    <UiSelectContent>
+                                        <UiSelectGroup>
+                                            <UiSelectItem
+                                                v-for="country in countries"
+                                                :key="country.id"
+                                                :value="country.id"
+                                            >
+                                                {{ country.translated.name }}
+                                            </UiSelectItem>
+                                        </UiSelectGroup>
+                                    </UiSelectContent>
+                                </UiSelect>
+                                <UiFormMessage/>
+                            </UiFormItem>
+                        </FormField>
+                        <FormField
+                            v-if="states && states.length > 0"
+                            v-slot="{ componentField }"
+                            name="state"
+                        >
+                            <UiFormItem>
+                                <UiFormLabel>{{ $t('account.register.state.label') }}</UiFormLabel>
+                                <UiSelect v-bind="componentField">
+                                    <UiFormControl>
+                                        <UiSelectTrigger>
+                                            <UiSelectValue
+                                                :placeholder="$t('account.register.state.placeholder')"
+                                            />
+                                        </UiSelectTrigger>
+                                    </UiFormControl>
+                                    <UiSelectContent>
+                                        <UiSelectGroup>
+                                            <UiSelectItem
+                                                v-for="state in states"
+                                                :key="state.id"
+                                                :value="state.id"
+                                            >
+                                                {{ state.translated.name }}
+                                            </UiSelectItem>
+                                        </UiSelectGroup>
+                                    </UiSelectContent>
+                                </UiSelect>
+                                <UiFormMessage/>
+                            </UiFormItem>
+                        </FormField>
+                        <FormField
+                            v-if="configStore.get('core.loginRegistration.showPhoneNumberField')"
+                            v-slot="{ componentField }"
+                            name="phone"
+                        >
+                            <UiFormItem>
+                                <UiFormLabel v-if="configStore.get('core.loginRegistration.phoneNumberFieldRequired')">
+                                    {{ $t('account.register.phone.labelRequired') }}
+                                </UiFormLabel>
+                                <UiFormLabel v-else>
+                                    {{ $t('account.register.phone.label') }}
+                                </UiFormLabel>
+                                <UiFormControl>
+                                    <UiInput
+                                        type="text"
+                                        v-bind="componentField"
+                                        :placeholder="$t('account.register.phone.placeholder')"
+                                        :aria-placeholder="$t('account.register.phone.placeholder')"
+                                    />
+                                </UiFormControl>
+                                <UiFormMessage/>
+                            </UiFormItem>
+                        </FormField>
                         <UiCheckbox v-model="deliveryAddressVaries" id="deliveryAddressVaries"/>
-                        <UiLabel for="deliveryAddressVaries">Testlabel</UiLabel>
+                        <UiLabel for="deliveryAddressVaries">{{
+                                $t('account.register.differentShippingAddress')
+                            }}
+                        </UiLabel>
                     </slot>
                 </div>
             </slot>

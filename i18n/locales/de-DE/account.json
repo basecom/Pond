@@ -139,6 +139,27 @@
                 "error": {
                     "required": "Bitte geben Sie hier den Adresszusatz ein."
                 }
+            },
+            "country": {
+                "label": "Land*",
+                "placeholder": "Land auswählen...",
+                "error": {
+                    "required": "Bitte wählen Sie ihr Land aus."
+                }
+            },
+            "state": {
+                "label": "Bundesland",
+                "placeholder": "Bundesland auswählen..."
+            },
+            "differentShippingAddress": "Lieferadresse weicht von Rechnungsadresse ab.",
+            "phone": {
+                "label": "Telefonnummer",
+                "labelRequired": "Telefonnummer*",
+                "placeholder": "Telefonnummer eingeben...",
+                "error": {
+                    "required": "Bitte geben Sie ihre Telefonnummer ein.",
+                    "general": "Bitte geben Sie eine gültige Telefonnummer ein."
+                }
             }
         }
     }

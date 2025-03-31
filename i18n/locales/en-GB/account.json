@@ -139,6 +139,27 @@
                 "error": {
                     "required": "Please enter additonal address info in this line."
                 }
+            },
+            "country": {
+                "label": "Country*",
+                "placeholder": "Select country...",
+                "error": {
+                    "required": "Please select your country."
+                }
+            },
+            "state": {
+                "label": "State",
+                "placeholder": "Select state..."
+            },
+            "differentShippingAddress": "Shipping and billing address do not match.",
+            "phone": {
+                "label": "Phone number",
+                "labelRequired": "Phone number*",
+                "placeholder": "Enter phone number...",
+                "error": {
+                    "required": "Please enter your phone number.",
+                    "general": "Please enter a valid phone number."
+                }
             }
         }
     }
