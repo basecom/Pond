@@ -1,4 +1,5 @@
-/** @type {import('tailwindcss').Config} */
+import tailwindcssAnimate from 'tailwindcss-animate';
+
 export default {
     theme: {
         fontFamily: {
@@ -10,14 +11,32 @@ export default {
             brand: {
                 primary: '#0099FF',
             },
-            gray: '#A2A2A2', 
             white: '#FFFFFF', // Here for compatibility with shopware cms
             black: '#000000', // Here for compatibility with shopware cms
-            status: {
-                info: '#0099CC',
-                success: '#693',
-                warning: '#fc0',
-                danger: '#c00',
+            gray: {
+                50: '#fafafa',
+                100: '#f4f4f5',
+                200: '#e4e4e7',
+                300: '#d4d4d8',
+                400: '#9f9fa9',
+                500: '#71717b',
+                600: '#52525c',
+                700: '#3f3f46',
+                800: '#27272a',
+                900: '#18181b',
+                950: '#09090b',
+            },
+            red: {
+                500: '#fb2c36',
+            },
+            yellow: {
+                500: '#f0b100',
+            },
+            green: {
+                500: '#00c950',
+            },
+            blue: {
+                500: '#00a6f4',
             },
         },
         extend: {
@@ -31,10 +50,7 @@ export default {
                 xl: '5rem',
                 '2xl': '6rem',
             },
-            screens: {
-                DEFAULT: '1400px',
-            },
         },
     },
-    plugins: [],
+    plugins: [tailwindcssAnimate],
 };

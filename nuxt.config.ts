@@ -10,12 +10,14 @@ export default defineNuxtConfig({
         '@nuxt/eslint',
         '@nuxt/fonts',
         '@nuxtjs/i18n',
+        '@nuxt/icon',
+        'shadcn-nuxt',
+        '@shopware/nuxt-module',
     ],
 
     experimental: {
         asyncContext: true,
         sharedPrerenderData: true,
-        typedPages: true,
         viewTransition: true,
     },
 
@@ -27,21 +29,16 @@ export default defineNuxtConfig({
         compatibilityVersion: 4,
     },
 
-    runtimeConfig: {
-        public: {
-            pond: {
-                shopwareEndpoint: '',
-                accessToken: '',
-            },
-        },
-    },
-
-    extends: ['@shopware-pwa/composables-next/nuxt-layer'],
-
     fonts: {
         defaults: {
             weights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
             styles: ['normal', 'italic'],
+        },
+    },
+
+    icon: {
+        serverBundle: {
+            collections: ['mdi'],
         },
     },
 
@@ -58,13 +55,14 @@ export default defineNuxtConfig({
         locales: [
             {
                 code: 'de-DE',
-                file: 'de-DE/de-DE.ts',
+                files: ['de-DE/account.json', 'de-DE/error.json', 'de-DE/general.json'],
             },
             {
                 code: 'en-GB',
-                file: 'en-GB/en-GB.ts',
+                files: ['en-GB/account.json', 'en-GB/error.json', 'en-GB/general.json'],
             },
         ],
+        lazy: true,
     },
 
     compatibilityDate: '2025-02-24',
@@ -73,5 +71,21 @@ export default defineNuxtConfig({
         head: {
             link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
         },
+    },
+
+    runtimeConfig: {
+        public: {
+            shopware: {
+                endpoint: '',
+                accessToken: '',
+            },
+        },
+    },
+
+    extends: ['@shopware/composables/nuxt-layer'],
+
+    shadcn: {
+        prefix: '',
+        componentDir: './components/ui',
     },
 });

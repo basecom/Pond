@@ -1,0 +1,14 @@
+{
+    "account": {
+        "myAccount": "My Account",
+        "overview": "Overview",
+        "personalProfile": "Personal Profile",
+        "addresses": "Addresses",
+        "paymentMethods": "Payment Methods",
+        "orders": "Orders",
+        "auth": {
+            "login": "Sign in",
+            "register": "Sign up"
+        }
+    }
+}

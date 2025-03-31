@@ -1,0 +1,3 @@
+<template>
+    <LayoutHeaderSearchInner />
+</template>
