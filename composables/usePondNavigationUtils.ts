@@ -1,5 +1,5 @@
 import type { Schemas } from '@shopware/api-client/api-types';
-import { getCategoryUrl, getTranslatedProperty } from '@shopware/helpers';
+import { getCategoryUrl, getTranslatedProperty, getProductUrl } from '@shopware/helpers';
 
 export const usePondNavigationUtils = (navigationElement: Schemas['Category']) => {
     const { search: searchCategory } = useCategorySearch();
@@ -31,7 +31,7 @@ export const usePondNavigationUtils = (navigationElement: Schemas['Category']) =
 
         if (isCategoryLink) {
             const { data: categoryResponse } = await usePondCacheAsyncData(
-                `category-${  internalLink}`,
+                `category-${internalLink}`,
                 async () => await searchCategory(internalLink),
             );
 

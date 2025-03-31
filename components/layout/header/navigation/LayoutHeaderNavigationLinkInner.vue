@@ -15,7 +15,7 @@ const props = withDefaults(
 );
 
 const emits = defineEmits<{
-  click: [navigationElement: Schemas['Category'], categoryLink: string|null, options?: {target: string}];
+  click: [navigationElement?: Schemas['Category'], categoryLink?: string, options?: {open: {target: string}}];
 }>();
 
 const { isExternalLink, isInternalLink, externalLink, loadInternalLink, path, linkNewTab } = usePondNavigationUtils(props.navigationElement);
@@ -36,16 +36,15 @@ const categoryLink = computed(() => {
 });
 
 const handleClick = () => {
-    // if its an external link: link to it
+    // if it's an external link: link to it
     if (isExternalLink && externalLink) {
         navigateTo(categoryLink.value, {external: true, open: {target: '_blank'}});
         return;
     }
 
     // internal? push event
-    // todo: does not work
-    const options =linkNewTab ? {open: {target: '_blank'}} : {};
-    emits('click', props.navigationElement, categoryLink, options);
+    const options =linkNewTab ? {open: {target: '_blank'}} : undefined;
+    emits('click', props.navigationElement, categoryLink.value, options);
 };
 </script>
 
@@ -53,7 +52,7 @@ const handleClick = () => {
     <LazyNuxtLinkLocale
         v-if="showAsLink && categoryLink"
         :to="categoryLink"
-        :class="[classes, 'cursor-pointer border-b-2 border-gray-100 py-3']"
+        :class="[classes]"
         @click.prevent="handleClick"
     >
         <slot name="link-name">
@@ -63,8 +62,8 @@ const handleClick = () => {
 
     <div
         v-else
-        :class="[classes, 'flex cursor-pointer items-center border-b-2 border-gray-100 py-3']"
-        @click="$emit('click', navigationElement, null)"
+        :class="[classes, 'flex cursor-pointer items-center']"
+        @click="$emit('click', navigationElement, undefined)"
     >
         <slot name="item-name">
             {{ getTranslatedProperty(navigationElement, 'name') }}

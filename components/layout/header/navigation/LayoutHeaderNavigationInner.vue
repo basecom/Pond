@@ -8,9 +8,11 @@ defineProps<{
 </script>
 
 <template>
-    <div>
+    <slot name="header-navigation">
         <div v-for="navigationElement in navigationElements" :key="navigationElement.id">
-            {{ getTranslatedProperty(navigationElement, 'name') }}
+            <slot name="header-navigation-name">
+                {{ getTranslatedProperty(navigationElement, 'name') }}
+            </slot>
         </div>
-    </div>
+    </slot>
 </template>

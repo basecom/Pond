@@ -16,7 +16,7 @@ withDefaults(
 );
 
 defineEmits<{
-  click: [navigationElement: Schemas['Category'], categoryLink: string|null, options?: {target: string}];
+  click: [navigationElement?: Schemas['Category'], categoryLink?: string, options?: {open: {target: string}}];
 }>();
 </script>
 

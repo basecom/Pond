@@ -14,7 +14,11 @@ const shownNavigationItems = ref(props.navigationElements);
 const previousNavigationItems: Ref<Schemas['Category'][]> = ref([]);
 const isOpen = ref(false);
 
-const handleClick = async (navigationElement: Schemas['Category'], categoryLink: string|null, options?: {target: string}) => {
+const handleClick = async (navigationElement?: Schemas['Category'], categoryLink?: string, options?: {open: {target: string}}) => {
+    if (!navigationElement) {
+        return;
+    }
+
     if (navigationElement.childCount > 0) {
         previousNavigationItems.value.push(navigationElement);
         shownNavigationItems.value = navigationElement.children;
@@ -22,6 +26,8 @@ const handleClick = async (navigationElement: Schemas['Category'], categoryLink:
     }
 
     isOpen.value = false;
+    shownNavigationItems.value = props.navigationElements;
+    previousNavigationItems.value = [];
     await navigateTo(categoryLink, options);
 };
 
