@@ -56,11 +56,11 @@ watch(
     <!-- TODO: Also become visible when navigating between listing pages -->
     <template v-if="!listingState.filters.all">
         <ClientOnly>
-            <div class="h-10 mb-10 rounded animate-pulse w-32 ml-auto bg-gray-medium" />
-            <div class="flex gap-2 mr-auto">
-                <div class="h-10 mb-5 rounded animate-pulse w-32 bg-gray-medium" />
-                <div class="h-10 mb-5 rounded animate-pulse w-32 bg-gray-medium" />
-                <div class="h-10 mb-5 rounded animate-pulse w-32 bg-gray-medium" />
+            <div class="mb-10 ml-auto h-10 w-32 animate-pulse rounded bg-gray-medium" />
+            <div class="mr-auto flex gap-2">
+                <div class="mb-5 h-10 w-32 animate-pulse rounded bg-gray-medium" />
+                <div class="mb-5 h-10 w-32 animate-pulse rounded bg-gray-medium" />
+                <div class="mb-5 h-10 w-32 animate-pulse rounded bg-gray-medium" />
             </div>
         </ClientOnly>
     </template>

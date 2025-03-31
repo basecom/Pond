@@ -62,7 +62,7 @@ const { status: searchStatus } = useLazyAsyncData(
     async () => {
         await search(listingState.value.criteria);
         listingStore.setSearchResult(getCurrentListing.value, true);
-    }
+    },
 );
 </script>
 
@@ -100,7 +100,7 @@ const { status: searchStatus } = useLazyAsyncData(
 
     <!-- Pagination Skeleton Loader -->
     <template v-if="searchStatus === 'pending'">
-        <div class="h-6 mt-10 rounded animate-pulse w-1/3 mx-auto bg-gray-medium" />
+        <div class="mx-auto mt-10 h-6 w-1/3 animate-pulse rounded bg-gray-medium" />
     </template>
 
     <LayoutPagination

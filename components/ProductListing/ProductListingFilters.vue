@@ -107,7 +107,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
             </div>
         </div>
 
-        <div v-if="selectedFilters" class="flex flex-wrap gap-3 mb-4">
+        <div v-if="selectedFilters" class="mb-4 flex flex-wrap gap-3">
             <template
                 v-for="(filter, key) in selectedFilters"
                 :key="key"
