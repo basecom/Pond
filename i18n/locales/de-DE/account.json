@@ -28,7 +28,8 @@
         "register": {
             "header": {
                 "main": "Registrierung",
-                "generalFields": "Allgemein"
+                "generalFields": "Allgemein",
+                "addressFields": "Ihre Adresse"
             },
             "accountTypes": {
                 "label": "Kontotyp*",
@@ -69,34 +70,74 @@
             "birthdate": {
                 "label": "Geburtsdatum",
                 "labelRequired": "Geburtsdatum*",
-                "errorGeneral": "Bitte wähle Sie ihr Geburtsdatum"
+                "errorGeneral": "Bitte wähle Sie ihr Geburtsdatum."
             },
             "company": {
                 "label": "Firma*",
                 "placeholder": "Firma eingeben...",
-                "errorGeneral": "Bitte geben Sie ihren Firmennamen an"
+                "errorGeneral": "Bitte geben Sie ihren Firmennamen an."
             },
             "department": {
                 "label": "Abteilung",
                 "placeholder": "Abteilung eingeben...",
-                "errorGeneral": "Bitte geben Sie ihre Abteilung an"
+                "errorGeneral": "Bitte geben Sie ihre Abteilung an."
             },
             "vatNumber": {
                 "label": "Umsatzsteuer-ID",
                 "placeholder": "Umsatzsteuer-ID eingeben...",
-                "errorGeneral": "Bitte geben Sie eine gültige Umsatzsteuer-ID an"
+                "errorGeneral": "Bitte geben Sie eine gültige Umsatzsteuer-ID an."
             },
             "password": {
                 "label": "Passwort*",
                 "placeholder": "Passwort eingeben...",
-                "errorGeneral": "Bitte geben Sie ein valides Passwort ein.",
-                "requirements": {
-                    "length": "Es muss lang sein :o"
+                "error": {
+                    "general": "Bitte geben Sie ein valides Passwort ein.",
+                    "minLength": "Das Passwort muss mindestens {length} Charaktere enthalten."
                 },
                 "confirm": {
                     "label": "Passwort bestätigen*",
                     "placeholder": "Passwort erneut eingeben...",
                     "errorGeneral": "Die Angabe stimmt nicht mit dem Passwort überein."
+                }
+            },
+            "address": {
+                "label": "Straße und Hausnummer*",
+                "placeholder": "Straße und Hausnummer eingeben...",
+                "error": {
+                    "required": "Bitte geben Sie ihre Straße und Hausnummer an.",
+                    "general": "Bitte geben Sie eine gültige Adresse an."
+                }
+            },
+            "postalCode": {
+                "label": "PLZ*",
+                "placeholder": "PLZ eingeben...",
+                "error": {
+                    "required": "Bitte geben Sie ihre PLZ ein.",
+                    "general": "Bitte geben Sie eine gültige PLZ ein."
+                }
+            },
+            "city": {
+                "label": "Ort*",
+                "placeholder": "Ort eingeben",
+                "error": {
+                    "required": "Bitte geben Sie ihren Ort an.",
+                    "general": "Der Ortsname darf nur Buchstaben, Leerzeichen und Bindestriche enthalten."
+                }
+            },
+            "additionalAddressLine1": {
+                "label": "Adresszusatz 1",
+                "labelRequired": "Adresszusatz 1*",
+                "placeholder": "Adresszusatz eingeben...",
+                "error": {
+                    "required": "Bitte geben Sie hier den Adresszusatz ein."
+                }
+            },
+            "additionalAddressLine2": {
+                "label": "Adresszusatz 2",
+                "labelRequired": "Adresszusatz 2*",
+                "placeholder": "Adresszusatz eingeben...",
+                "error": {
+                    "required": "Bitte geben Sie hier den Adresszusatz ein."
                 }
             }
         }

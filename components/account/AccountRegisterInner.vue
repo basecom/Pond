@@ -1,19 +1,30 @@
 <script setup lang="ts">
 import {useForm} from 'vee-validate';
 import {toTypedSchema} from '@vee-validate/zod';
+import {type Schemas} from '@shopware/api-client/store-api-types';
 import * as z from 'zod';
 
+// Composables
 const {getSalutations, fetchSalutations} = useSalutations();
 const {t} = useI18n();
 const configStore = useConfigStore();
 
+// Custom properties
 const accountTypes = [
     {label: t('account.register.accountTypes.private'), value: 'private'},
     {label: t('account.register.accountTypes.business'), value: 'business'},
 ] as const;
-const salutations = ref<string[]>([]);
+const salutations = ref<Array<Schemas['Salutation']>>();
 const businessType = ref<boolean>(false);
+const deliveryAddressVaries = ref<boolean>(false);
+// Calculate if passwordMinLength was set in admin config and convert result into processable zod.min type
+const passwordMinLength = computed<number>(() => {
+    return configStore.get('core.loginRegistration.passwordMinLength')
+        ? Number(configStore.get('core.loginRegistration.passwordMinLength'))
+        : 0
+});
 
+// Zod validation schema
 const registerSchema = toTypedSchema(
     z.object({
         accountType: z
@@ -21,11 +32,11 @@ const registerSchema = toTypedSchema(
                 required_error: t('account.register.accountTypes.errorGeneral'),
             })
             .nonempty(),
-        salutation: z
+        salutationId: z
             .string({
                 required_error: t('account.register.salutations.errorGeneral'),
             }),
-        title: z
+        personalTitle: z
             .string().optional(),
         firstName: z
             .string({
@@ -46,10 +57,10 @@ const registerSchema = toTypedSchema(
             })
             .email(t('account.register.email.errorGeneral')),
         birthdate: configStore.get('core.loginRegistration.birthdayFieldRequired')
-            ? z.date({
+            ? z.string({
                 required_error: t('account.register.birthdate.errorGeneral'),
             })
-            : z.date().optional(),
+            : z.string().optional(),
         company: z
             .string({
                 required_error: t('account.register.company.errorGeneral'),
@@ -61,46 +72,45 @@ const registerSchema = toTypedSchema(
         vatNumber: z.string(),
         password: z
             .string({
-                required_error: t('account.register.password.errorGeneral'),
+                required_error: t('account.register.password.error.general'),
             })
-            .min(configStore.get('core.loginRegistration.passwordMinLength') ?? 0),
+            .min(
+                passwordMinLength.value,
+                t('account.register.password.error.minLength', {length: passwordMinLength.value})
+            ),
         confirmPassword: z
             .string({
                 required_error: t('account.register.password.confirm.errorGeneral'),
             }),
-        // address: {
-        //     label: 'Street and House number',
-        //     inputProps: {
-        //         type: 'text',
-        //         placeholder: 'Provide the account type',
-        //     },
-        // },
-        // postalCode: {
-        //     label: 'Post Code',
-        //     inputProps: {
-        //         type: 'text',
-        //         placeholder: 'Provide postal code',
-        //     },
-        // },
-        // city: {
-        //     label: 'City',
-        //     inputProps: {
-        //         type: 'text',
-        //         placeholder: 'Provide your city',
-        //     },
-        // },
-        // additionalAddressLine1: {
-        //     label: 'Additional Address line 1',
-        //     inputProps: {
-        //         type: 'text',
-        //     },
-        // },
-        // additionalAddressLine2: {
-        //     label: 'Additional Address line 2',
-        //     inputProps: {
-        //         type: 'text',
-        //     },
-        // },
+        address: z
+            .string({
+                required_error: t('account.register.address.error.required')
+            })
+            .min(3, t('account.register.address.error.general'))
+            .regex(
+                /^(\d+[a-zA-Z]?(?:-\d+[a-zA-Z]?)?\s[A-Za-zÄÖÜäöüß\s-]+|\b[A-Za-zÄÖÜäöüß\s-]+\s\d+[a-zA-Z]?(?:-\d+[a-zA-Z]?)?\b)$/,
+                t('account.register.address.error.general')
+            ),
+        postalCode: z
+            .string({
+                required_error: t('account.register.postalCode.error.required'),
+            })
+            .regex(/^\d{5}$/, t('account.register.postalCode.error.general')),
+        city: z
+            .string({
+                required_error: t('account.register.city.error.required'),
+            })
+            .regex(/^[a-zA-ZäöüÄÖÜß\s-]+$/, t('account.register.city.error.general')),
+        additionalAddressLine1: configStore.get('core.loginRegistration.additionalAddressField1Required')
+            ? z.string({
+                required_error: t('account.register.additionalAddressLine1.error.required'),
+            })
+            : z.string().optional(),
+        additionalAddressLine2: configStore.get('core.loginRegistration.additionalAddressField2Required')
+            ? z.string({
+                required_error: t('account.register.additionalAddressLine2.error.required'),
+            })
+            : z.string().optional(),
         // country: {
         //     label: 'City',
         //     inputProps: {
@@ -125,18 +135,21 @@ const registerSchema = toTypedSchema(
     }).refine(data => data.email === data.confirmMail, {
         message: t('account.register.email.confirm.errorGeneral'),
         path: ['confirmMail'],
-    })
-        .refine(data => data.password === data.confirmPassword, {
-            message: t('account.register.password.confirm.errorGeneral'),
-            path: ['confirmPassword'],
-        }),
+    }).refine(data => data.password === data.confirmPassword, {
+        message: t('account.register.password.confirm.errorGeneral'),
+        path: ['confirmPassword'],
+    }),
 );
+
+// Form object
 const form = useForm({
     validationSchema: registerSchema,
 });
 
+// Handle Form submit and BE validation
 const onSubmit = form.handleSubmit(() => {
     console.log('submitting all');
+    console.log(form.values);
 });
 
 // If accountType is business, the company field will be rendered
@@ -148,6 +161,7 @@ watch(form.values, (values) => {
     businessType.value = false;
 });
 
+// Set up fresh admin config variables and get salutations from admin
 onBeforeMount(async () => {
     // Get fresh generated salutations
     await configStore.loadConfig();
@@ -172,7 +186,6 @@ onBeforeMount(async () => {
                             v-if="configStore.get('core.loginRegistration.showAccountTypeSelection')"
                             v-slot="{ componentField }"
                             name="accountType"
-                            @change="console.log('los gehts')"
                         >
                             <UiFormItem>
                                 <UiFormLabel>{{ $t('account.register.accountTypes.label') }}</UiFormLabel>
@@ -199,7 +212,10 @@ onBeforeMount(async () => {
                                 <UiFormMessage/>
                             </UiFormItem>
                         </FormField>
-                        <FormField v-slot="{ componentField }" name="salutation">
+                        <FormField
+                            v-slot="{ componentField }"
+                            name="salutation"
+                        >
                             <UiFormItem>
                                 <UiFormLabel>{{ $t('account.register.salutations.label') }}</UiFormLabel>
                                 <UiSelect v-bind="componentField">
@@ -243,7 +259,10 @@ onBeforeMount(async () => {
                                 <UiFormMessage/>
                             </UiFormItem>
                         </FormField>
-                        <FormField v-slot="{ componentField }" name="firstName">
+                        <FormField
+                            v-slot="{ componentField }"
+                            name="firstName"
+                        >
                             <UiFormItem>
                                 <UiFormLabel>{{ $t('account.register.firstName.label') }}</UiFormLabel>
                                 <UiFormControl>
@@ -257,7 +276,10 @@ onBeforeMount(async () => {
                                 <UiFormMessage/>
                             </UiFormItem>
                         </FormField>
-                        <FormField v-slot="{ componentField }" name="lastName">
+                        <FormField
+                            v-slot="{ componentField }"
+                            name="lastName"
+                        >
                             <UiFormItem>
                                 <UiFormLabel>{{ $t('account.register.lastName.label') }}</UiFormLabel>
                                 <UiFormControl>
@@ -271,7 +293,10 @@ onBeforeMount(async () => {
                                 <UiFormMessage/>
                             </UiFormItem>
                         </FormField>
-                        <FormField v-slot="{ componentField }" name="email">
+                        <FormField
+                            v-slot="{ componentField }"
+                            name="email"
+                        >
                             <UiFormItem>
                                 <UiFormLabel>{{ $t('account.register.email.label') }}</UiFormLabel>
                                 <UiFormControl>
@@ -312,7 +337,9 @@ onBeforeMount(async () => {
                                 <UiFormLabel v-if="configStore.get('core.loginRegistration.birthdayFieldRequired')">
                                     {{ $t('account.register.birthdate.labelRequired') }}
                                 </UiFormLabel>
-                                <UiFormLabel v-else>{{ $t('account.register.birthdate.label') }}</UiFormLabel>
+                                <UiFormLabel v-else>
+                                    {{ $t('account.register.birthdate.label') }}
+                                </UiFormLabel>
                                 <UiFormControl>
                                     <UiInput
                                         type="date"
@@ -339,7 +366,10 @@ onBeforeMount(async () => {
                                 </UiFormControl>
                             </UiFormItem>
                         </FormField>
-                        <div v-if="businessType" class="flex">
+                        <div
+                            v-if="businessType"
+                            class="flex w-full gap-x-3"
+                        >
                             <FormField
                                 v-slot="{ componentField }"
                                 name="department"
@@ -373,7 +403,10 @@ onBeforeMount(async () => {
                                 </UiFormItem>
                             </FormField>
                         </div>
-                        <FormField v-slot="{ componentField }" name="password">
+                        <FormField
+                            v-slot="{ componentField }"
+                            name="password"
+                        >
                             <UiFormItem>
                                 <UiFormLabel>{{ $t('account.register.password.label') }}</UiFormLabel>
                                 <UiFormControl>
@@ -385,7 +418,7 @@ onBeforeMount(async () => {
                                     />
                                 </UiFormControl>
                                 <UiFormDescription>
-                                    {{ $t('account.register.password.requirements.length') }}
+                                    {{ $t('account.register.password.error.minLength') }}
                                 </UiFormDescription>
                                 <UiFormMessage/>
                             </UiFormItem>
@@ -408,6 +441,105 @@ onBeforeMount(async () => {
                                 <UiFormMessage/>
                             </UiFormItem>
                         </FormField>
+                    </slot>
+                </div>
+                <hr class="my-7">
+                <div class="addressFields space-y-5">
+                    <slot name="addressFieldsHeader">
+                        <h3 class="text-xl">{{ $t('account.register.header.addressFields') }}</h3>
+                    </slot>
+                    <slot name="addressFieldsFormFields space-y-5">
+                        <FormField
+                            v-slot="{ componentField }"
+                            name="address"
+                        >
+                            <UiFormItem>
+                                <UiFormLabel>{{ $t('account.register.address.label') }}</UiFormLabel>
+                                <UiFormControl>
+                                    <UiInput
+                                        type="text"
+                                        v-bind="componentField"
+                                        :placeholder="$t('account.register.address.placeholder')"
+                                        :aria-placeholder="$t('account.register.address.placeholder')"
+                                    />
+                                </UiFormControl>
+                                <UiFormMessage/>
+                            </UiFormItem>
+                        </FormField>
+                        <FormField
+                            v-slot="{ componentField }"
+                            name="postalCode"
+                        >
+                            <UiFormItem>
+                                <UiFormLabel>{{ $t('account.register.postalCode.label') }}</UiFormLabel>
+                                <UiFormControl>
+                                    <UiInput
+                                        type="text"
+                                        v-bind="componentField"
+                                        :placeholder="$t('account.register.postalCode.placeholder')"
+                                        :aria-placeholder="$t('account.register.postalCode.placeholder')"
+                                    />
+                                </UiFormControl>
+                                <UiFormMessage/>
+                            </UiFormItem>
+                        </FormField>
+                        <FormField
+                            v-slot="{ componentField }"
+                            name="city"
+                        >
+                            <UiFormItem>
+                                <UiFormLabel>{{ $t('account.register.city.label') }}</UiFormLabel>
+                                <UiFormControl>
+                                    <UiInput
+                                        type="text"
+                                        v-bind="componentField"
+                                        :placeholder="$t('account.register.city.placeholder')"
+                                        :aria-placeholder="$t('account.register.city.placeholder')"
+                                    />
+                                </UiFormControl>
+                                <UiFormMessage/>
+                            </UiFormItem>
+                        </FormField>
+                        <div class="flex w-full gap-x-3">
+                            <FormField
+                                v-if="configStore.get('core.loginRegistration.showAdditionalAddressField1')"
+                                v-slot="{ componentField }"
+                                name="additionalAddressLine1"
+                            >
+                                <UiFormItem>
+                                    <UiFormLabel>{{ $t('account.register.additionalAddressLine1.label') }}</UiFormLabel>
+                                    <UiFormControl>
+                                        <UiInput
+                                            type="text"
+                                            v-bind="componentField"
+                                            :placeholder="$t('account.register.additionalAddressLine1.placeholder')"
+                                            :aria-placeholder="$t('account.register.additionalAddressLine1.placeholder')"
+                                        />
+                                    </UiFormControl>
+                                    <UiFormMessage/>
+                                </UiFormItem>
+                            </FormField>
+                            <FormField
+                                v-if="configStore.get('core.loginRegistration.showAdditionalAddressField2')"
+                                v-slot="{ componentField }"
+                                name="additionalAddressLine2"
+                            >
+                                <UiFormItem>
+                                    <UiFormLabel>{{ $t('account.register.additionalAddressLine2.label') }}</UiFormLabel>
+                                    <UiFormControl>
+                                        <UiInput
+                                            type="text"
+                                            v-bind="componentField"
+                                            :placeholder="$t('account.register.additionalAddressLine2.placeholder')"
+                                            :aria-placeholder="$t('account.register.additionalAddressLine2.placeholder')"
+                                        />
+                                    </UiFormControl>
+                                    <UiFormMessage/>
+                                </UiFormItem>
+                            </FormField>
+                        </div>
+                        <UiCheckbox v-model="deliveryAddressVaries" id="deliveryAddressVaries"/>
+                        <UiLabel for="deliveryAddressVaries">Testlabel</UiLabel>
                     </slot>
                 </div>
             </slot>

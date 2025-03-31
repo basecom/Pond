@@ -22,13 +22,14 @@
                 "placeholder": "••••••••",
                 "forgotten": "Password forgotten",
                 "errorGeneral": "Please enter a password",
-                "errorLength": "Your password must be at least {length} characters long"
+                "errorLength": "Your password must be at least {length} characters long."
             }
         },
         "register": {
             "header": {
                 "main": "register",
-                "generalFields": "General Fields"
+                "generalFields": "General Fields",
+                "addressFields": "Your address"
             },
             "accountTypes": {
                 "label": "Account Type*",
@@ -40,7 +41,7 @@
             "salutations": {
                 "label": "Salutation*",
                 "placeholder": "Select...",
-                "errorGeneral": "Please select a salutation"
+                "errorGeneral": "Please select a salutation."
             },
             "title": {
                 "label": "Title",
@@ -59,7 +60,7 @@
             "email": {
                 "label": "Email address*",
                 "placeholder": "Enter email address...",
-                "errorGeneral": "Please enter a valid email address",
+                "errorGeneral": "Please enter a valid email address.",
                 "confirm": {
                     "label": "Email address confirmation*",
                     "placeholder": "Enter email address again...",
@@ -69,17 +70,17 @@
             "birthdate": {
                 "label": "Birthdate",
                 "labelRequired": "Birthdate*",
-                "errorGeneral": "Please select your birthdate"
+                "errorGeneral": "Please select your birthdate."
             },
             "company": {
                 "label": "Company*",
                 "placeholder": "Enter company...",
-                "errorGeneral": "Please enter your company name"
+                "errorGeneral": "Please enter your company name."
             },
             "department": {
                 "label": "Department",
                 "placeholder": "Enter department...",
-                "errorGeneral": "Please provide your department"
+                "errorGeneral": "Please provide your department."
             },
             "vatNumber": {
                 "label": "VAT Reg.No.",
@@ -89,14 +90,54 @@
             "password": {
                 "label": "Password*",
                 "placeholder": "Enter password...",
-                "errorGeneral": "Please enter a valid password.",
-                "requirements": {
-                    "length": "It must be long :o"
+                "error": {
+                    "general": "Please enter a valid password.",
+                    "minLength": "The password needs to be at least {length} characters long"
                 },
                 "confirm": {
                     "label": "Password confirmation*",
                     "placeholder": "Enter password again...",
                     "errorGeneral": "The input doesnt match your password."
+                }
+            },
+            "address": {
+                "label": "Street address",
+                "placeholder": "Enter street address...",
+                "error": {
+                    "required": "Please enter your street address.",
+                    "general": "Please enter a valid street address."
+                }
+            },
+            "postalCode": {
+                "label": "Postal code*",
+                "placeholder": "Enter postal code...",
+                "error": {
+                    "required": "Please enter your postal code.",
+                    "general": "Please enter a valid postal code."
+                }
+            },
+            "city": {
+                "label": "City*",
+                "placeholder": "Enter city...",
+                "error": {
+                    "required": "Please enter your city.",
+                    "general": "City name contains invalid characters."
+                }
+            },
+            "additionalAddressLine1": {
+                "label": "Additional address line 1",
+                "labelRequired": "Additional address line 1*",
+                "placeholder": "Enter additional address line...",
+                "error1": {
+                    "required": "Please enter additonal address info in this line."
+                }
+            },
+            "additionalAddressLine2": {
+                "label": "Additional address line 2",
+                "labelRequired": "Additional address line 2*",
+                "placeholder": "Enter additional address line...",
+                "error": {
+                    "required": "Please enter additonal address info in this line."
                 }
             }
         }
