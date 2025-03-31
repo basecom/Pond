@@ -4,6 +4,7 @@ on:
     branches:
       - release/v0.2
       - main
+      - feature/POND-4-demo-instance
 
 jobs:
   deploy_demo:
