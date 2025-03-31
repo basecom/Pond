@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
     <slot name="header-navigation">
-        <div v-for="navigationElement in navigationElements" :key="navigationElement.id">
+        <div v-for="navigationElement in navigationElements" :key="navigationElement.id" class="relative">
             <slot name="header-navigation-name">
                 {{ getTranslatedProperty(navigationElement, 'name') }}
             </slot>

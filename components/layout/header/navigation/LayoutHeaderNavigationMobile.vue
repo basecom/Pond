@@ -42,7 +42,7 @@ const handleBack = () => {
     shownNavigationItems.value = previousNavigationItems.value.at(-1)?.children;
 };
 
-const lastPreviousItem = computed(() => previousNavigationItems.value.length > 0 && previousNavigationItems.value.at(-1) ? previousNavigationItems.value.at(-1) : null);
+const lastPreviousItem = computed(() => previousNavigationItems.value.length > 0 && previousNavigationItems.value.at(-1) ? previousNavigationItems.value.at(-1) : undefined);
 </script>
 
 <template>

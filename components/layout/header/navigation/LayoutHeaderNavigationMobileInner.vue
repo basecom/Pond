@@ -16,7 +16,7 @@ defineEmits<{
 </script>
 
 <template>
-    <div class="md:hidden">
+    <div class="flex items-center md:hidden">
         <UiSheet :open="open" @update:open="(value: boolean) => $emit('open', value)">
             <slot name="mobile-menu-trigger">
                 <UiSheetTrigger class="size-5">
