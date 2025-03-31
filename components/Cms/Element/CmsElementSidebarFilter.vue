@@ -46,6 +46,7 @@ watch(
         :show-reset-button="listingState.filters.modified"
         :sorting-options="listingState.sorting.options"
         :selected-sorting="listingState.sorting.current"
+        :product-listing-store-key="productListingStoreKey"
         @sorting-changed="(sortingOption: Schemas['ProductListingResult']['sorting']) => listingStore.setSorting(sortingOption)"
         @filter-changed="(filters: Schemas['ProductListingResult']['currentFilters']) => listingStore.setFilters(filters)"
         @reset-filters="onResetFilters"

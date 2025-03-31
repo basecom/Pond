@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { RemoveFilterEvent } from "~/types/listing/FilterEvents";
 import { useListingStore } from '~/stores/ListingStore';
 
 const route = useRoute();
@@ -46,6 +47,10 @@ const onFilterChange = async (filters: Schemas['ProductListingResult']['currentF
 
 const onResetFilters = async () => {
     listingStore.resetFilters();
+};
+
+const onRemoveFilter = async (removeFilterEvent: RemoveFilterEvent) => {
+    listingStore.removeFilter(removeFilterEvent);
 };
 
 const onSelectProduct = async (product: Schemas['Product']) => {
@@ -120,6 +125,7 @@ useBreadcrumbs([
                     @sorting-changed="onSortChange"
                     @filter-changed="onFilterChange"
                     @reset-filters="onResetFilters"
+                    @remove-filter="(event: RemoveFilterEvent) => onRemoveFilter(event)"
                 />
             </div>
 

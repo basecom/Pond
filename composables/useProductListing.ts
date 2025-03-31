@@ -13,21 +13,6 @@ export function useProductListing() {
 
     const priceFilter = computed(() => listingState.value.filters.all?.find(filter => filter.code === 'price') as unknown as ListingPriceFilter);
     const propertiesFilter = computed(() => listingState.value.filters.all?.filter(filter => filter.code === 'properties') as unknown as ListingPropertyFilter[]);
-    const appliedFiltersTotal = computed(() => {
-        let total = 0;
-
-        // Add the number of applied property filters if any
-        if (propertiesFilter.value?.length > 0) {
-            total += propertiesFilter.value.length;
-        }
-
-        // Add 1 if a price filter is applied
-        if (isPriceFilterApplied()) {
-            total += 1;
-        }
-
-        return total;
-    });
 
     const listingState = ref({
         filters: {
@@ -140,6 +125,7 @@ export function useProductListing() {
 
         // Update the listingState properties with the values from the result
         filters.applied = result.currentFilters;
+        filters.appliedTotal = result.currentFilters.properties.length + (isPriceFilterApplied() ? 1 : 0);
         sorting.current = result.sorting;
         pagination.limit = result.limit;
         pagination.page = result.page;
@@ -248,20 +234,15 @@ export function useProductListing() {
     };
 
     const isPriceFilterApplied = () => {
-        // Check if price filter values are set
-        if (priceFilter.value?.min && priceFilter.value?.max) {
-            // Check if the applied price values are different from the default filter values
-            const appliedPriceFilter = listingState.value.filters.applied?.price as Schemas['ProductListingResult']['currentFilters']['price'];
+        // Check if the applied price values are different from the default filter values
+        const appliedPriceFilter = listingState.value.filters.applied?.price as Schemas['ProductListingResult']['currentFilters']['price'];
 
-            // 0 is the default value, so 0 = unset
-            if (appliedPriceFilter?.min === 0 && appliedPriceFilter?.max === 0) {
-                return false;
-            }
-
-            return priceFilter.value?.min < appliedPriceFilter?.min || priceFilter.value?.max > appliedPriceFilter?.max;
+        // 0 is the default value, so 0 = unset
+        if (appliedPriceFilter?.min === 0 && appliedPriceFilter?.max === 0) {
+            return false;
         }
 
-        return false;  // No price filter applied or it's equal to default
+        return priceFilter.value?.min < appliedPriceFilter?.min || priceFilter.value?.max > appliedPriceFilter?.max;
     };
 
     const propertyFilterAppliedTotal = (id: Schemas['PropertyGroup']['id']) => {
@@ -340,6 +321,5 @@ export function useProductListing() {
         propertyFilterApplied,
         removeFilter,
         getPropertyOption,
-        appliedFiltersTotal,
     };
 }

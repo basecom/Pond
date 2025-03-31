@@ -71,6 +71,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
                             :is="componentsMapping[filter.code]"
                             :filter="filter"
                             :selected-values="props.selectedFilters"
+                            :product-listing-store-key="productListingStoreKey"
                             @filter-changed="onFilterChanged"
                         />
                     </template>
@@ -136,6 +137,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
         v-else
         :filters="filters"
         :selected-filters="selectedFilters"
+        :product-listing-store-key="productListingStoreKey"
         @filter-changed="onFilterChanged"
     />
 </template>

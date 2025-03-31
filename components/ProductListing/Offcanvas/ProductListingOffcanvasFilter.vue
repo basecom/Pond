@@ -38,6 +38,8 @@ const name = computed(() => {
 
     return t(`listing.sidebar.filter.${displayedFilter.value.code}.title`);
 });
+
+const { listingState } = storeToRefs(useListingStore(props.productListingStoreKey));
 </script>
 
 <template>
@@ -52,7 +54,7 @@ const name = computed(() => {
             {{ $t('listing.sidebar.title') }}
         </span>
 
-        <UtilityPill :number="listingStore.appliedFiltersTotal" />
+        <UtilityPill :number="listingState.filters.appliedTotal" />
 
         <FormKitIcon
             icon="filter"
@@ -112,6 +114,7 @@ const name = computed(() => {
                                 :is="componentsMappingOffcanvas[displayedFilter?.code]"
                                 :filter="displayedFilter"
                                 :selected-values="props.selectedFilters"
+                                :product-listing-store-key="productListingStoreKey"
                                 @filter-changed="$emit('filter-changed', $event)"
                             />
                         </template>
