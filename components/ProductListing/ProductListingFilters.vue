@@ -104,7 +104,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
             </div>
         </div>
 
-        <div v-if="selectedFilters" class="flex flex-wrap gap-3">
+        <div v-if="selectedFilters" class="flex flex-wrap gap-3 mb-4">
             <template
                 v-for="(filter, key) in selectedFilters"
                 :key="key"
@@ -119,7 +119,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
             <UtilityBadge
                 v-if="props.showResetButton"
                 :content="$t('listing.sidebar.filter.reset')"
-                size="sm"
+                size="md"
                 type="danger"
                 suffix-icon="x"
                 class="cursor-pointer"

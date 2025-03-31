@@ -18,7 +18,7 @@ const listingStore = useListingStore('category');
     <UtilityBadge
         v-if="listingStore.isPriceFilterApplied()"
         :content="`${filter.min} - ${filter.max}`"
-        size="sm"
+        size="md"
         suffix-icon="x"
         type="gray"
         class="cursor-pointer"

@@ -7,8 +7,8 @@ withDefaults(
       maxPurchase: number;
       steps: number;
       initialValue: number;
-      isLoading: boolean;
-      isDisabled: boolean;
+      isLoading?: boolean;
+      isDisabled?: boolean;
     }>(),
     {
         minPurchase: 1,

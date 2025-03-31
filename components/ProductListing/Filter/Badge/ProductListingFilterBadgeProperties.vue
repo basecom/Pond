@@ -22,7 +22,7 @@ const listingStore = useListingStore('category');
         <UtilityBadge
             v-if="listingStore.getPropertyOption(property)"
             :content="getTranslatedProperty(listingStore.getPropertyOption(property), 'name')"
-            size="sm"
+            size="md"
             suffix-icon="x"
             type="gray"
             class="cursor-pointer"

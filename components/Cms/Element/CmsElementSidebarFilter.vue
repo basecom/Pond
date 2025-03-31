@@ -30,7 +30,6 @@ watch(
         listingStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
     },
 );
-
 </script>
 
 <template>
@@ -46,4 +45,15 @@ watch(
         @reset-filters="onResetFilters"
         @remove-filter="(event: RemoveFilterEvent) => onRemoveFilter(event)"
     />
+
+    <!-- Filter Skeleton Loader -->
+    <!-- TODO: Also become visible when navigating between listing pages -->
+    <template v-if="!listingState.filters.all">
+        <div class="h-10 mb-10 rounded animate-pulse w-32 ml-auto bg-gray-medium" />
+        <div class="flex gap-2 mr-auto">
+            <div class="h-10 mb-5 rounded animate-pulse w-32 bg-gray-medium" />
+            <div class="h-10 mb-5 rounded animate-pulse w-32 bg-gray-medium" />
+            <div class="h-10 mb-5 rounded animate-pulse w-32 bg-gray-medium" />
+        </div>
+    </template>
 </template>
