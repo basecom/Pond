@@ -3,15 +3,21 @@ import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import { useListingStore } from '~/stores/ListingStore';
 import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
-defineProps<{
-    filter: string[];
-}>();
+const props = withDefaults(
+    defineProps<{
+        filter: string[];
+        productListingStoreKey?: string;
+    }>(),
+    {
+        productListingStoreKey: 'category',
+    },
+);
 
 defineEmits<{
     'remove-filter': [event: RemoveFilterEvent];
 }>();
 
-const listingStore = useListingStore('category');
+const listingStore = useListingStore(props.productListingStoreKey);
 </script>
 
 <template>

@@ -4,14 +4,20 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import { useListingStore } from '~/stores/ListingStore';
 import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
-defineProps<{
-    element: CmsElementSidebarFilter;
-}>();
+const props = withDefaults(
+    defineProps<{
+        element: CmsElementSidebarFilter;
+        productListingStoreKey?: string;
+    }>(),
+    {
+        productListingStoreKey: 'category',
+    },
+);
 
 const route = useRoute();
 const { getCurrentListing, search } = useCategoryListing();
 
-const listingStore = useListingStore('category');
+const listingStore = useListingStore(props.productListingStoreKey);
 const { listingState } = storeToRefs(listingStore);
 
 const onResetFilters = async () => {
@@ -49,11 +55,13 @@ watch(
     <!-- Filter Skeleton Loader -->
     <!-- TODO: Also become visible when navigating between listing pages -->
     <template v-if="!listingState.filters.all">
-        <div class="h-10 mb-10 rounded animate-pulse w-32 ml-auto bg-gray-medium" />
-        <div class="flex gap-2 mr-auto">
-            <div class="h-10 mb-5 rounded animate-pulse w-32 bg-gray-medium" />
-            <div class="h-10 mb-5 rounded animate-pulse w-32 bg-gray-medium" />
-            <div class="h-10 mb-5 rounded animate-pulse w-32 bg-gray-medium" />
-        </div>
+        <ClientOnly>
+            <div class="h-10 mb-10 rounded animate-pulse w-32 ml-auto bg-gray-medium" />
+            <div class="flex gap-2 mr-auto">
+                <div class="h-10 mb-5 rounded animate-pulse w-32 bg-gray-medium" />
+                <div class="h-10 mb-5 rounded animate-pulse w-32 bg-gray-medium" />
+                <div class="h-10 mb-5 rounded animate-pulse w-32 bg-gray-medium" />
+            </div>
+        </ClientOnly>
     </template>
 </template>

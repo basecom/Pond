@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import { useListingStore } from '~/stores/ListingStore';
 
-const props = defineProps<{
-    element: CmsElementProductListing;
-}>();
+const props = withDefaults(
+    defineProps<{
+        element: CmsElementProductListing;
+        productListingStoreKey?: string;
+    }>(),
+    {
+        productListingStoreKey: 'category',
+    },
+);
 
 const route = useRoute();
 const { trackSelectItem } = useAnalytics();
 const { getElements, search, getCurrentListing } = useCategoryListing();
 
-const listingStore = useListingStore('category');
+const listingStore = useListingStore(props.productListingStoreKey);
 const { listingState } = storeToRefs(listingStore);
 
 listingStore.initializeCriteria(
@@ -63,10 +69,12 @@ const { status: searchStatus } = useLazyAsyncData(
 <template>
     <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
         <template v-if="searchStatus === 'pending'">
-            <ProductCardSkeleton
-                v-for="index in cardSkeletons"
-                :key="index"
-            />
+            <ClientOnly>
+                <ProductCardSkeleton
+                    v-for="index in cardSkeletons"
+                    :key="index"
+                />
+            </ClientOnly>
         </template>
 
         <template

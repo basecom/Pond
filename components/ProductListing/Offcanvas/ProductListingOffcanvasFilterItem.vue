@@ -5,19 +5,20 @@ import { useListingStore } from '~/stores/ListingStore';
 
 const props = withDefaults(
     defineProps<{
-      filter: ListingFilter;
-      selectedFilters: Schemas['ProductListingResult']['currentFilters'];
-      showResetButton?: boolean;
+        filter: ListingFilter;
+        selectedFilters: Schemas['ProductListingResult']['currentFilters'];
+        showResetButton?: boolean;
+        productListingStoreKey?: string;
     }>(),
     {
         showResetButton: false,
+        productListingStoreKey: 'category',
     },
 );
 
 const { t } = useI18n();
-const listingStore = useListingStore('category');
+const listingStore = useListingStore(props.productListingStoreKey);
 const { isPropertyFilter } = useCheckType();
-
 
 const name = computed(() => {
     if (isPropertyFilter(props.filter)) {

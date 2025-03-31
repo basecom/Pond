@@ -3,11 +3,17 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilter } from '~/types/listing/Filter';
 import { useListingStore } from '~/stores/ListingStore';
 
-const props = defineProps<{
-    filters: ListingFilter[];
-    selectedFilters: Schemas['ProductListingResult']['currentFilters'];
-    showResetButton?: boolean;
-}>();
+const props = withDefaults(
+    defineProps<{
+        filters: ListingFilter[];
+        selectedFilters: Schemas['ProductListingResult']['currentFilters'];
+        showResetButton?: boolean;
+        productListingStoreKey?: string;
+    }>(),
+    {
+        productListingStoreKey: 'category',
+    },
+);
 
 defineEmits<{
     'filter-changed': [key: Schemas['ProductListingResult']['currentFilters']];
@@ -16,7 +22,7 @@ defineEmits<{
 const { componentsMappingOffcanvas } = useListingFiltersMapping();
 const { isPropertyFilter } = useCheckType();
 const { t } = useI18n();
-const listingStore = useListingStore('category');
+const listingStore = useListingStore(props.productListingStoreKey);
 
 const sideMenuController = useModal();
 const displayedFilter: Ref<ListingFilter|null> = ref(null);
@@ -45,7 +51,9 @@ const name = computed(() => {
         <span>
             {{ $t('listing.sidebar.title') }}
         </span>
+
         <UtilityPill :number="listingStore.appliedFiltersTotal" />
+
         <FormKitIcon
             icon="filter"
             class="size-6"
@@ -61,6 +69,7 @@ const name = computed(() => {
             <span v-if="!displayedFilter">
                 {{ $t('listing.sidebar.title') }}
             </span>
+
             <button
                 v-else
                 class="flex items-center gap-2"
@@ -73,6 +82,7 @@ const name = computed(() => {
                 {{ name }}
             </button>
         </template>
+
         <template #content>
             <div class="size-full overflow-hidden">
                 <div
@@ -86,14 +96,16 @@ const name = computed(() => {
                             v-for="filter in props.filters"
                             :key="filter.code"
                         >
-                            <ProductListingFiltersOffcanvasItem
+                            <ProductListingOffcanvasFilterItem
                                 v-if="componentsMappingOffcanvas[filter.code]"
                                 :filter="filter"
                                 :selected-filters="selectedFilters"
+                                :product-listing-store-key="productListingStoreKey"
                                 @click="displayedFilter = filter"
                             />
                         </template>
                     </div>
+
                     <div class="flex size-full shrink-0 flex-col">
                         <template v-if="displayedFilter?.code">
                             <component

@@ -7,12 +7,14 @@ import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
 const props = withDefaults(
     defineProps<{
-      filters: ListingFilter[];
-      selectedFilters: Schemas['ProductListingResult']['currentFilters']|null;
-      showResetButton?: boolean;
+        filters: ListingFilter[];
+        selectedFilters: Schemas['ProductListingResult']['currentFilters']|null;
+        showResetButton?: boolean;
+        productListingStoreKey?: string;
     }>(),
     {
         showResetButton: true,
+        productListingStoreKey: 'category',
     },
 );
 
@@ -90,6 +92,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
                             class="size-3"
                         />
                     </template>
+
                     <template v-else>
                         <span>
                             {{ $t('listing.sidebar.filter.showMore') }}
@@ -112,6 +115,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
                 <component
                     :is="componentsMappingBadge[key]"
                     :filter="filter"
+                    :product-listing-store-key="productListingStoreKey"
                     @remove-filter="(event: RemoveFilterEvent) => $emit('remove-filter', event)"
                 />
             </template>
@@ -128,7 +132,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
         </div>
     </div>
 
-    <ProductListingFiltersOffcanvas
+    <ProductListingOffcanvasFilter
         v-else
         :filters="filters"
         :selected-filters="selectedFilters"

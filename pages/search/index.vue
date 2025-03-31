@@ -116,6 +116,7 @@ useBreadcrumbs([
                     :show-reset-button="listingState.filters.modified"
                     :sorting-options="listingState.sorting.options"
                     :selected-sorting="listingState.sorting.current ?? 'name-asc'"
+                    product-listing-store-key="search"
                     @sorting-changed="onSortChange"
                     @filter-changed="onFilterChange"
                     @reset-filters="onResetFilters"
