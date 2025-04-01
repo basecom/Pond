@@ -17,7 +17,6 @@ const login = async (loginData: LoginData) => {
     } catch (error) {
         if (error instanceof ApiClientError) {
             errorMessage.value = t(`error.${ error.details.errors[0]?.code}`);
-            return;
         }
     } finally {
         isLoading.value = false;
