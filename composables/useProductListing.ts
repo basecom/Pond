@@ -115,7 +115,7 @@ export function useProductListing() {
             order: sorting,
             limit,
             p: page,
-            search: search,
+            search,
         };
 
         // check if any filters have changed

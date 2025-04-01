@@ -10,7 +10,7 @@ const navigationStore = useNavigationStore();
 const { mainNavigationElements } = storeToRefs(navigationStore);
 
 const { status } = useLazyAsyncData(
-    'load-main-navigation-' + props.element.id,
+    `load-main-navigation-${  props.element.id}`,
     async () => {
         await navigationStore.loadMainNavigation(2);
 

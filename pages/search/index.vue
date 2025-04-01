@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import type { RemoveFilterEvent } from "~/types/listing/FilterEvents";
+import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 import { useListingStore } from '~/stores/ListingStore';
 
 const route = useRoute();

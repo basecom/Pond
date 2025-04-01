@@ -58,7 +58,7 @@ const config = useCmsElementConfig(props.element);
 const boxLayout = config.getConfigValue('boxLayout');
 
 const { status: searchStatus } = useLazyAsyncData(
-    'category-listing-' + props.element.id,
+    `category-listing-${  props.element.id}`,
     async () => {
         await search(listingState.value.criteria);
         listingStore.setSearchResult(getCurrentListing.value, true);

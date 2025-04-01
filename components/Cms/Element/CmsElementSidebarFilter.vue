@@ -54,7 +54,7 @@ watch(
     />
 
     <!-- TODO: Also become visible when navigating between listing pages -->
-    <template v-if="!listingState.filters.all">
+    <template v-else>
         <ClientOnly>
             <LayoutSkeletonCmsElementSidebarFilter />
         </ClientOnly>

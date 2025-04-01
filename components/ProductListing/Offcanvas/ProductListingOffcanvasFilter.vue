@@ -22,7 +22,6 @@ defineEmits<{
 const { componentsMappingOffcanvas } = useListingFiltersMapping();
 const { isPropertyFilter } = useCheckType();
 const { t } = useI18n();
-const listingStore = useListingStore(props.productListingStoreKey);
 
 const sideMenuController = useModal();
 const displayedFilter: Ref<ListingFilter|null> = ref(null);
