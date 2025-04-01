@@ -1,8 +1,21 @@
 <script setup lang="ts">
-import { ApiClientError } from '@shopware/api-client';
 import * as z from 'zod';
 
-const customerStore = useCustomerStore();
+withDefaults(
+    defineProps<{
+      isLoading?: boolean;
+      errorMessage?: string;
+    }>(),
+    {
+        isLoading: false,
+        errorMessage: undefined,
+    },
+);
+
+const emits = defineEmits<{
+  login: [loginData: LoginData];
+}>();
+
 const { t } = useI18n();
 
 const schema = z.object({
@@ -17,25 +30,10 @@ const schema = z.object({
             required_error: t('account.login.password.errorGeneral'),
         }),
 });
-type LoginData = z.infer<typeof schema>;
-
-const errorMessage: Ref<null|string> = ref(null);
-const isLoading = ref(false);
+export type LoginData = z.infer<typeof schema>;
 
 const login = async (loginData: LoginData) => {
-    isLoading.value = true;
-    errorMessage.value = null;
-
-    try {
-        await customerStore.login(loginData);
-    } catch (error) {
-        if (error instanceof ApiClientError) {
-            errorMessage.value = t(`error.${ error.details.errors[0]?.code}`);
-            return;
-        }
-    } finally {
-        isLoading.value = false;
-    }
+    emits('login', loginData);
 };
 </script>
 
