@@ -24,7 +24,7 @@ const isLoading = ref(false);
 
 const login = async (loginData: LoginData) => {
     isLoading.value = true;
-  errorMessage.value = null;
+    errorMessage.value = null;
 
     try {
         await customerStore.login(loginData);
@@ -69,7 +69,7 @@ const login = async (loginData: LoginData) => {
             </slot>
 
             <slot name="alert">
-                <UiAlert v-if="errorMessage" variant="destructive" class="flex gap-4 mb-4">
+                <UiAlert v-if="errorMessage" variant="destructive" class="mb-4 flex gap-4">
                     <slot name="alert-icon">
                         <Icon name="mdi:alert-circle-outline" class="size-4 text-red-500" />
                     </slot>

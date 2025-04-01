@@ -89,6 +89,6 @@ export default defineNuxtConfig({
 
     ducktory: {
         path: '/styleguide',
-        debug: true
-    }
+        debug: true,
+    },
 });
