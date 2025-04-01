@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cn } from '@/lib/utils';
-import { type AccordionItemProps, useForwardProps } from 'reka-ui';
+import { AccordionItem, type AccordionItemProps, useForwardProps } from 'reka-ui';
 import { computed, type HTMLAttributes } from 'vue';
 
 const props = defineProps<AccordionItemProps & { class?: HTMLAttributes['class'] }>();
@@ -15,10 +15,10 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-    <UiAccordionItem
+    <AccordionItem
         v-bind="forwardedProps"
         :class="cn('border-b', props.class)"
     >
         <slot />
-    </UiAccordionItem>
+    </AccordionItem>
 </template>

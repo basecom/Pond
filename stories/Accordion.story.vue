@@ -1,5 +1,5 @@
 <template>
-    <UiAccordion type="single" class="w-full" collapsible>
+    <UiAccordion type="single" class="mb-4 w-full" collapsible>
         <UiAccordionItem value="item-1">
             <UiAccordionTrigger>
                 What is a pond?
