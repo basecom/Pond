@@ -4,15 +4,12 @@ import type { Schemas } from '@shopware/api-client/api-types';
 defineProps<{
   navigationElements?: Schemas['Category'][];
 }>();
-
-const test = ref(null)
-const { width, height } = useElementSize(test)
 </script>
 
 <template>
     <slot name="header">
         <header class="sticky top-0 z-30 h-fit bg-white shadow">
-            <div ref="test" class="container relative py-3">
+            <div class="container relative py-3">
                 <slot name="wrapper">
                     <div class="flex items-center justify-between gap-2">
                         <div class="flex items-center gap-2">
