@@ -52,4 +52,5 @@ export default {
         },
     },
     plugins: [require('tailwindcss-animate')],
+    content: ['stories/**/*.vue'],
 };
