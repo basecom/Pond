@@ -2,19 +2,33 @@
 import type { CmsElementCategoryNavigation } from '@shopware-pwa/composables-next';
 import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
-defineProps<{
+const props = defineProps<{
     element: CmsElementCategoryNavigation;
 }>();
 
 const navigationStore = useNavigationStore();
 const { mainNavigationElements } = storeToRefs(navigationStore);
-await navigationStore.loadMainNavigation(2);
+
+const { status } = useLazyAsyncData(
+    'load-main-navigation-' + props.element.id,
+    async () => {
+        await navigationStore.loadMainNavigation(2);
+
+        return mainNavigationElements.value;
+    },
+);
 
 const { isActive } = useActivePath();
 </script>
 
 <template>
-    <ul v-if="mainNavigationElements?.length">
+    <template v-if="status === 'pending'">
+        <ClientOnly>
+            <LayoutSkeletonCmsElementCategoryNavigation />
+        </ClientOnly>
+    </template>
+
+    <ul v-else>
         <li
             v-for="item in mainNavigationElements"
             :key="item.id"

@@ -53,16 +53,10 @@ watch(
         @remove-filter="(event: RemoveFilterEvent) => onRemoveFilter(event)"
     />
 
-    <!-- Filter Skeleton Loader -->
     <!-- TODO: Also become visible when navigating between listing pages -->
     <template v-if="!listingState.filters.all">
         <ClientOnly>
-            <div class="mb-10 ml-auto h-10 w-32 animate-pulse rounded bg-gray-medium" />
-            <div class="mr-auto flex gap-2">
-                <div class="mb-5 h-10 w-32 animate-pulse rounded bg-gray-medium" />
-                <div class="mb-5 h-10 w-32 animate-pulse rounded bg-gray-medium" />
-                <div class="mb-5 h-10 w-32 animate-pulse rounded bg-gray-medium" />
-            </div>
+            <LayoutSkeletonCmsElementSidebarFilter />
         </ClientOnly>
     </template>
 </template>

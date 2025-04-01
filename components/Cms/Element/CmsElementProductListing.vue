@@ -58,10 +58,12 @@ const config = useCmsElementConfig(props.element);
 const boxLayout = config.getConfigValue('boxLayout');
 
 const { status: searchStatus } = useLazyAsyncData(
-    'category-listing',
+    'category-listing-' + props.element.id,
     async () => {
         await search(listingState.value.criteria);
         listingStore.setSearchResult(getCurrentListing.value, true);
+
+        return listingState.value;
     },
 );
 </script>
@@ -98,9 +100,10 @@ const { status: searchStatus } = useLazyAsyncData(
         class="mt-4"
     />
 
-    <!-- Pagination Skeleton Loader -->
     <template v-if="searchStatus === 'pending'">
-        <div class="mx-auto mt-10 h-6 w-1/3 animate-pulse rounded bg-gray-medium" />
+        <ClientOnly>
+            <LayoutSkeletonPagination />
+        </ClientOnly>
     </template>
 
     <LayoutPagination
