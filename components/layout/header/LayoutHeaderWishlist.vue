@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { count: wishlistItems } = useWishlist();
+const { count } = useWishlist();
 </script>
 
 <template>
-    <LayoutHeaderWishlistInner :wishlist-items="wishlistItems" />
+    <LayoutHeaderWishlistInner :wishlist-items-count="count" />
 </template>

@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import type { Schemas } from '@shopware/api-client/api-types';
+
 withDefaults(
     defineProps<{
-      cartItems?: number;
+      cartItems?: Schemas['LineItem'][];
     }>(),
     {
-        cartItems: 0,
+        cartItems: undefined,
     },
 );
 </script>
@@ -18,8 +20,8 @@ withDefaults(
                 </slot>
 
                 <slot name="cart-badge">
-                    <UiBadge v-if="cartItems > 0" class="absolute -right-2 -top-1.5 px-1 py-0 text-xs font-normal">
-                        {{ cartItems }}
+                    <UiBadge v-if="cartItems?.length > 0" class="absolute -right-2 -top-1.5 px-1 py-0 text-xs font-normal">
+                        {{ cartItems.length }}
                     </UiBadge>
                 </slot>
             </UiSheetTrigger>
