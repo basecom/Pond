@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { t } = useI18n();
 </script>
+
 <template>
     <main class="container flex min-h-screen flex-col items-center justify-center p-8">
         <!-- TODO: Once System Config is available -> check if CMS Layout is configured and display that instead of the fallback -->
