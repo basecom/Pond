@@ -108,7 +108,7 @@ export function useProductListing() {
         const sorting = routeQuery.sort ? (routeQuery.sort as string) : defaultCriteria.order;
         const limit = routeQuery.limit ? Number(routeQuery.limit) : defaultCriteria.limit;
         const page = routeQuery.p ? Number(routeQuery.p) : defaultCriteria.p;
-        const search = routeQuery.search ? (routeQuery.search as string) : defaultCriteria.search;
+        const search = routeQuery.search ? (routeQuery.search as string) : undefined;
 
         // assemble the new criteria by merging default criteria and filters
         listingState.value.criteria = {

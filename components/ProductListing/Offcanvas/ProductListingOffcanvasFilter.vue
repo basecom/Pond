@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 import type { ListingFilter } from '~/types/listing/Filter';
+import type { ChangePriceFilter, ChangePropertyFilter } from '~/types/listing/FilterEvents';
 import { useListingStore } from '~/stores/ListingStore';
 
 const props = withDefaults(
     defineProps<{
         filters: ListingFilter[];
-        selectedFilters: Schemas['ProductListingResult']['currentFilters'];
+        selectedFilters: Schemas['ProductListingResult']['currentFilters']|null;
         showResetButton?: boolean;
         productListingStoreKey?: string;
     }>(),
@@ -16,7 +17,7 @@ const props = withDefaults(
 );
 
 defineEmits<{
-    'filter-changed': [key: Schemas['ProductListingResult']['currentFilters']];
+    'filter-changed': [event: ChangePriceFilter | ChangePropertyFilter];
 }>();
 
 const { componentsMappingOffcanvas } = useListingFiltersMapping();

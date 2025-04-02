@@ -2,8 +2,7 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import { breakpointsTailwind } from '@vueuse/core';
 import type { ListingFilter } from '~/types/listing/Filter';
-import type { FilterTypes } from '~/types/listing/FilterTypes';
-import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
+import type { ChangePriceFilter, ChangePropertyFilter, RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
 const props = withDefaults(
     defineProps<{
@@ -31,10 +30,10 @@ const displayFullPopoverContainer = ref(false);
 const { componentsMapping, componentsMappingBadge } = useListingFiltersMapping();
 const breakpoints = useBreakpoints(breakpointsTailwind);
 
-const onFilterChanged = ({ code, value }: { code: FilterTypes; value: string[]; }) => {
+const onFilterChanged = (event: ChangePriceFilter | ChangePropertyFilter) => {
     const newFilters = {
         ...props.selectedFilters,
-        [code]: value,
+        [event.code]: event.value,
     } as Schemas['ProductListingResult']['currentFilters'];
 
     emits('filter-changed', newFilters);

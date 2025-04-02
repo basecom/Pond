@@ -6,7 +6,7 @@ import { useListingStore } from '~/stores/ListingStore';
 const props = withDefaults(
     defineProps<{
         filter: ListingFilter;
-        selectedFilters: Schemas['ProductListingResult']['currentFilters'];
+        selectedFilters: Schemas['ProductListingResult']['currentFilters']|null;
         showResetButton?: boolean;
         productListingStoreKey?: string;
     }>(),
