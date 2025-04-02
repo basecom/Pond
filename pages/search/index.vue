@@ -86,8 +86,7 @@ watch(
 watch(
     () => route.query,
     () => {
-        // TODO: if pagination is part of query and was not changed -> update query to page 1 as the filter update already does it but url does not reflect it
-        // TODO: searchTerm update doesnt rerender the filters
+        // TODO: changing the searchTerm does not re-render the filters
         listingStore.updateCriteria(route.query);
     },
 );
