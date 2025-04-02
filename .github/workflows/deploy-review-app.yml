@@ -23,4 +23,5 @@ jobs:
       - name: Deploy Review App
         id: deploy
         uses: superfly/fly-pr-review-apps@1.3.0
-        secrets: NUXT_PUBLIC_SHOPWARE_ACCESS_TOKEN=${{ vars.DEMO_SHOPWARE_ACCESS_TOKEN }} NUXT_PUBLIC_SHOPWARE_ENDPOINT=${{ vars.DEMO_SHOPWARE_ENDPOINT }}
+        with:
+          secrets: NUXT_PUBLIC_SHOPWARE_ACCESS_TOKEN=${{ vars.DEMO_SHOPWARE_ACCESS_TOKEN }} NUXT_PUBLIC_SHOPWARE_ENDPOINT=${{ vars.DEMO_SHOPWARE_ENDPOINT }}
