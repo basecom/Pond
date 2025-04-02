@@ -11,6 +11,7 @@ env:
 jobs:
   review-app:
     runs-on: ubuntu-latest
+    permissions: write-all
     outputs:
       url: ${{ steps.deploy.outputs.url }}
     concurrency:
@@ -20,14 +21,24 @@ jobs:
       url: ${{ steps.deploy.outputs.url }}
     steps:
       - uses: actions/checkout@v4
+
       - name: Deploy Review App
         id: deploy
         uses: superfly/fly-pr-review-apps@1.3.0
         with:
           secrets: NUXT_PUBLIC_SHOPWARE_ACCESS_TOKEN=${{ vars.DEMO_SHOPWARE_ACCESS_TOKEN }} NUXT_PUBLIC_SHOPWARE_ENDPOINT=${{ vars.DEMO_SHOPWARE_ENDPOINT }}
+
+      - name: Get Github App Token
+        uses: navikt/github-app-token-generator@v1
+        if: ${{ github.event.action == 'closed' }}
+        id: get-token
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
       - name: Clean up Github environment
         uses: strumwolf/delete-deployment-environment@v3
         if: ${{ github.event.action == 'closed' }}
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.get-token.outputs.token }}
           environment: review-${{ github.event.number }}
