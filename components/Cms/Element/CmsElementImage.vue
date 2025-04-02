@@ -68,7 +68,7 @@ if (shouldPreloadImage && !isVideoElement.value) {
         <img
             v-else
             ref="imageElement"
-            v-cms-element-lazy-load="{ id: mediaObject.id, type: 'image' }"
+            v-cms-element-lazy-load="{ id: mediaObject.id ?? srcPath, type: 'image' }"
             :loading="shouldPreloadImage ? 'eager' :  'lazy'"
             :class="{
                 'size-full': true,
