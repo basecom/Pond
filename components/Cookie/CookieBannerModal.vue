@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const cookieBannerStore = useCookieBannerStore();
-const { activatedCookies, cookieGroups, isAcceptAllEnabled } = storeToRefs(cookieBannerStore);
+const { activatedCookies, cookieGroups } = storeToRefs(cookieBannerStore);
+const configStore = useConfigStore();
+const isAcceptAllEnabled = configStore.get('core.basicInformation.acceptAllCookies') as boolean | null;
 const modalController = useModal();
 
 const onUpdateCookie = (active: CookieEntry['cookie'][], inactive: CookieEntry['cookie'][]) => {
@@ -30,7 +32,7 @@ const onDenyAll = () => {
         <template #title>{{ $t('cookie.modal.title') }}</template>
         <template #content>
             <CookieBannerConfiguration
-                :is-accept-all-enabled="isAcceptAllEnabled ?? true"
+                :is-accept-all-enabled="isAcceptAllEnabled ?? false"
                 :cookie-groups="cookieGroups"
                 :active-cookies="activatedCookies"
                 @update-cookies="onUpdateCookie"

@@ -94,7 +94,7 @@ const lineItemSeoUrl = await getLineItemRoute(orderLineItem.value);
         >
             <SharedQuantityInput
                 :initial-value="lineItem.quantity"
-                :static="true"
+                :is-disabled="true"
             />
 
             x {{ getFormattedPrice(lineItem?.unitPrice) }}

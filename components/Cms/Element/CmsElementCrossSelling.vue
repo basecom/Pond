@@ -39,12 +39,15 @@ const { currentSlidesPerView } = useComputeSliderConfig({
 const onSelectProduct = async (product: Schemas['Product']) => {
     trackSelectItem(product, { id: 'cross-selling', name: 'cross-selling' });
 };
+
+const { shouldPreloadElement } = useCmsElementPreload();
+const shouldPreloadImage = shouldPreloadElement(props.element);
 </script>
 
 <template>
     <ClientOnly>
         <template
-            v-for="crossSelling in crossSellings"
+            v-for="(crossSelling, index) in crossSellings"
             :key="crossSelling.crossSelling.id"
         >
             <h3 class="mt-8 font-bold">
@@ -68,6 +71,7 @@ const onSelectProduct = async (product: Schemas['Product']) => {
                         :product="slide"
                         :layout="boxLayout"
                         :display-mode="displayMode"
+                        :should-preload-image="shouldPreloadImage && index === 0"
                         @select-product="onSelectProduct(slide)"
                     />
                 </LayoutSliderSlide>
