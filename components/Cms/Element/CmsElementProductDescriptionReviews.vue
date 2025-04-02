@@ -33,7 +33,7 @@ const getPropertyNamesOfGroup = (groupId: string) => {
             <!-- v-html is necessary because we need to render html -->
             <!-- eslint-disable vue/no-v-html -->
             <div
-                class="grow"
+                class="cms_html grow"
                 v-html="getTranslatedProperty(product, 'description')"
             />
 
