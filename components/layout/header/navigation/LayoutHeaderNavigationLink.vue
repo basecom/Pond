@@ -7,11 +7,13 @@ withDefaults(
       classes?: { [key: string]: boolean };
       showAsLink?: boolean;
       alternativeName?: string
+      showIcon?: boolean;
     }>(),
     {
         classes: undefined,
         showAsLink: true,
         alternativeName: undefined,
+        showIcon: true,
     },
 );
 
@@ -25,6 +27,7 @@ defineEmits<{
         :navigation-element="navigationElement"
         :classes="classes"
         :show-as-link="showAsLink"
+        :show-icon="showIcon"
         @click="(navigationElement, categoryLink, options) => $emit('click', navigationElement, categoryLink, options)"
     >
         <template v-if="alternativeName" #link-name>

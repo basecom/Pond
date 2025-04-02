@@ -7,10 +7,12 @@ const props = withDefaults(
       navigationElement: Schemas['Category'];
       classes?: { [key: string]: boolean };
       showAsLink?: boolean;
+      showIcon?: boolean;
     }>(),
     {
         classes: undefined,
         showAsLink: true,
+        showIcon: true,
     },
 );
 
@@ -69,7 +71,7 @@ const handleClick = () => {
             {{ getTranslatedProperty(navigationElement, 'name') }}
         </slot>
 
-        <span class="ml-auto">
+        <span v-if="showIcon" class="ml-auto">
             <slot name="item-icon">
                 <Icon name="mdi:chevron-right" class="size-5" />
             </slot>

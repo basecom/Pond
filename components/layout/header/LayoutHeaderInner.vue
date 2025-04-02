@@ -11,7 +11,7 @@ defineProps<{
         <header class="sticky top-0 z-30 h-fit bg-white shadow">
             <div class="container relative py-3">
                 <slot name="wrapper">
-                    <div class="items-center justify-between gap-4">
+                    <div class="items-center justify-between gap-4" style="display: grid;grid-template-columns: 80% auto;">
                         <div class="flex items-center gap-2">
                             <slot name="navigation-mobile">
                                 <LayoutHeaderNavigationMobile :navigation-elements="navigationElements" />

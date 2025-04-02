@@ -22,7 +22,7 @@ const forwardedProps = useForwardProps(delegatedProps);
     <!-- custom change: add left-[--reka-navigation-menu-viewport-left] as first class parameter -->
     <!-- https://github.com/ZTL-UwU/shadcn-docs-nuxt/issues/23 -->
     <!-- https://github.com/ZTL-UwU/shadcn-docs-nuxt/commit/bd8d9ac51172e4cd9d56c0dfef293c282a3dc2dc -->
-    <div class="absolute left-0 top-full flex justify-center">
+    <div class="absolute left-auto top-full flex justify-center">
         <NavigationMenuViewport
             v-bind="forwardedProps"
             :class="

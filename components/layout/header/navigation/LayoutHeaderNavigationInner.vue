@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
-import { getTranslatedProperty } from '@shopware/helpers';
-import {navigationMenuTriggerStyle} from '~/components/ui/navigation-menu';
+import { navigationMenuTriggerStyle } from '~/components/ui/navigation-menu';
 
 defineProps<{
   navigationElements?: Schemas['Category'][];
@@ -10,7 +9,7 @@ defineProps<{
 
 <template>
     <slot name="header-navigation">
-        <UiNavigationMenu>
+        <UiNavigationMenu class="!static !justify-start">
             <UiNavigationMenuList>
                 <UiNavigationMenuItem v-for="navigationElement in navigationElements" :key="navigationElement.id">
                     <UiNavigationMenuLink v-if="navigationElement.childCount === 0" :class="navigationMenuTriggerStyle()">
@@ -22,7 +21,11 @@ defineProps<{
                     <template v-else>
                         <slot name="header-navigation-parent">
                             <UiNavigationMenuTrigger>
-                                {{ getTranslatedProperty(navigationElement, 'name') }}
+                                <LazyLayoutHeaderNavigationLink
+                                    :navigation-element="navigationElement"
+                                    :show-as-link="navigationElement.type === 'link' || navigationElement.type === 'page'"
+                                    :show-icon="false"
+                                />
                             </UiNavigationMenuTrigger>
                             <UiNavigationMenuContent>
                                 <ul class="max-w-11/12 grid w-96 gap-y-3 p-6 text-sm lg:grid-cols-2">

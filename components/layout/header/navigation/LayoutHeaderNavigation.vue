@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-    <div class="hidden md:flex">
+    <div class="hidden md:flex md:overflow-auto">
         <LayoutHeaderNavigationInner :navigation-elements="navigationElements" />
     </div>
 </template>
