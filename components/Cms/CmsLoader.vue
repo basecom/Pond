@@ -10,7 +10,7 @@ const { getCmsElementComponentName, componentExists } = useCmsUtils();
 
 const isDevelopment = computed(() => import.meta.dev);
 
-provide('cmsElementId', props.content.id);
+provide('cmsElementId', props.content?.id);
 </script>
 
 <template>

@@ -101,6 +101,7 @@ onMounted(() => {
                     :ignore="true"
                     @change="selectCookieGroup(group, $event)"
                 />
+
                 <div class="mb-1 ml-6">{{ group.description && $t(group.description) }}</div>
 
                 <div
@@ -122,6 +123,7 @@ onMounted(() => {
                 </div>
             </div>
         </div>
+
         <div class="flex flex-col justify-end gap-2 lg:flex-row">
             <FormKit
                 type="button"
@@ -131,6 +133,7 @@ onMounted(() => {
                 :label="$t('cookie.modal.denyAllButton')"
                 @click="() => emit('deny-all')"
             />
+
             <FormKit
                 type="submit"
                 :classes="{
@@ -138,6 +141,7 @@ onMounted(() => {
                 }"
                 :label="$t('cookie.modal.submitLabel')"
             />
+
             <FormKit
                 v-if="isAcceptAllEnabled"
                 type="button"

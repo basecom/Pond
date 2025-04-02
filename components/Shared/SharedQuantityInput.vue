@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import type { NumberFieldInput } from 'radix-vue';
+
 withDefaults(
     defineProps<{
-      minPurchase?: number;
-      maxPurchase?: number;
-      steps?: number;
-      initialValue?: number;
-      isLoading?: boolean;
-      isDisabled?: boolean;
+      minPurchase: number;
+      maxPurchase: number;
+      steps: number;
+      initialValue: number;
+      isLoading: boolean;
+      isDisabled: boolean;
     }>(),
     {
         minPurchase: 1,
@@ -19,10 +21,10 @@ withDefaults(
 );
 
 const emit = defineEmits(['onUpdate', 'onEnter']);
-const quantityInput: Ref<HTMLInputElement|null> = ref(null);
+const quantityInput: Ref<ComponentPublicInstance<typeof NumberFieldInput> | null> = ref(null);
 
 const onEnter = () => {
-    quantityInput?.value?.blur();
+    quantityInput?.value?.$el?.blur();
     emit('onEnter');
 };
 </script>
