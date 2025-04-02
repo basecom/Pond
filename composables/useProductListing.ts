@@ -34,6 +34,8 @@ export function useProductListing() {
         defaultCriteria: {},
     } as ListingState);
 
+    const isLoading = ref(false);
+
     const filtersToCriteria = (filters: Schemas['ProductListingResult']['currentFilters']) => filterCodes.reduce((acc: Partial<ProductListingCriteria>, key: string): Partial<ProductListingCriteria> => {
         const urlMapper = filterMapping[key];
 
@@ -310,6 +312,7 @@ export function useProductListing() {
 
     return {
         listingState,
+        isLoading,
         initializeCriteria,
         updateCriteria,
         setSearchResult,

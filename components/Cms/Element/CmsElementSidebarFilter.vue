@@ -39,8 +39,14 @@ watch(
 </script>
 
 <template>
+    <template v-if="listingStore.isLoading">
+        <ClientOnly>
+            <LayoutSkeletonCmsElementSidebarFilter />
+        </ClientOnly>
+    </template>
+
     <ProductListingSidebar
-        v-if="listingState.filters.all"
+        v-else-if="listingState.filters.all"
         :filters="listingState.filters.all"
         :selected-filters="listingState.filters.applied"
         :show-reset-button="listingState.filters.modified"
@@ -52,11 +58,4 @@ watch(
         @reset-filters="onResetFilters"
         @remove-filter="(event: RemoveFilterEvent) => onRemoveFilter(event)"
     />
-
-    <!-- TODO: Also become visible when navigating between listing pages -->
-    <template v-else>
-        <ClientOnly>
-            <LayoutSkeletonCmsElementSidebarFilter />
-        </ClientOnly>
-    </template>
 </template>

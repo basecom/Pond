@@ -38,8 +38,10 @@ const changePage = async (page: number) => {
     windowYPosition.value = 0;
     listingStore.setPage(page);
 
+    listingStore.isLoading = true;
     await search(listingState.value.criteria);
     listingStore.setSearchResult(getCurrentListing.value);
+    listingStore.isLoading = false;
 };
 
 const cardSkeletons = computed(() => {
@@ -57,11 +59,13 @@ const cardSkeletons = computed(() => {
 const config = useCmsElementConfig(props.element);
 const boxLayout = config.getConfigValue('boxLayout');
 
-const { status: searchStatus } = useLazyAsyncData(
-    `category-listing-${  props.element.id}`,
+const { status: initialStatus } = useLazyAsyncData(
+    `category-listing-${ props.element.id }`,
     async () => {
+        listingStore.isLoading = true;
         await search(listingState.value.criteria);
         listingStore.setSearchResult(getCurrentListing.value, true);
+        listingStore.isLoading = false;
 
         return listingState.value;
     },
@@ -70,7 +74,7 @@ const { status: searchStatus } = useLazyAsyncData(
 
 <template>
     <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-        <template v-if="searchStatus === 'pending'">
+        <template v-if="initialStatus === 'pending' || listingStore.isLoading">
             <ClientOnly>
                 <ProductCardSkeleton
                     v-for="index in cardSkeletons"
@@ -94,13 +98,13 @@ const { status: searchStatus } = useLazyAsyncData(
     </div>
 
     <UtilityStaticNotification
-        v-if="searchStatus !== 'pending' && !getElements.length"
+        v-if="initialStatus !== 'pending' && !getElements.length"
         type="info"
         :message="$t('cms.element.product.noProductsFound')"
         class="mt-4"
     />
 
-    <template v-if="searchStatus === 'pending'">
+    <template v-if="initialStatus === 'pending'  || listingStore.isLoading">
         <ClientOnly>
             <LayoutSkeletonPagination />
         </ClientOnly>
