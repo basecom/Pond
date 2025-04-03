@@ -12,6 +12,11 @@ useHead(() => ({
             rel: 'canonical',
             href: url.origin + route.path,
         },
+        {
+            rel: 'alternate',
+            hreflang: locale ?? 'x-default',
+            href: url.origin + route.path,
+        }
     ],
 }));
 </script>
