@@ -2,6 +2,7 @@
 const customerStore = useCustomerStore();
 const { signedIn } = storeToRefs(customerStore);
 const modalController = useModal();
+const { t } = useI18n();
 
 const closeModal = () => {
     modalController.close();
@@ -17,6 +18,7 @@ const closeModal = () => {
         <template #trigger>
             <FormKitIcon
                 class="block size-6"
+                :title="t('icon.user')"
                 icon="user"
             />
         </template>
@@ -31,6 +33,7 @@ const closeModal = () => {
             <FormKitIcon
                 class="block size-6"
                 icon="user"
+                :title="t('icon.user')"
             />
         </template>
         <template #content>
