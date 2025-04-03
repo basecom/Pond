@@ -2,6 +2,7 @@
 const searchVisible = ref(false);
 const searchComponent = ref(null);
 const toggleSearch = ref(null);
+const { t } = useI18n();
 
 onClickOutside(searchComponent, event => {
     if (event.target !== toggleSearch.value) {
@@ -19,6 +20,7 @@ if (route.path === '/search') {
 <template>
     <button
         ref="toggleSearch"
+        :title="t('icon.search')"
         @click="searchVisible = !searchVisible"
     >
         <FormKitIcon

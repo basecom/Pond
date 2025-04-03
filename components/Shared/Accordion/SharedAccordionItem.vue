@@ -12,6 +12,8 @@ withDefaults(
         triggerClasses: 'h-6 w-6',
     },
 );
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -26,6 +28,7 @@ withDefaults(
                 <slot name="trigger">
                     <FormKitIcon
                         icon="chevron-down"
+                        :title="t('icon.open')"
                         :class="triggerClasses"
                         class="block transition-transform duration-300 group-data-[state=open]:rotate-180"
                     />
