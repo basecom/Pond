@@ -64,17 +64,14 @@ defineEmits<{
 
                                 <!-- display the currently visible categories -->
                                 <slot name="mobile-menu-categories">
-                                    <div
+                                    <LazyLayoutHeaderNavigationLink
                                         v-for="navigationElement in navigationElements"
                                         :key="navigationElement.id"
                                         class="border-b-2 border-gray-100 py-3"
-                                    >
-                                        <LazyLayoutHeaderNavigationLink
-                                            :navigation-element="navigationElement"
-                                            :show-as-link="navigationElement.childCount === 0"
-                                            @click="(navigationElement, categoryLink, options) => $emit('click', navigationElement, categoryLink, options)"
-                                        />
-                                    </div>
+                                        :navigation-element="navigationElement"
+                                        :show-as-link="navigationElement.visibleChildCount === 0"
+                                        @click="(navigationElement, categoryLink, options) => $emit('click', navigationElement, categoryLink, options)"
+                                    />
                                 </slot>
                             </div>
                         </slot>

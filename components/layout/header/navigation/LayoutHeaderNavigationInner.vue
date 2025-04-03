@@ -12,7 +12,7 @@ defineProps<{
         <UiNavigationMenu class="!static !justify-start">
             <UiNavigationMenuList>
                 <UiNavigationMenuItem v-for="navigationElement in navigationElements" :key="navigationElement.id">
-                    <UiNavigationMenuLink v-if="navigationElement.childCount === 0" :class="navigationMenuTriggerStyle()">
+                    <UiNavigationMenuLink v-if="navigationElement.visibleChildCount === 0" :class="navigationMenuTriggerStyle()">
                         <slot name="header-navigation-link">
                             <LazyLayoutHeaderNavigationLink :navigation-element="navigationElement" />
                         </slot>
@@ -29,11 +29,7 @@ defineProps<{
                             </UiNavigationMenuTrigger>
                             <UiNavigationMenuContent>
                                 <ul class="max-w-11/12 grid w-96 gap-y-3 p-6 text-sm lg:grid-cols-2">
-                                    <li v-for="children in navigationElement.children" :key="children.id">
-                                        <UiNavigationMenuLink :class="navigationMenuTriggerStyle()">
-                                            <LazyLayoutHeaderNavigationLink :navigation-element="children" />
-                                        </UiNavigationMenuLink>
-                                    </li>
+                                    <LayoutHeaderNavigationRecursiveLink :navigation-element="navigationElement" />
                                 </ul>
                             </UiNavigationMenuContent>
                         </slot>

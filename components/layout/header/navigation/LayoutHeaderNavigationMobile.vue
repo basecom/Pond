@@ -19,7 +19,7 @@ const handleClick = async (navigationElement?: Schemas['Category'], categoryLink
         return;
     }
 
-    if (navigationElement.childCount > 0) {
+    if (navigationElement.visibleChildCount ? navigationElement.visibleChildCount > 0 : navigationElement.childCount > 0) {
         previousNavigationItems.value.push(navigationElement);
         shownNavigationItems.value = navigationElement.children;
         return;
