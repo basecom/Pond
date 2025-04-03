@@ -15,6 +15,7 @@ const content = config.getConfigValue('content');
     <!-- eslint-disable vue/no-v-html -->
     <div
         v-if="content"
+        class="cms_html"
         v-html="decodeHTML(content)"
     />
 </template>

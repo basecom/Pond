@@ -38,3 +38,49 @@ hr {
 #__nuxt {
     @apply grid min-h-screen grid-rows-[auto_1fr_auto];
 }
+
+.cms_html a:not(.btn) {
+    @apply text-brand-secondary hover:text-brand-primary text-lg relative underline;
+}
+
+.cms_html a:not(.btn)::before {
+    @apply h-0.5 w-full bg-brand-secondary absolute bottom-0 left-0;
+}
+
+.cms_html a:not(.btn)::after {
+    @apply h-0.5 w-full bg-brand-primary absolute left-0 bottom-0 origin-right scale-x-0 hover:scale-x-100 hover:origin-left;
+}
+
+.cms_html ul{
+    @apply list-disc;
+}
+
+.cms_html ol{
+    @apply list-decimal;
+}
+
+.cms_html table {
+    @apply w-full border-collapse border border-gray-medium;
+}
+
+.cms_html thead,
+.cms_html td {
+    @apply border border-brand-secondary px-4 py-2 text-left;
+}
+
+.cms_html thead {
+    @apply bg-gray font-bold;
+}
+
+.btn {
+    @apply bg-white border border-brand-secondary hover:bg-brand-secondary text-brand-secondary hover:text-white disabled:bg-gray disabled:cursor-not-allowed disabled:border-gray disabled:hover:text-brand-secondary py-4 px-8
+    after:transform-none;
+}
+
+.btn-primary {
+    @apply bg-brand-primary border border-brand-primary hover:border-brand-secondary;
+}
+
+.btn-sm {
+    @apply py-2 px-4;
+}
