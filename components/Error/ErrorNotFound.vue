@@ -1,9 +1,14 @@
+<script setup lang="ts">
+const { t } = useI18n();
+</script>
+
 <template>
     <ErrorLayout>
         <!-- TODO: Once System Config is available -> check if CMS Layout is configured and display that instead of the fallback -->
 
         <FormKitIcon
             icon="magnifying-glass"
+            :title="t('icon.magnifyingGlass')"
             class="block size-20 text-gray-dark"
         />
 
