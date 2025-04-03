@@ -20,12 +20,12 @@ if (route.path === '/search') {
 <template>
     <button
         ref="toggleSearch"
+        :title="t('icon.search')"
         @click="searchVisible = !searchVisible"
     >
         <FormKitIcon
             class="pointer-events-none block size-6"
             icon="search"
-            :title="t('icon.search')"
         />
     </button>
 
