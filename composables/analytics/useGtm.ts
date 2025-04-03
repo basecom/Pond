@@ -24,8 +24,14 @@ export function useGtm(): UseAnalyticsReturn {
     const { getTrackingPromotionEvent } = usePromotionTracking();
     const sessionId = useState<string | undefined>('pondSessionId');
 
+    const _trackEvent = (args: unknown) => {
+        if (import.meta.client) {
+            window.dataLayer?.push(args);
+        }
+    };
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    function _trackEvent(...args: unknown[]) {
+    function _trackEventWithArguments(...args: unknown[]) {
         if (import.meta.client) {
             // eslint-disable-next-line prefer-rest-params
             window.dataLayer?.push(arguments);
@@ -126,7 +132,7 @@ export function useGtm(): UseAnalyticsReturn {
         }
 
         _loadSessionId();
-        _trackEvent(
+        _trackEventWithArguments(
             'consent',
             'update',
             {
