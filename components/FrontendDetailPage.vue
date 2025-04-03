@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getTranslatedProperty } from '@shopware/helpers';
+
 const props = defineProps<{
   navigationId: string;
 }>();
@@ -15,6 +17,10 @@ if (!productResponse) {
 }
 
 const { product: productDetail } = useProduct(productResponse);
+
+useHead(() => ({
+    title: getTranslatedProperty(productDetail.value.product, 'name'),
+}));
 </script>
 
 <template>

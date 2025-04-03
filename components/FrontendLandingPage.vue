@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getTranslatedProperty } from '@shopware/helpers';
+
 const props = defineProps<{
   navigationId: string;
 }>();
@@ -13,6 +15,10 @@ const landingPage = await search(props.navigationId, {
 if (!landingPage) {
     throw createError({statusCode: 404, message: t('error.404.heading')});
 }
+
+useHead(() => ({
+    title: getTranslatedProperty(landingPage, 'name'),
+}));
 </script>
 
 <template>
