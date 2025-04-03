@@ -44,6 +44,7 @@ const isDesktop = computed(() => breakpoints.greater('md'));
 const { height: containerHeight } = useElementBounding(filterPopoverContainer);
 
 const containerMultipleLined = computed(() => containerHeight.value > 42);
+const { t } = useI18n();
 </script>
 
 <template>
@@ -89,6 +90,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
 
                         <FormKitIcon
                             icon="minus"
+                            :title="t('icon.showLess')"
                             class="size-3"
                         />
                     </template>
@@ -100,6 +102,7 @@ const containerMultipleLined = computed(() => containerHeight.value > 42);
 
                         <FormKitIcon
                             icon="plus"
+                            :title="t('icon.showMore')"
                             class="size-3"
                         />
                     </template>

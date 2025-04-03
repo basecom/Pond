@@ -12,5 +12,5 @@ const content = config.getConfigValue('content');
 <template>
     <!-- v-html is necessary because we need to render html -->
     <!-- eslint-disable vue/no-v-html -->
-    <div v-html="content" />
+    <div class="cms_html" v-html="content" />
 </template>

@@ -13,6 +13,7 @@ const props = withDefaults(
 
 const { controller } = toRefs(props);
 const { isOpen, close } = controller.value;
+const { t } = useI18n();
 
 const sidebarContentElement = ref();
 onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
@@ -39,6 +40,7 @@ onClickOutside(sidebarContentElement, () => (props.isClosable ? close() : ''));
                 <slot name="header" />
                 <FormKitIcon
                     icon="xmark"
+                    :title="t('icon.close')"
                     class="mb-4 ml-auto block size-4 cursor-pointer"
                     @click="controller.close()"
                 />

@@ -45,6 +45,7 @@ withDefaults(
         <FormKitIcon
             v-if="prefixIcon"
             :icon="prefixIcon"
+            :title="prefixIcon"
             class="block"
             :class="{
                 'size-2.5': size === 'sm',
@@ -57,6 +58,7 @@ withDefaults(
         <FormKitIcon
             v-if="suffixIcon"
             :icon="suffixIcon"
+            :title="suffixIcon"
             class="block"
             :class="{
                 'size-2.5': size === 'sm',

@@ -5,6 +5,7 @@ import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 const { languageIdChain } = useSessionContext();
 const navigationStore = useNavigationStore();
 const { mainNavigationElements } = storeToRefs(navigationStore);
+const { t } = useI18n();
 
 const sideMenuController = useModal();
 
@@ -56,6 +57,7 @@ const lastPreviousItem = computed(() =>
 <template>
     <FormKitIcon
         icon="bars"
+        :title="t('icon.openSidebar')"
         class="w-4 cursor-pointer md:hidden"
         @click="sideMenuController.open()"
     />
@@ -71,6 +73,7 @@ const lastPreviousItem = computed(() =>
             >
                 <FormKitIcon
                     icon="chevron-left"
+                    :title="t('icon.backToPreviousCategory')"
                     class="block size-3"
                 />
                 <span>{{ $t('navigation.sidebar.backLinkLabel') }}</span>
