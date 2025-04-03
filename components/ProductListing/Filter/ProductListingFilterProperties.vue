@@ -5,16 +5,22 @@ import type { ListingPropertyFilter } from '~/types/listing/Filter';
 import { useListingStore } from '~/stores/ListingStore';
 import type { ChangePropertyFilter } from '~/types/listing/FilterEvents';
 
-defineProps<{
-    filter: ListingPropertyFilter;
-    selectedValues: Schemas['ProductListingResult']['currentFilters'];
-}>();
+const props = withDefaults(
+    defineProps<{
+        filter: ListingPropertyFilter;
+        selectedValues: Schemas['ProductListingResult']['currentFilters'];
+        productListingStoreKey?: string;
+    }>(),
+    {
+        productListingStoreKey: 'category',
+    },
+);
 
 defineEmits<{
     'filter-changed': [event: ChangePropertyFilter];
 }>();
 
-const listingStore = useListingStore('category');
+const listingStore = useListingStore(props.productListingStoreKey);
 const popoverOpen = ref(false);
 const { t } = useI18n();
 </script>

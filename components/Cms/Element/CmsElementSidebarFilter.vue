@@ -4,14 +4,20 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import { useListingStore } from '~/stores/ListingStore';
 import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
-defineProps<{
-    element: CmsElementSidebarFilter;
-}>();
+const props = withDefaults(
+    defineProps<{
+        element: CmsElementSidebarFilter;
+        productListingStoreKey?: string;
+    }>(),
+    {
+        productListingStoreKey: 'category',
+    },
+);
 
 const route = useRoute();
 const { getCurrentListing, search } = useCategoryListing();
 
-const listingStore = useListingStore('category');
+const listingStore = useListingStore(props.productListingStoreKey);
 const { listingState } = storeToRefs(listingStore);
 
 const onResetFilters = async () => {
@@ -30,17 +36,23 @@ watch(
         listingStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
     },
 );
-
 </script>
 
 <template>
+    <template v-if="listingStore.isLoading">
+        <ClientOnly>
+            <LayoutSkeletonCmsElementSidebarFilter />
+        </ClientOnly>
+    </template>
+
     <ProductListingSidebar
-        v-if="listingState.filters.all"
+        v-else-if="listingState.filters.all"
         :filters="listingState.filters.all"
         :selected-filters="listingState.filters.applied"
         :show-reset-button="listingState.filters.modified"
         :sorting-options="listingState.sorting.options"
         :selected-sorting="listingState.sorting.current"
+        :product-listing-store-key="productListingStoreKey"
         @sorting-changed="(sortingOption: Schemas['ProductListingResult']['sorting']) => listingStore.setSorting(sortingOption)"
         @filter-changed="(filters: Schemas['ProductListingResult']['currentFilters']) => listingStore.setFilters(filters)"
         @reset-filters="onResetFilters"

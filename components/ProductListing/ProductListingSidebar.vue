@@ -5,19 +5,20 @@ import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
 withDefaults(
     defineProps<{
-      filters: ListingFilter[];
-      selectedFilters: Schemas['ProductListingResult']['currentFilters']|null;
-      showResetButton?: boolean;
-      sortingOptions: Schemas['ProductListingResult']['availableSortings'];
-      selectedSorting: Schemas['ProductListingResult']['sorting'];
-      containerClass?: string;
+        filters: ListingFilter[];
+        selectedFilters: Schemas['ProductListingResult']['currentFilters']|null;
+        showResetButton?: boolean;
+        sortingOptions: Schemas['ProductListingResult']['availableSortings'];
+        selectedSorting: Schemas['ProductListingResult']['sorting'];
+        containerClass?: string;
+        productListingStoreKey?: string;
     }>(),
     {
         showResetButton: true,
         containerClass: '',
+        productListingStoreKey: 'category',
     },
 );
-
 
 const emit = defineEmits<{
     'sorting-changed': [sortingOption: Schemas['ProductListingResult']['sorting']];
@@ -43,6 +44,7 @@ const emit = defineEmits<{
             :filters="filters"
             :selected-filters="selectedFilters"
             :show-reset-button="showResetButton"
+            :product-listing-store-key="productListingStoreKey"
             @filter-changed="
                 (filters: Schemas['ProductListingResult']['currentFilters']) => $emit('filter-changed', filters)
             "

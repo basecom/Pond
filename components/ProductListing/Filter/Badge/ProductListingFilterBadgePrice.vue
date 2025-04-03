@@ -3,22 +3,29 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import { useListingStore } from '~/stores/ListingStore';
 import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
-defineProps<{
-    filter: Schemas['ProductListingResult']['currentFilters']['price'];
-}>();
+const props = withDefaults(
+    defineProps<{
+        filter: Schemas['ProductListingResult']['currentFilters']['price'];
+        productListingStoreKey?: string;
+    }>(),
+    {
+        productListingStoreKey: 'category',
+    },
+);
 
 defineEmits<{
     'remove-filter': [event: RemoveFilterEvent];
 }>();
 
-const listingStore = useListingStore('category');
+const listingStore = useListingStore(props.productListingStoreKey);
+const { currency } = useSessionContext();
 </script>
 
 <template>
     <UtilityBadge
         v-if="listingStore.isPriceFilterApplied()"
-        :content="`${filter.min} - ${filter.max}`"
-        size="sm"
+        :content="`${filter.min}${currency?.symbol} - ${filter.max}${currency?.symbol}`"
+        size="md"
         suffix-icon="x"
         type="gray"
         class="cursor-pointer"

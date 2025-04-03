@@ -51,11 +51,11 @@ hr {
     @apply h-0.5 w-full bg-brand-primary absolute left-0 bottom-0 origin-right scale-x-0 hover:scale-x-100 hover:origin-left;
 }
 
-.cms_html ul{
+.cms_html ul {
     @apply list-disc;
 }
 
-.cms_html ol{
+.cms_html ol {
     @apply list-decimal;
 }
 

@@ -114,7 +114,7 @@ if (isHomePage.value) {
 
             <template #fallback>
                 <img
-                    v-cms-element-lazy-load="{ id: firstSlide?.media?.id, type: 'image' }"
+                    v-cms-element-lazy-load="{ id: firstSlide?.media?.id ?? firstSlide?.media?.url, type: 'image' }"
                     :src="firstSlide?.media?.url"
                     :loading="shouldPreloadImage ? 'eager' : 'lazy'"
                     :alt="getTranslatedProperty(firstSlide?.media, 'alt') || $t('cms.element.imageAlt')"

@@ -2,17 +2,18 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 import { breakpointsTailwind } from '@vueuse/core';
 import type { ListingFilter } from '~/types/listing/Filter';
-import type { FilterTypes } from '~/types/listing/FilterTypes';
-import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
+import type { ChangePriceFilter, ChangePropertyFilter, RemoveFilterEvent } from '~/types/listing/FilterEvents';
 
 const props = withDefaults(
     defineProps<{
-      filters: ListingFilter[];
-      selectedFilters: Schemas['ProductListingResult']['currentFilters']|null;
-      showResetButton?: boolean;
+        filters: ListingFilter[];
+        selectedFilters: Schemas['ProductListingResult']['currentFilters']|null;
+        showResetButton?: boolean;
+        productListingStoreKey?: string;
     }>(),
     {
         showResetButton: true,
+        productListingStoreKey: 'category',
     },
 );
 
@@ -29,10 +30,10 @@ const displayFullPopoverContainer = ref(false);
 const { componentsMapping, componentsMappingBadge } = useListingFiltersMapping();
 const breakpoints = useBreakpoints(breakpointsTailwind);
 
-const onFilterChanged = ({ code, value }: { code: FilterTypes; value: string[]; }) => {
+const onFilterChanged = (event: ChangePriceFilter | ChangePropertyFilter) => {
     const newFilters = {
         ...props.selectedFilters,
-        [code]: value,
+        [event.code]: event.value,
     } as Schemas['ProductListingResult']['currentFilters'];
 
     emits('filter-changed', newFilters);
@@ -70,6 +71,7 @@ const { t } = useI18n();
                             :is="componentsMapping[filter.code]"
                             :filter="filter"
                             :selected-values="props.selectedFilters"
+                            :product-listing-store-key="productListingStoreKey"
                             @filter-changed="onFilterChanged"
                         />
                     </template>
@@ -92,6 +94,7 @@ const { t } = useI18n();
                             class="size-3"
                         />
                     </template>
+
                     <template v-else>
                         <span>
                             {{ $t('listing.sidebar.filter.showMore') }}
@@ -107,7 +110,7 @@ const { t } = useI18n();
             </div>
         </div>
 
-        <div v-if="selectedFilters" class="flex flex-wrap gap-3">
+        <div v-if="selectedFilters" class="mb-4 flex flex-wrap gap-3">
             <template
                 v-for="(filter, key) in selectedFilters"
                 :key="key"
@@ -115,6 +118,7 @@ const { t } = useI18n();
                 <component
                     :is="componentsMappingBadge[key]"
                     :filter="filter"
+                    :product-listing-store-key="productListingStoreKey"
                     @remove-filter="(event: RemoveFilterEvent) => $emit('remove-filter', event)"
                 />
             </template>
@@ -122,7 +126,7 @@ const { t } = useI18n();
             <UtilityBadge
                 v-if="props.showResetButton"
                 :content="$t('listing.sidebar.filter.reset')"
-                size="sm"
+                size="md"
                 type="danger"
                 suffix-icon="x"
                 class="cursor-pointer"
@@ -131,10 +135,11 @@ const { t } = useI18n();
         </div>
     </div>
 
-    <ProductListingFiltersOffcanvas
+    <ProductListingOffcanvasFilter
         v-else
         :filters="filters"
         :selected-filters="selectedFilters"
+        :product-listing-store-key="productListingStoreKey"
         @filter-changed="onFilterChanged"
     />
 </template>

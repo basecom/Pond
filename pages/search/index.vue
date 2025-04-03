@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { RemoveFilterEvent } from '~/types/listing/FilterEvents';
 import { useListingStore } from '~/stores/ListingStore';
 
 const route = useRoute();
@@ -48,6 +49,10 @@ const onResetFilters = async () => {
     listingStore.resetFilters();
 };
 
+const onRemoveFilter = async (removeFilterEvent: RemoveFilterEvent) => {
+    listingStore.removeFilter(removeFilterEvent);
+};
+
 const onSelectProduct = async (product: Schemas['Product']) => {
     trackSelectItem(product, { id: 'search', name: 'search' });
 };
@@ -81,6 +86,7 @@ watch(
 watch(
     () => route.query,
     () => {
+        // TODO: changing the searchTerm does not re-render the filters
         listingStore.updateCriteria(route.query);
     },
 );
@@ -116,9 +122,11 @@ useBreadcrumbs([
                     :show-reset-button="listingState.filters.modified"
                     :sorting-options="listingState.sorting.options"
                     :selected-sorting="listingState.sorting.current ?? 'name-asc'"
+                    product-listing-store-key="search"
                     @sorting-changed="onSortChange"
                     @filter-changed="onFilterChange"
                     @reset-filters="onResetFilters"
+                    @remove-filter="(event: RemoveFilterEvent) => onRemoveFilter(event)"
                 />
             </div>
 

@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import { useListingStore } from '~/stores/ListingStore';
 
-const props = defineProps<{
-    element: CmsElementProductListing;
-}>();
+const props = withDefaults(
+    defineProps<{
+        element: CmsElementProductListing;
+        productListingStoreKey?: string;
+    }>(),
+    {
+        productListingStoreKey: 'category',
+    },
+);
 
 const route = useRoute();
 const { trackSelectItem } = useAnalytics();
-const { getElements, search, getCurrentListing, loading } = useCategoryListing();
+const { getElements, search, getCurrentListing } = useCategoryListing();
 
-const listingStore = useListingStore('category');
+const listingStore = useListingStore(props.productListingStoreKey);
 const { listingState } = storeToRefs(listingStore);
 
 listingStore.initializeCriteria(
@@ -32,8 +38,10 @@ const changePage = async (page: number) => {
     windowYPosition.value = 0;
     listingStore.setPage(page);
 
+    listingStore.isLoading = true;
     await search(listingState.value.criteria);
     listingStore.setSearchResult(getCurrentListing.value);
+    listingStore.isLoading = false;
 };
 
 const cardSkeletons = computed(() => {
@@ -50,46 +58,63 @@ const cardSkeletons = computed(() => {
 
 const config = useCmsElementConfig(props.element);
 const boxLayout = config.getConfigValue('boxLayout');
-await search(listingState.value.criteria);
-listingStore.setSearchResult(getCurrentListing.value, true);
+
+const { status: initialStatus } = useLazyAsyncData(
+    `category-listing-${ props.element.id }`,
+    async () => {
+        listingStore.isLoading = true;
+        await search(listingState.value.criteria);
+        listingStore.setSearchResult(getCurrentListing.value, true);
+        listingStore.isLoading = false;
+
+        return listingState.value;
+    },
+);
 </script>
 
 <template>
-    <div v-if="getElements.length > 0">
-        <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-            <template v-if="loading">
+    <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+        <template v-if="initialStatus === 'pending' || listingStore.isLoading">
+            <ClientOnly>
                 <ProductCardSkeleton
                     v-for="index in cardSkeletons"
                     :key="index"
                 />
-            </template>
+            </ClientOnly>
+        </template>
 
-            <template
-                v-for="(product, index) in getElements"
-                v-else
-                :key="product.id"
-            >
-                <ProductCard
-                    :product="product"
-                    :layout="boxLayout"
-                    :should-preload-image="index === 0"
-                    @select-product="trackSelectItem(product)"
-                />
-            </template>
-        </div>
-
-        <LayoutPagination
-            :total="listingState.pagination.total ?? 0"
-            :items-per-page="listingState.pagination.limit"
-            :default-page="listingState.pagination.page"
-            @update-page="(currentPage: number) => changePage(currentPage)"
-        />
+        <template
+            v-for="(product, index) in getElements"
+            v-else
+            :key="product.id"
+        >
+            <ProductCard
+                :product="product"
+                :layout="boxLayout"
+                :should-preload-image="index === 0"
+                @select-product="trackSelectItem(product)"
+            />
+        </template>
     </div>
 
     <UtilityStaticNotification
-        v-else
+        v-if="initialStatus !== 'pending' && !getElements.length"
         type="info"
         :message="$t('cms.element.product.noProductsFound')"
         class="mt-4"
+    />
+
+    <template v-if="initialStatus === 'pending'  || listingStore.isLoading">
+        <ClientOnly>
+            <LayoutSkeletonPagination />
+        </ClientOnly>
+    </template>
+
+    <LayoutPagination
+        v-else-if="getElements.length"
+        :total="listingState.pagination.total ?? 0"
+        :items-per-page="listingState.pagination.limit"
+        :default-page="listingState.pagination.page"
+        @update-page="(currentPage: number) => changePage(currentPage)"
     />
 </template>
