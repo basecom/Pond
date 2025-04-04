@@ -20,7 +20,7 @@ for(const line of text.split('\n')) {
     chunks[chunkIndex]?.push(line);
 }
 
-chunks = chunks.filter(chunk => !chunk[0]?.includes('@shopware'));
+chunks = chunks.filter(chunk => !chunk[0]?.includes('@shopware') && !chunk[0]?.includes('@therealironduck') && !chunk[0]?.includes('.nuxt/types'));
 chunks.forEach(chunk => {
     chunk.forEach((line, index) => {
         if(index === 0) {

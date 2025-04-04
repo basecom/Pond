@@ -7,6 +7,10 @@ withDefaults(
         signedIn: false,
     },
 );
+
+defineEmits<{
+  logout: [];
+}>();
 </script>
 
 <template>
@@ -56,6 +60,13 @@ withDefaults(
                             {{ $t('account.orders') }}
                         </slot>
                     </UiDropdownMenuItem>
+
+                    <UiDropdownMenuSeparator />
+                    <UiDropdownMenuItem class="cursor-pointer" @click="$emit('logout')">
+                        <slot name="logout">
+                            {{ $t('account.auth.logout') }}
+                        </slot>
+                    </UiDropdownMenuItem>
                 </slot>
             </template>
 
@@ -75,12 +86,12 @@ withDefaults(
 
                         <UiDialogContent>
                             <UiDialogHeader>
-                                <UiDialogTitle>Login</UiDialogTitle>
+                                <UiDialogTitle>
+                                    {{ $t('account.auth.login') }}
+                                </UiDialogTitle>
                             </UiDialogHeader>
 
-                            <UiDialogFooter>
-                                Login
-                            </UiDialogFooter>
+                            <AccountLogin />
                         </UiDialogContent>
                     </UiDialog>
 

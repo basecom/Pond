@@ -8,7 +8,22 @@
         "orders": "Bestellungen",
         "auth": {
             "login": "Anmelden",
-            "register": "Registrieren"
+            "register": "Registrieren",
+          "logout": "Abmelden"
+        },
+      "login": {
+        "email": {
+          "label": "Ihre E-Mail-Adresse",
+          "placeholder": "E-Mail-Adresse",
+          "error": "Bitte geben Sie eine valide E-Mail-Adresse ein"
+        },
+        "password": {
+          "label": "Ihr Passwort",
+          "placeholder": "••••••••",
+          "forgotten": "Passwort vergessen",
+          "errorGeneral": "Bitte geben Sie ein Password ein",
+          "errorLength": "Ihr Passwort muss mind. {length} Zeichen lang sein",
         }
+      }
     }
 }
