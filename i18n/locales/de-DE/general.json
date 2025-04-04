@@ -1,5 +1,8 @@
 {
     "general": {
-        "close": "Schließen"
+        "close": "Schließen",
+        "back": "Zurück",
+        "showAll": "Alle anzeigen",
+        "categories": "Kategorien"
     }
 }
