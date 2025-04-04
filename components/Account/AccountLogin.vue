@@ -61,7 +61,7 @@ const handleLogin = async (fields: LoginForm) => {
         type="form"
         :submit-label="$t('account.login.submitLabel')"
         :classes="{
-            form: 'w-full flex flex-wrap flex-col gap-4',
+            form: 'w-full flex flex-col gap-4',
             actions: 'w-full',
         }"
         @submit="handleLogin"
