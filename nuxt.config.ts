@@ -13,6 +13,7 @@ export default defineNuxtConfig({
         '@nuxt/icon',
         'shadcn-nuxt',
         '@shopware/nuxt-module',
+        '@therealironduck/ducktory',
     ],
 
     experimental: {
@@ -87,5 +88,10 @@ export default defineNuxtConfig({
     shadcn: {
         prefix: '',
         componentDir: './components/ui',
+    },
+
+    ducktory: {
+        path: '/styleguide',
+        debug: true,
     },
 });

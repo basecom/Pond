@@ -1,8 +1,21 @@
 <script setup lang="ts">
-import { ApiClientError } from '@shopware/api-client';
 import * as z from 'zod';
 
-const customerStore = useCustomerStore();
+withDefaults(
+    defineProps<{
+      isLoading?: boolean;
+      errorMessage?: string;
+    }>(),
+    {
+        isLoading: false,
+        errorMessage: undefined,
+    },
+);
+
+const emits = defineEmits<{
+  login: [loginData: LoginData];
+}>();
+
 const { t } = useI18n();
 
 const schema = z.object({
@@ -17,23 +30,10 @@ const schema = z.object({
             required_error: t('account.login.password.errorGeneral'),
         }),
 });
-type LoginData = z.infer<typeof schema>;
-
-const errorMessage: Ref<null|string> = ref(null);
-const isLoading = ref(false);
+export type LoginData = z.infer<typeof schema>;
 
 const login = async (loginData: LoginData) => {
-    isLoading.value = true;
-    try {
-        await customerStore.login(loginData);
-    } catch (error) {
-        if (error instanceof ApiClientError) {
-            errorMessage.value = t(`error.${ error.details.errors[0]?.code}`);
-            return;
-        }
-    } finally {
-        isLoading.value = false;
-    }
+    emits('login', loginData);
 };
 </script>
 
@@ -60,14 +60,14 @@ const login = async (loginData: LoginData) => {
         @submit="login"
     >
         <div class="!mt-0 grid">
-            <slot name="passwort-forgotten">
+            <slot name="password-forgotten">
                 <UiButton variant="link" class="mb-6 justify-self-start px-0">
                     {{ $t('account.login.password.forgotten') }}
                 </UiButton>
             </slot>
 
             <slot name="alert">
-                <UiAlert v-if="errorMessage" variant="destructive" class="flex gap-4">
+                <UiAlert v-if="errorMessage" variant="destructive" class="mb-4 flex gap-4">
                     <slot name="alert-icon">
                         <Icon name="mdi:alert-circle-outline" class="size-4 text-red-500" />
                     </slot>
