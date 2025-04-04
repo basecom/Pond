@@ -31,15 +31,16 @@
                 "generalFields": "General Fields",
                 "addressFields": "Your address"
             },
+            "submit": "Submit",
             "accountTypes": {
-                "label": "Account Type*",
+                "label": "Account Type",
                 "placeholder": "Select...",
                 "private": "Private",
                 "business": "Commercial",
                 "errorGeneral": "Please select an account type."
             },
             "salutations": {
-                "label": "Salutation*",
+                "label": "Salutation",
                 "placeholder": "Select...",
                 "errorGeneral": "Please select a salutation."
             },
@@ -48,21 +49,21 @@
                 "placeholder": "Enter title..."
             },
             "firstName": {
-                "label": "First name*",
+                "label": "First name",
                 "placeholder": "Enter first name...",
                 "errorGeneral": "Please enter your first name."
             },
             "lastName": {
-                "label": "Second name*",
+                "label": "Second name",
                 "placeholder": "Enter second name...",
                 "errorGeneral": "Please enter your second name."
             },
             "email": {
-                "label": "Email address*",
+                "label": "Email address",
                 "placeholder": "Enter email address...",
                 "errorGeneral": "Please enter a valid email address.",
                 "confirm": {
-                    "label": "Email address confirmation*",
+                    "label": "Email address confirmation",
                     "placeholder": "Enter email address again...",
                     "errorGeneral": "The input doesnt match your email address."
                 }
@@ -73,7 +74,7 @@
                 "errorGeneral": "Please select your birthdate."
             },
             "company": {
-                "label": "Company*",
+                "label": "Company",
                 "placeholder": "Enter company...",
                 "errorGeneral": "Please enter your company name."
             },
@@ -88,14 +89,14 @@
                 "errorGeneral": "Please provide a valid VAT Reg.No."
             },
             "password": {
-                "label": "Password*",
+                "label": "Password",
                 "placeholder": "Enter password...",
                 "error": {
                     "general": "Please enter a valid password.",
                     "minLength": "The password needs to be at least {length} characters long"
                 },
                 "confirm": {
-                    "label": "Password confirmation*",
+                    "label": "Password confirmation",
                     "placeholder": "Enter password again...",
                     "errorGeneral": "The input doesnt match your password."
                 }
@@ -109,7 +110,7 @@
                 }
             },
             "postalCode": {
-                "label": "Postal code*",
+                "label": "Postal code",
                 "placeholder": "Enter postal code...",
                 "error": {
                     "required": "Please enter your postal code.",
@@ -117,7 +118,7 @@
                 }
             },
             "city": {
-                "label": "City*",
+                "label": "City",
                 "placeholder": "Enter city...",
                 "error": {
                     "required": "Please enter your city.",
@@ -126,7 +127,6 @@
             },
             "additionalAddressLine1": {
                 "label": "Additional address line 1",
-                "labelRequired": "Additional address line 1*",
                 "placeholder": "Enter additional address line...",
                 "error1": {
                     "required": "Please enter additonal address info in this line."
@@ -134,14 +134,13 @@
             },
             "additionalAddressLine2": {
                 "label": "Additional address line 2",
-                "labelRequired": "Additional address line 2*",
                 "placeholder": "Enter additional address line...",
                 "error": {
                     "required": "Please enter additonal address info in this line."
                 }
             },
             "country": {
-                "label": "Country*",
+                "label": "Country",
                 "placeholder": "Select country...",
                 "error": {
                     "required": "Please select your country."
@@ -160,7 +159,8 @@
                     "required": "Please enter your phone number.",
                     "general": "Please enter a valid phone number."
                 }
-            }
+            },
+            "shippingAddress": "Your shipping address"
         }
     }
 }

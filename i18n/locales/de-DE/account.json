@@ -31,15 +31,16 @@
                 "generalFields": "Allgemein",
                 "addressFields": "Ihre Adresse"
             },
+            "submit": "Abschicken",
             "accountTypes": {
-                "label": "Kontotyp*",
+                "label": "Kontotyp",
                 "placeholder": "Auswählen...",
                 "private": "Privat",
                 "business": "Gewerblich",
                 "errorGeneral": "Bitte geben Sie einen Kontotyp an."
             },
             "salutations": {
-                "label": "Anrede*",
+                "label": "Anrede",
                 "placeholder": "Auswählen...",
                 "errorGeneral": "Bitte geben Sie eine Anrede an."
             },
@@ -48,21 +49,21 @@
                 "placeholder": "Titel eingeben..."
             },
             "firstName": {
-                "label": "Vorname*",
+                "label": "Vorname",
                 "placeholder": "Vornamen eingeben...",
                 "errorGeneral": "Bitte geben Sie ihren Vornamen an."
             },
             "lastName": {
-                "label": "Nachname*",
+                "label": "Nachname",
                 "placeholder": "Nachname eingeben...",
                 "errorGeneral": "Bitte geben Sie ihren Nachnamen an."
             },
             "email": {
-                "label": "E-Mail Adresse*",
+                "label": "E-Mail Adresse",
                 "placeholder": "E-Mail Adresse eingeben...",
                 "errorGeneral": "Bitte geben Sie eine valide E-Mail-Adresse ein.",
                 "confirm": {
-                    "label": "E-Mail Adresse bestätigen*",
+                    "label": "E-Mail Adresse bestätigen",
                     "placeholder": "Email Adresse erneut eingeben...",
                     "errorGeneral": "Die Angabe stimmt nicht mit der Email Adresse überein."
                 }
@@ -73,7 +74,7 @@
                 "errorGeneral": "Bitte wähle Sie ihr Geburtsdatum."
             },
             "company": {
-                "label": "Firma*",
+                "label": "Firma",
                 "placeholder": "Firma eingeben...",
                 "errorGeneral": "Bitte geben Sie ihren Firmennamen an."
             },
@@ -88,20 +89,20 @@
                 "errorGeneral": "Bitte geben Sie eine gültige Umsatzsteuer-ID an."
             },
             "password": {
-                "label": "Passwort*",
+                "label": "Passwort",
                 "placeholder": "Passwort eingeben...",
                 "error": {
                     "general": "Bitte geben Sie ein valides Passwort ein.",
                     "minLength": "Das Passwort muss mindestens {length} Charaktere enthalten."
                 },
                 "confirm": {
-                    "label": "Passwort bestätigen*",
+                    "label": "Passwort bestätigen",
                     "placeholder": "Passwort erneut eingeben...",
                     "errorGeneral": "Die Angabe stimmt nicht mit dem Passwort überein."
                 }
             },
             "address": {
-                "label": "Straße und Hausnummer*",
+                "label": "Straße und Hausnummer",
                 "placeholder": "Straße und Hausnummer eingeben...",
                 "error": {
                     "required": "Bitte geben Sie ihre Straße und Hausnummer an.",
@@ -109,7 +110,7 @@
                 }
             },
             "postalCode": {
-                "label": "PLZ*",
+                "label": "PLZ",
                 "placeholder": "PLZ eingeben...",
                 "error": {
                     "required": "Bitte geben Sie ihre PLZ ein.",
@@ -117,7 +118,7 @@
                 }
             },
             "city": {
-                "label": "Ort*",
+                "label": "Ort",
                 "placeholder": "Ort eingeben",
                 "error": {
                     "required": "Bitte geben Sie ihren Ort an.",
@@ -126,7 +127,6 @@
             },
             "additionalAddressLine1": {
                 "label": "Adresszusatz 1",
-                "labelRequired": "Adresszusatz 1*",
                 "placeholder": "Adresszusatz eingeben...",
                 "error": {
                     "required": "Bitte geben Sie hier den Adresszusatz ein."
@@ -134,14 +134,13 @@
             },
             "additionalAddressLine2": {
                 "label": "Adresszusatz 2",
-                "labelRequired": "Adresszusatz 2*",
                 "placeholder": "Adresszusatz eingeben...",
                 "error": {
                     "required": "Bitte geben Sie hier den Adresszusatz ein."
                 }
             },
             "country": {
-                "label": "Land*",
+                "label": "Land",
                 "placeholder": "Land auswählen...",
                 "error": {
                     "required": "Bitte wählen Sie ihr Land aus."
@@ -160,7 +159,8 @@
                     "required": "Bitte geben Sie ihre Telefonnummer ein.",
                     "general": "Bitte geben Sie eine gültige Telefonnummer ein."
                 }
-            }
+            },
+            "shippingAddress": "Ihre Lieferadresse"
         }
     }
 }
