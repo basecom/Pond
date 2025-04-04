@@ -55,20 +55,13 @@ export default defineConfig({
                 text: 'Technical',
                 collapsed: true,
                 items: [
-                    { text: 'Technical introduction', link: '/technical/introduction' },
-                    { text: 'Architecture', link: '/technical/architecture' },
-                    { text: 'Composables', link: '/technical/composables' },
-                    { text: 'API Routes', link: '/technical/api-routes' },
+                    { text: 'Demo System', link: '/technical/demo-system' },
                 ],
             },
             {
                 text: 'Contribute',
                 collapsed: true,
                 items: [
-                    { text: 'Contributing', link: '/contribute' },
-                    { text: 'Local development setup', link: '/contribute/local-development-setup' },
-                    { text: 'Code of Conduct', link: '/contribute/code-of-conduct' },
-                    { text: 'Code Style', link: '/contribute/code-style' },
                     { text: 'Core Team', link: '/contribute/core-team' },
                 ],
             },
