@@ -40,7 +40,7 @@ const changePage = async (page: number) => {
 
     listingStore.isLoading = true;
     await search(listingState.value.criteria);
-    listingStore.setSearchResult(getCurrentListing.value);
+    listingStore.setSearchResult(getCurrentListing.value, true);
     listingStore.isLoading = false;
 };
 

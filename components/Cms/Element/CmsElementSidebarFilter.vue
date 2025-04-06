@@ -15,7 +15,7 @@ const props = withDefaults(
 );
 
 const route = useRoute();
-const { getCurrentListing, search } = useCategoryListing();
+const { getCurrentListing, search, getAvailableFilters } = useCategoryListing();
 
 const listingStore = useListingStore(props.productListingStoreKey);
 const { listingState } = storeToRefs(listingStore);
@@ -33,7 +33,7 @@ watch(
     async () => {
         listingStore.updateCriteria(route.query);
         await search(listingState.value.criteria);
-        listingStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult']);
+        listingStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult'], true);
     },
 );
 </script>
@@ -46,8 +46,8 @@ watch(
     </template>
 
     <ProductListingSidebar
-        v-else-if="listingState.filters.all"
-        :filters="listingState.filters.all"
+        v-else
+        :filters="listingState.filters.all ?? getAvailableFilters"
         :selected-filters="listingState.filters.applied"
         :show-reset-button="listingState.filters.modified"
         :sorting-options="listingState.sorting.options"
