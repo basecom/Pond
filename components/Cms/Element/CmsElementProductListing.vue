@@ -59,22 +59,21 @@ const cardSkeletons = computed(() => {
 const config = useCmsElementConfig(props.element);
 const boxLayout = config.getConfigValue('boxLayout');
 
-const { status: initialStatus } = useLazyAsyncData(
-    `category-listing-${ props.element.id }`,
-    async () => {
-        listingStore.isLoading = true;
-        await search(listingState.value.criteria);
-        listingStore.setSearchResult(getCurrentListing.value, true);
-        listingStore.isLoading = false;
+listingStore.setSearchResult(props.element.data.listing, true);
 
-        return listingState.value;
-    },
-);
+const products = computed(() => {
+    // If the store is loading, return an empty array
+    // Otherwise check getElements - use it if it's not empty
+    // If it is empty, we need to check if the current listing is set
+    // If it is, we need to return an empty array -> this means the filter combination has no results
+    // If it is not, fall back to the default elements provided by the cms element -> this means the evaluation ran upon the initial page load
+    return (listingStore.isLoading) ? [] : (getElements.value.length ? getElements.value : (getCurrentListing.value ? [] : props.element.data.listing.elements));
+});
 </script>
 
 <template>
     <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-        <template v-if="initialStatus === 'pending' || listingStore.isLoading">
+        <template v-if="listingStore.isLoading">
             <ClientOnly>
                 <ProductCardSkeleton
                     v-for="index in cardSkeletons"
@@ -84,8 +83,8 @@ const { status: initialStatus } = useLazyAsyncData(
         </template>
 
         <template
-            v-for="(product, index) in getElements"
             v-else
+            v-for="(product, index) in products"
             :key="product.id"
         >
             <ProductCard
@@ -98,20 +97,20 @@ const { status: initialStatus } = useLazyAsyncData(
     </div>
 
     <UtilityStaticNotification
-        v-if="initialStatus !== 'pending' && !getElements.length"
+        v-if="!products.length && !listingStore.isLoading"
         type="info"
         :message="$t('cms.element.product.noProductsFound')"
         class="mt-4"
     />
 
-    <template v-if="initialStatus === 'pending'  || listingStore.isLoading">
+    <template v-if="listingStore.isLoading">
         <ClientOnly>
             <LayoutSkeletonPagination />
         </ClientOnly>
     </template>
 
     <LayoutPagination
-        v-else-if="getElements.length"
+        v-else-if="products.length"
         :total="listingState.pagination.total ?? 0"
         :items-per-page="listingState.pagination.limit"
         :default-page="listingState.pagination.page"
