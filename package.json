@@ -42,6 +42,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.7.9",
     "@types/bun": "^1.2.3",
     "eslint": "^9.21.0",
     "eslint-plugin-tailwindcss": "^3.18.0",
