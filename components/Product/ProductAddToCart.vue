@@ -67,6 +67,7 @@ const handleAddToCart = async () => {
                 }"
                 :label="props.label ? $t('product.addToCart.submitLabel') : ' '"
                 :prefix-icon="props.icon ? 'cart-shopping' : ''"
+                :title="props.icon ? t('product.addToCart.submitLabel') : ''"
             />
         </FormKit>
 

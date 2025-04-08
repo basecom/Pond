@@ -71,6 +71,7 @@ const navItems = ref([
             <FormKit
                 type="submit"
                 prefix-icon="right-from-bracket"
+                :title="t('account.logout.buttonLabel')"
                 @click.prevent="handleLogout"
             >
                 {{ $t('account.logout.buttonLabel') }}

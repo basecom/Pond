@@ -207,6 +207,7 @@ watch(customer, async newCustomer => {
                 outer: 'col-span-2',
             }"
             prefix-icon="envelope"
+            :title="newsletterAction"
         />
     </FormKit>
 </template>
