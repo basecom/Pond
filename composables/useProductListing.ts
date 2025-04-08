@@ -105,7 +105,7 @@ export function useProductListing() {
         const filtersFromQuery = getFiltersFromQuery(routeQuery);
 
         // get sorting, limit, and page from the URL or use default values
-        const sorting = routeQuery.sort ? (routeQuery.sort as string) : defaultCriteria.order;
+        const sorting = routeQuery.order ? (routeQuery.order as string) : defaultCriteria.order;
         const limit = routeQuery.limit ? Number(routeQuery.limit) : defaultCriteria.limit;
         const page = routeQuery.p ? Number(routeQuery.p) : defaultCriteria.p;
         const search = routeQuery.search ? (routeQuery.search as string) : undefined;
@@ -174,7 +174,7 @@ export function useProductListing() {
         router.push({
             query: {
                 ...route.query,
-                sort: sorting,
+                order: sorting,
             },
         });
 
