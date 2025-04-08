@@ -38,10 +38,10 @@ const changePage = async (page: number) => {
     windowYPosition.value = 0;
     listingStore.setPage(page);
 
-    listingStore.isLoading = true;
+    listingStore.displayCardSkeleton = true;
     await search(listingState.value.criteria);
     listingStore.setSearchResult(getCurrentListing.value, true);
-    listingStore.isLoading = false;
+    listingStore.displayCardSkeleton = false;
 };
 
 const cardSkeletons = computed(() => {
@@ -73,9 +73,9 @@ const products = computed(() => {
 
 <template>
     <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-        <template v-if="listingStore.isLoading">
+        <template v-if="listingStore.isLoading || listingStore.displayCardSkeleton">
             <ClientOnly>
-                <ProductCardSkeleton
+                <LayoutSkeletonProductCard
                     v-for="index in cardSkeletons"
                     :key="index"
                 />
@@ -103,7 +103,7 @@ const products = computed(() => {
         class="mt-4"
     />
 
-    <template v-if="listingStore.isLoading">
+    <template v-if="listingStore.isLoading || listingStore.displayPaginationSkeleton">
         <ClientOnly>
             <LayoutSkeletonPagination />
         </ClientOnly>

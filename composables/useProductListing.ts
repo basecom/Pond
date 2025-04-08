@@ -34,7 +34,12 @@ export function useProductListing() {
         defaultCriteria: {},
     } as ListingState);
 
+    // use isLoading to display skeleton loaders for all the listing components (filter, product cards, pagination)
     const isLoading = ref(false);
+    // use displayXYZSkeleton to display skeleton loader for an individual listing component
+    const displayFilterSkeleton = ref(false);
+    const displayCardSkeleton = ref(false);
+    const displayPaginationSkeleton = ref(false);
 
     const filtersToCriteria = (filters: Schemas['ProductListingResult']['currentFilters']) => filterCodes.reduce((acc: Partial<ProductListingCriteria>, key: string): Partial<ProductListingCriteria> => {
         const urlMapper = filterMapping[key];
@@ -317,6 +322,9 @@ export function useProductListing() {
     return {
         listingState,
         isLoading,
+        displayFilterSkeleton,
+        displayCardSkeleton,
+        displayPaginationSkeleton,
         initializeCriteria,
         updateCriteria,
         setSearchResult,

@@ -31,16 +31,22 @@ const onRemoveFilter = async (removeFilterEvent: RemoveFilterEvent) => {
 watch(
     () => route.query,
     async () => {
-        listingStore.updateCriteria(route.query, listingState.value.pagination.page?.toString() === route.query.p);
+        const pageNotChanged = listingState.value.pagination.page?.toString() === route.query.p;
+
+        listingStore.displayCardSkeleton = true;
+        listingStore.displayPaginationSkeleton = pageNotChanged;
+        listingStore.updateCriteria(route.query, pageNotChanged);
 
         await search(listingState.value.criteria);
         listingStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult'], true);
+        listingStore.displayCardSkeleton = false;
+        listingStore.displayPaginationSkeleton = false;
     },
 );
 </script>
 
 <template>
-    <template v-if="listingStore.isLoading">
+    <template v-if="listingStore.isLoading || listingStore.displayFilterSkeleton">
         <ClientOnly>
             <LayoutSkeletonCmsElementSidebarFilter />
         </ClientOnly>
