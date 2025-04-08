@@ -114,6 +114,7 @@ const products = computed(() => {
         :total="listingState.pagination.total ?? 0"
         :items-per-page="listingState.pagination.limit"
         :default-page="listingState.pagination.page"
+        :page="listingState.pagination.page"
         @update-page="(currentPage: number) => changePage(currentPage)"
     />
 </template>

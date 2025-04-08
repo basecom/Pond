@@ -98,7 +98,7 @@ export function useProductListing() {
         updateCriteria(routeQuery);
     };
 
-    const updateCriteria = (routeQuery: LocationQuery) => {
+    const updateCriteria = (routeQuery: LocationQuery, resetPagination: boolean = false) => {
         const { defaultCriteria } = listingState.value;
 
         // extract filter from url
@@ -116,9 +116,13 @@ export function useProductListing() {
             ...filtersFromQuery,
             order: sorting,
             limit,
-            p: page,
+            p: resetPagination ? 1 : page,
             search,
         };
+
+        if (resetPagination) {
+            setPage(1);
+        }
 
         // check if any filters have changed
         updateFiltersChanged();

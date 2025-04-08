@@ -5,11 +5,13 @@ withDefaults(
         siblingCount?: number;
         itemsPerPage?: number;
         defaultPage?: number;
+        page?: number
     }>(),
     {
         siblingCount: 1,
         itemsPerPage: 24,
         defaultPage: 1,
+        page: 1,
     },
 );
 
@@ -25,6 +27,7 @@ const { t } = useI18n();
         :total="total"
         :sibling-count="siblingCount"
         :default-page="defaultPage"
+        :page="page"
         :items-per-page="itemsPerPage"
         show-edges
         @update:page="(value: number) => $emit('update-page', value)"

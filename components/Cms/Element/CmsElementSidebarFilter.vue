@@ -31,7 +31,8 @@ const onRemoveFilter = async (removeFilterEvent: RemoveFilterEvent) => {
 watch(
     () => route.query,
     async () => {
-        listingStore.updateCriteria(route.query);
+        listingStore.updateCriteria(route.query, listingState.value.pagination.page?.toString() === route.query.p);
+
         await search(listingState.value.criteria);
         listingStore.setSearchResult(getCurrentListing.value as Schemas['ProductListingResult'], true);
     },
