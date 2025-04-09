@@ -28,8 +28,6 @@ useBreadcrumbs();
 await customerStore.refreshContext();
 refreshCart();
 
-useBroadcastState();
-
 const route = useRoute();
 if (route.path !== '/wishlist' && wishlistEnabled) {
     // If not on wishlist page we fetch for displaying the amount of items in the header
