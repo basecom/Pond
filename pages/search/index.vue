@@ -76,8 +76,9 @@ listingStore.setSearchResult(productSearch.value as Schemas['ProductListingResul
 
 watch(
     cacheKey,
-    () => {
-        loadProducts(cacheKey.value);
+    async () => {
+        const cacheProducts = await loadProducts(cacheKey.value);
+        listingStore.setSearchResult(cacheProducts.value as Schemas['ProductListingResult'], true);
         // TODO: Works for backwards but not forwards to update listing, also needs to update searchTerm input and "Results for ..." display
     },
     { immediate: false },
@@ -86,8 +87,8 @@ watch(
 watch(
     () => route.query,
     () => {
-        // TODO: changing the searchTerm does not re-render the filters
-        listingStore.updateCriteria(route.query);
+        const pageNotChanged = listingState.value.pagination.page?.toString() === route.query.p;
+        listingStore.updateCriteria(route.query, pageNotChanged);
     },
 );
 
@@ -150,6 +151,7 @@ useBreadcrumbs([
             :total="listingState.pagination.total ?? 0"
             :items-per-page="listingState.pagination.limit ?? 24"
             :default-page="listingState.pagination.page ?? 1"
+            :page="listingState.pagination.page"
             @update-page="(currentPage: number) => changePage(currentPage)"
         />
     </div>
