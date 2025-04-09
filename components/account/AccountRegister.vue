@@ -8,6 +8,7 @@ const errorMessage: Ref<string | undefined> = ref(undefined);
 const customerStore = useCustomerStore();
 const {t} = useI18n();
 
+// TODO: Add BE validation and display for such errors
 function buildRegisterForm(registerData: RegisterData) {
     const address = {
         countryId: registerData.countryId,

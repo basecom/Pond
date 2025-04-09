@@ -11,6 +11,7 @@ const {getCountries, fetchCountries, getStatesForCountry} = useCountries();
 const {t} = useI18n();
 const configStore = useConfigStore();
 
+// Props and emits
 withDefaults(
     defineProps<{
         isLoading?: boolean;
@@ -26,7 +27,7 @@ const emits = defineEmits<{
     register: [registerData: RegisterData];
 }>();
 
-// Custom properties
+// Custom properties and refs
 const accountTypes = {
     'private': {label: t('account.register.accountTypes.private'), value: 'private'},
     'business': {label: t('account.register.accountTypes.business'), value: 'business'},
@@ -577,7 +578,6 @@ const dependencies = computed(() => {
     return dependencies;
 });
 
-// Handle Form submit and BE validation
 const register = async (registerData: RegisterData) => {
     emits('register', registerData);
 };
@@ -590,7 +590,7 @@ watch(form.values, (values) => {
     states.value = getStatesForCountry(values.countryId);
 });
 
-// Set up fresh admin config variables and get salutations from admin
+// API fetches
 onBeforeMount(async () => {
     await configStore.loadConfig();
     await fetchSalutations();
