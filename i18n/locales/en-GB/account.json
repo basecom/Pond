@@ -160,7 +160,12 @@
                     "general": "Please enter a valid phone number."
                 }
             },
-            "shippingAddress": "Your shipping address"
+            "shippingAddress": "Your shipping address",
+            "tos": {
+                "header": "Privacy",
+                "label": "By selecting continue you confirm that you have read our data protection information and accepted our general terms and conditions.",
+                "errorGeneral": "You need to accept the privacy policy."
+            }
         }
     }
 }

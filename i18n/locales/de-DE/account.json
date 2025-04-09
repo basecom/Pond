@@ -160,7 +160,12 @@
                     "general": "Bitte geben Sie eine gültige Telefonnummer ein."
                 }
             },
-            "shippingAddress": "Ihre Lieferadresse"
+            "shippingAddress": "Ihre Lieferadresse",
+            "tos": {
+                "header": "Datenschutz",
+                "label": "Ich habe die Datenschutzbestimmungen zur Kenntnis genommen und die AGB gelesen und bin mit ihnen einverstanden.",
+                "errorGeneral": "Sie müssen den Datenschutzbestimmungen zustimmen."
+            }
         }
     }
 }

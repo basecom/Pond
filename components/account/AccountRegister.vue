@@ -9,6 +9,7 @@ const customerStore = useCustomerStore();
 const {t} = useI18n();
 
 // TODO: Add BE validation and display for such errors
+// TODO: Review type errors due schema omit
 function buildRegisterForm(registerData: RegisterData) {
     const address = {
         countryId: registerData.countryId,
@@ -41,6 +42,7 @@ function buildRegisterForm(registerData: RegisterData) {
         title: registerData.title ?? null,
         accountType: registerData.accountType ?? null,
         vatIds: registerData.vatNumber ?? null,
+        acceptedDataProtection: registerData.acceptedDataProtection ?? true,
     }
 }
 

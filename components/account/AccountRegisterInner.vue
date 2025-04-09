@@ -231,6 +231,11 @@ const addressFieldSchema = z.object({
             )
             .optional()
 });
+const tosSchema = z.object({
+    acceptedDataProtection: z.boolean({
+        required_error: t('account.register.tos.errorGeneral')
+    })
+});
 
 // TODO: Fix typing
 const fieldConfig = {
@@ -430,6 +435,9 @@ const fieldConfig = {
                 placeholder: t('account.register.phone.placeholder'),
             }
         },
+    },
+    acceptedDataProtection: {
+        label: t('account.register.tos.label'),
     }
 }
 
@@ -457,7 +465,8 @@ const calculatedSchema = computed(() => {
         .merge(shortAddressFieldSchema)
         .merge(z.object({
             shippingAddress: calculatedAddressSchema
-        }));
+        }))
+        .merge(tosSchema);
 
     let omittedGeneral: {
         accountType: true | undefined
@@ -486,29 +495,30 @@ const calculatedSchema = computed(() => {
     // TODO: Omit fields in nested shippingAddressSchema
     // refine and superRefine might not work due dynamic fields
     // pls refer to here: https://github.com/logaretm/vee-validate/issues/4338
+    // TODO: Implement alternative to superRefine, because partial will alter the schema to a non-usable state
     // TODO: Omit tempers with types resulting in TS errors
-    schema = schema.omit(omittedGeneral);
+    return schema.omit(omittedGeneral);
 
-    return schema.partial().superRefine((data, context) => {
-        if (configStore.get('core.loginRegistration.requirePasswordConfirmation')) {
-            if (!data.confirmPassword || data.password !== data.confirmPassword) {
-                context.addIssue({
-                    code: z.ZodIssueCode.custom,
-                    message: t('account.register.password.confirm.errorGeneral'),
-                    path: ['confirmPassword']
-                })
-            }
-        }
-        if (configStore.get('core.loginRegistration.requireEmailConfirmation')) {
-            if (data.email !== data.confirmMail) {
-                context.addIssue({
-                    code: z.ZodIssueCode.custom,
-                    message: t('account.register.email.confirm.errorGeneral'),
-                    path: ['confirmMail']
-                })
-            }
-        }
-    });
+    // return schema.superRefine((data, context) => {
+    //     if (configStore.get('core.loginRegistration.requirePasswordConfirmation')) {
+    //         if (!data.confirmPassword || data.password !== data.confirmPassword) {
+    //             context.addIssue({
+    //                 code: z.ZodIssueCode.custom,
+    //                 message: t('account.register.password.confirm.errorGeneral'),
+    //                 path: ['confirmPassword']
+    //             })
+    //         }
+    //     }
+    //     if (configStore.get('core.loginRegistration.requireEmailConfirmation')) {
+    //         if (data.email !== data.confirmMail) {
+    //             context.addIssue({
+    //                 code: z.ZodIssueCode.custom,
+    //                 message: t('account.register.email.confirm.errorGeneral'),
+    //                 path: ['confirmMail']
+    //             })
+    //         }
+    //     }
+    // });
 });
 
 export type RegisterData = z.infer<typeof calculatedSchema.value>;
@@ -736,6 +746,14 @@ onBeforeMount(async () => {
         </template>
         <!-- TODO: Implement shippingAddress.state template -->
         <!-- TODO: Add hidden-Input field for storefrontUrl -->
+        <template #acceptedDataProtection="slotProps">
+            <div class="pt-6">
+                <UiLabel class="font-bold">{{ $t('account.register.tos.header') }}</UiLabel>
+                <UiAutoFormField v-if="configStore.get('core.loginRegistration.requireDataProtectionCheckbox')"
+                                 v-bind="slotProps"/>
+                <UiLabel v-else>{{ $t('account.register.tos.label') }}</UiLabel>
+            </div>
+        </template>
         <slot name="submit-btn">
             <UiButton
                 type="submit"
