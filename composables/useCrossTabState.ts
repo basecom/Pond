@@ -15,13 +15,13 @@ export function useCrossTabState() {
     const cartUpdateCookie = useCookie('cart-update', {
         default: () => ({ tabId: '', timestamp: 0 }),
         watch: true,
-        maxAge: 86400
+        maxAge: 86400,
     });
 
     const sessionUpdateCookie = useCookie('session-update', {
         default: () => ({ tabId: '', timestamp: 0 }),
         watch: true,
-        maxAge: 86400
+        maxAge: 86400,
     });
 
     // Watch for cart changes in current tab
@@ -29,7 +29,7 @@ export function useCrossTabState() {
         if (!refreshingCart.value) {
             cartUpdateCookie.value = {
                 tabId: tabId.value,
-                timestamp: Date.now()
+                timestamp: Date.now(),
             };
         }
     });
@@ -39,7 +39,7 @@ export function useCrossTabState() {
         if (!refreshingSession.value) {
             sessionUpdateCookie.value = {
                 tabId: tabId.value,
-                timestamp: Date.now()
+                timestamp: Date.now(),
             };
         }
     });
@@ -49,8 +49,7 @@ export function useCrossTabState() {
         // Only refresh if it's a new update from another tab
         if (newValue &&
             newValue.tabId !== tabId.value &&
-            (!oldValue || newValue.timestamp > oldValue.timestamp))
-        {
+            (!oldValue || newValue.timestamp > oldValue.timestamp)) {
             refreshingCart.value = true;
 
             try {
@@ -68,8 +67,7 @@ export function useCrossTabState() {
         // Only refresh if it's a new update from another tab
         if (newValue &&
             newValue.tabId !== tabId.value &&
-            (!oldValue || newValue.timestamp > oldValue.timestamp))
-        {
+            (!oldValue || newValue.timestamp > oldValue.timestamp)) {
             refreshingSession.value = true;
 
             try {
