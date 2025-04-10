@@ -8,7 +8,6 @@ const errorMessage: Ref<string | undefined> = ref(undefined);
 const customerStore = useCustomerStore();
 const {t} = useI18n();
 
-// TODO: Add BE validation and display for such errors
 // TODO: Review type errors due schema omit
 function buildRegisterForm(registerData: RegisterData) {
     const address = {
@@ -52,9 +51,8 @@ const register = async (registerData: RegisterData) => {
 
     try {
         const registerForm = buildRegisterForm(registerData);
-        console.log(registerForm);
+        console.log('Firing API request!', registerForm);
         await customerStore.register(registerForm);
-        console.log('executing register');
     } catch (error) {
         if (error instanceof ApiClientError) {
             console.warn('API Error detected');

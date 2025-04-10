@@ -42,18 +42,21 @@ const passwordMinLength = computed<number>(() => {
         ? Number(configStore.get('core.loginRegistration.passwordMinLength'))
         : 0
 });
+
+// TODO: To avoid emit I chose this new approach with inline conditions but some fields will result in missing key errors :/
 const generalFieldSchema = z.object({
     headerMain: z.void(),
     headerGeneral: z.void(),
-    accountType: z.string({
-        required_error: t('account.register.accountTypes.errorGeneral')
-    }),
+    accountType: configStore.get('core.loginRegistration.showAccountTypeSelection')
+        ? z.string({
+            required_error: t('account.register.accountTypes.errorGeneral')
+        })
+        : z.void(),
     salutationId: z
         .string({
             required_error: t('account.register.salutations.errorGeneral'),
         }),
-    title: z
-        .string().optional(),
+    title: z.string().optional(),
     firstName: z
         .string({
             required_error: t('account.register.firstName.errorGeneral'),
@@ -67,11 +70,12 @@ const generalFieldSchema = z.object({
             required_error: t('account.register.email.errorGeneral'),
         })
         .email(t('account.register.email.errorGeneral')),
-    confirmMail: z
-        .string({
-            required_error: t('account.register.email.errorGeneral'),
-        })
-        .email(t('account.register.email.errorGeneral')),
+    // confirmMail: configStore.get('core.loginRegistration.requireEmailConfirmation')
+    //     ? z.string({
+    //         required_error: t('account.register.email.errorGeneral'),
+    //     })
+    //         .email(t('account.register.email.errorGeneral'))
+    //     : z.void(),
     birthdate: configStore.get('core.loginRegistration.birthdayFieldRequired')
         ? z
             .coerce.date({
@@ -80,15 +84,19 @@ const generalFieldSchema = z.object({
         : z
             .coerce.date()
             .optional(),
-    company: z
-        .string({
+    company: configStore.get('core.loginRegistration.showAccountTypeSelection')
+        ? z.string({
             required_error: t('account.register.company.errorGeneral'),
-        }),
-    department: z
-        .string({
+        })
+        : z.void(),
+    department: configStore.get('core.loginRegistration.showAccountTypeSelection')
+        ? z.string({
             required_error: t('account.register.department.errorGeneral'),
-        }),
-    vatNumber: z.string(),
+        })
+        : z.void(),
+    vatNumber: configStore.get('core.loginRegistration.showAccountTypeSelection')
+        ? z.string()
+        : z.void(),
     password: z
         .string({
             required_error: t('account.register.password.error.general'),
@@ -97,10 +105,11 @@ const generalFieldSchema = z.object({
             passwordMinLength.value,
             t('account.register.password.error.minLength', {length: passwordMinLength.value})
         ),
-    confirmPassword: z
-        .string({
-            required_error: t('account.register.password.confirm.errorGeneral'),
-        }),
+    // confirmPassword: configStore.get('core.loginRegistration.requirePasswordConfirmation')
+    //     ? z.string({
+    //         required_error: t('account.register.password.confirm.errorGeneral'),
+    //     })
+    //     : z.void(),
 });
 const shortAddressFieldSchema = z.object({
     headerAddress: z.void(),
@@ -157,13 +166,18 @@ const shortAddressFieldSchema = z.object({
     deliveryAddressVaries: z.boolean().optional(),
 });
 const addressFieldSchema = z.object({
-    accountType: z.string(),
+    accountType: configStore.get('core.loginRegistration.showAccountTypeSelection')
+        ? z.string({
+            required_error: t('account.register.accountTypes.errorGeneral')
+        })
+        : z.void(),
     salutationId: z
         .string({
             required_error: t('account.register.salutations.errorGeneral'),
         }),
-    title: z
-        .string().optional(),
+    title: configStore.get('core.loginRegistration.showTitleField')
+        ? z.string().optional()
+        : z.void(),
     firstName: z
         .string({
             required_error: t('account.register.firstName.errorGeneral'),
@@ -172,14 +186,16 @@ const addressFieldSchema = z.object({
         .string({
             required_error: t('account.register.lastName.errorGeneral'),
         }),
-    company: z
-        .string({
+    company: configStore.get('core.loginRegistration.showAccountTypeSelection')
+        ? z.string({
             required_error: t('account.register.company.errorGeneral'),
-        }),
-    department: z
-        .string({
+        })
+        : z.void(),
+    department: configStore.get('core.loginRegistration.showAccountTypeSelection')
+        ? z.string({
             required_error: t('account.register.department.errorGeneral'),
-        }),
+        })
+        : z.void(),
     street: z
         .string({
             required_error: t('account.register.address.error.required')
@@ -237,7 +253,6 @@ const tosSchema = z.object({
     })
 });
 
-// TODO: Fix typing
 const fieldConfig = {
     title: {
         label: t('account.register.title.label'),
@@ -443,60 +458,42 @@ const fieldConfig = {
 
 // Remove all formFields which are not enabled in the admin area
 const calculatedSchema = computed(() => {
+    // TODO: Grand goal is to dodge omit completely
     let omittedAddress: {
-        accountType: true | undefined
-        company: true | undefined
-        department: true | undefined
-        vatNumber: true | undefined
         additionalAddressLine1: true | undefined
         additionalAddressLine2: true | undefined
     } = {
-        accountType: !configStore.get('core.loginRegistration.showAccountTypeSelection') || undefined,
-        company: !configStore.get('core.loginRegistration.showAccountTypeSelection') || undefined,
-        department: !configStore.get('core.loginRegistration.showAccountTypeSelection') || undefined,
-        vatNumber: !configStore.get('core.loginRegistration.showAccountTypeSelection') || undefined,
         additionalAddressLine1: !configStore.get('core.loginRegistration.showAdditionalAddressField1') || undefined,
         additionalAddressLine2: !configStore.get('core.loginRegistration.showAdditionalAddressField2') || undefined,
     };
-    // TODO: Typing problems
-    const calculatedAddressSchema = addressFieldSchema.omit(omittedAddress);
 
+    // TODO: shippingAddress wont hide properly
     let schema = generalFieldSchema
         .merge(shortAddressFieldSchema)
-        .merge(z.object({
-            shippingAddress: calculatedAddressSchema
-        }))
+        // .merge(z.object({
+        //     shippingAddress: calculatedAddressSchema
+        // }))
         .merge(tosSchema);
 
+
     let omittedGeneral: {
-        accountType: true | undefined
-        company: true | undefined
-        department: true | undefined
-        vatNumber: true | undefined
         title: true | undefined
         birthdate: true | undefined
-        confirmPassword: true | undefined
         additionalAddressLine1: true | undefined
         additionalAddressLine2: true | undefined
-        confirmMail: true | undefined
     } = {
-        accountType: !configStore.get('core.loginRegistration.showAccountTypeSelection') || undefined,
-        company: !configStore.get('core.loginRegistration.showAccountTypeSelection') || undefined,
-        department: !configStore.get('core.loginRegistration.showAccountTypeSelection') || undefined,
-        vatNumber: !configStore.get('core.loginRegistration.showAccountTypeSelection') || undefined,
         title: !configStore.get('core.loginRegistration.showTitleField') || undefined,
         birthdate: !configStore.get('core.loginRegistration.showBirthdayField') || undefined,
-        confirmPassword: !configStore.get('core.loginRegistration.requirePasswordConfirmation') || undefined,
         additionalAddressLine1: !configStore.get('core.loginRegistration.showAdditionalAddressField1') || undefined,
         additionalAddressLine2: !configStore.get('core.loginRegistration.showAdditionalAddressField2') || undefined,
-        confirmMail: !configStore.get('core.loginRegistration.requireEmailConfirmation') || undefined,
     };
 
-    // TODO: Omit fields in nested shippingAddressSchema
+    // TODO: Omit fields in nested shippingAddressSchema (will be resolved if omit will be dodged entirely)
     // refine and superRefine might not work due dynamic fields
     // pls refer to here: https://github.com/logaretm/vee-validate/issues/4338
+    // This might also be resolved when the new approach without omit will take effect completly
     // TODO: Implement alternative to superRefine, because partial will alter the schema to a non-usable state
-    // TODO: Omit tempers with types resulting in TS errors
+    // TODO: Omit tempers with types resulting in TS errors (will be resolved if omit will be dodged entirely)
     return schema.omit(omittedGeneral);
 
     // return schema.superRefine((data, context) => {
@@ -527,68 +524,53 @@ const form = useForm({
     validationSchema: toTypedSchema(calculatedSchema.value),
 })
 
-const dependencies = computed(() => {
-    // TODO: Fix typing
-    let dependencies = [];
-    dependencies.push({
+const dependencies = [
+    {
         sourceField: 'deliveryAddressVaries',
         type: DependencyType.HIDES,
         targetField: 'shippingAddress',
         when: (deliveryAddressVaries: boolean) =>
             !deliveryAddressVaries
-    });
-    if (configStore.get('core.loginRegistration.showAccountTypeSelection')) {
-        dependencies.push(
-            {
-                sourceField: 'accountType',
-                type: DependencyType.HIDES,
-                targetField: 'company',
-                when: (accountType: string) =>
-                    accountType !== accountTypes.business.value
-            }
-        );
-        dependencies.push(
-            {
-                sourceField: 'accountType',
-                type: DependencyType.HIDES,
-                targetField: 'department',
-                when: (accountType: string) =>
-                    accountType !== accountTypes.business.value
-            }
-        );
-        dependencies.push(
-            {
-                sourceField: 'accountType',
-                type: DependencyType.HIDES,
-                targetField: 'vatNumber',
-                when: (accountType: string) =>
-                    accountType !== accountTypes.business.value
-            },
-        );
-        dependencies.push(
-            {
-                sourceField: 'shippingAddress.accountType',
-                type: DependencyType.HIDES,
-                targetField: 'shippingAddress.company',
-                when: (accountType: string) =>
-                    accountType !== accountTypes.business.value
-            }
-        );
-        dependencies.push(
-            {
-                sourceField: 'shippingAddress.accountType',
-                type: DependencyType.HIDES,
-                targetField: 'shippingAddress.department',
-                when: (accountType: string) =>
-                    accountType !== accountTypes.business.value
-            }
-        );
+    },
+    {
+        sourceField: 'accountType',
+        type: DependencyType.HIDES,
+        targetField: 'company',
+        when: (accountType: string) =>
+            accountType !== accountTypes.business.value
+    },
+    {
+        sourceField: 'accountType',
+        type: DependencyType.HIDES,
+        targetField: 'department',
+        when: (accountType: string) =>
+            accountType !== accountTypes.business.value
+    },
+    {
+        sourceField: 'accountType',
+        type: DependencyType.HIDES,
+        targetField: 'vatNumber',
+        when: (accountType: string) =>
+            accountType !== accountTypes.business.value
+    },
+    {
+        sourceField: 'shippingAddress.accountType',
+        type: DependencyType.HIDES,
+        targetField: 'shippingAddress.company',
+        when: (accountType: string) =>
+            accountType !== accountTypes.business.value
+    },
+    {
+        sourceField: 'shippingAddress.accountType',
+        type: DependencyType.HIDES,
+        targetField: 'shippingAddress.department',
+        when: (accountType: string) =>
+            accountType !== accountTypes.business.value
     }
-
-    return dependencies;
-});
+];
 
 const register = async (registerData: RegisterData) => {
+    console.log(form.values);
     emits('register', registerData);
 };
 
@@ -611,6 +593,23 @@ onBeforeMount(async () => {
 </script>
 
 <template>
+    <div class="mt-0 grid">
+        <slot name="alert">
+            <UiAlert v-if="errorMessage" variant="destructive" class="mb-4 flex gap-4">
+                <slot name="alert-icon">
+                    <Icon name="mdi:alert-circle-outline" class="size-4 text-red-500"/>
+                </slot>
+
+                <div>
+                    <UiAlertTitle>{{ $t('error.generalHeadline') }}</UiAlertTitle>
+                    <UiAlertDescription>
+                        {{ errorMessage }}
+                    </UiAlertDescription>
+                </div>
+            </UiAlert>
+        </slot>
+    </div>
+
     <UiAutoForm
         class="space-y-6"
         :form="form"
@@ -643,8 +642,11 @@ onBeforeMount(async () => {
             </slot>
         </template>
         <template #accountType>
-            <FormField v-slot="{ componentField }" name="accountType">
-                <UiFormItem>
+            <FormField
+                v-slot="{ componentField }"
+                name="accountType"
+            >
+                <UiFormItem v-if="configStore.get('core.loginRegistration.showAccountTypeSelection')">
                     <UiAutoFormLabel required>{{ $t('account.register.accountTypes.label') }}</UiAutoFormLabel>
                     <UiSelect v-bind="componentField">
                         <UiFormControl>
@@ -749,8 +751,10 @@ onBeforeMount(async () => {
         <template #acceptedDataProtection="slotProps">
             <div class="pt-6">
                 <UiLabel class="font-bold">{{ $t('account.register.tos.header') }}</UiLabel>
-                <UiAutoFormField v-if="configStore.get('core.loginRegistration.requireDataProtectionCheckbox')"
-                                 v-bind="slotProps"/>
+                <UiAutoFormField
+                    v-if="configStore.get('core.loginRegistration.requireDataProtectionCheckbox')"
+                    v-bind="slotProps"
+                />
                 <UiLabel v-else>{{ $t('account.register.tos.label') }}</UiLabel>
             </div>
         </template>
