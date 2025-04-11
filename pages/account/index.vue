@@ -1,8 +1,9 @@
 <script setup lang="ts">
-//await usePondAuthentication().rerouteIfLoggedOut();
-setPageLayout('account')
+definePageMeta({
+    layout: 'account',
+});
 </script>
 
 <template>
-  der content
+    <AccountOverview />
 </template>

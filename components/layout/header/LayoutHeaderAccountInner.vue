@@ -36,28 +36,57 @@ defineEmits<{
             <template v-if="signedIn">
                 <slot name="signed-in">
                     <UiDropdownMenuItem>
-                        <slot name="overview">
-                            {{ $t('account.overview') }}
+                        <slot name="action-overview">
+                            <NuxtLinkLocale to="/account">
+                                <slot name="overview">
+                                    {{ $t('account.overview.label') }}
+                                </slot>
+                            </NuxtLinkLocale>
                         </slot>
                     </UiDropdownMenuItem>
                     <UiDropdownMenuItem>
-                        <slot name="personal-profile">
-                            {{ $t('account.personalProfile') }}
+                        <slot name="action-personal-profile">
+                            <NuxtLinkLocale to="/account/profile">
+                                <slot name="personal-profile">
+                                    {{ $t('account.personalProfile') }}
+                                </slot>
+                            </NuxtLinkLocale>
                         </slot>
                     </UiDropdownMenuItem>
                     <UiDropdownMenuItem>
-                        <slot name="addresses">
-                            {{ $t('account.addresses') }}
+                        <slot name="action-addresses">
+                            <NuxtLinkLocale to="/account/address">
+                                <slot name="personal-addresses">
+                                    {{ $t('account.addresses') }}
+                                </slot>
+                            </NuxtLinkLocale>
                         </slot>
                     </UiDropdownMenuItem>
                     <UiDropdownMenuItem>
-                        <slot name="payment-methods">
-                            {{ $t('account.paymentMethods') }}
+                        <slot name="action-payment-methods">
+                            <NuxtLinkLocale to="/account/payment">
+                                <slot name="personal-payment-methods">
+                                    {{ $t('account.paymentMethods') }}
+                                </slot>
+                            </NuxtLinkLocale>
                         </slot>
                     </UiDropdownMenuItem>
                     <UiDropdownMenuItem>
-                        <slot name="orders">
-                            {{ $t('account.orders') }}
+                        <slot name="action-orders">
+                            <NuxtLinkLocale to="/account/order">
+                                <slot name="personal-orders">
+                                    {{ $t('account.orders') }}
+                                </slot>
+                            </NuxtLinkLocale>
+                        </slot>
+                    </UiDropdownMenuItem>
+                    <UiDropdownMenuItem>
+                        <slot name="action-wishlist">
+                            <NuxtLinkLocale to="/account/wishlist">
+                                <slot name="wishlist">
+                                    {{ $t('account.wishlist') }}
+                                </slot>
+                            </NuxtLinkLocale>
                         </slot>
                     </UiDropdownMenuItem>
 

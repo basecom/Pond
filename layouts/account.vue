@@ -1,23 +1,5 @@
 <script setup lang="ts">
-const { changeLanguage, getLanguageIdFromCode, getAvailableLanguages } = useInternationalization();
-const { locale } = useI18n();
-
-const updateSessionWithLanguage = async () => {
-    const frontendLocale = locale.value;
-    await getAvailableLanguages();
-    await changeLanguage(getLanguageIdFromCode(frontendLocale));
-};
-
-await updateSessionWithLanguage();
-
-const { refreshCart } = useCart();
-const { getWishlistProducts } = useWishlist();
-
-useNotifications();
-useBreadcrumbs();
-
-refreshCart();
-getWishlistProducts();
+//await usePondAuthentication().rerouteIfLoggedOut();
 </script>
 
 <template>
@@ -26,16 +8,11 @@ getWishlistProducts();
 
     <LayoutHeader />
 
-    <main class="container">
-        <UiAccordion type="single" collapsible>
-          <UiAccordionItem value="my-account">
-            <UiAccordionTrigger>Mein Account</UiAccordionTrigger>
-            <UiAccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
-            </UiAccordionContent>
-          </UiAccordionItem>
-        </UiAccordion>
+    <main class="container md:mt-6 md:grid md:grid-cols-[3fr_9fr] md:gap-8">
+        <AccountMenu />
 
-        <NuxtPage />
+        <div>
+            <NuxtPage />
+        </div>
     </main>
 </template>

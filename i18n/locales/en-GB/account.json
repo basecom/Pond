@@ -1,11 +1,21 @@
 {
     "account": {
         "myAccount": "My Account",
-        "overview": "Overview",
+      "overview": {
+        "label":"Overview",
+        "description": "Directly access your profile information, the default payment method and given addresses.",
+        "personalData": "Personal data",
+        "defaultPaymentMethod": "Default payment method",
+        "defaultBillingAddress": "Default billing address",
+        "defaultShippingAddress": "Default shipping address",
+        "addressesIdentical": "Equal to billing address"
+      },
         "personalProfile": "Personal Profile",
         "addresses": "Addresses",
         "paymentMethods": "Payment Methods",
         "orders": "Orders",
+      "wishlist": "Wishlist",
+      "welcome": "Hello {name}",
         "auth": {
             "login": "Sign in",
             "register": "Sign up",
@@ -24,6 +34,14 @@
           "errorGeneral": "Please enter a password",
           "errorLength": "Your password must be at least {length} characters long"
         }
+      },
+      "customer": {
+        "salutation": "Salutation",
+        "name": "Name",
+        "mail": "Email",
+        "title": "Title",
+        "companyName": "Company",
+        "vat": "VAT ID"
       }
     }
 }
