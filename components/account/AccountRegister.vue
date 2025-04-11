@@ -42,7 +42,7 @@ function buildRegisterForm(registerData: RegisterData) {
         accountType: registerData.accountType ?? null,
         vatIds: registerData.vatNumber ?? null,
         acceptedDataProtection: registerData.acceptedDataProtection ?? true,
-        storefrontUrl: 'this is url placeholder'
+        storefrontUrl: customerStore.sessionContext.salesChannel.domains[0].url,
     }
 }
 
@@ -54,6 +54,7 @@ const register = async (registerData: RegisterData) => {
         const registerForm = buildRegisterForm(registerData);
         console.log('Firing API request!', registerForm);
         await customerStore.register(registerForm);
+        console.log('register done!');
     } catch (error) {
         if (error instanceof ApiClientError) {
             console.warn('API Error detected');

@@ -572,6 +572,7 @@ const dependencies = [
 
 const register = async (registerData: RegisterData) => {
     console.log(form.values);
+    // TODO: Emit wont fire
     emits('register', registerData);
 };
 
