@@ -42,6 +42,7 @@ function buildRegisterForm(registerData: RegisterData) {
         accountType: registerData.accountType ?? null,
         vatIds: registerData.vatNumber ?? null,
         acceptedDataProtection: registerData.acceptedDataProtection ?? true,
+        storefrontUrl: 'this is url placeholder'
     }
 }
 
