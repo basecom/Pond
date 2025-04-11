@@ -1,14 +1,14 @@
 <script setup lang="ts">
 const { languageIdChain } = useSessionContext();
-const navigationStore = useNavigationStore();
-const { mainNavigationElements } = storeToRefs(navigationStore);
 
-await navigationStore.loadMainNavigation(2);
+const navigationStore = useNavigationStore();
+await navigationStore.loadNavigation('main-navigation', 2);
+const { mainNavigation } = storeToRefs(navigationStore);
 
 watch(
     languageIdChain,
     async () => {
-        await navigationStore.loadMainNavigation(2);
+        await navigationStore.loadNavigation('main-navigation', 2, true);
     },
     { immediate: false },
 );
@@ -18,7 +18,7 @@ watch(
     <div class="relative hidden w-screen md:block md:bg-gray-light">
         <div class="container flex gap-4 overflow-x-auto">
             <NavigationMainItem
-                v-for="navigationElement in mainNavigationElements"
+                v-for="navigationElement in mainNavigation"
                 :key="`nav-item-${navigationElement.id}`"
                 :navigation-element="navigationElement"
             />

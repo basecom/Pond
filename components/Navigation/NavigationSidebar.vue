@@ -3,15 +3,16 @@ import type { Schemas } from '@shopware/api-client/api-types';
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
 const { languageIdChain } = useSessionContext();
-const navigationStore = useNavigationStore();
-const { mainNavigationElements } = storeToRefs(navigationStore);
 const { t } = useI18n();
 
 const sideMenuController = useModal();
 
+const navigationStore = useNavigationStore();
+const { mainNavigation } = storeToRefs(navigationStore);
+
 // shownNavigationItems stores the nav items that should be shown at the moment, navigationElements initially
 // will be updated with the child categories when a category with children is selected
-const shownNavigationItems = ref(mainNavigationElements.value);
+const shownNavigationItems = ref(mainNavigation.value);
 
 // previousNavigationItems stores the nav items that got selected and who's children get displayed
 // used to navigate back and display the link above the children
@@ -20,11 +21,11 @@ const previousNavigationItems = ref<Schemas['Category'][]>([]);
 watch(
     languageIdChain,
     async () => {
-        await navigationStore.loadMainNavigation(2);
-        shownNavigationItems.value = mainNavigationElements.value;
+        await navigationStore.loadNavigation('main-navigation', 2, true);
+        shownNavigationItems.value = mainNavigation.value;
         previousNavigationItems.value = [];
     },
-    { immediate: true },
+    { immediate: false },
 );
 
 const handleClick = (navigationElement: Schemas['Category']) => {
@@ -39,7 +40,7 @@ const handleClick = (navigationElement: Schemas['Category']) => {
 
 const handleBack = () => {
     if (previousNavigationItems.value.length <= 1) {
-        shownNavigationItems.value = mainNavigationElements.value;
+        shownNavigationItems.value = mainNavigation.value;
         previousNavigationItems.value.pop();
         return;
     }

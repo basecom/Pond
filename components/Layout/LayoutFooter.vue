@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { getTranslatedProperty, getCategoryRoute } from '@shopware-pwa/helpers-next';
 
-const { navigationElements, loadNavigationElements } = useNavigation({ type: 'footer-navigation' });
-const { navigationElements: serviceNavigationElements, loadNavigationElements: loadServiceElements } = useNavigation({
-    type: 'service-navigation',
-});
+const navigationStore = useNavigationStore();
+const { footerNavigation, serviceNavigation } = storeToRefs(navigationStore);
 
 onMounted(async () => {
-    await loadNavigationElements({ depth: 1 });
-    await loadServiceElements({ depth: 1 });
+    await navigationStore.loadNavigation('footer-navigation', 1);
+    await navigationStore.loadNavigation('service-navigation', 1);
 });
 </script>
 
@@ -19,7 +17,7 @@ onMounted(async () => {
                 <!-- footer navigation -->
                 <div class="grid gap-5 md:flex md:justify-between lg:justify-normal lg:gap-28">
                     <template
-                        v-for="navigationElement in navigationElements"
+                        v-for="navigationElement in footerNavigation"
                         :key="navigationElement.id"
                     >
                         <ul class="list-none">
@@ -64,7 +62,7 @@ onMounted(async () => {
                 <!-- footer service navigation -->
                 <div class="mt-4 grid gap-1 border-t-2 border-white pt-4 md:flex md:gap-6">
                     <template
-                        v-for="navigationElement in serviceNavigationElements"
+                        v-for="navigationElement in serviceNavigation"
                         :key="navigationElement.id"
                     >
                         <LocaleLink
