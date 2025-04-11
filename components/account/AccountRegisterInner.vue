@@ -43,7 +43,7 @@ const passwordMinLength = computed<number>(() => {
         : 0
 });
 
-// TODO: To avoid emit I chose this new approach with inline conditions but some fields will result in missing key errors :/
+// TODO: To avoid omit I chose this new approach with inline conditions but some fields will result in missing key errors :/
 const generalFieldSchema = z.object({
     headerMain: z.void(),
     headerGeneral: z.void(),
@@ -466,6 +466,7 @@ const calculatedSchema = computed(() => {
         additionalAddressLine1: !configStore.get('core.loginRegistration.showAdditionalAddressField1') || undefined,
         additionalAddressLine2: !configStore.get('core.loginRegistration.showAdditionalAddressField2') || undefined,
     };
+    //const calculatedAddressSchema = addressFieldSchema.omit(omittedAddress);
 
     // TODO: shippingAddress wont hide properly
     let schema = generalFieldSchema
@@ -491,7 +492,7 @@ const calculatedSchema = computed(() => {
     // TODO: Omit fields in nested shippingAddressSchema (will be resolved if omit will be dodged entirely)
     // refine and superRefine might not work due dynamic fields
     // pls refer to here: https://github.com/logaretm/vee-validate/issues/4338
-    // This might also be resolved when the new approach without omit will take effect completly
+    // This might also be resolved when the new approach without omit will take effect completely
     // TODO: Implement alternative to superRefine, because partial will alter the schema to a non-usable state
     // TODO: Omit tempers with types resulting in TS errors (will be resolved if omit will be dodged entirely)
     return schema.omit(omittedGeneral);
@@ -599,7 +600,6 @@ onBeforeMount(async () => {
                 <slot name="alert-icon">
                     <Icon name="mdi:alert-circle-outline" class="size-4 text-red-500"/>
                 </slot>
-
                 <div>
                     <UiAlertTitle>{{ $t('error.generalHeadline') }}</UiAlertTitle>
                     <UiAlertDescription>
