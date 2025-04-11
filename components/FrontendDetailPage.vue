@@ -16,6 +16,7 @@ const { data: productResponse } = await useAsyncData(
             withCmsAssociations: true,
             criteria: {
                 associations: {
+                    canonicalProduct: {},
                     options: {},
                     properties: {
                         associations: {
@@ -34,8 +35,6 @@ if (!productResponse.value) {
 }
 
 const { product } = useProduct(productResponse.value.product, productResponse.value.configurator);
-
-provide('productData', product);
 
 const breadcrumbs = await getBreadcrumbs(productResponse.value.product.seoCategory);
 
