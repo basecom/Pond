@@ -8,7 +8,7 @@ export function useCartPageTracking(analytics: UseAnalyticsReturn) {
     const { cart } = useCart();
     const { cartItemsCount } = storeToRefs(cartItemsCountStore);
     const isCartPageReady = computed(
-        () => cart.value?.lineItems.length && !!cartItemsCount.value && !!mainNavigation.value.length,
+        () => cart.value?.lineItems.length && !!cartItemsCount.value && !!mainNavigation.value?.length,
     );
 
     usePageTracking(analytics, 'cart');

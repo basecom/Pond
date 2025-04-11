@@ -5,7 +5,7 @@ export function useCheckoutPageTracking(analytics: UseAnalyticsReturn) {
     const { mainNavigation } = storeToRefs(navigationStore);
 
     const { cart } = useCart();
-    const isCheckoutPageReady = computed(() => !!cart.value && !!mainNavigation.value.length);
+    const isCheckoutPageReady = computed(() => !!cart.value && !!mainNavigation.value?.length);
 
     usePageTracking(analytics, 'checkout');
 

@@ -1,14 +1,15 @@
 import type { NavigationType, NavigationInstance } from '~/types/navigation/Navigation';
+import type { Schemas } from '@shopware/api-client/api-types';
 
 export const useNavigationStore = defineStore('navigation', () => {
     const navigationTypes: NavigationType[] = ['main-navigation', 'footer-navigation', 'service-navigation'];
 
     const instances = {} as Record<NavigationType, NavigationInstance>;
     const storedDepths = {} as Record<NavigationType, Ref<number>>;
-    const navigationElements = {}  as Record<NavigationType, ComputedRef<any>>;
+    const navigationElements = {}  as Record<NavigationType, ComputedRef<Schemas['NavigationRouteResponse'] | null>>;
 
     // Track pending requests to avoid duplicates when the store is being accessed multiple times while being empty
-    const pendingRequests = {} as Record<string, Promise<any> | null>;
+    const pendingRequests = {} as Record<string, Promise<Schemas['NavigationRouteResponse']> | null>;
 
     navigationTypes.forEach(type => {
         instances[type] = useNavigation({ type });
@@ -61,6 +62,6 @@ export const useNavigationStore = defineStore('navigation', () => {
         mainNavigation: navigationElements['main-navigation'],
         footerNavigation: navigationElements['footer-navigation'],
         serviceNavigation: navigationElements['service-navigation'],
-        loadNavigation
+        loadNavigation,
     };
 });

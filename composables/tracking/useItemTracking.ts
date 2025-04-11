@@ -39,7 +39,7 @@ export function useItemTracking(): UseItemTrackingReturn {
         return categoryTreeId.reduce(
             (categoryTree, categoryId) => {
                 const currentCategoryLevel: Schemas['Category'][] =
-                    categoryTree[categoryTree.length - 1]?.children ?? mainNavigation.value;
+                    categoryTree[categoryTree.length - 1]?.children ?? mainNavigation?.value ?? [];
                 const currentCategory = currentCategoryLevel.find(category => category.id === categoryId);
 
                 if (currentCategory) {

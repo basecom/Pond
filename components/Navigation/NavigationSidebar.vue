@@ -45,7 +45,7 @@ const handleBack = () => {
         return;
     }
     previousNavigationItems.value.pop();
-    shownNavigationItems.value = previousNavigationItems.value.at(-1)?.children;
+    shownNavigationItems.value = previousNavigationItems.value.at(-1)?.children ?? [];
 };
 
 const lastPreviousItem = computed(() =>

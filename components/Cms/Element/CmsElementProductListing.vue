@@ -61,14 +61,14 @@ const boxLayout = config.getConfigValue('boxLayout');
 
 listingStore.setSearchResult(props.element.data.listing, true);
 
-const products = computed(() => {
+const products = computed(() => 
     // If the store is loading, return an empty array
     // Otherwise check getElements - use it if it's not empty
     // If it is empty, we need to check if the current listing is set
     // If it is, we need to return an empty array -> this means the filter combination has no results
     // If it is not, fall back to the default elements provided by the cms element -> this means the evaluation ran upon the initial page load
-    return (listingStore.isLoading) ? [] : (getElements.value.length ? getElements.value : (getCurrentListing.value ? [] : props.element.data.listing.elements));
-});
+    (listingStore.isLoading) ? [] : (getElements.value.length ? getElements.value : (getCurrentListing.value ? [] : props.element.data.listing.elements)),
+);
 </script>
 
 <template>
@@ -83,8 +83,8 @@ const products = computed(() => {
         </template>
 
         <template
-            v-else
             v-for="(product, index) in products"
+            v-else
             :key="product.id"
         >
             <ProductCard
