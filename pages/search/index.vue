@@ -15,6 +15,10 @@ const cacheKey = computed(() => `productSearch-${JSON.stringify(listingState.val
 const { trackSelectItem } = useAnalytics({ trackPageView: true, pageType: 'search' });
 const searchStore = useSearchStore();
 const searchTerm = computed(() => {
+    if (route.query.search) {
+        return route.query.search;
+    }
+
     if (searchStore.searchTerm.length < 3) {
         return searchStore.lastValidSearchTerm !== '' ? searchStore.lastValidSearchTerm : route.query.search;
     }
@@ -79,16 +83,20 @@ watch(
     async () => {
         const cacheProducts = await loadProducts(cacheKey.value);
         listingStore.setSearchResult(cacheProducts.value as Schemas['ProductListingResult'], true);
-        // TODO: Works for backwards but not forwards to update listing, also needs to update searchTerm input and "Results for ..." display
+
+        if (route.query.search) {
+            searchStore.searchTerm = route.query.search as string;
+            searchStore.lastValidSearchTerm = route.query.search as string;
+        }
     },
     { immediate: false },
 );
 
 watch(
     () => route.query,
-    () => {
-        const pageNotChanged = listingState.value.pagination.page?.toString() === route.query.p;
-        listingStore.updateCriteria(route.query, pageNotChanged);
+    (newQuery) => {
+        const pageNotChanged = listingState.value.pagination.page?.toString() === newQuery.p;
+        listingStore.updateCriteria(newQuery, pageNotChanged);
     },
 );
 
