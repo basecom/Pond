@@ -81,8 +81,10 @@ listingStore.setSearchResult(productSearch.value as Schemas['ProductListingResul
 watch(
     cacheKey,
     async () => {
+        listingStore.displayCardSkeleton = true;
         const cacheProducts = await loadProducts(cacheKey.value);
         listingStore.setSearchResult(cacheProducts.value as Schemas['ProductListingResult'], true);
+        listingStore.displayCardSkeleton = false;
 
         if (route.query.search) {
             searchStore.searchTerm = route.query.search as string;
@@ -106,6 +108,18 @@ useBreadcrumbs([
         path: `/search?search=${route.query.search}`,
     },
 ]);
+
+const cardSkeletons = computed(() => {
+    if (!listingState.value.pagination.total || !listingState.value.pagination.limit) {
+        return 24;
+    }
+
+    if (listingState.value.pagination.total < listingState.value.pagination.limit) {
+        return listingState.value.pagination.total;
+    }
+
+    return listingState.value.pagination.limit;
+});
 </script>
 
 <template>
@@ -139,11 +153,18 @@ useBreadcrumbs([
                 />
             </div>
 
-            <div
-                v-if="!loading"
-                class="grid w-full grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
-            >
+            <div class="grid w-full grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+                <template v-if="listingStore.isLoading || listingStore.displayCardSkeleton">
+                    <ClientOnly>
+                        <LayoutSkeletonProductCard
+                            v-for="index in cardSkeletons"
+                            :key="index"
+                        />
+                    </ClientOnly>
+                </template>
+
                 <template
+                    v-else
                     v-for="product in products"
                     :key="product.id"
                 >
