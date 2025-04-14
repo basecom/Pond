@@ -6,7 +6,7 @@ import { useListingStore } from '~/stores/ListingStore';
 const route = useRoute();
 const { t } = useI18n();
 
-const { getCurrentListing, getElements: products, loading, search, setInitialListing } = useProductSearchListing();
+const { getCurrentListing, getElements: products, search, setInitialListing } = useProductSearchListing();
 const listingStore = useListingStore('search');
 const { listingState } = storeToRefs(listingStore);
 
@@ -167,8 +167,8 @@ const cardSkeletons = computed(() => {
                 </template>
 
                 <template
-                    v-else
                     v-for="product in products"
+                    v-else
                     :key="product.id"
                 >
                     <ProductCard

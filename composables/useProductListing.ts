@@ -74,9 +74,9 @@ export function useProductListing() {
         });
     };
 
-    const criteriaToUrl = (filters: Schemas['ProductListingCriteria']): LocationQueryRaw => filterCodes.reduce((queryParams: LocationQueryRaw, filterKey: string): LocationQueryRaw => {
+    const criteriaToUrl = (filters: Schemas['ProductListingCriteria']|null): LocationQueryRaw => filterCodes.reduce((queryParams: LocationQueryRaw, filterKey: string): LocationQueryRaw => {
         const urlMapper = filterMapping[filterKey];
-        if (!urlMapper) {
+        if (!urlMapper || !filters) {
             return queryParams;
         }
 
