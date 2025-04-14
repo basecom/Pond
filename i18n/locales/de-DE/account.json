@@ -1,29 +1,47 @@
 {
     "account": {
         "myAccount": "Mein Konto",
-        "overview": "Überblick",
-        "personalProfile": "Persönliches Profil",
-        "addresses": "Adressen",
-        "paymentMethods": "Zahlungsarten",
-        "orders": "Bestellungen",
+        "account": "Übersicht",
+        "profile": "Persönliches Profil",
+        "address": "Adressen",
+        "payment": "Zahlungsarten",
+        "order": "Bestellungen",
+        "wishlist": "Merkzettel",
+        "welcome": "Hallo {name}",
         "auth": {
             "login": "Anmelden",
             "register": "Registrieren",
-          "logout": "Abmelden"
+            "logout": "Abmelden"
         },
-      "login": {
-        "email": {
-          "label": "Ihre E-Mail-Adresse",
-          "placeholder": "E-Mail-Adresse",
-          "error": "Bitte geben Sie eine valide E-Mail-Adresse ein"
+        "login": {
+            "email": {
+                "label": "Ihre E-Mail-Adresse",
+                "placeholder": "E-Mail-Adresse",
+                "error": "Bitte geben Sie eine valide E-Mail-Adresse ein"
+            },
+            "password": {
+                "label": "Ihr Passwort",
+                "placeholder": "••••••••",
+                "forgotten": "Passwort vergessen",
+                "errorGeneral": "Bitte geben Sie ein Password ein",
+                "errorLength": "Ihr Passwort muss mind. {length} Zeichen lang sein"
+            }
         },
-        "password": {
-          "label": "Ihr Passwort",
-          "placeholder": "••••••••",
-          "forgotten": "Passwort vergessen",
-          "errorGeneral": "Bitte geben Sie ein Password ein",
-          "errorLength": "Ihr Passwort muss mind. {length} Zeichen lang sein",
+        "customer": {
+            "salutation": "Anrede",
+            "name": "Name",
+            "mail": "E-Mail",
+            "title": "Titel",
+            "companyName": "Unternehmen",
+            "vat": "USt-IdNr."
+        },
+        "overview": {
+            "description": "Hier haben Sie direkten Zugriff auf Ihre Profilinformationen, hinterlegte Adressen und die Standard-Zahlungsart.",
+            "personalData": "Persönliche Daten",
+            "defaultPaymentMethod": "Standard-Zahlungsart",
+            "defaultBillingAddress": "Standard-Rechnungsadresse",
+            "defaultShippingAddress": "Standard-Lieferadresse",
+            "addressesIdentical": "Entspricht der Rechnungsadresse"
         }
-      }
     }
 }

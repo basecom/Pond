@@ -1,29 +1,48 @@
 {
     "account": {
         "myAccount": "My Account",
-        "overview": "Overview",
+        "account": "Overview",
         "personalProfile": "Personal Profile",
         "addresses": "Addresses",
         "paymentMethods": "Payment Methods",
         "orders": "Orders",
+        "wishlist": "Wishlist",
+        "welcome": "Hello {name}",
         "auth": {
             "login": "Sign in",
             "register": "Sign up",
-          "logout": "Logout"
+            "logout": "Logout"
         },
-      "login": {
-        "email": {
-          "label": "Your Email Address",
-          "placeholder": "Email address",
-          "error": "Please enter a valid email address"
+        "login": {
+            "email": {
+                "label": "Your Email Address",
+                "placeholder": "Email address",
+                "error": "Please enter a valid email address"
+            },
+            "password": {
+                "label": "Your Password",
+                "placeholder": "••••••••",
+                "forgotten": "Password forgotten",
+                "errorGeneral": "Please enter a password",
+                "errorLength": "Your password must be at least {length} characters long"
+            }
         },
-        "password": {
-          "label": "Your Password",
-          "placeholder": "••••••••",
-          "forgotten": "Password forgotten",
-          "errorGeneral": "Please enter a password",
-          "errorLength": "Your password must be at least {length} characters long"
+        "customer": {
+            "salutation": "Salutation",
+            "name": "Name",
+            "mail": "Email",
+            "title": "Title",
+            "companyName": "Company",
+            "vat": "VAT ID"
+        },
+        "overview": {
+            "label": "Overview",
+            "description": "Directly access your profile information, the default payment method and given addresses.",
+            "personalData": "Personal data",
+            "defaultPaymentMethod": "Default payment method",
+            "defaultBillingAddress": "Default billing address",
+            "defaultShippingAddress": "Default shipping address",
+            "addressesIdentical": "Equal to billing address"
         }
-      }
     }
 }
