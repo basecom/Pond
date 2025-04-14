@@ -78,9 +78,12 @@ const productSearch = await loadProducts(cacheKey.value);
 setInitialListing(productSearch.value as Schemas['ProductListingResult']);
 listingStore.setSearchResult(productSearch.value as Schemas['ProductListingResult'], true);
 
+const { y: windowYPosition } = useScroll(window, { behavior: 'smooth' });
+
 watch(
     cacheKey,
     async () => {
+        windowYPosition.value = 0;
         listingStore.displayCardSkeleton = true;
         const cacheProducts = await loadProducts(cacheKey.value);
         listingStore.setSearchResult(cacheProducts.value as Schemas['ProductListingResult'], true);
