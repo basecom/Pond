@@ -80,7 +80,9 @@ const showTitle = configStore.get('core.loginRegistration.showTitleField') as bo
 
                 <slot name="billing-address-content">
                     <div class="space-y-2">
-                        <p v-if="customer.defaultBillingAddress.company" class="font-bold">{{ customer.defaultBillingAddress.company }}</p>
+                        <p v-if="customer.defaultBillingAddress.company || customer.defaultBillingAddress.department" class="font-bold">
+                            {{ [customer.defaultBillingAddress.company, customer.defaultBillingAddress.department].join(' - ') }}
+                        </p>
                         <p>{{ customer.defaultBillingAddress.firstName }} {{ customer.defaultBillingAddress.lastName }}</p>
                         <p>{{ customer.defaultBillingAddress.street }}</p>
                         <p>{{ customer.defaultBillingAddress.zipcode }} {{ customer.defaultBillingAddress.city }}</p>
@@ -120,7 +122,9 @@ const showTitle = configStore.get('core.loginRegistration.showTitleField') as bo
 
                         <template v-else>
                             <slot name="shipping-address-not-identical">
-                                <p v-if="customer.defaultShippingAddress.company" class="font-bold">{{ customer.defaultShippingAddress.company }}</p>
+                                <p v-if="customer.defaultShippingAddress.company || customer.defaultShippingAddress.department" class="font-bold">
+                                    {{ [customer.defaultShippingAddress.company, customer.defaultShippingAddress.department].join(' - ') }}
+                                </p>
                                 <p>{{ customer.defaultShippingAddress.firstName }} {{ customer.defaultShippingAddress.lastName }}</p>
                                 <p>{{ customer.defaultShippingAddress.street }}</p>
                                 <p>{{ customer.defaultShippingAddress.zipcode }} {{ customer.defaultShippingAddress.city }}</p>
