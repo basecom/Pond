@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { pascalCase } from 'scule';
+import PageNotFound from "./PageNotFound.vue";
 
 const { clearBreadcrumbs } = useBreadcrumbs();
 
@@ -40,10 +41,6 @@ const { data: seoResult } = await useAsyncData(`seoPath${routePath}`, async () =
 const { routeName, foreignKey } = useNavigationContext(seoResult);
 const { componentExists } = usePondCmsUtils();
 
-if (!routeName.value) {
-    throw createError({ statusCode: 404, message: t('error.404.detail') });
-}
-
 onBeforeRouteLeave(() => {
     clearBreadcrumbs();
 });
@@ -55,4 +52,7 @@ onBeforeRouteLeave(() => {
         v-if="componentExists(pascalCase(routeName))"
         :navigation-id="foreignKey"
     />
+  <PageNotFound v-if="!routeName">
+
+  </PageNotFound>
 </template>
