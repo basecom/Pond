@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { formatLink } = useInternationalization();
 const customerStore = useCustomerStore();
 const { customer } = storeToRefs(customerStore);
 
@@ -31,7 +32,7 @@ const accountLinks: {name: string, link: string}[] = [
 
 const logout = async () => {
     await customerStore.logout();
-    navigateTo('/');
+    navigateTo(formatLink('/'));
 };
 </script>
 

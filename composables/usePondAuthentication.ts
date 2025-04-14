@@ -1,28 +1,14 @@
 export function usePondAuthentication() {
-    const { signedIn, loading } = storeToRefs(useCustomerStore());
+    const { signedIn } = storeToRefs(useCustomerStore());
+    const { formatLink } = useInternationalization();
 
     const rerouteIfLoggedOut = async (targetRoute: string = '/account/login') => {
-        await sessionContextLoaded();
         if (!signedIn.value) {
-            navigateTo(targetRoute);
-        }
-    };
-
-    const rerouteIfLoggedIn = async (targetRoute: string = '/account') => {
-        await sessionContextLoaded();
-        if (signedIn.value) {
-            navigateTo(targetRoute);
-        }
-    };
-
-    const sessionContextLoaded = async () => {
-        if (loading.value) {
-            await until(loading).toBe(false);
+            navigateTo(formatLink(targetRoute));
         }
     };
 
     return {
-        rerouteIfLoggedIn,
         rerouteIfLoggedOut,
     };
 }
