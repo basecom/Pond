@@ -2,7 +2,8 @@
     "error": {
         "404": {
             "heading": "Seite nicht gefunden",
-            "detail": "Die angeforderte Seite konnte nicht gefunden werden."
+            "detail": "Die angeforderte Seite konnte nicht gefunden werden.",
+            "button": "Zurück zur Startseite"
         }
     }
 }

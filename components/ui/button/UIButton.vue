@@ -1,6 +1,14 @@
 <template>
-  <UIButtonInner />
+    <UIButtonInner :button-text="buttonText" />
 </template>
 <script setup lang="ts">
-import UIButtonInner from "./UIButtonInner.vue";
+import UIButtonInner from './UIButtonInner.vue';
+withDefaults(
+    defineProps<{
+      buttonText?: string;
+    }>(),
+    {
+        buttonText: '',
+    },
+);
 </script>
