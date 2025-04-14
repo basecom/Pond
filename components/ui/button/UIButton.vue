@@ -1,6 +1,3 @@
-<template>
-    <UIButtonInner :button-text="buttonText" />
-</template>
 <script setup lang="ts">
 import UIButtonInner from './UIButtonInner.vue';
 withDefaults(
@@ -12,3 +9,7 @@ withDefaults(
     },
 );
 </script>
+
+<template>
+  <UIButtonInner :button-text="buttonText" />
+</template>
