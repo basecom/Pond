@@ -27,7 +27,7 @@ const { isActive } = useActivePath();
                 {{ getTranslatedProperty(item, 'name') }}
             </LocaleLink>
 
-            <ul v-if="item.children && item.children.length">
+            <ul v-if="item.children && item.children.length && isActive(item.seoUrls)">
                 <li
                     v-for="child in item.children"
                     :key="child.id"

@@ -54,7 +54,7 @@ const { t } = useI18n();
         :aria-label="getTranslatedProperty(navigationElement, 'name')"
         :to="categoryLink"
         :format="!isExternalLink"
-        class="transition-all hover:text-brand-primary"
+        class="transition-all hover:text-brand-primary block"
         :class="[classes, isActive(navigationElement.seoUrls, activeWithExactMatch) ? activeClasses : '']"
         @click="trackNavigation(navigationElement.level ? navigationElement.level - 1 : 0, getTranslatedProperty(navigationElement, 'name'))"
     >
