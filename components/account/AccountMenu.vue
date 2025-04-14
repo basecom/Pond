@@ -4,23 +4,23 @@ const { customer } = storeToRefs(customerStore);
 
 const accountLinks: {name: string, link: string}[] = [
     {
-        name: 'overview.label',
+        name: 'account',
         link: '/account',
     },
     {
-        name: 'personalProfile',
+        name: 'profile',
         link: '/account/profile',
     },
     {
-        name: 'addresses',
+        name: 'address',
         link: '/account/address',
     },
     {
-        name: 'paymentMethods',
+        name: 'payment',
         link: '/account/payment',
     },
     {
-        name: 'orders',
+        name: 'order',
         link: '/account/order',
     },
     {

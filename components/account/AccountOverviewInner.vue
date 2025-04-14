@@ -11,7 +11,7 @@ const showTitle = configStore.get('core.loginRegistration.showTitleField') as bo
 
 <template>
     <slot name="introduction">
-        <h1 class="text-xl font-bold md:text-2xl">{{ $t('account.overview.label') }}</h1>
+        <h1 class="text-xl font-bold md:text-2xl">{{ $t('account.account') }}</h1>
         <p class="my-2">{{ $t('account.overview.description') }}</p>
     </slot>
 

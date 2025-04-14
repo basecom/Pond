@@ -8,11 +8,15 @@
 
     <LayoutHeader />
 
-    <main class="container md:mt-6 md:grid md:grid-cols-[3fr_9fr] md:gap-8">
-        <AccountMenu />
+    <main class="container">
+        <AccountBreadcrumb />
 
-        <div>
-            <NuxtPage />
+        <div class="md:mt-6 md:grid md:grid-cols-[3fr_9fr] md:gap-8">
+            <AccountMenu />
+
+            <div>
+                <NuxtPage />
+            </div>
         </div>
     </main>
 </template>

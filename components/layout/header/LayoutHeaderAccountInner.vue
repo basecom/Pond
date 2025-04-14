@@ -39,7 +39,7 @@ defineEmits<{
                         <slot name="action-overview">
                             <NuxtLinkLocale to="/account">
                                 <slot name="overview">
-                                    {{ $t('account.overview.label') }}
+                                    {{ $t('account.account') }}
                                 </slot>
                             </NuxtLinkLocale>
                         </slot>
@@ -48,7 +48,7 @@ defineEmits<{
                         <slot name="action-personal-profile">
                             <NuxtLinkLocale to="/account/profile">
                                 <slot name="personal-profile">
-                                    {{ $t('account.personalProfile') }}
+                                    {{ $t('account.profile') }}
                                 </slot>
                             </NuxtLinkLocale>
                         </slot>
@@ -57,7 +57,7 @@ defineEmits<{
                         <slot name="action-addresses">
                             <NuxtLinkLocale to="/account/address">
                                 <slot name="personal-addresses">
-                                    {{ $t('account.addresses') }}
+                                    {{ $t('account.address') }}
                                 </slot>
                             </NuxtLinkLocale>
                         </slot>
@@ -66,7 +66,7 @@ defineEmits<{
                         <slot name="action-payment-methods">
                             <NuxtLinkLocale to="/account/payment">
                                 <slot name="personal-payment-methods">
-                                    {{ $t('account.paymentMethods') }}
+                                    {{ $t('account.payment') }}
                                 </slot>
                             </NuxtLinkLocale>
                         </slot>
@@ -75,7 +75,7 @@ defineEmits<{
                         <slot name="action-orders">
                             <NuxtLinkLocale to="/account/order">
                                 <slot name="personal-orders">
-                                    {{ $t('account.orders') }}
+                                    {{ $t('account.order') }}
                                 </slot>
                             </NuxtLinkLocale>
                         </slot>

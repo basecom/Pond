@@ -1,15 +1,7 @@
 {
     "account": {
         "myAccount": "My Account",
-      "overview": {
-        "label":"Overview",
-        "description": "Directly access your profile information, the default payment method and given addresses.",
-        "personalData": "Personal data",
-        "defaultPaymentMethod": "Default payment method",
-        "defaultBillingAddress": "Default billing address",
-        "defaultShippingAddress": "Default shipping address",
-        "addressesIdentical": "Equal to billing address"
-      },
+      "account": "Overview",
         "personalProfile": "Personal Profile",
         "addresses": "Addresses",
         "paymentMethods": "Payment Methods",
@@ -42,6 +34,15 @@
         "title": "Title",
         "companyName": "Company",
         "vat": "VAT ID"
+      },
+      "overview": {
+        "label":"Overview",
+        "description": "Directly access your profile information, the default payment method and given addresses.",
+        "personalData": "Personal data",
+        "defaultPaymentMethod": "Default payment method",
+        "defaultBillingAddress": "Default billing address",
+        "defaultShippingAddress": "Default shipping address",
+        "addressesIdentical": "Equal to billing address"
       }
     }
 }
