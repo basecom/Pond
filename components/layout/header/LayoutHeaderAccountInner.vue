@@ -11,6 +11,8 @@ withDefaults(
 defineEmits<{
   logout: [];
 }>();
+
+const { formatLink } = useInternationalization();
 </script>
 
 <template>
@@ -37,7 +39,7 @@ defineEmits<{
                 <slot name="signed-in">
                     <UiDropdownMenuItem>
                         <slot name="action-overview">
-                            <NuxtLinkLocale to="/account">
+                            <NuxtLinkLocale :to="formatLink('/account')">
                                 <slot name="overview">
                                     {{ $t('account.account') }}
                                 </slot>
@@ -46,7 +48,7 @@ defineEmits<{
                     </UiDropdownMenuItem>
                     <UiDropdownMenuItem>
                         <slot name="action-personal-profile">
-                            <NuxtLinkLocale to="/account/profile">
+                            <NuxtLinkLocale :to="formatLink('/account/profile')">
                                 <slot name="personal-profile">
                                     {{ $t('account.profile') }}
                                 </slot>
@@ -55,7 +57,7 @@ defineEmits<{
                     </UiDropdownMenuItem>
                     <UiDropdownMenuItem>
                         <slot name="action-addresses">
-                            <NuxtLinkLocale to="/account/address">
+                            <NuxtLinkLocale :to="formatLink('/account/address')">
                                 <slot name="personal-addresses">
                                     {{ $t('account.address') }}
                                 </slot>
@@ -64,7 +66,7 @@ defineEmits<{
                     </UiDropdownMenuItem>
                     <UiDropdownMenuItem>
                         <slot name="action-payment-methods">
-                            <NuxtLinkLocale to="/account/payment">
+                            <NuxtLinkLocale :to="formatLink('/account/payment')">
                                 <slot name="personal-payment-methods">
                                     {{ $t('account.payment') }}
                                 </slot>
@@ -73,7 +75,7 @@ defineEmits<{
                     </UiDropdownMenuItem>
                     <UiDropdownMenuItem>
                         <slot name="action-orders">
-                            <NuxtLinkLocale to="/account/order">
+                            <NuxtLinkLocale :to="formatLink('/account/order')">
                                 <slot name="personal-orders">
                                     {{ $t('account.order') }}
                                 </slot>
@@ -82,7 +84,7 @@ defineEmits<{
                     </UiDropdownMenuItem>
                     <UiDropdownMenuItem>
                         <slot name="action-wishlist">
-                            <NuxtLinkLocale to="/account/wishlist">
+                            <NuxtLinkLocale :to="formatLink('/account/wishlist')">
                                 <slot name="wishlist">
                                     {{ $t('account.wishlist') }}
                                 </slot>

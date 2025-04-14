@@ -4,8 +4,8 @@
             "heading": "Page not found",
             "detail": "The requested page could not be found."
         },
-      "generalHeadline": "Something went wrong, unfortunately.",
-      "CHECKOUT__CUSTOMER_NOT_FOUND": "No account could be found with the provided credentials.",
-      "CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS": "No account could be found with the provided credentials."
+        "generalHeadline": "Something went wrong, unfortunately.",
+        "CHECKOUT__CUSTOMER_NOT_FOUND": "No account could be found with the provided credentials.",
+        "CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS": "No account could be found with the provided credentials."
     }
 }
