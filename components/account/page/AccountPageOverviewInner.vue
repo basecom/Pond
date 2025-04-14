@@ -20,7 +20,7 @@ const showTitle = configStore.get('core.loginRegistration.showTitleField') as bo
         <slot name="personal-data">
             <div>
                 <slot name="personal-data-headline">
-                    <h3 class="mb-2 border-b border-gray-100 text-lg font-bold">
+                    <h3 class="mb-2 border-b border-gray-100 pb-2 text-lg font-bold">
                         {{ $t('account.overview.personalData') }}
                     </h3>
                 </slot>
@@ -57,7 +57,7 @@ const showTitle = configStore.get('core.loginRegistration.showTitleField') as bo
         <slot name="payment-method">
             <div>
                 <slot name="payment-method-headline">
-                    <h3 class="mb-2 border-b border-gray-100 text-lg font-bold">
+                    <h3 class="mb-2 border-b border-gray-100 pb-2 text-lg font-bold">
                         {{ $t('account.overview.defaultPaymentMethod') }}
                     </h3>
                 </slot>
@@ -73,7 +73,7 @@ const showTitle = configStore.get('core.loginRegistration.showTitleField') as bo
         <slot name="billing-address">
             <div v-if="customer.defaultBillingAddress">
                 <slot name="billing-address-headline">
-                    <h3 class="mb-2 border-b border-gray-100 text-lg font-bold">
+                    <h3 class="mb-2 border-b border-gray-100 pb-2 text-lg font-bold">
                         {{ $t('account.overview.defaultBillingAddress') }}
                     </h3>
                 </slot>
@@ -107,7 +107,7 @@ const showTitle = configStore.get('core.loginRegistration.showTitleField') as bo
         <slot name="shipping-address">
             <div v-if="customer.defaultShippingAddress">
                 <slot name="shipping-address-headline">
-                    <h3 class="mb-2 border-b border-gray-100 text-lg font-bold">
+                    <h3 class="mb-2 border-b border-gray-100 pb-2 text-lg font-bold">
                         {{ $t('account.overview.defaultShippingAddress') }}
                     </h3>
                 </slot>

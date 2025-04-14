@@ -14,12 +14,14 @@ await updateSessionWithLanguage();
 
 const { refreshCart } = useCart();
 const { getWishlistProducts } = useWishlist();
+const { fetchSalutations } = useSalutations();
 
 useNotifications();
 useBreadcrumbs();
 
 refreshCart();
 getWishlistProducts();
+fetchSalutations();
 
 const configStore = useConfigStore();
 await configStore.loadConfig();

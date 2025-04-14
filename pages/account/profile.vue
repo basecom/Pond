@@ -5,5 +5,5 @@ definePageMeta({
 </script>
 
 <template>
-    <AccountPageOverview />
+    <AccountPageProfile />
 </template>

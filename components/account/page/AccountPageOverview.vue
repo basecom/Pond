@@ -4,5 +4,5 @@ const { customer } = storeToRefs(customerStore);
 </script>
 
 <template>
-    <AccountOverviewInner v-if="customer" :customer="customer" />
+    <AccountPageOverviewInner v-if="customer" :customer="customer" />
 </template>
