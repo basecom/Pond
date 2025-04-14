@@ -125,9 +125,16 @@ export function useProductListing() {
             search,
         };
 
-        if (resetPagination) {
-            setPage(1);
-        }
+        // Update the router query to match the current criteria
+        // This ensures URL and state are always in sync
+        const query = criteriaToUrl(listingState.value.criteria);
+        router.push({
+            query: {
+                ...routeQuery,
+                ...query,
+                ...(resetPagination ? { p: 1 } : {}),
+            },
+        });
 
         // check if any filters have changed
         updateFiltersChanged();
@@ -168,6 +175,7 @@ export function useProductListing() {
             query: {
                 ...route.query,
                 ...query,
+                p: 1,
             },
         });
 
