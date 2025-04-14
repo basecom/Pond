@@ -65,7 +65,7 @@ export function useItemTracking(): UseItemTrackingReturn {
         const trackingLineItem: TrackingLineItem = {
             item_id: product.productNumber,
             item_name: product.translated.name,
-            affiliation: sessionContext.value.salesChannel.name,
+            affiliation: sessionContext.value?.salesChannel?.name,
             index: itemIndex,
             price: price?.listPrice?.price ?? price?.unitPrice ?? 0,
             quantity: quantity ?? 1,

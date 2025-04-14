@@ -7,13 +7,13 @@ export function useShippingMethod() {
 
         const shippingMethods = await getShippingMethods();
 
-        const isPreselectedShippingAvailable = shippingMethods.value.find((method: Schemas['ShippingMethod']) => method.id === selectedShippingMethod.value.id);
-
-        if (isPreselectedShippingAvailable) {
+        if (shippingMethods.value.length === 0) {
             return;
         }
 
-        if (shippingMethods.value.length === 0) {
+        const isPreselectedShippingAvailable = shippingMethods.value.find((method: Schemas['ShippingMethod']) => method.id === selectedShippingMethod.value?.id);
+
+        if (isPreselectedShippingAvailable) {
             return;
         }
 

@@ -52,6 +52,9 @@ const handleRegisterSubmit = async (fields: RegisterForm) => {
         await customerStore.register({
             ...userData,
         });
+
+        await customerStore.refreshContext();
+
         isLoading.value = false;
 
         trackRegister();
