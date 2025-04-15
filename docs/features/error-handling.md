@@ -13,7 +13,7 @@ Subtitle: A smaller description of the error (e.g., "Sorry, the page you're look
 
 Button: A button that users can click to navigate back to a home or specific page.
 
-ErrorLayout: The Page layout containing the error message (eg. add in header).
+LayoutError: The Page layout containing the error message (eg. add in header).
 
 Container: The wrapper for the error message.
 

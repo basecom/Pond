@@ -3,8 +3,8 @@ import UIButton from '../ui/button/UIButton.vue';
 </script>
 
 <template>
-    <slot name="errorLayout">
-        <ErrorLayout>
+    <slot name="layoutError">
+        <LayoutError>
             <template #error>
                 <slot name="container">
                     <div class="container mt-12">
@@ -18,6 +18,6 @@ import UIButton from '../ui/button/UIButton.vue';
                     </div>
                 </slot>
             </template>
-        </ErrorLayout>
+        </LayoutError>
     </slot>
 </template>
