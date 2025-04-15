@@ -38,6 +38,7 @@ export default defineConfig({
                     { text: 'Wishlist', link: '/features/wishlist' },
                     { text: 'Maintenance mode', link: '/features/maintenance-mode' },
                     { text: 'CMS', link: '/features/cms' },
+                    { text: 'Http Error Handling', link: '/features/error-handling' },
                 ],
             },
             {

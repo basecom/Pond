@@ -11,5 +11,5 @@ withDefaults(
 </script>
 
 <template>
-  <UIButtonInner :button-text="buttonText" />
+    <UIButtonInner :button-text="buttonText" />
 </template>
