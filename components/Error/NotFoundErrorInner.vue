@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import UIButton from '../ui/button/UIButton.vue';
+import LayoutError from './LayoutError.vue';
 </script>
 
 <template>
