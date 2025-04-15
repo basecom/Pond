@@ -3,6 +3,8 @@ const { locale } = useI18n();
 const url = useRequestURL();
 const route = useRoute();
 
+useCrossTabState();
+
 useHead(() => ({
     htmlAttrs: {
         lang: locale,
