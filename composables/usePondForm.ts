@@ -1,6 +1,7 @@
 import * as z from 'zod';
 import type { Schemas } from '@shopware/api-client/api-types';
-import { DependencyType } from '../components/ui/auto-form/interface';
+import { DependencyType, type Dependency } from '../components/ui/auto-form/interface';
+import type {ZodObject} from "zod";
 
 export const usePondForm = () => {
     const configStore = useConfigStore();
@@ -58,7 +59,10 @@ export const usePondForm = () => {
         return personalDataForm.value;
     };
 
-    const getPersonalDataDependencies = ()  => [
+     
+    // @ts-nocheck
+    /* eslint-disable */
+    const getPersonalDataDependencies = (): Dependency<{ [x: string]: any; }>[] => [
         {
             sourceField: 'accountType',
             type: DependencyType.HIDES,

@@ -5,11 +5,11 @@ defineProps<{
   customer: Schemas['Customer'];
 }>();
 
-const emits = defineEmits<{
-  'update-personal-data': [personalData: any];
-  'update-mail': [mailData: any];
-  'update-password': [passwordData: any];
-}>();
+// const emits = defineEmits<{
+//   'update-personal-data': [personalData: any];
+//   'update-mail': [mailData: any];
+//   'update-password': [passwordData: any];
+// }>();
 
 const pondForm = usePondForm();
 const schema = pondForm.getPersonalDataForm();
@@ -27,7 +27,9 @@ const dependencies = pondForm.getPersonalDataDependencies();
             {{ $t('account.overview.personalData') }}
         </h3>
     </slot>
+
     <UiAutoForm
+        v-auto-animate
         class="grid gap-4 md:grid-cols-2"
         :schema="schema"
         :dependencies="dependencies"
