@@ -1,7 +1,7 @@
 import * as z from 'zod';
 import type { Schemas } from '@shopware/api-client/api-types';
 import { DependencyType, type Dependency } from '../components/ui/auto-form/interface';
-import type {ZodObject} from "zod";
+import type { ZodObjectOrWrapped } from '~/components/ui/auto-form/utils';
 
 export const usePondForm = () => {
     const configStore = useConfigStore();
@@ -9,19 +9,19 @@ export const usePondForm = () => {
 
     const salutations = computed(() => getSalutations.value.map((salutation: Schemas['Salutation']) => salutation.displayName));
 
-    const getPersonalDataForm = ()  => {
-        const personalDataForm = ref(z.object({}));
+    const getPersonalDataForm = (): ZodObjectOrWrapped => {
+        let personalDataForm = z.object({});
 
         // add selection of account type
         const showAccountType = configStore.get('core.loginRegistration.showAccountTypeSelection') as boolean;
         if (showAccountType) {
-            personalDataForm.value = personalDataForm.value.extend({
+            personalDataForm = personalDataForm.extend({
                 accountType: z.enum(['business', 'private']).optional().default('business'),
             });
         }
 
         if (salutations.value) {
-            personalDataForm.value = personalDataForm.value.extend({
+            personalDataForm = personalDataForm.extend({
                 salutation: z.enum(salutations.value).optional().default('Herr'),
             });
         }
@@ -29,20 +29,20 @@ export const usePondForm = () => {
         // add title (if set in the admin)
         const showTitle = configStore.get('core.loginRegistration.showTitleField') as boolean;
         if (showTitle) {
-            personalDataForm.value = personalDataForm.value.extend({
+            personalDataForm = personalDataForm.extend({
                 title: z.string().optional(),
             });
         }
 
         // add fields we always have (first name, last name)
-        personalDataForm.value = personalDataForm.value.extend({
+        personalDataForm = personalDataForm.extend({
             firstName: z.string(),
             lastName: z.string(),
         });
 
         // add company and vat number (if we can select the account type)
         if (showAccountType) {
-            personalDataForm.value = personalDataForm.value.extend({
+            personalDataForm = personalDataForm.extend({
                 company: z.string(),
                 vatNumber: z.string().optional(),
             });
@@ -51,12 +51,12 @@ export const usePondForm = () => {
         // add birthday (if set in the admin)
         const showBirthday = configStore.get('core.loginRegistration.showBirthdayField') as boolean;
         if (showBirthday) {
-            personalDataForm.value = personalDataForm.value.extend({
+            personalDataForm = personalDataForm.extend({
                 birthday: z.date().optional(),
             });
         }
 
-        return personalDataForm.value;
+        return personalDataForm;
     };
 
      
