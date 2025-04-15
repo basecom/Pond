@@ -32,7 +32,6 @@ const getMinHeightAsHeight = (properties: CSSProperties) => {
 };
 
 const mediaObject = props.element.data?.media;
-
 const shouldPreloadImage = shouldPreloadElement(props.element);
 if (shouldPreloadImage && !isVideoElement.value) {
     useImagePreload({
