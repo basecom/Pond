@@ -42,6 +42,34 @@
             "defaultBillingAddress": "Standard-Rechnungsadresse",
             "defaultShippingAddress": "Standard-Lieferadresse",
             "addressesIdentical": "Entspricht der Rechnungsadresse"
+        },
+        "personalProfile": {
+            "currentMailAddress": "Aktuelle E-Mail Adresse",
+            "changeMailAddress": {
+                "headline": "E-Mail Adresse ändern",
+                "confirmation": "E-Mail Adresse bestätigen"
+            },
+            "changePassword": {
+                "headline": "Passwort ändern",
+                "newPassword": "Neues Passwort",
+                "confirmation": "Neues Passwort bestätigen",
+                "oldPassword": "Aktuelles Passwort"
+            },
+            "passwordLabel": "Passwort",
+            "status": {
+                "changePersonalDataSuccessfully": {
+                    "title": "Erfolgreich geändert",
+                    "description": "Ihre persönlichen Daten wurde erfolgreich geändert"
+                },
+                "changeMailSuccessfully": {
+                    "title": "Erfolgreich geändert",
+                    "description": "Ihre E-Mail Adresse wurde erfolgreich geändert"
+                },
+                "changePasswordSuccessfully": {
+                    "title": "Erfolgreich geändert",
+                    "description": "Ihr Passwort wurde erfolgreich geändert"
+                }
+            }
         }
     }
 }

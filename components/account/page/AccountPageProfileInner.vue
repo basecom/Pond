@@ -1,19 +1,27 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import type { ChangePasswordForm } from '~/components/account/page/AccountPageProfileChangePasswordInner.vue';
+import type { ChangeMailForm } from '~/components/account/page/AccountPageProfileChangeMailInner.vue';
+import type * as z from 'zod';
 
 defineProps<{
   customer: Schemas['Customer'];
 }>();
 
-// const emits = defineEmits<{
-//   'update-personal-data': [personalData: any];
-//   'update-mail': [mailData: any];
-//   'update-password': [passwordData: any];
-// }>();
+const emits = defineEmits<{
+  'update-personal-data': [personalDataForm: PersonalDataForm];
+  'update-mail': [mailForm: ChangeMailForm];
+  'update-password': [passwordForm: ChangePasswordForm];
+}>();
 
 const pondForm = usePondForm();
 const schema = pondForm.getPersonalDataForm();
 const dependencies = pondForm.getPersonalDataDependencies();
+export type PersonalDataForm = z.infer<typeof schema>;
+
+const changePersonalData = async (personalDataForm: PersonalDataForm) => {
+    emits('update-personal-data', personalDataForm);
+};
 </script>
 
 <template>
@@ -33,6 +41,7 @@ const dependencies = pondForm.getPersonalDataDependencies();
         class="grid gap-4 md:grid-cols-2"
         :schema="schema"
         :dependencies="dependencies"
+        @submit="changePersonalData"
     >
         <template #accountType="slotProps">
             <div class="md:col-span-2">
@@ -65,26 +74,9 @@ const dependencies = pondForm.getPersonalDataDependencies();
         </slot>
     </UiAutoForm>
 
-    <!-- login data -->
-    <h3 class="mb-2 mt-6 border-b border-gray-100 pb-2 text-lg font-bold md:mb-4 md:mt-8">
-        {{ $t('account.overview.personalData') }}
-    </h3>
-
-    <p>{{ $t('account.customer.mail') }}: {{ customer.email }}</p>
-
-    <UiAccordion type="single" class="w-full" collapsible>
-        <UiAccordionItem value="mail">
-            <UiAccordionTrigger class="text-base">E-Mail Adresse ändern</UiAccordionTrigger>
-            <UiAccordionContent class="text-base">
-                bae
-            </UiAccordionContent>
-        </UiAccordionItem>
-
-        <UiAccordionItem value="password">
-            <UiAccordionTrigger class="text-base">Password ändern</UiAccordionTrigger>
-            <UiAccordionContent class="text-base">
-                bae
-            </UiAccordionContent>
-        </UiAccordionItem>
-    </UiAccordion>
+    <AccountPageProfileChangeMail
+        :customer="customer"
+        @update-mail="(mailForm: ChangeMailForm) => $emit('update-mail', mailForm)"
+    />
+    <AccountPageProfileChangePassword @update-password="(passwordForm: ChangePasswordForm) => $emit('update-password', passwordForm)" />
 </template>

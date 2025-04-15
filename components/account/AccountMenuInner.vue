@@ -22,7 +22,7 @@ defineEmits<{
         <!-- mobile view -->
         <slot name="mobile-account-links">
             <UiAccordion class="mb-4 md:hidden" type="single" collapsible>
-                <UiAccordionItem value="my-account">
+                <UiAccordionItem value="my-account" class="border-gray-100">
                     <UiAccordionTrigger class="text-lg font-bold">{{ $t('account.myAccount') }}</UiAccordionTrigger>
                     <UiAccordionContent class="text-base">
                         <slot name="account-links">

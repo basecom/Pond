@@ -2,7 +2,7 @@
     "account": {
         "myAccount": "My Account",
         "account": "Overview",
-        "personalProfile": "Personal Profile",
+        "profile": "Personal Profile",
         "addresses": "Addresses",
         "paymentMethods": "Payment Methods",
         "orders": "Orders",
@@ -43,6 +43,34 @@
             "defaultBillingAddress": "Default billing address",
             "defaultShippingAddress": "Default shipping address",
             "addressesIdentical": "Equal to billing address"
+        },
+        "personalProfile": {
+            "currentMailAddress": "Current e-mail address",
+            "changeMailAddress": {
+                "headline": "Change e-mail address",
+                "confirmation": "Confirm e-mail address"
+            },
+            "changePassword": {
+                "headline": "Change password",
+                "newPassword": "New password",
+                "confirmation": "Confirm new password",
+                "oldPassword": "Current password"
+            },
+            "passwordLabel": "Password",
+            "status": {
+                "changePersonalDataSuccessfully": {
+                    "title": "Successfully changed",
+                    "description": "Your personal data has been successfully changed"
+                },
+                "changeMailSuccessfully": {
+                    "title": "Successfully changed",
+                    "description": "Your e-mail address has been successfully changed"
+                },
+                "changePasswordSuccessfully": {
+                    "title": "Successfully changed",
+                    "description": "Your password has been successfully changed"
+                }
+            }
         }
     }
 }

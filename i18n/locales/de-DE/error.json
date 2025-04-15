@@ -6,6 +6,8 @@
         },
         "generalHeadline": "Leider lief etwas schief",
         "CHECKOUT__CUSTOMER_NOT_FOUND": "Es konnte kein Account mit den angegebenen Zugangsdaten gefunden werden.",
-        "CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS": "Es konnte kein Account mit den angegebenen Zugangsdaten gefunden werden."
+        "CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS": "Es konnte kein Account mit den angegebenen Zugangsdaten gefunden werden.",
+        "VIOLATION::CUSTOMER_EMAIL_NOT_UNIQUE": "Bitte wählen Sie eine andere E-Mail-Adresse",
+        "VIOLATION::CUSTOMER_PASSWORD_NOT_CORRECT": "Bitte geben Sie das korrekte Passwort ein"
     }
 }

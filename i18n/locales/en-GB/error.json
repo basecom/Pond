@@ -6,6 +6,8 @@
         },
         "generalHeadline": "Something went wrong, unfortunately.",
         "CHECKOUT__CUSTOMER_NOT_FOUND": "No account could be found with the provided credentials.",
-        "CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS": "No account could be found with the provided credentials."
+        "CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS": "No account could be found with the provided credentials.",
+        "VIOLATION::CUSTOMER_EMAIL_NOT_UNIQUE": "Please use another e-mail address",
+        "VIOLATION::CUSTOMER_PASSWORD_NOT_CORRECT": "Please enter the correct password"
     }
 }
