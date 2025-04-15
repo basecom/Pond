@@ -61,7 +61,11 @@ listingStore.initializeCriteria(
     {
         search: route.query.search as string,
         associations: {
-            children: {},
+            children: {
+                associations: {
+                    cover: {},
+                },
+            },
             media: {},
             manufacturer: {},
             options: {},
