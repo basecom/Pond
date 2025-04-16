@@ -1,0 +1,79 @@
+<script setup lang="ts" generic="T extends ZodRawShape">
+import type { ZodAny, ZodObject, ZodRawShape } from 'zod';
+import type { Config, ConfigItem, Shape } from './interface';
+import { FieldContextKey, useField } from 'vee-validate';
+import { beautifyObjectName, getBaseSchema, getBaseType, getDefaultValueInZodStack } from './utils';
+
+const props = defineProps<{
+  fieldName: string
+  required?: boolean
+  config?: Config<T>
+  schema?: ZodObject<T>
+  disabled?: boolean
+}>();
+
+const shapes = computed(() => {
+    // @ts-expect-error ignore {} not assignable to object
+    const val: { [key in keyof T]: Shape } = {};
+
+    if (!props.schema)
+        return;
+    const shape = getBaseSchema(props.schema)?.shape;
+    if (!shape)
+        return;
+    Object.keys(shape).forEach((name) => {
+        const item = shape[name] as ZodAny;
+        const baseItem = getBaseSchema(item) as ZodAny;
+        let options = (baseItem && 'values' in baseItem._def) ? baseItem._def.values as string[] : undefined;
+        if (!Array.isArray(options) && typeof options === 'object')
+            options = Object.values(options);
+
+        val[name as keyof T] = {
+            type: getBaseType(item),
+            default: getDefaultValueInZodStack(item),
+            options,
+            required: !['ZodOptional', 'ZodNullable'].includes(item._def.typeName),
+            schema: item,
+        };
+    });
+    return val;
+});
+
+const fieldContext = useField(props.fieldName);
+// @ts-expect-error ignore missing `id`
+provide(FieldContextKey, fieldContext);
+</script>
+
+<template>
+    <section>
+        <slot v-bind="props">
+            <UiAccordion
+                type="single"
+                as-child
+                class="w-full"
+                collapsible
+                :disabled="disabled"
+            >
+                <UiFormItem>
+                    <UiAccordionItem :value="fieldName" class="border-none">
+                        <UiAccordionTrigger>
+                            <UiAutoFormLabel class="text-base" :required="required">
+                                {{ schema?.description || beautifyObjectName(fieldName) }}
+                            </UiAutoFormLabel>
+                        </UiAccordionTrigger>
+                        <UiAccordionContent class="space-y-5 p-1">
+                            <template v-for="(shape, key) in shapes" :key="key">
+                                <UiAutoFormField
+                                    :config="config?.[key as keyof typeof config] as ConfigItem"
+                                    :field-name="`${fieldName}.${key.toString()}`"
+                                    :label="key.toString()"
+                                    :shape="shape"
+                                />
+                            </template>
+                        </UiAccordionContent>
+                    </UiAccordionItem>
+                </UiFormItem>
+            </UiAccordion>
+        </slot>
+    </section>
+</template>
