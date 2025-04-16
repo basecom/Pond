@@ -77,7 +77,7 @@
             "submitLabel": "Einloggen",
             "email": {
                 "label": "Email",
-                "placeholder": "Geben Sie ihre Email-Adresse ein",
+                "placeholder": "Geben Sie Ihre Email-Adresse ein",
                 "help": "Ihre Email-Adresse"
             },
             "password": {

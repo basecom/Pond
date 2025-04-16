@@ -17,7 +17,7 @@ export const useNavigationStore = defineStore('navigation', () => {
         navigationElements[type] = instances[type].navigationElements;
     });
 
-    async function loadNavigation(type: NavigationType, depth: number, force: boolean = false) {
+    const loadNavigation = async (type: NavigationType, depth: number, force: boolean = false) => {
         if (!navigationTypes.includes(type)) {
             console.error(`[NavigationStore] Invalid navigation type: ${type}`);
             return [];
@@ -56,7 +56,7 @@ export const useNavigationStore = defineStore('navigation', () => {
         })();
 
         return pendingRequests[requestKey];
-    }
+    };
 
     return {
         mainNavigation: navigationElements['main-navigation'],

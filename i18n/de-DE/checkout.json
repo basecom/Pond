@@ -88,7 +88,7 @@
         "finish": {
             "heading": "Vielen Dank für ihre Bestellung!",
             "confirmationMessage": "Wir haben ihre Bestellung erhalten und werden sie so schnell wie möglich bearbeiten.",
-            "emailMessage": "Eine Bestätigungsmail wurde an ihre Email-Adresse gesendet.",
+            "emailMessage": "Eine Bestätigungsmail wurde an Ihre Email-Adresse gesendet.",
             "orderNumberLabel": "Bestellnummer:",
             "orderDateLabel": "Datum:",
             "orderStatusLabel": "Status:",

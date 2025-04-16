@@ -38,7 +38,7 @@ const shownNavigationItems = computed(() => {
     return currentCategory.value?.children || [];
 });
 
-function findCategoryById(categories: Schemas['Category'][] | null, id: string): Schemas['Category'] | null {
+const findCategoryById = (categories: Schemas['Category'][] | null, id: string): Schemas['Category'] | null => {
     if (!categories) return null;
 
     for (const category of categories) {
@@ -49,7 +49,7 @@ function findCategoryById(categories: Schemas['Category'][] | null, id: string):
         }
     }
     return null;
-}
+};
 
 const handleClick = (navigationElement: Schemas['Category']) => {
     if (navigationElement.childCount > 0) {
