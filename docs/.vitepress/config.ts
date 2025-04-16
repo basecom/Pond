@@ -27,42 +27,10 @@ export default defineConfig({
                 ],
             },
             {
-                text: 'Features',
-                items: [
-                    { text: 'Account Management', link: '/features/account-management' },
-                    { text: 'Internationalization', link: '/features/internationalization' },
-                    { text: 'Companion Plugin', link: '/features/companion-plugin' },
-                    { text: 'Product Listings', link: '/features/product-listings' },
-                    { text: 'Cart & Checkout', link: '/features/cart-checkout' },
-                    { text: 'Sitemap & robots.txt', link: '/features/sitemap-robots' },
-                    { text: 'Wishlist', link: '/features/wishlist' },
-                    { text: 'Maintenance mode', link: '/features/maintenance-mode' },
-                    { text: 'CMS', link: '/features/cms' },
-                ],
-            },
-            {
                 text: 'How-Tos',
                 collapsed: true,
                 items: [
-                    { text: 'Customize design tokens', link: '/how-to/customize-design-tokens' },
-                    { text: 'Add payment provider', link: '/how-to/add-payment-provider' },
-                    { text: 'Add custom page', link: '/how-to/add-custom-page' },
-                    { text: 'Create custom CMS blocks & elements', link: '/how-to/create-custom-cms' },
-                    { text: 'Replace whole CMS', link: '/how-to/replace-whole-cms' },
-                ],
-            },
-            {
-                text: 'Technical',
-                collapsed: true,
-                items: [
-                    { text: 'Demo System', link: '/technical/demo-system' },
-                ],
-            },
-            {
-                text: 'Contribute',
-                collapsed: true,
-                items: [
-                    { text: 'Core Team', link: '/contribute/core-team' },
+                    { text: 'CMS System', link: '/how-to/cms-system' },
                 ],
             },
         ],

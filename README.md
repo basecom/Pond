@@ -32,9 +32,31 @@ Locally preview production build:
 bun run preview
 ```
 
-## Linting
+## Local Development
+Run the linter
 ```bash
 bun run lint
+```
+
+Clean up the application
+```bash
+bun run cleanup
+```
+
+## Documentation
+Start the doc server on  http://localhost:5173/
+```bash
+bun docs:dev
+```
+
+Build docs
+```bash
+bun docs:build
+```
+
+Preview docs
+```bash
+bun docs:preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
