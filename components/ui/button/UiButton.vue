@@ -13,23 +13,23 @@ interface Props extends PrimitiveProps {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    as: 'button',
-    variant: 'default',
-    size: 'default',
-    class: '',
-    isLoading: false,
+  as: 'button',
+  variant: 'default',
+  size: 'default',
+  class: '',
+  isLoading: false,
 });
 </script>
 
 <template>
-    <Primitive
-        v-auto-animate
-        :as="as"
-        :as-child="asChild"
-        :class="cn(buttonVariants({ variant, size }), props.class)"
-        :disabled="isLoading"
-    >
-        <Loader2 v-if="isLoading" class="mr-2 size-4 animate-spin" />
-        <slot />
-    </Primitive>
+  <Primitive
+      v-auto-animate
+      :as="as"
+      :as-child="asChild"
+      :class="cn(buttonVariants({ variant, size }), props.class)"
+      :disabled="isLoading"
+  >
+    <Loader2 v-if="isLoading" class="mr-2 size-4 animate-spin" />
+    <slot />
+  </Primitive>
 </template>
