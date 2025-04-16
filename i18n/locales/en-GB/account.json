@@ -24,19 +24,19 @@
             "errorGeneral": "Please enter a password",
             "errorLength": "Your password must be at least {length} characters long"
           }
-      },
-      "recover": {
-        "header": "Password recovery",
-        "information": "We will send you a confirmation email. Click the link in that email in order to change your password.",
-        "email": {
-          "label": "Your Email Address",
-          "placeholder": "Enter email address...",
-          "error": "Please enter a valid email address"
         },
-        "submitButton": "Request email",
-        "backButton": "Back to login",
-        "successHeader": "Email sent",
-        "successMessage": "A confirmation email with a password reset link has been sent if the email address provided is registered."
+        "recover": {
+          "header": "Password recovery",
+          "information": "We will send you a confirmation email. Click the link in that email in order to change your password.",
+          "email": {
+            "label": "Your Email Address",
+            "placeholder": "Enter email address...",
+            "error": "Please enter a valid email address"
+          },
+          "submitButton": "Request email",
+          "backButton": "Back to login",
+          "successHeader": "Email sent",
+          "successMessage": "A confirmation email with a password reset link has been sent if the email address provided is registered."
+        }
       }
-    }
 }

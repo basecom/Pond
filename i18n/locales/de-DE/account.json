@@ -9,34 +9,34 @@
         "auth": {
             "login": "Anmelden",
             "register": "Registrieren",
-          "logout": "Abmelden"
+            "logout": "Abmelden"
         },
-      "login": {
-        "email": {
-          "label": "Ihre E-Mail-Adresse",
-          "placeholder": "E-Mail-Adresse",
-          "error": "Bitte geben Sie eine valide E-Mail-Adresse ein"
+        "login": {
+          "email": {
+            "label": "Ihre E-Mail-Adresse",
+            "placeholder": "E-Mail-Adresse",
+            "error": "Bitte geben Sie eine valide E-Mail-Adresse ein"
+          },
+          "password": {
+            "label": "Ihr Passwort",
+            "placeholder": "••••••••",
+            "forgotten": "Passwort vergessen",
+            "errorGeneral": "Bitte geben Sie ein Password ein",
+            "errorLength": "Ihr Passwort muss mind. {length} Zeichen lang sein"
+          }
         },
-        "password": {
-          "label": "Ihr Passwort",
-          "placeholder": "••••••••",
-          "forgotten": "Passwort vergessen",
-          "errorGeneral": "Bitte geben Sie ein Password ein",
-          "errorLength": "Ihr Passwort muss mind. {length} Zeichen lang sein"
+        "recover": {
+          "header": "Passwort-Wiederherstellung",
+          "information": "Wir senden Ihnen eine Bestätigungs-E-Mail. Klicken Sie auf den darin enthaltenen Link, um Ihr Passwort zu ändern.",
+          "email": {
+            "label": "Ihre E-Mail-Adresse",
+            "placeholder": "E-Mail-Adresse eingeben...",
+            "error": "Bitte geben Sie eine valide E-Mail-Adresse ein"
+          },
+          "submitButton": "Email anfordern",
+          "backButton": "Zurück zum Login",
+          "successHeader": "Email gesendet",
+          "successMessage": "Eine Bestätigungs-E-Mail mit einem Link zum Zurücksetzen des Passworts wurde versandt, wenn die angegebene E-Mail-Adresse registriert ist."
         }
-      },
-      "recover": {
-        "header": "Passwort-Wiederherstellung",
-        "information": "Wir senden Ihnen eine Bestätigungs-E-Mail. Klicken Sie auf den darin enthaltenen Link, um Ihr Passwort zu ändern.",
-        "email": {
-          "label": "Ihre E-Mail-Adresse",
-          "placeholder": "E-Mail-Adresse eingeben...",
-          "error": "Bitte geben Sie eine valide E-Mail-Adresse ein"
-        },
-        "submitButton": "Email anfordern",
-        "backButton": "Zurück zum Login",
-        "successHeader": "Email gesendet",
-        "successMessage": "Eine Bestätigungs-E-Mail mit einem Link zum Zurücksetzen des Passworts wurde versandt, wenn die angegebene E-Mail-Adresse registriert ist."
       }
-    }
 }
