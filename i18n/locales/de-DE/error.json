@@ -2,8 +2,10 @@
     "error": {
         "404": {
             "heading": "Seite nicht gefunden",
-            "detail": "Die angeforderte Seite konnte nicht gefunden werden.",
-            "button": "Zurück zur Startseite"
-        }
+            "detail": "Die angeforderte Seite konnte nicht gefunden werden."
+        },
+      "generalHeadline": "Leider lief etwas schief",
+      "CHECKOUT__CUSTOMER_NOT_FOUND": "Es konnte kein Account mit den angegebenen Zugangsdaten gefunden werden.",
+      "CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS": "Es konnte kein Account mit den angegebenen Zugangsdaten gefunden werden."
     }
 }
