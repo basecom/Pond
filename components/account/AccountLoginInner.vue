@@ -61,9 +61,9 @@ const login = async (loginData: LoginData) => {
     >
         <div class="!mt-0 grid">
             <slot name="password-forgotten">
-                <UiButton variant="link" class="mb-6 justify-self-start px-0">
+                <NuxtLinkLocale to="/account/todo" class="mb-6 justify-self-start py-2 underline underline-offset-4 text-sm">
                     {{ $t('account.login.password.forgotten') }}
-                </UiButton>
+                </NuxtLinkLocale>
             </slot>
 
             <slot name="alert">
