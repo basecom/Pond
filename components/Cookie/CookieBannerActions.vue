@@ -4,7 +4,7 @@ const { isAcceptAllEnabled } = storeToRefs(cookieBannerStore);
 </script>
 
 <template>
-    <div class="flex gap-2">
+    <div class="flex flex-wrap justify-center gap-2">
         <FormKit
             type="button"
             :classes="{
