@@ -92,8 +92,9 @@ const handleSave = async (fields: BillingAddressForm) => {
 
     <LazySharedModal
         :controller="modalController"
-        :with-close-button="true"
+        with-close-button
     >
+        <template #title>{{ $t('checkout.confirm.address.modal.editLabel') }}</template>
         <template #content>
             <FormKit
                 type="form"
