@@ -59,6 +59,7 @@ const loadProductsByItemIds = async (itemIds: string[]) => {
                     },
                     manufacturer: {},
                     options: {},
+                    seoUrls: {},
                 },
             },
         });

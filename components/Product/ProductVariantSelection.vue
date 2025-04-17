@@ -78,23 +78,23 @@ const onVariantChange = async (groupName: string, optionId: string) => {
             </span>
         </div>
 
-        <div class="grid grid-cols-8 gap-2">
-            <template v-if="group.displayType === 'select'">
-                <FormKit
-                    type="select"
-                    :name="getTranslatedProperty(group, 'name')"
-                    :value="selectedOption(group)?.id"
-                    :classes="{
-                        outer: {
-                            'w-full sm:w-32': true,
-                        },
-                    }"
-                    :options="entityArrayToOptions<Schemas['PropertyGroupOption']>(group.options.sort((a: Schemas['PropertyGroupOption'], b: Schemas['PropertyGroupOption']) => (a.position ?? 999) - (b.position ?? 999)), 'name', false) ?? []"
-                    @change="onVariantChange(group.translated.name, ($event.target as HTMLSelectElement)?.value)"
-                />
-            </template>
+        <template v-if="group.displayType === 'select'">
+            <FormKit
+                type="select"
+                :name="getTranslatedProperty(group, 'name')"
+                :value="selectedOption(group)?.id"
+                :classes="{
+                    outer: {
+                        'max-w-full min-w-32 w-full sm:w-fit': true,
+                    },
+                }"
+                :options="entityArrayToOptions<Schemas['PropertyGroupOption']>(group.options.sort((a: Schemas['PropertyGroupOption'], b: Schemas['PropertyGroupOption']) => (a.position ?? 999) - (b.position ?? 999)), 'name', false) ?? []"
+                @change="onVariantChange(group.translated.name, ($event.target as HTMLSelectElement)?.value)"
+            />
+        </template>
 
-            <template v-else>
+        <template v-else>
+            <div class="grid grid-cols-8 gap-2">
                 <template
                     v-for="option in group.options.sort((a: Schemas['PropertyGroupOption'], b: Schemas['PropertyGroupOption']) => (a.position ?? 999) - (b.position ?? 999))"
                     :key="`option-${option.id}`"
@@ -165,8 +165,8 @@ const onVariantChange = async (groupName: string, optionId: string) => {
                         @click="onVariantChange(group.translated.name, option.id)"
                     />
                 </template>
-            </template>
-        </div>
+            </div>
+        </template>
     </div>
 
     <UtilityLoadingSpinner
