@@ -6,6 +6,7 @@
         },
       "generalHeadline": "Leider lief etwas schief",
       "CHECKOUT__CUSTOMER_NOT_FOUND": "Es konnte kein Account mit den angegebenen Zugangsdaten gefunden werden.",
-      "CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS": "Es konnte kein Account mit den angegebenen Zugangsdaten gefunden werden."
+      "CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS": "Es konnte kein Account mit den angegebenen Zugangsdaten gefunden werden.",
+      "CHECKOUT__CUSTOMER_AUTH_THROTTLED": "Die maximale Anzahl an Versuchen wurde überschritten. Versuchen Sie es später noch einmal."
     }
 }

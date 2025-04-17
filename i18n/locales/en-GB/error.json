@@ -6,6 +6,7 @@
         },
       "generalHeadline": "Something went wrong, unfortunately.",
       "CHECKOUT__CUSTOMER_NOT_FOUND": "No account could be found with the provided credentials.",
-      "CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS": "No account could be found with the provided credentials."
+      "CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS": "No account could be found with the provided credentials.",
+      "CHECKOUT__CUSTOMER_AUTH_THROTTLED": "Too many login attempts. Please wait before trying again."
     }
 }
