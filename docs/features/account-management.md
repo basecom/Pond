@@ -11,14 +11,11 @@ The **Account Recovery** page provides users with a secure way to initiate a pas
 
 This page is composed of layered components:
 
-1. **`pages/account/recover.vue`**  
-   Wraps the recovery component in a responsive layout.
+1. **`pages/account/recover.vue`** – wraps the recovery component in a responsive layout.
 
-2. **`components/AccountRecover.vue`**  
-   Manages the logic, loading state, and message display.
+2. **`components/account/AccountRecover.vue`** – manages the logic, loading state, and message display.
 
-3. **`components/AccountRecoverInner.vue`**  
-   Provides the form UI and emits the form submission event. Customizable via **named slots**.
+3. **`components/account/AccountRecoverInner.vue`** – provides the form UI and emits the form submission event. Customizable via **named slots**.
 
 ---
 
