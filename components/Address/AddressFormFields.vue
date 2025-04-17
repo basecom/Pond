@@ -52,7 +52,7 @@ onUnmounted(() => formErrorStore.$reset);
         validation="required"
         :classes="{
             outer: {
-                'col-span-1 col-1': true,
+                'col-span-2 sm:col-span-1 col-1': true,
             },
         }"
         :options="[
@@ -88,7 +88,7 @@ onUnmounted(() => formErrorStore.$reset);
         validation="required"
         :classes="{
             outer: {
-                'col-start-1 col-1': true,
+                'col-span-2 sm:col-span-1 col-1': true,
             },
         }"
     />
@@ -101,6 +101,11 @@ onUnmounted(() => formErrorStore.$reset);
         :placeholder="$t('account.register.lastname.placeholder')"
         :errors="errorOfField('lastName', formErrorStore.apiErrors)"
         validation="required"
+        :classes="{
+            outer: {
+                'col-span-2 sm:col-span-1 col-2': true,
+            },
+        }"
     />
 
     <FormKit
@@ -147,6 +152,11 @@ onUnmounted(() => formErrorStore.$reset);
             :placeholder="$t('account.register.zipCode.placeholder')"
             :errors="errorOfField(errorNameNested ? `${addressType}[zipcode]` : 'zipcode', formErrorStore.apiErrors)"
             validation="required"
+            :classes="{
+                outer: {
+                    'col-span-2 sm:col-span-1 col-1': true,
+                },
+            }"
         />
 
         <FormKit
@@ -157,6 +167,11 @@ onUnmounted(() => formErrorStore.$reset);
             :placeholder="$t('account.register.city.placeholder')"
             :errors="errorOfField(errorNameNested ? `${addressType}[city]` : 'city', formErrorStore.apiErrors)"
             validation="required"
+            :classes="{
+                outer: {
+                    'col-span-2 sm:col-span-1 col-2': true,
+                },
+            }"
         />
 
         <FormKit
