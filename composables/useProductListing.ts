@@ -34,7 +34,12 @@ export function useProductListing() {
         defaultCriteria: {},
     } as ListingState);
 
+    // use isLoading to display skeleton loaders for all the listing components (filter, product cards, pagination)
     const isLoading = ref(false);
+    // use displayXYZSkeleton to display skeleton loader for an individual listing component
+    const displayFilterSkeleton = ref(false);
+    const displayCardSkeleton = ref(false);
+    const displayPaginationSkeleton = ref(false);
 
     const filtersToCriteria = (filters: Schemas['ProductListingResult']['currentFilters']) => filterCodes.reduce((acc: Partial<ProductListingCriteria>, key: string): Partial<ProductListingCriteria> => {
         const urlMapper = filterMapping[key];
@@ -69,9 +74,9 @@ export function useProductListing() {
         });
     };
 
-    const criteriaToUrl = (filters: Schemas['ProductListingCriteria']): LocationQueryRaw => filterCodes.reduce((queryParams: LocationQueryRaw, filterKey: string): LocationQueryRaw => {
+    const criteriaToUrl = (filters: Schemas['ProductListingCriteria']|null): LocationQueryRaw => filterCodes.reduce((queryParams: LocationQueryRaw, filterKey: string): LocationQueryRaw => {
         const urlMapper = filterMapping[filterKey];
-        if (!urlMapper) {
+        if (!urlMapper || !filters) {
             return queryParams;
         }
 
@@ -98,14 +103,14 @@ export function useProductListing() {
         updateCriteria(routeQuery);
     };
 
-    const updateCriteria = (routeQuery: LocationQuery) => {
+    const updateCriteria = (routeQuery: LocationQuery, resetPagination: boolean = false) => {
         const { defaultCriteria } = listingState.value;
 
         // extract filter from url
         const filtersFromQuery = getFiltersFromQuery(routeQuery);
 
         // get sorting, limit, and page from the URL or use default values
-        const sorting = routeQuery.sort ? (routeQuery.sort as string) : defaultCriteria.order;
+        const sorting = routeQuery.order ? (routeQuery.order as string) : defaultCriteria.order;
         const limit = routeQuery.limit ? Number(routeQuery.limit) : defaultCriteria.limit;
         const page = routeQuery.p ? Number(routeQuery.p) : defaultCriteria.p;
         const search = routeQuery.search ? (routeQuery.search as string) : undefined;
@@ -116,9 +121,20 @@ export function useProductListing() {
             ...filtersFromQuery,
             order: sorting,
             limit,
-            p: page,
+            p: resetPagination ? 1 : page,
             search,
         };
+
+        // Update the router query to match the current criteria
+        // This ensures URL and state are always in sync
+        const query = criteriaToUrl(listingState.value.criteria);
+        router.push({
+            query: {
+                ...routeQuery,
+                ...query,
+                ...(resetPagination ? { p: 1 } : {}),
+            },
+        });
 
         // check if any filters have changed
         updateFiltersChanged();
@@ -159,6 +175,7 @@ export function useProductListing() {
             query: {
                 ...route.query,
                 ...query,
+                p: 1,
             },
         });
 
@@ -174,7 +191,7 @@ export function useProductListing() {
         router.push({
             query: {
                 ...route.query,
-                sort: sorting,
+                order: sorting,
             },
         });
 
@@ -313,6 +330,9 @@ export function useProductListing() {
     return {
         listingState,
         isLoading,
+        displayFilterSkeleton,
+        displayCardSkeleton,
+        displayPaginationSkeleton,
         initializeCriteria,
         updateCriteria,
         setSearchResult,

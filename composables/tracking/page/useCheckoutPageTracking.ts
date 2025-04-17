@@ -1,10 +1,11 @@
 import type { UseAnalyticsReturn } from '~/types/analytics/Analytics';
 
 export function useCheckoutPageTracking(analytics: UseAnalyticsReturn) {
-    const { cart } = useCart();
     const navigationStore = useNavigationStore();
-    const { mainNavigationElements } = storeToRefs(navigationStore);
-    const isCheckoutPageReady = computed(() => !!cart.value && !!mainNavigationElements.value.length);
+    const { mainNavigation } = storeToRefs(navigationStore);
+
+    const { cart } = useCart();
+    const isCheckoutPageReady = computed(() => !!cart.value && !!mainNavigation.value?.length);
 
     usePageTracking(analytics, 'checkout');
 

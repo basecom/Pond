@@ -64,7 +64,7 @@ const openLightbox = (slideMediaId: string) => {
                     :thumbs-swiper="`.thumbnailRef-${element.id}`"
                 >
                     <LayoutSliderSlide
-                        v-for="slide in slides"
+                        v-for="(slide, index) in slides"
                         :key="slide.media.id"
                         :class="`min-h-[${minHeight}]`"
                         @click="openLightbox(slide.media.id)"
@@ -74,6 +74,7 @@ const openLightbox = (slideMediaId: string) => {
                             :src="slide.media.url"
                             :alt="getTranslatedProperty(slide.media, 'alt') || $t('cms.element.imageAlt')"
                             :title="getTranslatedProperty(slide.media, 'title') || $t('cms.element.imageAlt')"
+                            :loading="index === 0 ? 'eager' : 'lazy'"
                             class="size-full object-center"
                             :class="'object-' + displayMode"
                         >
@@ -100,7 +101,7 @@ const openLightbox = (slideMediaId: string) => {
                     :thumb-ref="`thumbnailRef-${element.id}`"
                 >
                     <LayoutSliderSlide
-                        v-for="slide in slides"
+                        v-for="(slide, index) in slides"
                         :key="slide.media.id"
                         class="group"
                     >
@@ -109,6 +110,7 @@ const openLightbox = (slideMediaId: string) => {
                             :src="slide.media.url"
                             :alt="getTranslatedProperty(slide.media, 'alt') || $t('cms.element.imageAlt')"
                             :title="getTranslatedProperty(slide.media, 'title') || $t('cms.element.imageAlt')"
+                            :loading="index < thumbnailSlidesPerView ? 'eager' : 'lazy'"
                             class="object-cover object-center opacity-40 group-[.swiper-slide-thumb-active]:border-2 group-[.swiper-slide-thumb-active]:border-brand-primary group-[.swiper-slide-thumb-active]:opacity-100"
                         >
 
@@ -121,6 +123,7 @@ const openLightbox = (slideMediaId: string) => {
                         </template>
                     </LayoutSliderSlide>
                 </LayoutSlider>
+
                 <template #fallback>
                     <div
                         class="grid size-full min-h-[430px] max-w-[calc(100%-clamp(100px,100%,150px)-16px)]"
@@ -145,6 +148,7 @@ const openLightbox = (slideMediaId: string) => {
                             </div>
                         </template>
                     </div>
+
                     <div
                         :class="{
                             'w-full': galleryPosition.value === 'underneath',
@@ -175,7 +179,6 @@ const openLightbox = (slideMediaId: string) => {
                         </div>
                     </div>
                 </template>
-
             </ClientOnly>
         </template>
 

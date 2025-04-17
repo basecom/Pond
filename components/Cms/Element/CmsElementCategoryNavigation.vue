@@ -2,35 +2,20 @@
 import type { CmsElementCategoryNavigation } from '@shopware-pwa/composables-next';
 import { getCategoryRoute, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 
-const props = defineProps<{
+defineProps<{
     element: CmsElementCategoryNavigation;
 }>();
 
 const navigationStore = useNavigationStore();
-const { mainNavigationElements } = storeToRefs(navigationStore);
-
-const { status } = useLazyAsyncData(
-    `load-main-navigation-${  props.element.id}`,
-    async () => {
-        await navigationStore.loadMainNavigation(2);
-
-        return mainNavigationElements.value;
-    },
-);
+const { mainNavigation } = storeToRefs(navigationStore);
 
 const { isActive } = useActivePath();
 </script>
 
 <template>
-    <template v-if="status === 'pending'">
-        <ClientOnly>
-            <LayoutSkeletonCmsElementCategoryNavigation />
-        </ClientOnly>
-    </template>
-
-    <ul v-else>
+    <ul>
         <li
-            v-for="item in mainNavigationElements"
+            v-for="item in mainNavigation"
             :key="item.id"
             class="mt-4 border-b border-gray pb-4 pl-2"
         >
@@ -41,7 +26,8 @@ const { isActive } = useActivePath();
             >
                 {{ getTranslatedProperty(item, 'name') }}
             </LocaleLink>
-            <ul v-if="item.children && item.children.length">
+
+            <ul v-if="item.children && item.children.length && isActive(item.seoUrls)">
                 <li
                     v-for="child in item.children"
                     :key="child.id"

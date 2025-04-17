@@ -52,6 +52,9 @@ const handleRegisterSubmit = async (fields: RegisterForm) => {
         await customerStore.register({
             ...userData,
         });
+
+        await customerStore.refreshContext();
+
         isLoading.value = false;
 
         trackRegister();
@@ -170,6 +173,11 @@ const handleRegisterSubmit = async (fields: RegisterForm) => {
             :placeholder="$t('account.register.email.placeholder')"
             :errors="errorOfField('email', formErrorStore.apiErrors)"
             validation="required"
+            :classes="{
+                outer: {
+                    'col-span-2 sm:col-span-1 col-1': true,
+                },
+            }"
         />
 
         <FormKit
@@ -181,6 +189,11 @@ const handleRegisterSubmit = async (fields: RegisterForm) => {
             :errors="errorOfField('password', formErrorStore.apiErrors)"
             validation="required"
             suffix-icon="lock"
+            :classes="{
+                outer: {
+                    'col-span-2 sm:col-span-1 col-2': true,
+                },
+            }"
             @suffix-icon-click="togglePasswordVisibility"
         />
 

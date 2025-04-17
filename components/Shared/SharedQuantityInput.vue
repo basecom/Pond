@@ -62,6 +62,7 @@ const onEnter = () => {
             :class="{
                 'cursor-not-allowed bg-transparent': isLoading || isDisabled,
             }"
+            aria-label="Amount"
             @keyup.enter="onEnter"
         />
 

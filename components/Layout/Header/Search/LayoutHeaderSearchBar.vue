@@ -43,7 +43,6 @@ const performDebouncedSearch = useDebounceFn(async (value: string) => {
         if (isResultPage.value) {
             router.push({
                 query: {
-                    ...route.query,
                     search: value,
                 },
             });

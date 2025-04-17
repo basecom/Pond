@@ -18,7 +18,7 @@ defineEmits<{
 const updateDefaultShipping = async () => {
     try {
         await setDefaultCustomerShippingAddress(props.address.id);
-        customerStore.refreshContext();
+        await customerStore.refreshContext();
         pushSuccess(t('account.address.updateShippingSuccess'));
     } catch (e) {
         pushError(t('account.address.updateShippingError'));
@@ -28,7 +28,7 @@ const updateDefaultShipping = async () => {
 const updateDefaultBilling = async () => {
     try {
         await setDefaultCustomerBillingAddress(props.address.id);
-        customerStore.refreshContext();
+        await customerStore.refreshContext();
         pushSuccess(t('account.address.updateBillingSuccess'));
     } catch (e) {
         pushError(t('account.address.updateBillingError'));

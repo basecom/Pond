@@ -2,7 +2,7 @@
   "name": "@basecom-gmbh/pond",
   "type": "module",
   "main": "./nuxt.config.ts",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",

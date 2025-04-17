@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
+import { getProductRoute } from '@shopware-pwa/helpers-next';
 
 const props = defineProps<{
     block: Schemas['CmsBlock'];
@@ -10,19 +11,17 @@ const { getSlotContent } = useCmsBlock(props.block);
 const leftContent = getSlotContent('left') as Schemas['CmsSlot'];
 const rightContent = getSlotContent('right') as Schemas['CmsSlot'];
 
-const product = inject('productData') as Ref<Schemas['Product']>;
+const product = inject('product') as Ref<Schemas['Product']>;
 
 // change the canonical tag if the option is enabled to use the same canonical for all variants
-if (product.value.canonicalProductId && product.value.canonicalProductId !== product.value.id) {
+if (product.value.canonicalProductId && (product.value.canonicalProductId !== product.value.id)) {
     const url = useRequestURL();
-    const { getUrlByProductId } = useSeoUrl();
-    const canonicalUrl = await getUrlByProductId(product.value.canonicalProductId);
 
     useHead(() => ({
         link: [
             {
                 rel: 'canonical',
-                href: url.origin + canonicalUrl.path,
+                href: url.origin + getProductRoute(product.value.canonicalProduct).path,
             },
         ],
     }));

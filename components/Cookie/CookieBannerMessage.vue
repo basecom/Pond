@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="flex flex-col gap-1 lg:place-items-baseline">
         <span>
             {{ $t('cookie.banner.message') }}
         </span>
@@ -9,7 +9,7 @@
             size="sm"
         >
             <template #trigger>
-                <button class="ml-2 text-status-info">
+                <button class="text-status-info">
                     {{ $t('cookie.banner.additionalInformationTriggerButton') }}
                 </button>
             </template>

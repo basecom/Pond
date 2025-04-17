@@ -1,6 +1,11 @@
 import type { Schemas } from '@shopware/api-client/api-types';
 
-export type ListingFilter = ListingPropertyFilter|ListingPriceFilter;
+export type ListingFilter = ListingPropertyFilter | ListingPriceFilter | BaseListingFilter;
+
+export interface BaseListingFilter {
+    code: string;
+    label: string;
+}
 
 export type ListingPropertyFilter = {
     code: 'properties';

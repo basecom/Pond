@@ -21,18 +21,20 @@ defineEmits(['closeModal']);
             aria-label="Manage your account"
         >
             <TabsTrigger
-                class="flex-1 bg-white px-5 py-2 hover:text-brand-primary focus-visible:relative data-[state=active]:border-b data-[state=active]:border-brand-primary data-[state=active]:text-brand-primary"
+                class="flex-1 bg-white p-2 hover:text-brand-primary focus-visible:relative data-[state=active]:border-b data-[state=active]:border-brand-primary data-[state=active]:text-brand-primary"
                 value="tab-login"
             >
                 {{ $t('account.loginModal.tabs.loginTabHeading') }}
             </TabsTrigger>
+
             <TabsTrigger
-                class="flex-1 bg-white px-5 py-2 hover:text-brand-primary focus-visible:relative data-[state=active]:border-b data-[state=active]:border-brand-primary data-[state=active]:text-brand-primary"
+                class="flex-1 bg-white p-2 hover:text-brand-primary focus-visible:relative data-[state=active]:border-b data-[state=active]:border-brand-primary data-[state=active]:text-brand-primary"
                 value="tab-register"
             >
                 {{ $t('account.loginModal.tabs.registerTabHeading') }}
             </TabsTrigger>
         </TabsList>
+
         <TabsContent
             class="grow rounded-b-md bg-white py-5 outline-none"
             value="tab-login"
@@ -42,6 +44,7 @@ defineEmits(['closeModal']);
                 @close-modal="$emit('closeModal')"
             />
         </TabsContent>
+
         <TabsContent
             class="grow rounded-b-md bg-white py-5 outline-none"
             value="tab-register"

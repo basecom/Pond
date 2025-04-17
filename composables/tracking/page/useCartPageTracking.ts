@@ -1,13 +1,14 @@
 import type { UseAnalyticsReturn } from '~/types/analytics/Analytics';
 
 export function useCartPageTracking(analytics: UseAnalyticsReturn) {
-    const cartItemsCountStore = useCartItemsStore();
     const navigationStore = useNavigationStore();
+    const { mainNavigation } = storeToRefs(navigationStore);
+
+    const cartItemsCountStore = useCartItemsStore();
     const { cart } = useCart();
-    const { mainNavigationElements } = storeToRefs(navigationStore);
     const { cartItemsCount } = storeToRefs(cartItemsCountStore);
     const isCartPageReady = computed(
-        () => cart.value?.lineItems.length && !!cartItemsCount.value && !!mainNavigationElements.value.length,
+        () => cart.value?.lineItems.length && !!cartItemsCount.value && !!mainNavigation.value?.length,
     );
 
     usePageTracking(analytics, 'cart');

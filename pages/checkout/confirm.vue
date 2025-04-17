@@ -38,6 +38,10 @@ const placeOrder = async (formData: OrderForm) => {
 };
 
 useBreadcrumbs(checkoutBreadcrumbs({ index: 1 }));
+
+onMounted(async () => {
+    await customerStore.refreshContext();
+});
 </script>
 
 <template>

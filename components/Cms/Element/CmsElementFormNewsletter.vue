@@ -204,7 +204,7 @@ watch(customer, async newCustomer => {
             type="submit"
             :label="newsletterAction"
             :classes="{
-                outer: 'col-span-2',
+                outer: 'col-span-3 md:col-span-2',
             }"
             prefix-icon="envelope"
             :title="newsletterAction"

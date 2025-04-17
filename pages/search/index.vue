@@ -6,7 +6,7 @@ import { useListingStore } from '~/stores/ListingStore';
 const route = useRoute();
 const { t } = useI18n();
 
-const { getCurrentListing, getElements: products, loading, search, setInitialListing } = useProductSearchListing();
+const { getCurrentListing, getElements: products, search, setInitialListing } = useProductSearchListing();
 const listingStore = useListingStore('search');
 const { listingState } = storeToRefs(listingStore);
 
@@ -15,6 +15,10 @@ const cacheKey = computed(() => `productSearch-${JSON.stringify(listingState.val
 const { trackSelectItem } = useAnalytics({ trackPageView: true, pageType: 'search' });
 const searchStore = useSearchStore();
 const searchTerm = computed(() => {
+    if (route.query.search) {
+        return route.query.search;
+    }
+
     if (searchStore.searchTerm.length < 3) {
         return searchStore.lastValidSearchTerm !== '' ? searchStore.lastValidSearchTerm : route.query.search;
     }
@@ -78,20 +82,30 @@ const productSearch = await loadProducts(cacheKey.value);
 setInitialListing(productSearch.value as Schemas['ProductListingResult']);
 listingStore.setSearchResult(productSearch.value as Schemas['ProductListingResult'], true);
 
+const { y: windowYPosition } = useScroll(window, { behavior: 'smooth' });
+
 watch(
     cacheKey,
-    () => {
-        loadProducts(cacheKey.value);
-        // TODO: Works for backwards but not forwards to update listing, also needs to update searchTerm input and "Results for ..." display
+    async () => {
+        windowYPosition.value = 0;
+        listingStore.displayCardSkeleton = true;
+        const cacheProducts = await loadProducts(cacheKey.value);
+        listingStore.setSearchResult(cacheProducts.value as Schemas['ProductListingResult'], true);
+        listingStore.displayCardSkeleton = false;
+
+        if (route.query.search) {
+            searchStore.searchTerm = route.query.search as string;
+            searchStore.lastValidSearchTerm = route.query.search as string;
+        }
     },
     { immediate: false },
 );
 
 watch(
     () => route.query,
-    () => {
-        // TODO: changing the searchTerm does not re-render the filters
-        listingStore.updateCriteria(route.query);
+    (newQuery) => {
+        const pageNotChanged = listingState.value.pagination.page?.toString() === newQuery.p;
+        listingStore.updateCriteria(newQuery, pageNotChanged);
     },
 );
 
@@ -101,6 +115,18 @@ useBreadcrumbs([
         path: `/search?search=${route.query.search}`,
     },
 ]);
+
+const cardSkeletons = computed(() => {
+    if (!listingState.value.pagination.total || !listingState.value.pagination.limit) {
+        return 24;
+    }
+
+    if (listingState.value.pagination.total < listingState.value.pagination.limit) {
+        return listingState.value.pagination.total;
+    }
+
+    return listingState.value.pagination.limit;
+});
 </script>
 
 <template>
@@ -134,12 +160,19 @@ useBreadcrumbs([
                 />
             </div>
 
-            <div
-                v-if="!loading"
-                class="grid w-full grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
-            >
+            <div class="grid w-full grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+                <template v-if="listingStore.isLoading || listingStore.displayCardSkeleton">
+                    <ClientOnly>
+                        <LayoutSkeletonProductCard
+                            v-for="index in cardSkeletons"
+                            :key="index"
+                        />
+                    </ClientOnly>
+                </template>
+
                 <template
                     v-for="product in products"
+                    v-else
                     :key="product.id"
                 >
                     <ProductCard
@@ -154,6 +187,7 @@ useBreadcrumbs([
             :total="listingState.pagination.total ?? 0"
             :items-per-page="listingState.pagination.limit ?? 24"
             :default-page="listingState.pagination.page ?? 1"
+            :page="listingState.pagination.page"
             @update-page="(currentPage: number) => changePage(currentPage)"
         />
     </div>
