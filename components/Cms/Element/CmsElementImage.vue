@@ -2,7 +2,6 @@
 import type { CmsElementImage } from '@shopware-pwa/composables-next';
 import { buildUrlPrefix, getTranslatedProperty } from '@shopware-pwa/helpers-next';
 import { useElementSize } from '@vueuse/core';
-import type { CSSProperties } from 'vue';
 
 const props = defineProps<{
     element: CmsElementImage;
@@ -26,11 +25,6 @@ const imageComputedContainerAttrs = computed(() => {
     return imageAttrsCopy;
 });
 
-const getMinHeightAsHeight = (properties: CSSProperties) => {
-    const height = properties.minHeight ?? '100%';
-    return `height: ${height}`;
-};
-
 const mediaObject = props.element.data?.media;
 const shouldPreloadImage = shouldPreloadElement(props.element);
 if (shouldPreloadImage && !isVideoElement.value) {
@@ -46,8 +40,9 @@ if (shouldPreloadImage && !isVideoElement.value) {
     <component
         :is="imageLink.url ? 'a' : 'div'"
         v-if="imageAttrs.src"
-        class="relative size-full"
-        :style="containerStyle"
+        class="relative block w-full"
+        :class="displayMode === 'cover' ? 'h-full' : ''"
+        :style="displayMode === 'cover' ? containerStyle : ''"
         v-bind="imageComputedContainerAttrs"
     >
         <video
@@ -71,10 +66,9 @@ if (shouldPreloadImage && !isVideoElement.value) {
             v-cms-element-lazy-load="{ id: mediaObject.id ?? srcPath, type: 'image' }"
             :loading="shouldPreloadImage ? 'eager' :  'lazy'"
             :class="{
-                'size-full': true,
-                'object-cover': displayMode === 'cover',
+                'w-full': true,
+                'absolute inset-0 h-full object-cover': displayMode === 'cover',
             }"
-            :style="displayMode === 'cover' ? getMinHeightAsHeight(containerStyle) : ''"
             :alt="getTranslatedProperty(mediaObject, 'alt') || mediaObject?.fileName || $t('cms.element.imageAlt')"
             :title="getTranslatedProperty(mediaObject, 'title') || mediaObject?.fileName || $t('cms.element.imageAlt')"
             :src="srcPath"
