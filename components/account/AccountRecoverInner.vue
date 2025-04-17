@@ -38,7 +38,9 @@ const recover = (recoverData: RecoverData) => {
             <slot name="success-message">
                 <template v-if="showSuccessMessage">
                     <UiAlert variant="successful" class="mb-4 flex gap-4">
-                        <Icon name="mdi:check" class="size-4 shrink-0" />
+                        <slot name="alert-icon">
+                            <Icon name="mdi:check" class="size-4 shrink-0" />
+                        </slot>
 
                         <div>
                             <UiAlertTitle>{{ $t('account.recover.successHeader') }}</UiAlertTitle>
@@ -49,13 +51,16 @@ const recover = (recoverData: RecoverData) => {
                     </UiAlert>
                 </template>
             </slot>
+
             <slot name="header">
                 <h1 class="text-lg font-semibold">{{ $t('account.recover.header') }}</h1>
                 <hr>
             </slot>
+
             <slot name="info-text">
                 <p class="pb-4 pt-2 text-sm">{{ $t('account.recover.information') }}</p>
             </slot>
+
             <slot name="form">
                 <UiAutoForm
                     class="space-y-6"
@@ -78,6 +83,7 @@ const recover = (recoverData: RecoverData) => {
                                     <NuxtLinkLocale to="/account/login">{{ $t('account.recover.backButton') }}</NuxtLinkLocale>
                                 </UiButton>
                             </slot>
+
                             <slot name="submit-button">
                                 <UiButton type="submit" :is-loading="isLoading" class="min-w-52 grow">
                                     {{ $t('account.recover.submitButton') }}

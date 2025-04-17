@@ -28,14 +28,15 @@ The `AccountRecoverInner.vue` component exposes several named slots for UI custo
 
 | Slot Name         | Description                                                  |
 |-------------------|--------------------------------------------------------------|
-| `wrapper`         | Wraps the entire component, including form and messages      |
+| `wrapper`         | Wraps the component, including form and messages             |
 | `success-message` | Overrides the default success alert                          |
+| `alert-icon`      | Overrides the default success alert icon                     |
 | `header`          | Overrides the default heading                                |
 | `info-text`       | Overrides the informational text displayed below the heading |
 | `form`            | Wraps the form                                               |
-| `buttons`         | Wraps buttons                                                |
-| `back-button`     | Overrides the back navigation button                         |
-| `submit-button`   | Overrides the submit (reset) button                          |
+| `buttons`         | Wraps the buttons                                            |
+| `back-button`     | Overrides the back to login button                           |
+| `submit-button`   | Overrides the submit button                                  |
 
 ---
 
