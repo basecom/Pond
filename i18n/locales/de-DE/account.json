@@ -21,7 +21,7 @@
             "label": "Ihr Passwort",
             "placeholder": "••••••••",
             "forgotten": "Passwort vergessen",
-            "errorGeneral": "Bitte geben Sie ein Password ein",
+            "errorGeneral": "Bitte geben Sie ein Passwort ein",
             "errorLength": "Ihr Passwort muss mind. {length} Zeichen lang sein"
           }
         },
@@ -33,9 +33,9 @@
             "placeholder": "E-Mail-Adresse eingeben...",
             "error": "Bitte geben Sie eine valide E-Mail-Adresse ein"
           },
-          "submitButton": "Email anfordern",
+          "submitButton": "E-Mail anfordern",
           "backButton": "Zurück zum Login",
-          "successHeader": "Email gesendet",
+          "successHeader": "E-Mail gesendet",
           "successMessage": "Eine Bestätigungs-E-Mail mit einem Link zum Zurücksetzen des Passworts wurde versandt, wenn die angegebene E-Mail-Adresse registriert ist."
         }
       }
