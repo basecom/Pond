@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app';
+import NotFoundError from './components/error/NotFoundError.vue';
 
 const props = defineProps({
     // we don't need a default value -> it's always set
@@ -26,14 +27,23 @@ useHead(() => ({
         },
     ],
 }));
+
+const pageNotFound = computed(() => props.error?.statusCode === 404);
 </script>
 
 <template>
     <NuxtLoadingIndicator />
     <LayoutHeader />
-
     <main class="container">
-        <h1>{{ error?.statusCode }}</h1>
-        <p>{{ error?.message }}</p>
+        <template v-if="pageNotFound">
+            <NotFoundError />
+        </template>
+
+        <template v-else>
+            <div class="container mt-12">
+                <h1 class="mb-4 text-center text-4xl uppercase">{{ error?.statusCode }}</h1>
+                <p class="mb-4 text-center">{{ error?.message }}</p>
+            </div>
+        </template>
     </main>
 </template>

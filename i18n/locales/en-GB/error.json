@@ -2,7 +2,8 @@
     "error": {
         "404": {
             "heading": "Page not found",
-            "detail": "The requested page could not be found."
+            "detail": "The requested page could not be found.",
+            "button": "Back to homepage"
         },
       "generalHeadline": "Something went wrong, unfortunately.",
       "CHECKOUT__CUSTOMER_NOT_FOUND": "No account could be found with the provided credentials.",
