@@ -11,7 +11,7 @@ const errorMessage: Ref<string|undefined> = ref(undefined);
 
 const customerStore = useCustomerStore();
 const { t } = useI18n();
-const localePath = useLocalePath();
+const { formatLink } = useInternationalization();
 
 const login = async (loginData: LoginData) => {
     isLoading.value = true;
@@ -20,7 +20,7 @@ const login = async (loginData: LoginData) => {
     try {
         await customerStore.login(loginData);
         if (redirectTo !== '') {
-            navigateTo(localePath(redirectTo));
+            navigateTo(formatLink(redirectTo));
         }
     } catch (error) {
         if (error instanceof ApiClientError) {
