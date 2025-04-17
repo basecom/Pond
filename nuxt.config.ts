@@ -87,7 +87,7 @@ export default defineNuxtConfig({
         },
     },
 
-    extends: ['@shopware/composables/nuxt-layer'],
+    extends: ['@shopware/composables/nuxt-layer', '@shopware/cms-base-layer'],
 
     shadcn: {
         prefix: '',
