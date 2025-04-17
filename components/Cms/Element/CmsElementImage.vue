@@ -75,8 +75,8 @@ if (shouldPreloadImage && !isVideoElement.value) {
                 'object-cover': displayMode === 'cover',
             }"
             :style="displayMode === 'cover' ? getMinHeightAsHeight(containerStyle) : ''"
-            :alt="getTranslatedProperty(mediaObject, 'alt')"
-            :title="getTranslatedProperty(mediaObject, 'title')"
+            :alt="getTranslatedProperty(mediaObject, 'alt') || mediaObject?.fileName || $t('cms.element.imageAlt')"
+            :title="getTranslatedProperty(mediaObject, 'title') || mediaObject?.fileName || $t('cms.element.imageAlt')"
             :src="srcPath"
             :srcset="imageAttrs.srcset"
         >

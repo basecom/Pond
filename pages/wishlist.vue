@@ -52,6 +52,11 @@ const loadProductsByItemIds = async (itemIds: string[]) => {
             body: {
                 ids: itemIds,
                 associations: {
+                    children: {
+                        associations: {
+                            cover: {},
+                        },
+                    },
                     manufacturer: {},
                     options: {},
                 },
@@ -77,6 +82,13 @@ const changePage = async (page: number) => {
     await getWishlistProducts({
         page,
         limit: limit.value,
+        associations: {
+            children: {
+                associations: {
+                    cover: {},
+                },
+            },
+        },
     });
 };
 
@@ -116,6 +128,13 @@ onMounted(() => {
     getWishlistProducts({
         limit: limit.value,
         page: page.value,
+        associations: {
+            children: {
+                associations: {
+                    cover: {},
+                },
+            },
+        },
     });
 });
 </script>
