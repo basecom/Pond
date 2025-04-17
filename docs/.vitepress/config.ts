@@ -31,6 +31,7 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                     { text: 'CMS System', link: '/how-to/cms-system' },
+                    { text: 'Error Handling', link: '/how-to/error-handling'},
                 ],
             },
         ],
