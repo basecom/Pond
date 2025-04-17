@@ -22,7 +22,7 @@
           "placeholder": "••••••••",
           "forgotten": "Passwort vergessen",
           "errorGeneral": "Bitte geben Sie ein Password ein",
-          "errorLength": "Ihr Passwort muss mind. {length} Zeichen lang sein",
+          "errorLength": "Ihr Passwort muss mind. {length} Zeichen lang sein"
         }
       }
     }
