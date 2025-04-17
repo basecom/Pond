@@ -34,11 +34,11 @@ const pageNotFound = computed(() => props.error?.statusCode === 404);
 <template>
     <NuxtLoadingIndicator />
     <LayoutHeader />
+
     <main class="container">
         <template v-if="pageNotFound">
             <NotFoundError />
         </template>
-
         <template v-else>
             <div class="container mt-12">
                 <h1 class="mb-4 text-center text-4xl uppercase">{{ error?.statusCode }}</h1>
