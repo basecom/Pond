@@ -8,6 +8,7 @@ const props = defineProps<{
 // shownNavigationItems stores the nav items that should be shown at the moment, navigationElements initially
 // will be updated with the child categories when a category with children is selected
 const shownNavigationItems = ref(props.navigationElements);
+console.log(shownNavigationItems.value)
 
 // previousNavigationItems stores the nav items that got selected and who's children get displayed
 // used to navigate back and display the link above the children
@@ -47,7 +48,7 @@ const lastPreviousItem = computed(() => previousNavigationItems.value.length > 0
 
 <template>
     <LayoutHeaderNavigationMobileInner
-        :navigation-elements="shownNavigationItems"
+        :navigation-elements="shownNavigationItems?.length === 0 ? navigationElements : shownNavigationItems"
         :last-previous-item="lastPreviousItem"
         :open="isOpen"
         @click="(navigationElement, categoryLink) => handleClick(navigationElement, categoryLink)"
