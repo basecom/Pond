@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import type { Schemas } from '@shopware/api-client/api-types';
 
+type NavigationArrowItem = {
+    id: string;
+    showNavigationArrows: ComputedRef<boolean>;
+};
+
 const props = defineProps<{
     element: CmsElementCrossSelling;
 }>();
@@ -28,13 +33,27 @@ const breakpoints = {
     },
 };
 
-const { currentSlidesPerView } = useComputeSliderConfig({
-    slidesPerView,
-    slides: crossSellings,
-    breakpoints,
-    showNavigation: true,
-    autoSlide: true,
+const navigationArrowsMap = crossSellings.map((crossSelling: Schemas['CrossSellingElement']) => {
+    const crossSellingProducts = computed(() => crossSelling.products);
+
+    const { showNavigationArrows } = useComputeSliderConfig({
+        slidesPerView,
+        slides: crossSellingProducts,
+        breakpoints,
+        showNavigation: true,
+        autoSlide: false,
+    });
+
+    return {
+        id: crossSelling.crossSelling.id,
+        showNavigationArrows,
+    };
 });
+
+const showNavigationArrowForCrossSelling = (crossSellingId: string) => {
+    const item = navigationArrowsMap.find((item: NavigationArrowItem) => item.id === crossSellingId);
+    return item ? item.showNavigationArrows.value : false;
+};
 
 const onSelectProduct = async (product: Schemas['Product']) => {
     trackSelectItem(product, { id: 'cross-selling', name: 'cross-selling' });
@@ -56,7 +75,7 @@ const shouldPreloadImage = shouldPreloadElement(props.element);
 
             <LayoutSlider
                 :slides-counter="crossSelling.products.length"
-                :navigation-arrows="crossSelling.products?.length >= currentSlidesPerView"
+                :navigation-arrows="showNavigationArrowForCrossSelling(crossSelling.crossSelling.id)"
                 :navigation-dots="false"
                 :slides-per-view="slidesPerView"
                 :space-between="spaceBetween"

@@ -37,8 +37,9 @@ export function useComputeSliderConfig({
 
         return slidesPerView;
     });
-    const showNavigationArrows = computed(() => showNavigation && slides.value.length >= currentSlidesPerView.value);
-    const shouldAutoSlide = computed(() => autoSlide && slides.value.length > currentSlidesPerView.value);
+
+    const showNavigationArrows = computed(() => showNavigation && slides.value?.length > currentSlidesPerView.value);
+    const shouldAutoSlide = computed(() => autoSlide && slides.value?.length > currentSlidesPerView.value);
 
     return {
         currentSlidesPerView,
