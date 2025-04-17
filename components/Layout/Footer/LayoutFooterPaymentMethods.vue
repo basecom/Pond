@@ -1,19 +1,26 @@
 <script setup lang="ts">
 import { getTranslatedProperty } from '@shopware-pwa/helpers-next';
+import type { Schemas } from '@shopware/api-client/api-types';
 
-const { paymentMethods, getPaymentMethods } = useCheckout();
-const filteredPaymentMethods = computed(() => paymentMethods.value.filter(method => method.media?.path));
+// We can't use the useCheckout composable to get the paymentMethods because it always uses the parameter 'onlyAvailable'
+// This means that it applies rules from e.g. the rule builder depending on the current context
+// We want to show ALL possible payment methods here though, not just the ones currently available for the customer / cart
+const { apiClient } = useShopwareContext();
+const { data: paymentMethods } = await apiClient.invoke(
+    'readPaymentMethod post /payment-method',
+    {
+        body: { onlyAvailable: false },
+    },
+);
 
-onMounted(async () => {
-    await getPaymentMethods();
-});
+const paymentMethodsWithMedia = computed(() => paymentMethods.elements.filter((method: Schemas['PaymentMethod']) => method.media?.path));
 </script>
 
 <template>
     <div class="flex justify-center py-2">
         <div class="flex flex-wrap justify-center gap-6">
             <div
-                v-for="method in filteredPaymentMethods"
+                v-for="method in paymentMethodsWithMedia"
                 :key="method.id"
                 class="flex items-center justify-center"
             >
