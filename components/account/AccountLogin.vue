@@ -20,7 +20,7 @@ const login = async (loginData: LoginData) => {
     try {
         await customerStore.login(loginData);
         if (redirectTo !== '') {
-            navigateTo(localePath({ name: redirectTo }));
+            navigateTo(localePath(redirectTo));
         }
     } catch (error) {
         if (error instanceof ApiClientError) {
