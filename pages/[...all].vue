@@ -38,6 +38,7 @@ const { data: seoResult } = await usePondCacheAsyncData(`seoPath-${routePath}`, 
 });
 
 const { routeName, foreignKey } = useNavigationContext(seoResult);
+console.log('routeName', routeName)
 const { componentExists } = usePondCmsUtils();
 
 if (!routeName.value) {
