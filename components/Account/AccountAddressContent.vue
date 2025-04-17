@@ -90,12 +90,15 @@ const handleSave = async (fields: BillingAddressForm) => {
         <p>{{ $t('account.address.nothingFound') }}</p>
     </div>
 
-    <LazySharedModal :controller="modalController">
+    <LazySharedModal
+        :controller="modalController"
+        :with-close-button="true"
+    >
         <template #content>
             <FormKit
                 type="form"
                 :classes="{
-                    form: 'grid grid-cols-2 gap-3 w-full max-w-md',
+                    form: 'grid grid-cols-2 gap-3 w-full',
                 }"
                 :config="{
                     validationVisibility: 'dirty',
